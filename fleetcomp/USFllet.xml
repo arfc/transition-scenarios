@@ -1,0 +1,152 @@
+<!-- 
+2 Source, 1 FuelFab 1 LWR, 1 Sink 
+Reactor database: extLWR
+Fuel: Calculated
+Batches: 3
+
+"time cyclus examples/LWRblending.xml" = real	0m3.676s (2015/02/26)
+real	0m3.407s (2015/03/04)
+
+
+-->
+
+<simulation>
+  <control>
+    <duration>660</duration>
+    <startmonth>1</startmonth>
+    <startyear>1958</startyear>
+  </control>
+
+  <archetypes>
+    <spec><lib>agents</lib><name>Source</name></spec>
+    <spec><lib>Brightlite</lib><name>ReactorFacility</name></spec>
+    <spec><lib>Brightlite</lib><name>FuelfabFacility</name></spec>
+    <spec><lib>agents</lib><name>Sink</name></spec>
+    <spec><lib>agents</lib><name>NullRegion</name></spec>
+    <spec><lib>agents</lib><name>NullInst</name></spec>
+    <spec><lib>cycamore</lib><name>DeployInst</name></spec>
+  </archetypes>
+
+  <facility>
+    <name>Fissile_Source</name>
+    <config>
+      <Source>
+        <commod>fissile_stream</commod>
+        <recipe_name>U235</recipe_name>
+	<capacity>40000000.0</capacity>
+      </Source>
+    </config>
+  </facility>
+  
+  <facility>
+    <name>NFissile_Source</name>
+    <config>
+      <Source>
+        <commod>nfissile_stream</commod>
+        <recipe_name>U238</recipe_name>
+	<capacity>200000000.0</capacity>
+      </Source>
+    </config>
+  </facility>
+
+  <facility>
+    <name>DU_Source</name>
+    <config>
+      <Source>
+        <commod>DU</commod>
+        <recipe_name>DU</recipe_name>
+	<capacity>2.0</capacity>
+      </Source>
+    </config>
+  </facility>
+
+  <facility>
+    <name>Sink</name>
+    <config>
+      <Sink>
+        <in_commods>
+          <val>uf</val>
+        </in_commods>
+        <capacity>10000000000.0</capacity>
+      </Sink>
+    </config>
+  </facility>
+
+  <facility>
+	<name>FF_UOX</name>
+	<config>
+		<FuelfabFacility>
+		<fissle_stream>fissile_stream</fissle_stream>
+		<non_fissle_stream>nfissile_stream</non_fissle_stream>
+		<in_commods>
+			<item><key>DU</key><val>0</val></item>
+		</in_commods>
+		<out_commod>UOX</out_commod>
+	</FuelfabFacility></config>
+  </facility>
+  ADDFACS
+   
+
+  <region>  
+    <name>SingleRegion</name>
+    <config> <NullRegion/> </config>
+    <institution>
+      <name>SingleInstitution</name>
+      <initialfacilitylist>
+        <entry>
+          <prototype>Fissile_Source</prototype>
+          <number>1</number>
+        </entry>     
+        <entry>
+          <prototype>NFissile_Source</prototype>
+          <number>1</number>
+        </entry>   
+        <entry>
+          <prototype>DU_Source</prototype>
+          <number>1</number>
+        </entry>   
+        <entry>
+          <prototype>FF_UOX</prototype>
+          <number>1</number>
+        </entry>
+        <entry>
+          <prototype>Sink</prototype>
+          <number>1</number>
+        </entry>
+      </initialfacilitylist>
+      <config> <NullInst/> </config>
+    </institution>
+    ADDINST
+  </region>
+
+  <recipe>
+    <name>U235</name>
+    <basis>mass</basis>
+    <nuclide>
+      <id>U235</id>
+      <comp>1</comp>
+    </nuclide>
+  </recipe>
+  
+  <recipe>
+    <name>U238</name>
+    <basis>mass</basis>
+    <nuclide>
+      <id>U238</id>
+      <comp>1</comp>
+    </nuclide>
+  </recipe>
+  <recipe>
+    <name>DU</name>
+    <basis>mass</basis>
+    <nuclide>
+      <id>U235</id>
+      <comp>0.25</comp>
+    </nuclide>
+    <nuclide>
+      <id>U238</id>
+      <comp>99.75</comp>
+    </nuclide>
+  </recipe>
+  
+</simulation>
