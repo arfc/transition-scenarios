@@ -33,6 +33,6 @@ print(reactor_lists)
 
 #for every row, replace the following items with values in the csv file.
 for reactor in reactor_lists:
-	reactor_body = template.render(reactor_name=reactor['reactor_name'], n_assem_core=reactor['n_assem_core'], n_assem_batch=reactor['n_assem_batch'])
+	reactor_body = template.render(reactor_name=reactor['reactor_name'].decode('utf-8'), n_assem_core=reactor['n_assem_core'], n_assem_batch=reactor['n_assem_batch'])
 	output.write(reactor_body)
 
