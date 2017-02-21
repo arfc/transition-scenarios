@@ -1,0 +1,6 @@
+eu_very_crude
+	assumes all reactor PWR
+	linear adjusted # of assmeblies
+	no reactor decommissioned or built
+
+
