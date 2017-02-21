@@ -4,7 +4,8 @@ import numpy as np
 
 # to run:
 if len(sys.argv) < 3:
-    print('Usage: python write_reactors.py france.csv template.xml.in france_input.xml')
+    print('Usage: python write_reactors.py france.csv template.xml.in \
+          france_input.xml')
 
 # loads reactor info
 reactor_lists = np.genfromtxt(sys.argv[1],
