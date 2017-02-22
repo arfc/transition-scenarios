@@ -1,0 +1,7 @@
+        <!-- {{country}} -->
+        <entry>
+          <prototype>{{ reactor_name }}</prototype>
+          <number>1</number>
+        </entry>
+        
+        
