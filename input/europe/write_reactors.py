@@ -9,7 +9,7 @@ if len(sys.argv) < 3:
 # loads reactor info
 reactor_lists = np.genfromtxt(sys.argv[1],
                               delimiter=',',
-                              dtype=('S128','S128', 'float64', 'float64'),
+                              dtype=('S128','S128', 'int', 'int'),
                               names=('country','reactor_name', 'n_assem_core',
                                      'n_assem_batch'))
 
