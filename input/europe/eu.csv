@@ -1,5 +1,4 @@
-Country,Name,Reactor no.,Reactor,Status,Capacity in MW,Construction start date,Commercial operation date,Closure (planned),,
-belgium,Type,Model,Net,Gross,,,,,,
+Country,Name,Unit,Type,Model,Status,Net Capacity,Gross Capacity,Construction Date,Commerical Operation Date,Closure
 belgium,Doel,1,PWR,WE-2 loops,Operational,433,454,1 July 1969,15 February 1975,(2025)
 belgium,Doel,2,PWR,WE-2 loops,Operational,433,454,1 September 1971,1 December 1975,(2025)
 belgium,Doel,3,PWR,Framatome 3-loops,Operational,1006,1056,1 January 1975,1 October 1982,(2022)

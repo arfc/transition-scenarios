@@ -1,9 +1,0 @@
-eu_very_crude
-	assumes all reactor PWR
-	linear adjusted # of assmeblies
-	no reactor decommissioned or built
-
-write_reactors.py
-	takes in input csv and writes 2 input files
-	(reactor / region) -> from template and template2
-
