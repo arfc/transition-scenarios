@@ -34,7 +34,7 @@ def write_reactors(csv_file, reactor_template, region_template, reactor_output, 
 	    input_template2 = ft.read()
 	    template2 = jinja2.Template(input_template2)
 
-    # for every row, replace the following items with values in the csv file.
+    # ((reactor template)) render
     for reactor in reactor_lists:
         reactor_body = \
         template.render(country=reactor['country'].decode('utf-8'),
