@@ -19,6 +19,7 @@
         <pref_change_times>   <val>4</val>   </pref_change_times>
         <pref_change_commods> <val>uox</val> </pref_change_commods>
         <pref_change_values>  <val>2.0</val> </pref_change_values>
+        <power_cap>{{capacity}}</power_cap>
 
       </Reactor>
     </config>
