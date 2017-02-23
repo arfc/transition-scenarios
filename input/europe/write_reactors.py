@@ -9,8 +9,8 @@ if len(sys.argv) < 3:
 # loads reactor info
 reactor_lists = np.genfromtxt(sys.argv[1],
                               delimiter=',',
-                              dtype=('S128','S128', 'int', 'int'),
-                              names=('country','reactor_name', 'n_assem_core',
+                              dtype=('S128','S128', 'int','int', 'int'),
+                              names=('country','reactor_name', 'capacity','n_assem_core',
                                      'n_assem_batch'))
 
 # takes second argument file as template
@@ -29,7 +29,8 @@ for reactor in reactor_lists:
     template.render(country=reactor['country'].decode('utf-8'),
     	            reactor_name=reactor['reactor_name'].decode('utf-8'),
                     n_assem_core=reactor['n_assem_core'],
-                    n_assem_batch=reactor['n_assem_batch'])
+                    n_assem_batch=reactor['n_assem_batch'],
+                    capacity=reactor['capacity'])
     with open(sys.argv[4], 'a') as output:
         output.write(reactor_body)
 
