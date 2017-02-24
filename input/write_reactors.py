@@ -1,11 +1,13 @@
 import sys
 import jinja2
 import numpy as np
+import os
 
+# tells command format if input is invalid
 if len(sys.argv) < 3:
     print('Usage: python write_reactors.py [csv] [reactor_template] [region_template] [reactor_output] [region_output]')
 
-def write_reactors(csv_file, reactor_template, region_template, reactor_output):
+def write_reactors(csv_file, reactor_template, region_template, reactor_output, region_output):
     """ 
     This script allows generation of cyclus input file types from csv files.
     Inputs : csv file, template for reactor input, template for region
@@ -45,15 +47,32 @@ def write_reactors(csv_file, reactor_template, region_template, reactor_output):
         with open(reactor_output, 'a') as output:
             output.write(reactor_body)
 
-# ((region template)) render
+    #list of countries
+    country_list=[]
+
+    # ((region template)) render
     for reactor in reactor_lists:
         country_name= reactor['country'].decode('utf-8')
+        country_list.append(country_name)
         region_body= \
-        template2.render(country=reactor['country'].decode('utf-8'),
-                            reactor_name=reactor['reactor_name'].decode('utf-8'))
+        template2.render(reactor_name=reactor['reactor_name'].decode('utf-8'))
         with open(country_name,'a') as output:
             output.write(region_body)
+
+    #add all the separate region files together, with proper region format
+    country_set=set(country_list)
+    for country in country_set:
+        os.system('cat region_head.xml.in' +" "+ country + " " + 'region_tail.xml.in >' " "+ country +'_region')
+        os.system('cat '+ country +'_region >> ' + region_output)
+        os.system("sed -i 's/SingleRegion/" + country + "/g' " + region_output)
+        #with open(region_output, 'a') as output:
+        #   output.write(country + '_region')
+        os.system('rm '+country)
+        os.system('rm '+country+ '_region')
+
+
+
 ##end of write_reactors`
 
 #calls function write_reactors
-write_reactors(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
+write_reactors(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5])
