@@ -17,13 +17,12 @@ def write_reactors(csv_file, reactor_template, region_template, reactor_output, 
         region_output: output file name for cyclus region input file
 
     Output : two input file blocks (reactor and region) for cyclus simulation.
-
-    Usage: 'python write_reactors.py [csv] [reactor_template] [region_template]
-                [reactor_output] [region_output]'
     """
-    
-    #to run:
 
+    # display usage if in error
+    if len(sys.argv) <3:
+        print("Usage: 'Python write_reactors.py [csv] [reactor_template] [region_template]\
+             [reactor_output] [region_output]")
 
     reactor_lists= np.genfromtxt(csv_file,
     	                        delimiter=',',
@@ -31,12 +30,12 @@ def write_reactors(csv_file, reactor_template, region_template, reactor_output, 
                                 names=('country','reactor_name', 'capacity','n_assem_core',
                                        'n_assem_batch'))
 
-    #takes second argument file as reactor template
+    # takes second argument file as reactor template
     with open(reactor_template, 'r') as fp:
         input_template = fp.read()
         template = jinja2.Template(input_template) 
 
-    #takes third argument file as region template
+    # takes third argument file as region template
     with open(region_template,'r') as ft:
 	    input_template2 = ft.read()
 	    template2 = jinja2.Template(input_template2)
@@ -52,7 +51,7 @@ def write_reactors(csv_file, reactor_template, region_template, reactor_output, 
         with open(reactor_output, 'a') as output:
             output.write(reactor_body)
 
-# ((region template)) render
+    # ((region template)) render
     for reactor in reactor_lists:
 	    region_body= \
 	    template2.render(country=reactor['country'].decode('utf-8'),
