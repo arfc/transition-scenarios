@@ -59,7 +59,8 @@ def write_reactors(csv_file, reactor_template, region_template, reactor_output, 
 	    with open(region_output,'a') as output:
 		    output.write(region_body)
 
-##end of write_reactors
+## end of write_reactors
 
-#calls function write_reactors
-write_reactors(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5])
+# calls function write_reactors
+if __name__ == "__main__":
+    write_reactors(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5])
