@@ -65,6 +65,7 @@ def write_reactors(csv_file, reactor_template, region_template, reactor_output, 
         os.system('cat region_head.xml.in' +" "+ country + " " + 'region_tail.xml.in >' " "+ country +'_region')
         os.system('cat '+ country +'_region >> ' + region_output)
         os.system("sed -i 's/SingleRegion/" + country + "/g' " + region_output)
+        os.system("sed -i 's/SingleInstitution/" + country + "_government /g' " + region_output)
         #with open(region_output, 'a') as output:
         #   output.write(country + '_region')
         os.system('rm '+country)
