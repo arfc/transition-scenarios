@@ -13,6 +13,14 @@ def write_reactors(csv_file, reactor_template, region_template, reactor_output, 
     This script allows generation of cyclus input file types from csv files.
     Input : csv file, template for reactor input, template for region
     Output : two input file blocks (reactor and region) for cyclus simulation.
+
+    csv_file: the csv file containing reactor name, capacity and the appropriate
+              number of assemblies per core and per batch
+    reator_template: input file name for jinja template for cyclus reactor input
+    region_template: input file name for jinja template for cyclus region input
+    ractor_output: output file name for cyclus reactor input file
+    region_output: output file name for cyclus region input file
+
     """
 
     # display usage if in error
