@@ -21,8 +21,8 @@ def write_reactors(csv_file, reactor_template, region_template, reactor_output, 
     reactor_lists= np.genfromtxt(csv_file,
                                 delimiter=',',
                                 dtype=('S128','S128', 'int','int', 'int'),
-                                names=('country','reactor_name', 'capacity','n_assem_core',
-                                       'n_assem_batch'))
+                                names=('country','reactor_name', 'capacity',
+                                       'n_assem_core','n_assem_batch'))
 
     #takes second argument file as reactor template
     with open(reactor_template, 'r') as fp:
