@@ -13,10 +13,12 @@ def write_reactors(csv_file, reactor_template, region_template, reactor_output, 
     This script allows generation of cyclus input file types from csv files.
     Input : csv file, template for reactor input, template for region
     Output : two input file blocks (reactor and region) for cyclus simulation.
-
-    Usage: 'python write_reactors.py [csv] [reactor_template] [region_template]
-                [reactor_output] [region_output]'
     """
+
+    # display usage if in error
+    if len(sys.argv) <3:
+        print("Usage: 'Python write_reactors.py [csv] [reactor_template] [region_template]\
+             [reactor_output] [region_output]")
 
     reactor_lists= np.genfromtxt(csv_file,
                                 delimiter=',',
@@ -44,7 +46,7 @@ def write_reactors(csv_file, reactor_template, region_template, reactor_output, 
                         capacity=reactor['capacity'])
         with open(reactor_output, 'a') as output:
             output.write(reactor_body)
-
+            
     # list of countries
     country_list=[]
 
@@ -72,8 +74,10 @@ def write_reactors(csv_file, reactor_template, region_template, reactor_output, 
         os.system('rm '+country)
         os.system('rm '+country+ '_region')
 
-##end of write_reactors
+## end of write_reactors
 
-#calls function write_reactors
-write_reactors(sys.argv[1], sys.argv[2],
-               sys.argv[3], sys.argv[4], sys.argv[5])
+# calls function write_reactors
+if __name__ == "__main__":
+    write_reactors(sys.argv[1], sys.argv[2], sys.argv[3],
+                   sys.argv[4], sys.argv[5])
+
