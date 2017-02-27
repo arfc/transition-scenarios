@@ -11,8 +11,8 @@ if len(sys.argv) < 3:
 def write_reactors(csv_file, reactor_template, region_template, reactor_output, region_output):
     """ 
     This script allows generation of cyclus input file types from csv files.
-    Inputs : csv file, template for reactor input, template for region
-    Output : two inputfile blocks (reactor and region) for cyclus simulation.
+    Input : csv file, template for reactor input, template for region
+    Output : two input file blocks (reactor and region) for cyclus simulation.
 
     Usage: 'python write_reactors.py [csv] [reactor_template] [region_template]
                 [reactor_output] [region_output]'
