@@ -24,12 +24,12 @@ def write_reactors(csv_file, reactor_template, region_template, reactor_output, 
                                 names=('country','reactor_name', 'capacity',
                                        'n_assem_core','n_assem_batch'))
 
-    #takes second argument file as reactor template
+    # takes second argument file as reactor template
     with open(reactor_template, 'r') as fp:
         input_template = fp.read()
         template = jinja2.Template(input_template) 
 
-    #takes third argument file as region template
+    # takes third argument file as region template
     with open(region_template,'r') as ft:
         input_template2 = ft.read()
         template2 = jinja2.Template(input_template2)
@@ -45,7 +45,7 @@ def write_reactors(csv_file, reactor_template, region_template, reactor_output, 
         with open(reactor_output, 'a') as output:
             output.write(reactor_body)
 
-    #list of countries
+    # list of countries
     country_list=[]
 
     # ((region template)) render
@@ -57,21 +57,23 @@ def write_reactors(csv_file, reactor_template, region_template, reactor_output, 
         with open(country_name,'a') as output:
             output.write(region_body)
 
-    #add all the separate region files together, with proper region format
+    # add all the separate region files together, with proper region format
     country_set=set(country_list)
     for country in country_set:
-        os.system('cat region_head.xml.in' +" "+ country + " " + 'region_tail.xml.in >' " "+ country +'_region')
+        # add region_head and region_tail to country region file
+        os.system('cat region_head.xml.in' +" "+ country 
+                  + " " + 'region_tail.xml.in >' " "+ country +'_region')
         os.system('cat '+ country +'_region >> ' + region_output)
+
+        # replace SingleRegion and SingleInstitution with country and gov
         os.system("sed -i 's/SingleRegion/" + country + "/g' " + region_output)
-        os.system("sed -i 's/SingleInstitution/" + country + "_government /g' " + region_output)
-        #with open(region_output, 'a') as output:
-        #   output.write(country + '_region')
+        os.system("sed -i 's/SingleInstitution/" + country
+                  + "_government /g' " + region_output)
         os.system('rm '+country)
         os.system('rm '+country+ '_region')
 
-
-
-##end of write_reactors`
+##end of write_reactors
 
 #calls function write_reactors
-write_reactors(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5])
+write_reactors(sys.argv[1], sys.argv[2],
+               sys.argv[3], sys.argv[4], sys.argv[5])
