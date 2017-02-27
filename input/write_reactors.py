@@ -5,7 +5,8 @@ import os
 
 # tells command format if input is invalid
 if len(sys.argv) < 3:
-    print('Usage: python write_reactors.py [csv] [reactor_template] [region_template] [reactor_output] [region_output]')
+    print('Usage: python write_reactors.py [csv] [reactor_template] [region_template]\
+         [reactor_output] [region_output]')
 
 def write_reactors(csv_file, reactor_template, region_template, reactor_output, region_output):
     """ 
