@@ -62,5 +62,5 @@ The csv file lists the following:
 * Commercial Operation Date
 * Closure (if applicable)
 
-The other csv files in the folder is a trimmed-down version
+The other csv files in the folder are trimmed-down versions
 for the write_reactors.py file.
