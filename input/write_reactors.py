@@ -17,9 +17,6 @@ def write_reactors(csv_file, reactor_template, region_template, reactor_output, 
     Usage: 'python write_reactors.py [csv] [reactor_template] [region_template]
                 [reactor_output] [region_output]'
     """
-    
-    #to run:
-
 
     reactor_lists= np.genfromtxt(csv_file,
                                 delimiter=',',
