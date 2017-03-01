@@ -4,11 +4,11 @@ import numpy as np
 import os
 
 # tells command format if input is invalid
-if len(sys.argv) < 5:
-    print('Usage: python write_reactors.py [csv] [reactor_template] [region_template]\
-         [reactor_output] [region_output]')
+#if len(sys.argv) < 5:
+#   print('Usage: python write_reactors.py [csv] [reactor_template] [region_template]\
+#        [reactor_output] [region_output]')
 
-def write_reactors(csv_file, reactor_template, region_template, reactor_output, region_output):
+def write_reactors (csv_file, reactor_template, region_template, reactor_output, region_output):
     """ 
     This script allows generation of cyclus input file types from csv files.
     Input : csv file, template for reactor input, template for region
@@ -22,43 +22,90 @@ def write_reactors(csv_file, reactor_template, region_template, reactor_output, 
     region_output: output file name for cyclus region input file
 
     """
-    
+
+def read_csv(csv_file):
+    """
+    This function reads the csv file and returns the array.
+
+    input) 
+        csv_file: csv file that lists country, reactor name,
+                 capacity, #assem per core, # assem per batch.
+
+    return)
+        reactor_lists: array with the data from csv file
+    """
+
     reactor_lists= np.genfromtxt(csv_file,
                                 delimiter=',',
                                 dtype=('S128','S128', 'int','int', 'int'),
                                 names=('country','reactor_name', 'capacity',
                                        'n_assem_core','n_assem_batch'))
 
+    return reactor_lists
+
+
+def read_template (template):
+    """
+    This function takes a jinja template file and returns it
+
+    input)
+        template: jinja template file
+
+    return)
+        jinja template object
+    """
     # takes second argument file as reactor template
-    with open(reactor_template, 'r') as fp:
+    with open(template, 'r') as fp:
         input_template = fp.read()
-        template = jinja2.Template(input_template) 
+        output_template = jinja2.Template(input_template) 
 
-    # takes third argument file as region template
-    with open(region_template,'r') as ft:
-        input_template2 = ft.read()
-        template2 = jinja2.Template(input_template2)
+    return output_template
 
-    # ((reactor template)) render
-    for reactor in reactor_lists:
+
+
+def reactor_render (array, template, output_file):
+    """
+    This function takes the array and template and writes a reactor file
+
+    input)
+        array: array of information on reactors
+        template: jinja template for reactor file
+        output_file: name of the output file
+
+    output)
+        completed reactor agent input file for cylcus
+    """
+    for data in array:
         reactor_body = \
-        template.render(country=reactor['country'].decode('utf-8'),
-                        reactor_name=reactor['reactor_name'].decode('utf-8'),
-                        n_assem_core=reactor['n_assem_core'],
-                        n_assem_batch=reactor['n_assem_batch'],
-                        capacity=reactor['capacity'])
-        with open(reactor_output, 'a') as output:
+        template.render(country=data['country'].decode('utf-8'),
+                        reactor_name=data['reactor_name'].decode('utf-8'),
+                        n_assem_core=data['n_assem_core'],
+                        n_assem_batch=data['n_assem_batch'],
+                        capacity=data['capacity'])
+        with open(output_file, 'a') as output:
             output.write(reactor_body)
-            
+
+def region_render (array, template, output_file):
+    """
+    This function takes the array and template and writes a region file
+
+    input)
+        array: array of information on reactors
+        template: jinja template for region file
+        output_file: name of the output file
+
+    output)
+        completed region input file section for cyclus
+    """
+    
     # list of countries
     country_list=[]
 
-    # ((region template)) render
-    for reactor in reactor_lists:
-        country_name= reactor['country'].decode('utf-8')
-        country_list.append(country_name)
+    #create array of countries and create files for each country.
+    for data in array:
+        country_list.append(data['country'].decode('utf-8'))
         region_body= \
-        template2.render(reactor_name=reactor['reactor_name'].decode('utf-8'))
+        template.render(reactor_name=data['reactor_name'].decode('utf-8'))
         with open(country_name,'a') as output:
             output.write(region_body)
 
@@ -80,7 +127,6 @@ def write_reactors(csv_file, reactor_template, region_template, reactor_output, 
 ## end of write_reactors
 
 # calls function write_reactors
-if __name__ == "__main__":
-    write_reactors(sys.argv[1], sys.argv[2], sys.argv[3],
-                   sys.argv[4], sys.argv[5])
-
+#if __name__ == "__main__":
+#    write_reactors(sys.argv[1], sys.argv[2], sys.argv[3],
+#                   sys.argv[4], sys.argv[5])
