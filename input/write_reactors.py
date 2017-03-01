@@ -138,11 +138,8 @@ def region_render(array, template, output_file):
 
 
 # actually does things.
-
-# removes if there are duplicate files
 delete_file(sys.argv[4])
 delete_file(sys.argv[5])
-
 dataset = read_csv(sys.argv[1])
 reactor_template = read_template(sys.argv[2])
 region_template = read_template(sys.argv[3])
