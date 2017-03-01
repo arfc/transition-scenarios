@@ -3,15 +3,15 @@ import jinja2
 import numpy as np
 import os
 
-#tells command format if input is invalid
+# tells command format if input is invalid
 if len(sys.argv) < 3:
-   print('Usage: python write_reactors.py [csv] [reactor_template] [region_template]\
+    print('Usage: python write_reactors.py [csv] [reactor_template] [region_template]\
         [reactor_output] [region_output]')
 
 
-
-def write_reactors (csv_file, reactor_template, region_template, reactor_output, region_output):
-    """ 
+def write_reactors(csv_file, reactor_template, region_template,
+                  reactor_output, region_output):
+    """
     This script allows generation of cyclus input file types from csv files.
     Input : csv file, template for reactor input, template for region
     Output : two input file blocks (reactor and region) for cyclus simulation.
@@ -25,12 +25,13 @@ def write_reactors (csv_file, reactor_template, region_template, reactor_output,
 
     """
 
+
 def delete_file(file):
     """
     This function checks if there is a file with the same name,
     and deletes the file if it exists.
     """
-    if os.path.exists('./' + file) == True:
+    if os.path.exists('./' + file) is True:
         os.system('rm ' + file)
 
 
@@ -38,7 +39,7 @@ def read_csv(csv_file):
     """
     This function reads the csv file and returns the array.
 
-    input) 
+    input)
         csv_file: csv file that lists country, reactor name,
                  capacity, #assem per core, # assem per batch.
 
@@ -46,16 +47,16 @@ def read_csv(csv_file):
         reactor_lists: array with the data from csv file
     """
 
-    reactor_lists= np.genfromtxt(csv_file,
-                                delimiter=',',
-                                dtype=('S128','S128', 'int','int', 'int'),
-                                names=('country','reactor_name', 'capacity',
-                                       'n_assem_core','n_assem_batch'))
+    reactor_lists = np.genfromtxt(csv_file,
+                                 delimiter=',',
+                                 dtype=('S128', 'S128', 'int', 'int', 'int'),
+                                 names=('country', 'reactor_name', 'capacity',
+                                       'n_assem_core', 'n_assem_batch'))
 
     return reactor_lists
 
 
-def read_template (template):
+def read_template(template):
     """
     This function takes a jinja template file and returns it
 
@@ -68,13 +69,12 @@ def read_template (template):
     # takes second argument file as reactor template
     with open(template, 'r') as fp:
         input_template = fp.read()
-        output_template = jinja2.Template(input_template) 
+        output_template = jinja2.Template(input_template)
 
     return output_template
 
 
-
-def reactor_render (array, template, output_file):
+def reactor_render(array, template, output_file):
     """
     This function takes the array and template and writes a reactor file
 
@@ -96,7 +96,8 @@ def reactor_render (array, template, output_file):
         with open(output_file, 'a') as output:
             output.write(reactor_body)
 
-def region_render (array, template, output_file):
+
+def region_render(array, template, output_file):
     """
     This function takes the array and template and writes a region file
 
@@ -108,37 +109,37 @@ def region_render (array, template, output_file):
     output)
         completed region input file section for cyclus
     """
-    
-    # list of countries
-    country_list=[]
 
-    #create array of countries and create files for each country.
+    # list of countries
+    country_list = []
+
+    # create array of countries and create files for each country.
     for data in array:
         country_list.append(data['country'].decode('utf-8'))
-        region_body= \
+        region_body = \
         template.render(reactor_name=data['reactor_name'].decode('utf-8'))
-        with open(data['country'].decode('utf-8'),'a') as output:
+        with open(data['country'].decode('utf-8'), 'a') as output:
             output.write(region_body)
 
     # add all the separate region files together, with proper region format
-    country_set=set(country_list)
+    country_set = set(country_list)
     for country in country_set:
         # add region_head and region_tail to country region file
-        os.system('cat region_head.xml.in' +" "+ country 
-                  + " " + 'region_tail.xml.in >' " "+ country +'_region')
-        os.system('cat '+ country +'_region >> ' + output_file)
+        os.system('cat region_head.xml.in' + " " + country +
+                 " " + 'region_tail.xml.in >' " " + country + '_region')
+        os.system('cat ' + country + '_region >> ' + output_file)
 
         # replace SingleRegion and SingleInstitution with country and gov
         os.system("sed -i 's/SingleRegion/" + country + "/g' " + output_file)
-        os.system("sed -i 's/SingleInstitution/" + country
-                  + "_government /g' " + output_file)
-        os.system('rm '+country)
-        os.system('rm '+country+ '_region')
+        os.system("sed -i 's/SingleInstitution/" + country +
+                  "_government /g' " + output_file)
+        os.system('rm ' + country)
+        os.system('rm ' + country + '_region')
 
 
-#actually does things.
+# actually does things.
 
-#removes if there are duplicate files
+# removes if there are duplicate files
 delete_file(sys.argv[4])
 delete_file(sys.argv[5])
 
@@ -147,4 +148,3 @@ reactor_template = read_template(sys.argv[2])
 region_template = read_template(sys.argv[3])
 reactor_render(dataset, reactor_template, sys.argv[4])
 region_render(dataset, region_template, sys.argv[5])
-
