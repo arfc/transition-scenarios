@@ -4,7 +4,7 @@ import numpy as np
 import os
 
 # tells command format if input is invalid
-if len(sys.argv) < 3:
+if len(sys.argv) < 5:
     print('Usage: python write_reactors.py [csv] [reactor_template] [region_template]\
          [reactor_output] [region_output]')
 
@@ -22,12 +22,7 @@ def write_reactors(csv_file, reactor_template, region_template, reactor_output, 
     region_output: output file name for cyclus region input file
 
     """
-
-    # display usage if in error
-    if len(sys.argv) <3:
-        print("Usage: 'Python write_reactors.py [csv] [reactor_template] [region_template]\
-             [reactor_output] [region_output]")
-
+    
     reactor_lists= np.genfromtxt(csv_file,
                                 delimiter=',',
                                 dtype=('S128','S128', 'int','int', 'int'),
