@@ -10,15 +10,15 @@ if len(sys.argv) < 5:
 
 
 def write_reactors(csv_file, reactor_template, region_template,
-                  input_template, reactor_output, region_output):
+                   input_template, reactor_output, region_output):
     """
     This script allows generation of cyclus input file types from csv files.
     Input : csv file, template for reactor input, template for region
-    Output : two input file blocks (reactor and region) for cyclus simulation, and
-             a complete input file ready for simulation.
+    Output : two input file blocks (reactor and region) for cyclus
+             simulation, and a complete input file ready for simulation.
 
-    csv_file: the csv file containing reactor name, capacity and the appropriate
-              number of assemblies per core and per batch
+    csv_file: the csv file containing reactor name, capacity and
+              the appropriate number of assemblies per core and per batch
     reator_template: input file name for jinja template for cyclus reactor input
     region_template: input file name for jinja template for cyclus region input
     input_template: input file template for a complete input file
@@ -49,10 +49,10 @@ def read_csv(csv_file):
     """
 
     reactor_lists = np.genfromtxt(csv_file,
-                                 delimiter=',',
-                                 dtype=('S128', 'S128', 'int', 'int', 'int'),
-                                 names=('country', 'reactor_name', 'capacity',
-                                       'n_assem_core', 'n_assem_batch'))
+                                  delimiter=',',
+                                  dtype=('S128', 'S128', 'int', 'int', 'int'),
+                                  names=('country', 'reactor_name', 'capacity',
+                                         'n_assem_core', 'n_assem_batch'))
 
     return reactor_lists
 
@@ -90,10 +90,10 @@ def reactor_render(array, template, output_file):
     for data in array:
         reactor_body = \
                        template.render(country=data['country'].decode('utf-8'),
-                       reactor_name=data['reactor_name'].decode('utf-8'),
-                       n_assem_core=data['n_assem_core'],
-                       n_assem_batch=data['n_assem_batch'],
-                       capacity=data['capacity'])
+                                       reactor_name=data['reactor_name'].decode('utf-8'),
+                                       n_assem_core=data['n_assem_core'],
+                                       n_assem_batch=data['n_assem_batch'],
+                                       capacity=data['capacity'])
         with open(output_file, 'a') as output:
             output.write(reactor_body)
 
@@ -135,7 +135,7 @@ def region_render(array, template, full_template, output_file):
     for data in array:
         country_list.append(data['country'].decode('utf-8'))
         region_body = \
-                      template.render(reactor_name=data['reactor_name'].decode('utf-8'))
+            template.render(reactor_name=data['reactor_name'].decode('utf-8'))
         with open(data['country'].decode('utf-8'), 'a') as output:
             output.write(region_body)
 
@@ -144,11 +144,11 @@ def region_render(array, template, full_template, output_file):
     for country in country_set:
 
         # jinja render region template for different countries
-        with open(country,'r') as ab:
+        with open(country, 'r') as ab:
             country_input = ab.read()
-            country_body = full_template.render(country = country,
-                                        country_gov = country +'_government',
-                                        region_file = country_input)
+            country_body = full_template.render(country=country,
+                                                country_gov=country + '_government',
+                                                region_file=country_input)
 
         # write rendered template as 'country'_region
         with open(country + '_region', 'a') as output:
@@ -178,4 +178,4 @@ region_output_template = read_template('region_output_template.xml.in')
 reactor_render(dataset, reactor_template, sys.argv[5])
 region_render(dataset, region_template, region_output_template, sys.argv[6])
 input_render(sys.argv[5], sys.argv[6], input_template, 'complete_input.xml')
-print('\n Remember to insert sink and source into the regions - updates to come! \n ')
+print('\n Insert sink and source into the regions - updates to come! :) \n ')
