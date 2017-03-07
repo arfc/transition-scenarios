@@ -114,13 +114,14 @@ def input_render(reactor_file, region_file, template, output_file):
         output.write(temp)
 
 
-def region_render(array, template, output_file):
+def region_render(array, template, full_template, output_file):
     """
     This function takes the array and template and writes a region file
 
     input)
         array: array of information on reactors
         template: jinja template for region file
+        full_template: full template for entire region file
         output_file: name of the output file
 
     output)
@@ -141,28 +142,40 @@ def region_render(array, template, output_file):
     # add all the separate region files together, with proper region format
     country_set = set(country_list)
     for country in country_set:
-        # add region_head and region_tail to country region file
-        os.system('cat region_head.xml.in' + " " + country +
-                 " " + 'region_tail.xml.in >' " " + country + '_region')
-        os.system('cat ' + country + '_region >> ' + output_file)
 
-        # replace SingleRegion and SingleInstitution with country and gov
-        os.system("sed -i 's/SingleRegion/" + country + "/g' " + output_file)
-        os.system("sed -i 's/SingleInstitution/" + country +
-                  "_government /g' " + output_file)
+        # jinja render region template for different countries
+        with open(country,'r') as ab:
+            country_input = ab.read()
+            country_body = full_template.render(country = country,
+                                        country_gov = country +'_government',
+                                        region_file = country_input)
+
+        # write rendered template as 'country'_region
+        with open(country + '_region', 'a') as output:
+            output.write(country_body)
+
+        # concatenate the made file to the final output file and remove temp
+        os.system('cat ' + country + '_region >> ' + output_file)
         os.system('rm ' + country)
         os.system('rm ' + country + '_region')
 
 
 # actually does things.
+
+# deletes previously existing files
 delete_file('complete_input.xml')
 delete_file(sys.argv[5])
 delete_file(sys.argv[6])
+
+# read csv and templates
 dataset = read_csv(sys.argv[1])
 input_template = read_template(sys.argv[4])
 reactor_template = read_template(sys.argv[2])
 region_template = read_template(sys.argv[3])
+region_output_template = read_template('region_output_template.xml.in')
+
+# renders reactor / region / input file. Confesses imperfection.
 reactor_render(dataset, reactor_template, sys.argv[5])
-region_render(dataset, region_template, sys.argv[6])
+region_render(dataset, region_template, region_output_template, sys.argv[6])
 input_render(sys.argv[5], sys.argv[6], input_template, 'complete_input.xml')
 print('Remember to insert sink and source into the regions - updates to come!')
