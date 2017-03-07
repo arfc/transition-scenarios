@@ -39,7 +39,7 @@ def read_csv(csv_file):
     -------
     reactor_lists:  array
         array with the data from csv file
-    
+
     """
 
     reactor_lists = np.genfromtxt(csv_file,
@@ -53,7 +53,7 @@ def read_csv(csv_file):
 
 def read_template(template):
     """ Returns a jinja template
-    
+
     Paramters
     ---------
     template: str
@@ -134,7 +134,7 @@ def input_render(reactor_file, region_file, template, output_file):
 
 def region_render(array, template, full_template, output_file):
     """Takes the array and template and writes a region file
-    
+
     Paramters
     ---------
     array: array
@@ -185,7 +185,7 @@ def region_render(array, template, full_template, output_file):
 
 
 def main(csv_file, reactor_template, region_template,
-                   input_template, reactor_output, region_output):
+         input_template, reactor_output, region_output):
     """ Generates cyclus input file from csv files and jinja templates.
 
     Paramters
