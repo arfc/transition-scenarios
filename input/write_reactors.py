@@ -184,7 +184,7 @@ def region_render(array, template, full_template, output_file):
         os.system('rm ' + country + '_region')
 
 
-def write_reactors(csv_file, reactor_template, region_template,
+def main(csv_file, reactor_template, region_template,
                    input_template, reactor_output, region_output):
     """ Generates cyclus input file from csv files and jinja templates.
 
@@ -231,5 +231,5 @@ def write_reactors(csv_file, reactor_template, region_template,
 
 
 if __name__ == "__main__":
-    write_reactors(sys.argv[1], sys.argv[2], sys.argv[3],
-                   sys.argv[4], sys.argv[5], sys.argv[6])
+    main(sys.argv[1], sys.argv[2], sys.argv[3],
+         sys.argv[4], sys.argv[5], sys.argv[6])
