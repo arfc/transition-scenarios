@@ -50,14 +50,14 @@ Jinja Template for the entire Cyclus input file.
 
 This is where the compiled reactor and region files will be rendered into.
 
-### template.xml.in
-Jinja template for the reactor 'block' of the cyclus input file.
+### reactor_template.xml.in
+Jinja template for the reactor section of the cyclus input file.
 
-### template2.xml.in
+### region_template.xml.in
 Jinja template for the individual region prototype of the cyclus input file.
 
 ### region_output_template.xml.in
-Jinja template for the region 'block' of the cylcus input file.
+Jinja template for the region section of the cylcus input file.
 
 Grouped region prototypes will be rendered into this file.
 
