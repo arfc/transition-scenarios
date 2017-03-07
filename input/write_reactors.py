@@ -4,48 +4,42 @@ import numpy as np
 import os
 
 # tells command format if input is invalid
-if len(sys.argv) < 5:
+if len(sys.argv) < 6:
     print('Usage: python write_reactors.py [csv] [reactor_template] [region_template]\
         [input_template] [reactor_output] [region_output]')
 
 
-def write_reactors(csv_file, reactor_template, region_template,
-                   input_template, reactor_output, region_output):
-    """
-    This script allows generation of cyclus input file types from csv files.
-    Input : csv file, template for reactor input, template for region
-    Output : two input file blocks (reactor and region) for cyclus
-             simulation, and a complete input file ready for simulation.
-
-    csv_file: the csv file containing reactor name, capacity and
-              the appropriate number of assemblies per core and per batch
-    reator_template: input file name for jinja template for cyclus reactor input
-    region_template: input file name for jinja template for cyclus region input
-    input_template: input file template for a complete input file
-    ractor_output: output file name for cyclus reactor input file
-    region_output: output file name for cyclus region input file
-    """
-
-
 def delete_file(file):
-    """
-    This function checks if there is a file with the same name,
-    and deletes the file if it exists.
+    """Deletes a file if it exists.
+
+    Parameters
+    ----------
+    file: str
+        filename to delete, if it exists
+
+    Returns
+    -------
+    null
+
     """
     if os.path.exists('./' + file) is True:
         os.system('rm ' + file)
 
 
 def read_csv(csv_file):
-    """
-    This function reads the csv file and returns the array.
+    """This function reads the csv file and returns the array.
 
-    input)
-        csv_file: csv file that lists country, reactor name,
-                 capacity, #assem per core, # assem per batch.
+    Paramters
+    ---------
+    csv_file: str
+        csv file that lists country, reactor name,
+        capacity, #assem per core, # assem per batch.
 
-    return)
-        reactor_lists: array with the data from csv file
+    Returns
+    -------
+    reactor_lists:  array
+        array with the data from csv file
+    
     """
 
     reactor_lists = np.genfromtxt(csv_file,
@@ -58,15 +52,20 @@ def read_csv(csv_file):
 
 
 def read_template(template):
-    """
-    This function takes a jinja template file and returns it
+    """ Returns a jinja template
+    
+    Paramters
+    ---------
+    template: str
+        template file that is to be stored as variable.
 
-    input)
-        template: jinja template file
+    Returns
+    -------
+    output_template: jinja template object
+        output template that can be 'jinja.render' -ed.
 
-    return)
-        jinja template object
     """
+
     # takes second argument file as reactor template
     with open(template, 'r') as fp:
         input_template = fp.read()
@@ -76,16 +75,21 @@ def read_template(template):
 
 
 def reactor_render(array, template, output_file):
-    """
-    This function takes the array and template and writes a reactor file
+    """Takes the array and template and writes a reactor file
 
-    input)
-        array: array of information on reactors
-        template: jinja template for reactor file
-        output_file: name of the output file
+    Paramters
+    ---------
+    array: array
+        array of data on reactors
+    template: jinja.template
+        jinja template for reactor file
+    output_file: str
+        name of output file
 
-    output)
-        completed reactor agent input file for cylcus
+    Returns
+    -------
+    The reactor section of cyclus input file
+
     """
     for data in array:
         reactor_body = \
@@ -99,9 +103,23 @@ def reactor_render(array, template, output_file):
 
 
 def input_render(reactor_file, region_file, template, output_file):
-    """
-    this function creates the total input file from specs,
-    region and reactor file
+    """Creates total input file from region and reactor file
+
+    Paramters
+    ---------
+    reactor_file: str
+        jinja rendered reactor section of cyclus input file
+    region_file: str
+        jinja rendered region section of cylcus input file
+    template: str
+        jinja template for cyclus complete input file
+    output_file: str
+        name of output file
+
+    Returns
+    -------
+    A complete cylus input file.
+
     """
     with open(reactor_file, 'r') as fp:
         reactor = fp.read()
@@ -115,17 +133,23 @@ def input_render(reactor_file, region_file, template, output_file):
 
 
 def region_render(array, template, full_template, output_file):
-    """
-    This function takes the array and template and writes a region file
+    """Takes the array and template and writes a region file
+    
+    Paramters
+    ---------
+    array: array
+        array of data on reactors
+    template: jinja.template
+        jinja template for one region prototype declaration
+    full_template: jinja.template
+        jinja template for full region section file
+    output_file: str
+        name of output file
 
-    input)
-        array: array of information on reactors
-        template: jinja template for region file
-        full_template: full template for entire region file
-        output_file: name of the output file
+    Returns
+    -------
+    The region section of cyclus input file
 
-    output)
-        completed region input file section for cyclus
     """
 
     # list of countries
@@ -160,22 +184,52 @@ def region_render(array, template, full_template, output_file):
         os.system('rm ' + country + '_region')
 
 
-# actually does things.
+def write_reactors(csv_file, reactor_template, region_template,
+                   input_template, reactor_output, region_output):
+    """ Generates cyclus input file from csv files and jinja templates.
 
-# deletes previously existing files
-delete_file('complete_input.xml')
-delete_file(sys.argv[5])
-delete_file(sys.argv[6])
+    Paramters
+    ---------
+    csv_file : str
+        csv file containing reactor data (country, name, capacity)
+    reactor_template: str
+        template file for reactor section of input file
+    region_template: str
+        template file for region section of input file
+    input_template: str
+        template file for entire complete cyclus input file
+    reactor_output: str
+        name of output of reactor section of cyclus input file
+    region_output: str
+        name of output of region section of cyclus input file
 
-# read csv and templates
-dataset = read_csv(sys.argv[1])
-input_template = read_template(sys.argv[4])
-reactor_template = read_template(sys.argv[2])
-region_template = read_template(sys.argv[3])
-region_output_template = read_template('region_output_template.xml.in')
+    Returns
+    -------
+    File with reactor section of cyclus input file
+    File with region section of cyclus input file
+    File with complete cyclus input file
 
-# renders reactor / region / input file. Confesses imperfection.
-reactor_render(dataset, reactor_template, sys.argv[5])
-region_render(dataset, region_template, region_output_template, sys.argv[6])
-input_render(sys.argv[5], sys.argv[6], input_template, 'complete_input.xml')
-print('\n Insert sink and source into the regions - updates to come! :) \n ')
+    """
+
+    # deletes previously existing files
+    delete_file('complete_input.xml')
+    delete_file(reactor_output)
+    delete_file(region_output)
+
+    # read csv and templates
+    dataset = read_csv(csv_file)
+    input_template = read_template(input_template)
+    reactor_template = read_template(reactor_template)
+    region_template = read_template(region_template)
+    region_output_template = read_template('region_output_template.xml.in')
+
+    # renders reactor / region / input file. Confesses imperfection.
+    reactor_render(dataset, reactor_template, reactor_output)
+    region_render(dataset, region_template, region_output_template, region_output)
+    input_render(reactor_output, region_output, input_template, 'complete_input.xml')
+    print('\n Insert sink and source into the regions - updates to come! :) \n ')
+
+
+if __name__ == "__main__":
+    write_reactors(sys.argv[1], sys.argv[2], sys.argv[3],
+                   sys.argv[4], sys.argv[5], sys.argv[6])
