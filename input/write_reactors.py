@@ -4,25 +4,26 @@ import numpy as np
 import os
 
 # tells command format if input is invalid
-if len(sys.argv) < 3:
+if len(sys.argv) < 5:
     print('Usage: python write_reactors.py [csv] [reactor_template] [region_template]\
-        [reactor_output] [region_output]')
+        [input_template] [reactor_output] [region_output]')
 
 
 def write_reactors(csv_file, reactor_template, region_template,
-                  reactor_output, region_output):
+                  input_template, reactor_output, region_output):
     """
     This script allows generation of cyclus input file types from csv files.
     Input : csv file, template for reactor input, template for region
-    Output : two input file blocks (reactor and region) for cyclus simulation.
+    Output : two input file blocks (reactor and region) for cyclus simulation, and
+             a complete input file ready for simulation.
 
     csv_file: the csv file containing reactor name, capacity and the appropriate
               number of assemblies per core and per batch
     reator_template: input file name for jinja template for cyclus reactor input
     region_template: input file name for jinja template for cyclus region input
+    input_template: input file template for a complete input file
     ractor_output: output file name for cyclus reactor input file
     region_output: output file name for cyclus region input file
-
     """
 
 
@@ -88,13 +89,29 @@ def reactor_render(array, template, output_file):
     """
     for data in array:
         reactor_body = \
-        template.render(country=data['country'].decode('utf-8'),
-                        reactor_name=data['reactor_name'].decode('utf-8'),
-                        n_assem_core=data['n_assem_core'],
-                        n_assem_batch=data['n_assem_batch'],
-                        capacity=data['capacity'])
+                       template.render(country=data['country'].decode('utf-8'),
+                       reactor_name=data['reactor_name'].decode('utf-8'),
+                       n_assem_core=data['n_assem_core'],
+                       n_assem_batch=data['n_assem_batch'],
+                       capacity=data['capacity'])
         with open(output_file, 'a') as output:
             output.write(reactor_body)
+
+
+def input_render(reactor_file, region_file, template, output_file):
+    """
+    this function creates the total input file from specs,
+    region and reactor file
+    """
+    with open(reactor_file, 'r') as fp:
+        reactor = fp.read()
+    with open(region_file, 'r') as bae:
+        region = bae.read()
+
+    temp = template.render(reactor_input=reactor, region_input=region)
+
+    with open(output_file, 'a') as output:
+        output.write(temp)
 
 
 def region_render(array, template, output_file):
@@ -117,7 +134,7 @@ def region_render(array, template, output_file):
     for data in array:
         country_list.append(data['country'].decode('utf-8'))
         region_body = \
-        template.render(reactor_name=data['reactor_name'].decode('utf-8'))
+                      template.render(reactor_name=data['reactor_name'].decode('utf-8'))
         with open(data['country'].decode('utf-8'), 'a') as output:
             output.write(region_body)
 
@@ -138,10 +155,14 @@ def region_render(array, template, output_file):
 
 
 # actually does things.
-delete_file(sys.argv[4])
+delete_file('complete_input.xml')
 delete_file(sys.argv[5])
+delete_file(sys.argv[6])
 dataset = read_csv(sys.argv[1])
+input_template = read_template(sys.argv[4])
 reactor_template = read_template(sys.argv[2])
 region_template = read_template(sys.argv[3])
-reactor_render(dataset, reactor_template, sys.argv[4])
-region_render(dataset, region_template, sys.argv[5])
+reactor_render(dataset, reactor_template, sys.argv[5])
+region_render(dataset, region_template, sys.argv[6])
+input_render(sys.argv[5], sys.argv[6], input_template, 'complete_input.xml')
+print('Remember to insert sink and source into the regions - updates to come!')
