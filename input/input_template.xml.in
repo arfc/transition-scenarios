@@ -1,9 +1,9 @@
-<!-- {{ documentation }} -->
+
 <simulation>
   <control>
-    <duration>{{ duration }}</duration>
-    <startmonth>{{ start_month }}</startmonth>
-    <startyear>{{ start_year }}</startyear>
+    <duration>600</duration>
+    <startmonth>1</startmonth>
+    <startyear>2017</startyear>
   </control>
 
   <archetypes>
