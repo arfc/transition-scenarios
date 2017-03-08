@@ -1,8 +1,0 @@
-Computing time of the current code = million years
-Consider using sqlite query functions to solve
--> didnt work for resource id input bc too long (>1000)
-
-
-select count() from resources where resourceId = 10273
--> 523.4 kg per assembly -> 105,690,162 kg of snf
-not counting decay
