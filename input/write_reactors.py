@@ -29,7 +29,7 @@ def delete_file(file):
 def read_csv(csv_file):
     """This function reads the csv file and returns the array.
 
-    Paramters
+    Parameters
     ---------
     csv_file: str
         csv file that lists country, reactor name,
@@ -54,7 +54,7 @@ def read_csv(csv_file):
 def read_template(template):
     """ Returns a jinja template
 
-    Paramters
+    Parameters
     ---------
     template: str
         template file that is to be stored as variable.
@@ -77,7 +77,7 @@ def read_template(template):
 def reactor_render(array, template, output_file):
     """Takes the array and template and writes a reactor file
 
-    Paramters
+    Parameters
     ---------
     array: array
         array of data on reactors
@@ -105,7 +105,7 @@ def reactor_render(array, template, output_file):
 def input_render(reactor_file, region_file, template, output_file):
     """Creates total input file from region and reactor file
 
-    Paramters
+    Parameters
     ---------
     reactor_file: str
         jinja rendered reactor section of cyclus input file
@@ -135,7 +135,7 @@ def input_render(reactor_file, region_file, template, output_file):
 def region_render(array, template, full_template, output_file):
     """Takes the array and template and writes a region file
 
-    Paramters
+    Parameters
     ---------
     array: array
         array of data on reactors
@@ -188,7 +188,7 @@ def main(csv_file, reactor_template, region_template,
          input_template, reactor_output, region_output):
     """ Generates cyclus input file from csv files and jinja templates.
 
-    Paramters
+    Parameters
     ---------
     csv_file : str
         csv file containing reactor data (country, name, capacity)
