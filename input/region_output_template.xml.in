@@ -1,0 +1,15 @@
+  <region>
+    <name>{{country}}</name>
+    <config><NullRegion/></config>
+    <institution>
+      <name>{{country_gov}}</name>
+      <initialfacilitylist>
+      
+      {{region_file}}
+
+      	</initialfacilitylist>
+      <config><NullInst/></config>
+    </institution>
+  </region>
+
+  
