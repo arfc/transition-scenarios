@@ -1,6 +1,5 @@
 import sqlite3 as lite
 import sys
-import matplotlib as plt
 from pyne import nucname
 
 # tells command format if input is invalid
@@ -8,17 +7,17 @@ if len(sys.argv) < 2:
     print('Usage: python analysis.py [cylus_output_file]')
 
 
-def analysis(filename):
+def snf(filename):
     """ does simple analysis of cyclus input file.
 
     Parameters
     ----------
     filename: int
-        cyclus output file to be analysed.
+        cyclus output file to be analyzed.
 
     Returns
     -------
-    prints on terminal total snf and isotope mass.
+    Returns total snf and isotope mass.
 
     """
 
@@ -27,8 +26,7 @@ def analysis(filename):
     snf_inventory = cur.execute(exec_string(sink_id, 'transactions.receiverId', 'sum(quantity)')).fetchall()[0][0]
     waste_id = get_waste_id(resources)
     inven = isotope_calc(waste_id, snf_inventory)
-    print('Total snf mass is = ' + str(snf_inventory) + ' kg')
-    print(inven)
+    return inven
 
 
 def get_sink_agentIds():
@@ -121,10 +119,12 @@ def isotope_calc(wasteid_array, snf_inventory):
     ---------
     wasteid_array: array
         array of qualid of wastes
+    snf_inventory: float
+        total mass of snf_inventory
 
     Returns
     -------
-    nuclide_inven: str
+    nuclide_inven: array
         inventory of individual nuclides.
 
     """
@@ -133,21 +133,22 @@ def isotope_calc(wasteid_array, snf_inventory):
     # SimId / QualId / NucId / MassFrac
     comp = cur.execute('select * from compositions').fetchall()
 
-    nuclide_inven = ""
+    nuclide_inven = ['total snf inventory = ' + str(snf_inventory) + 'kg']
     # if the 'qualid's match, the nuclide quantity and calculated and displayed.
     for isotope in comp:
         for num in wasteid_array:
             if num == isotope[1]:
                 nuclide_quantity = str(snf_inventory*isotope[3])
                 nuclide_name = str(nucname.name(isotope[2]))
-                nuclide_inven += nuclide_name + ' = ' + nuclide_quantity + ' kg \n'
+                nuclide_inven.append(nuclide_name + ' = ' + nuclide_quantity)
 
     return nuclide_inven
 
 
 if __name__ == "__main__":
-    con = lite.connect('eu_crude.sqlite')
+    file = sys.argv[1]
+    con = lite.connect(file)
 
     with con:
         cur = con.cursor()
-        analysis(sys.argv[1])
+        print(snf(file))
