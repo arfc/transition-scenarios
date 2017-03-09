@@ -81,9 +81,7 @@ The csv file lists the following:
 The other csv files in the folder are trimmed-down versions
 for the write_reactors.py file.
 
-
 ## output folder
-
 The output folder contains analysis tools for cylcus output files.
 
 ### analysis.py
