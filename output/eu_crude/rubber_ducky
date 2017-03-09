@@ -1,9 +1,0 @@
-Rubber Duck
-
-Able to accomodate multiple waste type
-	I guess the only way to do this is to make a loop
-	for every resource entry that went to sink,
-	check qualid and if it matches composition,
-	add to the nuclide quantity
-
--> but that takes too much time! :(
