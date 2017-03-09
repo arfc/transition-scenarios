@@ -4,8 +4,9 @@ import matplotlib as plt
 from pyne import nucname
 
 # tells command format if input is invalid
-if len(sys.argv) < 1:
+if len(sys.argv) < 2:
     print('Usage: python analysis.py [cylus_output_file]')
+
 
 def analysis(filename):
     """ does simple analysis of cyclus input file.
@@ -20,7 +21,7 @@ def analysis(filename):
     prints on terminal total snf and isotope mass.
 
     """
-        
+
     sink_id = get_sink_agentIds()
     resources = cur.execute(exec_string(sink_id, 'transactions.receiverId', '*')).fetchall()
     snf_inventory = cur.execute(exec_string(sink_id, 'transactions.receiverId', 'sum(quantity)')).fetchall()[0][0]
@@ -30,11 +31,11 @@ def analysis(filename):
     print(inven)
 
 
-def get_sink_agentIds ():
+def get_sink_agentIds():
     """ Gets all sink agentIds from Agententry table.
 
         Agententry table has the following format:
-            SimId / AgentId / Kind / Spec / Prototype / ParentID / Lifetime / EnterTime   
+            SimId / AgentId / Kind / Spec / Prototype / ParentID / Lifetime / EnterTime
 
     Paramters
     ---------
@@ -55,7 +56,7 @@ def get_sink_agentIds ():
     return sink_id
 
 
-def get_waste_id (resource_array):
+def get_waste_id(resource_array):
     """ Gets waste id from a resource array
 
     Paramters
@@ -72,15 +73,15 @@ def get_waste_id (resource_array):
 
     wasteid = []
 
-    # get all the wasteid 
+    # get all the wasteid
     for res in resource_array:
         wasteid.append(res[7])
 
-    # make it a set 
+    # make it a set
     return set(wasteid)
 
 
-def exec_string (array, search, whatwant):
+def exec_string(array, search, whatwant):
     """ Generates sqlite query command for various purposes.
 
     Parmaters
@@ -101,19 +102,20 @@ def exec_string (array, search, whatwant):
 
     exec_str = 'select ' + whatwant + ' from resources inner join transactions\
                 on transactions.resourceid = resources.resourceid where ' + str(search) + ' = ' + str(array[0])
+
     for ar in array[1:]:
         exec_str += ' or ' + str(ar)
 
     return exec_str
 
 
-def isotope_calc (wasteid_array,snf_inventory):
+def isotope_calc(wasteid_array, snf_inventory):
     """ Calculates isotope mass using mass fraction in compositions table.
-            
+
             Fetches all from compositions table.
             Compositions table has the following format:
                 SimId / QualId / NucId / MassFrac
-            Then sees if the qualid matches, and if it does 
+            Then sees if the qualid matches, and if it does
 
     Prameters
     ---------
@@ -130,7 +132,7 @@ def isotope_calc (wasteid_array,snf_inventory):
     # Get compositions of different commodities
     # SimId / QualId / NucId / MassFrac
     comp = cur.execute('select * from compositions').fetchall()
-    
+
     nuclide_inven = ""
     # if the 'qualid's match, the nuclide quantity and calculated and displayed.
     for isotope in comp:
