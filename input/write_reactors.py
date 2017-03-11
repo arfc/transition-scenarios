@@ -5,7 +5,7 @@ import os
 
 # tells command format if input is invalid
 if len(sys.argv) < 6:
-    print('Usage: python write_reactors.py [csv] [reactor_template] [region_template]\
+    print('Usage: python write_reactors.py [csv] [reactor_template] [deployinst_template]\
         [input_template] [reactor_output] [region_output]')
 
 
@@ -42,14 +42,82 @@ def read_csv(csv_file):
 
     """
 
-    reactor_lists = np.genfromtxt(csv_file,
+    reactor_lists = np.genfromtxt(csv_file, skip_header = 1,
                                   delimiter=',',
-                                  dtype=('S128', 'S128', 'int', 'int', 'int'),
-                                  names=('country', 'reactor_name', 'capacity',
-                                         'n_assem_core', 'n_assem_batch'))
+                                  dtype=('S128', 'S128', 'S128', 'int', 
+                                         'int', 'int', 'S128',
+                                         'S128', 'int', 'int', 'int',
+                                         'int', 'int', 'int',
+                                         'int', 'int', 'float'),
+                                  names=('country', 'reactor_name', 'type', 'capacity',
+                                         'n_assem_core', 'n_assem_batch','status',
+                                         'operator', 'const_date', 'cons_year', 'first_crit',
+                                         'entry_time', 'lifetime', 'first_grid',
+                                         'commercial', 'shutdown_date', 'ucf'))
 
     return reactor_lists
 
+
+def convert_dates(init_date, start_date, end_date):
+    """This function converts the date format and saves it in variables.
+
+        All dates are in format - yyyymmdd
+
+    Prameters
+    ---------
+    init_date: int
+        start date of simulation
+    start_date: int
+        start date of reactor - first criticality.
+    end_date: int
+        end date of reactor - null if not listed or unknown
+
+    Returns
+    -------
+    entry_time: int
+        timestep of the prototype to enter
+    lifetime: int
+        timestep of the duration of the prototype
+
+    """
+
+    init_year = init_date // 10000
+    init_month = (init_date // 100) % 100
+
+    start_year = start_date // 10000
+    start_month = (start_date // 100) % 100
+    
+    dyear = start_year-init_year
+    dmonth = start_month - init_month
+    if dmonth<0:
+        dyear -= 1
+        start_month += 12
+    dmonth = start_month - init_month
+
+    entry_time = 12 * dyear + dmonth
+
+    if end_date != -1:
+        end_year = end_date // 10000
+        end_month = (end_date // 100) % 100
+        dyear = end_year - start_year
+        dmonth = end_month - start_month
+        if dmonth<0:
+            dyear -= 1
+            start_month += 12
+        dmonth = end_month - start_month
+
+        lifetime = 12 * dyear + dmonth
+    else:
+        lifetime = 720
+
+    if entry_time < 0:
+        lifetime = lifetime + entry_time
+        if lifetime < 0:
+            lifetime = 0
+        entry_time = 0
+    
+    return entry_time, lifetime
+    
 
 def read_template(template):
     """ Returns a jinja template
@@ -91,6 +159,7 @@ def reactor_render(array, template, output_file):
     The reactor section of cyclus input file
 
     """
+
     for data in array:
         reactor_body = \
                        template.render(country=data['country'].decode('utf-8'),
@@ -152,27 +221,45 @@ def region_render(array, template, full_template, output_file):
 
     """
 
-    # list of countries
     country_list = []
 
-    # create array of countries and create files for each country.
+    valhead = '<val>'
+    valtail = '</val>'
+
+    # creates list of countries and turns it into a set
     for data in array:
         country_list.append(data['country'].decode('utf-8'))
-        region_body = \
-            template.render(reactor_name=data['reactor_name'].decode('utf-8'))
-        with open(data['country'].decode('utf-8'), 'a') as output:
-            output.write(region_body)
-
-    # add all the separate region files together, with proper region format
     country_set = set(country_list)
-    for country in country_set:
 
+    for country in country_set:
+        prototype = ''
+        entry_time = ''
+        number = ''
+        lifetime = ''
+
+        for data in array:
+            if data['country'].decode('utf-8') == country:
+                prototype += valhead + data['reactor_name'].decode('utf-8') +valtail + '\n'
+                entry_time += valhead + str(data['entry_time']) +valtail + '\n'
+                number += valhead + '1' + valtail +'\n'
+                lifetime += valhead + str(data['lifetime']) +valtail + '\n'
+        
+        render_temp = template.render(prototype = prototype,
+                                      start_time = entry_time,
+                                      number = number,
+                                      lifetime = lifetime)
+        with open(country, 'a') as output:
+            output.write(render_temp)
+
+
+    # create array of countries and create files for each country.
+    for country in country_set:
         # jinja render region template for different countries
         with open(country, 'r') as ab:
             country_input = ab.read()
             country_body = full_template.render(country=country,
                                                 country_gov=country + '_government',
-                                                region_file=country_input)
+                                                deployinst = country_input)
 
         # write rendered template as 'country'_region
         with open(country + '_region', 'a') as output:
@@ -184,7 +271,7 @@ def region_render(array, template, full_template, output_file):
         os.system('rm ' + country + '_region')
 
 
-def main(csv_file, reactor_template, region_template,
+def main(csv_file, reactor_template, deployinst_template,
          input_template, reactor_output, region_output):
     """ Generates cyclus input file from csv files and jinja templates.
 
@@ -194,8 +281,8 @@ def main(csv_file, reactor_template, region_template,
         csv file containing reactor data (country, name, capacity)
     reactor_template: str
         template file for reactor section of input file
-    region_template: str
-        template file for region section of input file
+    deployinst_template: str
+        template file for deployinst section of input file
     input_template: str
         template file for entire complete cyclus input file
     reactor_output: str
@@ -216,16 +303,24 @@ def main(csv_file, reactor_template, region_template,
     delete_file(reactor_output)
     delete_file(region_output)
 
+    #initialize initial values form (yyyymmdd)
+    init_date = 20000101
+
+
     # read csv and templates
     dataset = read_csv(csv_file)
     input_template = read_template(input_template)
     reactor_template = read_template(reactor_template)
-    region_template = read_template(region_template)
     region_output_template = read_template('region_output_template.xml.in')
+    deployinst_template = read_template('deployinst_template.xml.in')
 
+    for data in dataset:
+        entry_time, lifetime = convert_dates(init_date, data['first_crit'], data['shutdown_date'])
+        data['entry_time'] = entry_time
+        data['lifetime'] = lifetime       
     # renders reactor / region / input file. Confesses imperfection.
     reactor_render(dataset, reactor_template, reactor_output)
-    region_render(dataset, region_template, region_output_template, region_output)
+    region_render(dataset, deployinst_template, region_output_template, region_output)
     input_render(reactor_output, region_output, input_template, 'complete_input.xml')
     print('\n Insert sink and source into the regions - updates to come! :) \n ')
 
