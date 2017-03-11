@@ -1,0 +1,12 @@
+<prototypes>
+	{{ prototype }}
+</prototypes>
+<build_times>
+	{{ start_time }}
+</build_times>
+<n_bulid>
+	{{ number }}
+</n_bulid>
+<lifetimes>
+	{{ lifetime }}
+</lifetimes>
