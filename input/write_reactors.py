@@ -171,11 +171,13 @@ def reactor_render(array, template, output_file):
             output.write(reactor_body)
 
 
-def input_render(reactor_file, region_file, template, output_file):
+def input_render(init_date, reactor_file, region_file, template, output_file):
     """Creates total input file from region and reactor file
 
     Paramters
     ---------
+    init_date: int
+        date of desired start of simulation (format yyyymmdd)
     reactor_file: str
         jinja rendered reactor section of cyclus input file
     region_file: str
@@ -194,8 +196,11 @@ def input_render(reactor_file, region_file, template, output_file):
         reactor = fp.read()
     with open(region_file, 'r') as bae:
         region = bae.read()
+    startmonth = (init_date // 100) % 100
+    startyear = init_date // 10000
 
-    temp = template.render(reactor_input=reactor, region_input=region)
+    temp = template.render(startmonth = startmonth, startyear = startyear,
+                           reactor_input=reactor, region_input=region)
 
     with open(output_file, 'a') as output:
         output.write(temp)
@@ -321,7 +326,7 @@ def main(csv_file, reactor_template, deployinst_template,
     # renders reactor / region / input file. Confesses imperfection.
     reactor_render(dataset, reactor_template, reactor_output)
     region_render(dataset, deployinst_template, region_output_template, region_output)
-    input_render(reactor_output, region_output, input_template, 'complete_input.xml')
+    input_render(init_date, reactor_output, region_output, input_template, 'complete_input.xml')
     print('\n Insert sink and source into the regions - updates to come! :) \n ')
 
 
