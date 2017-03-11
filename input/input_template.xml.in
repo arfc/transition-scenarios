@@ -27,6 +27,10 @@
       <lib>agents</lib>
       <name>NullInst</name>
     </spec>
+    <spec>
+      <lib>cycamore</lib>
+      <name>DeployInst</name>
+    </spec>
   </archetypes>
 
   <facility>
