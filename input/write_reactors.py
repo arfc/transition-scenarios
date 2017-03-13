@@ -227,6 +227,7 @@ def region_render(array, template, full_template, output_file):
     """
 
     country_list = []
+    empty_country =[]
 
     valhead = '<val>'
     valtail = '</val>'
@@ -243,19 +244,25 @@ def region_render(array, template, full_template, output_file):
         lifetime = ''
 
         for data in array:
-            if data['country'].decode('utf-8') == country:
+            if (data['country'].decode('utf-8') == country and data['entry_time'] != 0):
                 prototype += valhead + data['reactor_name'].decode('utf-8') +valtail + '\n'
                 entry_time += valhead + str(data['entry_time']) +valtail + '\n'
                 number += valhead + '1' + valtail +'\n'
                 lifetime += valhead + str(data['lifetime']) +valtail + '\n'
-        
+     
         render_temp = template.render(prototype = prototype,
                                       start_time = entry_time,
                                       number = number,
                                       lifetime = lifetime)
-        with open(country, 'a') as output:
-            output.write(render_temp)
+        if len(render_temp) > 110:
+            with open(country, 'a') as output:
+                output.write(render_temp)
+        else:
+            empty_country.append(country)
 
+    for country in empty_country:
+        country_set.remove(country)
+       
 
     # create array of countries and create files for each country.
     for country in country_set:
@@ -309,7 +316,7 @@ def main(csv_file, reactor_template, deployinst_template,
     delete_file(region_output)
 
     #initialize initial values form (yyyymmdd)
-    init_date = 20000101
+    init_date = 19400101
 
 
     # read csv and templates
