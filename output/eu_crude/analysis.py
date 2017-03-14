@@ -2,13 +2,12 @@ import sqlite3 as lite
 import sys
 from pyne import nucname
 
-# tells command format if input is invalid
 if len(sys.argv) < 2:
     print('Usage: python analysis.py [cylus_output_file]')
 
 
 def snf(filename):
-    """ does simple analysis of cyclus input file.
+    """ prints total snf and isotope mass
 
     Parameters
     ----------
