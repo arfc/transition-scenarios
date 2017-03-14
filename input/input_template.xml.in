@@ -2,8 +2,8 @@
 <simulation>
   <control>
     <duration>600</duration>
-    <startmonth> {{startmonth}} </startmonth>
-    <startyear> {{startyear}} </startyear>
+    <startmonth>{{ startmonth}} </startmonth>
+    <startyear>{{ startyear}} </startyear>
   </control>
 
   <archetypes>
