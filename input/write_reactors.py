@@ -156,12 +156,6 @@ def get_entrytime(init_date, start_date):
 
     entry_time = 12 * dyear + dmonth
 
-    if entry_time < 0:
-        lifetime = lifetime + entry_time
-        if lifetime < 0:
-            lifetime = 0
-        entry_time = 0
-
     return entry_time
 
 
@@ -242,8 +236,8 @@ def input_render(init_date, reactor_file, region_file, template, output_file):
         reactor = fp.read()
     with open(region_file, 'r') as bae:
         region = bae.read()
-    startmonth = (init_date // 100) % 100
-    startyear = init_date // 10000
+
+    startyear,startmonth = get_ymd(init_date)
 
     temp = template.render(startmonth=startmonth, startyear=startyear,
                            reactor_input=reactor, region_input=region)
@@ -290,8 +284,7 @@ def region_render(array, template, full_template, output_file):
         lifetime = ''
 
         for data in array:
-            if (data['country'].decode('utf-8') == country and
-                    data['entry_time'] != 0):
+            if data['country'].decode('utf-8') == country:
 
                 prototype += (valhead
                               + data['reactor_name'].decode('utf-8')
@@ -305,7 +298,7 @@ def region_render(array, template, full_template, output_file):
                                       start_time=entry_time,
                                       number=number,
                                       lifetime=lifetime)
-        if len(render_temp) > 110:
+        if len(render_temp) > 100:
             with open(country, 'a') as output:
                 output.write(render_temp)
         else:
@@ -367,7 +360,7 @@ def main(csv_file, reactor_template, deployinst_template,
     delete_file(region_output)
 
     # initialize initial values form (yyyymmdd)
-    init_date = 19400101
+    init_date = 19750101
 
     # read csv and templates
     dataset = read_csv(csv_file)
@@ -379,6 +372,12 @@ def main(csv_file, reactor_template, deployinst_template,
     for data in dataset:
         entry_time = get_entrytime(init_date, data['first_crit'])
         lifetime = get_lifetime(data['first_crit'], data['shutdown_date'])
+        if entry_time < 0:
+            lifetime = lifetime + entry_time
+            if lifetime < 0:
+                lifetime = 0
+            entry_time = 1
+
         data['entry_time'] = entry_time
         data['lifetime'] = lifetime
     # renders reactor / region / input file. Confesses imperfection.
