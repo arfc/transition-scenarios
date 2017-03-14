@@ -291,12 +291,13 @@ def region_render(array, template, full_template, output_file):
 
         for data in array:
             if (data['country'].decode('utf-8') == country and
-                data['entry_time'] != 0):
-                prototype += valhead
-                             + data['reactor_name'].decode('utf-8')
-                             + valtail + '\n'
-                entry_time += valhead
-                              + str(data['entry_time']) + valtail + '\n'
+                    data['entry_time'] != 0):
+
+                prototype += (valhead
+                              + data['reactor_name'].decode('utf-8')
+                              + valtail + '\n')
+                entry_time += (valhead
+                               + str(data['entry_time']) + valtail + '\n')
                 number += valhead + '1' + valtail + '\n'
                 lifetime += valhead + str(data['lifetime']) + valtail + '\n'
 
@@ -319,8 +320,8 @@ def region_render(array, template, full_template, output_file):
             country_input = ab.read()
             country_body = full_template.render(
                                                 country=country,
-                                                country_gov=country
-                                                            + '_government',
+                                                country_gov=(country
+                                                             + '_government'),
                                                 deployinst=country_input)
 
         # write rendered template as 'country'_region
