@@ -57,8 +57,64 @@ def read_csv(csv_file):
 
     return reactor_lists
 
+def get_ymd(yyyymmdd):
+    """This function extracts year and month value from yyyymmdd format
+        
+        The month value is rounded up if the day is above 16
 
-def convert_dates(init_date, start_date, end_date):
+    Prameters
+    ---------
+    yyyymmdd: int
+        date in yyyymmdd format
+
+    Returns
+    -------
+    year: int
+        year
+    month: int
+        month
+    """
+
+    year = yyyymmdd // 10000
+    month = (yyyymmdd // 100) % 100
+    day = yyyymmdd % 10000
+    if day > 16:
+        month += 1
+    return (year, month)
+
+def get_lifetime(start_date, end_date):
+    """This function gets the lifetime for a prototype given the
+       start and end date.
+
+    Prameters
+    ---------
+    start_date: int
+        start date of reactor - first criticality.
+    end_date: int
+        end date of reactor - null if not listed or unknown
+
+    Returns
+    -------
+    lifetime: int
+        lifetime of the prototype in months
+
+    """
+
+    if end_date != -1:
+        end_year, end_month = get_ymd(end_date)
+        start_year, start_month = get_ymd(start_date)
+        dyear = end_year - start_year
+        dmonth = end_month - start_month
+        if dmonth<0:
+            dyear -= 1
+            start_month += 12
+        dmonth = end_month - start_month
+
+        return (12 * dyear + dmonth)
+    else:
+        return 720
+
+def get_entrytime(init_date, start_date):
     """This function converts the date format and saves it in variables.
 
         All dates are in format - yyyymmdd
@@ -69,23 +125,16 @@ def convert_dates(init_date, start_date, end_date):
         start date of simulation
     start_date: int
         start date of reactor - first criticality.
-    end_date: int
-        end date of reactor - null if not listed or unknown
-
+    
     Returns
     -------
     entry_time: int
         timestep of the prototype to enter
-    lifetime: int
-        timestep of the duration of the prototype
-
+    
     """
 
-    init_year = init_date // 10000
-    init_month = (init_date // 100) % 100
-
-    start_year = start_date // 10000
-    start_month = (start_date // 100) % 100
+    init_year, init_month = get_ymd(init_date)
+    start_year, start_month = get_ymd(start_date)
     
     dyear = start_year-init_year
     dmonth = start_month - init_month
@@ -96,27 +145,13 @@ def convert_dates(init_date, start_date, end_date):
 
     entry_time = 12 * dyear + dmonth
 
-    if end_date != -1:
-        end_year = end_date // 10000
-        end_month = (end_date // 100) % 100
-        dyear = end_year - start_year
-        dmonth = end_month - start_month
-        if dmonth<0:
-            dyear -= 1
-            start_month += 12
-        dmonth = end_month - start_month
-
-        lifetime = 12 * dyear + dmonth
-    else:
-        lifetime = 720
-
     if entry_time < 0:
         lifetime = lifetime + entry_time
         if lifetime < 0:
             lifetime = 0
         entry_time = 0
     
-    return entry_time, lifetime
+    return entry_time
     
 
 def read_template(template):
@@ -204,7 +239,6 @@ def input_render(init_date, reactor_file, region_file, template, output_file):
 
     with open(output_file, 'a') as output:
         output.write(temp)
-
 
 def region_render(array, template, full_template, output_file):
     """Takes the array and template and writes a region file
@@ -327,7 +361,8 @@ def main(csv_file, reactor_template, deployinst_template,
     deployinst_template = read_template('deployinst_template.xml.in')
 
     for data in dataset:
-        entry_time, lifetime = convert_dates(init_date, data['first_crit'], data['shutdown_date'])
+        entry_time = get_entrytime(init_date, data['first_crit'])
+        lifetime = get_lifetime(data['first_crit'], data['shutdown_date'])
         data['entry_time'] = entry_time
         data['lifetime'] = lifetime       
     # renders reactor / region / input file. Confesses imperfection.
