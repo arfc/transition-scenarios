@@ -1,6 +1,8 @@
 import sqlite3 as lite
 import sys
 from pyne import nucname
+import numpy as np
+import matplotlib.pyplot as plt
 
 if len(sys.argv) < 2:
     print('Usage: python analysis.py [cylus_output_file]')
@@ -72,6 +74,48 @@ def get_waste_id(resource_array):
         wasteid.append(res[7])
 
     return set(wasteid)
+
+def get_power(filename):
+    """ Gets capacity vs time
+
+    Parameters
+    ----------
+    filename: file
+        cyclus output file used
+
+    Returns
+    -------
+    plot of net capapcity vs time
+
+    """
+
+    sim_time = int(cur.execute('select endtime from finish').fetchone()[0]) + 1
+    timestep = np.linspace(0, sim_time, num=sim_time)
+    powercap = []
+    # get power cap values
+    capacity = cur.execute('select power_cap, simtime, discharged\
+                           from agentstate_cycamore_reactorinfo').fetchall()
+    cap = 0
+    for num in timestep:
+        for agent in capacity:
+            if agent[1] == num:
+                if agent[2] == 0:
+                    cap += agent[0]
+                if agent[2] == 1:
+                    cap -= agent[0]
+        powercap.append(cap)
+
+    plot = plt.plot(timestep, powercap)
+    plt.ylabel('net capacity [MWe]')
+    plt.xlabel('timestep [months]')
+    plt.title('Net Capacity vs Timestep')
+    plt.show()
+
+    #for agent in capacity:
+    #    print(agent)
+
+    # if discharged = 0, add the values
+    # vs simtime
 
 
 def exec_string(array, search, whatwant):
@@ -149,3 +193,4 @@ if __name__ == "__main__":
     with con:
         cur = con.cursor()
         print(snf(file))
+        get_power(file)
