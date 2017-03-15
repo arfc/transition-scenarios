@@ -83,7 +83,7 @@ def get_ymd(yyyymmdd):
     month: int
         month
     """
-
+    
     year = yyyymmdd // 10000
     month = (yyyymmdd // 100) % 100
     day = yyyymmdd % 10000
@@ -372,7 +372,7 @@ def main(csv_file, reactor_template, deployinst_template,
     for data in dataset:
         entry_time = get_entrytime(init_date, data['first_crit'])
         lifetime = get_lifetime(data['first_crit'], data['shutdown_date'])
-        if entry_time < 0:
+        if entry_time <= 0:
             lifetime = lifetime + entry_time
             if lifetime < 0:
                 lifetime = 0
