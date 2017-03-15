@@ -90,24 +90,44 @@ def get_power(filename):
     """
 
     sim_time = int(cur.execute('select endtime from finish').fetchone()[0]) + 1
-    timestep = np.linspace(0, sim_time, num=sim_time)
+    timestep = np.linspace(0, sim_time, num=sim_time + 1)
     powercap = []
+    reactor_num = []
     # get power cap values
-    capacity = cur.execute('select power_cap, simtime, discharged\
-                           from agentstate_cycamore_reactorinfo').fetchall()
-    cap = 0
-    for num in timestep:
-        for agent in capacity:
-            if agent[1] == num:
-                if agent[2] == 0:
-                    cap += agent[0]
-                if agent[2] == 1:
-                    cap -= agent[0]
-        powercap.append(cap)
+    entry = cur.execute('sELECT power_cap, entertime\
+                        FROM agententry INNER JOIN\
+                        agentstate_cycamore_reactorinfo\
+                        ON agententry.agentid =\
+                        agentstate_cycamore_reactorinfo.agentid').fetchall()
 
-    plot = plt.plot(timestep, powercap)
-    plt.ylabel('net capacity [MWe]')
-    plt.xlabel('timestep [months]')
+    exit = cur.execute('sELECT power_cap, exittime\
+                        FROM agentexit INNER JOIN\
+                        agentstate_cycamore_reactorinfo\
+                        ON agentexit.agentid =\
+                        agentstate_cycamore_reactorinfo.agentid').fetchall()
+    cap = 0
+    count= 0
+    for num in timestep:
+        for enter in entry: 
+            if enter[1] == num:
+                cap += enter[0]
+                count += 1
+        for dec in exit:
+            if dec[1] == num:
+                cap -= dec[0]
+                count -= 1
+        powercap.append(cap)
+        reactor_num.append(count)
+
+    fig = plt.figure()
+    ax1 = fig.add_subplot(111)
+    ax1.bar( 1950+(timestep/12), powercap, .5, color='green')
+    ax1.set_ylabel('net capacity', color='g')
+
+    ax2 = ax1.twinx()
+    ax2.plot( 1950+(timestep/12), reactor_num, 'bs', label='num_reactors')
+    ax2.set_ylabel('num_reactors', color='b')
+    
     plt.title('Net Capacity vs Timestep')
     plt.show()
 
