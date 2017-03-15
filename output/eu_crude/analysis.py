@@ -90,19 +90,24 @@ def get_power(filename):
     """
 
     sim_time = int(cur.execute('select endtime from finish').fetchone()[0]) + 1
-    timestep = np.linspace(0, sim_time, num=sim_time)
+    timestep = np.linspace(0, sim_time, num=sim_time+1)
     powercap = []
     # get power cap values
-    capacity = cur.execute('select power_cap, simtime, discharged\
-                           from agentstate_cycamore_reactorinfo').fetchall()
+    capacity = cur.execute('sELECT power_cap, entertime, exittime\
+                           FROM agententry INNER JOIN agentexit\
+                           ON agententry.agentid = agentexit.agentid\
+                           INNER JOIN\
+                           agentstate_cycamore_reactorinfo ON\
+                           agentstate_cycamore_reactorinfo.agentid =\
+                           agententry.agentid').fetchall()
+
     cap = 0
     for num in timestep:
         for agent in capacity:
             if agent[1] == num:
-                if agent[2] == 0:
-                    cap += agent[0]
-                if agent[2] == 1:
-                    cap -= agent[0]
+                cap += agent[0]
+            if agent[2] == num:
+                cap -= agent[0]
         powercap.append(cap)
 
     plot = plt.plot(timestep, powercap)
