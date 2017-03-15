@@ -94,6 +94,7 @@ def get_power(filename):
     powercap = []
     reactor_num = []
     # get power cap values
+
     entry = cur.execute('sELECT power_cap, entertime\
                         FROM agententry INNER JOIN\
                         agentstate_cycamore_reactorinfo\
@@ -105,6 +106,7 @@ def get_power(filename):
                         agentstate_cycamore_reactorinfo\
                         ON agentexit.agentid =\
                         agentstate_cycamore_reactorinfo.agentid').fetchall()
+
     cap = 0
     count= 0
     for num in timestep:
