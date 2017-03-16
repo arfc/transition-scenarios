@@ -360,7 +360,7 @@ def main(csv_file, reactor_template, deployinst_template,
     delete_file(region_output)
 
     # initialize initial values form (yyyymmdd)
-    init_date = 19750101
+    init_date = 19500101
 
     # read csv and templates
     dataset = read_csv(csv_file)
