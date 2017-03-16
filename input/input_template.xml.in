@@ -1,7 +1,7 @@
 
 <simulation>
   <control>
-    <duration>600</duration>
+    <duration>840</duration>
     <startmonth>{{ startmonth}} </startmonth>
     <startyear>{{ startyear}} </startyear>
   </control>
