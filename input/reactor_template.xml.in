@@ -10,7 +10,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>{{assem_size}}</assem_size>
         <n_assem_core>{{ n_assem_core}}</n_assem_core>
         <n_assem_batch>{{n_assem_batch}}</n_assem_batch>
         <power_cap>{{capacity}}</power_cap>
