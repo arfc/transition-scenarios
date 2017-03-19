@@ -3,6 +3,7 @@ import sys
 from pyne import nucname
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib
 
 if len(sys.argv) < 2:
     print('Usage: python analysis.py [cylus_output_file]')
@@ -86,6 +87,8 @@ def get_power(filename):
     Returns
     -------
     plot of net capapcity vs time
+    and
+    plot of number of reactors vs time
 
     """
 
@@ -93,51 +96,86 @@ def get_power(filename):
     timestep = np.linspace(0, sim_time, num=sim_time + 1)
     powercap = []
     reactor_num = []
+    countries = []
     # get power cap values
 
-    entry = cur.execute('sELECT power_cap, entertime\
+    governments = cur.execute('sELECT prototype, agentid FROM agententry\
+                              WHERE kind = "Inst"').fetchall()
+
+    entry = cur.execute('sELECT power_cap, agententry.agentid, parentid, entertime\
                         FROM agententry INNER JOIN\
                         agentstate_cycamore_reactorinfo\
                         ON agententry.agentid =\
                         agentstate_cycamore_reactorinfo.agentid').fetchall()
 
-    exit = cur.execute('sELECT power_cap, exittime\
+    exit = cur.execute('sELECT power_cap, agentexit.agentid, parentid, exittime\
                         FROM agentexit INNER JOIN\
                         agentstate_cycamore_reactorinfo\
                         ON agentexit.agentid =\
-                        agentstate_cycamore_reactorinfo.agentid').fetchall()
+                        agentstate_cycamore_reactorinfo.agentid\
+                        INNER JOIN agententry\
+                        ON agentexit.agentid = agententry.agentid').fetchall()
 
-    cap = 0
-    count= 0
-    for num in timestep:
-        for enter in entry: 
-            if enter[1] == num:
-                cap += enter[0]
-                count += 1
-        for dec in exit:
-            if dec[1] == num:
-                cap -= dec[0]
-                count -= 1
-        powercap.append(cap)
-        reactor_num.append(count)
+    # create empty array for each country_government -> why is this not working
+    for gov in governments:
+        exec(gov[0] + '_power = []',globals())
+        exec(gov[0] + '_num = []', globals())
+        countries.append(gov[0])
 
-    fig = plt.figure()
-    ax1 = fig.add_subplot(111)
-    ax1.bar( 1950+(timestep/12), powercap, .5, color='green')
-    ax1.set_ylabel('net capacity', color='g')
+    for gov in governments:
+        cap = 0
+        count = 0
+        for num in timestep:
+            for enter in entry:
+                if enter[3] == num and enter[2] == gov[1]:
+                    cap += enter[0]
+                    count += 1
+            for dec in exit:
+                if dec[3] == num and dec[2] == gov[1]:
+                    cap -= dec[0]
+                    count -= 1
+            exec(gov[0] + '_power.append(cap)')
+            exec(gov[0] + '_num.append(count)') 
 
-    ax2 = ax1.twinx()
-    ax2.plot( 1950+(timestep/12), reactor_num, 'bs', label='num_reactors')
-    ax2.set_ylabel('num_reactors', color='b')
+    # import colors from a dictionary
+    colores = []
+    for hex in matplotlib.colors.cnames.items():
+        colores.append(hex[1])
+
+    # set different colors for each bar
+    index=0
+
+    # plot string for the legend
+    plot_string = 'plt.legend(('
+
+    # for every country, create bar chart with different color
+    for gov in governments:
+        color = colores[index]
+        exec(gov[0] + '_plot = plt.bar( 1950+(timestep/12), ' + gov[0] + '_power, .5, color = color, edgecolor = "none")')
+        plot_string += gov[0] + '_plot,'
+        index += 1
+
+
+    plot_string = plot_string[:-1]
+    plot_string += '), ('
+    for gov in governments:
+        plot_string += "'" + gov[0] + "', "
+    plot_string = plot_string[:-1]
+    plot_string += '))'
+    print(plot_string)
+
+    # generate string for exec of plt.lengend
     
-    plt.title('Net Capacity vs Timestep')
+    plt.ylabel('Net Installed Capacity')
+    plt.title('Capacity of EU Reactors vs Time')
+    exec(plot_string)
     plt.show()
 
-    #for agent in capacity:
-    #    print(agent)
 
-    # if discharged = 0, add the values
-    # vs simtime
+def time_vs_waste(filename):
+    """ Generates time vs waste 
+    """
+
 
 
 def exec_string(array, search, whatwant):
