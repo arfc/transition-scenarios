@@ -34,7 +34,8 @@ def get_sink_agent_ids():
     """ Gets all sink agentIds from Agententry table.
 
         agententry table has the following format:
-            SimId / AgentId / Kind / Spec / Prototype / ParentID / Lifetime / EnterTime
+            SimId / AgentId / Kind / Spec /
+            Prototype / ParentID / Lifetime / EnterTime
 
     Parameters
     ---------
@@ -76,8 +77,29 @@ def get_waste_id(resource_array):
 
     return set(wasteid)
 
+
+def get_colors():
+    """ Gets colors from a matplotlib dictionary
+
+    Parameters
+    ----------
+    None
+
+    Returns
+    -------
+    Colores: array
+        array of color hex codes
+    """
+
+    colores = []
+    for hex in matplotlib.colors.cnames.items():
+        colores.append(hex[1])
+    return colores
+
+
 def get_power(filename):
-    """ Gets capacity vs time
+    """ Gets capacity vs time for every country
+        in stacked bar chart.
 
     Parameters
     ----------
@@ -87,8 +109,6 @@ def get_power(filename):
     Returns
     -------
     plot of net capapcity vs time
-    and
-    plot of number of reactors vs time
 
     """
 
@@ -118,7 +138,7 @@ def get_power(filename):
 
     # create empty array for each country_government
     for gov in governments:
-        exec(gov[0] + '_power = []',globals())
+        exec(gov[0] + '_power = []', globals())
         exec(gov[0] + '_num = []', globals())
         countries.append(gov[0])
 
@@ -137,40 +157,45 @@ def get_power(filename):
                     cap -= dec[0]
                     count -= 1
             exec(gov[0] + '_power.append(cap)')
-            exec(gov[0] + '_num.append(count)') 
+            exec(gov[0] + '_num.append(count)')
 
-    # import colors from a dictionary
-    colores = []
-    for hex in matplotlib.colors.cnames.items():
-        colores.append(hex[1])
+    colores = get_colors()
 
     # set different colors for each bar
-    index=0
-    top_index=0
-    prev_govs=''
+    index = 0
+    top_index = 0
+    prev_govs = ''
 
     # plot string for the legend
     plot_string = 'plt.legend(('
 
     # convert power arrays to numpy arrays for stacking
     for gov in governments:
-        exec(gov[0] + '_power = np.asarray(' + gov[0] +'_power)')
+        exec(gov[0] + '_power = np.asarray(' + gov[0] + '_power)')
 
     # for every country, create bar chart with different color
     for gov in governments:
         color = colores[index]
+        # very first country does not have a 'bottom' argument
         if top_index == 0:
-            exec(gov[0] + '_plot = plt.bar( 1950+(timestep/12), ' + gov[0] + '_power, .5, color = color, edgecolor = "none")')
+            exec(
+                gov[0] + '_plot = plt.bar( 1950+(timestep/12), '
+                + gov[0] + '_power, .5, color = color,\
+                edgecolor = "none")'
+                )
             prev_govs = gov[0] + '_power'
-        elif top_index == 1:
-            exec(gov[0] + '_plot = plt.bar( 1950+(timestep/12), ' + gov[0] + '_power, .5, color = color, edgecolor = "none", bottom =' + prev_govs + ')')
-            prev_govs += '+ ' + gov[0] + '_power'
+        # from the second country has 'bottom' argument
         else:
-            exec(gov[0] + '_plot = plt.bar( 1950+(timestep/12), ' + gov[0] + '_power, .5, color = color, edgecolor = "none", bottom =' + prev_govs + ')')
-            prev_govs += '+ ' + gov[0] + '_power'  
+            exec(
+                gov[0] + '_plot = plt.bar( 1950+(timestep/12), '
+                + gov[0] + '_power, .5, color = color,\
+                edgecolor = "none", bottom =' + prev_govs + ')'
+                )
+            prev_govs += '+ ' + gov[0] + '_power'
+
         plot_string += gov[0] + '_plot,'
         index += 1
-        top_index += 1 
+        top_index += 1
 
     # generate string for exec of plt.lengend
     plot_string = plot_string[:-1]
@@ -180,7 +205,6 @@ def get_power(filename):
     plot_string = plot_string[:-2]
     plot_string += '))'
 
-    
     # plot
     plt.ylabel('Net Installed Capacity')
     plt.title('Capacity of EU Reactors vs Time')
@@ -190,13 +214,12 @@ def get_power(filename):
 
 
 def time_vs_waste(filename):
-    """ Generates time vs waste 
+    """ Generates time vs waste
     """
 
 
-
 def exec_string(array, search, whatwant):
-    """ Generates sqlite query command to select things an 
+    """ Generates sqlite query command to select things an
         inner join between resources and transactions.
 
     Parmaters
@@ -216,9 +239,10 @@ def exec_string(array, search, whatwant):
         sqlite query command.
     """
 
-    exec_str = 'select ' + whatwant + ' from resources inner join transactions\
-                on transactions.resourceid = resources.resourceid where ' + str(search) + ' = ' + str(array[0])
-
+    exec_str = ('select ' + whatwant + ' from resources inner join transactions\
+                on transactions.resourceid = resources.resourceid where '
+                + str(search) + ' = ' + str(array[0]))
+  
     for ar in array[1:]:
         exec_str += ' or ' + str(ar)
 
@@ -252,7 +276,8 @@ def isotope_calc(wasteid_array, snf_inventory):
     comp = cur.execute('select * from compositions').fetchall()
 
     nuclide_inven = ['total snf inventory = ' + str(snf_inventory) + 'kg']
-    # if the 'qualid's match, the nuclide quantity and calculated and displayed.
+    # if the 'qualid's match,
+    # the nuclide quantity and calculated and displayed.
     for isotope in comp:
         for num in wasteid_array:
             if num == isotope[1]:
