@@ -150,7 +150,99 @@ def empty_array_gen(array, suffix_array):
             exec(item[0] + suffix + ' = []',globals())
 
 
-def get_power(filename):
+def convert_to_numpy(array):
+    """ converts array_power array to numpy arrays
+
+    Parameters
+    ----------
+    array: array
+        array to be converted to numpy arrays
+
+    Returns
+    -------
+    all the array_power are converted to numpy arrays
+    """
+
+    for ar in array:
+        exec(ar[0] + '_power = np.asarray(' + ar[0] + '_power)')
+
+
+def stacked_bar_chart(array_sections, timestep, xlabel, ylabel, title):
+    """ Creates stacked bar chart of array_sections_power
+
+    Parameters
+    ----------
+    array_sections: array
+        array_power holds plot data (y axis)
+    timestep: array
+        array of timestep (x axis)
+    xlabel: string
+        xlabel of plot
+    ylabel: string
+        ylabel of plot
+    title: string
+        title of plot
+
+    Returns
+    -------
+    Stacked bar chart
+    """
+
+    # set different colors for each bar
+    index = 0
+    top_index = True
+    prev = ''
+    colors = get_colors()
+
+    # plot string for the legend
+    plot_string = 'plt.legend(('
+
+    # convert power arrays to numpy arrays for stacking
+    for ar in array_sections:
+        exec(ar[0] + '_power = np.asarray(' + ar[0] + '_power)')
+
+    # for every country, create bar chart with different color
+    for ar in array_sections:
+        color = colors[index]
+        # very first country does not have a 'bottom' argument
+        if top_index == True:
+            exec(
+                ar[0] + '_plot = plt.bar( 1950+(timestep/12), '
+                + ar[0] + '_power, .5, color = color,\
+                edgecolor = "none")'
+                )
+            prev = ar[0] + '_power'
+            top_index = False
+        # from the second country has 'bottom' argument
+        else:
+            exec(
+                ar[0] + '_plot = plt.bar( 1950+(timestep/12), '
+                + ar[0] + '_power, .5, color = color,\
+                edgecolor = "none", bottom =' + prev + ')'
+                )
+            prev += '+ ' + ar[0] + '_power'
+
+        plot_string += ar[0] + '_plot,'
+        index += 1
+
+    # generate string for exec of plt.lengend
+    plot_string = plot_string[:-1]
+    plot_string += '), ('
+    for ar in array_sections:
+        plot_string += "'" + ar[0] + "', "
+    plot_string = plot_string[:-2]
+    plot_string += '))'
+
+    # plot
+    plt.ylabel(ylabel)
+    plt.title(title)
+    plt.xlabel(xlabel)
+    exec(plot_string)
+    plt.grid(True)
+    plt.show()
+
+
+def plot_power(filename):
     """ Gets capacity vs time for every country
         in stacked bar chart.
 
@@ -161,7 +253,7 @@ def get_power(filename):
 
     Returns
     -------
-    plot of net capapcity vs time
+    stacked bar chart of net capapcity vs time
 
     """
 
@@ -194,58 +286,10 @@ def get_power(filename):
 
     capacity_calc(governments, timestep, entry, exit)
 
-    colors = get_colors()
+    convert_to_numpy(governments)
 
-    # set different colors for each bar
-    index = 0
-    top_index = 0
-    prev_govs = ''
-
-    # plot string for the legend
-    plot_string = 'plt.legend(('
-
-    # convert power arrays to numpy arrays for stacking
-    for gov in governments:
-        exec(gov[0] + '_power = np.asarray(' + gov[0] + '_power)')
-
-    # for every country, create bar chart with different color
-    for gov in governments:
-        color = colors[index]
-        # very first country does not have a 'bottom' argument
-        if top_index == 0:
-            exec(
-                gov[0] + '_plot = plt.bar( 1950+(timestep/12), '
-                + gov[0] + '_power, .5, color = color,\
-                edgecolor = "none")'
-                )
-            prev_govs = gov[0] + '_power'
-        # from the second country has 'bottom' argument
-        else:
-            exec(
-                gov[0] + '_plot = plt.bar( 1950+(timestep/12), '
-                + gov[0] + '_power, .5, color = color,\
-                edgecolor = "none", bottom =' + prev_govs + ')'
-                )
-            prev_govs += '+ ' + gov[0] + '_power'
-
-        plot_string += gov[0] + '_plot,'
-        index += 1
-        top_index += 1
-
-    # generate string for exec of plt.lengend
-    plot_string = plot_string[:-1]
-    plot_string += '), ('
-    for gov in governments:
-        plot_string += "'" + gov[0] + "', "
-    plot_string = plot_string[:-2]
-    plot_string += '))'
-
-    # plot
-    plt.ylabel('Net Installed Capacity')
-    plt.title('Capacity of EU Reactors vs Time')
-    exec(plot_string)
-    plt.grid(True)
-    plt.show()
+    stacked_bar_chart(governments, timestep, 'Time', 'net_capacity', 'Net Capacity in EU vs Time')
+    
 
 
 def time_vs_waste(filename):
@@ -330,4 +374,4 @@ if __name__ == "__main__":
     with con:
         cur = con.cursor()
         print(snf(file))
-        get_power(file)
+        plot_power(file)
