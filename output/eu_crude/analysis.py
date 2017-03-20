@@ -100,7 +100,7 @@ def get_power(filename):
     # get power cap values
 
     governments = cur.execute('sELECT prototype, agentid FROM agententry\
-                              WHERE kind = "Inst"').fetchall()
+                              WHERE spec = ":cycamore:DeployInst"').fetchall()
 
     entry = cur.execute('sELECT power_cap, agententry.agentid, parentid, entertime\
                         FROM agententry INNER JOIN\
@@ -116,12 +116,14 @@ def get_power(filename):
                         INNER JOIN agententry\
                         ON agentexit.agentid = agententry.agentid').fetchall()
 
-    # create empty array for each country_government -> why is this not working
+    # create empty array for each country_government
     for gov in governments:
         exec(gov[0] + '_power = []',globals())
         exec(gov[0] + '_num = []', globals())
         countries.append(gov[0])
 
+    # add and subtract capacity and num for every government
+    # for every timestep for every entry and exit
     for gov in governments:
         cap = 0
         count = 0
@@ -144,31 +146,46 @@ def get_power(filename):
 
     # set different colors for each bar
     index=0
+    top_index=0
+    prev_govs=''
 
     # plot string for the legend
     plot_string = 'plt.legend(('
 
+    # convert power arrays to numpy arrays for stacking
+    for gov in governments:
+        exec(gov[0] + '_power = np.asarray(' + gov[0] +'_power)')
+
     # for every country, create bar chart with different color
     for gov in governments:
         color = colores[index]
-        exec(gov[0] + '_plot = plt.bar( 1950+(timestep/12), ' + gov[0] + '_power, .5, color = color, edgecolor = "none")')
+        if top_index == 0:
+            exec(gov[0] + '_plot = plt.bar( 1950+(timestep/12), ' + gov[0] + '_power, .5, color = color, edgecolor = "none")')
+            prev_govs = gov[0] + '_power'
+        elif top_index == 1:
+            exec(gov[0] + '_plot = plt.bar( 1950+(timestep/12), ' + gov[0] + '_power, .5, color = color, edgecolor = "none", bottom =' + prev_govs + ')')
+            prev_govs += '+ ' + gov[0] + '_power'
+        else:
+            exec(gov[0] + '_plot = plt.bar( 1950+(timestep/12), ' + gov[0] + '_power, .5, color = color, edgecolor = "none", bottom =' + prev_govs + ')')
+            prev_govs += '+ ' + gov[0] + '_power'  
         plot_string += gov[0] + '_plot,'
         index += 1
+        top_index += 1 
 
-
+    # generate string for exec of plt.lengend
     plot_string = plot_string[:-1]
     plot_string += '), ('
     for gov in governments:
         plot_string += "'" + gov[0] + "', "
-    plot_string = plot_string[:-1]
+    plot_string = plot_string[:-2]
     plot_string += '))'
-    print(plot_string)
 
-    # generate string for exec of plt.lengend
     
+    # plot
     plt.ylabel('Net Installed Capacity')
     plt.title('Capacity of EU Reactors vs Time')
     exec(plot_string)
+    plt.grid(True)
     plt.show()
 
 
