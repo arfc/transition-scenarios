@@ -4,6 +4,7 @@ from pyne import nucname
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib
+import re
 
 if len(sys.argv) < 2:
     print('Usage: python analysis.py [cylus_output_file]')
@@ -226,6 +227,7 @@ def stacked_bar_chart(array_sections, timestep, xlabel, ylabel, title):
         index += 1
 
     # generate string for exec of plt.lengend
+    # plt.legend(government_plot, government)
     plot_string = plot_string[:-1]
     plot_string += '), ('
     for ar in array_sections:
