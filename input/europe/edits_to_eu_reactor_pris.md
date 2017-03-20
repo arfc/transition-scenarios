@@ -1,4 +1,4 @@
-Construction cancelled
+## Construction cancelled
 2013) Bulgaria BELENE-1 & BELENE-1 
 1991) Germany KALKAR
 1990) Germany GREIFSWALD-6 & 7 & 8
@@ -8,7 +8,7 @@ Construction cancelled
 1984) Spain LEMONIZ-1 & 2
 1984) Spain VALDECABALLEROS-1 & 2
 
-Construction Suspended
+## Construction Suspended
 Czechoslovakia TEMELIN-3 & 4
 Czechoslovakia MOCHOVCE-3 & 4
 Finland OLKILUOTO-3
@@ -24,37 +24,37 @@ listed as shutdown date. The entire entry is deleted.
 
 2.
 Germany KALKAR
-Was Cancelled construction. Plan killed in 1991
+Construction was cancelled. Plan killed in 1991
 listed as shutdown date. The entry entry is deleted.
 
 3.
 Germany GREIFSWALD-6 & 7 & 8
-Was Cancelled construction. Plan killed in 1990
+Construction was cancelled. Plan killed in 1990
 listed as shutdown date. The entry entry is deleted.
 
 4.
 Germany STENDAL-1 & 2
-Was Cancelled construction. Plan killed in 1991
+Construction was cancelled. Plan killed in 1991
 listed as shutdown date. The entry entry is deleted.
 
 5.
 Italy CIRENE & MONTIALTO DI CASTRO-1 & 2
-Was Cancelled construction. Plan killed in 1988
+Construction was cancelled. Plan killed in 1988
 listed as shutdown date. The entry entry is deleted.
 
 6.
 Poland ZARNOWIEC-1 & 2
-Was Cancelled construction. Plan killed in 1990
+Construction was cancelled. Plan killed in 1990
 listed as shutdown date. The entry entry is deleted.
 
 7.
 Spain LEMONIZ-1 & 2
-Was Cancelled construction. Plan killed in 1984
+Construction was cancelled. Plan killed in 1984
 listed as shutdown date. The entry entry is deleted.
 
 8.
 Spain VALDECABALLEROS-1 & 2
-Was Cancelled construction. Plan killed in 1984
+Construction was cancelled. Plan killed in 1984
 listed as shutdown date. The entry entry is deleted.
 
 9.
