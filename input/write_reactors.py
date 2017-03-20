@@ -237,7 +237,7 @@ def input_render(init_date, reactor_file, region_file, template, output_file):
     with open(region_file, 'r') as bae:
         region = bae.read()
 
-    startyear,startmonth = get_ymd(init_date)
+    startyear, startmonth = get_ymd(init_date)
 
     temp = template.render(startmonth=startmonth, startyear=startyear,
                            reactor_input=reactor, region_input=region)
