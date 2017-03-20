@@ -201,7 +201,8 @@ def reactor_render(array, template, output_file):
     for data in array:
         if data['type'].decode('utf-8') == 'BWR':
             reactor_body = \
-                           template.render(country=data['country'].decode('utf-8'),
+                           template.render(
+                                           country=data['country'].decode('utf-8'),
                                            reactor_name=data['reactor_name'].decode('utf-8'),
                                            assem_size=180,
                                            n_assem_core=int(round(data['capacity']/1000 * 764)),
@@ -210,12 +211,13 @@ def reactor_render(array, template, output_file):
         # if data['type'].decode('utf-8') == 'PWR':
         else:
             reactor_body = \
-                           template.render(country=data['country'].decode('utf-8'),
+                           template.render(
+                                           country=data['country'].decode('utf-8'),
                                            reactor_name=data['reactor_name'].decode('utf-8'),
                                            assem_size=523.4,
                                            n_assem_core=int(round(data['capacity']/1000 * 193)),
                                            n_assem_batch=int(round(data['capacity']/3000 * 193)),
-                                           capacity=data['capacity'])    
+                                           capacity=data['capacity'])
         with open(output_file, 'a') as output:
             output.write(reactor_body)
 
