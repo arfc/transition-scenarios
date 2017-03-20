@@ -26,7 +26,7 @@ Input : csv file, template for reactor input, template for region
 	      
     reator_template: input file name for jinja template for cyclus reactor input
     
-    region_template: input file name for jinja template for cyclus region input
+    deployinst_template: input file name for jinja template for cyclus region input
     
     input_template: input file template for a complete input file
     
@@ -41,7 +41,7 @@ simulation, and a complete input file ready for simulation.
     
 To run:
 
-	python write_reactors.py [csv_file] [reactor_template] [region_template]
+	python write_reactors.py [csv_file] [reactor_template] [deployinst_template]
 				 [input_template] [reactor_output] [region_output]
 
 
@@ -53,7 +53,7 @@ This is where the compiled reactor and region files will be rendered into.
 ### reactor_template.xml.in
 Jinja template for the reactor section of the cyclus input file.
 
-### region_template.xml.in
+### deployinst_template.xml.in
 Jinja template for the individual region prototype of the cyclus input file.
 
 ### region_output_template.xml.in
@@ -63,6 +63,8 @@ Grouped region prototypes will be rendered into this file.
 
 
 ## Europe Folder
+
+# eu.csv
 The eu.csv file lists all the nuclear reactors in europe.
 The data is from a [wikipedia page](https://en.wikipedia.org/wiki/List_of_nuclear_reactors)
 and is converted to a csv file using an
@@ -78,8 +80,30 @@ The csv file lists the following:
 * Commercial Operation Date
 * Closure (if applicable)
 
-The other csv files in the folder are trimmed-down versions
-for the write_reactors.py file.
+
+# eu_reactors_pris.csv
+The eu_reactors_pris.csv file lists all the nulear reactors in europe,
+but more in detail. The data is from [PRIS - IAEA](https://www.iaea.org/pris/)
+and is converted to as csv file.
+
+The csv file lists the following :
+* Country
+* Reactor Unit (name)
+* Type
+* Net Capacity (MWe)
+* Number of assembly / core
+* Number of assembly / batch
+* Status
+* Operator
+* Construction date
+* Construction year
+* First criticality date
+* Two empty columns for start / end date (for deployinst)
+* First grid date
+* Commercial date
+* Shutdown date
+* UCF (Unit Capacity Factor) for 2013 (in %)
+
 
 ## output folder
 The output folder contains analysis tools for cylcus output files.

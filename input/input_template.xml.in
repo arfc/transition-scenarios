@@ -1,9 +1,9 @@
 
 <simulation>
   <control>
-    <duration>600</duration>
-    <startmonth>1</startmonth>
-    <startyear>2017</startyear>
+    <duration>840</duration>
+    <startmonth>{{ startmonth}} </startmonth>
+    <startyear>{{ startyear}} </startyear>
   </control>
 
   <archetypes>
@@ -26,6 +26,10 @@
     <spec>
       <lib>agents</lib>
       <name>NullInst</name>
+    </spec>
+    <spec>
+      <lib>cycamore</lib>
+      <name>DeployInst</name>
     </spec>
   </archetypes>
 
