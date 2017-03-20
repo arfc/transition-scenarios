@@ -97,6 +97,59 @@ def get_colors():
     return colors
 
 
+def capacity_calc(governments, timestep, entry, exit):
+    """ Adds and subtracts capacity over time for plotting
+
+    Paramters
+    ---------
+    governments: array
+        array of governments (countries)
+    timestep: array
+        array of timestep from 0 to simulation time
+    entry: array
+        power_cap, agentid, parentid, entertime
+        of all entered reactors
+    exit: array
+        power_cap, agentid, parenitd, exittime
+        of all decommissioned reactors
+    """
+
+    for gov in governments:
+        cap = 0
+        count = 0
+        for num in timestep:
+            for enter in entry:
+                if enter[3] == num and enter[2] == gov[1]:
+                    cap += enter[0]
+                    count += 1
+            for dec in exit:
+                if dec[3] == num and dec[2] == gov[1]:
+                    cap -= dec[0]
+                    count -= 1
+            exec(gov[0] + '_power.append(cap)')
+            exec(gov[0] + '_num.append(count)')
+
+
+def empty_array_gen(array, suffix_array):
+    """ Creates empty arrays with the array + suffix
+
+    Parameters
+    ----------
+    array: array
+        array of items that needs to be created as empty arrays
+        only the first colum (index 0) is used.
+    suffix_array: array
+        array of suffixes
+
+    Returns
+    -------
+    Creates global variables of empty arrays
+    """
+    for item in array:
+        for suffix in suffix_array:
+            exec(item[0] + suffix + ' = []',globals())
+
+
 def get_power(filename):
     """ Gets capacity vs time for every country
         in stacked bar chart.
@@ -112,23 +165,23 @@ def get_power(filename):
 
     """
 
-    sim_time = int(cur.execute('select endtime from finish').fetchone()[0]) + 1
+    sim_time = int(cur.execute('SELECT endtime FROM finish').fetchone()[0]) + 1
     timestep = np.linspace(0, sim_time, num=sim_time + 1)
     powercap = []
     reactor_num = []
     countries = []
     # get power cap values
 
-    governments = cur.execute('sELECT prototype, agentid FROM agententry\
+    governments = cur.execute('SELECT prototype, agentid FROM agententry\
                               WHERE spec = ":cycamore:DeployInst"').fetchall()
 
-    entry = cur.execute('sELECT power_cap, agententry.agentid, parentid, entertime\
+    entry = cur.execute('SELECT power_cap, agententry.agentid, parentid, entertime\
                         FROM agententry INNER JOIN\
                         agentstate_cycamore_reactorinfo\
                         ON agententry.agentid =\
                         agentstate_cycamore_reactorinfo.agentid').fetchall()
 
-    exit = cur.execute('sELECT power_cap, agentexit.agentid, parentid, exittime\
+    exit = cur.execute('SELECT power_cap, agentexit.agentid, parentid, exittime\
                         FROM agentexit INNER JOIN\
                         agentstate_cycamore_reactorinfo\
                         ON agentexit.agentid =\
@@ -136,28 +189,10 @@ def get_power(filename):
                         INNER JOIN agententry\
                         ON agentexit.agentid = agententry.agentid').fetchall()
 
-    # create empty array for each country_government
-    for gov in governments:
-        exec(gov[0] + '_power = []', globals())
-        exec(gov[0] + '_num = []', globals())
-        countries.append(gov[0])
+    suffixes = ['_power', '_num']
+    empty_array_gen(governments, suffixes)
 
-    # add and subtract capacity and num for every government
-    # for every timestep for every entry and exit
-    for gov in governments:
-        cap = 0
-        count = 0
-        for num in timestep:
-            for enter in entry:
-                if enter[3] == num and enter[2] == gov[1]:
-                    cap += enter[0]
-                    count += 1
-            for dec in exit:
-                if dec[3] == num and dec[2] == gov[1]:
-                    cap -= dec[0]
-                    count -= 1
-            exec(gov[0] + '_power.append(cap)')
-            exec(gov[0] + '_num.append(count)')
+    capacity_calc(governments, timestep, entry, exit)
 
     colors = get_colors()
 
