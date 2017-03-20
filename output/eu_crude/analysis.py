@@ -87,14 +87,14 @@ def get_colors():
 
     Returns
     -------
-    Colores: array
+    Colors: array
         array of color hex codes
     """
 
-    colores = []
+    colors = []
     for hex in matplotlib.colors.cnames.items():
-        colores.append(hex[1])
-    return colores
+        colors.append(hex[1])
+    return colors
 
 
 def get_power(filename):
@@ -159,7 +159,7 @@ def get_power(filename):
             exec(gov[0] + '_power.append(cap)')
             exec(gov[0] + '_num.append(count)')
 
-    colores = get_colors()
+    colors = get_colors()
 
     # set different colors for each bar
     index = 0
@@ -175,7 +175,7 @@ def get_power(filename):
 
     # for every country, create bar chart with different color
     for gov in governments:
-        color = colores[index]
+        color = colors[index]
         # very first country does not have a 'bottom' argument
         if top_index == 0:
             exec(
