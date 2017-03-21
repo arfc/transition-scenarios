@@ -30,7 +30,7 @@ def delete_file(file):
 def read_csv(csv_file):
     """This function reads the csv file and returns the array.
 
-    Paramters
+    Parameters
     ---------
     csv_file: str
         csv file that lists country, reactor name,
@@ -48,7 +48,6 @@ def read_csv(csv_file):
                                   delimiter=',',
                                   dtype=('S128', 'S128',
                                          'S128', 'int',
-                                         'int', 'int',
                                          'S128', 'S128', 'int',
                                          'int', 'int',
                                          'int', 'int',
@@ -56,7 +55,6 @@ def read_csv(csv_file):
                                          'int', 'float'),
                                   names=('country', 'reactor_name',
                                          'type', 'capacity',
-                                         'n_assem_core', 'n_assem_batch',
                                          'status', 'operator', 'const_date',
                                          'cons_year', 'first_crit',
                                          'entry_time', 'lifetime',
@@ -162,7 +160,7 @@ def get_entrytime(init_date, start_date):
 def read_template(template):
     """ Returns a jinja template
 
-    Paramters
+    Parameters
     ---------
     template: str
         template file that is to be stored as variable.
@@ -185,7 +183,7 @@ def read_template(template):
 def reactor_render(array, template, output_file):
     """Takes the array and template and writes a reactor file
 
-    Paramters
+    Parameters
     ---------
     array: array
         array of data on reactors
@@ -201,12 +199,25 @@ def reactor_render(array, template, output_file):
     """
 
     for data in array:
-        reactor_body = \
-                       template.render(country=data['country'].decode('utf-8'),
-                                       reactor_name=data['reactor_name'].decode('utf-8'),
-                                       n_assem_core=data['n_assem_core'],
-                                       n_assem_batch=data['n_assem_batch'],
-                                       capacity=data['capacity'])
+        if data['type'].decode('utf-8') == 'BWR':
+            reactor_body = \
+                           template.render(
+                                           country=data['country'].decode('utf-8'),
+                                           reactor_name=data['reactor_name'].decode('utf-8'),
+                                           assem_size=180,
+                                           n_assem_core=int(round(data['capacity']/1000 * 764)),
+                                           n_assem_batch=int(round(data['capacity']/3000 * 764)),
+                                           capacity=data['capacity'])
+        # if data['type'].decode('utf-8') == 'PWR':
+        else:
+            reactor_body = \
+                           template.render(
+                                           country=data['country'].decode('utf-8'),
+                                           reactor_name=data['reactor_name'].decode('utf-8'),
+                                           assem_size=523.4,
+                                           n_assem_core=int(round(data['capacity']/1000 * 193)),
+                                           n_assem_batch=int(round(data['capacity']/3000 * 193)),
+                                           capacity=data['capacity'])
         with open(output_file, 'a') as output:
             output.write(reactor_body)
 
@@ -214,7 +225,7 @@ def reactor_render(array, template, output_file):
 def input_render(init_date, reactor_file, region_file, template, output_file):
     """Creates total input file from region and reactor file
 
-    Paramters
+    Parameters
     ---------
     init_date: int
         date of desired start of simulation (format yyyymmdd)
@@ -249,7 +260,7 @@ def input_render(init_date, reactor_file, region_file, template, output_file):
 def region_render(array, template, full_template, output_file):
     """Takes the array and template and writes a region file
 
-    Paramters
+    Parameters
     ---------
     array: array
         array of data on reactors
@@ -331,7 +342,7 @@ def main(csv_file, reactor_template, deployinst_template,
          input_template, reactor_output, region_output):
     """ Generates cyclus input file from csv files and jinja templates.
 
-    Paramters
+    Parameters
     ---------
     csv_file : str
         csv file containing reactor data (country, name, capacity)
@@ -360,7 +371,7 @@ def main(csv_file, reactor_template, deployinst_template,
     delete_file(region_output)
 
     # initialize initial values form (yyyymmdd)
-    init_date = 19750101
+    init_date = 19500101
 
     # read csv and templates
     dataset = read_csv(csv_file)
@@ -372,7 +383,7 @@ def main(csv_file, reactor_template, deployinst_template,
     for data in dataset:
         entry_time = get_entrytime(init_date, data['first_crit'])
         lifetime = get_lifetime(data['first_crit'], data['shutdown_date'])
-        if entry_time < 0:
+        if entry_time <= 0:
             lifetime = lifetime + entry_time
             if lifetime < 0:
                 lifetime = 0
