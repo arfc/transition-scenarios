@@ -24,8 +24,10 @@ def snf(filename):
     """
 
     sink_id = get_sink_agent_ids()
-    resources = cur.execute(exec_string(sink_id, 'transactions.receiverId', '*')).fetchall()
-    snf_inventory = cur.execute(exec_string(sink_id, 'transactions.receiverId', 'sum(quantity)')).fetchall()[0][0]
+    resources = cur.execute(exec_string(sink_id,
+                                        'transactions.receiverId', '*')).fetchall()
+    snf_inventory = cur.execute(exec_string(sink_id,
+                                            'transactions.receiverId', 'sum(quantity)')).fetchall()[0][0]
     waste_id = get_waste_id(resources)
     inven = isotope_calc(waste_id, snf_inventory)
     return inven
@@ -113,7 +115,7 @@ def capacity_calc(governments, timestep, entry, exit):
     exit: array
         power_cap, agentid, parenitd, exittime
         of all decommissioned reactors
-    
+
     Returns
     -------
     power_dict: dictionary
@@ -124,7 +126,7 @@ def capacity_calc(governments, timestep, entry, exit):
     power_dict = collections.OrderedDict({})
 
     for gov in governments:
-        temp=[]
+        temp = []
         cap = 0
         count = 0
         for num in timestep:
@@ -173,13 +175,17 @@ def stacked_bar_chart(dictionary, timestep, xlabel, ylabel, title):
     # for every country, create bar chart with different color
     for key in dictionary:
         # very first country does not have a 'bottom' argument
-        if top_index == True:
-            plot = plt.bar(1950+(timestep/12), dictionary[key], .5 ,color=cm.viridis(1.*color_index/len(dictionary)), edgecolor = 'none', label = key)
-            prev = dictionary[key] 
+        if top_index is True:
+            plot = plt.bar(1950+(timestep/12), dictionary[key], .5,
+                           color=cm.viridis(1.*color_index/len(dictionary)),
+                           edgecolor='none', label=key)
+            prev = dictionary[key]
             top_index = False
         # from the second country has 'bottom' argument
         else:
-            plot = plt.bar(1950 + (timestep/12), dictionary[key], .5, color=cm.viridis(1.*color_index/len(dictionary)), edgecolor = 'none', bottom = prev, label = key)
+            plot = plt.bar(1950 + (timestep/12), dictionary[key], .5,
+                           color=cm.viridis(1.*color_index/len(dictionary)),
+                           edgecolor='none', bottom=prev, label=key)
             prev += dictionary[key]
 
         plot_array.append(plot)
@@ -235,13 +241,9 @@ def plot_power(filename):
 
     power_dict = capacity_calc(governments, timestep, entry, exit)
 
-    stacked_bar_chart(power_dict, timestep, 'Time', 'net_capacity', 'Net Capacity in EU vs Time')
-    
-
-
-def time_vs_waste(filename):
-    """ Generates time vs waste
-    """
+    stacked_bar_chart(power_dict, timestep,
+                      'Time', 'net_capacity',
+                      'Net Capacity in EU vs Time')
 
 
 def exec_string(array, search, whatwant):
@@ -268,7 +270,7 @@ def exec_string(array, search, whatwant):
     exec_str = ('select ' + whatwant + ' from resources inner join transactions\
                 on transactions.resourceid = resources.resourceid where '
                 + str(search) + ' = ' + str(array[0]))
-  
+
     for ar in array[1:]:
         exec_str += ' or ' + str(ar)
 
