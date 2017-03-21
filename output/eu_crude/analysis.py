@@ -3,7 +3,7 @@ import sys
 from pyne import nucname
 import numpy as np
 import matplotlib.pyplot as plt
-import matplotlib
+from matplotlib import cm
 import collections
 
 if len(sys.argv) < 2:
@@ -121,7 +121,7 @@ def capacity_calc(governments, timestep, entry, exit):
     """
 
     temp = []
-    power_dict = {}
+    power_dict = collections.OrderedDict({})
 
     for gov in governments:
         temp=[]
@@ -140,44 +140,6 @@ def capacity_calc(governments, timestep, entry, exit):
         power_dict[gov[0]] = np.asarray(temp)
 
     return power_dict
-
-
-def get_list_countries(array):
-    """ Creates empty arrays with the array + suffix
-
-    Parameters
-    ----------
-    array: array
-        array of items that needs to be created as empty arrays
-        only the first colum (index 0) is used.
-
-    Returns
-    -------
-    countries: list
-        list of countries
-    """
-
-    countries =[]
-    for item in array:
-        countries.append(item)
-    return countries
-
-
-def convert_to_numpy(dictionary):
-    """ converts lists in dictionary to numpy arrays
-
-    Parameters
-    ----------
-    array: array
-        dictionary that has arrays that will be converted to numpy arrays
-
-    Returns
-    -------
-    all the array_power are converted to numpy arrays
-    """
-
-
-
 
 
 def stacked_bar_chart(dictionary, timestep, xlabel, ylabel, title):
@@ -205,20 +167,19 @@ def stacked_bar_chart(dictionary, timestep, xlabel, ylabel, title):
     color_index = 0
     top_index = True
     prev = ''
-    colors = get_colors()
     plot_array = []
+    print(len(dictionary))
 
     # for every country, create bar chart with different color
     for key in dictionary:
-        color = colors[color_index]
         # very first country does not have a 'bottom' argument
         if top_index == True:
-            plot = plt.bar(1950+(timestep/12), dictionary[key], .5, color = color, edgecolor = 'none', label = key)
+            plot = plt.bar(1950+(timestep/12), dictionary[key], .5 ,color=cm.viridis(1.*color_index/len(dictionary)), edgecolor = 'none', label = key)
             prev = dictionary[key] 
             top_index = False
         # from the second country has 'bottom' argument
         else:
-            plot = plt.bar(1950 + (timestep/12), dictionary[key], .5, color = color, edgecolor = 'none', bottom = prev, label = key)
+            plot = plt.bar(1950 + (timestep/12), dictionary[key], .5, color=cm.viridis(1.*color_index/len(dictionary)), edgecolor = 'none', bottom = prev, label = key)
             prev += dictionary[key]
 
         plot_array.append(plot)
@@ -272,11 +233,7 @@ def plot_power(filename):
                         INNER JOIN agententry\
                         ON agentexit.agentid = agententry.agentid').fetchall()
 
-    get_list_countries(governments)
-
     power_dict = capacity_calc(governments, timestep, entry, exit)
-
-    # power_dict = convert_to_numpy(power_dict)
 
     stacked_bar_chart(power_dict, timestep, 'Time', 'net_capacity', 'Net Capacity in EU vs Time')
     
