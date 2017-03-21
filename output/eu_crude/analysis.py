@@ -4,7 +4,7 @@ from pyne import nucname
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib
-import re
+import collections
 
 if len(sys.argv) < 2:
     print('Usage: python analysis.py [cylus_output_file]')
@@ -113,9 +113,18 @@ def capacity_calc(governments, timestep, entry, exit):
     exit: array
         power_cap, agentid, parenitd, exittime
         of all decommissioned reactors
+    
+    Returns
+    -------
+    power_dict: dictionary
+        dictionary of capacity progression with country_government as key
     """
 
+    temp = []
+    power_dict = {}
+
     for gov in governments:
+        temp=[]
         cap = 0
         count = 0
         for num in timestep:
@@ -127,11 +136,13 @@ def capacity_calc(governments, timestep, entry, exit):
                 if dec[3] == num and dec[2] == gov[1]:
                     cap -= dec[0]
                     count -= 1
-            exec(gov[0] + '_power.append(cap)')
-            exec(gov[0] + '_num.append(count)')
+            temp.append(cap)
+        power_dict[gov[0]] = np.asarray(temp)
+
+    return power_dict
 
 
-def empty_array_gen(array, suffix_array):
+def get_list_countries(array):
     """ Creates empty arrays with the array + suffix
 
     Parameters
@@ -139,42 +150,43 @@ def empty_array_gen(array, suffix_array):
     array: array
         array of items that needs to be created as empty arrays
         only the first colum (index 0) is used.
-    suffix_array: array
-        array of suffixes
 
     Returns
     -------
-    Creates global variables of empty arrays
+    countries: list
+        list of countries
     """
+
+    countries =[]
     for item in array:
-        for suffix in suffix_array:
-            exec(item[0] + suffix + ' = []',globals())
+        countries.append(item)
+    return countries
 
 
-def convert_to_numpy(array):
-    """ converts array_power array to numpy arrays
+def convert_to_numpy(dictionary):
+    """ converts lists in dictionary to numpy arrays
 
     Parameters
     ----------
     array: array
-        array to be converted to numpy arrays
+        dictionary that has arrays that will be converted to numpy arrays
 
     Returns
     -------
     all the array_power are converted to numpy arrays
     """
 
-    for ar in array:
-        exec(ar[0] + '_power = np.asarray(' + ar[0] + '_power)')
 
 
-def stacked_bar_chart(array_sections, timestep, xlabel, ylabel, title):
-    """ Creates stacked bar chart of array_sections_power
+
+
+def stacked_bar_chart(dictionary, timestep, xlabel, ylabel, title):
+    """ Creates stacked bar chart of timstep vs dictionary
 
     Parameters
     ----------
-    array_sections: array
-        array_power holds plot data (y axis)
+    dictionary: dictionary
+        holds time series data
     timestep: array
         array of timestep (x axis)
     xlabel: string
@@ -190,56 +202,33 @@ def stacked_bar_chart(array_sections, timestep, xlabel, ylabel, title):
     """
 
     # set different colors for each bar
-    index = 0
+    color_index = 0
     top_index = True
     prev = ''
     colors = get_colors()
-
-    # plot string for the legend
-    plot_string = 'plt.legend(('
-
-    # convert power arrays to numpy arrays for stacking
-    for ar in array_sections:
-        exec(ar[0] + '_power = np.asarray(' + ar[0] + '_power)')
+    plot_array = []
 
     # for every country, create bar chart with different color
-    for ar in array_sections:
-        color = colors[index]
+    for key in dictionary:
+        color = colors[color_index]
         # very first country does not have a 'bottom' argument
         if top_index == True:
-            exec(
-                ar[0] + '_plot = plt.bar( 1950+(timestep/12), '
-                + ar[0] + '_power, .5, color = color,\
-                edgecolor = "none")'
-                )
-            prev = ar[0] + '_power'
+            plot = plt.bar(1950+(timestep/12), dictionary[key], .5, color = color, edgecolor = 'none', label = key)
+            prev = dictionary[key] 
             top_index = False
         # from the second country has 'bottom' argument
         else:
-            exec(
-                ar[0] + '_plot = plt.bar( 1950+(timestep/12), '
-                + ar[0] + '_power, .5, color = color,\
-                edgecolor = "none", bottom =' + prev + ')'
-                )
-            prev += '+ ' + ar[0] + '_power'
+            plot = plt.bar(1950 + (timestep/12), dictionary[key], .5, color = color, edgecolor = 'none', bottom = prev, label = key)
+            prev += dictionary[key]
 
-        plot_string += ar[0] + '_plot,'
-        index += 1
-
-    # generate string for exec of plt.lengend
-    # plt.legend(government_plot, government)
-    plot_string = plot_string[:-1]
-    plot_string += '), ('
-    for ar in array_sections:
-        plot_string += "'" + ar[0] + "', "
-    plot_string = plot_string[:-2]
-    plot_string += '))'
+        plot_array.append(plot)
+        color_index += 1
 
     # plot
     plt.ylabel(ylabel)
     plt.title(title)
     plt.xlabel(xlabel)
-    exec(plot_string)
+    plt.legend()
     plt.grid(True)
     plt.show()
 
@@ -283,14 +272,13 @@ def plot_power(filename):
                         INNER JOIN agententry\
                         ON agentexit.agentid = agententry.agentid').fetchall()
 
-    suffixes = ['_power', '_num']
-    empty_array_gen(governments, suffixes)
+    get_list_countries(governments)
 
-    capacity_calc(governments, timestep, entry, exit)
+    power_dict = capacity_calc(governments, timestep, entry, exit)
 
-    convert_to_numpy(governments)
+    # power_dict = convert_to_numpy(power_dict)
 
-    stacked_bar_chart(governments, timestep, 'Time', 'net_capacity', 'Net Capacity in EU vs Time')
+    stacked_bar_chart(power_dict, timestep, 'Time', 'net_capacity', 'Net Capacity in EU vs Time')
     
 
 
