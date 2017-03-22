@@ -48,7 +48,6 @@ def read_csv(csv_file):
                                   delimiter=',',
                                   dtype=('S128', 'S128',
                                          'S128', 'int',
-                                         'int', 'int',
                                          'S128', 'S128', 'int',
                                          'int', 'int',
                                          'int', 'int',
@@ -56,7 +55,6 @@ def read_csv(csv_file):
                                          'int', 'float'),
                                   names=('country', 'reactor_name',
                                          'type', 'capacity',
-                                         'n_assem_core', 'n_assem_batch',
                                          'status', 'operator', 'const_date',
                                          'cons_year', 'first_crit',
                                          'entry_time', 'lifetime',
@@ -201,12 +199,25 @@ def reactor_render(array, template, output_file):
     """
 
     for data in array:
-        reactor_body = \
-                       template.render(country=data['country'].decode('utf-8'),
-                                       reactor_name=data['reactor_name'].decode('utf-8'),
-                                       n_assem_core=data['n_assem_core'],
-                                       n_assem_batch=data['n_assem_batch'],
-                                       capacity=data['capacity'])
+        if data['type'].decode('utf-8') == 'BWR':
+            reactor_body = \
+                           template.render(
+                                           country=data['country'].decode('utf-8'),
+                                           reactor_name=data['reactor_name'].decode('utf-8'),
+                                           assem_size=180,
+                                           n_assem_core=int(round(data['capacity']/1000 * 764)),
+                                           n_assem_batch=int(round(data['capacity']/3000 * 764)),
+                                           capacity=data['capacity'])
+        # if data['type'].decode('utf-8') == 'PWR':
+        else:
+            reactor_body = \
+                           template.render(
+                                           country=data['country'].decode('utf-8'),
+                                           reactor_name=data['reactor_name'].decode('utf-8'),
+                                           assem_size=523.4,
+                                           n_assem_core=int(round(data['capacity']/1000 * 193)),
+                                           n_assem_batch=int(round(data['capacity']/3000 * 193)),
+                                           capacity=data['capacity'])
         with open(output_file, 'a') as output:
             output.write(reactor_body)
 
