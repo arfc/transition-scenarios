@@ -4,10 +4,9 @@ import numpy as np
 import os
 
 # tells command format if input is invalid
-if len(sys.argv) < 6:
-    print('Usage: python write_reactors.py [csv]\
-          [reactor_template] [deployinst_template]\
-          [input_template] [reactor_output] [region_output]')
+if len(sys.argv) < 3:
+    print('Usage: python write_reactors.py [csv]' +
+          '[init_date] [duration]')
 
 
 def delete_file(file):
@@ -222,7 +221,7 @@ def reactor_render(array, template, output_file):
             output.write(reactor_body)
 
 
-def input_render(init_date, reactor_file, region_file, template, output_file):
+def input_render(init_date, duration, reactor_file, region_file, template, output_file):
     """Creates total input file from region and reactor file
 
     Parameters
@@ -250,7 +249,7 @@ def input_render(init_date, reactor_file, region_file, template, output_file):
 
     startyear, startmonth = get_ymd(init_date)
 
-    temp = template.render(startmonth=startmonth, startyear=startyear,
+    temp = template.render(duration=duration, startmonth=startmonth, startyear=startyear,
                            reactor_input=reactor, region_input=region)
 
     with open(output_file, 'a') as output:
@@ -338,7 +337,7 @@ def region_render(array, template, full_template, output_file):
         os.system('rm ' + country + '_region')
 
 
-def main(csv_file, init_date, reactor_template, deployinst_template,
+def main(csv_file, init_date, duration, reactor_template, deployinst_template,
          input_template, reactor_output, region_output):
     """ Generates cyclus input file from csv files and jinja templates.
 
@@ -372,15 +371,12 @@ def main(csv_file, init_date, reactor_template, deployinst_template,
     delete_file(reactor_output)
     delete_file(region_output)
 
-    # initialize initial values form (yyyymmdd)
-    init_date = 19500101
-
     # read csv and templates
     dataset = read_csv(csv_file)
     input_template = read_template(input_template)
     reactor_template = read_template(reactor_template)
-    region_output_template = read_template('region_output_template.xml.in')
-    deployinst_template = read_template('deployinst_template.xml.in')
+    region_output_template = read_template('./templates/region_output_template.xml.in')
+    deployinst_template = read_template(deployinst_template)
 
     for data in dataset:
         entry_time = get_entrytime(init_date, data['first_crit'])
@@ -397,14 +393,14 @@ def main(csv_file, init_date, reactor_template, deployinst_template,
     reactor_render(dataset, reactor_template, reactor_output)
     region_render(dataset, deployinst_template,
                   region_output_template, region_output)
-    input_render(init_date, reactor_output, region_output,
+    input_render(init_date, duration, reactor_output, region_output,
                  input_template, 'complete_input.xml')
     print('\n Insert sink and source into the regions \
           - updates to come! :) \n ')
 
 
 if __name__ == "__main__":
-    main(sys.argv[1], init_date, './templates/reactor_template.xml.in',
+    main(sys.argv[1], int(sys.argv[2]), int(sys.argv[3]), './templates/reactor_template.xml.in',
          './templates/deployinst_template.xml.in',
          './templates/input_template.xml.in',
          'reactors_section.xml', 'regions_section.xml')
