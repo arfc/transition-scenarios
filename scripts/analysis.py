@@ -5,6 +5,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import cm
 import collections
+import pylab
+
 
 if len(sys.argv) < 2:
     print('Usage: python analysis.py [cylus_output_file]')
@@ -136,7 +138,7 @@ def capacity_calc(governments, timestep, entry, exit):
     return power_dict, num_dict
 
 
-def stacked_bar_chart(dictionary, timestep, xlabel, ylabel, title):
+def stacked_bar_chart(dictionary, timestep, xlabel, ylabel, title, outputname):
     """ Creates stacked bar chart of timstep vs dictionary
 
     Parameters
@@ -186,8 +188,9 @@ def stacked_bar_chart(dictionary, timestep, xlabel, ylabel, title):
     plt.ylabel(ylabel)
     plt.title(title)
     plt.xlabel(xlabel)
-    plt.legend()
+    plt.legend(loc=2, prop={'size':9})
     plt.grid(True)
+    plt.savefig(outputname, format='png')
 
 
 def plot_power(filename, cursor):
@@ -235,12 +238,11 @@ def plot_power(filename, cursor):
 
     stacked_bar_chart(power_dict, timestep,
                       'Time', 'net_capacity',
-                      'Net Capacity in EU vs Time')
+                      'Net Capacity vs Time', 'power_plot.png')
     plt.figure()
     stacked_bar_chart(num_dict, timestep,
                       'Time', 'num_reactors',
-                      'Number of Reactors in EU vs Time')
-    plt.show()
+                      'Number of Reactors vs Time', 'number_plot.png')
 
 
 def exec_string(array, search, whatwant):
