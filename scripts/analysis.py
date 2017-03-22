@@ -101,10 +101,14 @@ def capacity_calc(governments, timestep, entry, exit):
     -------
     power_dict: dictionary
         dictionary of capacity progression with country_government as key
+    num_dict: dictionary
+        dictionary of number of reactors progression with country_government as key
     """
 
-    temp = []
+    capacity = []
+    num_reactors = []
     power_dict = collections.OrderedDict({})
+    num_dict = collections.OrderedDict({})
 
     for gov in governments:
         temp = []
@@ -119,10 +123,13 @@ def capacity_calc(governments, timestep, entry, exit):
                 if dec[3] == num and dec[2] == gov[1]:
                     cap -= dec[0]
                     count -= 1
-            temp.append(cap)
-        power_dict[gov[0]] = np.asarray(temp)
+            capacity.append(cap)
+            num_reactors.append(count)
 
-    return power_dict
+        power_dict[gov[0]] = np.asarray(capacity)
+        num_dict[gov[0]] = np.asarray(num_reactors)
+
+    return power_dict, num_dict
 
 
 def stacked_bar_chart(dictionary, timestep, xlabel, ylabel, title):
@@ -220,11 +227,14 @@ def plot_power(filename):
                         INNER JOIN agententry\
                         ON agentexit.agentid = agententry.agentid').fetchall()
 
-    power_dict = capacity_calc(governments, timestep, entry, exit)
+    power_dict, num_dict = capacity_calc(governments, timestep, entry, exit)
 
     stacked_bar_chart(power_dict, timestep,
                       'Time', 'net_capacity',
                       'Net Capacity in EU vs Time')
+    stacked_bar_chart(num_dict, timestep,
+                      'Time', 'num_reactors',
+                      'Number of Reactors in EU vs Time')
 
 
 def exec_string(array, search, whatwant):
