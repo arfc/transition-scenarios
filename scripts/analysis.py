@@ -159,18 +159,19 @@ def stacked_bar_chart(dictionary, timestep, xlabel, ylabel, title):
     plot_array = []
     # for every country, create bar chart with different color
     for key in dictionary:
+        label = key.replace('_government','')
         # very first country does not have a 'bottom' argument
         if top_index is True:
             plot = plt.bar(1950+(timestep/12), dictionary[key], .5,
                            color=cm.viridis(1.*color_index/len(dictionary)),
-                           edgecolor='none', label=key)
+                           edgecolor='none', label=label)
             prev = dictionary[key]
             top_index = False
         # from the second country has 'bottom' argument
         else:
             plot = plt.bar(1950 + (timestep/12), dictionary[key], .5,
                            color=cm.viridis(1.*color_index/len(dictionary)),
-                           edgecolor='none', bottom=prev, label=key)
+                           edgecolor='none', bottom=prev, label=label)
             prev += dictionary[key]
 
         plot_array.append(plot)
