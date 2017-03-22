@@ -255,6 +255,9 @@ def input_render(init_date, duration, reactor_file, region_file, template, outpu
     with open(output_file, 'a') as output:
         output.write(temp)
 
+    delete_file(reactor_file)
+    delete_file(region_file)
+
 
 def region_render(array, template, full_template, output_file):
     """Takes the array and template and writes a region file
@@ -338,7 +341,7 @@ def region_render(array, template, full_template, output_file):
 
 
 def main(csv_file, init_date, duration, reactor_template, deployinst_template,
-         input_template, reactor_output, region_output):
+         input_template):
     """ Generates cyclus input file from csv files and jinja templates.
 
     Parameters
@@ -368,8 +371,6 @@ def main(csv_file, init_date, duration, reactor_template, deployinst_template,
 
     # deletes previously existing files
     delete_file('complete_input.xml')
-    delete_file(reactor_output)
-    delete_file(region_output)
 
     # read csv and templates
     dataset = read_csv(csv_file)
@@ -390,15 +391,14 @@ def main(csv_file, init_date, duration, reactor_template, deployinst_template,
         data['entry_time'] = entry_time
         data['lifetime'] = lifetime
     # renders reactor / region / input file. Confesses imperfection.
-    reactor_render(dataset, reactor_template, reactor_output)
+    reactor_render(dataset, reactor_template, 'reactor_output.xml.in')
     region_render(dataset, deployinst_template,
-                  region_output_template, region_output)
-    input_render(init_date, duration, reactor_output, region_output,
+                  region_output_template, 'region_output.xml.in')
+    input_render(init_date, duration, 'reactor_output.xml.in', 'region_output.xml.in',
                  input_template, 'complete_input.xml')
 
 
 if __name__ == "__main__":
     main(sys.argv[1], int(sys.argv[2]), int(sys.argv[3]), './templates/reactor_template.xml.in',
          './templates/deployinst_template.xml.in',
-         './templates/input_template.xml.in',
-         'reactors_section.xml', 'regions_section.xml')
+         './templates/input_template.xml.in')
