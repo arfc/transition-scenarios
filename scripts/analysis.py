@@ -105,13 +105,12 @@ def capacity_calc(governments, timestep, entry, exit):
         dictionary of number of reactors progression with country_government as key
     """
 
-    capacity = []
-    num_reactors = []
     power_dict = collections.OrderedDict({})
     num_dict = collections.OrderedDict({})
 
     for gov in governments:
-        temp = []
+        capacity = []
+        num_reactors = []
         cap = 0
         count = 0
         for num in timestep:
@@ -158,8 +157,6 @@ def stacked_bar_chart(dictionary, timestep, xlabel, ylabel, title):
     top_index = True
     prev = ''
     plot_array = []
-    print(len(dictionary))
-
     # for every country, create bar chart with different color
     for key in dictionary:
         # very first country does not have a 'bottom' argument
@@ -185,8 +182,6 @@ def stacked_bar_chart(dictionary, timestep, xlabel, ylabel, title):
     plt.xlabel(xlabel)
     plt.legend()
     plt.grid(True)
-    plt.show()
-
 
 def plot_power(filename):
     """ Gets capacity vs time for every country
@@ -232,9 +227,11 @@ def plot_power(filename):
     stacked_bar_chart(power_dict, timestep,
                       'Time', 'net_capacity',
                       'Net Capacity in EU vs Time')
+    plt.figure()
     stacked_bar_chart(num_dict, timestep,
                       'Time', 'num_reactors',
                       'Number of Reactors in EU vs Time')
+    plt.show()
 
 
 def exec_string(array, search, whatwant):
