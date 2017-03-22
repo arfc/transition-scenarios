@@ -338,7 +338,7 @@ def region_render(array, template, full_template, output_file):
         os.system('rm ' + country + '_region')
 
 
-def main(csv_file, reactor_template, deployinst_template,
+def main(csv_file, init_date, reactor_template, deployinst_template,
          input_template, reactor_output, region_output):
     """ Generates cyclus input file from csv files and jinja templates.
 
@@ -346,6 +346,8 @@ def main(csv_file, reactor_template, deployinst_template,
     ---------
     csv_file : str
         csv file containing reactor data (country, name, capacity)
+    init_date: int
+        yyyymmdd format of inital date of simulation
     reactor_template: str
         template file for reactor section of input file
     deployinst_template: str
@@ -402,5 +404,7 @@ def main(csv_file, reactor_template, deployinst_template,
 
 
 if __name__ == "__main__":
-    main(sys.argv[1], sys.argv[2], sys.argv[3],
-         sys.argv[4], sys.argv[5], sys.argv[6])
+    main(sys.argv[1], init_date, './templates/reactor_template.xml.in',
+         './templates/deployinst_template.xml.in',
+         './templates/input_template.xml.in',
+         'reactors_section.xml', 'regions_section.xml')
