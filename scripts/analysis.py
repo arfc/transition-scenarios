@@ -10,30 +10,33 @@ if len(sys.argv) < 2:
     print('Usage: python analysis.py [cylus_output_file]')
 
 
-def snf(filename):
+def snf(filename, cursor):
     """ prints total snf and isotope mass
 
     Parameters
     ----------
     filename: int
         cyclus output file to be analyzed.
+    cursor: cursor
+        cursor for sqlite3
 
     Returns
     -------
     Returns total snf and isotope mass.
     """
+    cur = cursor
 
-    sink_id = get_sink_agent_ids()
+    sink_id = get_sink_agent_ids(cur)
     resources = cur.execute(exec_string(sink_id,
                                         'transactions.receiverId', '*')).fetchall()
     snf_inventory = cur.execute(exec_string(sink_id,
                                             'transactions.receiverId', 'sum(quantity)')).fetchall()[0][0]
     waste_id = get_waste_id(resources)
-    inven = isotope_calc(waste_id, snf_inventory)
+    inven = isotope_calc(waste_id, snf_inventory, cur)
     return inven
 
 
-def get_sink_agent_ids():
+def get_sink_agent_ids(cursor):
     """ Gets all sink agentIds from Agententry table.
 
         agententry table has the following format:
@@ -42,7 +45,8 @@ def get_sink_agent_ids():
 
     Parameters
     ---------
-    none
+    cursor: cursor
+        cursor for sqlite3
 
     Returns
     -------
@@ -50,6 +54,7 @@ def get_sink_agent_ids():
         array of all the sink agentId values.
     """
 
+    cur = cursor
     sink_id = []
     agent = cur.execute("select * from agententry where spec like '%sink%'")
 
@@ -184,7 +189,8 @@ def stacked_bar_chart(dictionary, timestep, xlabel, ylabel, title):
     plt.legend()
     plt.grid(True)
 
-def plot_power(filename):
+
+def plot_power(filename, cursor):
     """ Gets capacity vs time for every country
         in stacked bar chart.
 
@@ -192,13 +198,15 @@ def plot_power(filename):
     ----------
     filename: file
         cyclus output file used
+    cursor: cursor
+        cursor for sqlite3
 
     Returns
     -------
     stacked bar chart of net capapcity vs time
 
     """
-
+    cur = cursor
     sim_time = int(cur.execute('SELECT endtime FROM finish').fetchone()[0]) + 1
     timestep = np.linspace(0, sim_time, num=sim_time + 1)
     powercap = []
@@ -266,7 +274,11 @@ def exec_string(array, search, whatwant):
     return exec_str
 
 
-def isotope_calc(wasteid_array, snf_inventory):
+
+
+
+
+def isotope_calc(wasteid_array, snf_inventory, cursor):
     """ Calculates isotope mass using mass fraction in compositions table.
 
         Fetches all from compositions table.
@@ -280,7 +292,9 @@ def isotope_calc(wasteid_array, snf_inventory):
     wasteid_array: array
         array of qualid of wastes
     snf_inventory: float
-        total mass of snf_inventory
+        total mass of 
+    cursor: cursor
+        cursor for sqlite3
 
     Returns
     -------
@@ -290,6 +304,7 @@ def isotope_calc(wasteid_array, snf_inventory):
 
     # Get compositions of different commodities
     # SimId / QualId / NucId / MassFrac
+    cur = cursor
     comp = cur.execute('select * from compositions').fetchall()
 
     nuclide_inven = ['total snf inventory = ' + str(snf_inventory) + 'kg']
@@ -311,5 +326,5 @@ if __name__ == "__main__":
 
     with con:
         cur = con.cursor()
-        print(snf(file))
-        plot_power(file)
+        print(snf(file, cur))
+        plot_power(file, cur)
