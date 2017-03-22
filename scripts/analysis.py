@@ -81,25 +81,6 @@ def get_waste_id(resource_array):
     return set(wasteid)
 
 
-def get_colors():
-    """ Gets colors from a matplotlib dictionary
-
-    Parameters
-    ----------
-    None
-
-    Returns
-    -------
-    Colors: array
-        array of color hex codes
-    """
-
-    colors = []
-    for hex in matplotlib.colors.cnames.items():
-        colors.append(hex[1])
-    return colors
-
-
 def capacity_calc(governments, timestep, entry, exit):
     """ Adds and subtracts capacity over time for plotting
 
