@@ -252,11 +252,8 @@ def input_render(init_date, duration, reactor_file, region_file, template, outpu
     temp = template.render(duration=duration, startmonth=startmonth, startyear=startyear,
                            reactor_input=reactor, region_input=region)
 
-    with open(output_file, 'a') as output:
+    with open(output_file, 'w') as output:
         output.write(temp)
-
-    delete_file(reactor_file)
-    delete_file(region_file)
 
 
 def region_render(array, template, full_template, output_file):
@@ -396,7 +393,6 @@ def main(csv_file, init_date, duration, reactor_template, deployinst_template,
                   region_output_template, 'region_output.xml.in')
     input_render(init_date, duration, 'reactor_output.xml.in', 'region_output.xml.in',
                  input_template, 'complete_input.xml')
-
 
 if __name__ == "__main__":
     main(sys.argv[1], int(sys.argv[2]), int(sys.argv[3]), './templates/reactor_template.xml.in',
