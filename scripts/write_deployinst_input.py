@@ -395,8 +395,6 @@ def main(csv_file, init_date, duration, reactor_template, deployinst_template,
                   region_output_template, region_output)
     input_render(init_date, duration, reactor_output, region_output,
                  input_template, 'complete_input.xml')
-    print('\n Insert sink and source into the regions \
-          - updates to come! :) \n ')
 
 
 if __name__ == "__main__":
