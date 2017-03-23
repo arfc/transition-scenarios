@@ -342,7 +342,7 @@ def region_render(array, template, full_template, output_file):
 
 
 def main(csv_file, init_date, duration, reactor_template, deployinst_template,
-         input_template):
+         input_template, output_file):
     """ Generates cyclus input file from csv files and jinja templates.
 
     Parameters
@@ -377,7 +377,7 @@ def main(csv_file, init_date, duration, reactor_template, deployinst_template,
     dataset = read_csv(csv_file)
     input_template = read_template(input_template)
     reactor_template = read_template(reactor_template)
-    region_output_template = read_template('./templates/'
+    region_output_template = read_template('../templates/'
                                            + 'region_output_template.xml.in')
     deployinst_template = read_template(deployinst_template)
 
@@ -398,10 +398,10 @@ def main(csv_file, init_date, duration, reactor_template, deployinst_template,
                   region_output_template, 'region_output.xml.in')
     input_render(init_date, duration, 'reactor_output.xml.in',
                  'region_output.xml.in',
-                 input_template, 'complete_input.xml')
+                 input_template, output_file)
 
 if __name__ == "__main__":
     main(sys.argv[1], int(sys.argv[2]), int(sys.argv[3]),
          './templates/reactor_template.xml.in',
          './templates/deployinst_template.xml.in',
-         './templates/input_template.xml.in')
+         './templates/input_template.xml.in', './complete_input.xml')
