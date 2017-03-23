@@ -5,9 +5,10 @@ The input folder is to generate various input files for transition scenario
 simulations. Currently it has files that generate PWR input files with 
 different capacities. The assumptions for the parameters are as follows:
 
-	Cycle 			= 18 months (timesteps) for all
-	Refueling 		= 2 months (timesteps) for all
-	assembly mass 	= 523.4 UO2 / assembly for all (PWR, nucleartourist.com)
+	Cycle 		= 18 months (timesteps) for all
+	Refueling 	= 2 months (timesteps) for all
+	assembly mass 	= 180 UO2 / assembly for BWRs
+			  523.4 UO2 / assembly for rest (PWR, nucleartourist.com)
 	#of assemblies 	= 193 for 1000MWe, linearly adjusted for other capacities
 
 
@@ -59,27 +60,13 @@ Jinja template for the individual region prototype of the cyclus input file.
 ### region_output_template.xml.in
 Jinja template for the region section of the cylcus input file.
 
+### somesource_sink.xml.in
+text file containing NullInst with SomeSource and Somesink
+
 Grouped region prototypes will be rendered into this file.
 
 
 ## Europe Folder
-
-# eu.csv
-The eu.csv file lists all the nuclear reactors in europe.
-The data is from a [wikipedia page](https://en.wikipedia.org/wiki/List_of_nuclear_reactors)
-and is converted to a csv file using an
-[external website](http://wikitable2csv.ggor.de/).
-
-The csv file lists the following:
-* Reactor Name
-* Unit Number
-* Reactor Type / Model
-* Status
-* Net / Gross Capacity
-* Construction Start Date
-* Commercial Operation Date
-* Closure (if applicable)
-
 
 # eu_reactors_pris.csv
 The eu_reactors_pris.csv file lists all the nulear reactors in europe,
@@ -91,8 +78,6 @@ The csv file lists the following :
 * Reactor Unit (name)
 * Type
 * Net Capacity (MWe)
-* Number of assembly / core
-* Number of assembly / batch
 * Status
 * Operator
 * Construction date
@@ -110,5 +95,5 @@ The output folder contains analysis tools for cylcus output files.
 
 ### analysis.py
 Does simple analysis of cyclus input file, prints snf inventory mass
+and shows stacked bar chart of net capacity over time.
 Usage: ` python anaylsis.py [cylcus_output_file]
-
