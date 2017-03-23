@@ -30,9 +30,11 @@ def snf(filename, cursor):
 
     sink_id = get_sink_agent_ids(cur)
     resources = cur.execute(exec_string(sink_id,
-                                        'transactions.receiverId', '*')).fetchall()
+                                        'transactions.receiverId',
+                                        '*')).fetchall()
     snf_inventory = cur.execute(exec_string(sink_id,
-                                            'transactions.receiverId', 'sum(quantity)')).fetchall()[0][0]
+                                            'transactions.receiverId',
+                                            'sum(quantity)')).fetchall()[0][0]
     waste_id = get_waste_id(resources)
     inven = isotope_calc(waste_id, snf_inventory, cur)
     return inven
@@ -109,7 +111,8 @@ def capacity_calc(governments, timestep, entry, exit):
     power_dict: dictionary
         dictionary of capacity progression with country_government as key
     num_dict: dictionary
-        dictionary of number of reactors progression with country_government as key
+        dictionary of number of reactors progression
+        with country_government as key
     """
 
     power_dict = collections.OrderedDict({})
@@ -166,7 +169,7 @@ def stacked_bar_chart(dictionary, timestep, xlabel, ylabel, title, outputname):
     plot_array = []
     # for every country, create bar chart with different color
     for key in dictionary:
-        label = key.replace('_government','')
+        label = key.replace('_government', '')
         # very first country does not have a 'bottom' argument
         if top_index is True:
             plot = plt.bar(1950+(timestep/12), dictionary[key], .5,
@@ -188,7 +191,7 @@ def stacked_bar_chart(dictionary, timestep, xlabel, ylabel, title, outputname):
     plt.ylabel(ylabel)
     plt.title(title)
     plt.xlabel(xlabel)
-    plt.legend(loc=2, prop={'size':9})
+    plt.legend(loc=2, prop={'size': 9})
     plt.grid(True)
     plt.savefig(outputname, format='png')
 
@@ -276,10 +279,6 @@ def exec_string(array, search, whatwant):
     return exec_str
 
 
-
-
-
-
 def isotope_calc(wasteid_array, snf_inventory, cursor):
     """ Calculates isotope mass using mass fraction in compositions table.
 
@@ -294,7 +293,7 @@ def isotope_calc(wasteid_array, snf_inventory, cursor):
     wasteid_array: array
         array of qualid of wastes
     snf_inventory: float
-        total mass of 
+        total mass of snf
     cursor: cursor
         cursor for sqlite3
 

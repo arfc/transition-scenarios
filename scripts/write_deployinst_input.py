@@ -221,7 +221,8 @@ def reactor_render(array, template, output_file):
             output.write(reactor_body)
 
 
-def input_render(init_date, duration, reactor_file, region_file, template, output_file):
+def input_render(init_date, duration, reactor_file,
+                 region_file, template, output_file):
     """Creates total input file from region and reactor file
 
     Parameters
@@ -249,11 +250,14 @@ def input_render(init_date, duration, reactor_file, region_file, template, outpu
 
     startyear, startmonth = get_ymd(init_date)
 
-    temp = template.render(duration=duration, startmonth=startmonth, startyear=startyear,
+    temp = template.render(duration=duration, startmonth=startmonth,
+                           startyear=startyear,
                            reactor_input=reactor, region_input=region)
 
     with open(output_file, 'w') as output:
         output.write(temp)
+
+    os.system('rm reactor_output.xml.in region_output.xml.in')
 
 
 def region_render(array, template, full_template, output_file):
@@ -373,7 +377,8 @@ def main(csv_file, init_date, duration, reactor_template, deployinst_template,
     dataset = read_csv(csv_file)
     input_template = read_template(input_template)
     reactor_template = read_template(reactor_template)
-    region_output_template = read_template('./templates/region_output_template.xml.in')
+    region_output_template = read_template('./templates/'
+                                           + 'region_output_template.xml.in')
     deployinst_template = read_template(deployinst_template)
 
     for data in dataset:
@@ -391,10 +396,12 @@ def main(csv_file, init_date, duration, reactor_template, deployinst_template,
     reactor_render(dataset, reactor_template, 'reactor_output.xml.in')
     region_render(dataset, deployinst_template,
                   region_output_template, 'region_output.xml.in')
-    input_render(init_date, duration, 'reactor_output.xml.in', 'region_output.xml.in',
+    input_render(init_date, duration, 'reactor_output.xml.in',
+                 'region_output.xml.in',
                  input_template, 'complete_input.xml')
 
 if __name__ == "__main__":
-    main(sys.argv[1], int(sys.argv[2]), int(sys.argv[3]), './templates/reactor_template.xml.in',
+    main(sys.argv[1], int(sys.argv[2]), int(sys.argv[3]),
+         './templates/reactor_template.xml.in',
          './templates/deployinst_template.xml.in',
          './templates/input_template.xml.in')
