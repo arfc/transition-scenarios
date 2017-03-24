@@ -263,10 +263,10 @@ def input_render(init_date, duration, reactor_file,
     
     # has reprocessing chunk if reprocssing boolean is true.
     if reprocessing is True:
-        reprocessing_chunk = '<entry>\n'
+        reprocessing_chunk = ('<entry>\n'
                               +'  <number>1<number>\n'
                               +'  <prototype>Reprocessing</prototype>\n'
-                              +'</entry>'
+                              +'</entry>')
     else:
         reprocessing_chunk = ''
     
@@ -428,7 +428,7 @@ if __name__ == "__main__":
     main(sys.argv[1], int(sys.argv[2]), int(sys.argv[3]),
          '../templates/reactor_template.xml.in',
          '../templates/reactor_mox_template.xml.in',
-         False,
+         True,
          '../templates/deployinst_template.xml.in',
          '../templates/input_template.xml.in',
          'complete_input.xml')
