@@ -264,7 +264,7 @@ def input_render(init_date, duration, reactor_file,
     # has reprocessing chunk if reprocssing boolean is true.
     if reprocessing is True:
         reprocessing_chunk = ('<entry>\n'
-                              +'  <number>1<number>\n'
+                              +'  <number>1</number>\n'
                               +'  <prototype>Reprocessing</prototype>\n'
                               +'</entry>')
     else:
