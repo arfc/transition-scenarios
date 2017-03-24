@@ -30,6 +30,7 @@
     <spec>
       <lib>cycamore</lib>
       <name>Separations</name>
+    </spec>
     <spec>
       <lib>cycamore</lib>
       <name>DeployInst</name>
