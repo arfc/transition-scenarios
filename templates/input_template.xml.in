@@ -29,9 +29,42 @@
     </spec>
     <spec>
       <lib>cycamore</lib>
+      <name>Separations</name>
+    <spec>
+      <lib>cycamore</lib>
       <name>DeployInst</name>
     </spec>
   </archetypes>
+
+  <facility>
+    <name>Reprocessing</name>
+    <config>
+      <Separations>
+         <feed_commods>   <val>uox_waste </val> </feed_commods>
+         <feed_commod_prefs> <val>1.0</val> </feed_commod_prefs>
+         <feed_recipe>uox_used_fuel_recipe</feed_recipe>
+         <feedbuf_size>1e100</feedbuf_size>
+         <throughput>1e100</throughput>
+         <leftover_commod>reprocess_waste</leftover_commod>
+         <leftoverbuf_size>1e100</leftoverbuf_size>
+         <streams>
+          <item>
+            <commod>mox</commod>
+            <info>
+              <buf_size>1e100</buf_size>
+              <efficiencies>
+                <item>
+                  <comp>Pu</comp> <eff>.99</eff>
+                </item>
+              </efficiencies>
+            </info>
+          </item>
+        </streams>
+      </Separations>
+    </config>
+  </facility>
+
+
 
   <facility>
     <name>SomeSource</name>

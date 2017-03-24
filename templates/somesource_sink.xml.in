@@ -13,6 +13,9 @@
     				<number>1</number>
     				<prototype>SomeSink</prototype>
     			</entry>
+                <entry>
+                    <number>1</number>
+                    <prototype>Reprocessing</prototype>
     		</initialfacilitylist>
         </institution>
 </region>
