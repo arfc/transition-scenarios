@@ -41,7 +41,7 @@
     <name>Reprocessing</name>
     <config>
       <Separations>
-         <feed_commods>   <val>uox_waste </val> </feed_commods>
+         <feed_commods>   <val>uox_waste</val> </feed_commods>
          <feed_commod_prefs> <val>1.0</val> </feed_commod_prefs>
          <feed_recipe>uox_used_fuel_recipe</feed_recipe>
          <feedbuf_size>1e100</feedbuf_size>
@@ -111,10 +111,7 @@
             <number>1</number>
             <prototype>SomeSink</prototype>
           </entry>
-          <entry>
-          	<number>1</number>
-          	<prototype>Reprocessing</prototype>
-          </entry>
+          {{reprocessing}}
         </initialfacilitylist>
         </institution>
 </region>  
