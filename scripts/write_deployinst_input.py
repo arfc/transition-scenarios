@@ -231,7 +231,7 @@ def reactor_render(array, template, mox_template, output_file):
 
 
 def input_render(init_date, duration, reactor_file,
-                 region_file, template, output_file):
+                 region_file, template, output_file, reprocessing):
     """Creates total input file from region and reactor file
 
     Parameters
@@ -246,6 +246,8 @@ def input_render(init_date, duration, reactor_file,
         jinja template for cyclus complete input file
     output_file: str
         name of output file
+    reprocessing: bool
+        True if reprocessing is done, false if ignored
 
     Returns
     -------
@@ -258,9 +260,19 @@ def input_render(init_date, duration, reactor_file,
         region = bae.read()
 
     startyear, startmonth = get_ymd(init_date)
-
+    
+    # has reprocessing chunk if reprocssing boolean is true.
+    if reprocessing is True:
+        reprocessing_chunk = '<entry>\n'
+                              +'  <number>1<number>\n'
+                              +'  <prototype>Reprocessing</prototype>\n'
+                              +'</entry>'
+    else:
+        reprocessing_chunk = ''
+    
+    #renders template
     temp = template.render(duration=duration, startmonth=startmonth,
-                           startyear=startyear,
+                           startyear=startyear, reprocessing=reprocessing_chunk,
                            reactor_input=reactor, region_input=region)
 
     with open(output_file, 'w') as output:
@@ -351,7 +363,7 @@ def region_render(array, template, full_template, output_file):
 
 
 def main(csv_file, init_date, duration, reactor_template, mox_reactor_template,
-         deployinst_template, input_template, output_file):
+         reprocessing, deployinst_template, input_template, output_file):
     """ Generates cyclus input file from csv files and jinja templates.
 
     Parameters
@@ -364,6 +376,8 @@ def main(csv_file, init_date, duration, reactor_template, mox_reactor_template,
         template file for reactor section of input file
     mox_reactor_templtae: str
         template file for mox reactor section of input file
+    reprocessing: bool
+        True if reprocessing is done, False if not
     deployinst_template: str
         template file for deployinst section of input file
     input_template: str
@@ -408,12 +422,13 @@ def main(csv_file, init_date, duration, reactor_template, mox_reactor_template,
                   region_output_template, 'region_output.xml.in')
     input_render(init_date, duration, 'reactor_output.xml.in',
                  'region_output.xml.in',
-                 input_template, output_file)
+                 input_template, output_file, reprocessing)
 
 if __name__ == "__main__":
     main(sys.argv[1], int(sys.argv[2]), int(sys.argv[3]),
          '../templates/reactor_template.xml.in',
          '../templates/reactor_mox_template.xml.in',
+         False,
          '../templates/deployinst_template.xml.in',
          '../templates/input_template.xml.in',
          'complete_input.xml')
