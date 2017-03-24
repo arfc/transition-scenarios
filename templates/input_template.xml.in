@@ -83,7 +83,9 @@
     <config>
       <Sink>
         <in_commods>
-          <val>waste</val>
+          <val>uox_waste</val>
+          <val>mox_waste</val>
+          <val>reprocess_waste</val>
         </in_commods>
         <capacity>1e100</capacity>
       </Sink>
