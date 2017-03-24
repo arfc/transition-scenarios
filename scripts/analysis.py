@@ -310,9 +310,9 @@ def stacked_bar_chart(dictionary, timestep, xlabel, ylabel, title, outputname):
     plt.ylabel(ylabel)
     plt.title(title)
     plt.xlabel(xlabel)
-    plt.legend(loc=(.88,.5), fontsize=9)
+    plt.legend(loc=(1.0, 0))
     plt.grid(True)
-    plt.savefig(outputname, format='png')
+    plt.savefig(outputname, format='png', bbox_inches='tight')
 
 
 def plot_power(filename, cursor):
