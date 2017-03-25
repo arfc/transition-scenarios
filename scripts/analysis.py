@@ -242,12 +242,13 @@ def isotope_vs_time(cursor):
     """
 
     cur = cursor
+    sink_id = get_sink_agent_ids(cur)
     waste_dict = collections.OrderedDict({})
     # get resources that ended up in sink.
     resources = cur.execute(exec_string(sink_id,
                                         'transactions.receiverId',
                                         '*')).fetchall()
-    compositions = cur.execute('SELECT * FROM compositions')
+    compositions = cur.execute('SELECT * FROM compositions').fetchall()
     sim_time, timestep = get_sim_time_duration(cur)
 
     temp_isotope = []
@@ -268,15 +269,16 @@ def isotope_vs_time(cursor):
                 time_array.append(res[16])
 
     isotope_set = set(temp_isotope)
-    time_mass = []
+
 
     for iso in isotope_set:
         mass = 0
+        time_mass = []
         # at each timestep,
         for i in range(0, sim_time):
             # for each element in database,
             for x in range(0, len(temp_isotope)):
-                if i == time[x] and temp_isotope[x] == iso:
+                if i == time_array[x] and temp_isotope[x] == iso:
                     mass += temp_mass[x]
             time_mass.append(mass)
         waste_dict[iso] = time_mass
@@ -333,6 +335,28 @@ def capacity_calc(governments, timestep, entry, exit):
         num_dict[gov[0]] = np.asarray(num_reactors)
 
     return power_dict, num_dict
+
+def multi_line_plot(dictionary, timestep, xlabel, ylabel, title, outputname):
+    """ Creates a multi-line plot of timestep vs dictionary
+
+    Parameters
+    ----------
+    dictionary: dictionary
+        dictionary with list of timestep progressions
+    timestep: int
+        timestep of simulation (linspace)
+    xlabel: string
+        xlabel of plot
+    ylabel: string
+        ylabel of plot
+    title: string
+        title of plot
+
+    Returns
+    -------
+    Multiple line plot
+    """
+    
 
 
 def stacked_bar_chart(dictionary, timestep, xlabel, ylabel, title, outputname):
@@ -445,5 +469,6 @@ if __name__ == "__main__":
     con = lite.connect(file)
     with con:
         cur = con.cursor()
-        print(snf(cur))
-        plot_power(cur)
+        # print(snf(cur))
+        # plot_power(cur)
+        isotope_vs_time(cur)
