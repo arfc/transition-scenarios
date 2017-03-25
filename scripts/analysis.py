@@ -242,13 +242,13 @@ def isotope_vs_time(cursor):
     """
 
     cur = cursor
-    waste_dict = collections.OrderedDict{}
+    waste_dict = collections.OrderedDict({})
     # get resources that ended up in sink.
     resources = cur.execute(exec_string(sink_id,
                                         'transactions.receiverId',
                                         '*')).fetchall()
     compositions = cur.execute('SELECT * FROM compositions')
-    sim_time, timestep = get_sim_time_duation(cur)
+    sim_time, timestep = get_sim_time_duration(cur)
 
     temp_isotope = []
     temp_mass = []
@@ -258,7 +258,7 @@ def isotope_vs_time(cursor):
         for com in compositions:
             # res[7] = qualid in resources
             # com[1] = qualid in compositions
-            if res[7] = com[1]:
+            if res[7] == com[1]:
                 # com[2] = NucId
                 # com[3] = MassFraction
                 # res[5] = Mass of waste
@@ -405,12 +405,12 @@ def plot_power(cursor):
 
     """
     cur = cursor
-    sim_time, timestep = get_sim_time_duation(cur)
+    sim_time, timestep = get_sim_time_duration(cur)
     powercap = []
     reactor_num = []
     countries = []
+    cur = cursor
     # get power cap values
-
     governments = cur.execute('SELECT prototype, agentid FROM agententry\
                               WHERE spec = ":cycamore:DeployInst"').fetchall()
 
@@ -443,8 +443,7 @@ def plot_power(cursor):
 if __name__ == "__main__":
     file = sys.argv[1]
     con = lite.connect(file)
-
     with con:
         cur = con.cursor()
-        print(snf(file, cur))
-        plot_power(file, cur)
+        print(snf(cur))
+        plot_power(cur)
