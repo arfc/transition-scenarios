@@ -12,13 +12,11 @@ if len(sys.argv) < 2:
     print('Usage: python analysis.py [cylus_output_file]')
 
 
-def snf(filename, cursor):
+def snf(cursor):
     """ prints total snf and isotope mass
 
     Parameters
     ----------
-    filename: int
-        cyclus output file to be analyzed.
     cursor: cursor
         cursor for sqlite3
 
@@ -208,6 +206,83 @@ def isotope_calc(wasteid_array, snf_inventory, cursor):
 
     return nuclide_inven
 
+def get_sim_time_duration(cursor):
+    """ Returns simulation time and duration of the simulation
+
+    Parameters
+    ----------
+    cursor: sqlite cursor
+
+    Returns
+    -------
+    sim_time: int
+        number of months in the simulation
+    timestep: array
+        linspace of timesteps in the simulation
+    """
+
+    sim_time = int(cur.execute('SELECT endtime FROM finish').fetchone()[0]) + 1
+    timestep = np.linspace(0, sim_time, num=sim_time + 1)
+
+    return sim_time, timestep
+
+
+def isotope_vs_time(cursor):
+    """ Creates array for isotope mass per time
+
+    Parameters
+    ----------
+    cursor: sqlite cursor
+        for ipynb usage
+
+    Returns
+    -------
+    array: array
+        array of isotope mass per time
+    """
+
+    cur = cursor
+    waste_dict = collections.OrderedDict{}
+    # get resources that ended up in sink.
+    resources = cur.execute(exec_string(sink_id,
+                                        'transactions.receiverId',
+                                        '*')).fetchall()
+    compositions = cur.execute('SELECT * FROM compositions')
+    sim_time, timestep = get_sim_time_duation(cur)
+
+    temp_isotope = []
+    temp_mass = []
+    time_array = []
+
+    for res in resources:
+        for com in compositions:
+            # res[7] = qualid in resources
+            # com[1] = qualid in compositions
+            if res[7] = com[1]:
+                # com[2] = NucId
+                # com[3] = MassFraction
+                # res[5] = Mass of waste
+                # res[16] = time in resources
+                temp_isotope.append(com[2])
+                temp_mass.append(com[3]*res[5]) 
+                time_array.append(res[16])
+
+    isotope_set = set(temp_isotope)
+    time_mass = []
+
+    for iso in isotope_set:
+        mass = 0
+        # at each timestep,
+        for i in range(0, sim_time):
+            # for each element in database,
+            for x in range(0, len(temp_isotope)):
+                if i == time[x] and temp_isotope[x] == iso:
+                    mass += temp_mass[x]
+            time_mass.append(mass)
+        waste_dict[iso] = time_mass
+
+    print(waste_dict)
+
 
 def capacity_calc(governments, timestep, entry, exit):
     """ Adds and subtracts capacity over time for plotting
@@ -315,14 +390,12 @@ def stacked_bar_chart(dictionary, timestep, xlabel, ylabel, title, outputname):
     plt.savefig(outputname, format='png', bbox_inches='tight')
 
 
-def plot_power(filename, cursor):
+def plot_power(cursor):
     """ Gets capacity vs time for every country
         in stacked bar chart.
 
     Parameters
     ----------
-    filename: file
-        cyclus output file used
     cursor: cursor
         cursor for sqlite3
 
@@ -332,8 +405,7 @@ def plot_power(filename, cursor):
 
     """
     cur = cursor
-    sim_time = int(cur.execute('SELECT endtime FROM finish').fetchone()[0]) + 1
-    timestep = np.linspace(0, sim_time, num=sim_time + 1)
+    sim_time, timestep = get_sim_time_duation(cur)
     powercap = []
     reactor_num = []
     countries = []
