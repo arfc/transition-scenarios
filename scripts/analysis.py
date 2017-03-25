@@ -237,8 +237,7 @@ def isotope_vs_time(cursor):
 
     Returns
     -------
-    waste_dict: dictionary
-        dictionary with key = isotope and mass per timestep
+    multiple semilogy plot for all isotopes vs time
     """
 
     cur = cursor
