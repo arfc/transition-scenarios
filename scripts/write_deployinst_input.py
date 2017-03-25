@@ -424,6 +424,36 @@ def main(csv_file, init_date, duration, reactor_template, mox_reactor_template,
                  'region_output.xml.in',
                  input_template, output_file, reprocessing)
 
+def run(csv_file, init_date, duration, reprocessing, output_file):
+    """ Generates complete input file without the template specification
+
+    Parameters
+    ---------
+    csv_file : str
+        csv file containing reactor data (country, name, capacity)
+    init_date: int
+        yyyymmdd format of inital date of simulation
+    duation: int
+        timestep in months
+    reprocessing: bool
+        True if reprocessing is done, False if not
+    output_file: str
+        directory and name of complete cyclue input file
+
+    Returns
+    -------
+    Complete Cyclus input file
+    """
+
+    main(csv_file, init_date, duration,
+         '../templates/reactor_template.xml.in',
+         '../templates/reactor_mox_template.xml.in',
+         reprocessing,
+         '../templates/deployinst_template.xml.in',
+         '../templates/input_template.xml.in',
+         output_file)
+
+
 if __name__ == "__main__":
     main(sys.argv[1], int(sys.argv[2]), int(sys.argv[3]),
          '../templates/reactor_template.xml.in',
