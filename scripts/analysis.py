@@ -1,6 +1,6 @@
 import sqlite3 as lite
 import sys
-# from pyne import nucname
+from pyne import nucname
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import cm
@@ -352,7 +352,7 @@ def multi_line_plot(dictionary, timestep, xlabel, ylabel, title, outputname):
 
     Returns
     -------
-    Multiple line plot
+    stores a semilogy plot of dict data on path `outputname`
     """
 
     # set different colors for each bar
@@ -362,7 +362,7 @@ def multi_line_plot(dictionary, timestep, xlabel, ylabel, title, outputname):
     # for every country, create bar chart with different color
     for key in dictionary:
         # label is the name of the nuclide (converted from ZZAAA0000 format)
-        label = key
+        label =  str(nucname.name(key))
         plt.semilogy(1950 + (timestep/12), dictionary[key],
                  color=cm.viridis(1.*color_index/len(dictionary)),
                  label=label)
@@ -487,7 +487,7 @@ if __name__ == "__main__":
     con = lite.connect(file)
     with con:
         cur = con.cursor()
-        # print(snf(cur))
-        # plot_power(cur)
+        print(snf(cur))
+        plot_power(cur)
         isotope_vs_time(cur)
 
