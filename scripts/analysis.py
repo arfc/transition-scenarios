@@ -1,6 +1,6 @@
 import sqlite3 as lite
 import sys
-from pyne import nucname
+# from pyne import nucname
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import cm
@@ -228,7 +228,7 @@ def get_sim_time_duration(cursor):
 
 
 def isotope_vs_time(cursor):
-    """ Creates array for isotope mass per time
+    """ Creates dictionary for isotope mass per timestep
 
     Parameters
     ----------
@@ -237,8 +237,8 @@ def isotope_vs_time(cursor):
 
     Returns
     -------
-    array: array
-        array of isotope mass per time
+    waste_dict: dictionary
+        dictionary with key = isotope and mass per timestep
     """
 
     cur = cursor
@@ -270,12 +270,11 @@ def isotope_vs_time(cursor):
 
     isotope_set = set(temp_isotope)
 
-
     for iso in isotope_set:
         mass = 0
         time_mass = []
         # at each timestep,
-        for i in range(0, sim_time):
+        for i in range(0, sim_time+1):
             # for each element in database,
             for x in range(0, len(temp_isotope)):
                 if i == time_array[x] and temp_isotope[x] == iso:
@@ -283,7 +282,7 @@ def isotope_vs_time(cursor):
             time_mass.append(mass)
         waste_dict[iso] = time_mass
 
-    print(waste_dict)
+    multi_line_plot(waste_dict, timestep, 'years', 'waste mass', 'isotope vs time', 'isotope vs time')
 
 
 def capacity_calc(governments, timestep, entry, exit):
@@ -356,7 +355,27 @@ def multi_line_plot(dictionary, timestep, xlabel, ylabel, title, outputname):
     -------
     Multiple line plot
     """
-    
+
+    # set different colors for each bar
+    color_index = 0
+    prev = ''
+    plot_array = []
+    # for every country, create bar chart with different color
+    for key in dictionary:
+        # label is the name of the nuclide (converted from ZZAAA0000 format)
+        label = key
+        plt.semilogy(1950 + (timestep/12), dictionary[key],
+                 color=cm.viridis(1.*color_index/len(dictionary)),
+                 label=label)
+        color_index += 1
+
+    # plot
+    plt.ylabel(ylabel)
+    plt.title(title)
+    plt.xlabel(xlabel)
+    plt.legend(loc=(1.0,0))
+    plt.grid(True)
+    plt.savefig(outputname, format='png', bbox_inches='tight')
 
 
 def stacked_bar_chart(dictionary, timestep, xlabel, ylabel, title, outputname):
@@ -472,3 +491,4 @@ if __name__ == "__main__":
         # print(snf(cur))
         # plot_power(cur)
         isotope_vs_time(cur)
+
