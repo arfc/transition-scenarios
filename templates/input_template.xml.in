@@ -4,6 +4,7 @@
     <duration>{{duration}}</duration>
     <startmonth>{{ startmonth}} </startmonth>
     <startyear>{{ startyear}} </startyear>
+    <decay>lazy</decay>
   </control>
 
   <archetypes>
