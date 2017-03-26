@@ -140,13 +140,14 @@
   <recipe>
     <name>mox_fuel_recipe</name>
     <basis>mass</basis>
-    <nuclide> <id>U235</id>  <comp>0.0027381</comp> </nuclide>
-    <nuclide> <id>U238</id>  <comp>0.9099619</comp> </nuclide>
-    <nuclide> <id>Pu238</id> <comp>0.001746</comp> </nuclide>
-    <nuclide> <id>Pu239</id> <comp>0.045396</comp> </nuclide>
-    <nuclide> <id>Pu240</id> <comp>0.020952</comp> </nuclide>
-    <nuclide> <id>Pu241</id> <comp>0.013095</comp> </nuclide>
-    <nuclide> <id>Pu242</id> <comp>0.005238</comp> </nuclide>
+    <nuclide> <id>U235</id>  <comp>0.002056</comp> </nuclide>
+    <nuclide> <id>U238</id>  <comp>0.907684</comp> </nuclide>
+    <nuclide> <id>Pu238</id> <comp>0.002816</comp> </nuclide>
+    <nuclide> <id>Pu239</id> <comp>0.046565</comp> </nuclide>
+    <nuclide> <id>Pu240</id> <comp>0.021951</comp> </nuclide>
+    <nuclide> <id>Pu241</id> <comp>0.010606</comp> </nuclide>
+    <nuclide> <id>Pu242</id> <comp>0.007257</comp> </nuclide>
+    <nuclide> <id>Am241</id> <comp>0.001065</comp> </nuclide>
   </recipe>
 
   <recipe>
