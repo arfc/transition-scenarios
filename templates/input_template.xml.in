@@ -179,6 +179,28 @@
     <nuclide> <id>Am243</id> <comp>3.607</comp> </nuclide>
     <nuclide> <id>Cm244</id> <comp>0.431</comp> </nuclide>
     <nuclide> <id>Cm245</id> <comp>1.263</comp> </nuclide>
+  </recipe>
+
+  <recipe>
+    <name>na_fr_fuel</name>
+    <basis>mass</basis>
+    <nuclide> <id>U234</id>  <comp>0.000538</comp> </nuclide>
+    <nuclide> <id>U235</id>  <comp>0.188200</comp> </nuclide>
+    <nuclide> <id>U238</id>  <comp>75.091897</comp> </nuclide>
+    <nuclide> <id>Pu238</id> <comp>0.875900</comp> </nuclide>
+    <nuclide> <id>Pu239</id> <comp>12.670000</comp> </nuclide>
+    <nuclide> <id>Pu240</id> <comp>6.889000</comp> </nuclide>
+    <nuclide> <id>Pu241</id> <comp>0.702600</comp> </nuclide>
+    <nuclide> <id>Pu242</id> <comp>1.074000</comp> </nuclide>
+    <nuclide> <id>Am241</id> <comp>0.858200</comp> </nuclide>
+    <nuclide> <id>Am242</id> <comp>0.048340</comp> </nuclide>
+    <nuclide> <id>Am243</id> <comp>0.511400</comp> </nuclide>
+    <nuclide> <id>Np237</id> <comp>0.500000</comp> </nuclide>
+    <nuclide> <id>Cm242</id> <comp>0.002424</comp> </nuclide>
+    <nuclide> <id>Cm243</id> <comp>0.006541</comp> </nuclide>
+    <nuclide> <id>Cm244</id> <comp>0.469900</comp> </nuclide>
+    <nuclide> <id>Cm245</id> <comp>0.083910</comp> </nuclide>
+    <nuclide> <id>Cm246</id> <comp>0.027150</comp> </nuclide>
   </recipe> 
 
 
