@@ -13,18 +13,20 @@ if len(sys.argv) < 2:
 
 
 def snf(filename, cursor):
-    """ prints total snf and isotope mass
+    """prints total snf and isotope mass
 
     Parameters
     ----------
-    filename: int
+    filename: str
         cyclus output file to be analyzed.
     cursor: cursor
         cursor for sqlite3
 
     Returns
     -------
-    Returns total snf and isotope mass.
+    array
+        inventory of individual nuclides
+        in format nuclide = mass [kg]
     """
 
     cur = cursor
@@ -34,31 +36,31 @@ def snf(filename, cursor):
     # get resources that ended up in sink.
     resources = cur.execute(exec_string(sink_id,
                                         'transactions.receiverId',
-                                        '*')).fetchall()
+                                        'qualid')).fetchall()
     # get array of sum(quantity) and qualid for snf
     snf_inventory = cur.execute(exec_string(sink_id,
                                             'transactions.receiverId',
-                                            'sum(quantity), qualid') + ' group by qualid').fetchall()
+                                            'sum(quantity), qualid') 
+                                            + ' group by qualid').fetchall()
     waste_id = get_waste_id(resources)
-    inven = isotope_calc(waste_id, snf_inventory, cur)
-    return inven
-
+    return isotope_calc(waste_id, snf_inventory, cur)
+    
 
 def get_sink_agent_ids(cursor):
-    """ Gets all sink agentIds from Agententry table.
+    """Gets all sink agentIds from Agententry table.
 
         agententry table has the following format:
             SimId / AgentId / Kind / Spec /
             Prototype / ParentID / Lifetime / EnterTime
 
     Parameters
-    ---------
+    ----------
     cursor: cursor
         cursor for sqlite3
 
     Returns
     -------
-    sink_id: array
+    array
         array of all the sink agentId values.
     """
 
@@ -72,36 +74,37 @@ def get_sink_agent_ids(cursor):
 
 
 def get_waste_id(resource_array):
-    """ Gets waste id from a resource array
+    """Gets waste id from a resource array
 
-    Paramters
-    ---------
+    Parameters
+    ----------
     resource_array: array
-        array fetched from the resource table.
+        array from the resource table that has all the qualids
+        for all resources that went to the sink.
 
     Returns
     -------
-    waste_id: array
-        array of qualId for waste
+    waste_id: set
+        set of qualId for waste
     """
 
     wasteid = []
 
-    # get all the wasteid
     for res in resource_array:
-        wasteid.append(res[7])
+        wasteid.append(res[0])
 
     return set(wasteid)
 
 
 def exec_string(array, search, whatwant):
-    """ Generates sqlite query command to select things an
+    """Generates sqlite query command to select things an
         inner join between resources and transactions.
 
-    Parmaters
+    Parameters
     ---------
     array: array
-        array of criteria that generates command
+        array of criteria for searching what the 'search' value should match
+        (i.e. agentIds)
     search: str
         where [search]
         criteria for your search
@@ -111,7 +114,7 @@ def exec_string(array, search, whatwant):
 
     Returns
     -------
-    exec_str: str
+    str
         sqlite query command.
     """
 
@@ -126,51 +129,56 @@ def exec_string(array, search, whatwant):
 
 
 def get_sum(array, column_index):
-    """ Returns sum of a column in an array
+    """Returns sum of a column in an array
 
-    Paramters:
+    Parameters
     ---------
     array: array
         array that contains a column with numbers
     column_index: int
         index for the column to be summed
-    """
-    sum = 0
-    for ar in array:
-        sum += ar[column_index]
 
-    return sum
+    Returns
+    -------
+    int
+        summation of all the values in the array column
+    """
+    result = 0
+    for ar in array:
+        result += ar[column_index]
+
+    return result
 
 
 
 def isotope_calc(wasteid_array, snf_inventory, cursor):
-    """ Calculates isotope mass using mass fraction in compositions table.
+    """Calculates isotope mass using mass fraction in compositions table.
 
-        Fetches all from compositions table.
+        Fetches all compositions from compositions table.
         Compositions table has the following format:
             SimId / QualId / NucId / MassFrac
-        Then sees if the qualid matches, and if it multiplies
+        Then sees if the qualid matches, and if it does, multiplies
         the mass fraction by the snf_inventory.
 
-    Prameters
+    Parameters
     ---------
     wasteid_array: array
         array of qualid of wastes
     snf_inventory: float
-        total mass of snf
+        total mass of snf [kg]
     cursor: cursor
         cursor for sqlite3
 
     Returns
     -------
     nuclide_inven: array
-        inventory of individual nuclides.
+        array of individual nuclides.
     """
 
-    # Get compositions of different commodities
+    # Get compositions of different waste
     # SimId / QualId / NucId / MassFrac
     cur = cursor
-    comp = cur.execute('select * from compositions').fetchall()
+    comps = cur.execute('select * from compositions').fetchall()
     total_snf_mass = get_sum(snf_inventory, 0)
 
     nuclide_inven = 'total snf inventory = ' + str(total_snf_mass) + 'kg \n'
@@ -178,18 +186,37 @@ def isotope_calc(wasteid_array, snf_inventory, cursor):
     mass_of_nuclides = []
     # if the 'qualid's match,
     # the nuclide quantity and calculated and displayed.
-    for isotope in comp:
+    for comp in comps:
         for num in snf_inventory:
-            # num[1] = snf inventory qualid 
-            # isotope[1] = compositions qualid 
-            if num[1] == isotope[1]:
-                # num[0] = total mass of one composition
-                # isotope[3] = mass fraction
-                nuclide_quantity = num[0] * isotope[3]
-                #isotope[2] = nucid
-                nuclide_name = isotope[2]
+            inv_qualid = num[1]
+            comp_qualid = comp[1]
+            if inv_qualid == comp_qualid:
+                comp_tot_mass = num[0]
+                mass_frac = comp[3]
+                nuclide_quantity = comp_tot_mass * mass_frac
+                nucid = comp[2]
+                nuclide_name = nucid
                 nuclides.append(nuclide_name)
                 mass_of_nuclides.append(nuclide_quantity)
+
+    return sum_nuclide_to_dict(nuclides, mass_of_nuclides)
+
+
+def sum_nuclide_to_dict(nuclides, nuclides_mass):
+    """takes a nuclide set and returns a dictionary with the masses of each nuclide
+
+    Parameters
+    ----------
+    nuclides: array
+        array of nuclides in the waste
+    nuclides_mass: array
+        array of nuclides' mass
+
+    Returns
+    -------
+    dict
+        dictionary of nuclide name and mass
+    """
 
     nuclide_set = set(nuclides)
     mass_dict = collections.OrderedDict({})
@@ -198,21 +225,17 @@ def isotope_calc(wasteid_array, snf_inventory, cursor):
         temp_nuclide_sum = 0 
         for i in range(len(nuclides)):
             if nuclides[i] == nuclide:
-                temp_nuclide_sum += mass_of_nuclides[i]
-        mass_dict[nuclide] = temp_nuclide_sum
-
-
-    for nuclide in mass_dict:
+                temp_nuclide_sum += nuclides_mass[i]
         nuclide_name = str(nucname.name(nuclide))
-        nuclide_inven += nuclide_name + ' = ' + str(mass_dict[nuclide]) + 'kg \n'
+        mass_dict[nuclide_name] = temp_nuclide_sum
 
-    return nuclide_inven
+    return mass_dict
 
 
-def capacity_calc(governments, timestep, entry, exit):
-    """ Adds and subtracts capacity over time for plotting
+def capacity_calc(governments, timestep, entry, exit_step):
+    """Adds and subtracts capacity over time for plotting
 
-    Paramters
+    Parameters
     ---------
     governments: array
         array of governments (countries)
@@ -221,16 +244,14 @@ def capacity_calc(governments, timestep, entry, exit):
     entry: array
         power_cap, agentid, parentid, entertime
         of all entered reactors
-    exit: array
+    exit_step: array
         power_cap, agentid, parenitd, exittime
         of all decommissioned reactors
 
     Returns
     -------
-    power_dict: dictionary
-        dictionary of capacity progression with country_government as key
-    num_dict: dictionary
-        dictionary of number of reactors progression
+    tuple
+        (power_dict, num_dict) which holds timeseries of capacity and number of reactors
         with country_government as key
     """
 
@@ -242,14 +263,22 @@ def capacity_calc(governments, timestep, entry, exit):
         num_reactors = []
         cap = 0
         count = 0
-        for num in timestep:
+        for t in timestep:
             for enter in entry:
-                if enter[3] == num and enter[2] == gov[1]:
-                    cap += enter[0]
+                entertime = enter[3]
+                parentgov = enter[2]
+                gov_name = gov[1]
+                power_cap = enter[0]
+                if entertime == t and parentgov == gov_name:
+                    cap += power_cap
                     count += 1
-            for dec in exit:
-                if dec[3] == num and dec[2] == gov[1]:
-                    cap -= dec[0]
+            for dec in exit_step:
+                exittime = dec[3]
+                parentgov = dec[2]
+                gov_name = gov[1]
+                power_cap = dec[0]
+                if exittime == t and parentgov == gov_name:
+                    cap -= power_cap
                     count -= 1
             capacity.append(cap)
             num_reactors.append(count)
@@ -260,8 +289,37 @@ def capacity_calc(governments, timestep, entry, exit):
     return power_dict, num_dict
 
 
+def years_from_start(cursor, timestep):
+    """
+    Returns a fractional year from the start of the simulation (e.g. 1950.5 for June 1950)
+    based on the timestep
+
+    Parameters
+    ----------
+    cursor: sqlite cursor
+        cursor to the sqlite file
+    timesteps: array
+        array of timesteps to convert into year
+    
+    Returns
+    -------
+    float
+        the fractional year, representing the timestep given
+    """
+    cur = cursor
+    startdate = cur.execute('SELECT initialyear, initialmonth FROM info').fetchall()
+    print(startdate)
+    startyear = startdate[0][0]
+    startmonth = startdate[0][1]
+    print(startyear)
+    print(startmonth)
+
+    return float(startyear) + (timestep + startmonth)/12.0
+
+
+
 def stacked_bar_chart(dictionary, timestep, xlabel, ylabel, title, outputname):
-    """ Creates stacked bar chart of timstep vs dictionary
+    """Creates stacked bar chart of timstep vs dictionary
 
     Parameters
     ----------
@@ -278,7 +336,7 @@ def stacked_bar_chart(dictionary, timestep, xlabel, ylabel, title, outputname):
 
     Returns
     -------
-    Stacked bar chart
+    
     """
 
     # set different colors for each bar
@@ -288,19 +346,29 @@ def stacked_bar_chart(dictionary, timestep, xlabel, ylabel, title, outputname):
     plot_array = []
     # for every country, create bar chart with different color
     for key in dictionary:
-        label = key.replace('_government', '')
+        if "government" in key:
+            label = key.replace('_government', '')
+        else:
+            label = key
         # very first country does not have a 'bottom' argument
         if top_index is True:
-            plot = plt.bar(1950+(timestep/12), dictionary[key], .5,
+            plot = plt.bar(left=timestep,
+                           height=dictionary[key],
+                           width=0.5,
                            color=cm.viridis(1.*color_index/len(dictionary)),
-                           edgecolor='none', label=label)
+                           edgecolor='none',
+                           label=label)
             prev = dictionary[key]
             top_index = False
-        # from the second country has 'bottom' argument
+        # All curves except the first have a 'bottom' defined by the previous curve
         else:
-            plot = plt.bar(1950 + (timestep/12), dictionary[key], .5,
+            plot = plt.bar(left=timestep,
+                           height=dictionary[key],
+                           width=0.5,
                            color=cm.viridis(1.*color_index/len(dictionary)),
-                           edgecolor='none', bottom=prev, label=label)
+                           edgecolor='none',
+                           bottom=prev,
+                           label=label)
             prev += dictionary[key]
 
         plot_array.append(plot)
@@ -316,7 +384,7 @@ def stacked_bar_chart(dictionary, timestep, xlabel, ylabel, title, outputname):
 
 
 def plot_power(filename, cursor):
-    """ Gets capacity vs time for every country
+    """Gets capacity vs time for every country
         in stacked bar chart.
 
     Parameters
@@ -328,8 +396,7 @@ def plot_power(filename, cursor):
 
     Returns
     -------
-    stacked bar chart of net capapcity vs time
-
+    
     """
     cur = cursor
     sim_time = int(cur.execute('SELECT endtime FROM finish').fetchone()[0]) + 1
@@ -348,7 +415,7 @@ def plot_power(filename, cursor):
                         ON agententry.agentid =\
                         agentstate_cycamore_reactorinfo.agentid').fetchall()
 
-    exit = cur.execute('SELECT power_cap, agentexit.agentid, parentid, exittime\
+    exit_step = cur.execute('SELECT power_cap, agentexit.agentid, parentid, exittime\
                         FROM agentexit INNER JOIN\
                         agentstate_cycamore_reactorinfo\
                         ON agentexit.agentid =\
@@ -356,13 +423,14 @@ def plot_power(filename, cursor):
                         INNER JOIN agententry\
                         ON agentexit.agentid = agententry.agentid').fetchall()
 
-    power_dict, num_dict = capacity_calc(governments, timestep, entry, exit)
+    power_dict, num_dict = capacity_calc(governments, timestep, entry, exit_step)
 
-    stacked_bar_chart(power_dict, timestep,
+    years = years_from_start(cur, timestep)
+    stacked_bar_chart(power_dict, years,
                       'Time', 'net_capacity',
                       'Net Capacity vs Time', 'power_plot.png')
     plt.figure()
-    stacked_bar_chart(num_dict, timestep,
+    stacked_bar_chart(num_dict, years,
                       'Time', 'num_reactors',
                       'Number of Reactors vs Time', 'number_plot.png')
 
