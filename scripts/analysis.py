@@ -220,7 +220,7 @@ def get_sim_time_duration(cursor):
     timestep: array
         linspace of timesteps in the simulation
     """
-
+    cur = cursor
     sim_time = int(cur.execute('SELECT endtime FROM finish').fetchone()[0]) + 1
     timestep = np.linspace(0, sim_time, num=sim_time + 1)
 
@@ -281,8 +281,11 @@ def isotope_vs_time(cursor):
             time_mass.append(mass)
         waste_dict[iso] = time_mass
 
-    multi_line_plot(waste_dict, timestep, 'years', 'waste mass', 'isotope vs time', 'isotope vs time')
 
+    multi_line_plot(waste_dict, timestep, 'years', 'waste mass', 'isotope vs time', 'isotope vs time')
+    for key in waste_dict:
+        waste_dict[key] = np.log(waste_dict[key])
+    stacked_bar_chart(waste_dict, timestep, 'years', 'waste mass', 'isotope vs time', 'isotope vs time stacked bar')
 
 def capacity_calc(governments, timestep, entry, exit):
     """ Adds and subtracts capacity over time for plotting
