@@ -1,58 +1,75 @@
 # transition-scenarios
 
-## Input Folder
-The input folder is to generate various input files for transition scenario
-simulations. Currently it has files that generate PWR input files with 
-different capacities. The assumptions for the parameters are as follows:
+## Script Folder
+The script folder contains scripts that can be used to generate cyclus
+input files and anaylse cyclus output files.
 
-	Cycle 		= 18 months (timesteps) for all
-	Refueling 	= 2 months (timesteps) for all
-	assembly mass 	= 180 UO2 / assembly for BWRs
-			  523.4 UO2 / assembly for rest (PWR, nucleartourist.com)
-	#of assemblies 	= 193 for 1000MWe, linearly adjusted for other capacities
 
 
 
 ### write_reactors.py
 Python script for Cyclus input file generation.
 
+The assumptions for the parameters are as follows:
+
+	Cycle 		= 18 months (timesteps) for all
+	Refueling 	= 2 months (timesteps) for all
+	assembly mass 	= 180 UO2 / assembly for BWRs
+			  		  523.4 UO2 / assembly for rest [PWR](nucleartourist.com)
+	#of assemblies 	= 193 for 1000MWe, linearly adjusted for other capacities
+
 This script allows generation of cyclus input file types from csv files.
 
-Input : csv file, template for reactor input, template for region
+Input : csv file, initial_time, duration, reprocessing 
 
 
 	    
-    csv_file: the csv file containing reactor name, capacity and
-              the appropriate number of assemblies per core and per batch
-	      
-    reator_template: input file name for jinja template for cyclus reactor input
+    csv_file: the csv file containing country, reactor name and capacity
     
-    deployinst_template: input file name for jinja template for cyclus region input
-    
-    input_template: input file template for a complete input file
-    
-    ractor_output: output file name for cyclus reactor input file
-    
-    region_output: output file name for cyclus region input file
+    initial_time: initial time of the simulation in yyyymmdd
+
+    duration: duration of the simulation in months
     
     
-Output : two input file blocks (reactor and region) for cyclus 
-simulation, and a complete input file ready for simulation.
-    
+Output : A complete input file ready for simulation. (default: complete_input.xml)
     
 To run:
 
-	python write_reactors.py [csv_file] [reactor_template] [deployinst_template]
-				 [input_template] [reactor_output] [region_output]
+	python write_reactors.py [csv_file] [init_time] [duration]
 
+
+### analysis.py
+Script that can be used to:
+1. print total snf amount and isotope mass (analysis.snf(cursor))
+2. create stacked bar chart of power capacity and number of reactors per region (analysis.plot_power(cursor))
+3. create a multi-line plot chart of waste isotope per time (analysis.isotope_vs_time(cursor))
+
+The following command on the terminal will execute all three:
+
+`python anaylsis.py [cylcus_output_file]`
+
+
+## Templates Folder
+This folder contains templates that are used in the write_reactors.py script.
 
 ### input_template.xml.in
 Jinja Template for the entire Cyclus input file.
 
 This is where the compiled reactor and region files will be rendered into.
 
+fuel composition data is from:
+
+mox_fuel_recipe / na_fr_fuel -> [Benchmark Study on Nuclear Fuel Cycle Transition Scenarios Analysis Codes](http://www.iaea.org/inis/collection/NCLCollectionStore/_Public/44/089/44089401.pdf?r=1) 
+(2012, IAEA)
+
+uox_used_fuel -> [Spent Nuclear Fuel Assay Data for Isotopic Validation](https://www.oecd-nea.org/science/wpncs/ADSNF/SOAR_final.pdf) 
+(2011, IAEA)
+
 ### reactor_template.xml.in
 Jinja template for the reactor section of the cyclus input file.
+
+### reactor_mox_template.xml.in
+Jinja tempalte for reactors that use mox
 
 ### deployinst_template.xml.in
 Jinja template for the individual region prototype of the cyclus input file.
@@ -60,13 +77,10 @@ Jinja template for the individual region prototype of the cyclus input file.
 ### region_output_template.xml.in
 Jinja template for the region section of the cylcus input file.
 
-### somesource_sink.xml.in
-text file containing NullInst with SomeSource and Somesink
-
 Grouped region prototypes will be rendered into this file.
 
 
-## Europe Folder
+## Database Folder
 
 # eu_reactors_pris.csv
 The eu_reactors_pris.csv file lists all the nulear reactors in europe,
@@ -89,11 +103,3 @@ The csv file lists the following :
 * Shutdown date
 * UCF (Unit Capacity Factor) for 2013 (in %)
 
-
-## output folder
-The output folder contains analysis tools for cylcus output files.
-
-### analysis.py
-Does simple analysis of cyclus input file, prints snf inventory mass
-and shows stacked bar chart of net capacity over time.
-Usage: ` python anaylsis.py [cylcus_output_file]
