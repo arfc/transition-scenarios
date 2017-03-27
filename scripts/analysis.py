@@ -40,11 +40,11 @@ def snf(filename, cursor):
     # get array of sum(quantity) and qualid for snf
     snf_inventory = cur.execute(exec_string(sink_id,
                                             'transactions.receiverId',
-                                            'sum(quantity), qualid') 
+                                            'sum(quantity), qualid')
                                             + ' group by qualid').fetchall()
     waste_id = get_waste_id(resources)
     return isotope_calc(waste_id, snf_inventory, cur)
-    
+
 
 def get_sink_agent_ids(cursor):
     """Gets all sink agentIds from Agententry table.
@@ -150,7 +150,6 @@ def get_sum(array, column_index):
     return result
 
 
-
 def isotope_calc(wasteid_array, snf_inventory, cursor):
     """Calculates isotope mass using mass fraction in compositions table.
 
@@ -222,7 +221,7 @@ def sum_nuclide_to_dict(nuclides, nuclides_mass):
     mass_dict = collections.OrderedDict({})
 
     for nuclide in nuclide_set:
-        temp_nuclide_sum = 0 
+        temp_nuclide_sum = 0
         for i in range(len(nuclides)):
             if nuclides[i] == nuclide:
                 temp_nuclide_sum += nuclides_mass[i]
@@ -251,7 +250,8 @@ def capacity_calc(governments, timestep, entry, exit_step):
     Returns
     -------
     tuple
-        (power_dict, num_dict) which holds timeseries of capacity and number of reactors
+        (power_dict, num_dict) which holds timeseries
+        of capacity and number of reactors
         with country_government as key
     """
 
@@ -291,7 +291,8 @@ def capacity_calc(governments, timestep, entry, exit_step):
 
 def years_from_start(cursor, timestep):
     """
-    Returns a fractional year from the start of the simulation (e.g. 1950.5 for June 1950)
+    Returns a fractional year from the start
+    of the simulation (e.g. 1950.5 for June 1950)
     based on the timestep
 
     Parameters
@@ -300,22 +301,19 @@ def years_from_start(cursor, timestep):
         cursor to the sqlite file
     timesteps: array
         array of timesteps to convert into year
-    
+
     Returns
     -------
     float
         the fractional year, representing the timestep given
     """
     cur = cursor
-    startdate = cur.execute('SELECT initialyear, initialmonth FROM info').fetchall()
-    print(startdate)
+    startdate = cur.execute('SELECT initialyear,'
+                            + ' initialmonth FROM info').fetchall()
     startyear = startdate[0][0]
     startmonth = startdate[0][1]
-    print(startyear)
-    print(startmonth)
 
     return float(startyear) + (timestep + startmonth)/12.0
-
 
 
 def stacked_bar_chart(dictionary, timestep, xlabel, ylabel, title, outputname):
@@ -336,7 +334,7 @@ def stacked_bar_chart(dictionary, timestep, xlabel, ylabel, title, outputname):
 
     Returns
     -------
-    
+
     """
 
     # set different colors for each bar
@@ -360,7 +358,8 @@ def stacked_bar_chart(dictionary, timestep, xlabel, ylabel, title, outputname):
                            label=label)
             prev = dictionary[key]
             top_index = False
-        # All curves except the first have a 'bottom' defined by the previous curve
+        # All curves except the first have a 'bottom'
+        # defined by the previous curve
         else:
             plot = plt.bar(left=timestep,
                            height=dictionary[key],
@@ -396,7 +395,7 @@ def plot_power(filename, cursor):
 
     Returns
     -------
-    
+
     """
     cur = cursor
     sim_time = int(cur.execute('SELECT endtime FROM finish').fetchone()[0]) + 1
@@ -423,7 +422,8 @@ def plot_power(filename, cursor):
                         INNER JOIN agententry\
                         ON agentexit.agentid = agententry.agentid').fetchall()
 
-    power_dict, num_dict = capacity_calc(governments, timestep, entry, exit_step)
+    power_dict, num_dict = capacity_calc(governments, timestep,
+                                         entry, exit_step)
 
     years = years_from_start(cur, timestep)
     stacked_bar_chart(power_dict, years,
@@ -433,7 +433,6 @@ def plot_power(filename, cursor):
     stacked_bar_chart(num_dict, years,
                       'Time', 'num_reactors',
                       'Number of Reactors vs Time', 'number_plot.png')
-
 
 
 if __name__ == "__main__":
