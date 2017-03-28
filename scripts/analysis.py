@@ -412,7 +412,8 @@ def plot_power(filename, cursor):
                         FROM agententry INNER JOIN\
                         agentstate_cycamore_reactorinfo\
                         ON agententry.agentid =\
-                        agentstate_cycamore_reactorinfo.agentid').fetchall()
+                        agentstate_cycamore_reactorinfo.agentid\
+                        group by agententry.agentid').fetchall()
 
     exit_step = cur.execute('SELECT power_cap, agentexit.agentid, parentid, exittime\
                         FROM agentexit INNER JOIN\
