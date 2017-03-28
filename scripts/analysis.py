@@ -406,7 +406,7 @@ def plot_power(filename, cursor):
     # get power cap values
 
     governments = cur.execute('SELECT prototype, agentid FROM agententry\
-                              WHERE spec = ":cycamore:DeployInst"').fetchall()
+                              WHERE spec LIKE "%Inst%"').fetchall()
 
     entry = cur.execute('SELECT power_cap, agententry.agentid, parentid, entertime\
                         FROM agententry INNER JOIN\
