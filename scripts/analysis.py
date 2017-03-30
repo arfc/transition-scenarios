@@ -13,7 +13,7 @@ if len(sys.argv) < 2:
 
 
 def snf(cursor):
-    """ prints total snf and isotope mass
+    """prints total snf and isotope mass
 
     Parameters
     ----------
@@ -27,7 +27,7 @@ def snf(cursor):
 
     cur = cursor
 
-    sink_id = get_sink_agent_ids(cur)
+    sink_id = get_agent_ids(cur, 'sink')
 
     # get resources that ended up in sink.
     resources = cur.execute(exec_string(sink_id,
@@ -42,8 +42,8 @@ def snf(cursor):
     return inven
 
 
-def get_sink_agent_ids(cursor):
-    """ Gets all sink agentIds from Agententry table.
+def get_agent_ids(cursor, facility):
+    """ Gets all agentIds from Agententry table for wanted facility
 
         agententry table has the following format:
             SimId / AgentId / Kind / Spec /
@@ -61,18 +61,18 @@ def get_sink_agent_ids(cursor):
     """
 
     cur = cursor
-    sink_id = []
-    agent = cur.execute("select * from agententry where spec like '%sink%'")
+    agent_id = []
+    agent = cur.execute("select * from agententry where spec like '%" + facility + "%'").fetchall()
 
     for ag in agent:
-        sink_id.append(ag[1])
-    return sink_id
+        agent_id.append(ag[1])
+    return agent_id
 
 
 def get_waste_id(resource_array):
     """ Gets waste id from a resource array
 
-    Paramters
+    Parameters
     ---------
     resource_array: array
         array fetched from the resource table.
@@ -96,7 +96,7 @@ def exec_string(array, search, whatwant):
     """ Generates sqlite query command to select things an
         inner join between resources and transactions.
 
-    Parmaters
+    Parameters
     ---------
     array: array
         array of criteria that generates command
@@ -118,7 +118,7 @@ def exec_string(array, search, whatwant):
                 + str(search) + ' = ' + str(array[0]))
 
     for ar in array[1:]:
-        exec_str += ' or ' + str(ar)
+        exec_str += ' and ' + str(ar)
 
     return exec_str
 
@@ -126,7 +126,7 @@ def exec_string(array, search, whatwant):
 def get_sum(array, column_index):
     """ Returns sum of a column in an array
 
-    Paramters:
+    Parameters:
     ---------
     array: array
         array that contains a column with numbers
@@ -227,28 +227,26 @@ def get_sim_time_duration(cursor):
     return sim_time, timestep
 
 
-def isotope_vs_time(cursor):
-    """ Creates dictionary for isotope mass per timestep
+def isotope_mass_time_array(resources, compositions):
+    """Creates an array with isotope name, mass, and time
 
     Parameters
     ----------
-    cursor: sqlite cursor
-        for ipynb usage
+    resources: array
+        resource data from the resources table
+    compositions: array
+        composition data from the compositions table
 
     Returns
     -------
-    multiple semilogy plot for all isotopes vs time
-    """
+    array
+        isotope name array
+    array
+        isotope mass array
+    array
+        isotope transaction time array
 
-    cur = cursor
-    sink_id = get_sink_agent_ids(cur)
-    waste_dict = collections.OrderedDict({})
-    # get resources that ended up in sink.
-    resources = cur.execute(exec_string(sink_id,
-                                        'transactions.receiverId',
-                                        '*')).fetchall()
-    compositions = cur.execute('SELECT * FROM compositions').fetchall()
-    sim_time, timestep = get_sim_time_duration(cur)
+    """
 
     temp_isotope = []
     temp_mass = []
@@ -256,35 +254,108 @@ def isotope_vs_time(cursor):
 
     for res in resources:
         for com in compositions:
-            # res[7] = qualid in resources
-            # com[1] = qualid in compositions
-            if res[7] == com[1]:
-                # com[2] = NucId
-                # com[3] = MassFraction
-                # res[5] = Mass of waste
-                # res[16] = time in resources
-                temp_isotope.append(com[2])
-                temp_mass.append(com[3]*res[5]) 
-                time_array.append(res[16])
+            res_qualid = res[7]
+            comp_qualid = com[1]
+            if res_qualid == comp_qualid:
+                nucid = com[2]
+                mass_frac = com[3]
+                mass_waste = res[5]
+                res_time = res[16]
+                temp_isotope.append(nucid)
+                temp_mass.append(mass_frac*mass_waste) 
+                time_array.append(res_time)
 
-    isotope_set = set(temp_isotope)
+    return temp_isotope, temp_mass, time_array
+
+
+def plot_in_out_flux(cursor, facility, influx_bool, title, outputname):
+    """plots timeseries outflux from facility name in kg.
+
+    Parameters
+    ----------
+    cursor: sqlite cursor
+        sqlite cursor
+    facility: str
+        facility name
+    influx_bool: bool
+        if true, calculates influx,
+        if false, calculates outflux
+    title: str
+        title of the multi line plot
+    outputname: str
+        filename of the multi line plot file
+
+    Returns
+    -------
+
+    """
+
+    cur = cursor
+    agent_ids = get_agent_ids(cur, facility)
+    print(agent_ids)
+    print(exec_string(agent_ids, 'transactions.senderid', '*'))
+    if influx_bool is True:
+        resources = cur.execute(exec_string(agent_ids,
+                                            'transactions.receiverId',
+                                            '*')).fetchall()
+    else:
+        resources = cur.execute(exec_string(agent_ids,
+                                            'transactions.senderId',
+                                            '*')).fetchall()
+    compositions = cur.execute('SELECT * FROM compositions').fetchall()
+    sim_time, timestep = get_sim_time_duration(cur)
+    isotope, mass, time_array = isotope_mass_time_array(resources, compositions)
+
+    waste_dict = get_waste_dict(isotope, mass, time_array, sim_time)
+
+    multi_line_plot(waste_dict, timestep,
+                    'Years', 'Mass [kg]',
+                    title, outputname)
+
+
+def get_waste_dict(isotope_array, mass_array, time_array, sim_time):
+    """Given an isotope, mass and time array, creates a dictionary
+       With key as isotope and time series of the isotope mass.
+
+    Parameters
+    ----------
+    isotope_array: array
+        array with all the isotopes from resources table
+    mass_array: array
+        array with all the mass values from resources table
+    time_array: array
+        array with all the time values from resources table
+    sim_time: int
+        simulation time
+
+    Returns
+    -------
+    dict
+        dictionary of mass time series of each unique isotope
+    """
+
+    waste_dict = collections.OrderedDict({})
+    isotope_set = set(isotope_array)
 
     for iso in isotope_set:
+        print(iso)
         mass = 0
         time_mass = []
         # at each timestep,
         for i in range(0, sim_time+1):
             # for each element in database,
-            for x in range(0, len(temp_isotope)):
-                if i == time_array[x] and temp_isotope[x] == iso:
-                    mass += temp_mass[x]
+            for x in range(0, len(isotope_array)):
+                if i == time_array[x] and isotope_array[x] == iso:
+                    mass += mass_array[x]
             time_mass.append(mass)
         waste_dict[iso] = time_mass
 
-    multi_line_plot(waste_dict, timestep, 'years', 'waste mass', 'isotope vs time', 'isotope vs time')
-    
+    return waste_dict
+
+
+
 def capacity_calc(governments, timestep, entry, exit):
-    """ Adds and subtracts capacity over time for plotting
+    """Adds and subtracts capacity over time for plotting
 
     Paramters
     ---------
@@ -368,7 +439,6 @@ def multi_line_plot(dictionary, timestep, xlabel, ylabel, title, outputname):
         color_index += 1
 
     # plot
-    plt.figure()
     plt.ylabel(ylabel)
     plt.title(title)
     plt.xlabel(xlabel)
@@ -418,8 +488,7 @@ def stacked_bar_chart(dictionary, timestep, xlabel, ylabel, title, outputname):
             plot = plt.bar(1950 + (timestep/12), dictionary[key], .5,
                            color=cm.viridis(1.*color_index/len(dictionary)),
                            edgecolor='none', bottom=prev, label=label)
-            prev += dictionary[key]
-
+            prev = np.add(prev, dictionary[key])
         plot_array.append(plot)
         color_index += 1
 
@@ -443,7 +512,7 @@ def plot_power(cursor):
 
     Returns
     -------
-    stacked bar chart of net capapcity vs time
+    stacked bar chart of net capacity vs time
 
     """
     cur = cursor
@@ -487,7 +556,9 @@ if __name__ == "__main__":
     con = lite.connect(file)
     with con:
         cur = con.cursor()
-        print(snf(cur))
-        plot_power(cur)
-        isotope_vs_time(cur)
-
+        # print(snf(cur))
+        # plot_power(cur)
+        plot_in_out_flux(cur, 'source', False, 'source vs time', 'source vs time')
+        plt.figure()
+        plot_in_out_flux(cur, 'sink', True, 'isotope vs time', 'isotope vs time')
+  
