@@ -68,7 +68,7 @@ def get_ymd(yyyymmdd):
 
         The month value is rounded up if the day is above 16
 
-    Prameters
+    Parameters
     ---------
     yyyymmdd: int
         date in yyyymmdd format
@@ -93,7 +93,7 @@ def get_lifetime(start_date, end_date):
     """This function gets the lifetime for a prototype given the
        start and end date.
 
-    Prameters
+    Parameters
     ---------
     start_date: int
         start date of reactor - first criticality.
@@ -127,7 +127,7 @@ def get_entrytime(init_date, start_date):
 
         All dates are in format - yyyymmdd
 
-    Prameters
+    Parameters
     ---------
     init_date: int
         start date of simulation
@@ -383,7 +383,7 @@ def main(csv_file, init_date, duration, reactor_template, mox_reactor_template,
     input_template: str
         template file for entire complete cyclus input file
     output_file: str
-        directory and name of complete cyclue input file
+        directory and name of complete cyclus input file
 
     Returns
     -------
@@ -432,13 +432,13 @@ def run(csv_file, init_date, duration, reprocessing, output_file):
     csv_file : str
         csv file containing reactor data (country, name, capacity)
     init_date: int
-        yyyymmdd format of inital date of simulation
-    duation: int
+        yyyymmdd format of initial date of simulation
+    duration: int
         timestep in months
     reprocessing: bool
         True if reprocessing is done, False if not
     output_file: str
-        directory and name of complete cyclue input file
+        directory and name of complete cyclus input file
 
     Returns
     -------
@@ -458,7 +458,7 @@ if __name__ == "__main__":
     main(sys.argv[1], int(sys.argv[2]), int(sys.argv[3]),
          '../templates/reactor_template.xml.in',
          '../templates/reactor_mox_template.xml.in',
-         True,
+         False,
          '../templates/deployinst_template.xml.in',
          '../templates/input_template.xml.in',
          'complete_input.xml')
