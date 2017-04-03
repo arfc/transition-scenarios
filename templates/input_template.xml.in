@@ -69,7 +69,18 @@
 
 
   <facility>
-    <name>SomeSource</name>
+    <name>nat_u_source</name>
+    <config>
+      <Source>
+        <outcommod>nat_u</outcommod>
+        <outrecipe>nat_u_recipe</outrecipe>
+        <throughput>1e100</throughput>
+      </Source>
+    </config>
+  </facility>
+
+  <facility>
+    <name>uox_source</name>
     <config>
       <Source>
         <outcommod>uox</outcommod>
@@ -106,7 +117,11 @@
         <initialfacilitylist>
           <entry>
             <number>1</number>
-            <prototype>SomeSource</prototype>
+            <prototype>nat_u_source</prototype>
+          </entry>
+          <entry>
+            <number>1</number>
+            <prototype>uox_source</prototype>
           </entry>
           <entry>
             <number>1</number>
