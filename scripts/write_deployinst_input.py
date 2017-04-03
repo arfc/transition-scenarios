@@ -27,7 +27,7 @@ def delete_file(file):
 
 
 def read_csv(csv_file):
-    """This function reads the csv file and returns the array.
+    """This function reads the csv file and returns the list.
 
     Parameters
     ---------
@@ -37,8 +37,8 @@ def read_csv(csv_file):
 
     Returns
     -------
-    reactor_lists:  array
-        array with the data from csv file
+    reactor_lists:  list
+        list with the data from csv file
 
     """
 
@@ -179,13 +179,13 @@ def read_template(template):
     return output_template
 
 
-def reactor_render(array, template, mox_template, output_file):
-    """Takes the array and template and writes a reactor file
+def reactor_render(list, template, mox_template, output_file):
+    """Takes the list and template and writes a reactor file
 
     Parameters
     ---------
-    array: array
-        array of data on reactors
+    list: list
+        list of data on reactors
     template: jinja.template
         jinja template for reactor file
     mox_template: jinja.template
@@ -199,7 +199,7 @@ def reactor_render(array, template, mox_template, output_file):
 
     """
 
-    for data in array:
+    for data in list:
         # BWRs have different fuel assembly size, assembly per core and batch
         if data['type'].decode('utf-8') == 'BWR':
             reactor_body = template.render(
@@ -281,13 +281,13 @@ def input_render(init_date, duration, reactor_file,
     os.system('rm reactor_output.xml.in region_output.xml.in')
 
 
-def region_render(array, template, full_template, output_file):
-    """Takes the array and template and writes a region file
+def region_render(list, template, full_template, output_file):
+    """Takes the list and template and writes a region file
 
     Parameters
     ---------
-    array: array
-        array of data on reactors
+    list: list
+        list of data on reactors
     template: jinja.template
         jinja template for one region prototype declaration
     full_template: jinja.template
@@ -308,7 +308,7 @@ def region_render(array, template, full_template, output_file):
     valtail = '</val>'
 
     # creates list of countries and turns it into a set
-    for data in array:
+    for data in list:
         country_list.append(data['country'].decode('utf-8'))
     country_set = set(country_list)
 
@@ -318,7 +318,7 @@ def region_render(array, template, full_template, output_file):
         number = ''
         lifetime = ''
 
-        for data in array:
+        for data in list:
             if data['country'].decode('utf-8') == country:
 
                 prototype += (valhead
@@ -423,35 +423,6 @@ def main(csv_file, init_date, duration, reactor_template, mox_reactor_template,
     input_render(init_date, duration, 'reactor_output.xml.in',
                  'region_output.xml.in',
                  input_template, output_file, reprocessing)
-
-def run(csv_file, init_date, duration, reprocessing, output_file):
-    """ Generates complete input file without the template specification
-
-    Parameters
-    ---------
-    csv_file : str
-        csv file containing reactor data (country, name, capacity)
-    init_date: int
-        yyyymmdd format of initial date of simulation
-    duration: int
-        timestep in months
-    reprocessing: bool
-        True if reprocessing is done, False if not
-    output_file: str
-        directory and name of complete cyclus input file
-
-    Returns
-    -------
-    Complete Cyclus input file
-    """
-
-    main(csv_file, init_date, duration,
-         '../templates/reactor_template.xml.in',
-         '../templates/reactor_mox_template.xml.in',
-         reprocessing,
-         '../templates/deployinst_template.xml.in',
-         '../templates/input_template.xml.in',
-         output_file)
 
 
 if __name__ == "__main__":
