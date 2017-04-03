@@ -97,4 +97,3 @@ The output folder contains analysis tools for cylcus output files.
 Does simple analysis of cyclus input file, prints snf inventory mass
 and shows stacked bar chart of net capacity over time.
 Usage: ` python anaylsis.py [cylcus_output_file]
-

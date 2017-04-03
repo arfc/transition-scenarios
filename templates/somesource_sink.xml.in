@@ -1,8 +1,9 @@
-<institution>
-    	<name>France_init</name>
-    	<config>
-    		<NullInst/>
-    	</config>
+<region>
+    <name>Sink_Source</name>
+    <config><NullRegion/></config>
+        <institution>  
+    	   <name>Sink_Source</name>
+    	   <config><NullInst/></config>
     		<initialfacilitylist>
     			<entry>
     				<number>1</number>
@@ -13,4 +14,5 @@
     				<prototype>SomeSink</prototype>
     			</entry>
     		</initialfacilitylist>
-    </institution>
+        </institution>
+</region>

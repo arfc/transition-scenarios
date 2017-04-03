@@ -1,7 +1,7 @@
 
 <simulation>
   <control>
-    <duration>840</duration>
+    <duration>{{duration}}</duration>
     <startmonth>{{ startmonth}} </startmonth>
     <startyear>{{ startyear}} </startyear>
   </control>
@@ -60,7 +60,24 @@
 
 {{ region_input }}
   
-  
+<region>
+    <name>Sink_Source</name>
+    <config><NullRegion/></config>
+        <institution>  
+         <name>Sink_Source_Inst</name>
+         <config><NullInst/></config>
+        <initialfacilitylist>
+          <entry>
+            <number>1</number>
+            <prototype>SomeSource</prototype>
+          </entry>
+          <entry>
+            <number>1</number>
+            <prototype>SomeSink</prototype>
+          </entry>
+        </initialfacilitylist>
+        </institution>
+</region>  
 
   <recipe>
     <name>natl_u</name>

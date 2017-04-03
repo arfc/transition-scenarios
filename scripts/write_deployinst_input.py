@@ -4,10 +4,9 @@ import numpy as np
 import os
 
 # tells command format if input is invalid
-if len(sys.argv) < 6:
-    print('Usage: python write_reactors.py [csv]\
-          [reactor_template] [deployinst_template]\
-          [input_template] [reactor_output] [region_output]')
+if len(sys.argv) < 3:
+    print('Usage: python write_reactors.py [csv]' +
+          '[init_date] [duration]')
 
 
 def delete_file(file):
@@ -48,7 +47,6 @@ def read_csv(csv_file):
                                   delimiter=',',
                                   dtype=('S128', 'S128',
                                          'S128', 'int',
-                                         'int', 'int',
                                          'S128', 'S128', 'int',
                                          'int', 'int',
                                          'int', 'int',
@@ -56,7 +54,6 @@ def read_csv(csv_file):
                                          'int', 'float'),
                                   names=('country', 'reactor_name',
                                          'type', 'capacity',
-                                         'n_assem_core', 'n_assem_batch',
                                          'status', 'operator', 'const_date',
                                          'cons_year', 'first_crit',
                                          'entry_time', 'lifetime',
@@ -201,17 +198,31 @@ def reactor_render(array, template, output_file):
     """
 
     for data in array:
-        reactor_body = \
-                       template.render(country=data['country'].decode('utf-8'),
-                                       reactor_name=data['reactor_name'].decode('utf-8'),
-                                       n_assem_core=data['n_assem_core'],
-                                       n_assem_batch=data['n_assem_batch'],
-                                       capacity=data['capacity'])
+        if data['type'].decode('utf-8') == 'BWR':
+            reactor_body = \
+                           template.render(
+                                           country=data['country'].decode('utf-8'),
+                                           reactor_name=data['reactor_name'].decode('utf-8'),
+                                           assem_size=180,
+                                           n_assem_core=int(round(data['capacity']/1000 * 764)),
+                                           n_assem_batch=int(round(data['capacity']/3000 * 764)),
+                                           capacity=data['capacity'])
+        # if data['type'].decode('utf-8') == 'PWR':
+        else:
+            reactor_body = \
+                           template.render(
+                                           country=data['country'].decode('utf-8'),
+                                           reactor_name=data['reactor_name'].decode('utf-8'),
+                                           assem_size=523.4,
+                                           n_assem_core=int(round(data['capacity']/1000 * 193)),
+                                           n_assem_batch=int(round(data['capacity']/3000 * 193)),
+                                           capacity=data['capacity'])
         with open(output_file, 'a') as output:
             output.write(reactor_body)
 
 
-def input_render(init_date, reactor_file, region_file, template, output_file):
+def input_render(init_date, duration, reactor_file,
+                 region_file, template, output_file):
     """Creates total input file from region and reactor file
 
     Parameters
@@ -239,11 +250,14 @@ def input_render(init_date, reactor_file, region_file, template, output_file):
 
     startyear, startmonth = get_ymd(init_date)
 
-    temp = template.render(startmonth=startmonth, startyear=startyear,
+    temp = template.render(duration=duration, startmonth=startmonth,
+                           startyear=startyear,
                            reactor_input=reactor, region_input=region)
 
-    with open(output_file, 'a') as output:
+    with open(output_file, 'w') as output:
         output.write(temp)
+
+    os.system('rm reactor_output.xml.in region_output.xml.in')
 
 
 def region_render(array, template, full_template, output_file):
@@ -327,14 +341,16 @@ def region_render(array, template, full_template, output_file):
         os.system('rm ' + country + '_region')
 
 
-def main(csv_file, reactor_template, deployinst_template,
-         input_template, reactor_output, region_output):
+def main(csv_file, init_date, duration, reactor_template, deployinst_template,
+         input_template, output_file):
     """ Generates cyclus input file from csv files and jinja templates.
 
     Parameters
     ---------
     csv_file : str
         csv file containing reactor data (country, name, capacity)
+    init_date: int
+        yyyymmdd format of inital date of simulation
     reactor_template: str
         template file for reactor section of input file
     deployinst_template: str
@@ -356,18 +372,14 @@ def main(csv_file, reactor_template, deployinst_template,
 
     # deletes previously existing files
     delete_file('complete_input.xml')
-    delete_file(reactor_output)
-    delete_file(region_output)
-
-    # initialize initial values form (yyyymmdd)
-    init_date = 19500101
 
     # read csv and templates
     dataset = read_csv(csv_file)
     input_template = read_template(input_template)
     reactor_template = read_template(reactor_template)
-    region_output_template = read_template('region_output_template.xml.in')
-    deployinst_template = read_template('deployinst_template.xml.in')
+    region_output_template = read_template('../templates/'
+                                           + 'region_output_template.xml.in')
+    deployinst_template = read_template(deployinst_template)
 
     for data in dataset:
         entry_time = get_entrytime(init_date, data['first_crit'])
@@ -381,15 +393,15 @@ def main(csv_file, reactor_template, deployinst_template,
         data['entry_time'] = entry_time
         data['lifetime'] = lifetime
     # renders reactor / region / input file. Confesses imperfection.
-    reactor_render(dataset, reactor_template, reactor_output)
+    reactor_render(dataset, reactor_template, 'reactor_output.xml.in')
     region_render(dataset, deployinst_template,
-                  region_output_template, region_output)
-    input_render(init_date, reactor_output, region_output,
-                 input_template, 'complete_input.xml')
-    print('\n Insert sink and source into the regions \
-          - updates to come! :) \n ')
-
+                  region_output_template, 'region_output.xml.in')
+    input_render(init_date, duration, 'reactor_output.xml.in',
+                 'region_output.xml.in',
+                 input_template, output_file)
 
 if __name__ == "__main__":
-    main(sys.argv[1], sys.argv[2], sys.argv[3],
-         sys.argv[4], sys.argv[5], sys.argv[6])
+    main(sys.argv[1], int(sys.argv[2]), int(sys.argv[3]),
+         './templates/reactor_template.xml.in',
+         './templates/deployinst_template.xml.in',
+         './templates/input_template.xml.in', './complete_input.xml')
