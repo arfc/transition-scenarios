@@ -59,6 +59,17 @@ def read_csv(csv_file):
                                          'entry_time', 'lifetime',
                                          'first_grid', 'commercial',
                                          'shutdown_date', 'ucf'))
+    # deletes experimental reactors (reactors with capacity < 100 MWe)
+    hitlist = []
+    count = 0
+    for data in reactor_lists:
+        if data['capacity'] < 100:
+            hitlist.append(count)
+        count += 1
+
+    print(hitlist)
+
+    reactor_lists = np.delete(reactor_lists, hitlist)
 
     return reactor_lists
 
