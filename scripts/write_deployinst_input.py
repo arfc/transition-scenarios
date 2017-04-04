@@ -83,7 +83,7 @@ def get_ymd(yyyymmdd):
 
     year = yyyymmdd // 10000
     month = (yyyymmdd // 100) % 100
-    day = yyyymmdd % 10000
+    day = yyyymmdd % 100
     if day > 16:
         month += 1
     return (year, month)
