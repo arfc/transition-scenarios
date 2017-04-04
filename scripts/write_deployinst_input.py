@@ -271,20 +271,23 @@ def input_render(init_date, duration, reactor_file,
         region = bae.read()
 
     startyear, startmonth = get_ymd(init_date)
-    
+
     # has reprocessing chunk if reprocssing boolean is true.
     if reprocessing is True:
         reprocessing_chunk = ('<entry>\n'
-                              +'  <number>1</number>\n'
-                              +'  <prototype>reprocessing</prototype>\n'
-                              +'</entry>')
+                              + '  <number>1</number>\n'
+                              + '  <prototype>reprocessing</prototype>\n'
+                              + '</entry>')
     else:
         reprocessing_chunk = ''
-    
-    #renders template
-    temp = template.render(duration=duration, startmonth=startmonth,
-                           startyear=startyear, reprocessing=reprocessing_chunk,
-                           reactor_input=reactor, region_input=region)
+
+    # renders template
+    temp = template.render(duration=duration,
+                           startmonth=startmonth,
+                           startyear=startyear,
+                           reprocessing=reprocessing_chunk,
+                           reactor_input=reactor,
+                           region_input=region)
 
     with open(output_file, 'w') as output:
         output.write(temp)
@@ -428,7 +431,9 @@ def main(csv_file, init_date, duration, reactor_template, mox_reactor_template,
         data['entry_time'] = entry_time
         data['lifetime'] = lifetime
     # renders reactor / region / input file. Confesses imperfection.
-    reactor_render(dataset, reactor_template, mox_reactor_template, 'reactor_output.xml.in')
+    reactor_render(dataset, reactor_template,
+                   mox_reactor_template,
+                   'reactor_output.xml.in')
     region_render(dataset, deployinst_template,
                   region_output_template, 'region_output.xml.in')
     input_render(init_date, duration, 'reactor_output.xml.in',

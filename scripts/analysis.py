@@ -142,7 +142,6 @@ def get_sum(list, column_index):
     return sum
 
 
-
 def isotope_calc(wasteid_list, snf_inventory, cursor):
     """ Calculates isotope mass using mass fraction in compositions table.
 
@@ -180,13 +179,13 @@ def isotope_calc(wasteid_list, snf_inventory, cursor):
     # the nuclide quantity and calculated and displayed.
     for isotope in comp:
         for num in snf_inventory:
-            # num[1] = snf inventory qualid 
-            # isotope[1] = compositions qualid 
+            # num[1] = snf inventory qualid
+            # isotope[1] = compositions qualid
             if num[1] == isotope[1]:
                 # num[0] = total mass of one composition
                 # isotope[3] = mass fraction
                 nuclide_quantity = num[0] * isotope[3]
-                #isotope[2] = nucid
+                # isotope[2] = nucid
                 nuclide_name = isotope[2]
                 nuclides.append(nuclide_name)
                 mass_of_nuclides.append(nuclide_quantity)
@@ -195,18 +194,18 @@ def isotope_calc(wasteid_list, snf_inventory, cursor):
     mass_dict = collections.OrderedDict({})
 
     for nuclide in nuclide_set:
-        temp_nuclide_sum = 0 
+        temp_nuclide_sum = 0
         for i in range(len(nuclides)):
             if nuclides[i] == nuclide:
                 temp_nuclide_sum += mass_of_nuclides[i]
         mass_dict[nuclide] = temp_nuclide_sum
-
 
     for nuclide in mass_dict:
         nuclide_name = str(nucname.name(nuclide))
         nuclide_inven += nuclide_name + ' = ' + str(mass_dict[nuclide]) + 'kg \n'
 
     return nuclide_inven
+
 
 def get_sim_time_duration(cursor):
     """ Returns simulation time and duration of the simulation
@@ -228,11 +227,12 @@ def get_sim_time_duration(cursor):
     """
     cur = cursor
 
-    info = cur.execute('SELECT initialyear, initialmonth, duration FROM info').fetchone()
+    info = cur.execute('SELECT initialyear, initialmonth,'
+                       + ' duration FROM info').fetchone()
     init_year = info[0]
     init_month = info[1]
     duration = info[2]
-    timestep = np.linspace(1,info[2], num=info[2])
+    timestep = np.linspace(1, info[2], num=info[2])
     return init_year, init_month, duration, timestep
 
 
@@ -271,7 +271,7 @@ def isotope_mass_time_list(resources, compositions):
                 mass_waste = res[0]
                 res_time = res[1]
                 temp_isotope.append(nucid)
-                temp_mass.append(mass_frac*mass_waste) 
+                temp_mass.append(mass_frac*mass_waste)
                 time_list.append(res_time)
 
     return temp_isotope, temp_mass, time_list
@@ -367,7 +367,6 @@ def get_waste_dict(isotope_list, mass_list, time_list, duration):
     return waste_dict
 
 
-
 def capacity_calc(governments, timestep, entry, exit):
     """Adds and subtracts capacity over time for plotting
 
@@ -418,7 +417,9 @@ def capacity_calc(governments, timestep, entry, exit):
 
     return power_dict, num_dict
 
-def multi_line_plot(dictionary, timestep, xlabel, ylabel, title, outputname, init_year):
+def multi_line_plot(dictionary, timestep,
+                    xlabel, ylabel, title,
+                    outputname, init_year):
     """ Creates a multi-line plot of timestep vs dictionary
 
     Parameters
@@ -448,20 +449,22 @@ def multi_line_plot(dictionary, timestep, xlabel, ylabel, title, outputname, ini
     # for every country, create bar chart with different color
     for key in dictionary:
         # label is the name of the nuclide (converted from ZZAAA0000 format)
-        label =  str(nucname.name(key))
+        label = str(nucname.name(key))
         plt.semilogy(init_year + (timestep/12), dictionary[key],
                      label=label)
         color_index += 1
         plt.ylabel(ylabel)
         plt.title(title)
         plt.xlabel(xlabel)
-        plt.legend(loc=(1.0,0), prop={'size':10})
+        plt.legend(loc=(1.0, 0), prop={'size':10})
         plt.grid(True)
-        plt.savefig(label + '_'+ outputname, format='png', bbox_inches='tight')
+        plt.savefig(label + '_' + outputname, format='png', bbox_inches='tight')
         plt.close()
 
 
-def stacked_bar_chart(dictionary, timestep, xlabel, ylabel, title, outputname, init_year):
+def stacked_bar_chart(dictionary, timestep,
+                      xlabel, ylabel, title,
+                      outputname, init_year):
     """ Creates stacked bar chart of timstep vs dictionary
 
     Parameters
@@ -515,7 +518,7 @@ def stacked_bar_chart(dictionary, timestep, xlabel, ylabel, title, outputname, i
     plt.ylabel(ylabel)
     plt.title(title)
     plt.xlabel(xlabel)
-    plt.legend(loc=(1.0,0))
+    plt.legend(loc=(1.0, 0))
     plt.grid(True)
     plt.savefig(outputname, format='png', bbox_inches='tight')
     plt.close()
@@ -567,8 +570,8 @@ def plot_power(cursor):
     plt.figure()
     stacked_bar_chart(num_dict, timestep,
                       'Time', 'num_reactors',
-                      'Number of Reactors vs Time', 'number_plot.png', init_year)
-
+                      'Number of Reactors vs Time',
+                      'number_plot.png', init_year)
 
 
 if __name__ == "__main__":
@@ -576,7 +579,7 @@ if __name__ == "__main__":
     con = lite.connect(file)
     with con:
         cur = con.cursor()
-        # print(snf(cur))
-        # plot_power(cur)
+        print(snf(cur))
+        plot_power(cur)
         plot_in_out_flux(cur, 'source', False, 'source vs time', 'source')
         plot_in_out_flux(cur, 'sink', True, 'isotope vs time', 'sink')
