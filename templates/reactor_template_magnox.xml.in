@@ -3,11 +3,11 @@
     <name>{{ reactor_name }}</name>
     <config>
       <Reactor>
-        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
-        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
-        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
-        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <fuel_inrecipes>  <val>nat_u_recipe</val>   </fuel_inrecipes>
+        <fuel_outrecipes> <val>magnox_used</val>    </fuel_outrecipes>
+        <fuel_incommods>  <val>nat_u</val>          </fuel_incommods>
+        <fuel_outcommods> <val>magnox_waste</val>   </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>            </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
         <assem_size>{{assem_size}}</assem_size>
@@ -17,5 +17,3 @@
       </Reactor>
     </config>
   </facility>
-
-
