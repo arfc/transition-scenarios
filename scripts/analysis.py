@@ -232,7 +232,8 @@ def get_sim_time_duration(cursor):
     init_year = info[0]
     init_month = info[1]
     duration = info[2]
-    timestep = np.linspace(1, info[2], num=info[2])
+    timestep = np.linspace(0, info[2]-1, num=info[2])
+    print(timestep)
     return init_year, init_month, duration, timestep
 
 
@@ -402,12 +403,19 @@ def capacity_calc(governments, timestep, entry, exit):
         count = 0
         for num in timestep:
             for enter in entry:
-                if enter[3] == num and enter[2] == gov[1]:
-                    cap += enter[0]
+                entertime = enter[3]
+                parentid = enter[2]
+                gov_id = gov[1]
+                power_cap = enter[0]
+                if entertime == num and parentid == gov_id:
+                    cap += power_cap
                     count += 1
             for dec in exit:
-                if dec[3] == num and dec[2] == gov[1]:
-                    cap -= dec[0]
+                exittime = dec[3]
+                parentid = dec[2]
+                power_cap = dec[0]
+                if exittime == num and parentid == gov_id:
+                    cap -= power_cap
                     count -= 1
             capacity.append(cap)
             num_reactors.append(count)
@@ -546,7 +554,7 @@ def plot_power(cursor):
     cur = cursor
     # get power cap values
     governments = cur.execute('SELECT prototype, agentid FROM agententry\
-                              WHERE spec = ":cycamore:DeployInst"').fetchall()
+                              WHERE kind = "Inst"').fetchall()
 
     entry = cur.execute('SELECT power_cap, agententry.agentid, parentid, entertime\
                         FROM agententry INNER JOIN\
@@ -561,13 +569,10 @@ def plot_power(cursor):
                         agentstate_cycamore_reactorinfo.agentid\
                         INNER JOIN agententry\
                         ON agentexit.agentid = agententry.agentid').fetchall()
-
     power_dict, num_dict = capacity_calc(governments, timestep, entry, exit)
-
     stacked_bar_chart(power_dict, timestep,
                       'Time', 'net_capacity',
                       'Net Capacity vs Time', 'power_plot.png', init_year)
-    plt.figure()
     stacked_bar_chart(num_dict, timestep,
                       'Time', 'num_reactors',
                       'Number of Reactors vs Time',
@@ -579,7 +584,7 @@ if __name__ == "__main__":
     con = lite.connect(file)
     with con:
         cur = con.cursor()
-        print(snf(cur))
+        # print(snf(cur))
         plot_power(cur)
-        plot_in_out_flux(cur, 'source', False, 'source vs time', 'source')
-        plot_in_out_flux(cur, 'sink', True, 'isotope vs time', 'sink')
+        # plot_in_out_flux(cur, 'source', False, 'source vs time', 'source')
+        # plot_in_out_flux(cur, 'sink', True, 'isotope vs time', 'sink')
