@@ -22,7 +22,9 @@ def snf(cursor):
 
     Returns
     -------
-    Returns total snf and isotope mass.
+    array
+        inventory of individual nuclides
+        in format nuclide = mass [kg]
     """
 
     cur = cursor
@@ -32,18 +34,20 @@ def snf(cursor):
     # get resources that ended up in sink.
     resources = cur.execute(exec_string(sink_id,
                                         'transactions.receiverId',
-                                        '*')).fetchall()
+                                        'qualid')).fetchall()
+
     # get list of sum(quantity) and qualid for snf
     snf_inventory = cur.execute(exec_string(sink_id,
                                             'transactions.receiverId',
                                             'sum(quantity), qualid')
                                 + ' group by qualid').fetchall()
+    
     waste_id = get_waste_id(resources)
-    inven = isotope_calc(waste_id, snf_inventory, cur)
-    return inven
+    return isotope_calc(waste_id, snf_inventory, cur)
 
 
-def get_agent_ids(cursor, facility):
+def get_sink_agent_ids(cursor):
+
     """ Gets all agentIds from Agententry table for wanted facility
 
         agententry table has the following format:
@@ -51,12 +55,13 @@ def get_agent_ids(cursor, facility):
             Prototype / ParentID / Lifetime / EnterTime
 
     Parameters
-    ---------
+    ----------
     cursor: cursor
         cursor for sqlite3
 
     Returns
     -------
+
     sink_id: list
         list of all the sink agentId values.
     """
@@ -71,7 +76,7 @@ def get_agent_ids(cursor, facility):
     return agent_id
 
 
-def get_waste_id(resource_list):
+def get_waste_id(resource_array):
     """ Gets waste id from a resource list
 
     Parameters
@@ -87,19 +92,20 @@ def get_waste_id(resource_list):
 
     wasteid = []
 
-    # get all the wasteid
-    for res in resource_list:
-        wasteid.append(res[7])
+
+    for res in resource_array:
+        wasteid.append(res[0])
 
     return set(wasteid)
 
 
 def exec_string(list, search, whatwant):
-    """ Generates sqlite query command to select things an
+    """ Generates sqlite query command to select things and
         inner join between resources and transactions.
 
     Parameters
     ---------
+
     list: list
         list of criteria that generates command
     search: str
@@ -111,7 +117,7 @@ def exec_string(list, search, whatwant):
 
     Returns
     -------
-    exec_str: str
+    str
         sqlite query command.
     """
 
@@ -126,6 +132,7 @@ def exec_string(list, search, whatwant):
 
 
 def get_sum(list, column_index):
+
     """ Returns sum of a column in an list
 
     Parameters:
@@ -134,6 +141,11 @@ def get_sum(list, column_index):
         list that contains a column with numbers
     column_index: int
         index for the column to be summed
+
+    Returns
+    -------
+    int
+        summation of all the values in the array column
     """
     sum = 0
     for ar in list:
@@ -141,22 +153,22 @@ def get_sum(list, column_index):
 
     return sum
 
-
-def isotope_calc(wasteid_list, snf_inventory, cursor):
+def isotope_calc(wasteid_array, snf_inventory, cursor):
+    
     """ Calculates isotope mass using mass fraction in compositions table.
 
-        Fetches all from compositions table.
+        Fetches all compositions from compositions table.
         Compositions table has the following format:
             SimId / QualId / NucId / MassFrac
-        Then sees if the qualid matches, and if it multiplies
+        Then sees if the qualid matches, and if it does, multiplies
         the mass fraction by the snf_inventory.
 
-    Prameters
+    Parameters
     ---------
     wasteid_list: list
         list of qualid of wastes
     snf_inventory: float
-        total mass of snf
+        total mass of snf [kg]
     cursor: cursor
         cursor for sqlite3
 
@@ -166,10 +178,10 @@ def isotope_calc(wasteid_list, snf_inventory, cursor):
         inventory of individual nuclides.
     """
 
-    # Get compositions of different commodities
+    # Get compositions of different waste
     # SimId / QualId / NucId / MassFrac
     cur = cursor
-    comp = cur.execute('select * from compositions').fetchall()
+    comps = cur.execute('select * from compositions').fetchall()
     total_snf_mass = get_sum(snf_inventory, 0)
 
     nuclide_inven = 'total snf inventory = ' + str(total_snf_mass) + 'kg \n'
@@ -177,18 +189,36 @@ def isotope_calc(wasteid_list, snf_inventory, cursor):
     mass_of_nuclides = []
     # if the 'qualid's match,
     # the nuclide quantity and calculated and displayed.
-    for isotope in comp:
+    for comp in comps:
         for num in snf_inventory:
-            # num[1] = snf inventory qualid
-            # isotope[1] = compositions qualid
-            if num[1] == isotope[1]:
-                # num[0] = total mass of one composition
-                # isotope[3] = mass fraction
-                nuclide_quantity = num[0] * isotope[3]
-                # isotope[2] = nucid
-                nuclide_name = isotope[2]
+            inv_qualid = num[1]
+            comp_qualid = comp[1]
+            if inv_qualid == comp_qualid:
+                comp_tot_mass = num[0]
+                mass_frac = comp[3]
+                nuclide_quantity = comp_tot_mass * mass_frac
+                nucid = comp[2]
+                nuclide_name = nucid
                 nuclides.append(nuclide_name)
                 mass_of_nuclides.append(nuclide_quantity)
+    return sum_nuclide_to_dict(nuclides, mass_of_nuclides)
+
+
+def sum_nuclide_to_dict(nuclides, nuclides_mass):
+    """takes a nuclide set and returns a dictionary with the masses of each nuclide
+
+    Parameters
+    ----------
+    nuclides: array
+        array of nuclides in the waste
+    nuclides_mass: array
+        array of nuclides' mass
+
+    Returns
+    -------
+    dict
+        dictionary of nuclide name and mass
+    """
 
     nuclide_set = set(nuclides)
     mass_dict = collections.OrderedDict({})
@@ -197,14 +227,11 @@ def isotope_calc(wasteid_list, snf_inventory, cursor):
         temp_nuclide_sum = 0
         for i in range(len(nuclides)):
             if nuclides[i] == nuclide:
-                temp_nuclide_sum += mass_of_nuclides[i]
-        mass_dict[nuclide] = temp_nuclide_sum
-
-    for nuclide in mass_dict:
+                temp_nuclide_sum += nuclides_mass[i]
         nuclide_name = str(nucname.name(nuclide))
-        nuclide_inven += nuclide_name + ' = ' + str(mass_dict[nuclide]) + 'kg \n'
+        mass_dict[nuclide_name] = temp_nuclide_sum
 
-    return nuclide_inven
+    return mass_dict
 
 
 def get_sim_time_duration(cursor):
@@ -371,7 +398,7 @@ def get_waste_dict(isotope_list, mass_list, time_list, duration):
 def capacity_calc(governments, timestep, entry, exit):
     """Adds and subtracts capacity over time for plotting
 
-    Paramters
+    Parameters
     ---------
     governments: list
         list of governments (countries)
@@ -380,16 +407,16 @@ def capacity_calc(governments, timestep, entry, exit):
     entry: list
         power_cap, agentid, parentid, entertime
         of all entered reactors
+
     exit: list
         power_cap, agentid, parenitd, exittime
         of all decommissioned reactors
 
     Returns
     -------
-    power_dict: dictionary
-        dictionary of capacity progression with country_government as key
-    num_dict: dictionary
-        dictionary of number of reactors progression
+    tuple
+        (power_dict, num_dict) which holds timeseries
+        of capacity and number of reactors
         with country_government as key
     """
 
@@ -401,7 +428,7 @@ def capacity_calc(governments, timestep, entry, exit):
         num_reactors = []
         cap = 0
         count = 0
-        for num in timestep:
+        for t in timestep:
             for enter in entry:
                 entertime = enter[3]
                 parentid = enter[2]
@@ -425,6 +452,34 @@ def capacity_calc(governments, timestep, entry, exit):
 
     return power_dict, num_dict
 
+
+def years_from_start(cursor, timestep):
+    """
+    Returns a fractional year from the start
+    of the simulation (e.g. 1950.5 for June 1950)
+    based on the timestep
+
+    Parameters
+    ----------
+    cursor: sqlite cursor
+        cursor to the sqlite file
+    timesteps: array
+        array of timesteps to convert into year
+
+    Returns
+    -------
+    float
+        the fractional year, representing the timestep given
+    """
+    cur = cursor
+    startdate = cur.execute('SELECT initialyear,'
+                            + ' initialmonth FROM info').fetchall()
+    startyear = startdate[0][0]
+    startmonth = startdate[0][1]
+
+    return float(startyear) + (timestep + startmonth)/12.0
+
+
 def multi_line_plot(dictionary, timestep,
                     xlabel, ylabel, title,
                     outputname, init_year):
@@ -444,7 +499,6 @@ def multi_line_plot(dictionary, timestep,
         title of plot
     init_year: int
         initial year of simulation
-
     Returns
     -------
     stores a semilogy plot of dict data on path `outputname`
@@ -458,15 +512,19 @@ def multi_line_plot(dictionary, timestep,
     for key in dictionary:
         # label is the name of the nuclide (converted from ZZAAA0000 format)
         label = str(nucname.name(key))
-        plt.semilogy(init_year + (timestep/12), dictionary[key],
+        plt.semilogy(left=init_year + (timestep/12),
+                     height=dictionary[key],
                      label=label)
         color_index += 1
         plt.ylabel(ylabel)
         plt.title(title)
         plt.xlabel(xlabel)
-        plt.legend(loc=(1.0, 0), prop={'size':10})
+        plt.legend(loc=(1.0, 0),
+                   prop={'size':10})
         plt.grid(True)
-        plt.savefig(label + '_' + outputname, format='png', bbox_inches='tight')
+        plt.savefig(label + '_' + outputname,
+                    format='png',
+                    bbox_inches='tight')
         plt.close()
 
 
@@ -474,6 +532,7 @@ def stacked_bar_chart(dictionary, timestep,
                       xlabel, ylabel, title,
                       outputname, init_year):
     """ Creates stacked bar chart of timstep vs dictionary
+
 
     Parameters
     ----------
@@ -492,7 +551,7 @@ def stacked_bar_chart(dictionary, timestep,
 
     Returns
     -------
-    Stacked bar chart
+
     """
 
     # set different colors for each bar
@@ -508,17 +567,27 @@ def stacked_bar_chart(dictionary, timestep,
             label = str(nucname.name(key))
         # very first country does not have a 'bottom' argument
         if top_index is True:
-            plot = plt.bar(init_year+(timestep/12), dictionary[key], .5,
+            plot = plt.bar(left=init_year + (timestep/12),
+                           height=dictionary[key],
+                           width=0.5,
                            color=cm.viridis(1.*color_index/len(dictionary)),
-                           edgecolor='none', label=label)
+                           edgecolor='none',
+                           label=label)
             prev = dictionary[key]
             top_index = False
-        # from the second country has 'bottom' argument
+        # All curves except the first have a 'bottom'
+        # defined by the previous curve
         else:
-            plot = plt.bar(init_year + (timestep/12), dictionary[key], .5,
+            plot = plt.bar(left=init_year + (timestep/12),
+                           height=dictionary[key],
+                           width=0.5,
                            color=cm.viridis(1.*color_index/len(dictionary)),
-                           edgecolor='none', bottom=prev, label=label)
-            prev = np.add(prev, dictionary[key])
+                           edgecolor='none',
+                           bottom=prev,
+                           label=label)
+            prev += dictionary[key]
+
+        plot_array.append(plot)
         plot_list.append(plot)
         color_index += 1
 
@@ -530,6 +599,7 @@ def stacked_bar_chart(dictionary, timestep,
     plt.grid(True)
     plt.savefig(outputname, format='png', bbox_inches='tight')
     plt.close()
+
 
 
 def plot_power(cursor):
@@ -546,6 +616,7 @@ def plot_power(cursor):
     stacked bar chart of net capacity vs time
 
     """
+
     cur = cursor
     init_year, init_month, duration, timestep = get_sim_time_duration(cur)
     powercap = []
@@ -560,15 +631,17 @@ def plot_power(cursor):
                         FROM agententry INNER JOIN\
                         agentstate_cycamore_reactorinfo\
                         ON agententry.agentid =\
-                        agentstate_cycamore_reactorinfo.agentid').fetchall()
+                        agentstate_cycamore_reactorinfo.agentid\
+                        group by agententry.agentid').fetchall()
 
-    exit = cur.execute('SELECT power_cap, agentexit.agentid, parentid, exittime\
+    exit_step = cur.execute('SELECT power_cap, agentexit.agentid, parentid, exittime\
                         FROM agentexit INNER JOIN\
                         agentstate_cycamore_reactorinfo\
                         ON agentexit.agentid =\
                         agentstate_cycamore_reactorinfo.agentid\
                         INNER JOIN agententry\
                         ON agentexit.agentid = agententry.agentid').fetchall()
+
     power_dict, num_dict = capacity_calc(governments, timestep, entry, exit)
     stacked_bar_chart(power_dict, timestep,
                       'Time', 'net_capacity',
@@ -578,13 +651,12 @@ def plot_power(cursor):
                       'Number of Reactors vs Time',
                       'number_plot.png', init_year)
 
-
 if __name__ == "__main__":
     file = sys.argv[1]
     con = lite.connect(file)
     with con:
         cur = con.cursor()
-        # print(snf(cur))
+        print(snf(cur))
         plot_power(cur)
-        # plot_in_out_flux(cur, 'source', False, 'source vs time', 'source')
-        # plot_in_out_flux(cur, 'sink', True, 'isotope vs time', 'sink')
+        plot_in_out_flux(cur, 'source', False, 'source vs time', 'source')
+        plot_in_out_flux(cur, 'sink', True, 'isotope vs time', 'sink')
