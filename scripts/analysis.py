@@ -260,7 +260,6 @@ def get_sim_time_duration(cursor):
     init_month = info[1]
     duration = info[2]
     timestep = np.linspace(0, info[2]-1, num=info[2])
-    print(timestep)
     return init_year, init_month, duration, timestep
 
 
