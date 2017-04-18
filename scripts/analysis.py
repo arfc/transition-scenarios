@@ -627,7 +627,7 @@ def plot_power(cursor):
     cur = cursor
     # get power cap values
     governments = cur.execute('SELECT prototype, agentid FROM agententry\
-                              WHERE spec LIKE "%Inst%"').fetchall()
+                              WHERE kind = "Inst"').fetchall()
 
     entry = cur.execute('SELECT power_cap, agententry.agentid, parentid, entertime\
                         FROM agententry INNER JOIN\
