@@ -95,7 +95,7 @@ def get_waste_id(resource_array):
     wasteid = []
 
 
-    for res in resource_array:
+    for res in resource_list:
         wasteid.append(res[0])
 
     return set(wasteid)
