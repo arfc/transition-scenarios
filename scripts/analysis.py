@@ -78,7 +78,7 @@ def get_agent_ids(cursor, facility):
     return agent_id
 
 
-def get_waste_id(resource_array):
+def get_waste_id(resource_list):
     """ Gets waste id from a resource list
 
     Parameters
@@ -203,6 +203,7 @@ def isotope_calc(wasteid_array, snf_inventory, cursor):
                 nuclide_name = nucid
                 nuclides.append(nuclide_name)
                 mass_of_nuclides.append(nuclide_quantity)
+
     return sum_nuclide_to_dict(nuclides, mass_of_nuclides)
 
 
@@ -261,7 +262,7 @@ def get_sim_time_duration(cursor):
     init_year = info[0]
     init_month = info[1]
     duration = info[2]
-    timestep = np.linspace(1, info[2], num=info[2])
+    timestep = np.linspace(0, info[2]-1, num=info[2])
     return init_year, init_month, duration, timestep
 
 
@@ -429,21 +430,22 @@ def capacity_calc(governments, timestep, entry, exit_step):
         num_reactors = []
         cap = 0
         count = 0
+        gov_name = gov[0]
         for t in timestep:
             for enter in entry:
                 entertime = enter[3]
                 parentgov = enter[2]
-                gov_name = gov[1]
+                gov_agentid = gov[1]
                 power_cap = enter[0]
-                if entertime == t and parentgov == gov_name:
+                if entertime == t and parentgov == gov_agentid:
                     cap += power_cap
                     count += 1
             for dec in exit_step:
                 exittime = dec[3]
                 parentgov = dec[2]
-                gov_name = gov[1]
+                gov_agentid = gov[1]
                 power_cap = dec[0]
-                if exittime == t and parentgov == gov_name:
+                if exittime == t and parentgov == gov_agentid:
                     cap -= power_cap
                     count -= 1
             capacity.append(cap)
@@ -454,9 +456,9 @@ def capacity_calc(governments, timestep, entry, exit_step):
 
     return power_dict, num_dict
 
-
+"""
 def years_from_start(cursor, timestep):
-    """
+    
     Returns a fractional year from the start
     of the simulation (e.g. 1950.5 for June 1950)
     based on the timestep
@@ -472,7 +474,7 @@ def years_from_start(cursor, timestep):
     -------
     float
         the fractional year, representing the timestep given
-    """
+
     cur = cursor
     startdate = cur.execute('SELECT initialyear,'
                             + ' initialmonth FROM info').fetchall()
@@ -481,7 +483,7 @@ def years_from_start(cursor, timestep):
 
     return float(startyear) + (timestep + startmonth)/12.0
 
-
+"""
 def multi_line_plot(dictionary, timestep,
                     xlabel, ylabel, title,
                     outputname, init_year):
@@ -514,15 +516,14 @@ def multi_line_plot(dictionary, timestep,
     for key in dictionary:
         # label is the name of the nuclide (converted from ZZAAA0000 format)
         label = str(nucname.name(key))
-        plt.semilogy(left=init_year + (timestep/12),
-                     height=dictionary[key],
+        plt.semilogy(init_year + (timestep/12),
+                     dictionary[key],
                      label=label)
         color_index += 1
         plt.ylabel(ylabel)
         plt.title(title)
         plt.xlabel(xlabel)
-        plt.legend(loc=(1.0, 0),
-                   prop={'size':10})
+        plt.legend(loc=(1.0, 0), prop={'size':10})
         plt.grid(True)
         plt.savefig(label + '_' + outputname,
                     format='png',
@@ -587,7 +588,7 @@ def stacked_bar_chart(dictionary, timestep,
                            edgecolor='none',
                            bottom=prev,
                            label=label)
-            prev += dictionary[key]
+            prev += np.add(prev,dictionary[key])
 
         plot_list.append(plot)
         color_index += 1
@@ -632,8 +633,7 @@ def plot_power(cursor):
                         FROM agententry INNER JOIN\
                         agentstate_cycamore_reactorinfo\
                         ON agententry.agentid =\
-                        agentstate_cycamore_reactorinfo.agentid\
-                        group by agententry.agentid').fetchall()
+                        agentstate_cycamore_reactorinfo.agentid').fetchall()
 
     exit_step = cur.execute('SELECT power_cap, agentexit.agentid, parentid, exittime\
                         FROM agentexit INNER JOIN\
@@ -646,12 +646,10 @@ def plot_power(cursor):
     power_dict, num_dict = capacity_calc(governments, timestep,
                                          entry, exit_step)
 
-    years = years_from_start(cur, timestep)
-    stacked_bar_chart(power_dict, years,
+    stacked_bar_chart(power_dict, timestep,
                       'Time', 'net_capacity',
                       'Net Capacity vs Time', 'power_plot.png', init_year)
-    plt.figure()
-    stacked_bar_chart(num_dict, years,
+    stacked_bar_chart(num_dict, timestep,
                       'Time', 'num_reactors',
                       'Number of Reactors vs Time',
                       'number_plot.png', init_year)
