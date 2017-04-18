@@ -48,6 +48,7 @@ def snf(cursor):
 
 def get_agent_ids(cursor, facility):
 
+
     """ Gets all agentIds from Agententry table for wanted facility
 
         agententry table has the following format:
@@ -79,6 +80,7 @@ def get_agent_ids(cursor, facility):
 
 
 def get_waste_id(resource_list):
+
     """ Gets waste id from a resource list
 
     Parameters
@@ -96,6 +98,7 @@ def get_waste_id(resource_list):
 
 
     for res in resource_list:
+
         wasteid.append(res[0])
 
     return set(wasteid)
@@ -203,7 +206,6 @@ def isotope_calc(wasteid_array, snf_inventory, cursor):
                 nuclide_name = nucid
                 nuclides.append(nuclide_name)
                 mass_of_nuclides.append(nuclide_quantity)
-
     return sum_nuclide_to_dict(nuclides, mass_of_nuclides)
 
 
@@ -263,6 +265,7 @@ def get_sim_time_duration(cursor):
     init_month = info[1]
     duration = info[2]
     timestep = np.linspace(0, info[2]-1, num=info[2])
+
     return init_year, init_month, duration, timestep
 
 
@@ -398,6 +401,7 @@ def get_waste_dict(isotope_list, mass_list, time_list, duration):
 
 
 def capacity_calc(governments, timestep, entry, exit_step):
+
     """Adds and subtracts capacity over time for plotting
 
     Parameters
@@ -536,7 +540,6 @@ def stacked_bar_chart(dictionary, timestep,
                       outputname, init_year):
     """ Creates stacked bar chart of timstep vs dictionary
 
-
     Parameters
     ----------
     dictionary: dictionary
@@ -649,6 +652,7 @@ def plot_power(cursor):
     stacked_bar_chart(power_dict, timestep,
                       'Time', 'net_capacity',
                       'Net Capacity vs Time', 'power_plot.png', init_year)
+
     stacked_bar_chart(num_dict, timestep,
                       'Time', 'num_reactors',
                       'Number of Reactors vs Time',
