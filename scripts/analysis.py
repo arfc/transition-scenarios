@@ -46,7 +46,7 @@ def snf(cursor):
     return isotope_calc(waste_id, snf_inventory, cur)
 
 
-def get_sink_agent_ids(cursor):
+def get_agent_ids(cursor, facility):
 
     """ Gets all agentIds from Agententry table for wanted facility
 
@@ -58,6 +58,8 @@ def get_sink_agent_ids(cursor):
     ----------
     cursor: cursor
         cursor for sqlite3
+    facility: str
+        name of facility type
 
     Returns
     -------
