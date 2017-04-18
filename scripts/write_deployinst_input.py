@@ -448,4 +448,4 @@ if __name__ == "__main__":
          sys.argv[4],
          '../templates/deployinst_template.xml.in',
          '../templates/input_template.xml.in',
-         'complete_input.xml')
+         sys.argv[5])
