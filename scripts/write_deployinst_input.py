@@ -66,9 +66,6 @@ def read_csv(csv_file):
         if data['capacity'] < 100:
             hitlist.append(count)
         count += 1
-
-    print(hitlist)
-
     reactor_lists = np.delete(reactor_lists, hitlist)
 
     return reactor_lists

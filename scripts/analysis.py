@@ -259,7 +259,7 @@ def get_sim_time_duration(cursor):
     init_year = info[0]
     init_month = info[1]
     duration = info[2]
-    timestep = np.linspace(1, info[2], num=info[2])
+    timestep = np.linspace(0, info[2]-1, num=info[2])
     return init_year, init_month, duration, timestep
 
 
@@ -430,18 +430,17 @@ def capacity_calc(governments, timestep, entry, exit):
         for t in timestep:
             for enter in entry:
                 entertime = enter[3]
-                parentgov = enter[2]
-                gov_name = gov[1]
+                parentid = enter[2]
+                gov_id = gov[1]
                 power_cap = enter[0]
-                if entertime == t and parentgov == gov_name:
+                if entertime == num and parentid == gov_id:
                     cap += power_cap
                     count += 1
-            for dec in exit_step:
+            for dec in exit:
                 exittime = dec[3]
-                parentgov = dec[2]
-                gov_name = gov[1]
+                parentid = dec[2]
                 power_cap = dec[0]
-                if exittime == t and parentgov == gov_name:
+                if exittime == num and parentid == gov_id:
                     cap -= power_cap
                     count -= 1
             capacity.append(cap)
@@ -625,7 +624,7 @@ def plot_power(cursor):
     cur = cursor
     # get power cap values
     governments = cur.execute('SELECT prototype, agentid FROM agententry\
-                              WHERE spec LIKE "%Inst%"').fetchall()
+                              WHERE kind = "Inst"').fetchall()
 
     entry = cur.execute('SELECT power_cap, agententry.agentid, parentid, entertime\
                         FROM agententry INNER JOIN\
@@ -642,15 +641,11 @@ def plot_power(cursor):
                         INNER JOIN agententry\
                         ON agentexit.agentid = agententry.agentid').fetchall()
 
-    power_dict, num_dict = capacity_calc(governments, timestep,
-                                         entry, exit_step)
-
-    years = years_from_start(cur, timestep)
-    stacked_bar_chart(power_dict, years,
+    power_dict, num_dict = capacity_calc(governments, timestep, entry, exit)
+    stacked_bar_chart(power_dict, timestep,
                       'Time', 'net_capacity',
                       'Net Capacity vs Time', 'power_plot.png', init_year)
-    plt.figure()
-    stacked_bar_chart(num_dict, years,
+    stacked_bar_chart(num_dict, timestep,
                       'Time', 'num_reactors',
                       'Number of Reactors vs Time',
                       'number_plot.png', init_year)
