@@ -396,7 +396,7 @@ def get_waste_dict(isotope_list, mass_list, time_list, duration):
     return waste_dict
 
 
-def capacity_calc(governments, timestep, entry, exit):
+def capacity_calc(governments, timestep, entry, exit_step):
     """Adds and subtracts capacity over time for plotting
 
     Parameters
@@ -409,7 +409,7 @@ def capacity_calc(governments, timestep, entry, exit):
         power_cap, agentid, parentid, entertime
         of all entered reactors
 
-    exit: list
+    exit_step: list
         power_cap, agentid, parenitd, exittime
         of all decommissioned reactors
 
