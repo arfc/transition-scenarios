@@ -589,7 +589,6 @@ def stacked_bar_chart(dictionary, timestep,
                            label=label)
             prev += dictionary[key]
 
-        plot_array.append(plot)
         plot_list.append(plot)
         color_index += 1
 
