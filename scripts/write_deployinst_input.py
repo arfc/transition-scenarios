@@ -67,8 +67,6 @@ def read_csv(csv_file):
             hitlist.append(count)
         count += 1
 
-    print(hitlist)
-
     reactor_lists = np.delete(reactor_lists, hitlist)
 
     return reactor_lists
