@@ -445,7 +445,7 @@ if __name__ == "__main__":
     main(sys.argv[1], int(sys.argv[2]), int(sys.argv[3]),
          '../templates/reactor_template.xml.in',
          '../templates/reactor_mox_template.xml.in',
-         False,
+         sys.argv[4],
          '../templates/deployinst_template.xml.in',
          '../templates/input_template.xml.in',
          'complete_input.xml')
