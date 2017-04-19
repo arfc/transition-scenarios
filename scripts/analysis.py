@@ -46,7 +46,8 @@ def snf(cursor):
     return isotope_calc(waste_id, snf_inventory, cur)
 
 
-def get_sink_agent_ids(cursor):
+def get_agent_ids(cursor, facility):
+
 
     """ Gets all agentIds from Agententry table for wanted facility
 
@@ -58,6 +59,8 @@ def get_sink_agent_ids(cursor):
     ----------
     cursor: cursor
         cursor for sqlite3
+    facility: str
+        name of facility type
 
     Returns
     -------
@@ -76,7 +79,8 @@ def get_sink_agent_ids(cursor):
     return agent_id
 
 
-def get_waste_id(resource_array):
+def get_waste_id(resource_list):
+
     """ Gets waste id from a resource list
 
     Parameters
@@ -93,7 +97,8 @@ def get_waste_id(resource_array):
     wasteid = []
 
 
-    for res in resource_array:
+    for res in resource_list:
+
         wasteid.append(res[0])
 
     return set(wasteid)
@@ -259,7 +264,8 @@ def get_sim_time_duration(cursor):
     init_year = info[0]
     init_month = info[1]
     duration = info[2]
-    timestep = np.linspace(1, info[2], num=info[2])
+    timestep = np.linspace(0, info[2]-1, num=info[2])
+
     return init_year, init_month, duration, timestep
 
 
@@ -394,7 +400,8 @@ def get_waste_dict(isotope_list, mass_list, time_list, duration):
     return waste_dict
 
 
-def capacity_calc(governments, timestep, entry, exit):
+def capacity_calc(governments, timestep, entry, exit_step):
+
     """Adds and subtracts capacity over time for plotting
 
     Parameters
@@ -407,7 +414,7 @@ def capacity_calc(governments, timestep, entry, exit):
         power_cap, agentid, parentid, entertime
         of all entered reactors
 
-    exit: list
+    exit_step: list
         power_cap, agentid, parenitd, exittime
         of all decommissioned reactors
 
@@ -427,21 +434,22 @@ def capacity_calc(governments, timestep, entry, exit):
         num_reactors = []
         cap = 0
         count = 0
+        gov_name = gov[0]
         for t in timestep:
             for enter in entry:
                 entertime = enter[3]
                 parentgov = enter[2]
-                gov_name = gov[1]
+                gov_agentid = gov[1]
                 power_cap = enter[0]
-                if entertime == t and parentgov == gov_name:
+                if entertime == t and parentgov == gov_agentid:
                     cap += power_cap
                     count += 1
             for dec in exit_step:
                 exittime = dec[3]
                 parentgov = dec[2]
-                gov_name = gov[1]
+                gov_agentid = gov[1]
                 power_cap = dec[0]
-                if exittime == t and parentgov == gov_name:
+                if exittime == t and parentgov == gov_agentid:
                     cap -= power_cap
                     count -= 1
             capacity.append(cap)
@@ -452,9 +460,9 @@ def capacity_calc(governments, timestep, entry, exit):
 
     return power_dict, num_dict
 
-
+"""
 def years_from_start(cursor, timestep):
-    """
+    
     Returns a fractional year from the start
     of the simulation (e.g. 1950.5 for June 1950)
     based on the timestep
@@ -470,7 +478,7 @@ def years_from_start(cursor, timestep):
     -------
     float
         the fractional year, representing the timestep given
-    """
+
     cur = cursor
     startdate = cur.execute('SELECT initialyear,'
                             + ' initialmonth FROM info').fetchall()
@@ -479,7 +487,7 @@ def years_from_start(cursor, timestep):
 
     return float(startyear) + (timestep + startmonth)/12.0
 
-
+"""
 def multi_line_plot(dictionary, timestep,
                     xlabel, ylabel, title,
                     outputname, init_year):
@@ -512,15 +520,14 @@ def multi_line_plot(dictionary, timestep,
     for key in dictionary:
         # label is the name of the nuclide (converted from ZZAAA0000 format)
         label = str(nucname.name(key))
-        plt.semilogy(left=init_year + (timestep/12),
-                     height=dictionary[key],
+        plt.semilogy(init_year + (timestep/12),
+                     dictionary[key],
                      label=label)
         color_index += 1
         plt.ylabel(ylabel)
         plt.title(title)
         plt.xlabel(xlabel)
-        plt.legend(loc=(1.0, 0),
-                   prop={'size':10})
+        plt.legend(loc=(1.0, 0), prop={'size':10})
         plt.grid(True)
         plt.savefig(label + '_' + outputname,
                     format='png',
@@ -532,7 +539,6 @@ def stacked_bar_chart(dictionary, timestep,
                       xlabel, ylabel, title,
                       outputname, init_year):
     """ Creates stacked bar chart of timstep vs dictionary
-
 
     Parameters
     ----------
@@ -585,9 +591,8 @@ def stacked_bar_chart(dictionary, timestep,
                            edgecolor='none',
                            bottom=prev,
                            label=label)
-            prev += dictionary[key]
+            prev += np.add(prev,dictionary[key])
 
-        plot_array.append(plot)
         plot_list.append(plot)
         color_index += 1
 
@@ -625,14 +630,13 @@ def plot_power(cursor):
     cur = cursor
     # get power cap values
     governments = cur.execute('SELECT prototype, agentid FROM agententry\
-                              WHERE spec LIKE "%Inst%"').fetchall()
+                              WHERE kind = "Inst"').fetchall()
 
     entry = cur.execute('SELECT power_cap, agententry.agentid, parentid, entertime\
                         FROM agententry INNER JOIN\
                         agentstate_cycamore_reactorinfo\
                         ON agententry.agentid =\
-                        agentstate_cycamore_reactorinfo.agentid\
-                        group by agententry.agentid').fetchall()
+                        agentstate_cycamore_reactorinfo.agentid').fetchall()
 
     exit_step = cur.execute('SELECT power_cap, agentexit.agentid, parentid, exittime\
                         FROM agentexit INNER JOIN\
@@ -645,12 +649,11 @@ def plot_power(cursor):
     power_dict, num_dict = capacity_calc(governments, timestep,
                                          entry, exit_step)
 
-    years = years_from_start(cur, timestep)
-    stacked_bar_chart(power_dict, years,
+    stacked_bar_chart(power_dict, timestep,
                       'Time', 'net_capacity',
                       'Net Capacity vs Time', 'power_plot.png', init_year)
-    plt.figure()
-    stacked_bar_chart(num_dict, years,
+
+    stacked_bar_chart(num_dict, timestep,
                       'Time', 'num_reactors',
                       'Number of Reactors vs Time',
                       'number_plot.png', init_year)
