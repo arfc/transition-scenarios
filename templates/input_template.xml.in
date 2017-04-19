@@ -69,6 +69,8 @@
               <efficiencies>
                 <item>
                   <comp>Pu</comp> <eff>.99</eff>
+                </item>
+                <item>
                   <comp>U</comp> <eff>.99</eff>
                 </item>
               </efficiencies>
@@ -255,7 +257,7 @@
      <nuclide> <id>Cf249</id>  <comp>4.05679090711136E-11</comp> </nuclide> 
      <nuclide> <id>Cf250</id>  <comp>2.9328488367162E-11</comp> </nuclide> 
      <nuclide> <id>Cf251</id>  <comp>1.4479253718258E-11</comp> </nuclide> 
-     <nuclide> <id>Cf 252</id>  <comp>7.53461165518465E-12</comp> </nuclide> 
+     <nuclide> <id>Cf252</id>  <comp>7.53461165518465E-12</comp> </nuclide> 
      <nuclide> <id>H3</id>  <comp>1.02694706965821E-07</comp> </nuclide> 
      <nuclide> <id>C14</id>  <comp>3.95879595791321E-11</comp> </nuclide> 
      <nuclide> <id>Kr81</id>  <comp>7.34462144755557E-11</comp> </nuclide> 
@@ -312,7 +314,7 @@
      <nuclide> <id>Cf249</id>  <comp>4.3937429274366E-14</comp> </nuclide> 
      <nuclide> <id>Cf250</id>  <comp>8.11752505346616E-14</comp> </nuclide> 
      <nuclide> <id>Cf251</id>  <comp>3.16081506454872E-14</comp> </nuclide> 
-     <nuclide> <id>Cf 252</id>  <comp>1.66790241305513E-14</comp> </nuclide> 
+     <nuclide> <id>Cf252</id>  <comp>1.66790241305513E-14</comp> </nuclide> 
      <nuclide> <id>H3</id>  <comp>5.74866365267024E-08</comp> </nuclide> 
      <nuclide> <id>C14</id>  <comp>2.63084607239092E-11</comp> </nuclide> 
      <nuclide> <id>Kr81</id>  <comp>2.16087356991135E-11</comp> </nuclide> 
