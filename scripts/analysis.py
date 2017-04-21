@@ -360,6 +360,74 @@ def plot_in_out_flux(cursor, facility, influx_bool, title, outputname):
                         title, outputname, init_year)
 
 
+def total_waste_timeseries(cursor):
+    """Plots a stacked bar chart of the total waste mass vs time
+
+    Parameters
+    ----------
+    cursor: sqlite cursor
+        sqlite cursor
+
+    Returns
+    -------
+    null
+    stacked bar chart of waste mass vs time
+    """
+
+    cur = cursor
+    agent_ids = get_agent_ids(cur, 'sink')
+    print(agent_ids)
+    resources = cur.execute(exec_string(agent_ids,
+                                        'transactions.receiverId',
+                                        'sum(quantity), senderid, time')
+                            + ' GROUP BY time, senderid').fetchall()
+    init_year, init_month, duration, timestep = get_sim_time_duration(cur)
+    waste_dict = collections.OrderedDict({})
+
+    spec_list = []
+    from_reactor = 0
+    from_fuelfab = 0
+    from_separations = 0
+    from_enrichment = 0
+
+    reactor_timeseries = []
+    fuelfab_timeseries = []
+    separations_timeseries = []
+    enrichment_timeseries = []
+
+
+    for i in range(0, duration):
+        for row in resources:
+            transaction_time = row[2]
+            if row[2] == i:
+                senderid = row[1]
+                quantity = row[0]
+                spec = cur.execute('SELECT spec from agententry WHERE agentid =' + str(row[1])).fetchone()
+                print(spec)
+                if "Reactor" in spec[0]:
+                    from_reactor += quantity
+                elif "Enrichment" in spec[0]:
+                    from_enrichment += quantity
+                elif "FuelFab" in spec[0]:
+                    from_fuelfab += quantity
+                elif "Separations" in spec[0]:
+                    from_separations += quantity
+        reactor_timeseries.append(from_reactor)
+        fuelfab_timeseries.append(from_fuelfab)
+        separations_timeseries.append(from_separations)
+        enrichment_timeseries.append(from_enrichment)
+
+    print(from_reactor)
+    waste_dict['Reactor'] = reactor_timeseries
+    waste_dict['FuelFab'] = fuelfab_timeseries
+    waste_dict['Separations'] = separations_timeseries
+    waste_dict['Enrichment'] = enrichment_timeseries
+
+    stacked_bar_chart(waste_dict, timestep,
+                      'Years', 'Mass [kg]',
+                      'Total Waste Mass vs Time', 'Total_Waste', init_year)
+
+
 def get_waste_dict(isotope_list, mass_list, time_list, duration):
     """Given an isotope, mass and time list, creates a dictionary
        With key as isotope and time series of the isotope mass.
@@ -663,7 +731,8 @@ if __name__ == "__main__":
     con = lite.connect(file)
     with con:
         cur = con.cursor()
-        print(snf(cur))
-        plot_power(cur)
-        plot_in_out_flux(cur, 'source', False, 'source vs time', 'source')
-        plot_in_out_flux(cur, 'sink', True, 'isotope vs time', 'sink')
+        # print(snf(cur))
+        #plot_power(cur)
+        #plot_in_out_flux(cur, 'source', False, 'source vs time', 'source')
+        #plot_in_out_flux(cur, 'sink', True, 'isotope vs time', 'sink')
+        total_waste_timeseries(cur)
