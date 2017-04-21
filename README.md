@@ -57,13 +57,7 @@ Jinja Template for the entire Cyclus input file.
 
 This is where the compiled reactor and region files will be rendered into.
 
-fuel composition data is from:
-
-mox_fuel_recipe / na_fr_fuel -> [Benchmark Study on Nuclear Fuel Cycle Transition Scenarios Analysis Codes](http://www.iaea.org/inis/collection/NCLCollectionStore/_Public/44/089/44089401.pdf?r=1) 
-(2012, IAEA)
-
-uox_used_fuel -> [Spent Nuclear Fuel Assay Data for Isotopic Validation](https://www.oecd-nea.org/science/wpncs/ADSNF/SOAR_final.pdf) 
-(2011, IAEA)
+fuel composition data is from an ORIGEN calculation (not public data)
 
 ### reactor_template.xml.in
 Jinja template for the reactor section of the cyclus input file.
