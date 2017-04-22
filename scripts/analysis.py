@@ -391,7 +391,6 @@ def total_waste_timeseries(cursor):
     from_enrichment = 0
 
     reactor_timeseries = []
-    fuelfab_timeseries = []
     separations_timeseries = []
     enrichment_timeseries = []
 
@@ -408,23 +407,19 @@ def total_waste_timeseries(cursor):
                     from_reactor += quantity
                 elif "Enrichment" in spec[0]:
                     from_enrichment += quantity
-                elif "FuelFab" in spec[0]:
-                    from_fuelfab += quantity
                 elif "Separations" in spec[0]:
                     from_separations += quantity
-        reactor_timeseries.append(from_reactor)
-        fuelfab_timeseries.append(from_fuelfab)
-        separations_timeseries.append(from_separations)
-        enrichment_timeseries.append(from_enrichment)
+        reactor_timeseries.append(from_reactor/1000)
+        separations_timeseries.append(from_separations/1000)
+        enrichment_timeseries.append(from_enrichment/1000)
 
     print(from_reactor)
     waste_dict['Reactor'] = reactor_timeseries
-    waste_dict['FuelFab'] = fuelfab_timeseries
     waste_dict['Separations'] = separations_timeseries
     waste_dict['Enrichment'] = enrichment_timeseries
 
     stacked_bar_chart(waste_dict, timestep,
-                      'Years', 'Mass [kg]',
+                      'Years', 'Mass [MTHM]',
                       'Total Waste Mass vs Time', 'Total_Waste', init_year)
 
 
