@@ -278,7 +278,6 @@ def input_render(init_date, duration, reactor_file,
                               + '</entry>')
     else:
         reprocessing_chunk = ''
-    print(reprocessing_chunk)
     # renders template
     temp = template.render(duration=duration,
                            startmonth=startmonth,
