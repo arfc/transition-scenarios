@@ -86,9 +86,9 @@
     <config>
       <FuelFab>
         <fill_commods>
-          <val>enrich_waste</val>
+          <val>natl_u</val>
         </fill_commods>
-        <fill_recipe>depleted_u</fill_recipe>
+        <fill_recipe>natl_u_recipe</fill_recipe>
         <fill_size>1e100</fill_size>
         <fiss_commods>
           <val>pu_u</val>
