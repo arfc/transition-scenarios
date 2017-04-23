@@ -699,7 +699,8 @@ def plot_power(cursor):
                         FROM agententry INNER JOIN\
                         agentstate_cycamore_reactorinfo\
                         ON agententry.agentid =\
-                        agentstate_cycamore_reactorinfo.agentid').fetchall()
+                        agentstate_cycamore_reactorinfo.agentid\
+                        WHERE discharged = 0').fetchall()
 
     exit_step = cur.execute('SELECT power_cap, agentexit.agentid, parentid, exittime\
                         FROM agentexit INNER JOIN\
@@ -730,4 +731,4 @@ if __name__ == "__main__":
         #plot_power(cur)
         #plot_in_out_flux(cur, 'source', False, 'source vs time', 'source')
         #plot_in_out_flux(cur, 'sink', True, 'isotope vs time', 'sink')
-        total_waste_timeseries(cur)
+        total_waste_timeseries(cur) 
