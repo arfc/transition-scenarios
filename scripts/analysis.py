@@ -236,6 +236,7 @@ def sum_nuclide_to_dict(nuclides, nuclides_mass):
         nuclide_name = str(nucname.name(nuclide))
         mass_dict[nuclide_name] = temp_nuclide_sum
 
+    print(sum(mass_dict.values()))
     return mass_dict
 
 
@@ -376,7 +377,6 @@ def total_waste_timeseries(cursor):
 
     cur = cursor
     agent_ids = get_agent_ids(cur, 'sink')
-    print(agent_ids)
     resources = cur.execute(exec_string(agent_ids,
                                         'transactions.receiverId',
                                         'sum(quantity), senderid, time')
@@ -398,11 +398,10 @@ def total_waste_timeseries(cursor):
     for i in range(0, duration):
         for row in resources:
             transaction_time = row[2]
-            if row[2] == i:
+            if transaction_time == i:
                 senderid = row[1]
                 quantity = row[0]
                 spec = cur.execute('SELECT spec from agententry WHERE agentid =' + str(row[1])).fetchone()
-                print(spec)
                 if "Reactor" in spec[0]:
                     from_reactor += quantity
                 elif "Enrichment" in spec[0]:
@@ -413,7 +412,7 @@ def total_waste_timeseries(cursor):
         separations_timeseries.append(from_separations/1000)
         enrichment_timeseries.append(from_enrichment/1000)
 
-    print(from_reactor)
+
     waste_dict['Reactor'] = reactor_timeseries
     waste_dict['Separations'] = separations_timeseries
     waste_dict['Enrichment'] = enrichment_timeseries
@@ -421,6 +420,46 @@ def total_waste_timeseries(cursor):
     stacked_bar_chart(waste_dict, timestep,
                       'Years', 'Mass [MTHM]',
                       'Total Waste Mass vs Time', 'Total_Waste', init_year)
+
+def fuel_usage_timeseries(cursor, fuel_list):
+    """ Calculates total fuel usage over time
+
+    Parameters
+    ----------
+    cursor: sqlite cursor
+        sqlite cursor
+    fuel_list: list
+        list of fuel commodity names (eg. uox, mox)
+
+    Returns
+    -------
+    null
+    stacked bar chart of all the fuel used
+    """
+
+    cur = cursor
+    fuel_dict = collections.OrderedDict({})
+    for fuel in fuel_list:
+        temp_list = ['"'+ fuel + '"']
+        fuel_quantity = cur.execute(exec_string(temp_list, 'commodity', 'sum(quantity), time')
+                                    + ' GROUP BY time').fetchall()
+        init_year, init_month, duration, timestep = get_sim_time_duration(cur)
+        total_sum = 0
+        quantity_timeseries = []
+        for i in range(0, duration):
+            for row in fuel_quantity:
+                transaction_time = row[1]
+                if transaction_time == i:
+                    quantity = row[0]
+                    total_sum += quantity
+            quantity_timeseries.append(total_sum)
+        fuel_dict[fuel] = quantity_timeseries
+
+    stacked_bar_chart(fuel_dict, timestep,
+                      'Years', 'Mass[MTHM]',
+                      'Total Fuel Mass vs Time',
+                      'total_fuel',
+                      init_year)
 
 
 def get_waste_dict(isotope_list, mass_list, time_list, duration):
@@ -728,7 +767,8 @@ if __name__ == "__main__":
     with con:
         cur = con.cursor()
         # print(snf(cur))
-        #plot_power(cur)
-        #plot_in_out_flux(cur, 'source', False, 'source vs time', 'source')
-        #plot_in_out_flux(cur, 'sink', True, 'isotope vs time', 'sink')
-        total_waste_timeseries(cur) 
+        # plot_power(cur)
+        # plot_in_out_flux(cur, 'source', False, 'source vs time', 'source')
+        # plot_in_out_flux(cur, 'sink', True, 'isotope vs time', 'sink')
+        # total_waste_timeseries(cur)
+        fuel_usage_timeseries(cur, ['uox','mox'])
