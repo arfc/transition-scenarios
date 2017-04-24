@@ -452,7 +452,7 @@ def fuel_usage_timeseries(cursor, fuel_list):
                 if transaction_time == i:
                     quantity = row[0]
                     total_sum += quantity
-            quantity_timeseries.append(total_sum)
+            quantity_timeseries.append(total_sum/1000)
         fuel_dict[fuel] = quantity_timeseries
 
     stacked_bar_chart(fuel_dict, timestep,
@@ -766,9 +766,9 @@ if __name__ == "__main__":
     con = lite.connect(file)
     with con:
         cur = con.cursor()
-        # print(snf(cur))
-        # plot_power(cur)
-        # plot_in_out_flux(cur, 'source', False, 'source vs time', 'source')
-        # plot_in_out_flux(cur, 'sink', True, 'isotope vs time', 'sink')
-        # total_waste_timeseries(cur)
+        print(snf(cur))
+        plot_power(cur)
+        plot_in_out_flux(cur, 'source', False, 'source vs time', 'source')
+        plot_in_out_flux(cur, 'sink', True, 'isotope vs time', 'sink')
+        total_waste_timeseries(cur)
         fuel_usage_timeseries(cur, ['uox','mox'])
