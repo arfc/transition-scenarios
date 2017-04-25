@@ -417,7 +417,7 @@ def total_waste_timeseries(cursor):
     waste_dict['Separations'] = separations_timeseries
     waste_dict['Enrichment'] = enrichment_timeseries
 
-    stacked_bar_chart(waste_dict, timestep,
+    multi_line_plot(waste_dict, timestep,
                       'Years', 'Mass [MTHM]',
                       'Total Waste Mass vs Time', 'Total_Waste', init_year)
 
@@ -611,7 +611,7 @@ def multi_line_plot(dictionary, timestep,
         initial year of simulation
     Returns
     -------
-    stores a semilogy plot of dict data on path `outputname`
+    stores a plot of dict data on path `outputname`
     """
 
     # set different colors for each bar
@@ -621,10 +621,13 @@ def multi_line_plot(dictionary, timestep,
     # for every country, create bar chart with different color
     for key in dictionary:
         # label is the name of the nuclide (converted from ZZAAA0000 format)
-        label = str(nucname.name(key))
-        plt.semilogy(init_year + (timestep/12),
-                     dictionary[key],
-                     label=label)
+        if isinstance(key, str) is True:
+            label = key.replace('_government', '')
+        else:
+            label = str(nucname.name(key))
+        plt.plot(init_year + (timestep/12),
+                 dictionary[key],
+                 label=label)
         color_index += 1
         plt.ylabel(ylabel)
         plt.title(title)
@@ -766,9 +769,9 @@ if __name__ == "__main__":
     con = lite.connect(file)
     with con:
         cur = con.cursor()
-        print(snf(cur))
-        plot_power(cur)
-        plot_in_out_flux(cur, 'source', False, 'source vs time', 'source')
-        plot_in_out_flux(cur, 'sink', True, 'isotope vs time', 'sink')
+        # print(snf(cur))
+        # plot_power(cur)
+        # plot_in_out_flux(cur, 'source', False, 'source vs time', 'source')
+        # plot_in_out_flux(cur, 'sink', True, 'isotope vs time', 'sink')
         total_waste_timeseries(cur)
         fuel_usage_timeseries(cur, ['uox','mox'])
