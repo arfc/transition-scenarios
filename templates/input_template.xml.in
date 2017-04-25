@@ -48,7 +48,50 @@
       <lib>cycamore</lib>
       <name>FuelFab</name>
     </spec>
+    <spec>
+      <lib>cycamore</lib>
+      <name>Mixer</name>
+    </spec>
   </archetypes>
+
+
+<facility>
+    <name>mixer</name>
+    <config>
+      <Mixer>
+        <in_streams>
+          <stream>
+            <info>
+              <mixing_ratio>.12</mixing_ratio>
+              <buf_size>1e+299</buf_size>
+            </info>
+            <commodities>
+              <item>
+                <commodity>Pu</commodity>
+                <pref>1.0</pref>
+              </item>
+            </commodities>
+          </stream>
+          <stream>
+            <info>
+              <mixing_ratio>.88</mixing_ratio>
+              <buf_size>1e+299</buf_size>
+            </info>
+            <commodities>
+              <item>
+                <commodity>U</commodity>
+                <pref>1.0</pref>
+              </item>
+            </commodities>
+          </stream>
+        </in_streams>
+        <out_commod>mox</out_commod>
+        <out_buf_size>1e+299</out_buf_size>
+        <throughput>1e+299</throughput>
+      </Mixer>
+    </config>
+</facility>
+
 
 <!-- La Hague Model from world-nulcear.org -->
   <facility>
@@ -170,7 +213,7 @@
           </entry>
           <entry>
             <number>1</number>
-            <prototype>fuelfab</prototype>
+            <prototype>mixer</prototype>
           </entry>
           {{reprocessing}}
         </initialfacilitylist>
@@ -199,19 +242,26 @@
     <nuclide><id>U238</id><comp>0.997</comp></nuclide>
   </recipe>
 
+
   <recipe>
     <name>mox_fuel_recipe</name>
     <basis>mass</basis>
-     <nuclide> <id>U234</id>  <comp>0.0001737978</comp> </nuclide> 
-     <nuclide> <id>U235</id>  <comp>0.0071419086</comp> </nuclide> 
-     <nuclide> <id>U236</id>  <comp>0.005308932</comp> </nuclide> 
-     <nuclide> <id>U238</id>  <comp>0.8562890395</comp> </nuclide> 
-     <nuclide> <id>Np237</id>  <comp>0.0065989155</comp> </nuclide> 
-     <nuclide> <id>Pu238</id>  <comp>0.0032759581</comp> </nuclide> 
-     <nuclide> <id>Pu239</id>  <comp>0.0660791542</comp> </nuclide> 
-     <nuclide> <id>Pu240</id>  <comp>0.0312595999</comp> </nuclide> 
-     <nuclide> <id>Pu241</id>  <comp>0.0147098117</comp> </nuclide> 
-     <nuclide> <id>Pu242</id>  <comp>0.0091628827</comp> </nuclide> 
+     <nuclide> <id>U232</id>  <comp>1.2872E-10</comp> </nuclide> 
+     <nuclide> <id>U233</id>  <comp>1.38E-09</comp> </nuclide> 
+     <nuclide> <id>U234</id>  <comp>.000143528</comp> </nuclide> 
+     <nuclide> <id>U235</id>  <comp>.007420728</comp> </nuclide> 
+     <nuclide> <id>U236</id>  <comp>.003556698</comp> </nuclide>
+     <nuclide> <id>U237</id>  <comp>3.34366E-11</comp> </nuclide>  
+     <nuclide> <id>U238</id>  <comp>0.868879045</comp> </nuclide>
+     <nuclide> <id>U239</id>  <comp>2.26477E-19</comp> </nuclide> 
+     <nuclide> <id>Pu238</id>  <comp>0.001440424</comp> </nuclide> 
+     <nuclide> <id>Pu239</id>  <comp>0.066449749</comp> </nuclide> 
+     <nuclide> <id>Pu240</id>  <comp>0.029770312</comp> </nuclide> 
+     <nuclide> <id>Pu241</id>  <comp>0.016094726</comp> </nuclide> 
+     <nuclide> <id>Pu242</id>  <comp>0.006244625</comp> </nuclide>
+     <nuclide> <id>Pu243</id>  <comp>3.95537E-19</comp> </nuclide> 
+     <nuclide> <id>Pu244</id>  <comp>1.64638E-07</comp> </nuclide> 
+     <nuclide> <id>Pu245</id>  <comp>1.43248E-24</comp> </nuclide> 
   </recipe> 
 
    <recipe>
