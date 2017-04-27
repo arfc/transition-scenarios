@@ -421,6 +421,53 @@ def total_waste_timeseries(cursor):
                       'Years', 'Mass [MTHM]',
                       'Total Waste Mass vs Time', 'Total_Waste', init_year)
 
+
+def get_stockpile(cursor, facility):
+    """ get stockpile timeseries in a fuel facility
+
+    Parameters
+    ----------
+    cursor: sqlite cursor
+        sqlite cursor
+    facility: str
+        name of facility
+
+    Returns
+    -------
+    null
+    line plot of stockpile inventory
+    """
+
+    cur = cursor
+    pile_dict = collections.OrderedDict({})
+    agentid = get_agent_ids(cur, facility)
+    query = exec_string(agentid, 'agentid', 'timecreated, quantity, qualid')
+    query = query.replace('transactions', 'agentstateinventories')
+    stockpile = cur.execute(query).fetchall()
+    init_year, init_month, duration, timestep = get_sim_time_duration(cur)
+    stock = 0
+    stock_timeseries = []
+    isotope_list = []
+    for i in range(0, duration):
+
+
+        for row in stockpile:
+            time_created = row[0]
+            if time_created == i:
+                quantity = row[1]
+                stock += quantity
+        stock_timeseries.append(stock/1000)
+    print(facility)
+    pile_dict[facility] = stock_timeseries
+
+    multi_line_plot(pile_dict, timestep,
+                    'Years', 'Mass[MTHM]',
+                    'Total Stockpile vs Time', 'Total_Stockpile', init_year)
+
+
+
+
+
 def fuel_usage_timeseries(cursor, fuel_list):
     """ Calculates total fuel usage over time
 
@@ -452,8 +499,9 @@ def fuel_usage_timeseries(cursor, fuel_list):
                 if transaction_time == i:
                     quantity = row[0]
                     total_sum += quantity
-            quantity_timeseries.append(total_sum/1000)
+            quantity_timeseries.append(total_sum)
         fuel_dict[fuel] = quantity_timeseries
+    print(fuel_dict)
 
     stacked_bar_chart(fuel_dict, timestep,
                       'Years', 'Mass[MTHM]',
@@ -680,7 +728,7 @@ def stacked_bar_chart(dictionary, timestep,
         if top_index is True:
             plot = plt.bar(left=init_year + (timestep/12),
                            height=dictionary[key],
-                           width=0.5,
+                           width=0.1,
                            color=cm.viridis(1.*color_index/len(dictionary)),
                            edgecolor='none',
                            label=label)
@@ -691,7 +739,7 @@ def stacked_bar_chart(dictionary, timestep,
         else:
             plot = plt.bar(left=init_year + (timestep/12),
                            height=dictionary[key],
-                           width=0.5,
+                           width=0.1,
                            color=cm.viridis(1.*color_index/len(dictionary)),
                            edgecolor='none',
                            bottom=prev,
@@ -773,5 +821,6 @@ if __name__ == "__main__":
         # plot_power(cur)
         # plot_in_out_flux(cur, 'source', False, 'source vs time', 'source')
         # plot_in_out_flux(cur, 'sink', True, 'isotope vs time', 'sink')
-        total_waste_timeseries(cur)
+        # total_waste_timeseries(cur)
         fuel_usage_timeseries(cur, ['uox','mox'])
+        get_stockpile(cur, 'Mixer')
