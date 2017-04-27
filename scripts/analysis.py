@@ -449,7 +449,12 @@ def get_stockpile(cursor, facility):
     stock_timeseries = []
     isotope_list = []
     for i in range(0, duration):
+        # for row in stockpile:
+        #    qualid = row[2]
+        #    comp = cur.execute('SELECT NucId FROM compositions WHERE qualid = ' + str(qualid)).fetchall()
+        #    isotope_list = isotope_list.append(comp)
 
+        # isotope_set = set(isotope_list)
 
         for row in stockpile:
             time_created = row[0]
@@ -463,9 +468,6 @@ def get_stockpile(cursor, facility):
     multi_line_plot(pile_dict, timestep,
                     'Years', 'Mass[MTHM]',
                     'Total Stockpile vs Time', 'Total_Stockpile', init_year)
-
-
-
 
 
 def fuel_usage_timeseries(cursor, fuel_list):
@@ -610,34 +612,7 @@ def capacity_calc(governments, timestep, entry, exit_step):
 
     return power_dict, num_dict
 
-"""
-def years_from_start(cursor, timestep):
-    
-    Returns a fractional year from the start
-    of the simulation (e.g. 1950.5 for June 1950)
-    based on the timestep
 
-    Parameters
-    ----------
-    cursor: sqlite cursor
-        cursor to the sqlite file
-    timesteps: array
-        array of timesteps to convert into year
-
-    Returns
-    -------
-    float
-        the fractional year, representing the timestep given
-
-    cur = cursor
-    startdate = cur.execute('SELECT initialyear,'
-                            + ' initialmonth FROM info').fetchall()
-    startyear = startdate[0][0]
-    startmonth = startdate[0][1]
-
-    return float(startyear) + (timestep + startmonth)/12.0
-
-"""
 def multi_line_plot(dictionary, timestep,
                     xlabel, ylabel, title,
                     outputname, init_year):
