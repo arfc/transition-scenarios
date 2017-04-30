@@ -140,7 +140,8 @@
          <feed_commod_prefs> <val>1.0</val> </feed_commod_prefs>
          <feed_recipe>uox_used_fuel_recipe</feed_recipe>
          <feedbuf_size>1e100</feedbuf_size>
-         <throughput>1e100</throughput>
+         <!-- 1100 tons/year 91.6 tons/timestep (Schneider & Marignac) --> 
+         <throughput>91600</throughput>
          <leftover_commod>reprocess_waste</leftover_commod>
          <leftoverbuf_size>1e+290</leftoverbuf_size>
          <streams>
@@ -179,7 +180,7 @@
          <feed_commod_prefs> <val>1.0</val> </feed_commod_prefs>
          <feed_recipe>mox_used_fuel_recipe</feed_recipe>
          <feedbuf_size>1e100</feedbuf_size>
-         <throughput>1e100</throughput>
+         <throughput>91600</throughput>
          <leftover_commod>mox_reprocess_waste</leftover_commod>
          <leftoverbuf_size>1e+290</leftoverbuf_size>
          <streams>
@@ -243,11 +244,10 @@
       <Sink>
         <in_commods>
           <val>uox_waste</val>
-          <val>mox_Pu</val>
-          <val>mox_U</val>
           <val>mox_waste</val>
           <val>enrich_waste</val>
           <val>reprocess_waste</val>
+          <val>mox_reprocess_waste</val>
         </in_commods>
         <capacity>1e299</capacity>
       </Sink>
