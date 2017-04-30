@@ -243,11 +243,10 @@
       <Sink>
         <in_commods>
           <val>uox_waste</val>
-          <val>mox_Pu</val>
-          <val>mox_U</val>
           <val>mox_waste</val>
           <val>enrich_waste</val>
           <val>reprocess_waste</val>
+          <val>mox_reprocess_waste</val>
         </in_commods>
         <capacity>1e299</capacity>
       </Sink>
