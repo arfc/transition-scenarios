@@ -1,4 +1,3 @@
-<!-- Historic, France, Reprocessing MOX (perpetual) -->
 <simulation>
   <control>
     <duration>660</duration>
@@ -130,8 +129,7 @@
     </config>
 </facility>
 
-
-<!-- La Hague Model from world-nulcear.org -->
+<!-- Shneider & Marignac -->
   <facility>
     <name>uox_reprocessing</name>
     <config>
@@ -140,7 +138,8 @@
          <feed_commod_prefs> <val>1.0</val> </feed_commod_prefs>
          <feed_recipe>uox_used_fuel_recipe</feed_recipe>
          <feedbuf_size>1e100</feedbuf_size>
-         <throughput>1e100</throughput>
+         <!-- 1100 tons/year 91.6 tons/timestep (Schneider & Marignac) -->
+         <throughput>91600</throughput>
          <leftover_commod>reprocess_waste</leftover_commod>
          <leftoverbuf_size>1e+290</leftoverbuf_size>
          <streams>
@@ -171,6 +170,7 @@
     </config>
   </facility>
 
+
   <facility>
     <name>mox_reprocessing</name>
     <config>
@@ -179,6 +179,7 @@
          <feed_commod_prefs> <val>1.0</val> </feed_commod_prefs>
          <feed_recipe>mox_used_fuel_recipe</feed_recipe>
          <feedbuf_size>1e100</feedbuf_size>
+         <!-- 1100 tons/year 91.6 tons/timestep (Schneider & Marignac) -->
          <throughput>1e100</throughput>
          <leftover_commod>mox_reprocess_waste</leftover_commod>
          <leftoverbuf_size>1e+290</leftoverbuf_size>
