@@ -58,7 +58,7 @@
         <in_streams>
           <stream>
             <info>
-              <mixing_ratio>.12</mixing_ratio>
+              <mixing_ratio>.09</mixing_ratio>
               <buf_size>1e+299</buf_size>
             </info>
             <commodities>
@@ -70,12 +70,12 @@
           </stream>
           <stream>
             <info>
-              <mixing_ratio>.88</mixing_ratio>
+              <mixing_ratio>.91</mixing_ratio>
               <buf_size>1e+299</buf_size>
             </info>
             <commodities>
               <item>
-                <commodity>U</commodity>
+                <commodity>tailings</commodity>
                 <pref>1.0</pref>
               </item>
             </commodities>
@@ -104,17 +104,25 @@
          <leftoverbuf_size>1e100</leftoverbuf_size>
          <streams>
           <item>
-            <commod>pu_u</commod>
+            <commod>Pu</commod>
             <info>
               <buf_size>2e4</buf_size>
               <efficiencies>
                 <item>
                   <comp>Pu</comp> <eff>.99</eff>
                 </item>
+                </efficiencies>
+            </info>
+          </item>
+          <item>
+            <commod>Pu</commod>
+            <info>
+              <buf_size>2e4</buf_size>
+              <efficiencies>
                 <item>
                   <comp>U</comp> <eff>.99</eff>
                 </item>
-              </efficiencies>
+                </efficiencies>
             </info>
           </item>
         </streams>
@@ -374,24 +382,6 @@
     <nuclide> <id>Cm244</id> <comp>0.469900</comp> </nuclide>
     <nuclide> <id>Cm245</id> <comp>0.083910</comp> </nuclide>
     <nuclide> <id>Cm246</id> <comp>0.027150</comp> </nuclide>
-  </recipe> 
-
-  <recipe>
-    <name>pu_u_recipe</name>
-    <basis>mass</basis>
-     <nuclide> <id>U232</id>  <comp>1.39991809249232E-10</comp> </nuclide> 
-     <nuclide> <id>U233</id>  <comp>1.31692294843742E-09</comp> </nuclide> 
-     <nuclide> <id>U234</id>  <comp>0.0001558909</comp> </nuclide> 
-     <nuclide> <id>U235</id>  <comp>0.0080635282</comp> </nuclide> 
-     <nuclide> <id>U236</id>  <comp>0.0038647739</comp> </nuclide> 
-     <nuclide> <id>U238</id>  <comp>0.9441447592</comp> </nuclide> 
-     <nuclide> <id>Np237</id>  <comp>0.0003316806</comp> </nuclide> 
-     <nuclide> <id>Pu238</id>  <comp>0.0001076937</comp> </nuclide> 
-     <nuclide> <id>Pu239</id>  <comp>0.0050287058</comp> </nuclide> 
-     <nuclide> <id>Pu240</id>  <comp>0.0022528682</comp> </nuclide> 
-     <nuclide> <id>Pu241</id>  <comp>0.0012229284</comp> </nuclide> 
-     <nuclide> <id>Pu242</id>  <comp>0.0004725724</comp> </nuclide> 
-     <nuclide> <id>Pu244</id>  <comp>1.24592710231816E-08</comp> </nuclide> 
   </recipe> 
 
 </simulation>
