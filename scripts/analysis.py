@@ -1,5 +1,6 @@
 import sqlite3 as lite
 import sys
+from pyne import nucname
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import cm
@@ -625,7 +626,7 @@ def multi_line_plot(dictionary, timestep,
         if isinstance(key, str) is True:
             label = key.replace('_government', '')
         else:
-            label = key
+            label = str.(nucname.name(key))
         plt.plot(init_year + (timestep/12),
                  dictionary[key],
                  label=label)
@@ -677,7 +678,7 @@ def stacked_bar_chart(dictionary, timestep,
         if isinstance(key, str) is True:
             label = key.replace('_government', '')
         else:
-            label = key
+            label = str(nucname.name(key))
         # very first country does not have a 'bottom' argument
         if top_index is True:
             plot = plt.bar(left=init_year + (timestep/12),
