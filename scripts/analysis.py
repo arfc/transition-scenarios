@@ -40,14 +40,12 @@ def snf(cursor):
                                             'transactions.receiverId',
                                             'sum(quantity), qualid')
                                 + ' group by qualid').fetchall()
-    
+
     waste_id = get_waste_id(resources)
     return isotope_calc(waste_id, snf_inventory, cur)
 
 
 def get_agent_ids(cursor, facility):
-
-
     """ Gets all agentIds from Agententry table for wanted facility
 
         agententry table has the following format:
@@ -95,7 +93,6 @@ def get_waste_id(resource_list):
 
     wasteid = []
 
-
     for res in resource_list:
 
         wasteid.append(res[0])
@@ -136,7 +133,6 @@ def exec_string(list, search, whatwant):
 
 
 def get_sum(list, column_index):
-
     """ Returns sum of a column in an list
 
     Parameters:
@@ -157,8 +153,8 @@ def get_sum(list, column_index):
 
     return sum
 
+
 def isotope_calc(wasteid_array, snf_inventory, cursor):
-    
     """ Calculates isotope mass using mass fraction in compositions table.
 
         Fetches all compositions from compositions table.
@@ -355,7 +351,7 @@ def plot_in_out_flux(cursor, facility, influx_bool, title, outputname):
                           title, outputname, init_year)
     else:
         multi_line_plot(waste_dict, timestep,
-                       'Years', 'Mass [kg]',
+                        'Years', 'Mass [kg]',
                         title, outputname, init_year)
 
 
@@ -392,14 +388,15 @@ def total_waste_timeseries(cursor):
     separations_timeseries = []
     enrichment_timeseries = []
 
-
     for i in range(0, duration):
         for row in resources:
             transaction_time = row[2]
             if transaction_time == i:
                 senderid = row[1]
                 quantity = row[0]
-                spec = cur.execute('SELECT spec from agententry WHERE agentid =' + str(row[1])).fetchone()
+                spec = cur.execute('SELECT spec from\
+                                    agententry WHERE\
+                                    agentid =' + str(row[1])).fetchone()
                 if "Reactor" in spec[0]:
                     from_reactor += quantity
                 elif "Enrichment" in spec[0]:
@@ -409,7 +406,6 @@ def total_waste_timeseries(cursor):
         reactor_timeseries.append(from_reactor/1000)
         separations_timeseries.append(from_separations/1000)
         enrichment_timeseries.append(from_enrichment/1000)
-
 
     waste_dict['Reactor'] = reactor_timeseries
     waste_dict['FP_MA'] = separations_timeseries
@@ -445,13 +441,6 @@ def get_stockpile(cursor, facility):
     stock_timeseries = []
     isotope_list = []
     for i in range(0, duration):
-        # for row in stockpile:
-        #    qualid = row[2]
-        #    comp = cur.execute('SELECT NucId FROM compositions WHERE qualid = ' + str(qualid)).fetchall()
-        #    isotope_list = isotope_list.append(comp)
-
-        # isotope_set = set(isotope_list)
-
         for row in stockpile:
             time_created = row[0]
             if time_created == i:
@@ -482,8 +471,9 @@ def fuel_usage_timeseries(cursor, fuel_list):
     cur = cursor
     fuel_dict = collections.OrderedDict({})
     for fuel in fuel_list:
-        temp_list = ['"'+ fuel + '"']
-        fuel_quantity = cur.execute(exec_string(temp_list, 'commodity', 'sum(quantity), time')
+        temp_list = ['"' + fuel + '"']
+        fuel_quantity = cur.execute(exec_string(temp_list, 'commodity',
+                                    'sum(quantity), time')
                                     + ' GROUP BY time').fetchall()
         init_year, init_month, duration, timestep = get_sim_time_duration(cur)
         total_sum = 0
@@ -497,8 +487,7 @@ def fuel_usage_timeseries(cursor, fuel_list):
             quantity_timeseries.append(total_sum)
         fuel_dict[fuel] = quantity_timeseries
 
-    return fuel_dict    
-
+    return fuel_dict
 
 
 def get_waste_dict(isotope_list, mass_list, time_list, duration):
@@ -644,9 +633,9 @@ def multi_line_plot(dictionary, timestep,
         plt.ylabel(ylabel)
         plt.title(title)
         plt.xlabel(xlabel)
-        plt.legend(loc=(1.0, 0), prop={'size':10})
+        plt.legend(loc=(1.0, 0), prop={'size': 10})
         plt.grid(True)
-        plt.savefig(label + '_' + outputname +'.png',
+        plt.savefig(label + '_' + outputname + '.png',
                     format='png',
                     bbox_inches='tight')
         plt.close()
@@ -709,7 +698,7 @@ def stacked_bar_chart(dictionary, timestep,
                            edgecolor='none',
                            bottom=prev,
                            label=label)
-            prev = np.add(prev,dictionary[key])
+            prev = np.add(prev, dictionary[key])
 
         plot_list.append(plot)
         color_index += 1
@@ -722,7 +711,6 @@ def stacked_bar_chart(dictionary, timestep,
     plt.grid(True)
     plt.savefig(outputname + '.png', format='png', bbox_inches='tight')
     plt.close()
-
 
 
 def plot_power(cursor):
@@ -796,12 +784,12 @@ if __name__ == "__main__":
         """
         waste_dict = total_waste_timeseries(cur)
         multi_line_plot(waste_dict, timestep,
-                          'Years', 'Mass[MTHM]',
-                          'Total Waste Mass vs Time',
-                          'total_Waste',
-                          init_year)
+                        'Years', 'Mass[MTHM]',
+                        'Total Waste Mass vs Time',
+                        'total_Waste',
+                        init_year)
 
-        fuel_dict = fuel_usage_timeseries(cur, ['uox','mox'])
+        fuel_dict = fuel_usage_timeseries(cur, ['uox', 'mox'])
         stacked_bar_chart(fuel_dict, timestep,
                           'Years', 'Mass[MTHM]',
                           'Total Fuel Mass vs Time',
@@ -811,15 +799,19 @@ if __name__ == "__main__":
             pile_dict = get_stockpile(cur, 'Mixer')
             multi_line_plot(pile_dict, timestep,
                             'Years', 'Mass[MTHM]',
-                            'Tailings left over in Mixer vs Time', 'Total_Stockpile', init_year)
+                            'Tailings left over in Mixer vs Time',
+                            'Total_Stockpile', init_year)
             pile_dict2 = get_stockpile(cur, 'Separations')
             multi_line_plot(pile_dict2, timestep,
                             'Years', 'Mass[MTHM]',
-                            'Total Stockpile of ReprU vs Time', 'Total_Stockpile', init_year)
+                            'Total Stockpile of ReprU vs Time',
+                            'Total_Stockpile', init_year)
             tail_dict = {}
-            tail_dict['tailing'] = [x + y for x,y in zip(waste_dict['Tails'], pile_dict['Mixer'])]
+            tail_dict['tailing'] = [x + y for x, y in zip(waste_dict['Tails'],
+                                    pile_dict['Mixer'])]
             multi_line_plot(tail_dict, timestep,
                             'Years', 'Mass[MTHM]',
-                            'Total Tailing vs Time', 'Total_tailings', init_year)
+                            'Total Tailing vs Time', 'Total_tailings',
+                            init_year)
         except:
             print('Seems like it is once through')
