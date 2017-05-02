@@ -230,8 +230,6 @@ def sum_nuclide_to_dict(nuclides, nuclides_mass):
             if nuclides[i] == nuclide:
                 temp_nuclide_sum += nuclides_mass[i]
         mass_dict[nuclide_name] = temp_nuclide_sum
-
-    print(sum(mass_dict.values()))
     return mass_dict
 
 
@@ -516,7 +514,6 @@ def get_waste_dict(isotope_list, mass_list, time_list, duration):
     isotope_set = set(isotope_list)
 
     for iso in isotope_set:
-        print(iso)
         mass = 0
         time_mass = []
         # at each timestep,
@@ -674,7 +671,6 @@ def stacked_bar_chart(dictionary, timestep,
     plot_list = []
     # for every country, create bar chart with different color
     for key in dictionary:
-        print(key)
         if isinstance(key, str) is True:
             label = key.replace('_government', '')
         else:
