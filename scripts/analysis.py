@@ -451,6 +451,41 @@ def get_stockpile(cursor, facility):
     return pile_dict
 
 
+def final_stockpile(cur, facility):
+    """ get final stockpile in a fuel facility
+
+    Parameters
+    ----------
+    cursor: sqlite cursor
+        sqlite cursor
+    facility: str
+        name of facility
+
+    Returns
+    -------
+    MTHM value of stockpile
+    """
+    cur = cursor
+    pile_dict = collections.OrderedDict({})
+    agentid = get_agent_ids(cur, facility)
+    count = 0
+    print('The Stockpile in ' + facility + ': \n')
+    for agent in agentid:
+        string += agent
+        if count != 0:
+            string += ' OR agentstateinventories.agentid = ' + agent
+        count += 1
+    stockpile = cur.execute('SELECT sum(quantity), inventoryname, qualid\
+                         FROM agentstateinventories\
+                         INNER JOIN resources\
+                         ON resources.resourceid = agentstateinventories.resourceid\
+                         WHERE agentstateinventories.agentid = ' + string).fetchall()
+    for stream in stockpile:
+        masses = cur.execute('SELECT * FROM compositions WHERE qualid = ' + str(stream[2])).fetchall()
+        for isotope in masses:
+            print(str.(nucname.name(isotope[2])) + ' = ' + str(isotope[3]*stream[0]))
+
+
 def fuel_usage_timeseries(cursor, fuel_list):
     """ Calculates total fuel usage over time
 
