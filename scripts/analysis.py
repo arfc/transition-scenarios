@@ -735,12 +735,10 @@ def plot_power(cursor):
     governments = cur.execute('SELECT prototype, agentid FROM agententry\
                               WHERE kind = "Inst"').fetchall()
 
-    entry = cur.execute('SELECT power_cap, agententry.agentid, parentid, entertime\
-                        FROM agententry INNER JOIN\
-                        agentstate_cycamore_reactorinfo\
-                        ON agententry.agentid =\
-                        agentstate_cycamore_reactorinfo.agentid\
-                        WHERE discharged = 0').fetchall()
+    entry = cur.execute('SELECT max(value), timeseriespower.agentid, parentid, entertime\
+                         FROM agententry INNER JOIN timeseriespower\
+                         ON agententry.agentid = timeseriespower.agentid\
+                         GROUP BY timeseriespower.agentid').fetchall()
 
     exit_step = cur.execute('SELECT power_cap, agentexit.agentid, parentid, exittime\
                         FROM agentexit INNER JOIN\
