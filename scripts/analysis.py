@@ -123,8 +123,8 @@ def exec_string(list, search, whatwant):
         sqlite query command.
     """
 
-    exec_str = ('select ' + whatwant + ' from resources inner join transactions\
-                on transactions.resourceid = resources.resourceid where '
+    exec_str = ('select ' + whatwant + """ from resources inner join transactions
+                on transactions.resourceid = resources.resourceid where """
                 + str(search) + ' = ' + str(list[0]))
 
     for ar in list[1:]:
@@ -393,9 +393,9 @@ def total_waste_timeseries(cursor):
             if transaction_time == i:
                 senderid = row[1]
                 quantity = row[0]
-                spec = cur.execute('SELECT spec from\
-                                    agententry WHERE\
-                                    agentid =' + str(row[1])).fetchone()
+                spec = cur.execute("""SELECT spec from
+                                    agententry WHERE
+                                    agentid =""" + str(row[1])).fetchone()
                 if "Reactor" in spec[0]:
                     from_reactor += quantity
                 elif "Enrichment" in spec[0]:
@@ -466,27 +466,29 @@ def final_stockpile(cursor, facility):
     MTHM value of stockpile
     """
     cur = cursor
-    pile_dict = collections.OrderedDict({})
+    stock_dict = collections.OrderedDict({})
     agentid = get_agent_ids(cur, facility)
-    count = 0
-    string =''
-    print('The Stockpile in ' + facility + ':')
     for agent in agentid:
-        string += str(agent)
-        if count != 0:
-            string += ' OR agentstateinventories.agentid = ' + str(agent)
-        count += 1
-    stockpile = cur.execute('SELECT sum(quantity), inventoryname, qualid\
-                         FROM agentstateinventories\
-                         INNER JOIN resources\
-                         ON resources.resourceid = agentstateinventories.resourceid\
-                         WHERE agentstateinventories.agentid = ' + string).fetchall()
-    for stream in stockpile:
-        masses = cur.execute('SELECT * FROM compositions WHERE qualid = ' + str(stream[2])).fetchall()
-        for isotope in masses:
-            print(nucname.name(isotope[2]) + ' = ' + str(isotope[3]*stream[0]) + ' kg')
-
+        count = 1
+        name = cur.execute('SELECT prototype FROM agententry WHERE agentid = ' + str(agent)).fetchone()
+        print('The Stockpile in ' + name[0] + ' : ')
+        stockpile = cur.execute("""SELECT sum(quantity), inventoryname, qualid
+                                 FROM agentstateinventories
+                                 INNER JOIN resources
+                                 ON resources.resourceid = agentstateinventories.resourceid
+                                 WHERE agentstateinventories.agentid 
+                                 = """ + str(agent) + """ GROUP BY
+                                 inventoryname""").fetchall()
+        for stream in stockpile:
+            masses = cur.execute('SELECT * FROM compositions WHERE qualid = ' + str(stream[2])).fetchall()
+            print('Stream ' + str(count) + ' Total = ' + str(stream[0]) + ' kg')
+            for isotope in masses:
+                print(nucname.name(isotope[2]) + ' = ' + str(isotope[3]*stream[0]) + ' kg')
+            print('\n')
+            count +=1 
+        print('\n')
     print('\n')
+
 
 def fuel_usage_timeseries(cursor, fuel_list):
     """ Calculates total fuel usage over time
