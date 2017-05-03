@@ -451,7 +451,7 @@ def get_stockpile(cursor, facility):
     return pile_dict
 
 
-def final_stockpile(cur, facility):
+def final_stockpile(cursor, facility):
     """ get final stockpile in a fuel facility
 
     Parameters
@@ -469,11 +469,12 @@ def final_stockpile(cur, facility):
     pile_dict = collections.OrderedDict({})
     agentid = get_agent_ids(cur, facility)
     count = 0
-    print('The Stockpile in ' + facility + ': \n')
+    string =''
+    print('The Stockpile in ' + facility + ':')
     for agent in agentid:
-        string += agent
+        string += str(agent)
         if count != 0:
-            string += ' OR agentstateinventories.agentid = ' + agent
+            string += ' OR agentstateinventories.agentid = ' + str(agent)
         count += 1
     stockpile = cur.execute('SELECT sum(quantity), inventoryname, qualid\
                          FROM agentstateinventories\
@@ -483,8 +484,9 @@ def final_stockpile(cur, facility):
     for stream in stockpile:
         masses = cur.execute('SELECT * FROM compositions WHERE qualid = ' + str(stream[2])).fetchall()
         for isotope in masses:
-            print(str.(nucname.name(isotope[2])) + ' = ' + str(isotope[3]*stream[0]))
+            print(nucname.name(isotope[2]) + ' = ' + str(isotope[3]*stream[0]) + ' kg')
 
+    print('\n')
 
 def fuel_usage_timeseries(cursor, fuel_list):
     """ Calculates total fuel usage over time
@@ -658,7 +660,7 @@ def multi_line_plot(dictionary, timestep,
         if isinstance(key, str) is True:
             label = key.replace('_government', '')
         else:
-            label = str.(nucname.name(key))
+            label = str(nucname.name(key))
         plt.plot(init_year + (timestep/12),
                  dictionary[key],
                  label=label)
@@ -825,6 +827,9 @@ if __name__ == "__main__":
                           'Total Fuel Mass vs Time',
                           'total_fuel',
                           init_year)
+        final_stockpile(cur, 'Mixer')
+        final_stockpile(cur, 'Separations')
+
         try:
             pile_dict = get_stockpile(cur, 'Mixer')
             multi_line_plot(pile_dict, timestep,
