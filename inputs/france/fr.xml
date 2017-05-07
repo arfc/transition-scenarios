@@ -1,7 +1,7 @@
 <!-- Historic, France, Reprocessing MOX (perpetual) -->
 <simulation>
   <control>
-    <duration>660</duration>
+    <duration>2280</duration>
     <startmonth>1 </startmonth>
     <startyear>1970 </startyear>
     <decay>lazy</decay>
@@ -63,7 +63,7 @@
           <stream>
             <info>
               <mixing_ratio>.09</mixing_ratio>
-              <buf_size>1e+299</buf_size>
+              <buf_size>100000</buf_size>
             </info>
             <commodities>
               <item>
@@ -75,19 +75,19 @@
           <stream>
             <info>
               <mixing_ratio>.91</mixing_ratio>
-              <buf_size>1e+299</buf_size>
+              <buf_size>1000000</buf_size>
             </info>
             <commodities>
               <item>
-                <commodity>enrich_waste</commodity>
+                <commodity>tailings</commodity>
                 <pref>1.0</pref>
               </item>
             </commodities>
           </stream>
         </in_streams>
         <out_commod>mox</out_commod>
-        <out_buf_size>1e+299</out_buf_size>
-        <throughput>1e+299</throughput>
+        <out_buf_size>100000</out_buf_size>
+        <throughput>10000</throughput>
       </Mixer>
     </config>
 </facility>
@@ -101,7 +101,7 @@
           <stream>
             <info>
               <mixing_ratio>.1</mixing_ratio>
-              <buf_size>1e+299</buf_size>
+              <buf_size>100000</buf_size>
             </info>
             <commodities>
               <item>
@@ -113,32 +113,32 @@
           <stream>
             <info>
               <mixing_ratio>.9</mixing_ratio>
-              <buf_size>1e+299</buf_size>
+              <buf_size>1000000</buf_size>
             </info>
             <commodities>
               <item>
-                <commodity>enrich_waste</commodity>
+                <commodity>tailings</commodity>
                 <pref>1.0</pref>
               </item>
             </commodities>
           </stream>
         </in_streams>
         <out_commod>mox</out_commod>
-        <out_buf_size>1e+299</out_buf_size>
-        <throughput>1e+299</throughput>
+        <out_buf_size>1000000</out_buf_size>
+        <throughput>10000</throughput>
       </Mixer>
     </config>
 </facility>
 
 <facility>
-    <name>fr_mixer</name>
+    <name>fr_mixer_uox</name>
     <config>
       <Mixer>
         <in_streams>
           <stream>
             <info>
               <mixing_ratio>.04</mixing_ratio>
-              <buf_size>1e+299</buf_size>
+              <buf_size>10000000</buf_size>
             </info>
             <commodities>
               <item>
@@ -150,11 +150,11 @@
           <stream>
             <info>
               <mixing_ratio>.84</mixing_ratio>
-              <buf_size>1e+299</buf_size>
+              <buf_size>10000000</buf_size>
             </info>
             <commodities>
               <item>
-                <commodity>enrich_waste</commodity>
+                <commodity>tailings</commodity>
                 <pref>1.0</pref>
               </item>
             </commodities>
@@ -162,7 +162,7 @@
           <stream>
             <info>
               <mixing_ratio>.12</mixing_ratio>
-              <buf_size>1e+299</buf_size>
+              <buf_size>10000000</buf_size>
             </info>
             <commodities>
               <item>
@@ -173,8 +173,8 @@
           </stream>
         </in_streams>
         <out_commod>fr_fuel</out_commod>
-        <out_buf_size>1e+299</out_buf_size>
-        <throughput>1e+299</throughput>
+        <out_buf_size>10000000</out_buf_size>
+        <throughput>10000000</throughput>
       </Mixer>
     </config>
 </facility>
@@ -187,7 +187,7 @@
           <stream>
             <info>
               <mixing_ratio>.045</mixing_ratio>
-              <buf_size>1e+299</buf_size>
+              <buf_size>10000000</buf_size>
             </info>
             <commodities>
               <item>
@@ -199,11 +199,11 @@
           <stream>
             <info>
               <mixing_ratio>.755</mixing_ratio>
-              <buf_size>1e+299</buf_size>
+              <buf_size>10000000</buf_size>
             </info>
             <commodities>
               <item>
-                <commodity>enrich_waste</commodity>
+                <commodity>tailings</commodity>
                 <pref>1.0</pref>
               </item>
             </commodities>
@@ -211,7 +211,7 @@
           <stream>
             <info>
               <mixing_ratio>.2</mixing_ratio>
-              <buf_size>1e+299</buf_size>
+              <buf_size>10000000</buf_size>
             </info>
             <commodities>
               <item>
@@ -222,8 +222,8 @@
           </stream>
         </in_streams>
         <out_commod>fr_fuel</out_commod>
-        <out_buf_size>1e+299</out_buf_size>
-        <throughput>1e+299</throughput>
+        <out_buf_size>10000000</out_buf_size>
+        <throughput>10000000</throughput>
       </Mixer>
     </config>
 </facility>
@@ -236,16 +236,16 @@
          <feed_commods>   <val>uox_waste</val> </feed_commods>
          <feed_commod_prefs> <val>1.0</val> </feed_commod_prefs>
          <feed_recipe>uox_used_fuel_recipe</feed_recipe>
-         <feedbuf_size>1e100</feedbuf_size>
+         <feedbuf_size>91600</feedbuf_size>
          <!-- 1100 tons/year 91.6 tons/timestep --> 
          <throughput>91600</throughput>
          <leftover_commod>reprocess_waste</leftover_commod>
-         <leftoverbuf_size>1e+290</leftoverbuf_size>
+         <leftoverbuf_size>91600</leftoverbuf_size>
          <streams>
           <item>
             <commod>uox_Pu</commod>
             <info>
-              <buf_size>1e100</buf_size>
+              <buf_size>91600</buf_size>
               <efficiencies>
                 <item>
                   <comp>Pu</comp> <eff>.998</eff>
@@ -256,7 +256,7 @@
           <item>
             <commod>uox_MA</commod>
             <info>
-              <buf_size>1e100</buf_size>
+              <buf_size>91600</buf_size>
               <efficiencies>
                 <item>
                   <comp>Am</comp> <eff>.998</eff>
@@ -273,7 +273,7 @@
           <item>
             <commod>uox_U</commod>
             <info>
-              <buf_size>1e100</buf_size>
+              <buf_size>91600</buf_size>
               <efficiencies>
                 <item>
                   <comp>U</comp> <eff>.998</eff>
@@ -294,16 +294,16 @@
          <feed_commods>   <val>mox_waste</val> </feed_commods>
          <feed_commod_prefs> <val>1.0</val> </feed_commod_prefs>
          <feed_recipe>mox_used_fuel_recipe</feed_recipe>
-         <feedbuf_size>1e100</feedbuf_size>
+         <feedbuf_size>916000</feedbuf_size>
          <!-- 1100 tons/year 91.6 tons/timestep --> 
          <throughput>91600</throughput>
          <leftover_commod>mox_reprocess_waste</leftover_commod>
-         <leftoverbuf_size>1e+290</leftoverbuf_size>
+         <leftoverbuf_size>91600</leftoverbuf_size>
          <streams>
           <item>
             <commod>mox_Pu</commod>
             <info>
-              <buf_size>1e100</buf_size>
+              <buf_size>91600</buf_size>
               <efficiencies>
                 <item>
                   <comp>Pu</comp> <eff>.998</eff>
@@ -314,7 +314,7 @@
           <item>
             <commod>mox_MA</commod>
             <info>
-              <buf_size>1e100</buf_size>
+              <buf_size>91600</buf_size>
               <efficiencies>
                 <item>
                   <comp>Am</comp> <eff>.998</eff>
@@ -331,7 +331,7 @@
           <item>
             <commod>mox_U</commod>
             <info>
-              <buf_size>1e100</buf_size>
+              <buf_size>91600</buf_size>
               <efficiencies>
                 <item>
                   <comp>U</comp> <eff>.998</eff>
@@ -350,19 +350,19 @@
     <name>fr_reprocessing</name>
     <config>
       <Separations>
-         <feed_commods>   <val>mox_waste</val> </feed_commods>
+         <feed_commods>   <val>fr_waste</val> </feed_commods>
          <feed_commod_prefs> <val>1.0</val> </feed_commod_prefs>
-         <feed_recipe>mox_used_fuel_recipe</feed_recipe>
-         <feedbuf_size>1e100</feedbuf_size>
+         <feed_recipe>fr_used_fuel_recipe</feed_recipe>
+         <feedbuf_size>91600</feedbuf_size>
          <!-- 1100 tons/year 91.6 tons/timestep --> 
          <throughput>91600</throughput>
          <leftover_commod>fr_reprocess_waste</leftover_commod>
-         <leftoverbuf_size>1e+290</leftoverbuf_size>
+         <leftoverbuf_size>91600</leftoverbuf_size>
          <streams>
           <item>
             <commod>fr_Pu</commod>
             <info>
-              <buf_size>1e100</buf_size>
+              <buf_size>91600</buf_size>
               <efficiencies>
                 <item>
                   <comp>Pu</comp> <eff>.998</eff>
@@ -373,7 +373,7 @@
           <item>
             <commod>fr_MA</commod>
             <info>
-              <buf_size>1e100</buf_size>
+              <buf_size>91600</buf_size>
               <efficiencies>
                 <item>
                   <comp>Am</comp> <eff>.998</eff>
@@ -412,7 +412,7 @@
         <feed_recipe>natl_u_recipe</feed_recipe>
         <product_commod>uox</product_commod>
         <tails_assay>0.003</tails_assay>
-        <tails_commod>enrich_waste</tails_commod>
+        <tails_commod>tailings</tails_commod>
         <swu_capacity>1e100</swu_capacity>
         <initial_feed>1e100</initial_feed>
       </Enrichment>
@@ -437,13 +437,10 @@
         <in_commods>
           <val>uox_waste</val>
           <val>mox_waste</val>
-          <val>enrich_waste</val>
+          <val>tailings</val>
           <val>reprocess_waste</val>
           <val>mox_reprocess_waste</val>
           <val>fr_reprocess_waste</val>
-          <val>fr_Pu</val>
-          <val>fr_U</val>
-          <val>fr_MA</val>
         </in_commods>
         <capacity>1e299</capacity>
       </Sink>
@@ -465,7 +462,7 @@
         <assem_size>25000.0</assem_size>
         <n_assem_core>3</n_assem_core>
         <n_assem_batch>1</n_assem_batch>
-        <power_cap>1000</power_cap>
+        <power_cap>3000</power_cap>
       </Reactor>
     </config>
   </facility>
@@ -1852,25 +1849,297 @@
           </entry>
           <entry>
             <number>1</number>
-            <prototype>fr_mixer</prototype>
+            <prototype>fr_mixer_uox</prototype>
           </entry>
           <entry>
             <number>1</number>
             <prototype>fr_mixer_mox</prototype>
           </entry>
-          <entry>
-            <number>4</number>
-            <prototype>fr</prototype>
-          </entry>
-
         </initialfacilitylist>
     </institution>
+    <institution>
+        <name>fr_deployer</name>
+        <config>
+            <DeployInst>
+                <prototypes>
+                    <val>fr</val>
+                    <val>fr</val>
+                    <val>fr</val>
+                    <val>fr</val>
+                    <val>fr</val>
+                    <val>fr</val>
+                    <val>fr</val>
+                    <val>fr</val>
+
+                    <val>fr</val>
+                    <val>fr</val>
+                    <val>fr</val>
+                    <val>fr</val>
+                    <val>fr</val>
+                    <val>fr</val>
+                    <val>fr</val>
+                    <val>fr</val>
+                    <val>fr</val>
+                    <val>fr</val>
+                    <val>fr</val>
+                    <val>fr</val>
+                    <val>fr</val>
+                    <val>fr</val>
+                    <val>fr</val>
+                    <val>fr</val>
+                    <val>fr</val>
+                    <val>fr</val>
+                    <val>fr</val>
+                    <val>fr</val>
+                    <val>fr</val>
+                    <val>fr</val>
+                    <val>fr</val>
+                    <val>fr</val>
+                    <val>fr</val>
+                    <val>fr</val>
+                    <val>fr</val>
+                    <val>fr</val>
+                    <val>fr</val>
+                    <val>fr</val>
+                    <val>fr</val>
+                    <val>fr</val>
+                    <val>fr</val>
+                    <val>fr</val>
+                    <val>fr</val>
+                    <val>fr</val>
+                    <val>fr</val>
+                    <val>fr</val>
+                    <val>fr</val>
+                    <val>fr</val>
+                    <val>fr</val>
+                    <val>fr</val>
+                    <val>fr</val>
+                    <val>fr</val>
+                    <val>fr</val>
+                    <val>fr</val>
+                    <val>fr</val>
+                    <val>fr</val>
+                    <val>fr</val>
+                    <val>fr</val>
+                    <val>fr</val>
+                    <val>fr</val>
+                    <val>fr</val>
+                    <val>fr</val>
+                    <val>fr</val>
+                </prototypes>
+                <build_times>
+                    <val>720</val>
+                    <val>732</val>
+                    <val>744</val>
+                    <val>756</val>
+                    <val>768</val>
+                    <val>780</val>
+                    <val>792</val>
+                    <val>810</val>
+
+                    <val>820</val>
+                    <val>824</val>
+                    <val>830</val>
+                    <val>834</val>
+                    <val>842</val>
+                    <val>842</val>
+                    <val>847</val>
+                    <val>847</val>
+                    <val>851</val>
+                    <val>851</val>
+                    <val>852</val>
+                    <val>853</val>
+                    <val>856</val>
+                    <val>857</val>
+                    <val>857</val>
+                    <val>857</val>
+                    <val>859</val>
+                    <val>870</val>
+                    <val>874</val>
+                    <val>879</val>
+                    <val>880</val>
+                    <val>883</val>
+                    <val>885</val>
+                    <val>891</val>
+                    <val>892</val>
+                    <val>895</val>
+                    <val>895</val>
+                    <val>895</val>
+                    <val>897</val>
+                    <val>906</val>
+                    <val>907</val>
+                    <val>907</val>
+                    <val>909</val>
+                    <val>915</val>
+                    <val>916</val>
+                    <val>917</val>
+                    <val>921</val>
+                    <val>922</val>
+                    <val>931</val>
+                    <val>932</val>
+                    <val>932</val>
+                    <val>933</val>
+                    <val>941</val>
+                    <val>945</val>
+                    <val>961</val>
+                    <val>963</val>
+                    <val>964</val>
+                    <val>976</val>
+                    <val>984</val>
+                    <val>1001</val>
+                    <val>1038</val>
+                    <val>1046</val>
+                    <val>1054</val>
+                    <val>1078</val>
+                    <val>1283</val>
+                </build_times>
+                <n_build>
+                    <val>1</val>
+                    <val>1</val>
+                    <val>1</val>
+                    <val>1</val>
+                    <val>1</val>
+                    <val>1</val>
+                    <val>1</val>
+                    <val>1</val>
+
+                    <val>1</val>
+                    <val>1</val>
+                    <val>1</val>
+                    <val>1</val>
+                    <val>1</val>
+                    <val>1</val>
+                    <val>1</val>
+                    <val>1</val>
+                    <val>1</val>
+                    <val>1</val>
+                    <val>1</val>
+                    <val>1</val>
+                    <val>1</val>
+                    <val>1</val>
+                    <val>1</val>
+                    <val>1</val>
+                    <val>1</val>
+                    <val>1</val>
+                    <val>1</val>
+                    <val>1</val>
+                    <val>1</val>
+                    <val>1</val>
+                    <val>1</val>
+                    <val>1</val>
+                    <val>1</val>
+                    <val>1</val>
+                    <val>1</val>
+                    <val>1</val>
+                    <val>1</val>
+                    <val>1</val>
+                    <val>1</val>
+                    <val>1</val>
+                    <val>1</val>
+                    <val>1</val>
+                    <val>1</val>
+                    <val>1</val>
+                    <val>1</val>
+                    <val>1</val>
+                    <val>1</val>
+                    <val>1</val>
+                    <val>1</val>
+                    <val>1</val>
+                    <val>1</val>
+                    <val>1</val>
+                    <val>1</val>
+                    <val>1</val>
+                    <val>1</val>
+                    <val>1</val>
+                    <val>1</val>
+                    <val>1</val>
+                    <val>1</val>
+                    <val>1</val>
+                    <val>1</val>
+                    <val>1</val>
+                    <val>1</val>
+
+                </n_build>
+                <lifetimes>
+                    <val>9999</val>
+                    <val>9999</val>
+                    <val>9999</val>
+                    <val>9999</val>
+                    <val>9999</val>
+                    <val>9999</val>
+                    <val>9999</val>
+                    <val>9999</val>
+
+                    <val>9999</val>
+                    <val>9999</val>
+                    <val>9999</val>
+                    <val>9999</val>
+                    <val>9999</val>
+                    <val>9999</val>
+                    <val>9999</val>
+                    <val>9999</val>
+                    <val>9999</val>
+                    <val>9999</val>
+                    <val>9999</val>
+                    <val>9999</val>
+                    <val>9999</val>
+                    <val>9999</val>
+                    <val>9999</val>
+                    <val>9999</val>
+                    <val>9999</val>
+                    <val>9999</val>
+                    <val>9999</val>
+                    <val>9999</val>
+                    <val>9999</val>
+                    <val>9999</val>
+                    <val>9999</val>
+                    <val>9999</val>
+                    <val>9999</val>
+                    <val>9999</val>
+                    <val>9999</val>
+                    <val>9999</val>
+                    <val>9999</val>
+                    <val>9999</val>
+                    <val>9999</val>
+                    <val>9999</val>
+                    <val>9999</val>
+                    <val>9999</val>
+                    <val>9999</val>
+                    <val>9999</val>
+                    <val>9999</val>
+                    <val>9999</val>
+                    <val>9999</val>
+                    <val>9999</val>
+                    <val>9999</val>
+                    <val>9999</val>
+                    <val>9999</val>
+                    <val>9999</val>
+                    <val>9999</val>
+                    <val>9999</val>
+                    <val>9999</val>
+                    <val>9999</val>
+                    <val>9999</val>
+                    <val>9999</val>
+                    <val>9999</val>
+                    <val>9999</val>
+                    <val>9999</val>
+                    <val>9999</val>
+                    <val>9999</val>
+                    
+                </lifetimes>
+            </DeployInst>
+        </config>
+    </institution>
+
     <institution>
       <name>France_government</name>
       <config>
         <DeployInst>
 
           <prototypes>
+<val>fr_reprocessing</val>
+<val>fr_mixer_uox</val>
+<val>fr_mixer_mox</val>
 <val>CHINON A-2</val>
 <val>CHINON A-3</val>
 <val>CHOOZ-A (ARDENNES)</val>
@@ -1941,6 +2210,9 @@
 
 </prototypes>
 <build_times>
+<val>1200</val>
+<val>1200</val>
+<val>1200</val>
 <val>1</val>
 <val>1</val>
 <val>1</val>
@@ -2078,9 +2350,15 @@
 <val>1</val>
 <val>1</val>
 <val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
 
 </n_build>
 <lifetimes>
+<val>9999</val>
+<val>9999</val>
+<val>9999</val>
 <val>161</val>
 <val>245</val>
 <val>262</val>
