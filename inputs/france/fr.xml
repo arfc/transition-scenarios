@@ -15,7 +15,7 @@
     <spec>
       <lib>cycamore</lib>
       <name>Sink</name>
-    </spec>
+    </spec> 
     <spec>
       <lib>cycamore</lib>
       <name>Reactor</name>
@@ -126,6 +126,55 @@
         <out_commod>mox</out_commod>
         <out_buf_size>1000000</out_buf_size>
         <throughput>10000</throughput>
+      </Mixer>
+    </config>
+</facility>
+
+<facility>
+    <name>fr_mixer_fr_natl_u</name>
+    <config>
+      <Mixer>
+        <in_streams>
+          <stream>
+            <info>
+              <mixing_ratio>.02</mixing_ratio>
+              <buf_size>10000000</buf_size>
+            </info>
+            <commodities>
+              <item>
+                <commodity>fr_MA</commodity>
+                <pref>1.0</pref>
+              </item>
+            </commodities>
+          </stream>
+          <stream>
+            <info>
+              <mixing_ratio>.75</mixing_ratio>
+              <buf_size>10000000</buf_size>
+            </info>
+            <commodities>
+              <item>
+                <commodity>natl_u</commodity>
+                <pref>1.0</pref>
+              </item>
+            </commodities>
+          </stream>
+          <stream>
+            <info>
+              <mixing_ratio>.23</mixing_ratio>
+              <buf_size>10000000</buf_size>
+            </info>
+            <commodities>
+              <item>
+                <commodity>fr_Pu</commodity>
+                <pref>1.0</pref>
+              </item>
+            </commodities>
+          </stream>
+        </in_streams>
+        <out_commod>fr_fuel</out_commod>
+        <out_buf_size>10000000</out_buf_size>
+        <throughput>10000000</throughput>
       </Mixer>
     </config>
 </facility>
@@ -499,7 +548,28 @@
   </facility>
 
 <facility>
-    <!-- France -->
+    <!-- EPR from  Martin_Symbiotic-->
+    <name>EPR</name>
+    <config>
+      <Reactor>
+                <fuel_inrecipes>  <val>uox_fuel_recipe</val>       <val>mox_fuel_recipe</val>        </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>523.4</assem_size>
+        <n_assem_core>216</n_assem_core>
+        <n_assem_batch>72</n_assem_batch>
+        <power_cap>1600</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+
+<facility>
+    <!-- Breeder SFR CFV V1 from  Martin_Symbiotic-->
     <name>fr</name>
     <config>
       <Reactor>
@@ -508,9 +578,9 @@
         <fuel_incommods>  <val>fr_fuel</val>                   </fuel_incommods>
         <fuel_outcommods> <val>fr_waste</val>             </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
-        <cycle_time>14</cycle_time>
-        <refuel_time>1</refuel_time>
-        <assem_size>25000.0</assem_size>
+        <cycle_time>12</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>17000</assem_size>
         <n_assem_core>3</n_assem_core>
         <n_assem_batch>1</n_assem_batch>
         <power_cap>3000</power_cap>
@@ -1906,6 +1976,14 @@
             <number>1</number>
             <prototype>fr_mixer_mox</prototype>
           </entry>
+          <entry>
+            <number>1</number>
+            <prototype>fr_mixer_fr</prototype>
+          </entry>
+          <entry>
+            <number>1</number>
+            <prototype>fr_mixer_fr_natl_u</prototype>
+          </entry>
         </initialfacilitylist>
     </institution>
     <institution>
@@ -2191,6 +2269,9 @@
 <val>fr_reprocessing</val>
 <val>fr_mixer_uox</val>
 <val>fr_mixer_mox</val>
+<val>fr_mixer_fr</val>
+<val>fr_mixer_fr_natl_u</val>
+
 <val>CHINON A-2</val>
 <val>CHINON A-3</val>
 <val>CHOOZ-A (ARDENNES)</val>
@@ -2264,6 +2345,9 @@
 <val>1200</val>
 <val>1200</val>
 <val>1200</val>
+<val>1200</val>
+<val>1200</val>
+
 <val>1</val>
 <val>1</val>
 <val>1</val>
@@ -2339,6 +2423,9 @@
 <val>1</val>
 <val>1</val>
 <val>1</val>
+
+<val>1</val>
+<val>1</val>
 <val>1</val>
 <val>1</val>
 <val>1</val>
@@ -2410,6 +2497,10 @@
 <val>9999</val>
 <val>9999</val>
 <val>9999</val>
+<val>720</val>
+<val>9999</val>
+
+
 <val>161</val>
 <val>245</val>
 <val>262</val>
