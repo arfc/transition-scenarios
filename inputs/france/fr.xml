@@ -130,6 +130,57 @@
     </config>
 </facility>
 
+
+<facility>
+    <name>fr_mixer_fr</name>
+    <config>
+      <Mixer>
+        <in_streams>
+          <stream>
+            <info>
+              <mixing_ratio>.02</mixing_ratio>
+              <buf_size>10000000</buf_size>
+            </info>
+            <commodities>
+              <item>
+                <commodity>fr_MA</commodity>
+                <pref>1.0</pref>
+              </item>
+            </commodities>
+          </stream>
+          <stream>
+            <info>
+              <mixing_ratio>.75</mixing_ratio>
+              <buf_size>10000000</buf_size>
+            </info>
+            <commodities>
+              <item>
+                <commodity>tailings</commodity>
+                <pref>1.0</pref>
+              </item>
+            </commodities>
+          </stream>
+          <stream>
+            <info>
+              <mixing_ratio>.23</mixing_ratio>
+              <buf_size>10000000</buf_size>
+            </info>
+            <commodities>
+              <item>
+                <commodity>fr_Pu</commodity>
+                <pref>1.0</pref>
+              </item>
+            </commodities>
+          </stream>
+        </in_streams>
+        <out_commod>fr_fuel</out_commod>
+        <out_buf_size>10000000</out_buf_size>
+        <throughput>10000000</throughput>
+      </Mixer>
+    </config>
+</facility>
+
+
 <facility>
     <name>fr_mixer_uox</name>
     <config>
