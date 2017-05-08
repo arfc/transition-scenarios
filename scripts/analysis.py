@@ -414,7 +414,7 @@ def total_waste_timeseries(cursor):
 
 
 def get_stockpile(cursor, facility):
-    """ get stockpile timeseries in a fuel facility
+    """ get inventory timeseries in a fuel facility
 
     Parameters
     ----------
@@ -498,12 +498,14 @@ def fuel_usage_timeseries(cursor, fuel_list):
     cursor: sqlite cursor
         sqlite cursor
     fuel_list: list
-        list of fuel commodity names (eg. uox, mox)
+        list of fuel commodity names (eg. uox, mox) to consider in fuel usage.
 
     Returns
     -------
     dict
         dictionary of different fuels used timeseries
+        keys - fuel
+        vales - timeseries list of fuel amount [kg]
     """
 
     cur = cursor
@@ -809,13 +811,13 @@ if __name__ == "__main__":
         # plot_in_out_flux(cur, 'source', False, 'source vs time', 'source')
         # plot_in_out_flux(cur, 'sink', True, 'isotope vs time', 'sink')
         init_year, init_month, duration, timestep = get_sim_time_duration(cur)
-        """
-            waste_dict ['Reactor'] = uox_waste
-            waste_dict ['Enrichment'] = tailing
-            waste_dict ['Separations'] = reprocess waste (FP, MA)
-            pile_dict ['Mixer'] = tailing
-            pile_dict2 ['Separation'] = reprocessed U
-        """
+        
+        #    waste_dict ['Reactor'] = uox_waste
+        #    waste_dict ['Enrichment'] = tailing
+        #    waste_dict ['Separations'] = reprocess waste (FP, MA)
+        #    pile_dict ['Mixer'] = tailing
+        #    pile_dict2 ['Separation'] = reprocessed U
+        
         waste_dict = total_waste_timeseries(cur)
         multi_line_plot(waste_dict, timestep,
                         'Years', 'Mass[MTHM]',
