@@ -815,8 +815,8 @@ if __name__ == "__main__":
         #    waste_dict ['Reactor'] = uox_waste
         #    waste_dict ['Enrichment'] = tailing
         #    waste_dict ['Separations'] = reprocess waste (FP, MA)
-        #    pile_dict ['Mixer'] = tailing
-        #    pile_dict2 ['Separation'] = reprocessed U
+        #    mixer_stockpile ['Mixer'] = tailing
+        #    separations_stockpile ['Separation'] = reprocessed U
         
         waste_dict = total_waste_timeseries(cur)
         multi_line_plot(waste_dict, timestep,
@@ -835,13 +835,13 @@ if __name__ == "__main__":
         final_stockpile(cur, 'Separations')
 
         try:
-            pile_dict = get_stockpile(cur, 'Mixer')
-            multi_line_plot(pile_dict, timestep,
+            mixer_stockpile = get_stockpile(cur, 'Mixer')
+            multi_line_plot(mixer_stockpile, timestep,
                             'Years', 'Mass[MTHM]',
                             'Tailings left over in Mixer vs Time',
                             'Total_Stockpile', init_year)
-            pile_dict2 = get_stockpile(cur, 'Separations')
-            multi_line_plot(pile_dict2, timestep,
+            separations_stockpile = get_stockpile(cur, 'Separations')
+            multi_line_plot(separations_stockpile, timestep,
                             'Years', 'Mass[MTHM]',
                             'Total Stockpile of ReprU vs Time',
                             'Total_Stockpile', init_year)
