@@ -840,6 +840,7 @@ if __name__ == "__main__":
                             'Years', 'Mass[MTHM]',
                             'Tailings left over in Mixer vs Time',
                             'Total_Stockpile', init_year)
+        try:
             separations_stockpile = get_stockpile(cur, 'Separations')
             multi_line_plot(separations_stockpile, timestep,
                             'Years', 'Mass[MTHM]',
@@ -847,7 +848,7 @@ if __name__ == "__main__":
                             'Total_Stockpile', init_year)
             tail_dict = {}
             tail_dict['tailing'] = [x + y for x, y in zip(waste_dict['Tails'],
-                                    pile_dict['Mixer'])]
+                                    mixer_stockpile['Mixer'])]
             multi_line_plot(tail_dict, timestep,
                             'Years', 'Mass[MTHM]',
                             'Total Tailing vs Time', 'Total_tailings',
