@@ -57,7 +57,7 @@ Jinja Template for the entire Cyclus input file.
 
 This is where the compiled reactor and region files will be rendered into.
 
-fuel composition data is from an ORIGEN calculation (not public data)
+fuel composition data is from representative vision recipes.
 
 ### reactor_template.xml.in
 Jinja template for the reactor section of the cyclus input file.
