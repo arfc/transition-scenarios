@@ -399,13 +399,17 @@ def total_waste_timeseries(cursor):
                     from_enrichment += quantity
                 elif "Separations" in spec[0]:
                     from_separations += quantity
-        reactor_timeseries.append(from_reactor/1000)
-        separations_timeseries.append(from_separations/1000)
-        enrichment_timeseries.append(from_enrichment/1000)
+        reactor_timeseries.append(from_reactor)
+        separations_timeseries.append(from_separations)
+        enrichment_timeseries.append(from_enrichment)
 
-    waste_dict['Reactor'] = reactor_timeseries
-    waste_dict['FP_MA'] = separations_timeseries
-    waste_dict['Tails'] = enrichment_timeseries
+    mthm_from_reactor_timeseries = np.array(reactor_timeseries)/1000.0
+    mthm_from_separations_timeseries = np.array(separations_timeseries)/1000.0
+    mthm_from_enrichment_timeseries = np.array(enrichment_timeseries)/1000.0
+
+    waste_dict['Reactor'] = mthm_from_reactor_timeseries
+    waste_dict['FP_MA'] = mthm_from_separations_timeseries
+    waste_dict['Tails'] = mthm_from_enrichment_timeseries
 
     return waste_dict
 
