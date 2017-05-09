@@ -2,6 +2,7 @@ import sqlite3 as lite
 import sys
 from pyne import nucname
 import numpy as np
+import numpy.ma as ma
 import matplotlib.pyplot as plt
 from matplotlib import cm
 import collections
@@ -518,14 +519,18 @@ def fuel_usage_timeseries(cursor, fuel_list):
         init_year, init_month, duration, timestep = get_sim_time_duration(cur)
         total_sum = 0
         quantity_timeseries = []
-        for i in range(0, duration):
-            for row in fuel_quantity:
-                transaction_time = row[1]
-                if transaction_time == i:
-                    quantity = row[0]
-                    total_sum += quantity
-            quantity_timeseries.append(total_sum)
-        fuel_dict[fuel] = quantity_timeseries
+
+        try:
+            for i in range(0, duration):
+                fq_array = np.array(fuel_quantity)
+                fq_time = fq_array[:, 1:]
+                quantity = fq_array[fq_time == i]
+                if len(quantity) != 0:
+                    total_sum += fq_array[fq_time == i][0]
+                quantity_timeseries.append(total_sum)
+            fuel_dict[fuel] = quantity_timeseries
+        except:
+            print('No Such Fuel Called ' + fuel)
 
     return fuel_dict
 
@@ -840,7 +845,6 @@ if __name__ == "__main__":
                             'Years', 'Mass[MTHM]',
                             'Tailings left over in Mixer vs Time',
                             'Total_Stockpile', init_year)
-        try:
             separations_stockpile = get_stockpile(cur, 'Separations')
             multi_line_plot(separations_stockpile, timestep,
                             'Years', 'Mass[MTHM]',
