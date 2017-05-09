@@ -525,7 +525,7 @@ def fuel_usage_timeseries(cursor, fuel_list):
                 fq_array = np.array(fuel_quantity)
                 fq_time = fq_array[:, 1:]
                 quantity = fq_array[fq_time == i]
-                if len(quantity) != 0:
+                if quantity:
                     total_sum += fq_array[fq_time == i][0]
                 quantity_timeseries.append(total_sum)
             fuel_dict[fuel] = quantity_timeseries
