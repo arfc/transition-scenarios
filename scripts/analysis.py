@@ -2,11 +2,9 @@ import sqlite3 as lite
 import sys
 from pyne import nucname
 import numpy as np
-import numpy.ma as ma
 import matplotlib.pyplot as plt
 from matplotlib import cm
 import collections
-import pylab
 
 
 if len(sys.argv) < 2:
@@ -378,7 +376,6 @@ def total_waste_timeseries(cursor):
     init_year, init_month, duration, timestep = get_sim_time_duration(cur)
     waste_dict = collections.OrderedDict({})
 
-    spec_list = []
     from_reactor = 0
     from_fuelfab = 0
     from_separations = 0
@@ -392,7 +389,6 @@ def total_waste_timeseries(cursor):
         for row in resources:
             transaction_time = row[2]
             if transaction_time == i:
-                senderid = row[1]
                 quantity = row[0]
                 spec = cur.execute("""SELECT spec from
                                     agententry WHERE
@@ -439,7 +435,6 @@ def get_stockpile(cursor, facility):
     init_year, init_month, duration, timestep = get_sim_time_duration(cur)
     stock = 0
     stock_timeseries = []
-    isotope_list = []
     for i in range(0, duration):
         for row in stockpile:
             time_created = row[0]
@@ -471,7 +466,8 @@ def final_stockpile(cursor, facility):
     agentid = get_agent_ids(cur, facility)
     for agent in agentid:
         count = 1
-        name = cur.execute('SELECT prototype FROM agententry WHERE agentid = ' + str(agent)).fetchone()
+        name = cur.execute('SELECT prototype FROM agententry\
+                            WHERE agentid = ' + str(agent)).fetchone()
         print('The Stockpile in ' + name[0] + ' : ')
         stockpile = cur.execute("""SELECT sum(quantity), inventoryname, qualid
                                  FROM agentstateinventories
@@ -526,7 +522,7 @@ def fuel_usage_timeseries(cursor, fuel_list):
                 fq_time = fq_array[:, 1:]
                 quantity = fq_array[fq_time == i]
                 if quantity:
-                    total_sum += fq_array[fq_time == i][0]
+                    total_sum += sum(fq_array[fq_time == i])
                 quantity_timeseries.append(total_sum)
             fuel_dict[fuel] = quantity_timeseries
         except:
