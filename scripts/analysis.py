@@ -709,7 +709,7 @@ def stacked_bar_chart(dictionary, timestep,
     # set different colors for each bar
     color_index = 0
     top_index = True
-    prev = ''
+    prev = np.zeros(1)
     plot_list = []
     # for every country, create bar chart with different color
     for key in dictionary:
@@ -748,7 +748,7 @@ def stacked_bar_chart(dictionary, timestep,
     plt.xlabel(xlabel)
     plt.legend(loc=(1.0, 0))
     plt.grid(True)
-    plt.savefig(outputname + '.png', format='png', bbox_inches='tight')
+    plt.savefig(outputname, format='png', bbox_inches='tight')
     plt.close()
 
 
