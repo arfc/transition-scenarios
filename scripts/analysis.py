@@ -617,6 +617,29 @@ def get_waste_dict(isotope_list, mass_list, time_list, duration):
 
     return waste_dict
 
+
+def power_timeseries(cursor):
+    """Returns dictionary of power timeseries
+
+    Parameters:
+    cursor: sqlite cursor
+        sqlite cursor
+
+    Returns:
+    Dictionary of power timeseries
+    """
+
+    cur = cursor
+    power_timeseries_dict = collections.OrderedDict({})
+    timeseriespower = np.array(cur.execute('SELECT sum(value) FROM\
+                                   timeseriespower GROUP BY time').fetchall())
+    power_timeseries_dict['powertimeseries'] = (timeseriespower[:,0])
+
+    return power_timeseries_dict
+
+
+
+
 def capacity_calc(governments, timestep, entry, exit_step):
 
     """Adds and subtracts capacity over time for plotting
@@ -847,6 +870,9 @@ def plot_power(cursor):
                       'Time', 'net_capacity',
                       'Net Capacity vs Time', 'power_plot', init_year)
 
+    multi_line_plot(power_dict, timestep,
+                   'Time', 'net_capacity',
+                   ' Net Capacity vs Time', 'power_plot_lines',init_year)
     stacked_bar_chart(num_dict, timestep,
                       'Time', 'num_reactors',
                       'Number of Reactors vs Time',
@@ -857,11 +883,17 @@ if __name__ == "__main__":
     con = lite.connect(file)
     with con:
         cur = con.cursor()
-        # print(snf(cur))
-        # plot_power(cur)
-        # plot_in_out_flux(cur, 'source', False, 'source vs time', 'source')
-        plot_in_out_flux(cur, 'sink', True, 'isotope vs time', 'sink')
         init_year, init_month, duration, timestep = get_sim_time_duration(cur)
+        # print(snf(cur))
+        power_timeseries_dict = power_timeseries(cur)
+        stacked_bar_chart(power_timeseries_dict, np.delete(timestep,0,0),
+                          'Years', 'Power [MWe]',
+                          'Total Power Active Cap vs Time',
+                          'powertimeseries',
+                          init_year)
+        plot_power(cur)
+        # plot_in_out_flux(cur, 'source', False, 'source vs time', 'source')
+        #plot_in_out_flux(cur, 'sink', True, 'isotope vs time', 'sink')
         """
             waste_dict ['Reactor'] = uox_waste
             waste_dict ['Enrichment'] = tailing
