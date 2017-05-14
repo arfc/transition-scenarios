@@ -790,7 +790,9 @@ def stacked_bar_chart(dictionary, timestep,
         else:
             label = str(nucname.name(key))
         # very first country does not have a 'bottom' argument
-        if top_index is True:
+        if "Sink" in key:
+            print("Ignore Sink Institution")
+        elif top_index is True:
             plot = plt.bar(left=init_year + (timestep/12),
                            height=dictionary[key],
                            width=0.1,
@@ -799,6 +801,8 @@ def stacked_bar_chart(dictionary, timestep,
                            label=label)
             prev = dictionary[key]
             top_index = False
+            plot_list.append(plot)
+
         # All curves except the first have a 'bottom'
         # defined by the previous curve
         else:
@@ -810,8 +814,9 @@ def stacked_bar_chart(dictionary, timestep,
                            bottom=prev,
                            label=label)
             prev = np.add(prev, dictionary[key])
+            plot_list.append(plot)
 
-        plot_list.append(plot)
+        
         color_index += 1
 
     # plot
@@ -870,9 +875,6 @@ def plot_power(cursor):
                       'Time', 'net_capacity',
                       'Net Capacity vs Time', 'power_plot', init_year)
 
-    multi_line_plot(power_dict, timestep,
-                   'Time', 'net_capacity',
-                   ' Net Capacity vs Time', 'power_plot_lines',init_year)
     stacked_bar_chart(num_dict, timestep,
                       'Time', 'num_reactors',
                       'Number of Reactors vs Time',
