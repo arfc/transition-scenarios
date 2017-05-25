@@ -223,7 +223,7 @@ def sum_nuclide_to_dict(nuclides, nuclides_mass):
 
     nuclide_set = set(nuclides)
     mass_dict = collections.OrderedDict({})
-    
+
     for nuclide in nuclide_set:
         temp_nuclide_sum = 0
         indeces =[i for i, x in enumerate(nuclides) if x == nuclide]
@@ -356,6 +356,43 @@ def plot_in_out_flux(cursor, facility, influx_bool, title, outputname):
                         title, outputname, init_year)
 
 
+def get_from_facility(cursor, facility, duration, resources):
+    """ Returns timeseries list of quantity out of facility type
+
+    Parameters
+    ----------
+    cursor: sqlite cursor
+        sqlite cursor
+    facility: str
+        name of facility type
+    duration: int
+        duration of simulation
+    resrources: list
+        list of lists, of quantity, senderid and time
+
+    Returns
+    -------
+    list
+    timeseries list of mass outflux from facility type
+    """
+
+    quantity = 0 
+    timeseries = []
+    agentid = cursor.execute('SELECT agentid FROM agententry WHERE spec \
+                             LIKE "%' + facility + '%"').fetchall()
+    agentid = np.array(agentid)
+    for i in range(0, duration):
+        for row in resources:
+            transaction_time = row[2]
+            senderid = row[1]
+            mass = row[0]
+            if transaction_time == i and senderid in agentid:
+                quantity += mass
+        timeseries.append(quantity/1000)
+
+    return timeseries
+
+
 def total_waste_timeseries(cursor):
     """Plots a stacked bar chart of the total waste mass vs time
 
@@ -376,44 +413,15 @@ def total_waste_timeseries(cursor):
                                         'transactions.receiverId',
                                         'sum(quantity), senderid, time')
                             + ' GROUP BY time, senderid').fetchall()
+
     init_year, init_month, duration, timestep = get_sim_time_duration(cur)
     waste_dict = collections.OrderedDict({})
 
-    spec_list = []
-    from_reactor = 0
-    from_fuelfab = 0
-    from_separations = 0
-    from_enrichment = 0
-
-    reactor_timeseries = []
-    separations_timeseries = []
-    enrichment_timeseries = []
-
-    for i in range(0, duration):
-        for row in resources:
-            transaction_time = row[2]
-            if transaction_time == i:
-                senderid = row[1]
-                quantity = row[0]
-                spec = cur.execute("""SELECT spec from
-                                    agententry WHERE
-                                    agentid =""" + str(row[1])).fetchone()
-                if "Reactor" in spec[0]:
-                    from_reactor += quantity
-                elif "Enrichment" in spec[0]:
-                    from_enrichment += quantity
-                elif "Separations" in spec[0]:
-                    from_separations += quantity
-        reactor_timeseries.append(from_reactor/1000)
-        separations_timeseries.append(from_separations/1000)
-        enrichment_timeseries.append(from_enrichment/1000)
-
-    waste_dict['Reactor'] = reactor_timeseries
-    waste_dict['FP_MA'] = separations_timeseries
-    waste_dict['Tails'] = enrichment_timeseries
+    waste_dict['Reactor'] = get_from_facility(cur,'Reactor', duration, resources)
+    waste_dict['Separations'] = get_from_facility(cur,'Separations', duration, resources)
+    waste_dict['Tails'] = get_from_facility(cur, 'Enrichment', duration, resources)
 
     return waste_dict
-
 
 def get_stockpile(cursor, facility):
     """ get stockpile timeseries in a fuel facility
@@ -739,7 +747,7 @@ def multi_line_plot(dictionary, timestep,
         if isinstance(key, str) is True:
             label = key.replace('_government', '')
         else:
-            label = str(nucname.name(key))
+            label = str(key)
         plt.plot(init_year + (timestep/12),
                  dictionary[key],
                  label=label)
@@ -888,8 +896,8 @@ if __name__ == "__main__":
     with con:
         cur = con.cursor()
         init_year, init_month, duration, timestep = get_sim_time_duration(cur)
-        print(snf(cur))
         """
+        print(snf(cur))
         power_timeseries_dict = power_timeseries(cur)
         stacked_bar_chart(power_timeseries_dict, np.delete(timestep,0,0),
                           'Years', 'Power [MWe]',
@@ -897,9 +905,10 @@ if __name__ == "__main__":
                           'powertimeseries',
                           init_year)
         plot_power(cur)
-        # plot_in_out_flux(cur, 'source', False, 'source vs time', 'source')
-        #plot_in_out_flux(cur, 'sink', True, 'isotope vs time', 'sink')
+        plot_in_out_flux(cur, 'sink', True, 'isotope vs time', 'sink')
+        plot_in_out_flux(cur, 'source', False, 'source vs time', 'source')
         """
+        
         """
             waste_dict ['Reactor'] = uox_waste
             waste_dict ['Enrichment'] = tailing
@@ -907,14 +916,13 @@ if __name__ == "__main__":
             pile_dict ['Mixer'] = tailing
             pile_dict2 ['Separation'] = reprocessed U
         """
-"""
         waste_dict = total_waste_timeseries(cur)
         multi_line_plot(waste_dict, timestep,
                         'Years', 'Mass[MTHM]',
                         'Total Waste Mass vs Time',
                         'total_Waste',
                         init_year)
-
+"""
         fuel_dict = fuel_usage_timeseries(cur, ['uox', 'mox','fr_fuel'])
         stacked_bar_chart(fuel_dict, timestep,
                           'Years', 'Mass[MTHM]',
