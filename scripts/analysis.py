@@ -1,11 +1,11 @@
 import sqlite3 as lite
 import sys
-from pyne import nucname
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import cm
 import collections
 import pylab
+
 
 
 if len(sys.argv) < 2:
@@ -123,8 +123,8 @@ def exec_string(list, search, whatwant):
         sqlite query command.
     """
 
-    exec_str = ('select ' + whatwant + """ from resources inner join transactions
-                on transactions.resourceid = resources.resourceid where """
+    exec_str = ('select ' + whatwant + ' from resources inner join transactions\
+                on transactions.resourceid = resources.resourceid where '
                 + str(search) + ' = ' + str(list[0]))
 
     for ar in list[1:]:
@@ -210,10 +210,10 @@ def sum_nuclide_to_dict(nuclides, nuclides_mass):
 
     Parameters
     ----------
-    nuclides: array
-        array of nuclides in the waste
-    nuclides_mass: array
-        array of nuclides' mass
+    nuclides: list
+        list of nuclides in the waste
+    nuclides_mass: list
+        list of nuclides' mass
 
     Returns
     -------
@@ -223,13 +223,15 @@ def sum_nuclide_to_dict(nuclides, nuclides_mass):
 
     nuclide_set = set(nuclides)
     mass_dict = collections.OrderedDict({})
-
+    
     for nuclide in nuclide_set:
         temp_nuclide_sum = 0
-        for i in range(len(nuclides)):
-            if nuclides[i] == nuclide:
-                temp_nuclide_sum += nuclides_mass[i]
-        mass_dict[nuclide_name] = temp_nuclide_sum
+        indeces =[i for i, x in enumerate(nuclides) if x == nuclide]
+        for index in indeces:
+            temp_nuclide_sum += nuclides_mass[index]
+        mass_dict[str(nuclide)] = temp_nuclide_sum
+
+    print(mass_dict)
     return mass_dict
 
 
@@ -886,7 +888,8 @@ if __name__ == "__main__":
     with con:
         cur = con.cursor()
         init_year, init_month, duration, timestep = get_sim_time_duration(cur)
-        # print(snf(cur))
+        print(snf(cur))
+        """
         power_timeseries_dict = power_timeseries(cur)
         stacked_bar_chart(power_timeseries_dict, np.delete(timestep,0,0),
                           'Years', 'Power [MWe]',
@@ -897,13 +900,14 @@ if __name__ == "__main__":
         # plot_in_out_flux(cur, 'source', False, 'source vs time', 'source')
         #plot_in_out_flux(cur, 'sink', True, 'isotope vs time', 'sink')
         """
+        """
             waste_dict ['Reactor'] = uox_waste
             waste_dict ['Enrichment'] = tailing
             waste_dict ['Separations'] = reprocess waste (FP, MA)
             pile_dict ['Mixer'] = tailing
             pile_dict2 ['Separation'] = reprocessed U
         """
-
+"""
         waste_dict = total_waste_timeseries(cur)
         multi_line_plot(waste_dict, timestep,
                         'Years', 'Mass[MTHM]',
@@ -947,3 +951,4 @@ if __name__ == "__main__":
                             init_year)
         except:
             print('Seems like it is once through')
+"""
