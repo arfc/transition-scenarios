@@ -1,0 +1,41 @@
+  <facility>
+    <name>{{name}}</name>
+    <lifetime>{{lifetime}}</lifetime>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>fuel_recipe</val>      </fuel_inrecipes>
+        <fuel_outrecipes> <val>used_fuel_recipe</val> </fuel_outrecipes>
+
+        <cycle_time>18</cycle_time>
+        <refuel_time>1</refuel_time>
+        <assem_size>{{assem_size}}</assem_size>
+        <n_assem_core>{{n_assem_core}}</n_assem_core>
+        <n_assem_batch>{{n_assem_batch}}</n_assem_batch>
+
+        <power_cap>{{power_cap}}</power_cap>
+
+      </Reactor>
+    </config>
+  </facility>
+
+  <recipe>
+    <name>fuel_recipe</name>
+    <basis>atom</basis>
+    <nuclide>
+      <id>922350000</id>
+      <comp>4.5</comp>
+    </nuclide>
+    <nuclide>
+      <id>922380000</id>
+      <comp>95.5</comp>
+    </nuclide>
+  </recipe>
+
+  <recipe>
+    <name>used_fuel_recipe</name>
+    <basis>atom</basis>
+    <nuclide>
+      <id>10010000</id>
+      <comp>100</comp>
+    </nuclide>
+  </recipe>
