@@ -41,7 +41,7 @@ def make_recipe(in_list, in_template):
             assem_per_batch = assem_no / batch
 
         template_new = in_template.render(name=in_list[col][0], lifetime=in_list[col][6], assem_size=in_list[col][8], n_assem_core=assem_no, n_assem_batch=assem_per_batch, power_cap=in_list[col][1])
-        with open(in_list[col][0].replace(' ', '_') + '.xml', 'w') as output:
+        with open('./templated_output/' + in_list[col][0].replace(' ', '_') + '.xml', 'w') as output:
             output.write(template_new)
 
 def main(in_csv, in_template):
