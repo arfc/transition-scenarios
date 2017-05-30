@@ -8,9 +8,9 @@
 
         <cycle_time>18</cycle_time>
         <refuel_time>1</refuel_time>
-        <assem_size>{{96880}}</assem_size>
-        <n_assem_core>{{240}}</n_assem_core>
-        <n_assem_batch>{{80}}</n_assem_batch>
+        <assem_size>{{assem_size}}</assem_size>
+        <n_assem_core>{{n_assem_core}}</n_assem_core>
+        <n_assem_batch>{{n_assem_batch}}</n_assem_batch>
 
         <power_cap>{{power_cap}}</power_cap>
 
@@ -35,7 +35,7 @@
     <name>used_fuel_recipe</name>
     <basis>atom</basis>
     <nuclide>
-      <id>{{10010000}}</id>
-      <comp>{{100}}</comp>
+      <id>10010000</id>
+      <comp>100</comp>
     </nuclide>
   </recipe>
