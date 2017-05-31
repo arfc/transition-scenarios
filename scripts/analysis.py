@@ -521,17 +521,18 @@ def final_stockpile(cursor, facility):
     facility: str
         name of facility
 
-    ReturnsW
+    Returns
     -------
     MTHM value of stockpile
     """
     cur = cursor
     stock_dict = collections.OrderedDict({})
     agentid = get_agent_ids(cur, facility)
+    outstring = ''
     for agent in agentid:
         count = 1
         name = cur.execute('SELECT prototype FROM agententry WHERE agentid = ' + str(agent)).fetchone()
-        print('The Stockpile in ' + name[0] + ' : ')
+        outstring += 'The Stockpile in ' + str(name[0]) + ' : \n \n'
         stockpile = cur.execute("""SELECT sum(quantity), inventoryname, qualid
                                  FROM agentstateinventories
                                  INNER JOIN resources
@@ -541,13 +542,15 @@ def final_stockpile(cursor, facility):
                                  inventoryname""").fetchall()
         for stream in stockpile:
             masses = cur.execute('SELECT * FROM compositions WHERE qualid = ' + str(stream[2])).fetchall()
-            print('Stream ' + str(count) + ' Total = ' + str(stream[0]) + ' kg')
+            outstring += 'Stream ' + str(count) + ' Total = ' + str(stream[0]) + ' kg \n'
             for isotope in masses:
-                print(nucname.name(isotope[2]) + ' = ' + str(isotope[3]*stream[0]) + ' kg')
-            print('\n')
+                outstring += str(isotope[2]) + ' = ' + str(isotope[3]*stream[0]) + ' kg \n'
+            outstring += '\n'
             count +=1 
-        print('\n')
-    print('\n')
+        outstring += '\n'
+    outstring += '\n'
+
+    return outstring
 
 
 def fuel_usage_timeseries(cursor, fuel_list):
@@ -929,34 +932,35 @@ if __name__ == "__main__":
                           'total_fuel',
                           init_year)
 
-"""
+
         swu_dict = get_swu_dict(cur)
         multi_line_plot(swu_dict, timestep,
                         'Years', 'SWU',
                         'Total SWU vs Time',
                         'SWU', init_year)
 """
-        try:
-            final_stockpile(cur, 'Mixer')
-            final_stockpile(cur, 'Separations')
 
-            pile_dict = get_stockpile(cur, 'Mixer')
-            multi_line_plot(pile_dict, timestep,
-                            'Years', 'Mass[MTHM]',
-                            'Tailings left over in Mixer vs Time',
-                            'Total_Stockpile', init_year)
-            pile_dict2 = get_stockpile(cur, 'Separations')
-            multi_line_plot(pile_dict2, timestep,
-                            'Years', 'Mass[MTHM]',
-                            'Total Stockpile of ReprU vs Time',
-                            'Total_Stockpile', init_year)
-            tail_dict = collections.OrderedDict({})
-            tail_dict['tailing'] = [x + y for x, y in zip(waste_dict['Tails'],
-                                    pile_dict['Mixer'])]
-            multi_line_plot(tail_dict, timestep,
-                            'Years', 'Mass[MTHM]',
-                            'Total Tailing vs Time', 'Total_tailings',
-                            init_year)
-        except:
-            print('Seems like it is once through')
+        mixer_stockpile = final_stockpile(cur, 'Mixer')
+        print(mixer_stockpile)
+        sep_stockpile = final_stockpile(cur, 'Separations')
+        print(sep_stockpile)
+
 """
+        pile_dict = get_stockpile(cur, 'Mixer')
+        multi_line_plot(pile_dict, timestep,
+                        'Years', 'Mass[MTHM]',
+                        'Tailings left over in Mixer vs Time',
+                        'Total_Stockpile', init_year)
+        pile_dict2 = get_stockpile(cur, 'Separations')
+        multi_line_plot(pile_dict2, timestep,
+                        'Years', 'Mass[MTHM]',
+                        'Total Stockpile of ReprU vs Time',
+                        'Total_Stockpile', init_year)
+        tail_dict = collections.OrderedDict({})
+        tail_dict['tailing'] = [x + y for x, y in zip(waste_dict['Tails'],
+                                pile_dict['Mixer'])]
+        multi_line_plot(tail_dict, timestep,
+                        'Years', 'Mass[MTHM]',
+                        'Total Tailing vs Time', 'Total_tailings',
+                        init_year)
+ """
