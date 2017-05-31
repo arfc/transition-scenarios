@@ -22,17 +22,17 @@ Generating Cycamore Reactor input
 Cycamore reactor input and its in_commod and out_commod recipies are produced
 from the 'US_Fleet.txt' file and 'vision_recipes.xls' file. This also serves
 as an example of xml inclusion within an xml file using xinclude. Xinclude
-will need to be processed by an xml parser such as xmllint so that a final xml
-file is produced for usage.
+will need to be processed by an xml parser such as the xml_parser.py script
+in the repository.
 
 Usage:
 1. python recipe_generator.py [InputData] [TemplateFile]
-2. Use xml parser of choice with the xinclude option
+2. python xml_parser.py
 
 Example (Natively available on Ubuntu):
 
     python recipe_generator.py fleetcomp/US_Fleet.txt templates/template.xml
-    xmllint --xinclude templated_output/[Reactor.xml] --output [Output path and name.xml]
+    python xml_parser.py
 
 
 How to include xml files within an xml file
@@ -49,5 +49,6 @@ with the line:
     <xi:include href="[path_to_a.xml/a.xml]" />
 
 Unless the xml parser natively supports xinclude, the resulting xml file may have
-to be parsed with a parser that does. For an example, refer to the files in this
-repository.
+to be parsed with a parser that supports xinclude. An xml parsing script with
+xinclude support is provided in the repository. Refer to the files in this
+repository for example.
