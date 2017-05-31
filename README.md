@@ -27,12 +27,12 @@ in the repository.
 
 Usage:
 1. python recipe_generator.py [InputData] [TemplateFile]
-2. python xml_parser.py
+2. ~~python xml_parser.py~~ (This is only for demonstrating xml inclusion)
 
 Example (Natively available on Ubuntu):
 
     python recipe_generator.py fleetcomp/US_Fleet.txt templates/template.xml
-    python xml_parser.py
+    ~~python xml_parser.py~~ (This is only for demonstrating xml inclusion)
 
 
 How to include xml files within an xml file
