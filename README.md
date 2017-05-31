@@ -26,12 +26,14 @@ will need to be processed by an xml parser such as xmllint so that a final xml
 file is produced for usage.
 
 Usage:
-    1. 'python recipe_generator.py [InputData] [TemplateFile]'
-    2. Use xml parser of choice with the xinclude option
+1. python recipe_generator.py [InputData] [TemplateFile]
+2. Use xml parser of choice with the xinclude option
 
 Example (Natively available on Ubuntu):
-    'python recipe_generator.py fleetcomp/US_Fleet.txt templates/template.xml'
-    'xmllint --xinclude templated_output/[Reactor.xml] --output [Output path and name.xml]'
+
+    python recipe_generator.py fleetcomp/US_Fleet.txt templates/template.xml
+    xmllint --xinclude templated_output/[Reactor.xml] --output [Output path and name.xml]
+
 
 How to include xml files within an xml file
 ===========================================
@@ -39,12 +41,12 @@ How to include xml files within an xml file
 To include a xml file (i.e. a.xml) into another xml (i.e. b.xml) file, add xinclude
 in the xml namespace by adding the following to the root tag:
 
-    'xmlns:xi="http://www.w3.org/2001/XInclude"'
+    xmlns:xi="http://www.w3.org/2001/XInclude"
 
 Then, reference the xml that needs to be added (a.xml) into the appropriate level
 with the line:
 
-    '<xi:include href="[path_to_a.xml/a.xml]" />'
+    <xi:include href="[path_to_a.xml/a.xml]" />
 
 Unless the xml parser natively supports xinclude, the resulting xml file may have
 to be parsed with a parser that does. For an example, refer to the files in this
