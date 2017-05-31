@@ -470,8 +470,8 @@ def get_swu_dict(cursor):
     init_year, init_month, duration, timestep = get_sim_time_duration(cur)
     facility_num = 1
     for num in agentid:
-        swu_data = cur.execute("""SELECT time, value FROM timeseriesenrichmentswu
-                               WHERE agentid = """ + str(num)).fetchall()
+        swu_data = cur.execute('SELECT time, value FROM timeseriesenrichmentswu \
+                               WHERE agentid = ' + str(num)).fetchall()
         swu_timeseries = get_timeseries(swu_data, duration, 1)
         swu_dict['Enrichment' + str(facility_num)] = swu_timeseries
         facility_num += 1
@@ -500,15 +500,15 @@ def get_timeseries(list, duration, multiplyby):
 
     value = 0
     value_timeseries = []
+    array = np.array(list)
 
     for i in range(0, duration):
-        for row in list:
-            time_created = row[0]
-            if time_created == i:
-                quantity = row[1]
-                value += quantity
-        value_timeseries.append(value*multiplyby)
+    	bool_indx = (array[:,0] == i )
+    	value += sum(array[bool_indx])
+    	value_timeseries.append(value*multiplyby)
+
     return value_timeseries
+
 
 
 def final_stockpile(cursor, facility):
@@ -914,14 +914,14 @@ if __name__ == "__main__":
             waste_dict ['Separations'] = reprocess waste (FP, MA)
             pile_dict ['Mixer'] = tailing
             pile_dict2 ['Separation'] = reprocessed U
-        """
+        
         waste_dict = total_waste_timeseries(cur)
         multi_line_plot(waste_dict, timestep,
                         'Years', 'Mass[MTHM]',
                         'Total Waste Mass vs Time',
                         'total_Waste',
                         init_year)
-"""
+
         fuel_dict = fuel_usage_timeseries(cur, ['uox', 'mox','fr_fuel'])
         stacked_bar_chart(fuel_dict, timestep,
                           'Years', 'Mass[MTHM]',
@@ -929,12 +929,13 @@ if __name__ == "__main__":
                           'total_fuel',
                           init_year)
 
-
+"""
         swu_dict = get_swu_dict(cur)
         multi_line_plot(swu_dict, timestep,
                         'Years', 'SWU',
                         'Total SWU vs Time',
                         'SWU', init_year)
+"""
         try:
             final_stockpile(cur, 'Mixer')
             final_stockpile(cur, 'Separations')
