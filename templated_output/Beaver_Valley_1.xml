@@ -1,3 +1,5 @@
+<?xml version="1.0" standalone="no" ?>
+
 <simulation xmlns:xi="http://www.w3.org/2001/XInclude">
   <facility>
     <name>Beaver Valley 1</name>
@@ -15,83 +17,7 @@
       </Reactor>
     </config>
   </facility>
-  <recipe xml:base="../templates/recipe.xml">
-    <name>fuel_recipe</name>
-    <basis>atom</basis>
-    <nuclide>
-      <id>922350000</id>
-      <comp>4.5</comp>
-    </nuclide>
-    <nuclide>
-      <id>922380000</id>
-      <comp>95.5</comp>
-    </nuclide>
-  </recipe><recipe xml:base="../templates/recipe.xml">
-    <name>used_fuel_recipe</name>
-    <basis>atom</basis>
-    <nuclide>
-        <id>922340000</id>
-        <comp>0.0171892</comp>
-    </nuclide>
-    <nuclide>
-        <id>922350000</id>
-        <comp>0.764866</comp>
-    </nuclide>
-    <nuclide>
-        <id>922380000</id>
-        <comp>92.0859</comp>
-    </nuclide>
-    <nuclide>
-        <id>932370000</id>
-        <comp>0.0609173</comp>
-    </nuclide>
-    <nuclide>
-        <id>942380000</id>
-        <comp>0.0291487</comp>
-    </nuclide>
-    <nuclide>
-        <id>942390000</id>
-        <comp>0.606573</comp>
-    </nuclide>
-    <nuclide>
-        <id>942400000</id>
-        <comp>0.290587</comp>
-    </nuclide>
-    <nuclide>
-        <id>942410000</id>
-        <comp>0.175792</comp>
-    </nuclide>
-    <nuclide>
-        <id>942420000</id>
-        <comp>0.0863862</comp>
-    </nuclide>
-    <nuclide>
-        <id>952430000</id>
-        <comp>0.0198391</comp>
-    </nuclide>
-    <nuclide>
-        <id>380900000</id>
-        <comp>0.0788065</comp>
-    </nuclide>
-    <nuclide>
-        <id>430990000</id>
-        <comp>0.114095</comp>
-    </nuclide>
-    <nuclide>
-        <id>531290000</id>
-        <comp>0.0273188</comp>
-    </nuclide>
-    <nuclide>
-        <id>551340000</id>
-        <comp>0.0230090</comp>
-    </nuclide>
-    <nuclide>
-        <id>551350000</id>
-        <comp>0.0659671</comp>
-    </nuclide>
-    <nuclide>
-        <id>551370000</id>
-        <comp>0.181692</comp>
-    </nuclide>
-  </recipe>
+  <!--xi:include href="../templates/recipe.xml#xpointer(/recipes/child::*)" -->
+  <!--The line above is present for xml inclusion demonstration only and should be
+  run with xml_parser.py if used -->
 </simulation>

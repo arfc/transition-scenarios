@@ -17,5 +17,7 @@
       </Reactor>
     </config>
   </facility>
-  <xi:include href="../templates/recipe.xml#xpointer(/recipes/child::*)" />
+  <!--xi:include href="../templates/recipe.xml#xpointer(/recipes/child::*)" -->
+  <!--The line above is present for xml inclusion demonstration only and should be
+  run with xml_parser.py if used -->
 </simulation>
