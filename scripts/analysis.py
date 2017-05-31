@@ -288,19 +288,22 @@ def isotope_mass_time_list(resources, compositions):
     temp_isotope = []
     temp_mass = []
     time_list = []
+    resources = np.array(resources)
+    compositions = np.array(compositions)
+
+    print(len(compositions[0,:]))
+    print(len(resources[0,:]))
 
     for res in resources:
-        for com in compositions:
-            res_qualid = res[2]
-            comp_qualid = com[1]
-            if res_qualid == comp_qualid:
-                nucid = com[2]
-                mass_frac = com[3]
-                mass_waste = res[0]
-                res_time = res[1]
-                temp_isotope.append(nucid)
-                temp_mass.append(mass_frac*mass_waste)
-                time_list.append(res_time)
+    	res_qualid = res[2]
+    	bool_indx = (compositions[:,0] == res_qualid)
+    	nucid = compositions[bool_indx][:,1]
+    	mass_frac = compositions[bool_indx][:,2]
+    	mass_waste = res[0]
+    	res_time = res[1]
+    	temp_isotope.append(nucid)
+    	temp_mass.append(mass_frac*mass_waste)
+    	time_list.append(res_time)
 
     return temp_isotope, temp_mass, time_list
 
@@ -339,10 +342,12 @@ def plot_in_out_flux(cursor, facility, influx_bool, title, outputname):
                                             'transactions.senderId',
                                             'sum(quantity), time, qualid')
                                 + ' GROUP BY time, qualid').fetchall()
-    compositions = cur.execute('SELECT * FROM compositions').fetchall()
+    compositions = cur.execute('SELECT qualid, nucid, massfrac FROM compositions').fetchall()
     init_year, init_month, duration, timestep = get_sim_time_duration(cur)
     isotope, mass, time_list = isotope_mass_time_list(resources, compositions)
-
+    print(type(isotope))
+    print(type(mass))
+    print(tpye(time_list))
     waste_dict = get_waste_dict(isotope, mass, time_list, duration)
 
     if influx_bool is False:
@@ -583,8 +588,6 @@ def fuel_usage_timeseries(cursor, fuel_list):
         	fuel_dict[fuel] = quantity_timeseries
         except:
         	print(str(fuel) + ' has not been used.')
-
-    print(fuel_dict)
 
     return fuel_dict
 
@@ -896,6 +899,8 @@ if __name__ == "__main__":
     with con:
         cur = con.cursor()
         init_year, init_month, duration, timestep = get_sim_time_duration(cur)
+        plot_in_out_flux(cur, 'Separations', False, 'Pu Output vs Time', 'pu_throughput')
+        # plot_in_out_flux(cur, 'Mixer', False, 'MOX output vs Time', 'mox_throughput')
         """
         print(snf(cur))
         power_timeseries_dict = power_timeseries(cur)
@@ -907,9 +912,7 @@ if __name__ == "__main__":
         plot_power(cur)
         plot_in_out_flux(cur, 'sink', True, 'isotope vs time', 'sink')
         plot_in_out_flux(cur, 'source', False, 'source vs time', 'source')
-        """
-        
-        """
+
             waste_dict ['Reactor'] = uox_waste
             waste_dict ['Enrichment'] = tailing
             waste_dict ['Separations'] = reprocess waste (FP, MA)
@@ -922,14 +925,14 @@ if __name__ == "__main__":
                         'Total Waste Mass vs Time',
                         'total_Waste',
                         init_year)
-"""
+
         fuel_dict = fuel_usage_timeseries(cur, ['uox', 'mox','fr_fuel'])
         stacked_bar_chart(fuel_dict, timestep,
                           'Years', 'Mass[MTHM]',
                           'Total Fuel Mass vs Time',
                           'total_fuel',
                           init_year)
-"""
+
 
         swu_dict = get_swu_dict(cur)
         multi_line_plot(swu_dict, timestep,
