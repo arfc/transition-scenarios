@@ -17,5 +17,5 @@
       </Reactor>
     </config>
   </facility>
-  <xi:include href="../templates/recipe.xml" />
+  <xi:include href="../templates/recipe.xml#xpointer(/recipes/child::*)" />
 </simulation>
