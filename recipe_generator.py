@@ -9,26 +9,24 @@ import sys
 if len(sys.argv) < 2:
     print('Usage: python recipe_generator.py [InputFileName] [TemplateName]')
 
+
 def import_csv(in_csv):
     with open(in_csv, 'r') as source:
         sourcereader = csv.reader(source, delimiter='\t')
         data_list = []
         for row in sourcereader:
             data_list.append(row)
+    return data_list
 
-    return data_list;
 
-def import_template(in_template):
+def load_template(in_template):
     with open(in_template, 'r') as default:
         output_template = jinja2.Template(default.read())
+    return output_template
 
-    return output_template;
 
 def make_recipe(in_list, in_template):
-    col_max = len(in_list[0]) - 1
-    row_max = len(in_list) - 1
-
-    for col in range(0, col_max):
+    for col, item in enumerate(in_list):
         reactor_type = in_list[col][6]
         batch = int(in_list[col][24])
         assem_per_batch = 0
@@ -39,14 +37,21 @@ def make_recipe(in_list, in_template):
         else:
             assem_no = 240
             assem_per_batch = assem_no / batch
-
-        template_new = in_template.render(name=in_list[col][0], lifetime=in_list[col][6], assem_size=in_list[col][8], n_assem_core=assem_no, n_assem_batch=assem_per_batch, power_cap=in_list[col][1])
-        with open('./templated_output/' + in_list[col][0].replace(' ', '_') + '.xml', 'w') as output:
+        template_new = in_template.render(name=in_list[col][0],
+                                          lifetime=in_list[col][6],
+                                          assem_size=in_list[col][8],
+                                          n_assem_core=assem_no,
+                                          n_assem_batch=assem_per_batch,
+                                          power_cap=in_list[col][1])
+        with open('./templated_output/' +
+                  in_list[col][0].replace(' ', '_') +
+                  '.xml', 'w') as output:
             output.write(template_new)
+
 
 def main(in_csv, in_template):
     data_list = import_csv(in_csv)
-    input_temp = import_template(in_template)
+    input_temp = load_template(in_template)
     make_recipe(data_list, input_temp)
 
 
