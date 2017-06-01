@@ -288,22 +288,22 @@ def isotope_mass_time_list(resources, compositions):
     temp_isotope = []
     temp_mass = []
     time_list = []
-    resources = np.array(resources)
-    compositions = np.array(compositions)
-
-    print(len(compositions[0,:]))
-    print(len(resources[0,:]))
-
+    print(compositions)
+    print(type(compositions))
+    print(compositions[4][2])
     for res in resources:
     	res_qualid = res[2]
-    	bool_indx = (compositions[:,0] == res_qualid)
-    	nucid = compositions[bool_indx][:,1]
-    	mass_frac = compositions[bool_indx][:,2]
-    	mass_waste = res[0]
-    	res_time = res[1]
-    	temp_isotope.append(nucid)
-    	temp_mass.append(mass_frac*mass_waste)
-    	time_list.append(res_time)
+    	bool_indx = [x for x, y in enumerate(compositions) if y[0] == res_qualid]
+    	for index in bool_indx:
+    		print(index)
+    		nucid = compositions[index][1]
+    		print(nucid)
+    		mass_frac = compositions[index][2]
+    		mass_waste = res[0]
+    		res_time = res[1]
+    		temp_isotope.append(nucid)
+	    	temp_mass.append(mass_frac*mass_waste)
+	    	time_list.append(res_time)    	
 
     return temp_isotope, temp_mass, time_list
 
@@ -345,9 +345,7 @@ def plot_in_out_flux(cursor, facility, influx_bool, title, outputname):
     compositions = cur.execute('SELECT qualid, nucid, massfrac FROM compositions').fetchall()
     init_year, init_month, duration, timestep = get_sim_time_duration(cur)
     isotope, mass, time_list = isotope_mass_time_list(resources, compositions)
-    print(type(isotope))
-    print(type(mass))
-    print(tpye(time_list))
+
     waste_dict = get_waste_dict(isotope, mass, time_list, duration)
 
     if influx_bool is False:
@@ -614,6 +612,8 @@ def get_waste_dict(isotope_list, mass_list, time_list, duration):
     """
 
     waste_dict = collections.OrderedDict({})
+    print(type(isotope_list))
+    print(isotope_list)
     isotope_set = set(isotope_list)
 
     for iso in isotope_set:
