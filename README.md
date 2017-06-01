@@ -20,20 +20,14 @@ Generating Cycamore Reactor input
 =================================
 
 Cycamore reactor input and its in_commod and out_commod recipies are produced
-from the 'US_Fleet.txt' file and 'vision_recipes.xls' file. This also serves
-as an example of xml inclusion within an xml file using xinclude. Xinclude
-will need to be processed by an xml parser such as the xml_parser.py script
-in the repository.
+from the 'US_Fleet.txt' file and 'vision_recipes.xls' file.
 
 Usage:
 1. python recipe_generator.py [InputData] [TemplateFile]
-2. ~~python xml_parser.py~~ (This is only for demonstrating xml inclusion)
 
 Example (Natively available on Ubuntu):
 
     python recipe_generator.py fleetcomp/US_Fleet.txt templates/template.xml
-    ~~python xml_parser.py~~ (This is only for demonstrating xml inclusion)
-
 
 How to include xml files within an xml file
 ===========================================
