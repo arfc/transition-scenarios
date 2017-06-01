@@ -288,16 +288,11 @@ def isotope_mass_time_list(resources, compositions):
     temp_isotope = []
     temp_mass = []
     time_list = []
-    print(compositions)
-    print(type(compositions))
-    print(compositions[4][2])
     for res in resources:
     	res_qualid = res[2]
-    	bool_indx = [x for x, y in enumerate(compositions) if y[0] == res_qualid]
-    	for index in bool_indx:
-    		print(index)
+    	indices = [x for x, y in enumerate(compositions) if y[0] == res_qualid]
+    	for index in indices:
     		nucid = compositions[index][1]
-    		print(nucid)
     		mass_frac = compositions[index][2]
     		mass_waste = res[0]
     		res_time = res[1]
@@ -612,8 +607,6 @@ def get_waste_dict(isotope_list, mass_list, time_list, duration):
     """
 
     waste_dict = collections.OrderedDict({})
-    print(type(isotope_list))
-    print(isotope_list)
     isotope_set = set(isotope_list)
 
     for iso in isotope_set:
@@ -622,9 +615,10 @@ def get_waste_dict(isotope_list, mass_list, time_list, duration):
         # at each timestep,
         for i in range(0, duration):
             # for each element in database,
-            for x in range(0, len(isotope_list)):
-                if i == time_list[x] and isotope_list[x] == iso:
-                    mass += mass_list[x]
+            indices = [x for x, y in enumerate(time_list) if y == i]
+            for index in indices:
+            	if isotope_list[index] == iso:
+            		mass+= mass_list[index]
             time_mass.append(mass)
         waste_dict[iso] = time_mass
 
@@ -801,9 +795,9 @@ def stacked_bar_chart(dictionary, timestep,
         if isinstance(key, str) is True:
             label = key.replace('_government', '')
         else:
-            label = str(nucname.name(key))
+            label = str(key)
         # very first country does not have a 'bottom' argument
-        if "Sink" in key:
+        if "Sink" in label:
             print("Ignore Sink Institution")
         elif top_index is True:
             plot = plt.bar(left=init_year + (timestep/12),
