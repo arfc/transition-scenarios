@@ -1,0 +1,20 @@
+<?xml version="1.0" standalone="no" ?>
+
+<simulation>
+  <facility>
+    <name>Diablo Canyon 2</name>
+    <lifetime>469</lifetime>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>fuel_recipe</val>      </fuel_inrecipes>
+        <fuel_outrecipes> <val>used_fuel_recipe</val> </fuel_outrecipes>
+        <cycle_time>18</cycle_time>
+        <refuel_time>1</refuel_time>
+        <assem_size>84456.8</assem_size>
+        <n_assem_core>240</n_assem_core>
+        <n_assem_batch>80.0</n_assem_batch>
+        <power_cap>3411.00</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+</simulation>

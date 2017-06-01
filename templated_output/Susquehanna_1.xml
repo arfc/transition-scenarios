@@ -1,6 +1,6 @@
 <?xml version="1.0" standalone="no" ?>
 
-<simulation xmlns:xi="http://www.w3.org/2001/XInclude">
+<simulation>
   <facility>
     <name>Susquehanna 1</name>
     <lifetime>709</lifetime>
@@ -17,7 +17,4 @@
       </Reactor>
     </config>
   </facility>
-  <!--xi:include href="../templates/recipe.xml#xpointer(/recipes/child::*)" -->
-  <!--The line above is present for xml inclusion demonstration only and should be
-  run with xml_parser.py if used -->
 </simulation>
