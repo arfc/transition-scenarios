@@ -1,20 +1,18 @@
 <?xml version="1.0" standalone="no" ?>
 
-<simulation>
-  <facility>
-    <name>Quad_Cities_1</name>
-    <lifetime>718</lifetime>
-    <config>
-      <Reactor>
-        <fuel_inrecipes>  <val>fuel_recipe</val>      </fuel_inrecipes>
-        <fuel_outrecipes> <val>used_fuel_recipe</val> </fuel_outrecipes>
-        <cycle_time>18</cycle_time>
-        <refuel_time>1</refuel_time>
-        <assem_size>132172</assem_size>
-        <n_assem_core>240</n_assem_core>
-        <n_assem_batch>80.0</n_assem_batch>
-        <power_cap>2511.00</power_cap>
-      </Reactor>
-    </config>
-  </facility>
-</simulation>
+<facility>
+  <name>Quad_Cities_1</name>
+  <lifetime>718</lifetime>
+  <config>
+    <Reactor>
+      <fuel_inrecipes>  <val>fuel_recipe</val>      </fuel_inrecipes>
+      <fuel_outrecipes> <val>used_fuel_recipe</val> </fuel_outrecipes>
+      <cycle_time>18</cycle_time>
+      <refuel_time>1</refuel_time>
+      <assem_size>132172</assem_size>
+      <n_assem_core>240</n_assem_core>
+      <n_assem_batch>80.0</n_assem_batch>
+      <power_cap>2511.00</power_cap>
+    </Reactor>
+  </config>
+</facility>
