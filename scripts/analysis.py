@@ -407,12 +407,10 @@ def get_from_facility(cursor, facility, duration, resources):
     timeseries = []
     agentid = get_agent_ids(cursor, facility)
     for i in range(0, duration):
-        for row in resources:
-            transaction_time = row[2]
-            senderid = row[1]
-            mass = row[0]
-            if transaction_time == i and senderid in agentid:
-                quantity += mass
+        indices = [x for x, y in enumerate(resources) if y[2] == i]
+        for index in indices:
+            if resources[index][1] in agentid:
+                quantity += resources[index][0]
         timeseries.append(quantity/1000)
 
     return timeseries
