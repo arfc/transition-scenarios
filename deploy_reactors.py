@@ -1,9 +1,10 @@
 import jinja2
+import os
 import sys
 import xml.etree.ElementTree as ET
 
-if len(sys.argv) < 1:
-    print("Adding all reactors in 'cycamore_input/reactors' directory")
+if len(sys.argv) < 2:
+    print('Usage: python deploy_reactors.py [reactor1] [reactor2] ....')
 
 
 def get_lifetime_and_name(*args):
@@ -32,9 +33,15 @@ def make_recipe(in_dict, in_template):
 
 
 def main(*args):
-    data = get_lifetime_and_name(*args)
-    input_temp = load_template('./templates/deploy_template.xml')
-    make_recipe(data, input_temp)
+    if args[0] == ['all']:
+        lists = []
+        for files in os.listdir('./cyclus_input/reactors'):
+            lists.append('./cyclus_input/reactors/' + files)
+        main(lists)
+    else:
+        data = get_lifetime_and_name(*args)
+        input_temp = load_template('./templates/deploy_template.xml')
+        make_recipe(data, input_temp)
 
 
 if __name__ == "__main__":
