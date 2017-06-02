@@ -1,11 +1,40 @@
+import jinja2
 import sys
+import xml.etree.ElementTree as ET
 
 if len(sys.argv) < 1:
     print("Adding all reactors in 'cycamore_input/reactors' directory")
 
 
-def add_reactor(*arg):
+def get_lifetime_and_name(*args):
+    data = {}
+    for reactors in args:
+        for reactor in reactors:
+            tree = ET.parse(reactor)
+            root = tree.getroot()
+            data.update({root[0][0].text:root[0][1].text})
+    return data
 
 
+def load_template(in_template):
+    with open(in_template, 'r') as default:
+        output_template = jinja2.Template(default.read())
+    return output_template
 
-def main(*arg):
+
+def make_recipe(in_dict, in_template):
+    reactor_list = in_dict.keys()
+    lifetime_list = in_dict.values()
+    rendered = in_template.render(reactors=reactor_list, lifetimes=lifetime_list)
+    with open('cyclus_input/recipes/lifetimes.xml', 'w') as output:
+            output.write(rendered)
+
+
+def main(*args):
+    data = get_lifetime_and_name(*args)
+    input_temp = load_template('./templates/deploy_template.xml')
+    make_recipe(data, input_temp)
+
+
+if __name__ == "__main__":
+    main(sys.argv[1:])
