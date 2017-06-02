@@ -7,8 +7,8 @@ import sys
 
 # Check number of input arguments
 if len(sys.argv) < 3:
-    print('Usage: python recipe_generator.py [Fleetcomp] [ReactorTemplate]\
-          [BuildtimeTemplate]')
+    print('Usage: python recipe_generator.py [Fleetcomp]\
+          [ReactorTemplate]')
 
 
 def import_csv(in_csv):
@@ -24,17 +24,6 @@ def load_template(in_template):
     with open(in_template, 'r') as default:
         output_template = jinja2.Template(default.read())
     return output_template
-
-
-def get_build_time(in_list):
-    data_dict = {}
-    for col, item in enumerate(in_list):
-        start_date = [in_list[col][11], in_list[col][9], in_list[col][10]]
-        month_diff = int((int(start_date[0])-1965) * 12 +
-                         int(start_date[1]) +
-                         int(start_date[2]) / (365/12))
-        data_dict.update({in_list[col][0].replace(' ', '_'): month_diff})
-    return data_dict
 
 
 def write_reactors_xml(in_list, in_template):
@@ -61,20 +50,9 @@ def write_reactors_xml(in_list, in_template):
             output.write(rendered)
 
 
-def write_buildtimes_xml(in_dict, in_template):
-    reactor_list = in_dict.keys()
-    buildtime_list = in_dict.values()
-    rendered = in_template.render(reactors=reactor_list,
-                                  buildtimes=buildtime_list)
-    with open('cyclus_input/buildtimes/buildtimes.xml', 'w') as output:
-            output.write(rendered)
-
-
 def main(in_csv, reactor_template, buildtime_template):
     data_list = import_csv(in_csv)
     write_reactors_xml(data_list, load_template(reactor_template))
-    write_buildtimes_xml(get_build_time(data_list),
-                         load_template(buildtime_template))
 
 
 if __name__ == "__main__":

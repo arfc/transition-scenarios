@@ -44,15 +44,21 @@ def make_recipe(in_dict, in_template):
     buildtime_list = in_dict.values()
     rendered = in_template.render(reactors=reactor_list,
                                   buildtimes=buildtime_list)
-    with open('cyclus_input/buildtimes/buildtimes_partial.xml', 'w') as output:
+    with open('cyclus_input/buildtimes/buildtimes.xml', 'w') as output:
             output.write(rendered)
 
 
 def main(in_csv, in_template, *args):
-    fleet_list = import_csv(in_csv)
-    buildtime_template = load_template(in_template)
-    buildtime_dict = get_build_time(fleet_list, args)
-    make_recipe(buildtime_dict, buildtime_template)
+    if os.path.isdir(args[0][0]):
+        lists = []
+        for files in os.listdir(args[0][0]):
+            lists.append(args[0][0] + files)
+        main(in_csv, in_template, lists)
+    else:
+        fleet_list = import_csv(in_csv)
+        buildtime_template = load_template(in_template)
+        buildtime_dict = get_build_time(fleet_list, args)
+        make_recipe(buildtime_dict, buildtime_template)
 
 
 if __name__ == "__main__":
