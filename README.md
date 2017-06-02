@@ -30,6 +30,8 @@ as the input argument.
 Usage:
     1. python recipe_generator.py [InputData] [TemplateFile]
     2. python deploy_reactors.py [reactor1] [reactor2] ...
+    or
+    2. python deploy_reactors.py [folder_with_reactors]
 
 Example (Natively available on Ubuntu):
 

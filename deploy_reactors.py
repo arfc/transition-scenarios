@@ -9,11 +9,10 @@ if len(sys.argv) < 2:
 
 def get_lifetime_and_name(*args):
     data = {}
-    for reactors in args:
-        for reactor in reactors:
-            tree = ET.parse(reactor)
-            root = tree.getroot()
-            data.update({root[0][0].text: root[0][1].text})
+    for reactor in args[0]:
+        tree = ET.parse(reactor)
+        root = tree.getroot()
+        data.update({root[0][0].text: root[0][1].text})
     return data
 
 
@@ -33,10 +32,11 @@ def make_recipe(in_dict, in_template):
 
 
 def main(*args):
-    if args[0] == ['all']:
+    if os.path.isdir(args[0][0]):
         lists = []
-        for files in os.listdir('./cyclus_input/reactors'):
-            lists.append('./cyclus_input/reactors/' + files)
+        for files in os.listdir(args[0][0]):
+            lists.append(args[0][0] + files)
+        print(lists)
         main(lists)
     else:
         data = get_lifetime_and_name(*args)
