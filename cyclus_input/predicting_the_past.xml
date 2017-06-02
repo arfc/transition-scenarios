@@ -6,7 +6,6 @@
     <startmonth>1</startmonth>
     <startyear>1965</startyear>
   </control>
-
   <archetypes>
     <spec><lib>cycamore</lib><name>Enrichment</name></spec>
     <spec><lib>cycamore</lib><name>Reactor</name></spec>
@@ -14,10 +13,7 @@
     <spec><lib>cycamore</lib><name>Source</name></spec>
     <spec><lib>cycamore</lib><name>Storage</name></spec>
   </archetypes>
-
-  <!-- This xi:include includes the reactor facility tags -->
-  <xi:include href="../templated_output/reactors.xml#xpointer(/reactors/child::*)" />
-
+  <xi:include href="./cyclus_input/recipes/lifetimes.xml#xpointer(/simulation/facilities/child::*)" />
   <facility>
     <name>Sink1</name>
     <config>
@@ -28,7 +24,6 @@
       </Sink>
     </config>
   </facility>
-
   <facility>
     <name>Mine1</name>
     <config>
@@ -38,7 +33,6 @@
       </Source>
     </config>
   </facility>
-
   <facility>
     <name>Mill1</name>
     <config>
@@ -53,7 +47,6 @@
       </Storage>
     </config>
   </facility>
-
   <facility>
     <name>Conversion1</name>
     <config>
@@ -83,7 +76,6 @@
       </Enrichmnet>
     </config>
   </facility>
-
   <facility>
     <name>FuelFab1</name>
     <config>
@@ -98,7 +90,6 @@
       </Storage>
     </config>
   </facility>
-
   <facility>
     <name>WetStorage1</name>
     <config>
@@ -113,7 +104,6 @@
       </Storage>
     </config>
   </facility>
-
   <facility>
     <name>DryStorage1</name>
     <config>
@@ -127,7 +117,6 @@
       </Storage>
     </config>
   </facility>
-
   <region>
     <name>US</name>
     <config><NullRegion/></config>
@@ -181,13 +170,10 @@
       <name>Power</name>
       <config>
         <DeployInst>
-          <xi:include href="deploy.xml#xpointer(/DeplotInst/child::*)" />
+          <xi:include href="./cyclus_input/recipes/lifetimes.xml#xpointer(/simulation/DeployInsts/child::*)" />
         </DeployInst>
       </config>
     </institution>
-
   </region>
-
-  <xi:include href="./recipes/uox_51.xml#xpointer(/recipes/child::*)" />
-
+  <xi:include href="./cyclus_input/recipes/uox_51.xml#xpointer(/recipes/child::*)" />
 </simulation>
