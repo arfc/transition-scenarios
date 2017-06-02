@@ -12,7 +12,7 @@ def get_lifetime_and_name(*args):
     for reactor in args[0]:
         tree = ET.parse(reactor)
         root = tree.getroot()
-        data.update({root[0][0].text: root[0][1].text})
+        data.update({root[0].text: root[1].text})
     return data
 
 

@@ -2,21 +2,18 @@
 
 <simulation xmlns:xi="http://www.w3.org/2001/XInclude">
     <facilities>
-        {% for reactor in reactors -%}
-        <xi:include href="../reactors/{{reactor}}.xml#xpointer(/simulation/child::*)" />
-    {% endfor -%}
+        {% for reactor in reactors %}
+        <xi:include href="../reactors/{{reactor}}.xml" />{% endfor %}
     </facilities>
 
     <DeployInsts>
         <prototypes>
-            {% for reactor in reactors -%}
-            <val>{{reactor}}</val>
-        {% endfor -%}
+            {% for reactor in reactors %}<val>{{reactor}}</val>{% endfor %}
         </prototypes>
         <build_times>
-            {% for lifetime in lifetimes -%}
+            {% for lifetime in lifetimes %}
             <val>{{lifetime}}</val>
-        {% endfor -%}
+            {% endfor %}
         </build_times>
     </DeployInsts>
 </simulation>
