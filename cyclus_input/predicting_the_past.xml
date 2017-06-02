@@ -13,7 +13,7 @@
     <spec><lib>cycamore</lib><name>Source</name></spec>
     <spec><lib>cycamore</lib><name>Storage</name></spec>
   </archetypes>
-  <xi:include href="./recipes/lifetimes.xml#xpointer(/simulation/facilities/child::*)" />
+  <xi:include href="./buildtimes/buildtimes.xml#xpointer(/simulation/facilities/child::*)" />
   <facility>
     <name>Sink1</name>
     <config>
@@ -170,7 +170,7 @@
       <name>Power</name>
       <config>
         <DeployInst>
-          <xi:include href="./recipes/lifetimes.xml#xpointer(/simulation/DeployInsts/child::*)" />
+          <xi:include href="./buildtimes/buildtimes.xml#xpointer(/simulation/DeployInsts/child::*)" />
         </DeployInst>
       </config>
     </institution>
