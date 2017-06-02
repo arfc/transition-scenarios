@@ -1,19 +1,20 @@
+import csv
 import jinja2
 import os
 import sys
-import xml.etree.ElementTree as ET
 
-if len(sys.argv) < 2:
-    print('Usage: python deploy_reactors.py [reactor1] [reactor2] ....')
+if len(sys.argv) < 4:
+    print('Usage: python deploy_reactors.py [fleet]\
+          [BuildtimeTemplate] [Reactor1] [Reactor2] ...')
 
 
-def get_lifetime_and_name(*args):
-    data = {}
-    for reactor in args[0]:
-        tree = ET.parse(reactor)
-        root = tree.getroot()
-        data.update({root[0].text: root[1].text})
-    return data
+def import_csv(in_csv):
+    with open(in_csv, 'r') as source:
+        sourcereader = csv.reader(source, delimiter='\t')
+        data_list = []
+        for row in sourcereader:
+            data_list.append(row)
+    return data_list
 
 
 def load_template(in_template):
@@ -22,26 +23,37 @@ def load_template(in_template):
     return output_template
 
 
+def get_build_time(in_list, *args):
+    data_dict = {}
+    for col, item in enumerate(in_list):
+        start_date = [in_list[col][11], in_list[col][9], in_list[col][10]]
+        month_diff = int((int(start_date[0])-1965) * 12 +
+                         int(start_date[1]) +
+                         int(start_date[2]) / (365/12))
+        for index, reactor in enumerate(args[0][0]):
+            fleet_name = in_list[col][0].replace(' ', '_')
+            file_name = reactor.replace(os.path.dirname(args[0][0][index]), '')
+            file_name = file_name.replace('/', '')
+            if (fleet_name + '.xml' == file_name):
+                data_dict.update({fleet_name: month_diff})
+    return data_dict
+
+
 def make_recipe(in_dict, in_template):
     reactor_list = in_dict.keys()
-    lifetime_list = in_dict.values()
+    buildtime_list = in_dict.values()
     rendered = in_template.render(reactors=reactor_list,
-                                  lifetimes=lifetime_list)
-    with open('cyclus_input/recipes/lifetimes.xml', 'w') as output:
+                                  buildtimes=buildtime_list)
+    with open('cyclus_input/buildtimes/buildtimes_partial.xml', 'w') as output:
             output.write(rendered)
 
 
-def main(*args):
-    if os.path.isdir(args[0][0]):
-        lists = []
-        for files in os.listdir(args[0][0]):
-            lists.append(args[0][0] + files)
-        main(lists)
-    else:
-        data = get_lifetime_and_name(*args)
-        input_temp = load_template('./templates/deploy_template.xml')
-        make_recipe(data, input_temp)
+def main(in_csv, in_template, *args):
+    fleet_list = import_csv(in_csv)
+    buildtime_template = load_template(in_template)
+    buildtime_dict = get_build_time(fleet_list, args)
+    make_recipe(buildtime_dict, buildtime_template)
 
 
 if __name__ == "__main__":
-    main(sys.argv[1:])
+    main(sys.argv[1], sys.argv[2], sys.argv[3:])
