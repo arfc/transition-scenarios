@@ -1,0 +1,193 @@
+<?xml version="1.0" standalone="no" ?>
+
+<simulation xmlns:xi="http://www.w3.org/2001/XInclude">
+  <control>
+    <duration>1020</duration>
+    <startmonth>1</startmonth>
+    <startyear>1965</startyear>
+  </control>
+
+  <archetypes>
+    <spec><lib>cycamore</lib><name>Enrichment</name></spec>
+    <spec><lib>cycamore</lib><name>Reactor</name></spec>
+    <spec><lib>cycamore</lib><name>Sink</name></spec>
+    <spec><lib>cycamore</lib><name>Source</name></spec>
+    <spec><lib>cycamore</lib><name>Storage</name></spec>
+  </archetypes>
+
+  <!-- This xi:include includes the reactor facility tags -->
+  <xi:include href="../templated_output/reactors.xml#xpointer(/reactors/child::*)" />
+
+  <facility>
+    <name>Sink1</name>
+    <config>
+      <Sink>
+        <in_commods>
+          <val>casked_spent_uox</val>
+        </in_commods>
+      </Sink>
+    </config>
+  </facility>
+
+  <facility>
+    <name>Mine1</name>
+    <config>
+      <Source>
+        <outcommod>nat_u</outcommod>
+        <outrecipe>nat_u</outrecipe>
+      </Source>
+    </config>
+  </facility>
+
+  <facility>
+    <name>Mill1</name>
+    <config>
+      <Storage>
+        <in_commods>
+          <val>nat_u</val>
+        </in_commods>
+        <out_commods>
+          <val>u3o8</val>
+        </out_commods>
+        <residence_time>1</residence_time>
+      </Storage>
+    </config>
+  </facility>
+
+  <facility>
+    <name>Conversion1</name>
+    <config>
+      <Storage>
+        <in_commods>
+          <val>u3o8</val>
+        </in_commods>
+        <out_commods>
+          <val>uf6</val>
+        </out_commods>
+        <residence_time>1</residence_time>
+      </Storage>
+    </config>
+  </facility>
+
+    <facility>
+    <name>Enrichment1</name>
+    <config>
+      <Enrichmnet>
+        <feed_commod>uf6</feed_commod>
+        <feed_recipe>
+          <val>uf6</val>
+        </feed_recipe>
+        <product_commod>enr_u</product_commod>
+        <tails_commod>tails</tails_commod>
+        <max_enrich>0.045</max_enrich>
+      </Enrichmnet>
+    </config>
+  </facility>
+
+  <facility>
+    <name>FuelFab1</name>
+    <config>
+      <Storage>
+        <in_commods>
+          <val>enr_u</val>
+        </in_commods>
+        <out_commods>
+          <val>fresh_uox</val>
+        </out_commods>
+        <residence_time>1</residence_time>
+      </Storage>
+    </config>
+  </facility>
+
+  <facility>
+    <name>WetStorage1</name>
+    <config>
+      <Storage>
+        <in_commods>
+          <val>spent_uox</val>
+        </in_commods>
+        <out_commods>
+          <val>cool_spent_uox</val>
+        </out_commods>
+        <residence_time>72</residence_time>
+      </Storage>
+    </config>
+  </facility>
+
+  <facility>
+    <name>DryStorage1</name>
+    <config>
+      <Storage>
+        <in_commods>
+          <val>cool_spent_uox</val>
+        </in_commods>
+        <out_commods>
+          <val>casked_spent_uox</val>
+        </out_commods>
+      </Storage>
+    </config>
+  </facility>
+
+  <region>
+    <name>US</name>
+    <config><NullRegion/></config>
+    <institution>
+      <name>FuelCycle</name>
+      <initialfacilitylist>
+        <entry>
+          <prototype>Mine1</prototype>
+          <number>1</number>
+        </entry>
+        <entry>
+          <prototype>Mill1</prototype>
+          <number>1</number>
+        </entry>
+        <entry>
+          <prototype>Conversion1</prototype>
+          <number>1</number>
+        </entry>
+        <entry>
+          <prototype>Enrichment1</prototype>
+          <number>1</number>
+        </entry>
+        <entry>
+          <prototype>FuelFab1</prototype>
+          <number>1</number>
+        </entry>
+        <entry>
+          <prototype>WetStorage1</prototype>
+          <number>1</number>
+        </entry>
+        <entry>
+          <prototype>DryStorage1</prototype>
+          <number>1</number>
+        </entry>
+      </initialfacilitylist>
+      <config>
+        <ManagerInst>
+          <prototypes>
+            <val>Mine1</val>
+            <val>Mill1</val>
+            <val>Conversion1</val>
+            <val>Enrichment1</val>
+            <val>FuelFab1</val>
+            <val>WetStorage1</val>
+            <val>DryStorage1</val>
+          </prototypes>
+        </ManagerInst>
+      </config>
+    </institution>
+    <institution>
+      <name>Power</name>
+      <config>
+        <DeployInst>
+          <xi:include href="deploy.xml#xpointer(/DeplotInst/child::*)" />
+        </DeployInst>
+      </config>
+    </institution>
+
+  </region>
+
+  <xi:include href="./recipes/uox_51.xml#xpointer(/recipes/child::*)" />
+
+</simulation>
