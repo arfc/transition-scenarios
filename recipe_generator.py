@@ -37,13 +37,13 @@ def make_recipe(in_list, in_template):
         else:
             assem_no = 240
             assem_per_batch = assem_no / batch
-        template_new = in_template.render(name=in_list[col][0],
+        template_new = in_template.render(name=in_list[col][0].replace(' ', '_'),
                                           lifetime=in_list[col][6],
                                           assem_size=in_list[col][8],
                                           n_assem_core=assem_no,
                                           n_assem_batch=assem_per_batch,
                                           power_cap=in_list[col][1])
-        with open('./templated_output/' +
+        with open('./cyclus_input/reactors/' +
                   in_list[col][0].replace(' ', '_') +
                   '.xml', 'w') as output:
             output.write(template_new)
