@@ -289,16 +289,16 @@ def isotope_mass_time_list(resources, compositions):
     temp_mass = []
     time_list = []
     for res in resources:
-    	res_qualid = res[2]
-    	indices = [x for x, y in enumerate(compositions) if y[0] == res_qualid]
-    	for index in indices:
-    		nucid = compositions[index][1]
-    		mass_frac = compositions[index][2]
-    		mass_waste = res[0]
-    		res_time = res[1]
-    		temp_isotope.append(nucid)
-	    	temp_mass.append(mass_frac*mass_waste)
-	    	time_list.append(res_time)    	
+        res_qualid = res[2]
+        indices = [x for x, y in enumerate(compositions) if y[0] == res_qualid]
+        for index in indices:
+            nucid = compositions[index][1]
+            mass_frac = compositions[index][2]
+            mass_waste = res[0]
+            res_time = res[1]
+            temp_isotope.append(nucid)
+            temp_mass.append(mass_frac*mass_waste)
+            time_list.append(res_time)        
 
     return temp_isotope, temp_mass, time_list
 
@@ -353,6 +353,36 @@ def plot_in_out_flux(cursor, facility, influx_bool, title, outputname):
                         title, outputname, init_year)
 
 
+def commodity_from_facility(cursor, facility, commodity):
+    """ Returns timeseries of commodity outflux from facility
+
+    Parameters
+    ----------
+    cursor: sqlite cursor
+        sqlite cursor
+    facility: str
+        name of facility type
+    commodity: list
+        list of commodities
+
+    Returns
+    -------
+    dictionary of timeseries of mass outflux of commodity from facility
+    """
+
+    cur = cursor
+    agentids = get_agent_ids(cur, facility)
+    init_year, init_month, duration, timestep = get_sim_time_duration(cur)
+    commodity_dict = collections.OrderedDict({})
+    for x in commodity:
+        y = ['"' + x + '"']
+        resources = cur.execute(exec_string(y, 'commodity', 'quantity, senderid, time')).fetchall()
+        timeseries = get_from_facility(cur, facility, duration, resources)
+        commodity_dict[x] = timeseries
+
+    return commodity_dict
+
+
 def get_from_facility(cursor, facility, duration, resources):
     """ Returns timeseries list of quantity out of facility type
 
@@ -375,9 +405,7 @@ def get_from_facility(cursor, facility, duration, resources):
 
     quantity = 0 
     timeseries = []
-    agentid = cursor.execute('SELECT agentid FROM agententry WHERE spec \
-                             LIKE "%' + facility + '%"').fetchall()
-    agentid = np.array(agentid)
+    agentid = get_agent_ids(cursor, facility)
     for i in range(0, duration):
         for row in resources:
             transaction_time = row[2]
@@ -501,8 +529,8 @@ def get_timeseries(list, duration, multiplyby):
     array = np.array(list)
 
     for i in range(0, duration):
-    	value += sum(array[array[:,0] == i][:,1])
-    	value_timeseries.append(value*multiplyby)
+        value += sum(array[array[:,0] == i][:,1])
+        value_timeseries.append(value*multiplyby)
 
     return value_timeseries
 
@@ -577,10 +605,10 @@ def fuel_usage_timeseries(cursor, fuel_list):
         total_sum = 0
         quantity_timeseries = []
         try:
-        	quantity_timeseries = get_timeseries(fuel_quantity, duration, 1)
-        	fuel_dict[fuel] = quantity_timeseries
+            quantity_timeseries = get_timeseries(fuel_quantity, duration, 1)
+            fuel_dict[fuel] = quantity_timeseries
         except:
-        	print(str(fuel) + ' has not been used.')
+            print(str(fuel) + ' has not been used.')
 
     return fuel_dict
 
@@ -617,8 +645,8 @@ def get_waste_dict(isotope_list, mass_list, time_list, duration):
             # for each element in database,
             indices = [x for x, y in enumerate(time_list) if y == i]
             for index in indices:
-            	if isotope_list[index] == iso:
-            		mass+= mass_list[index]
+                if isotope_list[index] == iso:
+                    mass+= mass_list[index]
             time_mass.append(mass)
         waste_dict[iso] = time_mass
 
@@ -823,7 +851,6 @@ def stacked_bar_chart(dictionary, timestep,
             prev = np.add(prev, dictionary[key])
             plot_list.append(plot)
 
-        
         color_index += 1
 
     # plot
@@ -893,6 +920,11 @@ if __name__ == "__main__":
     with con:
         cur = con.cursor()
         init_year, init_month, duration, timestep = get_sim_time_duration(cur)
+        comm_dict = commodity_from_facility(cur, 'Separations', ['uox_Pu','reprocess_waste'])
+        multi_line_plot(comm_dict, timestep,
+                        'Years', 'Mass[MTHM]',
+                        'Outflux from Reprocessing Plant vs Time',
+                        'Total_outflux', init_year)
         plot_in_out_flux(cur, 'Separations', False, 'Pu Output vs Time', 'pu_throughput')
         # plot_in_out_flux(cur, 'Mixer', False, 'MOX output vs Time', 'mox_throughput')
         """
