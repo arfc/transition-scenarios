@@ -12,7 +12,7 @@ def get_lifetime_and_name(*args):
         for reactor in reactors:
             tree = ET.parse(reactor)
             root = tree.getroot()
-            data.update({root[0][0].text:root[0][1].text})
+            data.update({root[0][0].text: root[0][1].text})
     return data
 
 
@@ -25,7 +25,8 @@ def load_template(in_template):
 def make_recipe(in_dict, in_template):
     reactor_list = in_dict.keys()
     lifetime_list = in_dict.values()
-    rendered = in_template.render(reactors=reactor_list, lifetimes=lifetime_list)
+    rendered = in_template.render(reactors=reactor_list,
+                                  lifetimes=lifetime_list)
     with open('cyclus_input/recipes/lifetimes.xml', 'w') as output:
             output.write(rendered)
 
