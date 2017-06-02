@@ -21,14 +21,17 @@ Generating Cycamore Reactor input
 
 Cycamore reactor input and its in_commod and out_commod recipies are produced
 from the 'US_Fleet.txt' file and 'vision_recipes.xls' file. Recipe generator
-produces individual facility information for the reactors and deployment
-information of all reactors in one file. deploy_reactors.py script produces
-cyclus simulation input with specified reactors within the cyclus_input/reactors/
-folder. The deploy_reactors script can have any number of input arguments.
+produces individual facility information for the reactors. deploy_reactors.py
+script produces cyclus simulation input with specified reactors within the
+cyclus_input/reactors/ folder. The deploy_reactors script can have any number
+of input arguments for any number of reactors or can pass the directory that
+contains the reactor files to process all reactors in the folder.
 
 Usage:
-    1. python recipe_generator.py [Fleetcomp Data] [ReactorTemplate] [BuildtimeTemplate]
+    1. python recipe_generator.py [Fleetcomp Data] [ReactorTemplate]
     2. python deploy_reactors.py [Fleetcomp Data] [BuildtimeTemplate] [Reactor1] ...
+    or
+    2. python deploy_reactors.py [Fleetcomp Data] [BuildtimeTemplate] [Folder]
 
 How to include xml files within an xml file
 ===========================================
