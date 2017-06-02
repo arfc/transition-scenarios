@@ -1,0 +1,349 @@
+<?xml version="1.0" standalone="no" ?>
+
+<simulation xmlns:xi="http://www.w3.org/2001/XInclude">
+    <facilities>
+        <xi:include href="../reactors/Haddam_Neck.xml" />
+        <xi:include href="../reactors/Oyster_Creek.xml" />
+        <xi:include href="../reactors/Nine_Mile_Point_1.xml" />
+        <xi:include href="../reactors/Dresden_2.xml" />
+        <xi:include href="../reactors/Millstone_1.xml" />
+        <xi:include href="../reactors/Monticello.xml" />
+        <xi:include href="../reactors/Dresden_3.xml" />
+        <xi:include href="../reactors/Vermont_Yankee.xml" />
+        <xi:include href="../reactors/Pilgrim_1.xml" />
+        <xi:include href="../reactors/Quad_Cities_1.xml" />
+        <xi:include href="../reactors/Quad_Cities_2.xml" />
+        <xi:include href="../reactors/Cooper_Station.xml" />
+        <xi:include href="../reactors/Peach_Bottom_2.xml" />
+        <xi:include href="../reactors/Browns_Ferry_1.xml" />
+        <xi:include href="../reactors/Peach_Bottom_3.xml" />
+        <xi:include href="../reactors/Hatch_1.xml" />
+        <xi:include href="../reactors/Duane_Arnold.xml" />
+        <xi:include href="../reactors/Browns_Ferry_2.xml" />
+        <xi:include href="../reactors/FitzPatrick.xml" />
+        <xi:include href="../reactors/Brunswick_2.xml" />
+        <xi:include href="../reactors/Browns_Ferry_3.xml" />
+        <xi:include href="../reactors/Brunswick_1.xml" />
+        <xi:include href="../reactors/Hatch_2.xml" />
+        <xi:include href="../reactors/Susquehanna_1.xml" />
+        <xi:include href="../reactors/LaSalle_County_1.xml" />
+        <xi:include href="../reactors/LaSalle_County_2.xml" />
+        <xi:include href="../reactors/Columbia.xml" />
+        <xi:include href="../reactors/Susquehanna_2.xml" />
+        <xi:include href="../reactors/Grand_Gulf_1.xml" />
+        <xi:include href="../reactors/Limerick_1.xml" />
+        <xi:include href="../reactors/River_Bend_1.xml" />
+        <xi:include href="../reactors/Hope_Creek.xml" />
+        <xi:include href="../reactors/Perry_1.xml" />
+        <xi:include href="../reactors/Clinton_1.xml" />
+        <xi:include href="../reactors/Enrico_Fermi_2.xml" />
+        <xi:include href="../reactors/Nine_Mile_Point_2.xml" />
+        <xi:include href="../reactors/Limerick_2.xml" />
+        <xi:include href="../reactors/San_Onofre_1.xml" />
+        <xi:include href="../reactors/Ginna.xml" />
+        <xi:include href="../reactors/Point_Beach_1.xml" />
+        <xi:include href="../reactors/Robinson_2.xml" />
+        <xi:include href="../reactors/Palisades.xml" />
+        <xi:include href="../reactors/Point_Beach_2.xml" />
+        <xi:include href="../reactors/Turkey_Point_3.xml" />
+        <xi:include href="../reactors/Surry_1.xml" />
+        <xi:include href="../reactors/Surry_2.xml" />
+        <xi:include href="../reactors/Zion_1.xml" />
+        <xi:include href="../reactors/Fort_Calhoun.xml" />
+        <xi:include href="../reactors/Oconee_1.xml" />
+        <xi:include href="../reactors/Turkey_Point_4.xml" />
+        <xi:include href="../reactors/Zion_2.xml" />
+        <xi:include href="../reactors/Maine_Yankee.xml" />
+        <xi:include href="../reactors/Prairie_Island_1.xml" />
+        <xi:include href="../reactors/Kewaunee.xml" />
+        <xi:include href="../reactors/Indian_Point_2.xml" />
+        <xi:include href="../reactors/Three_Mile_Island_1.xml" />
+        <xi:include href="../reactors/Oconee_2.xml" />
+        <xi:include href="../reactors/Rancho_Seco.xml" />
+        <xi:include href="../reactors/Oconee_3.xml" />
+        <xi:include href="../reactors/Arkansas_Nuclear_1.xml" />
+        <xi:include href="../reactors/Prairie_Island_2.xml" />
+        <xi:include href="../reactors/Calvert_Cliffs_1.xml" />
+        <xi:include href="../reactors/Cook_1.xml" />
+        <xi:include href="../reactors/Millstone_2.xml" />
+        <xi:include href="../reactors/Trojan.xml" />
+        <xi:include href="../reactors/Indian_Point_3.xml" />
+        <xi:include href="../reactors/Beaver_Valley_1.xml" />
+        <xi:include href="../reactors/St._Lucie_1.xml" />
+        <xi:include href="../reactors/Crystal_River_3.xml" />
+        <xi:include href="../reactors/Calvert_Cliffs_2.xml" />
+        <xi:include href="../reactors/Salem_1.xml" />
+        <xi:include href="../reactors/Farley_1.xml" />
+        <xi:include href="../reactors/North_Anna_1.xml" />
+        <xi:include href="../reactors/Cook_2.xml" />
+        <xi:include href="../reactors/Davis-Besse.xml" />
+        <xi:include href="../reactors/Arkansas_Nuclear_2.xml" />
+        <xi:include href="../reactors/North_Anna_2.xml" />
+        <xi:include href="../reactors/Sequoyah_1.xml" />
+        <xi:include href="../reactors/Farley_2.xml" />
+        <xi:include href="../reactors/Salem_2.xml" />
+        <xi:include href="../reactors/McGuire_1.xml" />
+        <xi:include href="../reactors/Sequoyah_2.xml" />
+        <xi:include href="../reactors/St._Lucie_2.xml" />
+        <xi:include href="../reactors/San_Onofre_2.xml" />
+        <xi:include href="../reactors/Summer_1.xml" />
+        <xi:include href="../reactors/McGuire_2.xml" />
+        <xi:include href="../reactors/San_Onofre_3.xml" />
+        <xi:include href="../reactors/Callaway.xml" />
+        <xi:include href="../reactors/Diablo_Canyon_1.xml" />
+        <xi:include href="../reactors/Catawba_1.xml" />
+        <xi:include href="../reactors/Wolf_Creek_1.xml" />
+        <xi:include href="../reactors/Byron_1.xml" />
+        <xi:include href="../reactors/Waterford_3.xml" />
+        <xi:include href="../reactors/Palo_Verde_1.xml" />
+        <xi:include href="../reactors/Diablo_Canyon_2.xml" />
+        <xi:include href="../reactors/Millstone_3.xml" />
+        <xi:include href="../reactors/Catawba_2.xml" />
+        <xi:include href="../reactors/Palo_Verde_2.xml" />
+        <xi:include href="../reactors/Harris_1.xml" />
+        <xi:include href="../reactors/Vogtle_1.xml" />
+        <xi:include href="../reactors/Byron_2.xml" />
+        <xi:include href="../reactors/Beaver_Valley_2.xml" />
+        <xi:include href="../reactors/Palo_Verde_3.xml" />
+        <xi:include href="../reactors/Braidwood_1.xml" />
+        <xi:include href="../reactors/South_Texas_1.xml" />
+        <xi:include href="../reactors/Braidwood_2.xml" />
+        <xi:include href="../reactors/Vogtle_2.xml" />
+        <xi:include href="../reactors/South_Texas_2.xml" />
+        <xi:include href="../reactors/Comanche_Peak_1.xml" />
+        <xi:include href="../reactors/Seabrook.xml" />
+        <xi:include href="../reactors/Comanche_Peak_2.xml" />
+        <xi:include href="../reactors/Watts_Bar_1.xml" />
+    </facilities>
+
+    <DeployInsts>
+        <prototypes>
+            <val>Haddam_Neck</val>
+            <val>Oyster_Creek</val>
+            <val>Nine_Mile_Point_1</val>
+            <val>Dresden_2</val>
+            <val>Millstone_1</val>
+            <val>Monticello</val>
+            <val>Dresden_3</val>
+            <val>Vermont_Yankee</val>
+            <val>Pilgrim_1</val>
+            <val>Quad_Cities_1</val>
+            <val>Quad_Cities_2</val>
+            <val>Cooper_Station</val>
+            <val>Peach_Bottom_2</val>
+            <val>Browns_Ferry_1</val>
+            <val>Peach_Bottom_3</val>
+            <val>Hatch_1</val>
+            <val>Duane_Arnold</val>
+            <val>Browns_Ferry_2</val>
+            <val>FitzPatrick</val>
+            <val>Brunswick_2</val>
+            <val>Browns_Ferry_3</val>
+            <val>Brunswick_1</val>
+            <val>Hatch_2</val>
+            <val>Susquehanna_1</val>
+            <val>LaSalle_County_1</val>
+            <val>LaSalle_County_2</val>
+            <val>Columbia</val>
+            <val>Susquehanna_2</val>
+            <val>Grand_Gulf_1</val>
+            <val>Limerick_1</val>
+            <val>River_Bend_1</val>
+            <val>Hope_Creek</val>
+            <val>Perry_1</val>
+            <val>Clinton_1</val>
+            <val>Enrico_Fermi_2</val>
+            <val>Nine_Mile_Point_2</val>
+            <val>Limerick_2</val>
+            <val>San_Onofre_1</val>
+            <val>Ginna</val>
+            <val>Point_Beach_1</val>
+            <val>Robinson_2</val>
+            <val>Palisades</val>
+            <val>Point_Beach_2</val>
+            <val>Turkey_Point_3</val>
+            <val>Surry_1</val>
+            <val>Surry_2</val>
+            <val>Zion_1</val>
+            <val>Fort_Calhoun</val>
+            <val>Oconee_1</val>
+            <val>Turkey_Point_4</val>
+            <val>Zion_2</val>
+            <val>Maine_Yankee</val>
+            <val>Prairie_Island_1</val>
+            <val>Kewaunee</val>
+            <val>Indian_Point_2</val>
+            <val>Three_Mile_Island_1</val>
+            <val>Oconee_2</val>
+            <val>Rancho_Seco</val>
+            <val>Oconee_3</val>
+            <val>Arkansas_Nuclear_1</val>
+            <val>Prairie_Island_2</val>
+            <val>Calvert_Cliffs_1</val>
+            <val>Cook_1</val>
+            <val>Millstone_2</val>
+            <val>Trojan</val>
+            <val>Indian_Point_3</val>
+            <val>Beaver_Valley_1</val>
+            <val>St._Lucie_1</val>
+            <val>Crystal_River_3</val>
+            <val>Calvert_Cliffs_2</val>
+            <val>Salem_1</val>
+            <val>Farley_1</val>
+            <val>North_Anna_1</val>
+            <val>Cook_2</val>
+            <val>Davis-Besse</val>
+            <val>Arkansas_Nuclear_2</val>
+            <val>North_Anna_2</val>
+            <val>Sequoyah_1</val>
+            <val>Farley_2</val>
+            <val>Salem_2</val>
+            <val>McGuire_1</val>
+            <val>Sequoyah_2</val>
+            <val>St._Lucie_2</val>
+            <val>San_Onofre_2</val>
+            <val>Summer_1</val>
+            <val>McGuire_2</val>
+            <val>San_Onofre_3</val>
+            <val>Callaway</val>
+            <val>Diablo_Canyon_1</val>
+            <val>Catawba_1</val>
+            <val>Wolf_Creek_1</val>
+            <val>Byron_1</val>
+            <val>Waterford_3</val>
+            <val>Palo_Verde_1</val>
+            <val>Diablo_Canyon_2</val>
+            <val>Millstone_3</val>
+            <val>Catawba_2</val>
+            <val>Palo_Verde_2</val>
+            <val>Harris_1</val>
+            <val>Vogtle_1</val>
+            <val>Byron_2</val>
+            <val>Beaver_Valley_2</val>
+            <val>Palo_Verde_3</val>
+            <val>Braidwood_1</val>
+            <val>South_Texas_1</val>
+            <val>Braidwood_2</val>
+            <val>Vogtle_2</val>
+            <val>South_Texas_2</val>
+            <val>Comanche_Peak_1</val>
+            <val>Seabrook</val>
+            <val>Comanche_Peak_2</val>
+            <val>Watts_Bar_1</val>
+        </prototypes>
+        <build_times>
+            <val>36</val>
+            <val>60</val>
+            <val>60</val>
+            <val>66</val>
+            <val>72</val>
+            <val>78</val>
+            <val>83</val>
+            <val>95</val>
+            <val>96</val>
+            <val>98</val>
+            <val>99</val>
+            <val>115</val>
+            <val>115</val>
+            <val>116</val>
+            <val>120</val>
+            <val>121</val>
+            <val>122</val>
+            <val>123</val>
+            <val>127</val>
+            <val>131</val>
+            <val>147</val>
+            <val>147</val>
+            <val>177</val>
+            <val>222</val>
+            <val>229</val>
+            <val>238</val>
+            <val>240</val>
+            <val>242</val>
+            <val>247</val>
+            <val>254</val>
+            <val>258</val>
+            <val>264</val>
+            <val>275</val>
+            <val>275</val>
+            <val>277</val>
+            <val>279</val>
+            <val>301</val>
+            <val>32</val>
+            <val>67</val>
+            <val>72</val>
+            <val>75</val>
+            <val>85</val>
+            <val>94</val>
+            <val>96</val>
+            <val>96</val>
+            <val>101</val>
+            <val>102</val>
+            <val>102</val>
+            <val>103</val>
+            <val>105</val>
+            <val>106</val>
+            <val>107</val>
+            <val>108</val>
+            <val>114</val>
+            <val>116</val>
+            <val>117</val>
+            <val>117</val>
+            <val>119</val>
+            <val>120</val>
+            <val>120</val>
+            <val>120</val>
+            <val>125</val>
+            <val>128</val>
+            <val>132</val>
+            <val>138</val>
+            <val>140</val>
+            <val>142</val>
+            <val>144</val>
+            <val>147</val>
+            <val>148</val>
+            <val>150</val>
+            <val>156</val>
+            <val>162</val>
+            <val>163</val>
+            <val>164</val>
+            <val>183</val>
+            <val>192</val>
+            <val>199</val>
+            <val>199</val>
+            <val>202</val>
+            <val>204</val>
+            <val>210</val>
+            <val>224</val>
+            <val>224</val>
+            <val>229</val>
+            <val>231</val>
+            <val>232</val>
+            <val>240</val>
+            <val>245</val>
+            <val>246</val>
+            <val>249</val>
+            <val>249</val>
+            <val>249</val>
+            <val>253</val>
+            <val>255</val>
+            <val>256</val>
+            <val>260</val>
+            <val>261</val>
+            <val>269</val>
+            <val>270</val>
+            <val>272</val>
+            <val>275</val>
+            <val>277</val>
+            <val>283</val>
+            <val>284</val>
+            <val>286</val>
+            <val>293</val>
+            <val>294</val>
+            <val>308</val>
+            <val>308</val>
+            <val>344</val>
+            <val>374</val>
+        </build_times>
+    </DeployInsts>
+</simulation>
