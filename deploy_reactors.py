@@ -36,7 +36,6 @@ def main(*args):
         lists = []
         for files in os.listdir(args[0][0]):
             lists.append(args[0][0] + files)
-        print(lists)
         main(lists)
     else:
         data = get_lifetime_and_name(*args)
