@@ -2,7 +2,7 @@
 
 <simulation>
   <facility>
-    <name>Susquehanna 1</name>
+    <name>Susquehanna_1</name>
     <lifetime>709</lifetime>
     <config>
       <Reactor>

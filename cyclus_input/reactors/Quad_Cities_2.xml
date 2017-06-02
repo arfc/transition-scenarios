@@ -2,7 +2,7 @@
 
 <simulation>
   <facility>
-    <name>Quad Cities 2</name>
+    <name>Quad_Cities_2</name>
     <lifetime>717</lifetime>
     <config>
       <Reactor>

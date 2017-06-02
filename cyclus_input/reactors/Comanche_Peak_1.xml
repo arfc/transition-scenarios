@@ -2,7 +2,7 @@
 
 <simulation>
   <facility>
-    <name>Comanche Peak 1</name>
+    <name>Comanche_Peak_1</name>
     <lifetime>474</lifetime>
     <config>
       <Reactor>

@@ -2,7 +2,7 @@
 
 <simulation>
   <facility>
-    <name>Fort Calhoun</name>
+    <name>Fort_Calhoun</name>
     <lifetime>482</lifetime>
     <config>
       <Reactor>

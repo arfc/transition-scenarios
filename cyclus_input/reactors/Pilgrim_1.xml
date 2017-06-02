@@ -2,7 +2,7 @@
 
 <simulation>
   <facility>
-    <name>Pilgrim 1</name>
+    <name>Pilgrim_1</name>
     <lifetime>474</lifetime>
     <config>
       <Reactor>

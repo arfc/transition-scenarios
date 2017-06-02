@@ -2,7 +2,7 @@
 
 <simulation>
   <facility>
-    <name>Turkey Point 4</name>
+    <name>Turkey_Point_4</name>
     <lifetime>715</lifetime>
     <config>
       <Reactor>

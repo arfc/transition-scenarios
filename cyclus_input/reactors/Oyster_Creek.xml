@@ -2,7 +2,7 @@
 
 <simulation>
   <facility>
-    <name>Oyster Creek</name>
+    <name>Oyster_Creek</name>
     <lifetime>472</lifetime>
     <config>
       <Reactor>

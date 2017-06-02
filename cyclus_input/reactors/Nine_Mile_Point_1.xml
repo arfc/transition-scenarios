@@ -2,7 +2,7 @@
 
 <simulation>
   <facility>
-    <name>Nine Mile Point 1</name>
+    <name>Nine_Mile_Point_1</name>
     <lifetime>716</lifetime>
     <config>
       <Reactor>

@@ -2,7 +2,7 @@
 
 <simulation>
   <facility>
-    <name>Three Mile Island 1</name>
+    <name>Three_Mile_Island_1</name>
     <lifetime>715</lifetime>
     <config>
       <Reactor>

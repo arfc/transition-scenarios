@@ -2,7 +2,7 @@
 
 <simulation>
   <facility>
-    <name>Indian Point 3</name>
+    <name>Indian_Point_3</name>
     <lifetime>472</lifetime>
     <config>
       <Reactor>

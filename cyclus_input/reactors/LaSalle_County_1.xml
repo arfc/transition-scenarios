@@ -2,7 +2,7 @@
 
 <simulation>
   <facility>
-    <name>LaSalle County 1</name>
+    <name>LaSalle_County_1</name>
     <lifetime>460</lifetime>
     <config>
       <Reactor>

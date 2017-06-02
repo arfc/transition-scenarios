@@ -2,7 +2,7 @@
 
 <simulation>
   <facility>
-    <name>Dresden 2</name>
+    <name>Dresden_2</name>
     <lifetime>703</lifetime>
     <config>
       <Reactor>

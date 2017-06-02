@@ -1,0 +1,22 @@
+<?xml version="1.0" standalone="no" ?>
+
+<simulation xmlns:xi="http://www.w3.org/2001/XInclude">
+    <facilities>
+        <xi:include href="../reactors/Arkansas_Nuclear_1.xml#xpointer(/simulation/child::*)" />
+    <xi:include href="../reactors/Braidwood_1.xml#xpointer(/simulation/child::*)" />
+    <xi:include href="../reactors/South_Texas_1.xml#xpointer(/simulation/child::*)" />
+    </facilities>
+
+    <DeployInsts>
+        <prototypes>
+            <val>Arkansas_Nuclear_1</val>
+        <val>Braidwood_1</val>
+        <val>South_Texas_1</val>
+        </prototypes>
+        <build_times>
+            <val>713</val>
+        <val>459</val>
+        <val>468</val>
+        </build_times>
+    </DeployInsts>
+</simulation>

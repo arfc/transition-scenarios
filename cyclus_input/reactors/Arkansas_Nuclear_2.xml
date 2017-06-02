@@ -2,7 +2,7 @@
 
 <simulation>
   <facility>
-    <name>Arkansas Nuclear 2</name>
+    <name>Arkansas_Nuclear_2</name>
     <lifetime>700</lifetime>
     <config>
       <Reactor>

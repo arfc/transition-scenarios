@@ -2,7 +2,7 @@
 
 <simulation>
   <facility>
-    <name>Surry 2</name>
+    <name>Surry_2</name>
     <lifetime>716</lifetime>
     <config>
       <Reactor>

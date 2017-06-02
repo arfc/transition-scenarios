@@ -2,7 +2,7 @@
 
 <simulation>
   <facility>
-    <name>Perry 1</name>
+    <name>Perry_1</name>
     <lifetime>460</lifetime>
     <config>
       <Reactor>

@@ -2,7 +2,7 @@
 
 <simulation>
   <facility>
-    <name>Farley 1</name>
+    <name>Farley_1</name>
     <lifetime>714</lifetime>
     <config>
       <Reactor>

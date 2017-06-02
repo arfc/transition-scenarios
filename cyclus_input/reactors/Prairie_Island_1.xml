@@ -2,7 +2,7 @@
 
 <simulation>
   <facility>
-    <name>Prairie Island 1</name>
+    <name>Prairie_Island_1</name>
     <lifetime>716</lifetime>
     <config>
       <Reactor>

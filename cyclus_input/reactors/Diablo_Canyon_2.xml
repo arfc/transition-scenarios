@@ -2,7 +2,7 @@
 
 <simulation>
   <facility>
-    <name>Diablo Canyon 2</name>
+    <name>Diablo_Canyon_2</name>
     <lifetime>469</lifetime>
     <config>
       <Reactor>

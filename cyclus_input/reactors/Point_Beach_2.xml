@@ -2,7 +2,7 @@
 
 <simulation>
   <facility>
-    <name>Point Beach 2</name>
+    <name>Point_Beach_2</name>
     <lifetime>725</lifetime>
     <config>
       <Reactor>

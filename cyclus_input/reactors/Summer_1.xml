@@ -2,7 +2,7 @@
 
 <simulation>
   <facility>
-    <name>Summer 1</name>
+    <name>Summer_1</name>
     <lifetime>703</lifetime>
     <config>
       <Reactor>

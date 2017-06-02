@@ -2,7 +2,7 @@
 
 <simulation>
   <facility>
-    <name>Cook 2</name>
+    <name>Cook_2</name>
     <lifetime>713</lifetime>
     <config>
       <Reactor>

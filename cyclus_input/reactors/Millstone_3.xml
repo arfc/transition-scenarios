@@ -2,7 +2,7 @@
 
 <simulation>
   <facility>
-    <name>Millstone 3</name>
+    <name>Millstone_3</name>
     <lifetime>715</lifetime>
     <config>
       <Reactor>

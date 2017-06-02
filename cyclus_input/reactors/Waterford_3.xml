@@ -2,7 +2,7 @@
 
 <simulation>
   <facility>
-    <name>Waterford 3</name>
+    <name>Waterford_3</name>
     <lifetime>471</lifetime>
     <config>
       <Reactor>

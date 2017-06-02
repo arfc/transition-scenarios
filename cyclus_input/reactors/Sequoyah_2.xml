@@ -2,7 +2,7 @@
 
 <simulation>
   <facility>
-    <name>Sequoyah 2</name>
+    <name>Sequoyah_2</name>
     <lifetime>471</lifetime>
     <config>
       <Reactor>

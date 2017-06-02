@@ -2,7 +2,7 @@
 
 <simulation>
   <facility>
-    <name>Maine Yankee</name>
+    <name>Maine_Yankee</name>
     <lifetime>285</lifetime>
     <config>
       <Reactor>

@@ -2,7 +2,7 @@
 
 <simulation>
   <facility>
-    <name>Limerick 2</name>
+    <name>Limerick_2</name>
     <lifetime>473</lifetime>
     <config>
       <Reactor>

@@ -2,7 +2,7 @@
 
 <simulation>
   <facility>
-    <name>Clinton 1</name>
+    <name>Clinton_1</name>
     <lifetime>466</lifetime>
     <config>
       <Reactor>

@@ -2,7 +2,7 @@
 
 <simulation>
   <facility>
-    <name>Beaver Valley 2</name>
+    <name>Beaver_Valley_2</name>
     <lifetime>714</lifetime>
     <config>
       <Reactor>

@@ -2,7 +2,7 @@
 
 <simulation>
   <facility>
-    <name>Rancho Seco</name>
+    <name>Rancho_Seco</name>
     <lifetime>175</lifetime>
     <config>
       <Reactor>

@@ -2,7 +2,7 @@
 
 <simulation>
   <facility>
-    <name>Vogtle 1</name>
+    <name>Vogtle_1</name>
     <lifetime>715</lifetime>
     <config>
       <Reactor>

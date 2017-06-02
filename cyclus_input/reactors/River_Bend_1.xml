@@ -2,7 +2,7 @@
 
 <simulation>
   <facility>
-    <name>River Bend 1</name>
+    <name>River_Bend_1</name>
     <lifetime>470</lifetime>
     <config>
       <Reactor>

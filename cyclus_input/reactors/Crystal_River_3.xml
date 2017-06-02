@@ -2,7 +2,7 @@
 
 <simulation>
   <facility>
-    <name>Crystal River 3</name>
+    <name>Crystal_River_3</name>
     <lifetime>681</lifetime>
     <config>
       <Reactor>

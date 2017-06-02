@@ -2,7 +2,7 @@
 
 <simulation>
   <facility>
-    <name>Zion 2</name>
+    <name>Zion_2</name>
     <lifetime>291</lifetime>
     <config>
       <Reactor>

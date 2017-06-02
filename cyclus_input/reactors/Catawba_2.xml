@@ -2,7 +2,7 @@
 
 <simulation>
   <facility>
-    <name>Catawba 2</name>
+    <name>Catawba_2</name>
     <lifetime>678</lifetime>
     <config>
       <Reactor>

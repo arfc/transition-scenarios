@@ -2,7 +2,7 @@
 
 <simulation>
   <facility>
-    <name>Hope Creek</name>
+    <name>Hope_Creek</name>
     <lifetime>712</lifetime>
     <config>
       <Reactor>

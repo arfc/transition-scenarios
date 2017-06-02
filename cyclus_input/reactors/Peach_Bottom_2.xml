@@ -2,7 +2,7 @@
 
 <simulation>
   <facility>
-    <name>Peach Bottom 2</name>
+    <name>Peach_Bottom_2</name>
     <lifetime>709</lifetime>
     <config>
       <Reactor>

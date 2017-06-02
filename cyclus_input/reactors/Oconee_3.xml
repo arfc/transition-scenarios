@@ -2,7 +2,7 @@
 
 <simulation>
   <facility>
-    <name>Oconee 3</name>
+    <name>Oconee_3</name>
     <lifetime>715</lifetime>
     <config>
       <Reactor>

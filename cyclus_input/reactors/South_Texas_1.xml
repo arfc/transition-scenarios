@@ -2,7 +2,7 @@
 
 <simulation>
   <facility>
-    <name>South Texas 1</name>
+    <name>South_Texas_1</name>
     <lifetime>468</lifetime>
     <config>
       <Reactor>

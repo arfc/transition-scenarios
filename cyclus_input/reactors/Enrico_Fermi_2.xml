@@ -2,7 +2,7 @@
 
 <simulation>
   <facility>
-    <name>Enrico Fermi 2</name>
+    <name>Enrico_Fermi_2</name>
     <lifetime>446</lifetime>
     <config>
       <Reactor>

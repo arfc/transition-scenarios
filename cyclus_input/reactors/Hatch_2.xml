@@ -2,7 +2,7 @@
 
 <simulation>
   <facility>
-    <name>Hatch 2</name>
+    <name>Hatch_2</name>
     <lifetime>705</lifetime>
     <config>
       <Reactor>

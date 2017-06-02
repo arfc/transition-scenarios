@@ -2,7 +2,7 @@
 
 <simulation>
   <facility>
-    <name>San Onofre 1</name>
+    <name>San_Onofre_1</name>
     <lifetime>747</lifetime>
     <config>
       <Reactor>

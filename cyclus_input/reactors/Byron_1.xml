@@ -2,7 +2,7 @@
 
 <simulation>
   <facility>
-    <name>Byron 1</name>
+    <name>Byron_1</name>
     <lifetime>469</lifetime>
     <config>
       <Reactor>
