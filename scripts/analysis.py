@@ -221,7 +221,7 @@ def sum_nuclide_to_dict(nuclides, nuclides_mass):
     """
 
     nuclide_set = set(nuclides)
-    mass_dict = collections.OrderedDict({})
+    mass_dict = collections.OrderedDict()
 
     for nuclide in nuclide_set:
         temp_nuclide_sum = 0
@@ -373,7 +373,7 @@ def commodity_from_facility(cursor, facility, commodity):
     cur = cursor
     agentids = get_agent_ids(cur, facility)
     init_year, init_month, duration, timestep = get_sim_time_duration(cur)
-    commodity_dict = collections.OrderedDict({})
+    commodity_dict = collections.OrderedDict()
     for x in commodity:
         y = ['"' + x + '"']
         resources = cur.execute(exec_string(y, 'commodity', 'quantity, senderid, time')).fetchall()
@@ -438,7 +438,7 @@ def total_waste_timeseries(cursor):
                             + ' GROUP BY time, senderid').fetchall()
 
     init_year, init_month, duration, timestep = get_sim_time_duration(cur)
-    waste_dict = collections.OrderedDict({})
+    waste_dict = collections.OrderedDict()
 
     waste_dict['Reactor'] = get_from_facility(cur,'Reactor', duration, resources)
     waste_dict['Separations'] = get_from_facility(cur,'Separations', duration, resources)
@@ -463,7 +463,7 @@ def get_stockpile(cursor, facility):
     """
 
     cur = cursor
-    pile_dict = collections.OrderedDict({})
+    pile_dict = collections.OrderedDict()
     agentid = get_agent_ids(cur, facility)
     query = exec_string(agentid, 'agentid', 'timecreated, quantity, qualid')
     query = query.replace('transactions', 'agentstateinventories')
@@ -489,7 +489,7 @@ def get_swu_dict(cursor):
     """
 
     cur = cursor
-    swu_dict = collections.OrderedDict({})
+    swu_dict = collections.OrderedDict()
     agentid = get_agent_ids(cur, 'Enrichment')
     init_year, init_month, duration, timestep = get_sim_time_duration(cur)
     facility_num = 1
@@ -549,7 +549,7 @@ def final_stockpile(cursor, facility):
     MTHM value of stockpile
     """
     cur = cursor
-    stock_dict = collections.OrderedDict({})
+    stock_dict = collections.OrderedDict()
     agentid = get_agent_ids(cur, facility)
     outstring = ''
     for agent in agentid:
@@ -593,7 +593,7 @@ def fuel_usage_timeseries(cursor, fuel_list):
     """
 
     cur = cursor
-    fuel_dict = collections.OrderedDict({})
+    fuel_dict = collections.OrderedDict()
     for fuel in fuel_list:
         temp_list = ['"' + fuel + '"']
         fuel_quantity = cur.execute(exec_string(temp_list, 'commodity',
@@ -606,6 +606,7 @@ def fuel_usage_timeseries(cursor, fuel_list):
             quantity_timeseries = get_timeseries(fuel_quantity, duration, 1)
             fuel_dict[fuel] = quantity_timeseries
         except:
+            fuel_dict[fuel] = None
             print(str(fuel) + ' has not been used.')
 
     return fuel_dict
@@ -632,7 +633,7 @@ def get_waste_dict(isotope_list, mass_list, time_list, duration):
         dictionary of mass time series of each unique isotope
     """
 
-    waste_dict = collections.OrderedDict({})
+    waste_dict = collections.OrderedDict()
     isotope_set = set(isotope_list)
 
     for iso in isotope_set:
@@ -663,10 +664,10 @@ def power_timeseries(cursor):
     """
 
     cur = cursor
-    power_timeseries_dict = collections.OrderedDict({})
+    power_timeseries_dict = collections.OrderedDict()
     timeseriespower = np.array(cur.execute('SELECT sum(value) FROM\
-                                   timeseriespower GROUP BY time').fetchall())
-    power_timeseries_dict['powertimeseries'] = (timeseriespower[:,0])
+                                                timeseriespower GROUP BY time').fetchall())
+    power_timeseries_dict['powertimeseries'] = timeseriespower[:,0]
 
     return power_timeseries_dict
 
@@ -699,8 +700,8 @@ def capacity_calc(governments, timestep, entry, exit_step):
         with country_government as key
     """
 
-    power_dict = collections.OrderedDict({})
-    num_dict = collections.OrderedDict({})
+    power_dict = collections.OrderedDict()
+    num_dict = collections.OrderedDict()
 
     for gov in governments:
         capacity = []
@@ -980,7 +981,7 @@ if __name__ == "__main__":
                         'Years', 'Mass[MTHM]',
                         'Total Stockpile of ReprU vs Time',
                         'Total_Stockpile', init_year)
-        tail_dict = collections.OrderedDict({})
+        tail_dict = collections.OrderedDict()
         tail_dict['tailing'] = [x + y for x, y in zip(waste_dict['Tails'],
                                 pile_dict['Mixer'])]
         multi_line_plot(tail_dict, timestep,
