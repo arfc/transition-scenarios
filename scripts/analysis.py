@@ -6,7 +6,6 @@ from matplotlib import cm
 import collections
 
 
-
 if len(sys.argv) < 2:
     print('Usage: python analysis.py [cylus_output_file]')
 
@@ -122,8 +121,8 @@ def exec_string(list, search, whatwant):
         sqlite query command.
     """
 
-    exec_str = ('select ' + whatwant + ' from resources inner join transactions\
-                on transactions.resourceid = resources.resourceid where '
+    exec_str = ('select ' + whatwant + """ from resources inner join transactions
+                on transactions.resourceid = resources.resourceid where """
                 + str(search) + ' = ' + str(list[0]))
 
     for ar in list[1:]:
@@ -446,8 +445,9 @@ def total_waste_timeseries(cursor):
 
     return waste_dict
 
+
 def get_stockpile(cursor, facility):
-    """ get stockpile timeseries in a fuel facility
+    """ get inventory timeseries in a fuel facility
 
     Parameters
     ----------
@@ -533,7 +533,6 @@ def get_timeseries(list, duration, multiplyby):
     return value_timeseries
 
 
-
 def final_stockpile(cursor, facility):
     """ get final stockpile in a fuel facility
 
@@ -575,7 +574,7 @@ def final_stockpile(cursor, facility):
 
     return outstring
 
-
+ 
 def fuel_usage_timeseries(cursor, fuel_list):
     """ Calculates total fuel usage over time
 
@@ -584,12 +583,14 @@ def fuel_usage_timeseries(cursor, fuel_list):
     cursor: sqlite cursor
         sqlite cursor
     fuel_list: list
-        list of fuel commodity names (eg. uox, mox)
+        list of fuel commodity names (eg. uox, mox) to consider in fuel usage.
 
     Returns
     -------
     dict
         dictionary of different fuels used timeseries
+    keys - fuel
+    values - timeseries list of fuel amount [kg]
     """
 
     cur = cursor
@@ -602,12 +603,14 @@ def fuel_usage_timeseries(cursor, fuel_list):
         init_year, init_month, duration, timestep = get_sim_time_duration(cur)
         total_sum = 0
         quantity_timeseries = []
+
         try:
             quantity_timeseries = get_timeseries(fuel_quantity, duration, 1)
             fuel_dict[fuel] = quantity_timeseries
         except:
             fuel_dict[fuel] = None
             print(str(fuel) + ' has not been used.')
+
 
     return fuel_dict
 
@@ -772,6 +775,7 @@ def multi_line_plot(dictionary, timestep,
             label = key.replace('_government', '')
         else:
             label = str(key)
+
         plt.plot(init_year + (timestep/12),
                  dictionary[key],
                  label=label)
@@ -815,7 +819,7 @@ def stacked_bar_chart(dictionary, timestep,
     # set different colors for each bar
     color_index = 0
     top_index = True
-    prev = ''
+    prev = np.zeros(1)
     plot_list = []
     # for every country, create bar chart with different color
     for key in dictionary:
@@ -850,6 +854,7 @@ def stacked_bar_chart(dictionary, timestep,
             prev = np.add(prev, dictionary[key])
             plot_list.append(plot)
 
+
         color_index += 1
 
     # plot
@@ -860,7 +865,6 @@ def stacked_bar_chart(dictionary, timestep,
     plt.grid(True)
     plt.savefig(outputname + '.png', format='png', bbox_inches='tight')
     plt.close()
-
 
 
 def plot_power(cursor):
@@ -943,6 +947,7 @@ if __name__ == "__main__":
             waste_dict ['Separations'] = reprocess waste (FP, MA)
             pile_dict ['Mixer'] = tailing
             pile_dict2 ['Separation'] = reprocessed U
+
         
         waste_dict = total_waste_timeseries(cur)
         multi_line_plot(waste_dict, timestep,
@@ -952,12 +957,12 @@ if __name__ == "__main__":
                         init_year)
 
         fuel_dict = fuel_usage_timeseries(cur, ['uox', 'mox','fr_fuel'])
+
         stacked_bar_chart(fuel_dict, timestep,
                           'Years', 'Mass[MTHM]',
                           'Total Fuel Mass vs Time',
                           'total_fuel',
                           init_year)
-
 
         swu_dict = get_swu_dict(cur)
         multi_line_plot(swu_dict, timestep,
@@ -988,4 +993,28 @@ if __name__ == "__main__":
                         'Years', 'Mass[MTHM]',
                         'Total Tailing vs Time', 'Total_tailings',
                         init_year)
- """
+
+        final_stockpile(cur, 'Mixer')
+        final_stockpile(cur, 'Separations')
+
+        try:
+            mixer_stockpile = get_stockpile(cur, 'Mixer')
+            multi_line_plot(mixer_stockpile, timestep,
+                            'Years', 'Mass[MTHM]',
+                            'Tailings left over in Mixer vs Time',
+                            'Total_Stockpile', init_year)
+            separations_stockpile = get_stockpile(cur, 'Separations')
+            multi_line_plot(separations_stockpile, timestep,
+                            'Years', 'Mass[MTHM]',
+                            'Total Stockpile of ReprU vs Time',
+                            'Total_Stockpile', init_year)
+            tail_dict = {}
+            tail_dict['tailing'] = [x + y for x, y in zip(waste_dict['Tails'],
+                                    mixer_stockpile['Mixer'])]
+            multi_line_plot(tail_dict, timestep,
+                            'Years', 'Mass[MTHM]',
+                            'Total Tailing vs Time', 'Total_tailings',
+                            init_year)
+        except:
+            print('Seems like it is once through')
+"""

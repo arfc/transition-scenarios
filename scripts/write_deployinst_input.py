@@ -275,7 +275,7 @@ def input_render(init_date, duration, reactor_file,
 
     startyear, startmonth = get_ymd(init_date)
 
-    # has reprocessing chunk if reprocssing boolean is true.
+    # has reprocessing chunk if reprocessing boolean is true.
     if reprocessing is True:
         reprocessing_chunk = ('<entry>\n'
                               + '  <number>1</number>\n'
@@ -283,7 +283,6 @@ def input_render(init_date, duration, reactor_file,
                               + '</entry>')
     else:
         reprocessing_chunk = ''
-
     # renders template
     temp = template.render(duration=duration,
                            startmonth=startmonth,
@@ -448,7 +447,7 @@ if __name__ == "__main__":
     main(sys.argv[1], int(sys.argv[2]), int(sys.argv[3]),
          '../templates/reactor_template.xml.in',
          '../templates/reactor_mox_template.xml.in',
-         sys.argv[4],
+         True,
          '../templates/deployinst_template.xml.in',
          '../templates/input_template.xml.in',
-         sys.argv[5])
+         sys.argv[4])
