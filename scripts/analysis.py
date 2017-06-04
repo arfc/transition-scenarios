@@ -645,9 +645,8 @@ def get_waste_dict(isotope_list, mass_list, time_list, duration):
         # at each timestep,
         for i in range(0, duration):
             # for each element in database,
-            indices = [x for x, y in enumerate(time_list) if y == i]
-            for index in indices:
-                if isotope_list[index] == iso:
+            for x, y in enumerate(isotope_list):
+                if i == time_list[x] and y == iso:
                     mass+= mass_list[index]
             time_mass.append(mass)
         waste_dict[iso] = time_mass
