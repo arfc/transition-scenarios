@@ -504,7 +504,7 @@ def get_swu_dict(cursor):
 
 
 def get_timeseries(list, duration, multiplyby):
-    """ creates a returns a timeseries list of a given data
+    """ returns a timeseries list of a given data
 
     Parameters
     ----------
@@ -531,6 +531,37 @@ def get_timeseries(list, duration, multiplyby):
         value_timeseries.append(value*multiplyby)
 
     return value_timeseries
+
+
+def get_timeseries_no_cum(list, duration, multiplyby):
+    """ returns a timeseries list of a given data (numbers are not cumulative)
+   
+    Parameters
+    ----------
+    list: list
+        list of data to be created into timeseries
+        list[0] = time
+        list[1] = value, quantity
+    duration: int
+        duration of the simulation
+    multiplyby: int
+        integer to multiply the value in the list by 
+
+    Returns
+    -------
+    timeseries list of data
+    """
+
+    value = 0
+    value_timeseries = []
+    array = np.array(list)
+
+    for i in range(0, duration):
+        value = sum(array[array[:,0] == i][:,1])
+        value_timeseries.append(value*multiplyby)
+
+    return value_timeseries
+
 
 
 def final_stockpile(cursor, facility):
@@ -647,7 +678,7 @@ def get_waste_dict(isotope_list, mass_list, time_list, duration):
             # for each element in database,
             for x, y in enumerate(isotope_list):
                 if i == time_list[x] and y == iso:
-                    mass+= mass_list[index]
+                    mass+= mass_list[x]
             time_mass.append(mass)
         waste_dict[iso] = time_mass
 
@@ -667,9 +698,12 @@ def power_timeseries(cursor):
 
     cur = cursor
     power_timeseries_dict = collections.OrderedDict()
-    timeseriespower = np.array(cur.execute('SELECT sum(value) FROM\
+
+    timeseriespower = np.array(cur.execute('SELECT  time, sum(value) FROM\
                                                 timeseriespower GROUP BY time').fetchall())
-    power_timeseries_dict['powertimeseries'] = timeseriespower[:,0]
+    init_year, init_month, duration, timestep = get_sim_time_duration(cur)
+    timeseriespower = get_timeseries_no_cum(timeseriespower, duration, 1)
+    power_timeseries_dict['powertimeseries'] = timeseriespower[1:]
 
     return power_timeseries_dict
 
@@ -927,10 +961,10 @@ if __name__ == "__main__":
                         'Years', 'Mass[MTHM]',
                         'Outflux from Reprocessing Plant vs Time',
                         'Total_outflux', init_year)
-        plot_in_out_flux(cur, 'Separations', False, 'Pu Output vs Time', 'pu_throughput')
+        # plot_in_out_flux(cur, 'Separations', False, 'Pu Output vs Time', 'pu_throughput')
         # plot_in_out_flux(cur, 'Mixer', False, 'MOX output vs Time', 'mox_throughput')
         
-        print(snf(cur))
+        # print(snf(cur))
         power_timeseries_dict = power_timeseries(cur)
         stacked_bar_chart(power_timeseries_dict, np.delete(timestep,0,0),
                           'Years', 'Power [MWe]',
@@ -941,13 +975,12 @@ if __name__ == "__main__":
         plot_in_out_flux(cur, 'sink', True, 'isotope vs time', 'sink')
         plot_in_out_flux(cur, 'source', False, 'source vs time', 'source')
 
-            waste_dict ['Reactor'] = uox_waste
-            waste_dict ['Enrichment'] = tailing
-            waste_dict ['Separations'] = reprocess waste (FP, MA)
-            pile_dict ['Mixer'] = tailing
-            pile_dict2 ['Separation'] = reprocessed U
+#           waste_dict ['Reactor'] = uox_waste
+#           waste_dict ['Enrichment'] = tailing
+#           waste_dict ['Separations'] = reprocess waste (FP, MA)
+#           pile_dict ['Mixer'] = tailing
+#           pile_dict2 ['Separation'] = reprocessed U
 
-        
         waste_dict = total_waste_timeseries(cur)
         multi_line_plot(waste_dict, timestep,
                         'Years', 'Mass[MTHM]',
