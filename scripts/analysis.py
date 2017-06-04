@@ -929,7 +929,7 @@ if __name__ == "__main__":
                         'Total_outflux', init_year)
         plot_in_out_flux(cur, 'Separations', False, 'Pu Output vs Time', 'pu_throughput')
         # plot_in_out_flux(cur, 'Mixer', False, 'MOX output vs Time', 'mox_throughput')
-        """
+        
         print(snf(cur))
         power_timeseries_dict = power_timeseries(cur)
         stacked_bar_chart(power_timeseries_dict, np.delete(timestep,0,0),
@@ -1016,4 +1016,3 @@ if __name__ == "__main__":
                             init_year)
         except:
             print('Seems like it is once through')
-"""
