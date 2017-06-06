@@ -8,7 +8,7 @@ import sys
 # Check number of input arguments
 if len(sys.argv) < 3:
     print('Usage: python recipe_generator.py [Fleetcomp]\
-          [ReactorTemplate]')
+          [ReactorTemplate] [BuildtimeTemplate')
 
 
 def import_csv(in_csv):
@@ -36,11 +36,11 @@ def write_reactors_xml(in_list, in_template):
         if reactor_type == 'BWR':
             assem_no = 732
             assem_per_batch = assem_no / batch
-            assem_size = in_list[col][8] / assem_no
+            assem_size = float(in_list[col][8]) / assem_no
         else:
             assem_no = 240
             assem_per_batch = assem_no / batch
-            assem_size = in_list[col][8] / assem_no
+            assem_size = float(in_list[col][8]) / assem_no
         rendered = in_template.render(name=in_list[col][0].replace(' ', '_'),
                                       lifetime=in_list[col][6],
                                       assem_size=assem_size,
