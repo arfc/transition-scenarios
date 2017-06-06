@@ -31,6 +31,7 @@
         <outcommod>nat_u</outcommod>
         <outrecipe>nat_u</outrecipe>
       </Source>
+      <throughput>1384555031.396084452</throughput>
     </config>
   </facility>
   <facility>
@@ -176,4 +177,5 @@
     </institution>
   </region>
   <xi:include href="./recipes/uox_51.xml#xpointer(/recipes/child::*)" />
+  <xi:include href="./recipes/facility.xml#xpointer(/recipes/child::*)" />
 </simulation>
