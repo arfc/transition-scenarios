@@ -1,6 +1,6 @@
 <recipes>
   <recipe>
-    <name>fuel_recipe</name>
+    <name>fresh_uox</name>
     <basis>atom</basis>
     <nuclide>
       <id>922350000</id>
@@ -12,7 +12,7 @@
     </nuclide>
   </recipe>
   <recipe>
-    <name>used_fuel_recipe</name>
+    <name>spent_uox</name>
     <basis>atom</basis>
     <nuclide>
         <id>922340000</id>

@@ -5,8 +5,8 @@
   <lifetime>{{lifetime}}</lifetime>
   <config>
     <Reactor>
-      <fuel_inrecipes>  <val>fuel_recipe</val>      </fuel_inrecipes>
-      <fuel_outrecipes> <val>used_fuel_recipe</val> </fuel_outrecipes>
+      <fuel_inrecipes>  <val>fresh_uox</val>      </fuel_inrecipes>
+      <fuel_outrecipes> <val>spent_uox</val> </fuel_outrecipes>
       <cycle_time>18</cycle_time>
       <refuel_time>1</refuel_time>
       <assem_size>{{assem_size}}</assem_size>
