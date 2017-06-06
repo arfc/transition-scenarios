@@ -32,15 +32,18 @@ def write_reactors_xml(in_list, in_template):
         batch = int(in_list[col][24])
         assem_per_batch = 0
         assem_no = 0
+        assem_size = 0
         if reactor_type == 'BWR':
             assem_no = 732
             assem_per_batch = assem_no / batch
+            assem_size = in_list[col][8] / assem_no
         else:
             assem_no = 240
             assem_per_batch = assem_no / batch
+            assem_size = in_list[col][8] / assem_no
         rendered = in_template.render(name=in_list[col][0].replace(' ', '_'),
                                       lifetime=in_list[col][6],
-                                      assem_size=in_list[col][8],
+                                      assem_size=assem_size,
                                       n_assem_core=assem_no,
                                       n_assem_batch=assem_per_batch,
                                       power_cap=in_list[col][1])
