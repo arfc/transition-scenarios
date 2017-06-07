@@ -4,7 +4,7 @@
     <facilities>
         {%- for reactor in reactors %}
         <xi:include href="../reactors/{{reactor}}.xml" />
-        {%- endfor %}
+        {% endfor %}
     </facilities>
 
     <DeployInsts>
@@ -18,5 +18,10 @@
             <val>{{buildtime}}</val>
             {%- endfor %}
         </build_times>
+        <n_build>
+            {%- for buildtime in buildtimes %}
+            <val>1</val>
+            {%- endfor %}
+        </n_build>
     </DeployInsts>
 </simulation>
