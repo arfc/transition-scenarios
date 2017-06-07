@@ -9,6 +9,19 @@ if len(sys.argv) < 4:
 
 
 def import_csv(in_csv):
+    """ Imports contents of a tab delimited csv file
+    to a 2D list.
+
+    Parameters
+    ---------
+    in_csv: str
+        csv file name.
+
+    Returns
+    -------
+    data_list: list
+        list with fleetcomp data.
+    """
     with open(in_csv, 'r') as source:
         sourcereader = csv.reader(source, delimiter='\t')
         data_list = []
@@ -18,12 +31,38 @@ def import_csv(in_csv):
 
 
 def load_template(in_template):
+    """ Returns a jinja2 template.
+
+    Parameters
+    ---------
+    in_template: str
+        template file name.
+
+    Returns
+    -------
+    output_template: jinja template object.
+    """
     with open(in_template, 'r') as default:
         output_template = jinja2.Template(default.read())
     return output_template
 
 
 def get_build_time(in_list, *args):
+   """ Returns a dictionary of reactor name and build_time (in months)
+   using the fleetcomp list for reactors specified in *args.
+
+    Parameters
+    ---------
+    in_list: list
+        list file containing fleetcomp data.
+    *args: str
+        path and name of reactors that will be added to cyclus simulation.
+
+    Returns
+    -------
+    data_dict: dictionary
+        dictionary with key: reactor name, and value: buildtime.
+    """
     data_dict = {}
     for col, item in enumerate(in_list):
         start_date = [in_list[col][11], in_list[col][9], in_list[col][10]]
@@ -40,6 +79,23 @@ def get_build_time(in_list, *args):
 
 
 def make_recipe(in_dict, in_template):
+   """ Renders jinja template using dictionary of reactor name and buildtime
+   and outputs an xml file that uses xinclude to include the reactors located
+   in cyclus_input/reactors.
+
+    Parameters
+    ---------
+    in_dict: dictionary
+        dictionary with key: reactor name, and value: buildtime.
+    in_template: jinja template object
+        jinja template object to be rendered.
+
+    Returns
+    -------
+    null
+        generates single xml file that includes reactors specified in
+        the dictionary.
+    """
     reactor_list = in_dict.keys()
     buildtime_list = in_dict.values()
     rendered = in_template.render(reactors=reactor_list,
@@ -49,6 +105,24 @@ def make_recipe(in_dict, in_template):
 
 
 def main(in_csv, in_template, *args):
+   """ Generates xml files that specifies the reactors that will be included
+   in a cyclus simulation.
+
+    Parameters
+    ---------
+    in_csv: str
+        csv file name.
+    in_template: jinja template object
+        jinja template object to be rendered.
+    *args: str
+        path and name of reactors that will be added to cyclus simulation.
+
+    Returns
+    -------
+    null
+        generates single xml file that includes reactors specified in
+        the dictionary.
+    """
     if os.path.isdir(args[0][0]):
         lists = []
         for files in os.listdir(args[0][0]):
