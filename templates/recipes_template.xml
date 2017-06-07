@@ -1,0 +1,24 @@
+<recipes>
+  <recipe>
+    <name>fresh_uox</name>
+    <basis>atom</basis>
+    <nuclide>
+      <id>922350000</id>
+      <comp>4.5</comp>
+    </nuclide>
+    <nuclide>
+      <id>922380000</id>
+      <comp>95.5</comp>
+    </nuclide>
+  </recipe>
+  <recipe>
+    <name>spent_uox</name>
+    <basis>atom</basis>
+    {%- for isotopes in id %}
+    <nuclide>
+        <id>{{ id[loop.index0] }}</id>
+        <comp>{{ comp[loop.index0] }}</comp>
+    </nuclide>
+    {%- endfor %}
+  </recipe>
+</recipes>
