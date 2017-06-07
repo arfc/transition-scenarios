@@ -1,0 +1,14 @@
+<DeployInst>
+    <prototypes>
+        {%- for reactor in reactors %}
+        <val>{{reactor}}</val>
+        {%- endfor %}</prototypes>
+    <build_times>
+        {%- for buildtime in buildtimes %}
+        <val>{{buildtime}}</val>
+        {%- endfor %}</build_times>
+    <n_build>
+        {%- for buildtime in buildtimes %}
+        <val>1</val>
+        {%- endfor %}</n_build>
+</DeployInst>
