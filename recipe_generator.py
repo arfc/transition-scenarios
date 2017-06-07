@@ -8,7 +8,7 @@ import sys
 # Check number of input arguments
 if len(sys.argv) < 3:
     print('Usage: python recipe_generator.py [Fleetcomp]\
-          [ReactorTemplate] [BuildtimeTemplate')
+          [ReactorTemplate]')
 
 
 def import_csv(in_csv):
@@ -39,7 +39,7 @@ def write_reactors_xml(in_list, in_template):
             assem_size = float(in_list[col][8]) / assem_no
         else:
             assem_no = 240
-            assem_per_batch = assem_no / batch
+            assem_per_batch = int(assem_no / batch)
             assem_size = float(in_list[col][8]) / assem_no
         rendered = in_template.render(name=in_list[col][0].replace(' ', '_'),
                                       lifetime=in_list[col][6],
@@ -53,10 +53,10 @@ def write_reactors_xml(in_list, in_template):
             output.write(rendered)
 
 
-def main(in_csv, reactor_template, buildtime_template):
+def main(in_csv, reactor_template):
     data_list = import_csv(in_csv)
     write_reactors_xml(data_list, load_template(reactor_template))
 
 
 if __name__ == "__main__":
-    main(sys.argv[1], sys.argv[2], sys.argv[3])
+    main(sys.argv[1], sys.argv[2])
