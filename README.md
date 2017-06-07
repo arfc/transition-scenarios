@@ -28,7 +28,8 @@ of input arguments for any number of reactors or can pass the directory that
 contains the reactor files to process all reactors in the folder.
 
 Usage:
-    1. python recipe_generator.py [Fleetcomp Data] [ReactorTemplate]
+
+    1. python get_reactors.py [Fleetcomp Data] [ReactorTemplate]
     2. python deploy_reactors.py [Fleetcomp Data] [BuildtimeTemplate] [Reactor1] ...
     or
     2. python deploy_reactors.py [Fleetcomp Data] [BuildtimeTemplate] [Folder]
