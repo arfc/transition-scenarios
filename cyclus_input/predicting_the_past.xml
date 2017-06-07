@@ -1,4 +1,4 @@
-<?xml version="1.0" standalone="no" ?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <simulation xmlns:xi="http://www.w3.org/2001/XInclude">
   <control>
@@ -7,13 +7,16 @@
     <startyear>1965</startyear>
   </control>
   <archetypes>
-    <spec><lib>cycamore</lib><name>Enrichment</name></spec>
-    <spec><lib>cycamore</lib><name>Reactor</name></spec>
-    <spec><lib>cycamore</lib><name>Sink</name></spec>
-    <spec><lib>cycamore</lib><name>Source</name></spec>
-    <spec><lib>cycamore</lib><name>Storage</name></spec>
+    <spec><lib>cycamore</lib> <name>Enrichment</name> </spec>
+    <spec><lib>cycamore</lib> <name>Reactor</name>    </spec>
+    <spec><lib>cycamore</lib> <name>Sink</name>       </spec>
+    <spec><lib>cycamore</lib> <name>Source</name>     </spec>
+    <spec><lib>cycamore</lib> <name>Storage</name>    </spec>
+    <spec><lib>cycamore</lib> <name>DeployInst</name> </spec>
+    <spec><lib>cycamore</lib> <name>ManagerInst</name></spec>
+    <spec><lib>agents</lib>   <name>NullRegion</name> </spec>
   </archetypes>
-  <xi:include href="./buildtimes/buildtimes.xml#xpointer(/simulation/facilities/child::*)" />
+  <xi:include href="./buildtimes/buildtimes.xml#xpointer(/simulation/facilities/child::*)"/>
   <facility>
     <name>Sink1</name>
     <config>
@@ -30,8 +33,8 @@
       <Source>
         <outcommod>nat_u</outcommod>
         <outrecipe>nat_u</outrecipe>
+        <throughput>1384555031.396084452</throughput>
       </Source>
-      <throughput>1384555031.396084452</throughput>
     </config>
   </facility>
   <facility>
@@ -62,19 +65,16 @@
       </Storage>
     </config>
   </facility>
-
-    <facility>
+  <facility>
     <name>Enrichment1</name>
     <config>
-      <Enrichmnet>
+      <Enrichment>
         <feed_commod>uf6</feed_commod>
-        <feed_recipe>
-          <val>uf6</val>
-        </feed_recipe>
+        <feed_recipe>uf6</feed_recipe>
         <product_commod>enr_u</product_commod>
         <tails_commod>tails</tails_commod>
         <max_enrich>0.045</max_enrich>
-      </Enrichmnet>
+      </Enrichment>
     </config>
   </facility>
   <facility>
@@ -120,7 +120,9 @@
   </facility>
   <region>
     <name>US</name>
-    <config><NullRegion/></config>
+    <config>
+      <NullRegion/>
+    </config>
     <institution>
       <name>FuelCycle</name>
       <initialfacilitylist>
@@ -171,11 +173,11 @@
       <name>Power</name>
       <config>
         <DeployInst>
-          <xi:include href="./buildtimes/buildtimes.xml#xpointer(/simulation/DeployInsts/child::*)" />
+          <xi:include href="./buildtimes/buildtimes.xml#xpointer(/simulation/DeployInsts/child::*)"/>
         </DeployInst>
       </config>
     </institution>
   </region>
-  <xi:include href="./recipes/uox_51.xml#xpointer(/recipes/child::*)" />
-  <xi:include href="./recipes/facility.xml#xpointer(/recipes/child::*)" />
+  <xi:include href="./recipes/uox_51.xml#xpointer(/recipes/child::*)"/>
+  <xi:include href="./recipes/facility.xml#xpointer(/recipes/child::*)"/>
 </simulation>
