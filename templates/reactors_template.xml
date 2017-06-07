@@ -1,0 +1,18 @@
+<facility>
+  <name>{{name}}</name>
+  <lifetime>{{lifetime}}</lifetime>
+  <config>
+    <Reactor>
+      <fuel_incommods>  <val>fresh_uox</val> </fuel_incommods>
+      <fuel_inrecipes>  <val>fresh_uox</val> </fuel_inrecipes>
+      <fuel_outcommods> <val>spent_uox</val> </fuel_outcommods>
+      <fuel_outrecipes> <val>spent_uox</val> </fuel_outrecipes>
+      <cycle_time>18</cycle_time>
+      <refuel_time>1</refuel_time>
+      <assem_size>{{assem_size}}</assem_size>
+      <n_assem_core>{{n_assem_core}}</n_assem_core>
+      <n_assem_batch>{{n_assem_batch}}</n_assem_batch>
+      <power_cap>{{power_cap}}</power_cap>
+    </Reactor>
+  </config>
+</facility>
