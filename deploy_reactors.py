@@ -3,9 +3,10 @@ import jinja2
 import os
 import sys
 
-if len(sys.argv) < 4:
+if len(sys.argv) < 5:
     print('Usage: python deploy_reactors.py [fleet]\
-          [BuildtimeTemplate] [Reactor1] [Reactor2] ...')
+          [DeployinstTemplate] [InclusionsTemplate]\
+          [Reactor1] [Reactor2] ...')
 
 
 def import_csv(in_csv):
@@ -48,8 +49,8 @@ def load_template(in_template):
 
 
 def get_build_time(in_list, *args):
-   """ Returns a dictionary of reactor name and build_time (in months)
-   using the fleetcomp list for reactors specified in *args.
+    """ Returns a dictionary of reactor name and build_time (in months)
+    using the fleetcomp list for reactors specified in *args.
 
     Parameters
     ---------
@@ -78,17 +79,19 @@ def get_build_time(in_list, *args):
     return data_dict
 
 
-def make_recipe(in_dict, in_template):
-   """ Renders jinja template using dictionary of reactor name and buildtime
-   and outputs an xml file that uses xinclude to include the reactors located
-   in cyclus_input/reactors.
+def make_recipe(in_dict, deployinst_template, inclusions_template):
+    """ Renders jinja template using dictionary of reactor name and buildtime
+    and outputs an xml file that uses xinclude to include the reactors located
+    in cyclus_input/reactors.
 
     Parameters
     ---------
     in_dict: dictionary
         dictionary with key: reactor name, and value: buildtime.
-    in_template: jinja template object
-        jinja template object to be rendered.
+    deployinst_template: jinja template object
+        jinja template object to be rendered with deployinst.
+    inclusions_template: jinja template object
+        jinja template object to be rendered with reactor inclusions.
 
     Returns
     -------
@@ -98,22 +101,27 @@ def make_recipe(in_dict, in_template):
     """
     reactor_list = in_dict.keys()
     buildtime_list = in_dict.values()
-    rendered = in_template.render(reactors=reactor_list,
-                                  buildtimes=buildtime_list)
-    with open('cyclus_input/buildtimes/buildtimes.xml', 'w') as output:
-            output.write(rendered)
+    rendered_deployinst = deployinst_template.render(reactors=reactor_list,
+                                                     buildtimes=buildtime_list)
+    rendered_inclusions = inclusions_template.render(reactors=reactor_list)
+    with open('cyclus_input/buildtimes/deployinst.xml', 'w') as output1:
+            output1.write(rendered_deployinst)
+    with open('cyclus_input/buildtimes/inclusions.xml', 'w') as output2:
+            output2.write(rendered_inclusions)
 
 
-def main(in_csv, in_template, *args):
-   """ Generates xml files that specifies the reactors that will be included
-   in a cyclus simulation.
+def main(in_csv, deployinst_template, inclusions_template, *args):
+    """ Generates xml files that specifies the reactors that will be included
+    in a cyclus simulation.
 
     Parameters
     ---------
     in_csv: str
         csv file name.
-    in_template: jinja template object
-        jinja template object to be rendered.
+    deployinst_template: jinja template object
+        jinja template object to be rendered with deployinst.
+    inclusions_template: jinja template object
+        jinja template object to be rendered with reactor inclusions.
     *args: str
         path and name of reactors that will be added to cyclus simulation.
 
@@ -127,13 +135,14 @@ def main(in_csv, in_template, *args):
         lists = []
         for files in os.listdir(args[0][0]):
             lists.append(args[0][0] + files)
-        main(in_csv, in_template, lists)
+        main(in_csv, deployinst_template, inclusions_template, lists)
     else:
         fleet_list = import_csv(in_csv)
-        buildtime_template = load_template(in_template)
+        deployinst_temp = load_template(deployinst_template)
+        inclusions_temp = load_template(inclusions_template)
         buildtime_dict = get_build_time(fleet_list, args)
-        make_recipe(buildtime_dict, buildtime_template)
+        make_recipe(buildtime_dict, deployinst_temp, inclusions_temp)
 
 
 if __name__ == "__main__":
-    main(sys.argv[1], sys.argv[2], sys.argv[3:])
+    main(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4:])
