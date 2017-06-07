@@ -1,6 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-
-<simulation xmlns:xi="http://www.w3.org/2001/XInclude">
+﻿<simulation xmlns:xi="http://www.w3.org/2001/XInclude">
   <control>
     <duration>1020</duration>
     <startmonth>1</startmonth>
@@ -16,9 +14,9 @@
     <spec><lib>cycamore</lib> <name>ManagerInst</name></spec>
     <spec><lib>agents</lib>   <name>NullRegion</name> </spec>
   </archetypes>
-  <xi:include href="./buildtimes/buildtimes.xml#xpointer(/simulation/facilities/child::*)"/>
+  <xi:include href="./buildtimes/inclusions.xml#xpointer(/inclusions/child::*)"/>
   <facility>
-    <name>Sink1</name>
+    <name>Sink</name>
     <config>
       <Sink>
         <in_commods>
@@ -28,7 +26,7 @@
     </config>
   </facility>
   <facility>
-    <name>Mine1</name>
+    <name>Mine</name>
     <config>
       <Source>
         <outcommod>nat_u</outcommod>
@@ -38,7 +36,7 @@
     </config>
   </facility>
   <facility>
-    <name>Mill1</name>
+    <name>Mill</name>
     <config>
       <Storage>
         <in_commods>
@@ -52,7 +50,7 @@
     </config>
   </facility>
   <facility>
-    <name>Conversion1</name>
+    <name>Conversion</name>
     <config>
       <Storage>
         <in_commods>
@@ -66,7 +64,7 @@
     </config>
   </facility>
   <facility>
-    <name>Enrichment1</name>
+    <name>Enrichment</name>
     <config>
       <Enrichment>
         <feed_commod>uf6</feed_commod>
@@ -78,7 +76,7 @@
     </config>
   </facility>
   <facility>
-    <name>FuelFab1</name>
+    <name>FuelFab</name>
     <config>
       <Storage>
         <in_commods>
@@ -92,7 +90,7 @@
     </config>
   </facility>
   <facility>
-    <name>WetStorage1</name>
+    <name>WetStorage</name>
     <config>
       <Storage>
         <in_commods>
@@ -106,7 +104,7 @@
     </config>
   </facility>
   <facility>
-    <name>DryStorage1</name>
+    <name>DryStorage</name>
     <config>
       <Storage>
         <in_commods>
@@ -127,44 +125,44 @@
       <name>FuelCycle</name>
       <initialfacilitylist>
         <entry>
-          <prototype>Mine1</prototype>
+          <prototype>Mine</prototype>
           <number>1</number>
         </entry>
         <entry>
-          <prototype>Mill1</prototype>
+          <prototype>Mill</prototype>
           <number>1</number>
         </entry>
         <entry>
-          <prototype>Conversion1</prototype>
+          <prototype>Conversion</prototype>
           <number>1</number>
         </entry>
         <entry>
-          <prototype>Enrichment1</prototype>
+          <prototype>Enrichment</prototype>
           <number>1</number>
         </entry>
         <entry>
-          <prototype>FuelFab1</prototype>
+          <prototype>FuelFab</prototype>
           <number>1</number>
         </entry>
         <entry>
-          <prototype>WetStorage1</prototype>
+          <prototype>WetStorage</prototype>
           <number>1</number>
         </entry>
         <entry>
-          <prototype>DryStorage1</prototype>
+          <prototype>DryStorage</prototype>
           <number>1</number>
         </entry>
       </initialfacilitylist>
       <config>
         <ManagerInst>
           <prototypes>
-            <val>Mine1</val>
-            <val>Mill1</val>
-            <val>Conversion1</val>
-            <val>Enrichment1</val>
-            <val>FuelFab1</val>
-            <val>WetStorage1</val>
-            <val>DryStorage1</val>
+            <val>Mine</val>
+            <val>Mill</val>
+            <val>Conversion</val>
+            <val>Enrichment</val>
+            <val>FuelFab</val>
+            <val>WetStorage</val>
+            <val>DryStorage</val>
           </prototypes>
         </ManagerInst>
       </config>
@@ -172,9 +170,7 @@
     <institution>
       <name>Power</name>
       <config>
-        <DeployInst>
-          <xi:include href="./buildtimes/buildtimes.xml#xpointer(/simulation/DeployInsts/child::*)"/>
-        </DeployInst>
+        <xi:include href="./buildtimes/deployinst.xml"/>
       </config>
     </institution>
   </region>
