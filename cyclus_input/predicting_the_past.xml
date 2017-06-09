@@ -21,6 +21,7 @@
       <Sink>
         <in_commods>
           <val>casked_spent_uox</val>
+          <val>tails</val>
         </in_commods>
       </Sink>
     </config>
