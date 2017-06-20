@@ -981,8 +981,8 @@ def stacked_bar_chart(dictionary, timestep,
         else:
             label = str(key)
         # very first country does not have a 'bottom' argument
-        if "Sink" in label:
-            print("Ignore Sink Institution")
+        if sum(dictionary[key]) == 0:
+            print(str(dictionary[key]) + 'has no values')
         elif top_index is True:
             plot = plt.bar(left=init_year + (timestep/12),
                            height=dictionary[key],
