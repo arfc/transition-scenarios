@@ -229,7 +229,6 @@ def sum_nuclide_to_dict(nuclides, nuclides_mass):
             temp_nuclide_sum += nuclides_mass[index]
         mass_dict[str(nuclide)] = temp_nuclide_sum
 
-    print(mass_dict)
     return mass_dict
 
 
@@ -699,7 +698,6 @@ def where_comm(cursor, commodity, prototypes):
     for agent in prototypes:
         agentid = get_agent_id_from_prototype(cur, agent)
         from_agent = cur.execute(execute_string.replace('9999', agentid)).fetchall()
-        print(from_agent)
         trade_dict[agent] = get_timeseries(from_agent, duration, .001)
 
     return trade_dict
@@ -867,7 +865,6 @@ def capacity_calc(governments, timestep, entry, exit_step):
         cap = 0
         count = 0
         gov_name = gov[0]
-        print(gov)
         for t in timestep:
             for enter in entry:
                 entertime = enter[3]
@@ -875,7 +872,6 @@ def capacity_calc(governments, timestep, entry, exit_step):
                 gov_agentid = gov[1]
                 power_cap = enter[0]
                 if entertime == t and parentgov == gov_agentid:
-                    print(power_cap)
                     cap += power_cap/1000
                     count += 1
             for dec in exit_step:
