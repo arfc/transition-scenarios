@@ -121,12 +121,12 @@ def exec_string(list, search, whatwant):
         sqlite query command.
     """
 
-    exec_str = ('select ' + whatwant + """ from resources inner join transactions
-                on transactions.resourceid = resources.resourceid where """
+    exec_str = ('SELECT ' + whatwant + """ FROM resources INNER JOIN transactions
+                ON transactions.resourceid = resources.resourceid WHERE """
                 + str(search) + ' = ' + str(list[0]))
 
     for ar in list[1:]:
-        exec_str += ' and ' + str(ar)
+        exec_str += ' OR ' + str(search) + ' = ' + str(ar)
 
     return exec_str
 
