@@ -222,7 +222,7 @@ def sum_nuclide_to_dict(nuclides, nuclides_mass):
     nuclide_set = set(nuclides)
     mass_dict = collections.OrderedDict()
 
-    for nuclide in nuclide_set:
+    for nuclide in nuclide_set:1
         temp_nuclide_sum = 0
         indeces = [i for i, x in enumerate(nuclides) if x == nuclide]
         for index in indeces:
@@ -335,8 +335,10 @@ def plot_in_out_flux(cursor, facility, influx_bool, title, outputname):
                                             'transactions.senderId',
                                             'sum(quantity), time, qualid')
                                 + ' GROUP BY time, qualid').fetchall()
+
     compositions = cur.execute('SELECT qualid, nucid, massfrac\
                                FROM compositions').fetchall()
+
     init_year, init_month, duration, timestep = get_sim_time_duration(cur)
     isotope, mass, time_list = isotope_mass_time_list(resources, compositions)
 
@@ -376,6 +378,7 @@ def commodity_from_facility(cursor, facility, commodity):
         y = ['"' + x + '"']
         resources = cur.execute(exec_string(y, 'commodity',
                                             'quantity, senderid, time')).fetchall()
+
         timeseries = get_from_facility(cur, facility, duration, resources)
         commodity_dict[x] = timeseries
 
@@ -434,6 +437,7 @@ def total_waste_timeseries(cursor):
 
     cur = cursor
     agent_ids = get_agent_ids(cur, 'sink')
+
     string = (exec_string(agent_ids,
                           'transactions.receiverId',
                           ' time, sum(quantity), senderid, spec')
@@ -462,6 +466,7 @@ def total_waste_timeseries(cursor):
     waste_dict['Reprocess Waste'] = get_timeseries(from_separations,
                                                    duration, .001)
     waste_dict['Tails'] = get_timeseries(from_enrichment, duration, .001)
+
 
     return waste_dict
 
@@ -568,6 +573,7 @@ def get_timeseries_no_cum(list, duration, multiplyby):
     multiplyby: int
         integer to multiply the value in the list by
 
+
     Returns
     -------
     timeseries list of data
@@ -579,6 +585,7 @@ def get_timeseries_no_cum(list, duration, multiplyby):
 
     for i in range(0, duration):
         value = sum(array[array[:, 0] == i][:, 1])
+
         value_timeseries.append(value*multiplyby)
 
     return value_timeseries
@@ -606,6 +613,7 @@ def final_stockpile(cursor, facility):
         count = 1
         name = cur.execute('SELECT prototype FROM agententry\
                             WHERE agentid = ' + str(agent)).fetchone()
+
         outstring += 'The Stockpile in ' + str(name[0]) + ' : \n \n'
         stockpile = cur.execute("""SELECT sum(quantity), inventoryname, qualid
                                  FROM agentstateinventories
@@ -618,6 +626,7 @@ def final_stockpile(cursor, facility):
         for stream in stockpile:
             masses = cur.execute('SELECT * FROM compositions\
                                  WHERE qualid = ' + str(stream[2])).fetchall()
+
             outstring += 'Stream ' + str(count) + ' Total = ' + str(stream[0]) + ' kg \n'
             for isotope in masses:
                 outstring += str(isotope[2]) + ' = ' + str(isotope[3]*stream[0]) + ' kg \n'
@@ -629,6 +638,9 @@ def final_stockpile(cursor, facility):
     return outstring
 
 
+    return outstring
+
+ 
 def fuel_usage_timeseries(cursor, fuel_list):
     """ Calculates total fuel usage over time
 
@@ -663,6 +675,7 @@ def fuel_usage_timeseries(cursor, fuel_list):
             fuel_dict[fuel] = quantity_timeseries
         except:
             print(str(fuel) + ' has not been used.')
+
 
     return fuel_dict
 
@@ -736,6 +749,7 @@ def get_waste_dict(isotope_list, mass_list, time_list, duration):
             for x, y in enumerate(isotope_list):
                 if i == time_list[x] and y == iso:
                     mass += mass_list[x]
+
             time_mass.append(mass)
         waste_dict[iso] = time_mass
 
@@ -748,6 +762,7 @@ def power_timeseries(cursor):
     Parameters
     ----------
     governments: list
+
     cursor: sqlite cursor
         sqlite cursor
 
@@ -830,6 +845,7 @@ def get_agent_id_from_prototype(cursor, prototype):
         return agentid
 
 
+
 def capacity_calc(governments, timestep, entry, exit_step):
 
     """Adds and subtracts capacity over time for plotting
@@ -865,6 +881,7 @@ def capacity_calc(governments, timestep, entry, exit_step):
         cap = 0
         count = 0
         gov_name = gov[0]
+        print(gov)
         for t in timestep:
             for enter in entry:
                 entertime = enter[3]
@@ -1011,6 +1028,7 @@ def stacked_bar_chart(dictionary, timestep,
             ax.get_yaxis().set_major_formatter(plt.FuncFormatter(lambda x, loc: "{:,}".format(int(x))))
             plot_list.append(plot)
 
+
         color_index += 1
 
     # plot
@@ -1079,7 +1097,6 @@ if __name__ == "__main__":
     with con:
         cur = con.cursor()
         init_year, init_month, duration, timestep = get_sim_time_duration(cur)
-
         plot_power(cur)
         waste_dict = total_waste_timeseries(cur)
         multi_line_plot(waste_dict, timestep,
@@ -1088,12 +1105,14 @@ if __name__ == "__main__":
                         'total_Waste',
                         init_year)
 
-        fuel_dict = fuel_usage_timeseries(cur, ['uox', 'mox'])
+        fuel_dict = fuel_usage_timeseries(cur, ['uox', 'mox','fr_fuel'])
+
         stacked_bar_chart(fuel_dict, timestep,
                           'Years', 'Mass[MTHM]',
                           'Total Fuel Mass vs Time',
                           'total_fuel',
                           init_year)
+
 
         tailings = commodity_from_facility(cur, 'enrichment', ['tailings'])
         stacked_bar_chart(tailings, timestep,
