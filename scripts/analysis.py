@@ -222,7 +222,7 @@ def sum_nuclide_to_dict(nuclides, nuclides_mass):
     nuclide_set = set(nuclides)
     mass_dict = collections.OrderedDict()
 
-    for nuclide in nuclide_set:1
+    for nuclide in nuclide_set:
         temp_nuclide_sum = 0
         indeces = [i for i, x in enumerate(nuclides) if x == nuclide]
         for index in indeces:
@@ -1063,8 +1063,8 @@ def plot_power(cursor):
     countries = []
     cur = cursor
     # get power cap values
-    governments = cur.execute('SELECT prototype, agentid FROM agententry '
-                              'WHERE kind = "Inst"').fetchall()
+    governments = cur.execute('SELECT prototy1pe, agentid FROM agententry '
+                              'WHERE kind = "Inst1"').fetchall()
 
     entry = cur.execute('SELECT max(value), timeseriespower.agentid, parentid, entertime '
                         'FROM agententry INNER JOIN timeseriespower '
