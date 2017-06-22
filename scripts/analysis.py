@@ -131,28 +131,6 @@ def exec_string(in_list, search, whatwant):
     return query
 
 
-def get_sum(list, column_index):
-    """ Returns sum of a column in an list
-
-    Parameters:
-    ---------
-    list: list
-        list that contains a column with numbers
-    column_index: int
-        index for the column to be summed
-
-    Returns
-    -------
-    int
-        summation of all the values in the array column
-    """
-    sum = 0
-    for ar in list:
-        sum += ar[column_index]
-
-    return sum
-
-
 def isotope_calc(wasteid_array, snf_inventory, cursor):
     """ Calculates isotope mass using mass fraction in compositions table.
 
@@ -181,7 +159,7 @@ def isotope_calc(wasteid_array, snf_inventory, cursor):
     # SimId / QualId / NucId / MassFrac
     cur = cursor
     comps = cur.execute('SELECT * FROM compositions').fetchall()
-    total_snf_mass = get_sum(snf_inventory, 0)
+    total_snf_mass = sum(snf_inventory[0])
 
     nuclide_inven = 'total snf inventory = ' + str(total_snf_mass) + 'kg \n'
     nuclides = []
