@@ -42,7 +42,7 @@ def snf(cursor):
                                             'sum(quantity), qualid')
                                 + ' group by qualid').fetchall()
 
-    waste_id = get_waste_id(resources)
+    waste_id = get_waste_ids(cursor)
     return isotope_calc(waste_id, snf_inventory, cur)
 
 
@@ -77,27 +77,25 @@ def get_agent_ids(cursor, facility):
     return agent_id
 
 
-def get_waste_id(resource_list):
-    """ Gets waste id from a resource list
+def get_waste_ids(cursor):
+    """ Gets waste id from a cursor
 
     Parameters
     ---------
-    resource_list: list
-        list fetched from the resource table.
+    cursor: cursor
+        cursor for sqlite3
 
     Returns
     -------
     waste_id: list
         list of qualId for waste
     """
-
-    wasteid = []
-
-    for res in resource_list:
-
-        wasteid.append(res[0])
-
-    return set(wasteid)
+    sink_id = get_agent_ids(cursor, 'sink')
+    resources = cursor.execute(exec_string(sink_id,
+                                           'transactions.receiverId',
+                                           'qualid') +
+                               ' GROUP BY qualid').fetchall()
+    return list(resource[0] for resource in resources)
 
 
 def exec_string(in_list, search, whatwant):
