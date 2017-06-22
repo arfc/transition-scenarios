@@ -53,19 +53,12 @@ def get_agent_ids(cursor, facility):
 
     Returns
     -------
-
     sink_id: list
         list of all the sink agentId values.
     """
-
-    cur = cursor
-    agent_id = []
-    agent = cur.execute("SELECT * FROM agententry WHERE spec LIKE '%"
-                        + facility + "%'").fetchall()
-
-    for ag in agent:
-        agent_id.append(ag[1])
-    return agent_id
+    agents = cursor.execute("SELECT * FROM agententry WHERE spec LIKE '%" +
+                            facility + "%' COLLATE NOCASE").fetchall()
+    return list(agent[1] for agent in agents)
 
 
 def exec_string(in_list, search, whatwant):
