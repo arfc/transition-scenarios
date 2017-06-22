@@ -210,10 +210,15 @@ def reactor_render(list, template, mox_template, output_file):
 
     for data in list:
         # BWRs have different fuel assembly size, assembly per core and batch
+        name = data['reactor_name'].decode('utf-8').title()
+        start = name.find('(')
+        end = name.find(')')
+        if start != -1 and end != -1:
+            name = name[:start] 
         if data['type'].decode('utf-8') == 'BWR':
             reactor_body = template.render(
                                            country=data['country'].decode('utf-8'),
-                                           reactor_name=data['reactor_name'].decode('utf-8'),
+                                           reactor_name=name,
                                            assem_size=180,
                                            n_assem_core=int(round(data['capacity']/1000 * 764)),
                                            n_assem_batch=int(round(data['capacity']/3000 * 764)),
@@ -221,7 +226,7 @@ def reactor_render(list, template, mox_template, output_file):
         # if French PWR, use mox template for mox reactor
         elif data['type'].decode('utf-8') == 'PWR' and data['country'].decode('utf-8') == 'France':
             reactor_body = mox_template.render(country=data['country'].decode('utf-8'),
-                                               reactor_name=data['reactor_name'].decode('utf-8'),
+                                               reactor_name=name,
                                                assem_size=523.4,
                                                n_assem_core=int(round(data['capacity']/1000 * 193)),
                                                n_assem_batch=int(round(data['capacity']/3000 * 193)),
@@ -230,7 +235,7 @@ def reactor_render(list, template, mox_template, output_file):
         else:
             reactor_body = template.render(
                                            country=data['country'].decode('utf-8'),
-                                           reactor_name=data['reactor_name'].decode('utf-8'),
+                                           reactor_name=name,
                                            assem_size=523.4,
                                            n_assem_core=int(round(data['capacity']/1000 * 193)),
                                            n_assem_batch=int(round(data['capacity']/3000 * 193)),
