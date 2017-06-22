@@ -999,7 +999,7 @@ def stacked_bar_chart(dictionary, timestep,
             label = str(key)
         # very first country does not have a 'bottom' argument
         if sum(dictionary[key]) == 0:
-            print(str(dictionary[key]) + 'has no values')
+            print(label + ' has no values')
         elif top_index is True:
             plot = plt.bar(left=init_year + (timestep/12),
                            height=dictionary[key],
@@ -1063,8 +1063,8 @@ def plot_power(cursor):
     countries = []
     cur = cursor
     # get power cap values
-    governments = cur.execute('SELECT prototy1pe, agentid FROM agententry '
-                              'WHERE kind = "Inst1"').fetchall()
+    governments = cur.execute('SELECT prototype, agentid FROM agententry '
+                              'WHERE kind = "Inst"').fetchall()
 
     entry = cur.execute('SELECT max(value), timeseriespower.agentid, parentid, entertime '
                         'FROM agententry INNER JOIN timeseriespower '
@@ -1098,21 +1098,20 @@ if __name__ == "__main__":
         cur = con.cursor()
         init_year, init_month, duration, timestep = get_sim_time_duration(cur)
         plot_power(cur)
-        waste_dict = total_waste_timeseries(cur)
-        multi_line_plot(waste_dict, timestep,
-                        'Years', 'Mass[MTHM]',
-                        'Total Waste Mass vs Time',
-                        'total_Waste',
-                        init_year)
+        #waste_dict = total_waste_timeseries(cur)
+        #multi_line_plot(waste_dict, timestep,
+        #                'Years', 'Mass[MTHM]',
+        #                'Total Waste Mass vs Time',
+        #                'total_Waste',
+        #                init_year)
 
-        fuel_dict = fuel_usage_timeseries(cur, ['uox', 'mox','fr_fuel'])
+        fuel_dict = fuel_usage_timeseries(cur, ['uox', 'mox'])
 
         stacked_bar_chart(fuel_dict, timestep,
                           'Years', 'Mass[MTHM]',
                           'Total Fuel Mass vs Time',
                           'total_fuel',
                           init_year)
-
 
         tailings = commodity_from_facility(cur, 'enrichment', ['tailings'])
         stacked_bar_chart(tailings, timestep,
