@@ -78,7 +78,6 @@ def get_agent_ids(cursor, facility):
 
 
 def get_waste_id(resource_list):
-
     """ Gets waste id from a resource list
 
     Parameters
@@ -259,7 +258,7 @@ def get_sim_time_duration(cursor):
     init_year = info[0]
     init_month = info[1]
     duration = info[2]
-    timestep = np.linspace(0, info[2]-1, num=info[2])
+    timestep = np.linspace(0, info[2] - 1, num=info[2])
 
     return init_year, init_month, duration, timestep
 
@@ -297,7 +296,7 @@ def isotope_mass_time_list(resources, compositions):
             mass_waste = res[0]
             res_time = res[1]
             temp_isotope.append(nucid)
-            temp_mass.append(mass_frac*mass_waste)
+            temp_mass.append(mass_frac * mass_waste)
             time_list.append(res_time)
 
     return temp_isotope, temp_mass, time_list
@@ -418,7 +417,7 @@ def get_from_facility(cursor, facility, duration, resources):
                     quantity += resources[index][0]
             except:
                 print('none in this timestep ' + str(i))
-        timeseries.append(quantity/1000)
+        timeseries.append(quantity / 1000)
 
     return timeseries
 
@@ -468,7 +467,6 @@ def total_waste_timeseries(cursor):
     waste_dict['Reprocess Waste'] = get_timeseries(from_separations,
                                                    duration, .001)
     waste_dict['Tails'] = get_timeseries(from_enrichment, duration, .001)
-
 
     return waste_dict
 
@@ -556,7 +554,7 @@ def get_timeseries(list, duration, multiplyby):
     for i in range(0, duration):
         if len(array) > 0:
             value += sum(array[array[:, 0] == i][:, 1])
-        value_timeseries.append(value*multiplyby)
+        value_timeseries.append(value * multiplyby)
 
     return value_timeseries
 
@@ -588,7 +586,7 @@ def get_timeseries_no_cum(list, duration, multiplyby):
     for i in range(0, duration):
         value = sum(array[array[:, 0] == i][:, 1])
 
-        value_timeseries.append(value*multiplyby)
+        value_timeseries.append(value * multiplyby)
 
     return value_timeseries
 
@@ -629,9 +627,11 @@ def final_stockpile(cursor, facility):
             masses = cur.execute('SELECT * FROM compositions'
                                  'WHERE qualid = ' + str(stream[2])).fetchall()
 
-            outstring += 'Stream ' + str(count) + ' Total = ' + str(stream[0]) + ' kg \n'
+            outstring += 'Stream ' + \
+                str(count) + ' Total = ' + str(stream[0]) + ' kg \n'
             for isotope in masses:
-                outstring += str(isotope[2]) + ' = ' + str(isotope[3]*stream[0]) + ' kg \n'
+                outstring += str(isotope[2]) + ' = ' + \
+                    str(isotope[3] * stream[0]) + ' kg \n'
             outstring += '\n'
             count += 1
         outstring += '\n'
@@ -639,10 +639,9 @@ def final_stockpile(cursor, facility):
 
     return outstring
 
-
     return outstring
 
- 
+
 def fuel_usage_timeseries(cursor, fuel_list):
     """ Calculates total fuel usage over time
 
@@ -666,7 +665,7 @@ def fuel_usage_timeseries(cursor, fuel_list):
     for fuel in fuel_list:
         temp_list = ['"' + fuel + '"']
         fuel_quantity = cur.execute(exec_string(temp_list, 'commodity',
-                                    'time, sum(quantity)')
+                                                'time, sum(quantity)')
                                     + ' GROUP BY time').fetchall()
         init_year, init_month, duration, timestep = get_sim_time_duration(cur)
         total_sum = 0
@@ -677,7 +676,6 @@ def fuel_usage_timeseries(cursor, fuel_list):
             fuel_dict[fuel] = quantity_timeseries
         except:
             print(str(fuel) + ' has not been used.')
-
 
     return fuel_dict
 
@@ -700,7 +698,7 @@ def nat_u_timeseries(cursor):
 
     init_year, init_month, duration, timestep = get_sim_time_duration(cur)
 
-    #Get Nat U feed to enrichment from timeseriesenrichmentfeed
+    # Get Nat U feed to enrichment from timeseriesenrichmentfeed
     feed = cursor.execute('SELECT time, sum(value) FROM timeseriesenrichmentfeed '
                           'GROUP BY time').fetchall()
     return get_timeseries(feed, duration, .001)
@@ -728,7 +726,6 @@ def fuel_into_reactors(cursor):
                           'WHERE spec LIKE "%Reactor%" '
                           'GROUP BY time').fetchall()
 
-
     return get_timeseries(fuel, duration, .001)
 
 
@@ -754,14 +751,12 @@ def u_util_calc(cursor):
 
     # timeseries of Uranium utilization
     u_util_timeseries = np.nan_to_num(u_supply_timeseries / fuel_timeseries)
-    print(u_util_timeseries)
     # print the simulation average uranium utilization
     print('The Simulation Average Uranium Utilization is:')
-    print(sum(u_util_timeseries)/len(u_util_timeseries))
+    print(sum(u_util_timeseries) / len(u_util_timeseries))
 
     # return dictionary of u_util_timeseries
     return u_util_timeseries
-
 
 
 def where_comm(cursor, commodity, prototypes):
@@ -794,7 +789,8 @@ def where_comm(cursor, commodity, prototypes):
 
     for agent in prototypes:
         agentid = get_agent_id_from_prototype(cur, agent)
-        from_agent = cur.execute(execute_string.replace('9999', agentid)).fetchall()
+        from_agent = cur.execute(
+            execute_string.replace('9999', agentid)).fetchall()
         trade_dict[agent] = get_timeseries(from_agent, duration, .001)
 
     return trade_dict
@@ -929,9 +925,7 @@ def get_agent_id_from_prototype(cursor, prototype):
         return agentid
 
 
-
 def capacity_calc(governments, timestep, entry, exit_step):
-
     """Adds and subtracts capacity over time for plotting
 
     Parameters
@@ -973,7 +967,7 @@ def capacity_calc(governments, timestep, entry, exit_step):
                 gov_agentid = gov[1]
                 power_cap = enter[0]
                 if entertime == t and parentgov == gov_agentid:
-                    cap += power_cap/1000
+                    cap += power_cap / 1000
                     count += 1
             for dec in exit_step:
                 exittime = dec[3]
@@ -981,7 +975,7 @@ def capacity_calc(governments, timestep, entry, exit_step):
                 gov_agentid = gov[1]
                 power_cap = dec[0]
                 if exittime == t and parentgov == gov_agentid:
-                    cap -= power_cap/1000
+                    cap -= power_cap / 1000
                     count -= 1
             capacity.append(cap)
             num_reactors.append(count)
@@ -1028,12 +1022,13 @@ def multi_line_plot(dictionary, timestep,
         else:
             label = str(key)
 
-        plt.plot(init_year + (timestep/12),
+        plt.plot(init_year + (timestep / 12),
                  dictionary[key],
                  label=label)
         color_index += 1
         ax = plt.gca()
-        ax.get_yaxis().set_major_formatter(plt.FuncFormatter(lambda x, loc: "{:,}".format(int(x))))
+        ax.get_yaxis().set_major_formatter(
+            plt.FuncFormatter(lambda x, loc: "{:,}".format(int(x))))
         plt.ylabel(ylabel)
         plt.title(title)
         plt.xlabel(xlabel)
@@ -1085,33 +1080,36 @@ def stacked_bar_chart(dictionary, timestep,
         if sum(dictionary[key]) == 0:
             print(label + ' has no values')
         elif top_index is True:
-            plot = plt.bar(left=init_year + (timestep/12),
+            plot = plt.bar(left=init_year + (timestep / 12),
                            height=dictionary[key],
                            width=0.1,
-                           color=cm.viridis(1.*color_index/len(dictionary)),
+                           color=cm.viridis(
+                               1. * color_index / len(dictionary)),
                            edgecolor='none',
                            label=label)
             prev = dictionary[key]
             ax = plt.gca()
-            ax.get_yaxis().set_major_formatter(plt.FuncFormatter(lambda x, loc: "{:,}".format(int(x))))
+            ax.get_yaxis().set_major_formatter(
+                plt.FuncFormatter(lambda x, loc: "{:,}".format(int(x))))
             top_index = False
             plot_list.append(plot)
 
         # All curves except the first have a 'bottom'
         # defined by the previous curve
         else:
-            plot = plt.bar(left=init_year + (timestep/12),
+            plot = plt.bar(left=init_year + (timestep / 12),
                            height=dictionary[key],
                            width=0.1,
-                           color=cm.viridis(1.*color_index/len(dictionary)),
+                           color=cm.viridis(
+                               1. * color_index / len(dictionary)),
                            edgecolor='none',
                            bottom=prev,
                            label=label)
             prev = np.add(prev, dictionary[key])
             ax = plt.gca()
-            ax.get_yaxis().set_major_formatter(plt.FuncFormatter(lambda x, loc: "{:,}".format(int(x))))
+            ax.get_yaxis().set_major_formatter(
+                plt.FuncFormatter(lambda x, loc: "{:,}".format(int(x))))
             plot_list.append(plot)
-
 
         color_index += 1
 
@@ -1182,13 +1180,13 @@ if __name__ == "__main__":
 
         cur = con.cursor()
         init_year, init_month, duration, timestep = get_sim_time_duration(cur)
-        
-        dictionary ={}
+
+        dictionary = {}
         dictionary['uranium_utilization'] = u_util_calc(cur)
         stacked_bar_chart(dictionary, timestep,
                           'Years', 'U Utilization Factor',
                           'U Utilization vs Time',
-                          'u_util', init_year )
+                          'u_util', init_year)
         """
         init_year, init_month, duration, timestep = get_sim_time_duration(cur)
         plot_power(cur)
