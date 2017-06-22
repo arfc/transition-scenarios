@@ -67,7 +67,7 @@ def get_agent_ids(cursor, facility):
 
     cur = cursor
     agent_id = []
-    agent = cur.execute("select * from agententry where spec like '%"
+    agent = cur.execute("SELECT * FROM agententry WHERE spec LIKE '%"
                         + facility + "%'").fetchall()
 
     for ag in agent:
@@ -121,8 +121,8 @@ def exec_string(list, search, whatwant):
         sqlite query command.
     """
 
-    exec_str = ('SELECT ' + whatwant + """ FROM resources INNER JOIN transactions
-                ON transactions.resourceid = resources.resourceid WHERE """
+    exec_str = ('SELECT ' + whatwant + ' FROM resources INNER JOIN transactions '
+                'ON transactions.resourceid = resources.resourceid WHERE '
                 + str(search) + ' = ' + str(list[0]))
 
     for ar in list[1:]:
@@ -180,7 +180,7 @@ def isotope_calc(wasteid_array, snf_inventory, cursor):
     # Get compositions of different waste
     # SimId / QualId / NucId / MassFrac
     cur = cursor
-    comps = cur.execute('select * from compositions').fetchall()
+    comps = cur.execute('SELECT * FROM compositions').fetchall()
     total_snf_mass = get_sum(snf_inventory, 0)
 
     nuclide_inven = 'total snf inventory = ' + str(total_snf_mass) + 'kg \n'
@@ -252,8 +252,8 @@ def get_sim_time_duration(cursor):
     """
     cur = cursor
 
-    info = cur.execute('SELECT initialyear, initialmonth,'
-                       + ' duration FROM info').fetchone()
+    info = cur.execute('SELECT initialyear, initialmonth, '
+                       'duration FROM info').fetchone()
     init_year = info[0]
     init_month = info[1]
     duration = info[2]
@@ -336,8 +336,8 @@ def plot_in_out_flux(cursor, facility, influx_bool, title, outputname):
                                             'sum(quantity), time, qualid')
                                 + ' GROUP BY time, qualid').fetchall()
 
-    compositions = cur.execute('SELECT qualid, nucid, massfrac\
-                               FROM compositions').fetchall()
+    compositions = cur.execute('SELECT qualid, nucid, massfrac '
+                               'FROM compositions').fetchall()
 
     init_year, init_month, duration, timestep = get_sim_time_duration(cur)
     isotope, mass, time_list = isotope_mass_time_list(resources, compositions)
@@ -415,7 +415,7 @@ def get_from_facility(cursor, facility, duration, resources):
                 if str(resources[index][1]) in agentid:
                     quantity += resources[index][0]
             except:
-                print('none in this timestep' + str(i))
+                print('none in this timestep ' + str(i))
         timeseries.append(quantity/1000)
 
     return timeseries
@@ -442,9 +442,9 @@ def total_waste_timeseries(cursor):
                           'transactions.receiverId',
                           ' time, sum(quantity), senderid, spec')
               + ' GROUP BY time, senderid')
-    string = string.replace('where', 'inner join agententry\
-                                      on transactions.senderid = \
-                                      agententry.agentid where')
+    string = string.replace('WHERE', 'INNER JOIN agententry '
+                                     'ON transactions.senderid = '
+                                     'agententry.agentid WHERE')
     resources = cur.execute(string).fetchall()
 
     from_reactor = []
@@ -519,8 +519,8 @@ def get_swu_dict(cursor):
     init_year, init_month, duration, timestep = get_sim_time_duration(cur)
     facility_num = 1
     for num in agentid:
-        swu_data = cur.execute('SELECT time, value FROM timeseriesenrichmentswu \
-                               WHERE agentid = ' + str(num)).fetchall()
+        swu_data = cur.execute('SELECT time, value FROM timeseriesenrichmentswu '
+                               'WHERE agentid = ' + str(num)).fetchall()
         swu_timeseries = get_timeseries(swu_data, duration, 1)
         swu_dict['Enrichment' + str(facility_num)] = swu_timeseries
         facility_num += 1
@@ -611,21 +611,21 @@ def final_stockpile(cursor, facility):
     outstring = ''
     for agent in agentid:
         count = 1
-        name = cur.execute('SELECT prototype FROM agententry\
-                            WHERE agentid = ' + str(agent)).fetchone()
+        name = cur.execute('SELECT prototype FROM agententry'
+                           'WHERE agentid = ' + str(agent)).fetchone()
 
         outstring += 'The Stockpile in ' + str(name[0]) + ' : \n \n'
-        stockpile = cur.execute("""SELECT sum(quantity), inventoryname, qualid
-                                 FROM agentstateinventories
-                                 INNER JOIN resources
-                                 ON resources.resourceid
-                                 = agentstateinventories.resourceid
-                                 WHERE agentstateinventories.agentid
-                                 = """ + str(agent) + """ GROUP BY
-                                 inventoryname""").fetchall()
+        stockpile = cur.execute('SELECT sum(quantity), inventoryname, qualid '
+                                'FROM agentstateinventories'
+                                'INNER JOIN resources '
+                                'ON resources.resourceid '
+                                '= agentstateinventories.resourceid '
+                                'WHERE agentstateinventories.agentid '
+                                '= """ + str(agent) + """ GROUP BY '
+                                'inventoryname').fetchall()
         for stream in stockpile:
-            masses = cur.execute('SELECT * FROM compositions\
-                                 WHERE qualid = ' + str(stream[2])).fetchall()
+            masses = cur.execute('SELECT * FROM compositions'
+                                 'WHERE qualid = ' + str(stream[2])).fetchall()
 
             outstring += 'Stream ' + str(count) + ' Total = ' + str(stream[0]) + ' kg \n'
             for isotope in masses:
@@ -700,11 +700,11 @@ def where_comm(cursor, commodity, prototypes):
     cur = cursor
     init_year, init_month, duration, timestep = get_sim_time_duration(cur)
 
-    execute_string = """SELECT time, sum(quantity) FROM transactions\
-                     INNER JOIN resources ON resources.resourceid = \
-                     transactions.resourceid WHERE commodity\
-                      = """ + '"' + commodity + '"' + ' AND senderid\
-                      = 9999 GROUP BY time'
+    execute_string = ('SELECT time, sum(quantity) FROM transactions'
+                      'INNER JOIN resources ON resources.resourceid = '
+                      'transactions.resourceid WHERE commodity '
+                      '= "' + commodity + '"' + ' AND senderid '
+                      '= 9999 GROUP BY time')
 
     trade_dict = collections.OrderedDict()
 
@@ -774,9 +774,9 @@ def power_timeseries(cursor):
     cur = cursor
     power_timeseries_dict = collections.OrderedDict()
 
-    timeseriespower = np.array(cur.execute('SELECT  time, sum(value) FROM\
-                                           timeseriespower\
-                                           GROUP BY time').fetchall())
+    timeseriespower = np.array(cur.execute('SELECT  time, sum(value) FROM '
+                                           'timeseriespower '
+                                           'GROUP BY time').fetchall())
     init_year, init_month, duration, timestep = get_sim_time_duration(cur)
     timeseriespower = get_timeseries_no_cum(timeseriespower, duration, 1)
     power_timeseries_dict['powertimeseries'] = timeseriespower[1:]
@@ -808,11 +808,11 @@ def trade_timeseries(cursor, sender, receiver):
     senderid = get_agent_id_from_prototype(cur, sender)
     receiverid = get_agent_id_from_prototype(cur, receiver)
 
-    trade_ledger = cur.execute('SELECT time, sum(quantity) FROM transactions\
-                                INNER JOIN resources ON resources.resourceid =\
-                                transactions.resourceid WHERE senderid = '
-                                + senderid + ' AND receiverid = '
-                                + receiverid + ' GROUP BY time').fetchall()
+    trade_ledger = cur.execute('SELECT time, sum(quantity) FROM transactions '
+                               'INNER JOIN resources ON resources.resourceid = '
+                               'transactions.resourceid WHERE senderid = '
+                               + senderid + ' AND receiverid = '
+                               + receiverid + ' GROUP BY time').fetchall()
     return get_timeseries(trade_ledger, duration, .001)
 
 
@@ -832,8 +832,8 @@ def get_agent_id_from_prototype(cursor, prototype):
     """
 
     cur = cursor
-    id = cur.execute('SELECT agentid FROM agententry\
-                      WHERE prototype = "' + prototype + '"').fetchall()
+    id = cur.execute('SELECT agentid FROM agententry '
+                     'WHERE prototype = "' + prototype + '"').fetchall()
 
     if len(id) > 0:
         agentid = re.findall('\d+', str(id[0]))[0]
@@ -1063,22 +1063,22 @@ def plot_power(cursor):
     countries = []
     cur = cursor
     # get power cap values
-    governments = cur.execute('SELECT prototype, agentid FROM agententry\
-                              WHERE kind = "Inst"').fetchall()
+    governments = cur.execute('SELECT prototype, agentid FROM agententry '
+                              'WHERE kind = "Inst"').fetchall()
 
-    entry = cur.execute('SELECT max(value), timeseriespower.agentid, parentid, entertime\
-                         FROM agententry INNER JOIN timeseriespower\
-                         ON agententry.agentid = timeseriespower.agentid\
-                         GROUP BY timeseriespower.agentid').fetchall()
+    entry = cur.execute('SELECT max(value), timeseriespower.agentid, parentid, entertime '
+                        'FROM agententry INNER JOIN timeseriespower '
+                        'ON agententry.agentid = timeseriespower.agentid '
+                        'GROUP BY timeseriespower.agentid').fetchall()
 
-    exit_step = cur.execute('SELECT max(value), timeseriespower.agentid, parentid, exittime\
-                        FROM agentexit INNER JOIN\
-                        timeseriespower\
-                        ON agentexit.agentid =\
-                        timeseriespower.agentid\
-                        INNER JOIN agententry\
-                        ON agentexit.agentid = agententry.agentid\
-                        group by timeseriespower.agentid').fetchall()
+    exit_step = cur.execute('SELECT max(value), timeseriespower.agentid, parentid, exittime '
+                            'FROM agentexit INNER JOIN '
+                            'timeseriespower '
+                            'ON agentexit.agentid = '
+                            'timeseriespower.agentid '
+                            'INNER JOIN agententry '
+                            'ON agentexit.agentid = agententry.agentid '
+                            'GROUP BY timeseriespower.agentid').fetchall()
     power_dict, num_dict = capacity_calc(governments, timestep,
                                          entry, exit_step)
 
