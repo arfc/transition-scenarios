@@ -26,15 +26,7 @@ def snf(cursor):
         inventory of individual nuclides
         in format nuclide = mass [kg]
     """
-
-    cur = cursor
-
     sink_id = get_agent_ids(cur, 'sink')
-
-    # get resources that ended up in sink.
-    resources = cur.execute(exec_string(sink_id,
-                                        'transactions.receiverId',
-                                        'qualid')).fetchall()
 
     # get list of sum(quantity) and qualid for snf
     snf_inventory = cur.execute(exec_string(sink_id,
@@ -42,8 +34,7 @@ def snf(cursor):
                                             'sum(quantity), qualid')
                                 + ' group by qualid').fetchall()
 
-    waste_id = get_waste_ids(cursor)
-    return isotope_calc(waste_id, snf_inventory, cur)
+    return isotope_calc(snf_inventory, cur)
 
 
 def get_agent_ids(cursor, facility):
@@ -77,27 +68,6 @@ def get_agent_ids(cursor, facility):
     return agent_id
 
 
-def get_waste_ids(cursor):
-    """ Gets waste id from a cursor
-
-    Parameters
-    ---------
-    cursor: cursor
-        cursor for sqlite3
-
-    Returns
-    -------
-    waste_id: list
-        list of qualId for waste
-    """
-    sink_id = get_agent_ids(cursor, 'sink')
-    resources = cursor.execute(exec_string(sink_id,
-                                           'transactions.receiverId',
-                                           'qualid') +
-                               ' GROUP BY qualid').fetchall()
-    return list(resource[0] for resource in resources)
-
-
 def exec_string(in_list, search, whatwant):
     """ Generates sqlite query command to select things and
         inner join between resources and transactions.
@@ -129,7 +99,7 @@ def exec_string(in_list, search, whatwant):
     return query
 
 
-def isotope_calc(wasteid_array, snf_inventory, cursor):
+def isotope_calc(snf_inventory, cursor):
     """ Calculates isotope mass using mass fraction in compositions table.
 
         Fetches all compositions from compositions table.
