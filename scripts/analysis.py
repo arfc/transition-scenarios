@@ -100,14 +100,14 @@ def get_waste_id(resource_list):
     return set(wasteid)
 
 
-def exec_string(list, search, whatwant):
+def exec_string(in_list, search, whatwant):
     """ Generates sqlite query command to select things and
         inner join between resources and transactions.
 
     Parameters
     ---------
 
-    list: list
+    in_list: list
         list of criteria that generates command
     search: str
         where [search]
@@ -121,15 +121,14 @@ def exec_string(list, search, whatwant):
     str
         sqlite query command.
     """
-
-    exec_str = ('SELECT ' + whatwant + ' FROM resources INNER JOIN transactions '
-                'ON transactions.resourceid = resources.resourceid WHERE '
-                + str(search) + ' = ' + str(list[0]))
-
-    for ar in list[1:]:
-        exec_str += ' OR ' + str(search) + ' = ' + str(ar)
-
-    return exec_str
+    query = ("SELECT " + whatwant +
+             " FROM resources INNER JOIN transactions"
+             " ON transactions.resourceid = resources.resourceid"
+             " WHERE (" + str(search) + ' = ' + str(in_list[0]) + ')'
+             )
+    for item in in_list[1:]:
+        query += ' OR (' + str(search) + ' = ' + str(item) + ')'
+    return query
 
 
 def get_sum(list, column_index):
