@@ -29,12 +29,18 @@ def snf(cursor):
     sink_id = get_agent_ids(cur, 'sink')
 
     # get list of sum(quantity) and qualid for snf
-    snf_inventory = cur.execute(exec_string(sink_id,
-                                            'transactions.receiverId',
-                                            'sum(quantity), qualid')
-                                + ' group by qualid').fetchall()
-
-    return isotope_calc(snf_inventory, cur)
+    snf_inventory = cursor.execute(exec_string(sink_id,
+                                               'transactions.receiverId',
+                                               'sum(quantity), qualid')
+                                   + ' group by qualid').fetchall()
+    compositions = cursor.execute('SELECT qualid, nucid, massfrac '
+                                  'FROM compositions').fetchall()
+    snf_dict = collections.defaultdict(float)
+    for comp in compositions:
+        for num in snf_inventory:
+            if num[0] == comp[0]:
+                snf_dict[comp[1]] += num[1] * comp[2]
+    return snf_dict
 
 
 def get_agent_ids(cursor, facility):
@@ -90,85 +96,6 @@ def exec_string(in_list, search, whatwant):
     for item in in_list[1:]:
         query += ' OR (' + str(search) + ' = ' + str(item) + ')'
     return query
-
-
-def isotope_calc(snf_inventory, cursor):
-    """ Calculates isotope mass using mass fraction in compositions table.
-
-        Fetches all compositions from compositions table.
-        Compositions table has the following format:
-            SimId / QualId / NucId / MassFrac
-        Then sees if the qualid matches, and if it does, multiplies
-        the mass fraction by the snf_inventory.
-
-    Parameters
-    ---------
-    wasteid_list: list
-        list of qualid of wastes
-    snf_inventory: float
-        total mass of snf [kg]
-    cursor: cursor
-        cursor for sqlite3
-
-    Returns
-    -------
-    nuclide_inven: list
-        inventory of individual nuclides.
-    """
-
-    # Get compositions of different waste
-    # SimId / QualId / NucId / MassFrac
-    cur = cursor
-    comps = cur.execute('SELECT * FROM compositions').fetchall()
-    total_snf_mass = sum(snf_inventory[0])
-
-    nuclide_inven = 'total snf inventory = ' + str(total_snf_mass) + 'kg \n'
-    nuclides = []
-    mass_of_nuclides = []
-    # if the 'qualid's match,
-    # the nuclide quantity and calculated and displayed.
-    for comp in comps:
-        for num in snf_inventory:
-            inv_qualid = num[1]
-            comp_qualid = comp[1]
-            if inv_qualid == comp_qualid:
-                comp_tot_mass = num[0]
-                mass_frac = comp[3]
-                nuclide_quantity = comp_tot_mass * mass_frac
-                nucid = comp[2]
-                nuclide_name = nucid
-                nuclides.append(nuclide_name)
-                mass_of_nuclides.append(nuclide_quantity)
-    return sum_nuclide_to_dict(nuclides, mass_of_nuclides)
-
-
-def sum_nuclide_to_dict(nuclides, nuclides_mass):
-    """takes a nuclide set and returns a dictionary with the masses of each nuclide
-
-    Parameters
-    ----------
-    nuclides: list
-        list of nuclides in the waste
-    nuclides_mass: list
-        list of nuclides' mass
-
-    Returns
-    -------
-    dict
-        dictionary of nuclide name and mass
-    """
-
-    nuclide_set = set(nuclides)
-    mass_dict = collections.OrderedDict()
-
-    for nuclide in nuclide_set:
-        temp_nuclide_sum = 0
-        indeces = [i for i, x in enumerate(nuclides) if x == nuclide]
-        for index in indeces:
-            temp_nuclide_sum += nuclides_mass[index]
-        mass_dict[str(nuclide)] = temp_nuclide_sum
-
-    return mass_dict
 
 
 def get_sim_time_duration(cursor):
