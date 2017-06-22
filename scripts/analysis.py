@@ -5,6 +5,8 @@ import matplotlib.pyplot as plt
 from matplotlib import cm
 import collections
 import re
+from operator import truediv
+
 
 if len(sys.argv) < 2:
     print('Usage: python analysis.py [cylus_output_file]')
@@ -680,6 +682,88 @@ def fuel_usage_timeseries(cursor, fuel_list):
     return fuel_dict
 
 
+def nat_u_timeseries(cursor):
+    """ Finds natural uranium supply from source
+
+            Since currently the source supplies all its capacity,
+            the timeseriesenrichmentfeed is used.
+
+    Parameters
+    ----------
+    cursor: sqlite cursor
+        sqlite cursor
+
+    Returns
+    -------
+    Timeseries of natural U demand from enrichment [MTHM]
+    """
+
+    init_year, init_month, duration, timestep = get_sim_time_duration(cur)
+
+    #Get Nat U feed to enrichment from timeseriesenrichmentfeed
+    feed = cursor.execute('SELECT time, sum(value) FROM timeseriesenrichmentfeed '
+                          'GROUP BY time').fetchall()
+    return get_timeseries(feed, duration, .001)
+
+
+def fuel_into_reactors(cursor):
+    """ Finds timeseries of mass of fuel received by reactors
+
+    Parameters
+    ----------
+    cursor: sqlite cursor
+        sqlite cursor
+
+    Returns
+    -------
+    Timeseries of mass of fuel into receactors [MTHM]
+    """
+
+    init_year, init_month, duration, timestep = get_sim_time_duration(cur)
+    fuel = cursor.execute('SELECT time, sum(quantity) FROM transactions '
+                          'INNER JOIN resources ON '
+                          'resources.resourceid = transactions.resourceid '
+                          'INNER JOIN agententry ON '
+                          'transactions.receiverid = agententry.agentid '
+                          'WHERE spec LIKE "%Reactor%" '
+                          'GROUP BY time').fetchall()
+
+
+    return get_timeseries(fuel, duration, .001)
+
+
+def u_util_calc(cursor):
+    """ Returns fuel utilization factor of fuel cycle
+
+    Parameters
+    ----------
+    cursor: sqlite cursor
+        sqlite cursor
+
+    Returns
+    -------
+    Timeseries of Uranium utilization factor
+    Prints simulation average Uranium Utilization
+    """
+
+    # timeseries of natural uranium
+    u_supply_timeseries = np.array(nat_u_timeseries(cursor))
+
+    # timeseries of fuel into reactors
+    fuel_timeseries = np.array(fuel_into_reactors(cursor))
+
+    # timeseries of Uranium utilization
+    u_util_timeseries = np.nan_to_num(u_supply_timeseries / fuel_timeseries)
+    print(u_util_timeseries)
+    # print the simulation average uranium utilization
+    print('The Simulation Average Uranium Utilization is:')
+    print(sum(u_util_timeseries)/len(u_util_timeseries))
+
+    # return dictionary of u_util_timeseries
+    return u_util_timeseries
+
+
+
 def where_comm(cursor, commodity, prototypes):
     """ Returns dict of where fuel is from
 
@@ -1095,7 +1179,17 @@ if __name__ == "__main__":
     file = sys.argv[1]
     con = lite.connect(file)
     with con:
+
         cur = con.cursor()
+        init_year, init_month, duration, timestep = get_sim_time_duration(cur)
+        
+        dictionary ={}
+        dictionary['uranium_utilization'] = u_util_calc(cur)
+        stacked_bar_chart(dictionary, timestep,
+                          'Years', 'U Utilization Factor',
+                          'U Utilization vs Time',
+                          'u_util', init_year )
+        """
         init_year, init_month, duration, timestep = get_sim_time_duration(cur)
         plot_power(cur)
         #waste_dict = total_waste_timeseries(cur)
@@ -1119,3 +1213,4 @@ if __name__ == "__main__":
                           'Tailings vs Time',
                           'tailings',
                           init_year)
+"""
