@@ -259,7 +259,7 @@ def get_stockpile(cursor, facility):
     query = query.replace('transactions', 'agentstateinventories')
     stockpile = cursor.execute(query).fetchall()
     init_year, init_month, duration, timestep = get_sim_time_duration(cursor)
-    stock_timeseries = get_timeseries(stockpile, duration, .001)
+    stock_timeseries = get_timeseries(stockpile, duration, .001, 'TRUE')
     pile_dict[facility] = stock_timeseries
 
     return pile_dict
@@ -284,19 +284,19 @@ def get_swu_dict(cursor):
     for num in agentid:
         swu_data = cursor.execute('SELECT time, value FROM timeseriesenrichmentswu '
                                   'WHERE agentid = ' + str(num)).fetchall()
-        swu_timeseries = get_timeseries(swu_data, duration, 1)
+        swu_timeseries = get_timeseries(swu_data, duration, 1, 'TRUE')
         swu_dict['Enrichment' + str(facility_num)] = swu_timeseries
         facility_num += 1
 
     return swu_dict
 
 
-def get_timeseries(list, duration, multiplyby):
+def get_timeseries(in_list, duration, multiplyby, cumulative):
     """ returns a timeseries list of a given data
 
     Parameters
     ----------
-    list: list
+    in_list: list
         list of data to be created into timeseries
         list[0] = time
         list[1] = value, quantity
@@ -304,6 +304,8 @@ def get_timeseries(list, duration, multiplyby):
         duration of the simulation
     multiplyby: int
         integer to multiply the value in the list by
+    cumulative: boolean
+        determine whether data is cumulative
 
     Returns
     -------
@@ -312,44 +314,16 @@ def get_timeseries(list, duration, multiplyby):
 
     value = 0
     value_timeseries = []
-    array = np.array(list)
-
-    for i in range(0, duration):
-        if len(array) > 0:
-            value += sum(array[array[:, 0] == i][:, 1])
-        value_timeseries.append(value * multiplyby)
-
-    return value_timeseries
-
-
-def get_timeseries_no_cum(list, duration, multiplyby):
-    """ returns a timeseries list of a given data (numbers are not cumulative)
-
-    Parameters
-    ----------
-    list: list
-        list of data to be created into timeseries
-        list[0] = time
-        list[1] = value, quantity
-    duration: int
-        duration of the simulation
-    multiplyby: int
-        integer to multiply the value in the list by
-
-
-    Returns
-    -------
-    timeseries list of data
-    """
-
-    value = 0
-    value_timeseries = []
-    array = np.array(list)
-
-    for i in range(0, duration):
-        value = sum(array[array[:, 0] == i][:, 1])
-
-        value_timeseries.append(value * multiplyby)
+    array = np.array(in_list)
+    if cumulative:
+        for i in range(0, duration):
+            if len(array) > 0:
+                value += sum(array[array[:, 0] == i][:, 1])
+            value_timeseries.append(value * multiplyby)
+    else:
+        for i in range(0, duration):
+            value = sum(array[array[:, 0] == i][:, 1])
+            value_timeseries.append(value * multiplyby)
 
     return value_timeseries
 
@@ -383,7 +357,8 @@ def fuel_usage_timeseries(cursor, fuel_list):
         quantity_timeseries = []
 
         try:
-            quantity_timeseries = get_timeseries(fuel_quantity, duration, .001)
+            quantity_timeseries = get_timeseries(
+                fuel_quantity, duration, .001, 'TRUE')
             fuel_dict[fuel] = quantity_timeseries
         except:
             print(str(fuel) + ' has not been used.')
@@ -412,7 +387,7 @@ def nat_u_timeseries(cursor):
     # Get Nat U feed to enrichment from timeseriesenrichmentfeed
     feed = cursor.execute('SELECT time, sum(value) FROM timeseriesenrichmentfeed '
                           'GROUP BY time').fetchall()
-    return get_timeseries(feed, duration, .001)
+    return get_timeseries(feed, duration, .001, 'TRUE')
 
 
 def power_timeseries(cursor):
@@ -435,7 +410,7 @@ def power_timeseries(cursor):
                                               'timeseriespower '
                                               'GROUP BY time').fetchall())
     init_year, init_month, duration, timestep = get_sim_time_duration(cursor)
-    timeseriespower = get_timeseries_no_cum(timeseriespower, duration, 1)
+    timeseriespower = get_timeseries(timeseriespower, duration, 1, 'FALSE')
     power_timeseries_dict['powertimeseries'] = timeseriespower[1:]
 
     return power_timeseries_dict
@@ -468,7 +443,7 @@ def trade_timeseries(cursor, sender, receiver):
                                   + ' OR '.join(senderid) +
                                   ') AND receiverid = ('
                                   + ' OR '.join(receiverid) + ' GROUP BY time').fetchall()
-    return get_timeseries(trade_ledger, duration, .001)
+    return get_timeseries(trade_ledger, duration, .001, 'TRUE')
 
 
 def final_stockpile(cursor, facility):
@@ -541,7 +516,7 @@ def fuel_into_reactors(cursor):
                           'WHERE spec LIKE "%Reactor%" '
                           'GROUP BY time').fetchall()
 
-    return get_timeseries(fuel, duration, .001)
+    return get_timeseries(fuel, duration, .001, 'TRUE')
 
 
 def u_util_calc(cursor):
@@ -604,7 +579,7 @@ def where_comm(cursor, commodity, prototypes):
         agent_id = get_prototype_id(cursor, agent)
         from_agent = cursor.execute(
             execute_string.replace('9999', agent_ids)).fetchall()
-        trade_dict[agent] = get_timeseries(from_agent, duration, .001)
+        trade_dict[agent] = get_timeseries(from_agent, duration, .001, 'TRUE')
 
     return trade_dict
 
@@ -988,10 +963,12 @@ def plot_total_waste_timeseries(cursor):
     init_year, init_month, duration, timestep = get_sim_time_duration(cursor)
     waste_dict = collections.OrderedDict()
 
-    waste_dict['Spent Fuel'] = get_timeseries(from_reactor, duration, .001)
+    waste_dict['Spent Fuel'] = get_timeseries(
+        from_reactor, duration, .001, 'TRUE')
     waste_dict['Reprocess Waste'] = get_timeseries(from_separations,
-                                                   duration, .001)
-    waste_dict['Tails'] = get_timeseries(from_enrichment, duration, .001)
+                                                   duration, .001, 'TRUE')
+    waste_dict['Tails'] = get_timeseries(
+        from_enrichment, duration, .001, 'TRUE')
 
     return waste_dict
 
