@@ -120,6 +120,43 @@ def get_sim_time_duration(cursor):
     return init_year, init_month, duration, timestep
 
 
+def get_timeseries(in_list, duration, multiplyby, cumulative):
+    """ returns a timeseries list of a given data
+
+    Parameters
+    ----------
+    in_list: list
+        list of data to be created into timeseries
+        list[0] = time
+        list[1] = value, quantity
+    duration: int
+        duration of the simulation
+    multiplyby: int
+        integer to multiply the value in the list by
+    cumulative: boolean
+        determine whether data is cumulative
+
+    Returns
+    -------
+    timeseries list of data
+    """
+
+    value = 0
+    value_timeseries = []
+    array = np.array(in_list)
+    if cumulative:
+        for i in range(0, duration):
+            if len(array) > 0:
+                value += sum(array[array[:, 0] == i][:, 1])
+            value_timeseries.append(value * multiplyby)
+    else:
+        for i in range(0, duration):
+            value = sum(array[array[:, 0] == i][:, 1])
+            value_timeseries.append(value * multiplyby)
+
+    return value_timeseries
+
+
 """GETTERS"""
 
 
@@ -289,43 +326,6 @@ def get_swu_dict(cursor):
         facility_num += 1
 
     return swu_dict
-
-
-def get_timeseries(in_list, duration, multiplyby, cumulative):
-    """ returns a timeseries list of a given data
-
-    Parameters
-    ----------
-    in_list: list
-        list of data to be created into timeseries
-        list[0] = time
-        list[1] = value, quantity
-    duration: int
-        duration of the simulation
-    multiplyby: int
-        integer to multiply the value in the list by
-    cumulative: boolean
-        determine whether data is cumulative
-
-    Returns
-    -------
-    timeseries list of data
-    """
-
-    value = 0
-    value_timeseries = []
-    array = np.array(in_list)
-    if cumulative:
-        for i in range(0, duration):
-            if len(array) > 0:
-                value += sum(array[array[:, 0] == i][:, 1])
-            value_timeseries.append(value * multiplyby)
-    else:
-        for i in range(0, duration):
-            value = sum(array[array[:, 0] == i][:, 1])
-            value_timeseries.append(value * multiplyby)
-
-    return value_timeseries
 
 
 def fuel_usage_timeseries(cursor, fuel_list):
