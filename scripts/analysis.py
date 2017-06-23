@@ -128,7 +128,7 @@ def get_sim_time_duration(cursor):
     return init_year, init_month, duration, timestep
 
 
-def isotope_mass_time_list(resources, compositions):
+def get_isotope_transactions(resources, compositions):
     """Creates an list with isotope name, mass, and time
 
     Parameters
@@ -140,31 +140,16 @@ def isotope_mass_time_list(resources, compositions):
 
     Returns
     -------
-    list
-        isotope name list
-    list
-        isotope mass list
-    list
-        isotope transaction time list
-
+    transactions: dictionary
+        dictionary with keys as isotop and value as a
+        list of tuples (mass moved, time)
     """
-
-    temp_isotope = []
-    temp_mass = []
-    time_list = []
+    transactions = collections.defaultdict(list)
     for res in resources:
-        res_qualid = res[2]
-        indices = [x for x, y in enumerate(compositions) if y[0] == res_qualid]
-        for index in indices:
-            nucid = compositions[index][1]
-            mass_frac = compositions[index][2]
-            mass_waste = res[0]
-            res_time = res[1]
-            temp_isotope.append(nucid)
-            temp_mass.append(mass_frac * mass_waste)
-            time_list.append(res_time)
-
-    return temp_isotope, temp_mass, time_list
+        for comp in compositions:
+            if res[2] == comp[0]:
+                transactions[comp[1]].append((res[0] * comp[2], res[1]))
+    return transactions
 
 
 def plot_in_out_flux(cursor, facility, influx_bool, title, outputname):
@@ -206,7 +191,8 @@ def plot_in_out_flux(cursor, facility, influx_bool, title, outputname):
                                'FROM compositions').fetchall()
 
     init_year, init_month, duration, timestep = get_sim_time_duration(cur)
-    isotope, mass, time_list = isotope_mass_time_list(resources, compositions)
+    isotope, mass, time_list = get_isotope_transactions(
+        resources, compositions)
 
     waste_dict = get_waste_dict(isotope, mass, time_list, duration)
 
@@ -309,8 +295,8 @@ def total_waste_timeseries(cursor):
                           ' time, sum(quantity), senderid, spec')
               + ' GROUP BY time, senderid')
     string = string.replace('WHERE', 'INNER JOIN agententry '
-                                     'ON transactions.senderid = '
-                                     'agententry.agentid WHERE')
+                            'ON transactions.senderid = '
+                            'agententry.agentid WHERE')
     resources = cur.execute(string).fetchall()
 
     from_reactor = []
@@ -492,10 +478,10 @@ def final_stockpile(cursor, facility):
             masses = cur.execute('SELECT * FROM compositions'
                                  'WHERE qualid = ' + str(stream[2])).fetchall()
 
-            outstring += 'Stream ' + \
+            outstring += 'Stream ' +
                 str(count) + ' Total = ' + str(stream[0]) + ' kg \n'
             for isotope in masses:
-                outstring += str(isotope[2]) + ' = ' + \
+                outstring += str(isotope[2]) + ' = ' +
                     str(isotope[3] * stream[0]) + ' kg \n'
             outstring += '\n'
             count += 1
@@ -949,9 +935,9 @@ def stacked_bar_chart(dictionary, timestep,
                            height=dictionary[key],
                            width=0.1,
                            color=cm.viridis(
-                               1. * color_index / len(dictionary)),
-                           edgecolor='none',
-                           label=label)
+                1. * color_index / len(dictionary)),
+                edgecolor='none',
+                label=label)
             prev = dictionary[key]
             ax = plt.gca()
             ax.get_yaxis().set_major_formatter(
@@ -966,10 +952,10 @@ def stacked_bar_chart(dictionary, timestep,
                            height=dictionary[key],
                            width=0.1,
                            color=cm.viridis(
-                               1. * color_index / len(dictionary)),
-                           edgecolor='none',
-                           bottom=prev,
-                           label=label)
+                1. * color_index / len(dictionary)),
+                edgecolor='none',
+                bottom=prev,
+                label=label)
             prev = np.add(prev, dictionary[key])
             ax = plt.gca()
             ax.get_yaxis().set_major_formatter(
@@ -1055,8 +1041,8 @@ if __name__ == "__main__":
         """
         init_year, init_month, duration, timestep = get_sim_time_duration(cur)
         plot_power(cur)
-        #waste_dict = total_waste_timeseries(cur)
-        #multi_line_plot(waste_dict, timestep,
+        # waste_dict = total_waste_timeseries(cur)
+        # multi_line_plot(waste_dict, timestep,
         #                'Years', 'Mass[MTHM]',
         #                'Total Waste Mass vs Time',
         #                'total_Waste',
