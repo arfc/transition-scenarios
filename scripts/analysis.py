@@ -231,21 +231,21 @@ def commodity_from_facility(cursor, facility, commodity):
         resources = cur.execute(exec_string(y, 'commodity',
                                             'quantity, senderid, time')).fetchall()
 
-        timeseries = get_from_facility(cur, facility, duration, resources)
+        timeseries = get_from_prototype(cur, facility, duration, resources)
         commodity_dict[x] = timeseries
 
     return commodity_dict
 
 
-def get_from_facility(cursor, facility, duration, resources):
-    """ Returns timeseries list of quantity out of facility type
+def get_from_prototype(cursor, prototype, duration, resources):
+    """ Returns timeseries list of quantity out of prototype
 
     Parameters
     ----------
     cursor: sqlite cursor
         sqlite cursor
-    facility: str
-        name of facility type
+    prototype: str
+        name of prototype
     duration: int
         duration of simulation
     resrources: list
@@ -253,23 +253,21 @@ def get_from_facility(cursor, facility, duration, resources):
 
     Returns
     -------
-    list
-    timeseries list of mass outflux from facility type
+    timeseries: list
+        timeseries list of mass outflux from prototype
     """
-
     quantity = 0
     timeseries = []
-    agent_ids = get_prototype_id(cursor, facility)
+    agent_ids = get_prototype_id(cursor, prototype)
     for i in range(0, duration):
-        indices = [x for x, y in enumerate(resources) if y[2] == i]
-        for index in indices:
-            try:
-                if str(resources[index][11]) in agent_ids:
-                    quantity += resources[index][0]
-            except:
-                print('none in this timestep ' + str(i))
-        timeseries.append(quantity / 1000)
-
+        for res in resources:
+            if res[2] == i:
+                try:
+                    if str(res[11]) in agent_ids:
+                        quantity += resources[0]
+                    except:
+                        print('none in timestep: ', str(i))
+                timeseries.append(quantity / 1000)
     return timeseries
 
 
