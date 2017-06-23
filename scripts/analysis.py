@@ -259,12 +259,12 @@ def get_from_facility(cursor, facility, duration, resources):
 
     quantity = 0
     timeseries = []
-    agentid = get_agent_id_from_prototype(cursor, facility)
+    agent_ids = get_prototype_id(cursor, facility)
     for i in range(0, duration):
         indices = [x for x, y in enumerate(resources) if y[2] == i]
         for index in indices:
             try:
-                if str(resources[index][1]) in agentid:
+                if str(resources[index][11]) in agent_ids:
                     quantity += resources[index][0]
             except:
                 print('none in this timestep ' + str(i))
@@ -639,9 +639,9 @@ def where_comm(cursor, commodity, prototypes):
     trade_dict = collections.OrderedDict()
 
     for agent in prototypes:
-        agentid = get_agent_id_from_prototype(cur, agent)
+        agent_id = get_prototype_id(cur, agent)
         from_agent = cur.execute(
-            execute_string.replace('9999', agentid)).fetchall()
+            execute_string.replace('9999', agent_ids)).fetchall()
         trade_dict[agent] = get_timeseries(from_agent, duration, .001)
 
     return trade_dict
@@ -736,18 +736,18 @@ def trade_timeseries(cursor, sender, receiver):
     cur = cursor
 
     init_year, init_month, duration, timestep = get_sim_time_duration(cur)
-    senderid = get_agent_id_from_prototype(cur, sender)
-    receiverid = get_agent_id_from_prototype(cur, receiver)
+    senderid = get_prototype_id(cur, sender)
+    receiverid = get_prototype_id(cur, receiver)
 
     trade_ledger = cur.execute('SELECT time, sum(quantity) FROM transactions '
                                'INNER JOIN resources ON resources.resourceid = '
-                               'transactions.resourceid WHERE senderid = '
-                               + senderid + ' AND receiverid = '
-                               + receiverid + ' GROUP BY time').fetchall()
+                               'transactions.resourceid WHERE senderid = ('
+                               + ' OR '.join(senderid) + ') AND receiverid = ('
+                               + ' OR '.join(receiverid) + ' GROUP BY time').fetchall()
     return get_timeseries(trade_ledger, duration, .001)
 
 
-def get_agent_id_from_prototype(cursor, prototype):
+def get_prototype_id(cursor, prototype):
     """ Returns agentid of a prototype
 
     Parameters
@@ -759,21 +759,13 @@ def get_agent_id_from_prototype(cursor, prototype):
 
     Returns
     -------
-    str - agentid of prototype (x or y or z if more than one)
+    agent_id: list
+        list of agent_ids for prototype
     """
-
     cur = cursor
-    id = cur.execute('SELECT agentid FROM agententry '
-                     'WHERE prototype = "' + prototype + '"').fetchall()
-
-    if len(id) > 0:
-        agentid = re.findall('\d+', str(id[0]))[0]
-
-        if len(id) > 2:
-            for x in id[1:]:
-                agentid += ' or ' + re.findall('\d+', x) + ' '
-
-        return agentid
+    ids = cur.execute('SELECT agentid FROM agententry '
+                      'WHERE prototype = ' + str(prototype) + ' COLLATE NOCASE').fetchall()
+    return list(str(agent[0]) for agent in ids)
 
 
 def capacity_calc(governments, timestep, entry, exit_step):
