@@ -35,7 +35,7 @@ def get_agent_ids(cursor, facility):
     """
     agents = cursor.execute("SELECT * FROM agententry WHERE spec LIKE '%" +
                             facility + "%' COLLATE NOCASE").fetchall()
-    return list(agent[1] for agent in agents)
+    return list(str(agent[1]) for agent in agents)
 
 
 def get_prototype_id(cursor, prototype):
@@ -180,7 +180,7 @@ def snf(cursor):
     snf_inventory = cursor.execute(exec_string(sink_id,
                                                'transactions.receiverId',
                                                'sum(quantity), qualid')
-                                   + ' group by qualid').fetchall()
+                                   + ' GROUP BY qualid').fetchall()
     compositions = cursor.execute('SELECT qualid, nucid, massfrac '
                                   'FROM compositions').fetchall()
     snf_dict = collections.defaultdict(float)
@@ -192,7 +192,7 @@ def snf(cursor):
 
 
 def get_isotope_transactions(resources, compositions):
-    """Creates an list with isotope name, mass, and time
+    """Creates a dictionary with isotope name, mass, and time
 
     Parameters
     ----------
@@ -210,7 +210,13 @@ def get_isotope_transactions(resources, compositions):
     transactions = collections.defaultdict(list)
     for res in resources:
         for comp in compositions:
+            # res_qualid = res[2]
+            # comp_qualid = comp[0]
             if res[2] == comp[0]:
+                # comp_nucid = comp[1]
+                # res_quantity = res[0]
+                # mass_frac = comp[2]
+                # res_time = res[1]
                 transactions[comp[1]].append((res[0] * comp[2], res[1]))
     return transactions
 
@@ -269,8 +275,8 @@ def get_from_prototype(cursor, prototype, duration, resources):
                 try:
                     if str(res[11]) in agent_ids:
                         quantity += resources[0]
-                    except:
-                        print('none in timestep: ', str(i))
+                except:
+                    print('none in timestep: ', str(i))
                 timeseries.append(quantity / 1000)
     return timeseries
 
@@ -363,8 +369,7 @@ def get_power_dict(cursor):
                                'INNER JOIN agententry '
                                'ON agentexit.agentid = agententry.agentid '
                                'GROUP BY timeseriespower.agentid').fetchall()
-    return power_dict, num_dict = capacity_calc(governments, timestep,
-                                                entry, exit_step)
+    return capacity_calc(governments, timestep, entry, exit_step)
 
 
 def fuel_usage_timeseries(cursor, fuel_list):
@@ -494,11 +499,11 @@ def final_stockpile(cursor, facility):
             masses = cursor.execute('SELECT * FROM compositions'
                                     'WHERE qualid = ' + str(stream[2])).fetchall()
 
-            outstring += 'Stream ' +
-                str(count) + ' Total = ' + str(stream[0]) + ' kg \n'
+            outstring += ('Stream ' + str(count) +
+                          ' Total = ' + str(stream[0]) + ' kg \n')
             for isotope in masses:
-                outstring += str(isotope[2]) + ' = ' +
-                    str(isotope[3] * stream[0]) + ' kg \n'
+                outstring += (str(isotope[2]) + ' = ' +
+                              str(isotope[3] * stream[0]) + ' kg \n')
             outstring += '\n'
             count += 1
         outstring += '\n'
@@ -901,8 +906,10 @@ def plot_in_out_flux(cursor, facility, influx_bool, title, outputname):
 
     init_year, init_month, duration, timestep = get_sim_time_duration(cursor)
     transactions = get_isotope_transactions(resources, compositions)
-    waste_dict = get_waste_dict(transactions.keys(), transactions.values()[
-                                0], transactions.values()[1], duration)
+    waste_dict = get_waste_dict(transactions.keys(),
+                                transactions.values()[0],
+                                transactions.values()[1],
+                                duration)
 
     if influx_bool is False:
         stacked_bar_chart(waste_dict, timestep,
@@ -915,7 +922,7 @@ def plot_in_out_flux(cursor, facility, influx_bool, title, outputname):
 
 
 def plot_total_waste_timeseries(cursor):
-    """Plots a stacked bar chart of the total waste mass vs time
+    """Plots a stacked bar chart of the total mass in sink vs time
 
     Parameters
     ----------
@@ -929,13 +936,15 @@ def plot_total_waste_timeseries(cursor):
     """
     agent_ids = get_agent_ids(cursor, 'sink')
 
-    string = (exec_string(agent_ids,
-                          'transactions.receiverId',
-                          ' time, sum(quantity), senderid, spec')
-              + ' GROUP BY time, senderid')
-    string = string.replace('WHERE', 'INNER JOIN agententry '
-                            'ON transactions.senderid = '
-                            'agententry.agentid WHERE')
+    string = ('SELECT time, sum(quantity), senderid, spec '
+              'FROM resources INNER JOIN transactions '
+              'ON transactions.resourceid=resources.resourceid '
+              'INNER JOIN agententry '
+              'on transactions.senderid=agententry.agentid '
+              'WHERE transactions.receiverid= ' +
+              ' OR transactions.receiverid = '.join(agent_ids) +
+              ' GROUP BY time, senderid')
+    print(string)
     resources = cursor.execute(string).fetchall()
 
     from_reactor = []
@@ -959,46 +968,47 @@ def plot_total_waste_timeseries(cursor):
                                                    duration, .001, 'TRUE')
     waste_dict['Tails'] = get_timeseries(
         from_enrichment, duration, .001, 'TRUE')
-
     return waste_dict
 
 
 if __name__ == "__main__":
-    file = sys.argv[1]
-    con = lite.connect(file)
-    with con:
+    cur = lite.connect('smaller.sqlite').cursor()
+    plot_total_waste_timeseries(cur)
+#     file = sys.argv[1]
+#     con = lite.connect(file)
+#     with con:
 
-        cur = con.cursor()
-        init_year, init_month, duration, timestep = get_sim_time_duration(cur)
+#         cur = con.cursor()
+#         init_year, init_month, duration, timestep = get_sim_time_duration(cur)
 
-        dictionary = {}
-        dictionary['uranium_utilization'] = u_util_calc(cur)
-        stacked_bar_chart(dictionary, timestep,
-                          'Years', 'U Utilization Factor',
-                          'U Utilization vs Time',
-                          'u_util', init_year)
-        """
-        init_year, init_month, duration, timestep = get_sim_time_duration(cur)
-        plot_power(cur)
-        # waste_dict = total_waste_timeseries(cur)
-        # multi_line_plot(waste_dict, timestep,
-        #                'Years', 'Mass[MTHM]',
-        #                'Total Waste Mass vs Time',
-        #                'total_Waste',
-        #                init_year)
+#         dictionary = {}
+#         dictionary['uranium_utilization'] = u_util_calc(cur)
+#         stacked_bar_chart(dictionary, timestep,
+#                           'Years', 'U Utilization Factor',
+#                           'U Utilization vs Time',
+#                           'u_util', init_year)
+#         """
+#         init_year, init_month, duration, timestep = get_sim_time_duration(cur)
+#         plot_power(cur)
+#         # waste_dict = total_waste_timeseries(cur)
+#         # multi_line_plot(waste_dict, timestep,
+#         #                'Years', 'Mass[MTHM]',
+#         #                'Total Waste Mass vs Time',
+#         #                'total_Waste',
+#         #                init_year)
 
-        fuel_dict = fuel_usage_timeseries(cur, ['uox', 'mox'])
+#         fuel_dict = fuel_usage_timeseries(cur, ['uox', 'mox'])
 
-        stacked_bar_chart(fuel_dict, timestep,
-                          'Years', 'Mass[MTHM]',
-                          'Total Fuel Mass vs Time',
-                          'total_fuel',
-                          init_year)
+#         stacked_bar_chart(fuel_dict, timestep,
+#                           'Years', 'Mass[MTHM]',
+#                           'Total Fuel Mass vs Time',
+#                           'total_fuel',
+#                           init_year)
 
-        tailings = commodity_from_facility(cur, 'enrichment', ['tailings'])
-        stacked_bar_chart(tailings, timestep,
-                          'Year', 'Mass [MTHM]',
-                          'Tailings vs Time',
-                          'tailings',
-                          init_year)
-"""
+#         tailings = commodity_from_facility(cur, 'enrichment', ['tailings'])
+#         stacked_bar_chart(tailings, timestep,
+#                           'Year', 'Mass [MTHM]',
+#                           'Tailings vs Time',
+#                           'tailings',
+#                           init_year)
+# """
