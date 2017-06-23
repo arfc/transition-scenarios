@@ -328,6 +328,45 @@ def get_swu_dict(cursor):
     return swu_dict
 
 
+def get_power_dict(cursor):
+    """ Gets capacity vs time for every country
+        in stacked bar chart.
+
+    Parameters
+    ----------
+    cursor: cursor
+        cursor for sqlite3
+
+    Returns
+    -------
+    stacked bar chart of net capacity vs time
+
+    """
+    init_year, init_month, duration, timestep = get_sim_time_duration(cursor)
+    powercap = []
+    reactor_num = []
+    countries = []
+    # get power cap values
+    governments = cursor.execute('SELECT prototype, agentid FROM agententry '
+                                 'WHERE kind = "Inst"').fetchall()
+
+    entry = cursor.execute('SELECT max(value), timeseriespower.agentid, parentid, entertime '
+                           'FROM agententry INNER JOIN timeseriespower '
+                           'ON agententry.agentid = timeseriespower.agentid '
+                           'GROUP BY timeseriespower.agentid').fetchall()
+
+    exit_step = cursor.execute('SELECT max(value), timeseriespower.agentid, parentid, exittime '
+                               'FROM agentexit INNER JOIN '
+                               'timeseriespower '
+                               'ON agentexit.agentid = '
+                               'timeseriespower.agentid '
+                               'INNER JOIN agententry '
+                               'ON agentexit.agentid = agententry.agentid '
+                               'GROUP BY timeseriespower.agentid').fetchall()
+    return power_dict, num_dict = capacity_calc(governments, timestep,
+                                                entry, exit_step)
+
+
 def fuel_usage_timeseries(cursor, fuel_list):
     """ Calculates total fuel usage over time
 
@@ -388,32 +427,6 @@ def nat_u_timeseries(cursor):
     feed = cursor.execute('SELECT time, sum(value) FROM timeseriesenrichmentfeed '
                           'GROUP BY time').fetchall()
     return get_timeseries(feed, duration, .001, 'TRUE')
-
-
-def power_timeseries(cursor):
-    """Returns dictionary of power timeseries
-
-    Parameters
-    ----------
-    governments: list
-
-    cursor: sqlite cursor
-        sqlite cursor
-
-    Returns:
-    --------
-    Dictionary of power timeseries
-    """
-    power_timeseries_dict = collections.OrderedDict()
-
-    timeseriespower = np.array(cursor.execute('SELECT  time, sum(value) FROM '
-                                              'timeseriespower '
-                                              'GROUP BY time').fetchall())
-    init_year, init_month, duration, timestep = get_sim_time_duration(cursor)
-    timeseriespower = get_timeseries(timeseriespower, duration, 1, 'FALSE')
-    power_timeseries_dict['powertimeseries'] = timeseriespower[1:]
-
-    return power_timeseries_dict
 
 
 def trade_timeseries(cursor, sender, receiver):
@@ -839,30 +852,7 @@ def plot_power(cursor):
     stacked bar chart of net capacity vs time
 
     """
-    init_year, init_month, duration, timestep = get_sim_time_duration(cursor)
-    powercap = []
-    reactor_num = []
-    countries = []
-    # get power cap values
-    governments = cursor.execute('SELECT prototype, agentid FROM agententry '
-                                 'WHERE kind = "Inst"').fetchall()
-
-    entry = cursor.execute('SELECT max(value), timeseriespower.agentid, parentid, entertime '
-                           'FROM agententry INNER JOIN timeseriespower '
-                           'ON agententry.agentid = timeseriespower.agentid '
-                           'GROUP BY timeseriespower.agentid').fetchall()
-
-    exit_step = cursor.execute('SELECT max(value), timeseriespower.agentid, parentid, exittime '
-                               'FROM agentexit INNER JOIN '
-                               'timeseriespower '
-                               'ON agentexit.agentid = '
-                               'timeseriespower.agentid '
-                               'INNER JOIN agententry '
-                               'ON agentexit.agentid = agententry.agentid '
-                               'GROUP BY timeseriespower.agentid').fetchall()
-    power_dict, num_dict = capacity_calc(governments, timestep,
-                                         entry, exit_step)
-
+    power_dict, num_dict = get_power_dict(cursor)
     stacked_bar_chart(power_dict, timestep,
                       'Years', 'Net_Capacity [GWe]',
                       'Net Capacity vs Time', 'power_plot', init_year)
