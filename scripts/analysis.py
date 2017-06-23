@@ -206,7 +206,7 @@ def plot_in_out_flux(cursor, facility, influx_bool, title, outputname):
                         title, outputname, init_year)
 
 
-def commodity_from_facility(cursor, facility, commodity):
+def commodity_from_facility(cursor, facility, commodity_list):
     """ Returns timeseries of commodity outflux from facility
 
     Parameters
@@ -215,25 +215,20 @@ def commodity_from_facility(cursor, facility, commodity):
         sqlite cursor
     facility: str
         name of facility type
-    commodity: list
+    commodity_list: list
         list of commodities
 
     Returns
     -------
     dictionary of timeseries of mass outflux of commodity from facility
     """
-
-    cur = cursor
-    init_year, init_month, duration, timestep = get_sim_time_duration(cur)
+    init_year, init_month, duration, timestep = get_sim_time_duration(cursor)
     commodity_dict = collections.OrderedDict()
-    for x in commodity:
-        y = ['"' + x + '"']
-        resources = cur.execute(exec_string(y, 'commodity',
-                                            'quantity, senderid, time')).fetchall()
-
-        timeseries = get_from_prototype(cur, facility, duration, resources)
-        commodity_dict[x] = timeseries
-
+    for comm in commodity_list:
+        resources = cursor.execute(exec_string([str(y)], 'commodity',
+                                               'quantity, senderid, time')).fetchall()
+        timeseries = get_from_prototype(cursor, facility, duration, resources)
+        commodity_dict[comm] = timeseries
     return commodity_dict
 
 
