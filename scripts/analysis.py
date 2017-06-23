@@ -173,28 +173,25 @@ def plot_in_out_flux(cursor, facility, influx_bool, title, outputname):
     -------
 
     """
-
-    cur = cursor
-    agent_ids = get_agent_ids(cur, facility)
+    agent_ids = get_agent_ids(cursor, facility)
     if influx_bool is True:
-        resources = cur.execute(exec_string(agent_ids,
-                                            'transactions.receiverId',
-                                            'sum(quantity), time, qualid')
-                                + ' GROUP BY time, qualid').fetchall()
+        resources = cursor.execute(exec_string(agent_ids,
+                                               'transactions.receiverId',
+                                               'sum(quantity), time, qualid')
+                                   + ' GROUP BY time, qualid').fetchall()
     else:
-        resources = cur.execute(exec_string(agent_ids,
-                                            'transactions.senderId',
-                                            'sum(quantity), time, qualid')
-                                + ' GROUP BY time, qualid').fetchall()
+        resources = cursor.execute(exec_string(agent_ids,
+                                               'transactions.senderId',
+                                               'sum(quantity), time, qualid')
+                                   + ' GROUP BY time, qualid').fetchall()
 
-    compositions = cur.execute('SELECT qualid, nucid, massfrac '
-                               'FROM compositions').fetchall()
+    compositions = cursor.execute('SELECT qualid, nucid, massfrac '
+                                  'FROM compositions').fetchall()
 
-    init_year, init_month, duration, timestep = get_sim_time_duration(cur)
-    isotope, mass, time_list = get_isotope_transactions(
-        resources, compositions)
-
-    waste_dict = get_waste_dict(isotope, mass, time_list, duration)
+    init_year, init_month, duration, timestep = get_sim_time_duration(cursor)
+    transactions = get_isotope_transactions(resources, compositions)
+    waste_dict = get_waste_dict(transactions.keys(), transactions.values()[
+                                0], transactions.values()[1], duration)
 
     if influx_bool is False:
         stacked_bar_chart(waste_dict, timestep,
