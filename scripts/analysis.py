@@ -53,9 +53,8 @@ def get_prototype_id(cursor, prototype):
     agent_id: list
         list of agent_ids for prototype
     """
-    cur = cursor
-    ids = cur.execute('SELECT agentid FROM agententry '
-                      'WHERE prototype = ' + str(prototype) + ' COLLATE NOCASE').fetchall()
+    ids = cursor.execute('SELECT agentid FROM agententry '
+                         'WHERE prototype = ' + str(prototype) + ' COLLATE NOCASE').fetchall()
     return list(str(agent[0]) for agent in ids)
 
 
@@ -108,10 +107,8 @@ def get_sim_time_duration(cursor):
     timestep: list
         timeseries up to duration
     """
-    cur = cursor
-
-    info = cur.execute('SELECT initialyear, initialmonth, '
-                       'duration FROM info').fetchone()
+    info = cursor.execute('SELECT initialyear, initialmonth, '
+                          'duration FROM info').fetchone()
     init_year = info[0]
     init_month = info[1]
     duration = info[2]
@@ -161,7 +158,7 @@ def get_timeseries(in_list, duration, multiplyby, cumulative):
 
 
 def snf(cursor):
-    """prints total snf and isotope mass
+    """returns a dictionary of isotopics in sink at the end of simulation
 
     Parameters
     ----------
@@ -214,10 +211,10 @@ def get_isotope_transactions(resources, compositions):
             # comp_qualid = comp[0]
             if res[2] == comp[0]:
                 # comp_nucid = comp[1]
-                # res_quantity = res[0]
+                # res_quantity = res[1s
                 # mass_frac = comp[2]
-                # res_time = res[1]
-                transactions[comp[1]].append((res[0] * comp[2], res[1]))
+                # res_time = res[0]
+                transactions[comp[1]].append((res[0], res[1] * comp[2]))
     return transactions
 
 
@@ -434,7 +431,7 @@ def nat_u_timeseries(cursor):
     return get_timeseries(feed, duration, .001, 'TRUE')
 
 
-def trade_timeseries(cursor, sender, receiver):
+def get_trade_dict(cursor, sender, receiver, is_prototype, do_isotopic):
     """ Returns trade timeseries between two prototypes
 
     Parameters
@@ -445,6 +442,10 @@ def trade_timeseries(cursor, sender, receiver):
         name of sender prototype
     receiver: str
         name of receiver prototype
+    is_prototype: bool
+        search sender and receiver as prototype
+    do_isotopic: bool
+        perform isotopics (takes significantly longer)
 
     Returns:
     --------
@@ -452,16 +453,31 @@ def trade_timeseries(cursor, sender, receiver):
 
     """
     init_year, init_month, duration, timestep = get_sim_time_duration(cursor)
-    senderid = get_prototype_id(cursor, sender)
-    receiverid = get_prototype_id(cursor, receiver)
 
-    trade_ledger = cursor.execute('SELECT time, sum(quantity) FROM transactions '
-                                  'INNER JOIN resources ON resources.resourceid = '
-                                  'transactions.resourceid WHERE senderid = ('
-                                  + ' OR '.join(senderid) +
-                                  ') AND receiverid = ('
-                                  + ' OR '.join(receiverid) + ' GROUP BY time').fetchall()
-    return get_timeseries(trade_ledger, duration, .001, 'TRUE')
+    if is_prototype:
+        sender_id = get_prototype_id(cursor, sender)
+        receiver_id = get_prototype_id(cursor, receiver)
+    else:
+        sender_id = get_agent_ids(cursor, sender)
+        receiver_id = get_agent_ids(cursor, receiver)
+
+    trade_hist = cursor.execute('SELECT time, sum(quantity), qualid FROM transactions '
+                                'INNER JOIN resources ON resources.resourceid = '
+                                'transactions.resourceid WHERE senderid = '
+                                + ' OR senderid = '.join(senderid) + ' AND receiverid = '
+                                  + ' OR receiverid = '.join(receiverid) + ' GROUP BY time').fetchall()
+
+    if do_isotopic:
+        compositions = cursor.execute('SELECT qualid, nucid, massfrac '
+                                      'FROM compositions').fetchall()
+        trade_iso_dict = get_isotope_transactions(trade_hist, compositions)
+        trade_iso_dict = {key: get_timeseries(
+            value, duration, 0.001, True) for key, value in trade_iso_dict.items()}
+        return trade_iso_dict
+    else:
+        return_dict = collections.defaultdict()
+        key_name = str(sender)[:5] + ' to ' + str(receiver)[:5]
+        return return_dict[key_name] = get_timeseries(trade_hist, duration, 0.001, True)
 
 
 def final_stockpile(cursor, facility):
@@ -893,12 +909,12 @@ def plot_in_out_flux(cursor, facility, influx_bool, title, outputname):
     if influx_bool is True:
         resources = cursor.execute(exec_string(agent_ids,
                                                'transactions.receiverId',
-                                               'sum(quantity), time, qualid')
+                                               'time, sum(quantity), qualid')
                                    + ' GROUP BY time, qualid').fetchall()
     else:
         resources = cursor.execute(exec_string(agent_ids,
                                                'transactions.senderId',
-                                               'sum(quantity), time, qualid')
+                                               'time, sum(quantity), qualid')
                                    + ' GROUP BY time, qualid').fetchall()
 
     compositions = cursor.execute('SELECT qualid, nucid, massfrac '
@@ -935,29 +951,28 @@ def plot_total_waste_timeseries(cursor):
     stacked bar chart of waste mass vs time
     """
     agent_ids = get_agent_ids(cursor, 'sink')
-
-    string = ('SELECT time, sum(quantity), senderid, spec '
-              'FROM resources INNER JOIN transactions '
-              'ON transactions.resourceid=resources.resourceid '
-              'INNER JOIN agententry '
-              'on transactions.senderid=agententry.agentid '
-              'WHERE transactions.receiverid= ' +
-              ' OR transactions.receiverid = '.join(agent_ids) +
-              ' GROUP BY time, senderid')
-    print(string)
-    resources = cursor.execute(string).fetchall()
-
+    resources = cursor.execute('SELECT time, sum(quantity), qualid, senderid, spec '
+                               'FROM resources INNER JOIN transactions '
+                               'ON transactions.resourceid=resources.resourceid '
+                               'INNER JOIN agententry '
+                               'on transactions.senderid=agententry.agentid '
+                               'WHERE transactions.receiverid= ' +
+                               ' OR transactions.receiverid = '.join(agent_ids) +
+                               ' GROUP BY time, senderid').fetchall()
+    compositions = cursor.execute('SELECT qualid, nucid, massfrac '
+                                  FROM compositions)
     from_reactor = []
     from_separations = []
     from_enrichment = []
 
-    for x in resources:
-        if 'Reactor' in x[3]:
-            from_reactor.append(x[:2])
-        if 'Separations' in x[3]:
-            from_separations.append(x[:2])
-        if 'Enrichment' in x[3]:
-            from_enrichment.append(x[:2])
+    for res in resources:
+        if 'Reactor' in res[4]:
+            # res[4] = spec
+            from_reactor.append(res[:3])
+        if 'Separations' in res[4]:
+            from_separations.append(res[:3])
+        if 'Enrichment' in res[4]:
+            from_enrichment.append(res[:3])
 
     init_year, init_month, duration, timestep = get_sim_time_duration(cursor)
     waste_dict = collections.OrderedDict()
@@ -979,7 +994,7 @@ if __name__ == "__main__":
 #     with con:
 
 #         cur = con.cursor()
-#         init_year, init_month, duration, timestep = get_sim_time_duration(cur)
+# init_year, init_month, duration, timestep = get_sim_time_duration(cur)
 
 #         dictionary = {}
 #         dictionary['uranium_utilization'] = u_util_calc(cur)
