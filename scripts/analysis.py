@@ -961,7 +961,7 @@ def plot_total_waste_timeseries(cursor):
                                ' OR transactions.receiverid = '.join(agent_ids) +
                                ' GROUP BY time, senderid').fetchall()
     compositions = cursor.execute('SELECT qualid, nucid, massfrac '
-                                  FROM compositions)
+                                  'FROM compositions').fetchall()
     from_reactor = []
     from_separations = []
     from_enrichment = []
