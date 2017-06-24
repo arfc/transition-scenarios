@@ -1,5 +1,24 @@
+<!--
+transition starts at 2015 and runs for 200 years
+100 GWe of LWR installed Capacity (90% CF)
+1 % Assumed annual growth in nuclear energy
+
+Legacy LWRs (Before 2015)
+Half 60 year lifetime
+Other half 80 Year lifetime
+40% thermal efficiency
+
+New LWRs (After 2015)
+Fast Reactors available 2050
+80 year lifetime
+
+Fast Reactors (After 2050)
+80 year lifetime
+-->
+
 <simulation>
     <control>
+        <!-- 1959 to 2211 -->
         <duration>3024</duration>
         <startmonth>1</startmonth>
         <startyear>1959</startyear>
@@ -7,20 +26,32 @@
 
   <archetypes>
     <spec>
-      <lib>agents</lib>
+      <lib>cycamore</lib>
       <name>Source</name>
     </spec>
     <spec>
-      <lib>agents</lib>
+      <lib>cycamore</lib>
       <name>Sink</name>
+    </spec> 
+    <spec>
+      <lib>cycamore</lib>
+      <name>Reactor</name>
+    </spec>
+    <spec>
+        <lib>cycamore</lib>
+        <name>Mixer</name>
+    </spec>
+    <spec>
+      <lib>agents</lib>
+      <name>NullRegion</name>
     </spec>
     <spec>
       <lib>agents</lib>
       <name>NullInst</name>
     </spec>
     <spec>
-      <lib>agents</lib>
-      <name>NullRegion</name>
+      <lib>cycamore</lib>
+      <name>Separations</name>
     </spec>
     <spec>
       <lib>cycamore</lib>
@@ -28,15 +59,19 @@
     </spec>
     <spec>
       <lib>cycamore</lib>
+      <name>Separations</name>
+    </spec>
+    <spec>
+      <lib>cycamore</lib>
+      <name>Enrichment</name>
+    </spec>
+    <spec>
+      <lib>cycamore</lib>
       <name>FuelFab</name>
     </spec>
     <spec>
       <lib>cycamore</lib>
-      <name>Reactor</name>
-    </spec>
-    <spec>
-      <lib>cycamore</lib>
-      <name>Separations</name>
+      <name>Storage</name>
     </spec>
   </archetypes>
 
@@ -44,236 +79,225 @@
   <facility>
     <config>
       <Source>
-        <capacity>40000000</capacity>
-        <commod>U235</commod>
-        <recipe_name>U235</recipe_name>
+        <outcommod>natl_u</outcommod>
+        <throughput>1e299</throughput>
+        <outrecipe>natl_u_recipe</outrecipe>
       </Source>
     </config>
-    <name>MineU235</name>
+    <name>mine</name>
   </facility>
 
-
   <facility>
+    <name>enrichment</name>
     <config>
-      <Source>
-        <capacity>20000000</capacity>
-        <commod>U238</commod>
-        <recipe_name>U238</recipe_name>
-      </Source>
+      <Enrichment>
+        <feed_commod>natl_u</feed_commod>
+        <feed_recipe>natl_u_recipe</feed_recipe>
+        <product_commod>uox</product_commod>
+        <tails_assay>0.003</tails_assay>
+        <tails_commod>tailings</tails_commod>
+        <swu_capacity>1e100</swu_capacity>
+        <initial_feed>1e100</initial_feed>
+      </Enrichment>
     </config>
-    <name>U238</name>
-  </facility>
-
-
-  <facility>
-    <config>
-      <Source>
-        <capacity>20000000</capacity>
-        <commod>DU</commod>
-        <recipe_name>DU</recipe_name>
-      </Source>
-    </config>
-    <name>DU</name>
   </facility>
 
   <facility>
-    <config>
-      <Source>
-        <capacity>20000000</capacity>
-        <commod>DU2</commod>
-        <recipe_name>DU</recipe_name>
-      </Source>
-    </config>
-    <name>DU2</name>
-  </facility>
-
-
-  <facility>
+    <name>sink</name>
     <config>
       <Sink>
-        <capacity>100000000</capacity>
         <in_commods>
-          <val>WASTE</val>
+          <val>cool_uox_waste</val>
+          <val>cool_mox_waste</val>
+          <val>tailings</val>
+          <val>reprocess_waste</val>
+          <val>mox_reprocess_waste</val>
         </in_commods>
-        <max_inv_size>1.000000000000000E+299</max_inv_size>
+        <capacity>1e299</capacity>
       </Sink>
     </config>
-    <name>SINK</name>
   </facility>
 
-
   <facility>
+    <name>uox_reprocessing</name>
     <config>
-      <FuelFab>
-        <fill_commods>
-          <val>U238</val>
-        </fill_commods>
-        <fill_recipe>U238</fill_recipe>
-        <fill_size>1e+60</fill_size>
-        <fiss_commods>
-          <val>U235</val>
-        </fiss_commods>
-        <fiss_size>1e+60</fiss_size>
-        <outcommod>LWR Fuel</outcommod>
-        <spectrum>thermal</spectrum>
-        <throughput>1e+60</throughput>
-      </FuelFab>
+      <Separations>
+         <feed_commods>   <val>cool_uox_waste</val> </feed_commods>
+         <feed_commod_prefs> <val>1.0</val> </feed_commod_prefs>
+         <feed_recipe>uox_used_fuel_recipe</feed_recipe>
+         <feedbuf_size>1E100</feedbuf_size>
+         <throughput>1E100</throughput>
+         <leftover_commod>reprocess_waste</leftover_commod>
+         <leftoverbuf_size>1E100</leftoverbuf_size>
+         <streams>
+          <item>
+            <commod>uox_Pu</commod>
+            <info>
+              <buf_size>1E100</buf_size>
+              <efficiencies>
+                <item>
+                  <comp>Pu</comp> <eff>.998</eff>
+                </item>
+              </efficiencies>
+            </info>
+          </item>
+          <item>
+            <commod>uox_U</commod>
+            <info>
+              <buf_size>1E100</buf_size>
+              <efficiencies>
+                <item>
+                  <comp>U</comp> <eff>.998</eff>
+                </item>
+              </efficiencies>
+            </info>
+          </item>
+        </streams>
+      </Separations>
     </config>
-    <name>LWR Fuel Fab</name>
   </facility>
 
+  <facility>
+    <name>mox_reprocessing</name>
+    <config>
+      <Separations>
+         <feed_commods>   <val>cool_sfr_spent</val> <val>cool_mox_waste</val> </feed_commods>
+         <feed_commod_prefs> <val>2.0</val> <val>1.0</val> </feed_commod_prefs>
+         <feedbuf_size>1E100</feedbuf_size>
+         <throughput>1E100</throughput>
+         <leftover_commod>mox_reprocess_waste</leftover_commod>
+         <leftoverbuf_size>1E100</leftoverbuf_size>
+         <streams>
+          <item>
+            <commod>mox_Pu</commod>
+            <info>
+              <buf_size>1E100</buf_size>
+              <efficiencies>
+                <item>
+                  <comp>Pu</comp> <eff>.998</eff>
+                </item>
+              </efficiencies>
+            </info>
+          </item>
+          <item>
+            <commod>mox_U</commod>
+            <info>
+              <buf_size>1E100</buf_size>
+              <efficiencies>
+                <item>
+                  <comp>U</comp> <eff>.998</eff>
+                </item>
+              </efficiencies>
+            </info>
+          </item>
+        </streams>
+      </Separations>
+    </config>
+  </facility>
 
   <facility>
     <config>
       <FuelFab>
         <fill_commods>
-          <val>DU2</val>
+          <val>tailings</val>
         </fill_commods>
-        <fill_recipe>DU</fill_recipe>
+        <fill_recipe>depleted_u</fill_recipe>
         <fill_size>1e+60</fill_size>
         <fiss_commod_prefs>
           <val>1</val>
           <val>2</val>
         </fiss_commod_prefs>
         <fiss_commods>
-          <val>LWR Reprocessed</val>
-          <val>FR Reprocessed</val>
+          <val>uox_Pu</val>
+          <val>mox_Pu</val>
         </fiss_commods>
         <fiss_size>1e+60</fiss_size>
-        <outcommod>FR Fuel</outcommod>
+        <outcommod>mox</outcommod>
         <spectrum>fission_spectrum_ave</spectrum>
         <throughput>1e+60</throughput>
       </FuelFab>
     </config>
-    <name>FR Fuel Fab</name>
+    <name>mox_fuel_fab</name>
   </facility>
 
 
   <facility>
-    <config>
-      <Separations>
-        <feed_commod_prefs>
-          <val>2</val>
-        </feed_commod_prefs>
-        <feed_commods>
-          <val>LWR Spent Fuel</val>
-        </feed_commods>
-        <feedbuf_size>1e+100</feedbuf_size>
-        <leftover_commod>WASTE</leftover_commod>
-        <streams>
-          <item>
-            <commod>LWR Reprocessed</commod>
-            <info>
-              <buf_size>1e+100</buf_size>
-              <efficiencies>
-                <item>
-                  <comp>Pu</comp>
-                  <eff>0.99</eff>
-                </item>
-              </efficiencies>
-            </info>
-          </item>
-        </streams>
-        <throughput>1e+100</throughput>
-      </Separations>
-    </config>
-    <name>LWR Separation</name>
+      <name>uox_pool</name>
+      <!-- Spent Fuel Spends ~3 years (36 timesteps) -->
+      <!-- in NPP pools prior to process (carre_overview_2009) -->
+      <config>
+          <Storage>
+              <in_commods>
+                  <val>uox_waste</val>
+              </in_commods>
+              <out_commods>
+                  <val>cool_uox_waste</val>
+              </out_commods>
+              <residence_time>36</residence_time>
+              <throughput>1e299</throughput>
+              <max_inv_size>1e299</max_inv_size>
+          </Storage>
+      </config>
   </facility>
 
-
   <facility>
-    <config>
-      <Separations>
-        <feed_commod_prefs>
-          <val>2</val>
-        </feed_commod_prefs>
-        <feed_commods>
-          <val>FR Spent Fuel</val>
-        </feed_commods>
-        <feedbuf_size>1e+100</feedbuf_size>
-        <leftover_commod>WASTE</leftover_commod>
-        <streams>
-          <item>
-            <commod>FR Reprocessed</commod>
-            <info>
-              <buf_size>1e+100</buf_size>
-              <efficiencies>
-                <item>
-                  <comp>Pu</comp>
-                  <eff>0.99</eff>
-                </item>
-              </efficiencies>
-            </info>
-          </item>
-        </streams>
-        <throughput>1e+100</throughput>
-      </Separations>
-    </config>
-    <name>FR Reprocess</name>
+      <name>sfr_mox_pool</name>
+      <!-- Spent Fuel Spends ~3 years (36 timesteps) -->
+      <!-- in NPP pools prior to process (carre_overview_2009) -->
+      <config>
+          <Storage>
+              <in_commods>
+                  <val>sfr_spent_mox</val>
+              </in_commods>
+              <out_commods>
+                  <val>cool_sfr_spent</val>
+              </out_commods>
+              <residence_time>36</residence_time>
+              <throughput>1e299</throughput>
+              <max_inv_size>1e299</max_inv_size>
+          </Storage>
+      </config>
   </facility>
 
-
   <facility>
+    <name>lwr</name>
+    <lifetime>960</lifetime>
     <config>
       <Reactor>
-        <assem_size>11666.7</assem_size>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
-        <fuel_incommods>
-          <val>LWR Fuel</val>
-        </fuel_incommods>
-        <fuel_inrecipes>
-          <val>fresh_uox</val>
-        </fuel_inrecipes>
-        <fuel_outcommods>
-          <val>LWR Spent Fuel</val>
-        </fuel_outcommods>
-        <fuel_outrecipes>
-          <val>spent_uox</val>
-        </fuel_outrecipes>
-        <fuel_prefs>
-          <val>1</val>
-        </fuel_prefs>
-        <n_assem_batch>1</n_assem_batch>
-        <n_assem_core>3</n_assem_core>
-        <power_cap>1000</power_cap>
         <refuel_time>1</refuel_time>
+        <assem_size>11666.7</assem_size>
+        <n_assem_core>3</n_assem_core>
+        <n_assem_batch>1</n_assem_batch>
+        <power_cap>1000</power_cap>
       </Reactor>
     </config>
-    <lifetime>960</lifetime>
-    <name>LWR</name>
   </facility>
-
 
   <facility>
-    <config>
-      <Reactor>
-        <assem_size>10000</assem_size>
-        <cycle_time>14</cycle_time>
-        <fuel_incommods>
-          <val>FR Fuel</val>
-        </fuel_incommods>
-        <fuel_inrecipes>
-          <val>fresh_fr_fuel</val>
-        </fuel_inrecipes>
-        <fuel_outcommods>
-          <val>FR Spent Fuel</val>
-        </fuel_outcommods>
-        <fuel_outrecipes>
-          <val>spent_fr_fuel</val>
-        </fuel_outrecipes>
-        <fuel_prefs>
-          <val>1</val>
-        </fuel_prefs>
-        <n_assem_batch>1</n_assem_batch>
-        <n_assem_core>3</n_assem_core>
-        <power_cap>400</power_cap>
-        <refuel_time>1</refuel_time>
-      </Reactor>
-    </config>
-    <lifetime>960</lifetime>
-    <name>FR</name>
+      <name>fr</name>
+      <lifetime>960</lifetime>
+      <config>
+        <Reactor>
+          <fuel_inrecipes>  <val>mox_fuel_recipe</val>       </fuel_inrecipes>
+          <fuel_outrecipes> <val>sfr_spent_mox_recipe</val>  </fuel_outrecipes>
+          <fuel_incommods>  <val>mox</val>                   </fuel_incommods>
+          <fuel_outcommods> <val>sfr_spent_mox</val>             </fuel_outcommods>
+          <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+          <cycle_time>14</cycle_time>
+          <refuel_time>1</refuel_time>
+          <assem_size>10000</assem_size>
+          <n_assem_core>3</n_assem_core>
+          <n_assem_batch>1</n_assem_batch>
+          <power_cap>400</power_cap>
+        </Reactor>
+      </config>
   </facility>
-
 
 <!-- Region -->
 
@@ -288,44 +312,47 @@
       <initialfacilitylist>
         <entry>
           <number>1</number>
-          <prototype>MineU235</prototype>
+          <prototype>mine</prototype>
+        </entry>
+
+        <entry>
+          <number>1</number>
+          <prototype>mox_fuel_fab</prototype>
+        </entry>
+
+
+        <entry>
+          <number>1</number>
+          <prototype>sfr_mox_pool</prototype>
         </entry>
         <entry>
           <number>1</number>
-          <prototype>U238</prototype>
+          <prototype>uox_pool</prototype>
+        </entry>
+
+
+        <entry>
+          <number>1</number>
+          <prototype>uox_reprocessing</prototype>
         </entry>
         <entry>
           <number>1</number>
-          <prototype>DU</prototype>
+          <prototype>mox_reprocessing</prototype>
         </entry>
         <entry>
           <number>1</number>
-          <prototype>DU2</prototype>
+          <prototype>sink</prototype>
         </entry>
         <entry>
           <number>1</number>
-          <prototype>LWR Fuel Fab</prototype>
-        </entry>
-        <entry>
-          <number>1</number>
-          <prototype>LWR Separation</prototype>
-        </entry>
-        <entry>
-          <number>1</number>
-          <prototype>FR Reprocess</prototype>
-        </entry>
-        <entry>
-          <number>1</number>
-          <prototype>SINK</prototype>
-        </entry>
-        <entry>
-          <number>1</number>
-          <prototype>FR Fuel Fab</prototype>
+          <prototype>enrichment</prototype>
         </entry>
       </initialfacilitylist>
       <name>sink_source_facilities</name>
     </institution>
+
     <institution>
+      <name>lwr_inst</name>
       <config>
         <DeployInst>
           <build_times>
@@ -545,279 +572,279 @@
             
           </n_build>
           <prototypes>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
-            <val>LWR</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
            
           </prototypes>
         </DeployInst>
       </config>
-      <name>lwr</name>
     </institution>
+
     <institution>
       <config>
         <DeployInst>
           <prototypes>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
-              <val>FR</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
+              <val>fr</val>
             </prototypes>
             <n_build>
               <val>1</val>
@@ -1141,7 +1168,7 @@
             </build_times>
           </DeployInst>
         </config>
-    <name>fr</name>
+    <name>fr_inst</name>
   </institution>
     <name>USA</name>
   </region>
@@ -1150,45 +1177,46 @@
 
 
   <recipe>
+    <name>natl_u_recipe</name>
     <basis>mass</basis>
-    <name>natl_u</name>
-    <nuclide>
-      <comp>0.711</comp>
-      <id>U235</id>
-    </nuclide>
-    <nuclide>
-      <comp>99.289</comp>
-      <id>U238</id>
-    </nuclide>
+    <nuclide> <id>U235</id> <comp>0.711</comp> </nuclide>
+    <nuclide> <id>U238</id> <comp>99.289</comp> </nuclide>
   </recipe>
+
   <recipe>
+    <name>uox_fuel_recipe</name>
     <basis>mass</basis>
-    <name>fresh_uox</name>
-    <nuclide>
-      <comp>0.04</comp>
-      <id>U235</id>
-    </nuclide>
-    <nuclide>
-      <comp>0.96</comp>
-      <id>U238</id>
-    </nuclide>
-  </recipe>
+     <nuclide> <id>U234</id>  <comp>0.0002558883</comp> </nuclide> 
+     <nuclide> <id>U235</id>  <comp>0.0319885317</comp> </nuclide> 
+     <nuclide> <id>U238</id>  <comp>0.96775558</comp> </nuclide> 
+  </recipe> 
+
   <recipe>
-    <basis>mass</basis>
     <name>depleted_u</name>
-    <nuclide>
-      <comp>0.003</comp>
-      <id>U235</id>
-    </nuclide>
-    <nuclide>
-      <comp>0.997</comp>
+    <basis>mass</basis>
+    <nuclide> <id>U235</id><comp>0.003</comp></nuclide>
+    <nuclide><id>U238</id><comp>0.997</comp></nuclide>
+  </recipe>
+
+  <recipe>
+    <name>mox_fuel_recipe</name>
+    <basis>mass</basis>
+     <nuclide>
+      <comp>0.9236</comp>
       <id>U238</id>
     </nuclide>
-  </recipe>
-  <recipe>
-    <basis>mass</basis>
-    <name>spent_uox</name>
     <nuclide>
+      <comp>0.0764</comp>
+      <id>Pu239</id>
+    </nuclide>
+  </recipe>  
+
+
+
+  <recipe>
+    <name>uox_used_fuel_recipe</name>
+    <basis>mass</basis>
+        <nuclide>
       <comp>156.729</comp>
       <id>U235</id>
     </nuclide>
@@ -1240,23 +1268,12 @@
       <comp>1.263</comp>
       <id>Cm245</id>
     </nuclide>
-  </recipe>
+  </recipe> 
+
   <recipe>
+    <name>sfr_spent_mox_recipe</name>
     <basis>mass</basis>
-    <name>fresh_fr_fuel</name>
-    <nuclide>
-      <comp>0.9236</comp>
-      <id>U238</id>
-    </nuclide>
-    <nuclide>
-      <comp>0.0764</comp>
-      <id>Pu239</id>
-    </nuclide>
-  </recipe>
-  <recipe>
-    <basis>mass</basis>
-    <name>spent_fr_fuel</name>
-    <nuclide>
+   <nuclide>
       <comp>0.859</comp>
       <id>U238</id>
     </nuclide>
@@ -1304,34 +1321,7 @@
       <comp>0.002189</comp>
       <id>Nd148</id>
     </nuclide>
-  </recipe>
-  <recipe>
-    <basis>mass</basis>
-    <name>U238</name>
-    <nuclide>
-      <comp>100</comp>
-      <id>922380</id>
-    </nuclide>
-  </recipe>
-  <recipe>
-    <basis>mass</basis>
-    <name>U235</name>
-    <nuclide>
-      <comp>100</comp>
-      <id>922350</id>
-    </nuclide>
-  </recipe>
-  <recipe>
-    <basis>mass</basis>
-    <name>DU</name>
-    <nuclide>
-      <comp>0.25</comp>
-      <id>922350</id>
-    </nuclide>
-    <nuclide>
-      <comp>99.75</comp>
-      <id>922380</id>
-    </nuclide>
-  </recipe>
+  </recipe> 
+
 
 </simulation>
