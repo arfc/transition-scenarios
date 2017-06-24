@@ -217,7 +217,7 @@ def get_isotope_transactions(resources, compositions):
     return transactions
 
 
-def commodity_from_facility(cursor, facility, commodity_list):
+def commodity_in_out_facility(cursor, facility, commodity_list, is_outflux):
     """ Returns timeseries of commodity outflux from facility
 
     Parameters
@@ -228,6 +228,8 @@ def commodity_from_facility(cursor, facility, commodity_list):
         name of facility type
     commodity_list: list
         list of commodities
+    is_outflux: bool
+        gets outflux if True, influx if False
 
     Returns
     -------
@@ -237,10 +239,16 @@ def commodity_from_facility(cursor, facility, commodity_list):
     agent_ids = get_agent_ids(cur, facility)
     commodity_dict = collections.OrderedDict()
     for comm in commodity_list:
-        resources = cursor.execute(exec_string(agent_ids, 'senderid',
-                                               'time, sum(quantity)') +
-                                   ' and commodity = ' + str(comm) +
-                                   ' GROUP BY time').fetchall()
+        if is_outflux:
+            resources = cursor.execute(exec_string(agent_ids, 'senderid',
+                                                   'time, sum(quantity)')
+                                        + ' and commodity = "' + comm 
+                                        + '" GROUP BY time').fetchall()
+        else:
+            resources = cursor.execute(exec_string(agent_ids, 'receiverid',
+                                                   'time, sum(quantity)')
+                                        + ' and commodity = "' + comm 
+                                        + '" GROUP BY time').fetchall()
         timeseries = get_timeseries(resources, duration, 0.001, True)
         commodity_dict[comm] = timeseries
     return commodity_dict
@@ -405,11 +413,11 @@ def get_trade_dict(cursor, sender, receiver, is_prototype, do_isotopic):
     cursor: sqlite cursor
         sqlite cursor
     sender: str
-        name of sender prototype
+        name of sender
     receiver: str
-        name of receiver prototype
+        name of receiver
     is_prototype: bool
-        search sender and receiver as prototype
+        if True, search sender and receiver as prototype, spec if False.
     do_isotopic: bool
         perform isotopics (takes significantly longer)
 
@@ -426,7 +434,7 @@ def get_trade_dict(cursor, sender, receiver, is_prototype, do_isotopic):
     else:
         sender_id = get_agent_ids(cursor, sender)
         receiver_id = get_agent_ids(cursor, receiver)
-
+        
     trade = cursor.execute('SELECT time, sum(quantity), qualid '
                            'FROM transactions INNER JOIN resources ON '
                            'resources.resourceid = transactions.resourceid'
@@ -435,7 +443,6 @@ def get_trade_dict(cursor, sender, receiver, is_prototype, do_isotopic):
                            ' AND receiverid = ' +
                            ' OR receiverid = '.join(receiver_id) +
                            ' GROUP BY time').fetchall()
-
     if do_isotopic:
         compositions = cursor.execute('SELECT qualid, nucid, massfrac '
                                       'FROM compositions').fetchall()
@@ -729,9 +736,10 @@ def multi_line_plot(dictionary, timestep,
                  dictionary[key],
                  label=label)
         color_index += 1
-        ax = plt.gca()
-        ax.get_yaxis().set_major_formatter(
-            plt.FuncFormatter(lambda x, loc: "{:,}".format(int(x))))
+        if sum(sum(dictionary[k] for k in dictionary)) > 1000:
+            ax = plt.gca()
+            ax.get_yaxis().set_major_formatter(
+                plt.FuncFormatter(lambda x, loc: "{:,}".format(int(x))))
         plt.ylabel(ylabel)
         plt.title(title)
         plt.xlabel(xlabel)
@@ -791,9 +799,6 @@ def stacked_bar_chart(dictionary, timestep,
                 edgecolor='none',
                 label=label)
             prev = dictionary[key]
-            ax = plt.gca()
-            ax.get_yaxis().set_major_formatter(
-                plt.FuncFormatter(lambda x, loc: "{:,}".format(int(x))))
             top_index = False
             plot_list.append(plot)
 
@@ -809,14 +814,15 @@ def stacked_bar_chart(dictionary, timestep,
                 bottom=prev,
                 label=label)
             prev = np.add(prev, dictionary[key])
-            ax = plt.gca()
-            ax.get_yaxis().set_major_formatter(
-                plt.FuncFormatter(lambda x, loc: "{:,}".format(int(x))))
             plot_list.append(plot)
 
         color_index += 1
 
     # plot
+    if sum(sum(dictionary[k] for k in dictionary)) > 1000:
+        ax = plt.gca()
+        ax.get_yaxis().set_major_formatter(
+            plt.FuncFormatter(lambda x, loc: "{:,}".format(int(x))))
     plt.ylabel(ylabel)
     plt.title(title)
     plt.xlabel(xlabel)
@@ -912,7 +918,12 @@ if __name__ == "__main__":
     with con:
         cur = con.cursor()
         init_year, init_month, duration, timestep = get_sim_time_duration(cur)
-        tailings = commodity_from_facility(cur, 'enrichment', ['tailings'])
+        rep_dict = get_trade_dict(cur, 'separations', 'reactor', False, True)
+        stacked_bar_chart(rep_dict, timestep,
+                          'Year', 'Mass [MTHM]',
+                          'reprocessing product vs time',
+                          init_year)
+        tailings = commodity_in_out_facility(cur, 'enrichment', ['tailings'], True)
         stacked_bar_chart(tailings, timestep,
                           'Year', 'Mass [MTHM]',
                           'Tailings vs Time',
@@ -959,5 +970,4 @@ if __name__ == "__main__":
                           'Tailings vs Time',
                           'tailings',
                           init_year)
-
 """
