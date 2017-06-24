@@ -519,7 +519,7 @@ def fuel_into_reactors(cursor):
     Timeseries of mass of fuel into receactors [MTHM]
     """
 
-    init_year, init_month, duration, timestep = get_sim_time_duration(cur)
+    init_year, init_month, duration, timestep = get_sim_time_duration(cursor)
     fuel = cursor.execute('SELECT time, sum(quantity) FROM transactions '
                           'INNER JOIN resources ON '
                           'resources.resourceid = transactions.resourceid '
