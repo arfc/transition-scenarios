@@ -54,7 +54,7 @@ def get_prototype_id(cursor, prototype):
         list of agent_ids for prototype
     """
     ids = cursor.execute('SELECT agentid FROM agententry '
-                         'WHERE prototype = ' + str(prototype) + ' COLLATE NOCASE').fetchall()
+                         'WHERE prototype = "' + str(prototype) + '" COLLATE NOCASE').fetchall()
     return list(str(agent[0]) for agent in ids)
 
 
@@ -235,47 +235,16 @@ def commodity_from_facility(cursor, facility, commodity_list):
     dictionary of timeseries of mass outflux of commodity from facility
     """
     init_year, init_month, duration, timestep = get_sim_time_duration(cursor)
+    agent_ids = get_agent_ids(cur, facility)
     commodity_dict = collections.OrderedDict()
     for comm in commodity_list:
-        resources = cursor.execute(exec_string([str(comm)], 'commodity',
-                                               'quantity, senderid, time')).fetchall()
-        timeseries = get_from_prototype(cursor, facility, duration, resources)
+        resources = cursor.execute(exec_string(agent_ids, 'senderid',
+                                               'time, sum(quantity)')
+                                    + ' and commodity = "' + comm 
+                                    + '" GROUP BY time').fetchall()
+        timeseries = get_timeseries(resources, duration, 0.001, True)
         commodity_dict[comm] = timeseries
     return commodity_dict
-
-
-def get_from_prototype(cursor, prototype, duration, resources):
-    """ Returns timeseries list of quantity out of prototype
-
-    Parameters
-    ----------
-    cursor: sqlite cursor
-        sqlite cursor
-    prototype: str
-        name of prototype
-    duration: int
-        duration of simulation
-    resrources: list
-        list of lists, of quantity, senderid and time
-
-    Returns
-    -------
-    timeseries: list
-        timeseries list of mass outflux from prototype
-    """
-    quantity = 0
-    timeseries = []
-    agent_ids = get_prototype_id(cursor, prototype)
-    for i in range(0, duration):
-        for res in resources:
-            if res[2] == i:
-                try:
-                    if str(res[11]) in agent_ids:
-                        quantity += resources[0]
-                except:
-                    print('none in timestep: ', str(i))
-                timeseries.append(quantity / 1000)
-    return timeseries
 
 
 def get_stockpile(cursor, facility):
@@ -575,7 +544,7 @@ def u_util_calc(cursor):
     fuel_timeseries = np.array(fuel_into_reactors(cursor))
 
     # timeseries of Uranium utilization
-    u_util_timeseries = np.nan_to_num(fuel_timeseries / u_supply_timeseries)
+    u_util_timeseries = np.nan_to_num(fuel_timeseries/ u_supply_timeseries)
     # print the simulation average uranium utilization
     print('The Simulation Average Uranium Utilization is:')
     print(sum(u_util_timeseries) / len(u_util_timeseries))
@@ -988,24 +957,37 @@ def plot_total_waste_timeseries(cursor):
 
 
 if __name__ == "__main__":
-    cur = lite.connect('smaller.sqlite').cursor()
-    plot_total_waste_timeseries(cur)
-#     file = sys.argv[1]
-#     con = lite.connect(file)
-#     with con:
+    file = sys.argv[1]
+    con = lite.connect(file)
+    with con:
+        cur = con.cursor()
+        init_year, init_month, duration, timestep = get_sim_time_duration(cur)
+        tailings = commodity_from_facility(cur, 'enrichment', ['tailings'])
+        stacked_bar_chart(tailings, timestep,
+                          'Year', 'Mass [MTHM]',
+                          'Tailings vs Time',
+                          'tailings',
+                          init_year)
 
-#         cur = con.cursor()
-# init_year, init_month, duration, timestep = get_sim_time_duration(cur)
+        plot_power(cur)
+        fuel_dict = fuel_usage_timeseries(cur, ['uox', 'mox'])
+        stacked_bar_chart(fuel_dict, timestep,
+                          'Years', 'Mass[MTHM]',
+                          'Total Fuel Mass vs Time',
+                          'total_fuel',
+                          init_year)
 
-#         dictionary = {}
-#         dictionary['uranium_utilization'] = u_util_calc(cur)
-#         stacked_bar_chart(dictionary, timestep,
-#                           'Years', 'U Utilization Factor',
-#                           'U Utilization vs Time',
-#                           'u_util', init_year)
-#         """
+        dictionary = {}
+        dictionary['uranium_utilization'] = u_util_calc(cur)
+        stacked_bar_chart(dictionary, timestep,
+                          'Years', 'U Utilization Factor',
+                          'U Utilization vs Time',
+                          'u_util', init_year)
+
+        
+"""
 #         init_year, init_month, duration, timestep = get_sim_time_duration(cur)
-#         plot_power(cur)
+
 #         # waste_dict = total_waste_timeseries(cur)
 #         # multi_line_plot(waste_dict, timestep,
 #         #                'Years', 'Mass[MTHM]',
@@ -1027,4 +1009,5 @@ if __name__ == "__main__":
 #                           'Tailings vs Time',
 #                           'tailings',
 #                           init_year)
-# """
+# 
+"""
