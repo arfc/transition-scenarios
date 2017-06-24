@@ -1,11 +1,9 @@
-import sqlite3 as lite
-import sys
+import collections
 import numpy as np
 import matplotlib.pyplot as plt
+import sqlite3 as lite
+import sys
 from matplotlib import cm
-import collections
-import re
-from operator import truediv
 
 
 if len(sys.argv) < 2:
@@ -54,7 +52,8 @@ def get_prototype_id(cursor, prototype):
         list of agent_ids for prototype
     """
     ids = cursor.execute('SELECT agentid FROM agententry '
-                         'WHERE prototype = "' + str(prototype) + '" COLLATE NOCASE').fetchall()
+                         'WHERE prototype = "' +
+                         str(prototype) + '" COLLATE NOCASE').fetchall()
     return list(str(agent[0]) for agent in ids)
 
 
@@ -176,8 +175,8 @@ def snf(cursor):
     # get list of sum(quantity) and qualid for snf
     snf_inventory = cursor.execute(exec_string(sink_id,
                                                'transactions.receiverId',
-                                               'sum(quantity), qualid')
-                                   + ' GROUP BY qualid').fetchall()
+                                               'sum(quantity), qualid') +
+                                   ' GROUP BY qualid').fetchall()
     compositions = cursor.execute('SELECT qualid, nucid, massfrac '
                                   'FROM compositions').fetchall()
     snf_dict = collections.defaultdict(float)
@@ -299,7 +298,8 @@ def get_swu_dict(cursor):
     init_year, init_month, duration, timestep = get_sim_time_duration(cursor)
     facility_num = 1
     for num in agentid:
-        swu_data = cursor.execute('SELECT time, value FROM timeseriesenrichmentswu '
+        swu_data = cursor.execute('SELECT time, value '
+                                  'FROM timeseriesenrichmentswu '
                                   'WHERE agentid = ' + str(num)).fetchall()
         swu_timeseries = get_timeseries(swu_data, duration, 1, 'TRUE')
         swu_dict['Enrichment' + str(facility_num)] = swu_timeseries
@@ -323,24 +323,21 @@ def get_power_dict(cursor):
 
     """
     init_year, init_month, duration, timestep = get_sim_time_duration(cursor)
-    powercap = []
-    reactor_num = []
-    countries = []
     # get power cap values
     governments = cursor.execute('SELECT prototype, agentid FROM agententry '
                                  'WHERE kind = "Inst"').fetchall()
 
-    entry = cursor.execute('SELECT max(value), timeseriespower.agentid, parentid, entertime '
-                           'FROM agententry INNER JOIN timeseriespower '
+    entry = cursor.execute('SELECT max(value), timeseriespower.agentid, '
+                           'parentid, entertime FROM agententry '
+                           'INNER JOIN timeseriespower '
                            'ON agententry.agentid = timeseriespower.agentid '
                            'GROUP BY timeseriespower.agentid').fetchall()
 
-    exit_step = cursor.execute('SELECT max(value), timeseriespower.agentid, parentid, exittime '
-                               'FROM agentexit INNER JOIN '
-                               'timeseriespower '
-                               'ON agentexit.agentid = '
-                               'timeseriespower.agentid '
-                               'INNER JOIN agententry '
+    exit_step = cursor.execute('SELECT max(value), timeseriespower.agentid, '
+                               'parentid, exittime FROM agentexit '
+                               'INNER JOIN timeseriespower '
+                               'ON agentexit.agentid = timeseriespower.agentid'
+                               ' INNER JOIN agententry '
                                'ON agentexit.agentid = agententry.agentid '
                                'GROUP BY timeseriespower.agentid').fetchall()
     return capacity_calc(governments, timestep, entry, exit_step)
@@ -367,11 +364,10 @@ def fuel_usage_timeseries(cursor, fuel_list):
     for fuel in fuel_list:
         temp_list = ['"' + fuel + '"']
         fuel_quantity = cursor.execute(exec_string(temp_list, 'commodity',
-                                                   'time, sum(quantity)')
-                                       + ' GROUP BY time').fetchall()
+                                                   'time, sum(quantity)') +
+                                       ' GROUP BY time').fetchall()
         init_year, init_month, duration, timestep = get_sim_time_duration(
             cursor)
-        total_sum = 0
         quantity_timeseries = []
 
         try:
@@ -403,7 +399,8 @@ def nat_u_timeseries(cursor):
     init_year, init_month, duration, timestep = get_sim_time_duration(cursor)
 
     # Get Nat U feed to enrichment from timeseriesenrichmentfeed
-    feed = cursor.execute('SELECT time, sum(value) FROM timeseriesenrichmentfeed '
+    feed = cursor.execute('SELECT time, sum(value) '
+                          'FROM timeseriesenrichmentfeed '
                           'GROUP BY time').fetchall()
     return get_timeseries(feed, duration, .001, 'TRUE')
 
@@ -437,24 +434,27 @@ def get_trade_dict(cursor, sender, receiver, is_prototype, do_isotopic):
     else:
         sender_id = get_agent_ids(cursor, sender)
         receiver_id = get_agent_ids(cursor, receiver)
-
-    trade_hist = cursor.execute('SELECT time, sum(quantity), qualid FROM transactions '
-                                'INNER JOIN resources ON resources.resourceid = '
-                                'transactions.resourceid WHERE senderid = '
-                                + ' OR senderid = '.join(sender_id) + ' AND receiverid = '
-                                  + ' OR receiverid = '.join(receiver_id) + ' GROUP BY time').fetchall()
-
+        
+    trade = cursor.execute('SELECT time, sum(quantity), qualid '
+                           'FROM transactions INNER JOIN resources ON '
+                           'resources.resourceid = transactions.resourceid'
+                           ' WHERE senderid = ' +
+                           ' OR senderid = '.join(sender_id) +
+                           ' AND receiverid = ' +
+                           ' OR receiverid = '.join(receiver_id) +
+                           ' GROUP BY time').fetchall()
     if do_isotopic:
         compositions = cursor.execute('SELECT qualid, nucid, massfrac '
                                       'FROM compositions').fetchall()
-        trade_iso_dict = get_isotope_transactions(trade_hist, compositions)
-        trade_iso_dict = {key: get_timeseries(
-            value, duration, 0.001, True) for key, value in trade_iso_dict.items()}
-        return trade_iso_dict
+        iso_dict = get_isotope_transactions(trade, compositions)
+        iso_dict = {key: get_timeseries(
+            value, duration, 0.001, True) for key, value in iso_dict.items()}
+        return iso_dict
     else:
         return_dict = collections.defaultdict()
         key_name = str(sender)[:5] + ' to ' + str(receiver)[:5]
-        return_dict[key_name] = get_timeseries(trade_hist, duration, 0.001, True)
+        return_dict[key_name] = get_timeseries(
+            trade, duration, 0.001, True)
         return return_dict
 
 
@@ -472,7 +472,6 @@ def final_stockpile(cursor, facility):
     -------
     MTHM value of stockpile
     """
-    stock_dict = collections.OrderedDict()
     agentid = get_agent_ids(cursor, facility)
     outstring = ''
     for agent in agentid:
@@ -481,17 +480,18 @@ def final_stockpile(cursor, facility):
                               'WHERE agentid = ' + str(agent)).fetchone()
 
         outstring += 'The Stockpile in ' + str(name[0]) + ' : \n \n'
-        stockpile = cursor.execute('SELECT sum(quantity), inventoryname, qualid '
-                                   'FROM agentstateinventories'
-                                   'INNER JOIN resources '
-                                   'ON resources.resourceid '
-                                   '= agentstateinventories.resourceid '
-                                   'WHERE agentstateinventories.agentid '
-                                   '= """ + str(agent) + """ GROUP BY '
-                                   'inventoryname').fetchall()
-        for stream in stockpile:
-            masses = cursor.execute('SELECT * FROM compositions'
-                                    'WHERE qualid = ' + str(stream[2])).fetchall()
+        stkpile = cursor.execute('SELECT sum(quantity), inventoryname, qualid'
+                                 ' FROM agentstateinventories'
+                                 ' INNER JOIN resources'
+                                 ' ON resources.resourceid'
+                                 ' = agentstateinventories.resourceid'
+                                 ' WHERE agentstateinventories.agentid'
+                                 ' = """ + str(agent) + """ GROUP BY'
+                                 ' inventoryname').fetchall()
+        for stream in stkpile:
+            masses = cursor.execute('SELECT * FROM compositions '
+                                    'WHERE qualid = ' +
+                                    str(stream[2])).fetchall()
 
             outstring += ('Stream ' + str(count) +
                           ' Total = ' + str(stream[0]) + ' kg \n')
@@ -552,7 +552,7 @@ def u_util_calc(cursor):
     fuel_timeseries = np.array(fuel_into_reactors(cursor))
 
     # timeseries of Uranium utilization
-    u_util_timeseries = np.nan_to_num(fuel_timeseries/ u_supply_timeseries)
+    u_util_timeseries = np.nan_to_num(fuel_timeseries / u_supply_timeseries)
     # print the simulation average uranium utilization
     print('The Simulation Average Uranium Utilization is:')
     print(sum(u_util_timeseries) / len(u_util_timeseries))
@@ -588,9 +588,9 @@ def where_comm(cursor, commodity, prototypes):
     trade_dict = collections.OrderedDict()
 
     for agent in prototypes:
-        agent_id = get_prototype_id(cursor, agent)
-        from_agent = cursor.execute(
-            execute_string.replace('9999', agent_ids)).fetchall()
+        agent_ids = get_prototype_id(cursor, agent)
+        from_agent = cursor.execute(execute_string.replace('9999', agent_ids)
+                                    ).fetchall()
         trade_dict[agent] = get_timeseries(from_agent, duration, .001, 'TRUE')
 
     return trade_dict
@@ -669,8 +669,6 @@ def capacity_calc(governments, timestep, entry, exit_step):
         num_reactors = []
         cap = 0
         count = 0
-        gov_name = gov[0]
-        print(gov)
         for t in timestep:
             for enter in entry:
                 entertime = enter[3]
@@ -726,8 +724,6 @@ def multi_line_plot(dictionary, timestep,
 
     # set different colors for each bar
     color_index = 0
-    prev = ''
-    plot_list = []
     # for every country, create bar chart with different color
     for key in dictionary:
         # label is the name of the nuclide (converted from ZZAAA0000 format)
@@ -886,13 +882,15 @@ def plot_in_out_flux(cursor, facility, influx_bool, title, outputname):
     if influx_bool is True:
         resources = cursor.execute(exec_string(agent_ids,
                                                'transactions.receiverId',
-                                               'time, sum(quantity), qualid')
-                                   + ' GROUP BY time, qualid').fetchall()
+                                               'time, sum(quantity), '
+                                               'qualid') +
+                                   ' GROUP BY time, qualid').fetchall()
     else:
         resources = cursor.execute(exec_string(agent_ids,
                                                'transactions.senderId',
-                                               'time, sum(quantity), qualid')
-                                   + ' GROUP BY time, qualid').fetchall()
+                                               'time, sum(quantity), '
+                                               'qualid') +
+                                   ' GROUP BY time, qualid').fetchall()
 
     compositions = cursor.execute('SELECT qualid, nucid, massfrac '
                                   'FROM compositions').fetchall()
@@ -912,55 +910,6 @@ def plot_in_out_flux(cursor, facility, influx_bool, title, outputname):
         multi_line_plot(waste_dict, timestep,
                         'Years', 'Mass [kg]',
                         title, outputname, init_year)
-
-
-def plot_total_waste_timeseries(cursor):
-    """Plots a stacked bar chart of the total mass in sink vs time
-
-    Parameters
-    ----------
-    cursor: sqlite cursor
-        sqlite cursor
-
-    Returns
-    -------
-    null
-    stacked bar chart of waste mass vs time
-    """
-    agent_ids = get_agent_ids(cursor, 'sink')
-    resources = cursor.execute('SELECT time, sum(quantity), qualid, senderid, spec '
-                               'FROM resources INNER JOIN transactions '
-                               'ON transactions.resourceid=resources.resourceid '
-                               'INNER JOIN agententry '
-                               'on transactions.senderid=agententry.agentid '
-                               'WHERE transactions.receiverid= ' +
-                               ' OR transactions.receiverid = '.join(agent_ids) +
-                               ' GROUP BY time, senderid').fetchall()
-    compositions = cursor.execute('SELECT qualid, nucid, massfrac '
-                                  'FROM compositions').fetchall()
-    from_reactor = []
-    from_separations = []
-    from_enrichment = []
-
-    for res in resources:
-        if 'Reactor' in res[4]:
-            # res[4] = spec
-            from_reactor.append(res[:3])
-        if 'Separations' in res[4]:
-            from_separations.append(res[:3])
-        if 'Enrichment' in res[4]:
-            from_enrichment.append(res[:3])
-
-    init_year, init_month, duration, timestep = get_sim_time_duration(cursor)
-    waste_dict = collections.OrderedDict()
-
-    waste_dict['Spent Fuel'] = get_timeseries(
-        from_reactor, duration, .001, 'TRUE')
-    waste_dict['Reprocess Waste'] = get_timeseries(from_separations,
-                                                   duration, .001, 'TRUE')
-    waste_dict['Tails'] = get_timeseries(
-        from_enrichment, duration, .001, 'TRUE')
-    return waste_dict
 
 
 if __name__ == "__main__":
@@ -996,30 +945,29 @@ if __name__ == "__main__":
                           'U Utilization vs Time',
                           'u_util', init_year)
 
-        
+
 """
-#         init_year, init_month, duration, timestep = get_sim_time_duration(cur)
+        init_year, init_month, duration, timestep = get_sim_time_duration(cur)
 
-#         # waste_dict = total_waste_timeseries(cur)
-#         # multi_line_plot(waste_dict, timestep,
-#         #                'Years', 'Mass[MTHM]',
-#         #                'Total Waste Mass vs Time',
-#         #                'total_Waste',
-#         #                init_year)
+        # waste_dict = total_waste_timeseries(cur)
+        # multi_line_plot(waste_dict, timestep,
+        #                'Years', 'Mass[MTHM]',
+        #                'Total Waste Mass vs Time',
+        #                'total_Waste',
+        #                init_year)
 
-#         fuel_dict = fuel_usage_timeseries(cur, ['uox', 'mox'])
+        fuel_dict = fuel_usage_timeseries(cur, ['uox', 'mox'])
 
-#         stacked_bar_chart(fuel_dict, timestep,
-#                           'Years', 'Mass[MTHM]',
-#                           'Total Fuel Mass vs Time',
-#                           'total_fuel',
-#                           init_year)
+        stacked_bar_chart(fuel_dict, timestep,
+                          'Years', 'Mass[MTHM]',
+                          'Total Fuel Mass vs Time',
+                          'total_fuel',
+                          init_year)
 
-#         tailings = commodity_in_out_facility(cur, 'enrichment', ['tailings'], True)
-#         stacked_bar_chart(tailings, timestep,
-#                           'Year', 'Mass [MTHM]',
-#                           'Tailings vs Time',
-#                           'tailings',
-#                           init_year)
-# 
+        tailings = commodity_from_facility(cur, 'enrichment', ['tailings'])
+        stacked_bar_chart(tailings, timestep,
+                          'Year', 'Mass [MTHM]',
+                          'Tailings vs Time',
+                          'tailings',
+                          init_year)
 """
