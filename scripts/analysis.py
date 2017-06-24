@@ -575,7 +575,7 @@ def u_util_calc(cursor):
     fuel_timeseries = np.array(fuel_into_reactors(cursor))
 
     # timeseries of Uranium utilization
-    u_util_timeseries = np.nan_to_num(u_supply_timeseries / fuel_timeseries)
+    u_util_timeseries = np.nan_to_num(fuel_timeseries / u_supply_timeseries)
     # print the simulation average uranium utilization
     print('The Simulation Average Uranium Utilization is:')
     print(sum(u_util_timeseries) / len(u_util_timeseries))
