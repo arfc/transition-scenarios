@@ -906,55 +906,6 @@ def plot_in_out_flux(cursor, facility, influx_bool, title, outputname):
                         title, outputname, init_year)
 
 
-def plot_total_waste_timeseries(cur):
-    """Plots a stacked bar chart of the total mass in sink vs time
-
-    Parameters
-    ----------
-    cursor: sqlite cursor
-        sqlite cursor
-
-    Returns
-    -------
-    null
-    stacked bar chart of waste mass vs time
-    """
-    agent_ids = get_agent_ids(cur, 'sink')
-    resources = cur.execute('SELECT time, sum(quantity), qualid, senderid, '
-                            'spec FROM resources INNER JOIN transactions '
-                            'ON transactions.resourceid=resources.resourceid '
-                            'INNER JOIN agententry ON '
-                            'transactions.senderid=agententry.agentid '
-                            'WHERE transactions.receiverid= ' +
-                            ' OR transactions.receiverid = '.join(agent_ids) +
-                            ' GROUP BY time, senderid').fetchall()
-    compositions = cur.execute('SELECT qualid, nucid, massfrac '
-                               'FROM compositions').fetchall()
-    from_reactor = []
-    from_separations = []
-    from_enrichment = []
-
-    for res in resources:
-        if 'Reactor' in res[4]:
-            # res[4] = spec
-            from_reactor.append(res[:3])
-        if 'Separations' in res[4]:
-            from_separations.append(res[:3])
-        if 'Enrichment' in res[4]:
-            from_enrichment.append(res[:3])
-
-    init_year, init_month, duration, timestep = get_sim_time_duration(cur)
-    waste_dict = collections.OrderedDict()
-
-    waste_dict['Spent Fuel'] = get_timeseries(
-        from_reactor, duration, .001, 'TRUE')
-    waste_dict['Reprocess Waste'] = get_timeseries(from_separations,
-                                                   duration, .001, 'TRUE')
-    waste_dict['Tails'] = get_timeseries(
-        from_enrichment, duration, .001, 'TRUE')
-    return waste_dict
-
-
 if __name__ == "__main__":
     file = sys.argv[1]
     con = lite.connect(file)
