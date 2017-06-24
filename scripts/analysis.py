@@ -1026,9 +1026,10 @@ def multi_line_plot(dictionary, timestep,
                  dictionary[key],
                  label=label)
         color_index += 1
-        ax = plt.gca()
-        ax.get_yaxis().set_major_formatter(
-            plt.FuncFormatter(lambda x, loc: "{:,}".format(int(x))))
+        if sum(sum(dictionary[k] for k in dictionary) > 1000:
+            ax = plt.gca()
+            ax.get_yaxis().set_major_formatter(
+                plt.FuncFormatter(lambda x, loc: "{:,}".format(int(x))))
         plt.ylabel(ylabel)
         plt.title(title)
         plt.xlabel(xlabel)
@@ -1088,9 +1089,6 @@ def stacked_bar_chart(dictionary, timestep,
                            edgecolor='none',
                            label=label)
             prev = dictionary[key]
-            ax = plt.gca()
-            ax.get_yaxis().set_major_formatter(
-                plt.FuncFormatter(lambda x, loc: "{:,}".format(int(x))))
             top_index = False
             plot_list.append(plot)
 
@@ -1106,14 +1104,15 @@ def stacked_bar_chart(dictionary, timestep,
                            bottom=prev,
                            label=label)
             prev = np.add(prev, dictionary[key])
-            ax = plt.gca()
-            ax.get_yaxis().set_major_formatter(
-                plt.FuncFormatter(lambda x, loc: "{:,}".format(int(x))))
             plot_list.append(plot)
 
         color_index += 1
 
     # plot
+    if sum(sum(dictionary[k] for k in dictionary) > 1000:
+        ax = plt.gca()
+        ax.get_yaxis().set_major_formatter(
+            plt.FuncFormatter(lambda x, loc: "{:,}".format(int(x))))
     plt.ylabel(ylabel)
     plt.title(title)
     plt.xlabel(xlabel)
