@@ -241,13 +241,13 @@ def commodity_in_out_facility(cursor, facility, commodity_list, is_outflux):
         if is_outflux:
             resources = cursor.execute(exec_string(agent_ids, 'senderid',
                                                    'time, sum(quantity)')
-                                        + ' and commodity = "' + comm 
-                                        + '" GROUP BY time').fetchall()
+                                       + ' and commodity = "' + comm
+                                       + '" GROUP BY time').fetchall()
         else:
             resources = cursor.execute(exec_string(agent_ids, 'receiverid',
                                                    'time, sum(quantity)')
-                                        + ' and commodity = "' + comm 
-                                        + '" GROUP BY time').fetchall()
+                                       + ' and commodity = "' + comm
+                                       + '" GROUP BY time').fetchall()
         timeseries = get_timeseries(resources, duration, 0.001, True)
         commodity_dict[comm] = timeseries
     return commodity_dict
@@ -433,7 +433,7 @@ def get_trade_dict(cursor, sender, receiver, is_prototype, do_isotopic):
     else:
         sender_id = get_agent_ids(cursor, sender)
         receiver_id = get_agent_ids(cursor, receiver)
-        
+
     trade = cursor.execute('SELECT time, sum(quantity), qualid '
                            'FROM transactions INNER JOIN resources ON '
                            'resources.resourceid = transactions.resourceid'
@@ -921,7 +921,6 @@ if __name__ == "__main__":
         cur = con.cursor()
         init_year, init_month, duration, timestep = get_sim_time_duration(cur)
 
-
 #Europe History Case Only
         tailings = commodity_in_out_facility(cur, 'enrichment', ['tailings'], True)
         stacked_bar_chart(tailings, timestep,
@@ -943,6 +942,18 @@ if __name__ == "__main__":
         #                  'Pu output (MOX) vs Time',
         #                  'tailings',
         #                  init_year)    
+        # stacked_bar_chart(uox_pu, timestep,
+        #                  'Year', 'Mass [MTHM]',
+        #                  'Pu output (UOX) vs Time',
+        #                  'tailings',
+        #                  init_year)
+
+        #mox_pu = commodity_from_facility(cur, 'separations', ['mox_Pu'])
+        # stacked_bar_chart(mox_pu, timestep,
+        #                  'Year', 'Mass [MTHM]',
+        #                  'Pu output (MOX) vs Time',
+        #                  'tailings',
+        #                  init_year)
 
         plot_power(cur)
         fuel_dict = fuel_usage_timeseries(cur, ['uox', 'mox'])
