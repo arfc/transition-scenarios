@@ -477,7 +477,8 @@ def get_trade_dict(cursor, sender, receiver, is_prototype, do_isotopic):
     else:
         return_dict = collections.defaultdict()
         key_name = str(sender)[:5] + ' to ' + str(receiver)[:5]
-        return return_dict[key_name] = get_timeseries(trade_hist, duration, 0.001, True)
+        return_dict[key_name] = get_timeseries(trade_hist, duration, 0.001, True)
+        return return_dict
 
 
 def final_stockpile(cursor, facility):
