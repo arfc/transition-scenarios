@@ -262,14 +262,14 @@ def commodity_in_out_facility(cursor, facility, commod_list,
     for comm in commod_list:
         if is_outflux:
             res = cursor.execute(exec_string(agent_ids, 'senderid',
-                                             'time, sum(quantity)')
-                                 ' and commodity = ' + str(comm)
+                                             'time, sum(quantity)') +
+                                 ' and commodity = ' + str(comm) +
                                  ' GROUP BY time').fetchall()
         else:
             res = cursor.execute(exec_string(agent_ids, 'receiverid',
-                                             'time, sum(quantity)')
-                                 + ' and commodity = "' + comm
-                                 + '" GROUP BY time').fetchall()
+                                             'time, sum(quantity)') +
+                                 ' and commodity = ' + str(comm) +
+                                 ' GROUP BY time').fetchall()
         timeseries = get_timeseries(res, duration, 0.001, True)
         commodity_dict[comm] = timeseries
 
@@ -615,16 +615,16 @@ def where_comm(cursor, commodity, prototypes):
         value: timeseries of commodity sent from prototypes
     """
     init_year, init_month, duration, timestep = get_sim_time_duration(cursor)
-    execute_string = ('SELECT time, sum(quantity) FROM transactions '
-                      'INNER JOIN resources ON resources.resourceid = '
-                      'transactions.resourceid WHERE commodity = '
-                      str(commodity) + ' AND senderid '
-                      '= 9999 GROUP BY time')
+    query = ('SELECT time, sum(quantity) FROM transactions '
+             'INNER JOIN resources ON resources.resourceid = '
+             'transactions.resourceid WHERE commodity = ' +
+             str(commodity) + ' AND senderid '
+             '= 9999 GROUP BY time')
     trade_dict = collections.OrderedDict()
     for agent in prototypes:
         agent_id = get_prototype_id(cursor, agent)
-        from_agent = cursor.execute(
-            execute_string.replace('9999', ' OR senderid = '.join(agent_id))).fetchall()
+        from_agent = cursor.execute(query.replace(
+            '9999', ' OR senderid = '.join(agent_id))).fetchall()
         trade_dict[agent] = get_timeseries(from_agent, duration, .001, 'TRUE')
 
     return trade_dict
@@ -953,14 +953,14 @@ if __name__ == "__main__":
                           'Tailings vs Time',
                           'tailings',
                           init_year)
-        #uox_pu = commodity_from_facility(cur, 'separations', ['uox_Pu'])
+        # uox_pu = commodity_from_facility(cur, 'separations', ['uox_Pu'])
         # stacked_bar_chart(uox_pu, timestep,
         #                  'Year', 'Mass [MTHM]',
         #                  'Pu output (UOX) vs Time',
         #                  'tailings',
         #                  init_year)
 
-        #mox_pu = commodity_from_facility(cur, 'separations', ['mox_Pu'])
+        # mox_pu = commodity_from_facility(cur, 'separations', ['mox_Pu'])
         # stacked_bar_chart(mox_pu, timestep,
         #                  'Year', 'Mass [MTHM]',
         #                  'Pu output (MOX) vs Time',
@@ -972,7 +972,7 @@ if __name__ == "__main__":
         #                  'tailings',
         #                  init_year)
 
-        #mox_pu = commodity_from_facility(cur, 'separations', ['mox_Pu'])
+        # mox_pu = commodity_from_facility(cur, 'separations', ['mox_Pu'])
         # stacked_bar_chart(mox_pu, timestep,
         #                  'Year', 'Mass [MTHM]',
         #                  'Pu output (MOX) vs Time',
@@ -996,13 +996,14 @@ if __name__ == "__main__":
 """
 combined case
 
-        #rep_dict = get_trade_dict(cur, 'separations', 'reactor', False, True)
-        #stacked_bar_chart(rep_dict, timestep,
+        # rep_dict = get_trade_dict(cur, 'separations', 'reactor', False, True)
+        # stacked_bar_chart(rep_dict, timestep,
         #                  'Year', 'Mass [MTHM]',
         #                  'reprocessing product vs time',
         #                  'rep_product', init_year)
-        #tailings = commodity_in_out_facility(cur, 'enrichment', ['tailings'], True)
-        #stacked_bar_chart(tailings, timestep,
+        # tailings = commodity_in_out_facility(cur, 'enrichment',
+                                               ['tailings'], True)
+        # stacked_bar_chart(tailings, timestep,
         #                  'Year', 'Mass [MTHM]',
         #                  'Tailings vs Time',
         #                  'tailings',
@@ -1016,7 +1017,8 @@ combined case
         demand = collections.OrderedDict()
         demand['pu_from_legacy'] = [i * .09 for i in fuel_dict['uox_mixer']]
         demand['pu_from_spent_mox'] = [i * .09 for i in fuel_dict['mox_mixer']]
-        total_mox = ([x + y for x, y in zip(fuel_dict['uox_mixer'], fuel_dict['mox_mixer'])])
+        total_mox = ([x + y for x, y in zip(fuel_dict['uox_mixer'],
+                                            fuel_dict['mox_mixer'])])
         demand['pu_total'] = [i *.09 for i in total_mox]
         demand['tailings'] = [i * .91 for i in total_mox]
 
@@ -1026,7 +1028,8 @@ combined case
                         'demand',
                         init_year)
 
-        reprocessing_waste = get_trade_dict(cur, 'separations', 'sink', False, False)
+        reprocessing_waste = get_trade_dict(cur, 'separations',
+                                            'sink', False, False)
         stacked_bar_chart(reprocessing_waste, timestep,
                           'Year', 'Mass [MTHM]',
                           'reprocessing waste vs time',
