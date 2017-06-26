@@ -63,3 +63,4 @@ target/
 
 *.sqlite
 .sqlite
+cyclus_output/
