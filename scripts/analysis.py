@@ -216,7 +216,7 @@ def get_isotope_transactions(resources, compositions):
     return transactions
 
 
-def commodity_in_out_facility(cursor, facility, commodity_list, is_outflux):
+def commodity_in_out_facility(cursor, facility, commodity_list, is_outflux, is_prototype):
     """ Returns timeseries of commodity outflux from facility
 
     Parameters
@@ -229,13 +229,18 @@ def commodity_in_out_facility(cursor, facility, commodity_list, is_outflux):
         list of commodities
     is_outflux: bool
         gets outflux if True, influx if False
+    is_prototype: bool
+        searched prototype if True, spec if False
 
     Returns
     -------
     dictionary of timeseries of mass outflux of commodity from facility
     """
     init_year, init_month, duration, timestep = get_sim_time_duration(cursor)
-    agent_ids = get_agent_ids(cursor, facility)
+    if is_prototype:
+        agent_ids = get_prototype_id(cursor, facility)
+    else:
+        agent_ids = get_agent_ids(cursor, facility)
     commodity_dict = collections.OrderedDict()
     for comm in commodity_list:
         if is_outflux:
