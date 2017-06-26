@@ -32,7 +32,6 @@
       <Source>
         <outcommod>nat_u</outcommod>
         <outrecipe>nat_u</outrecipe>
-        <throughput>1e15</throughput>
       </Source>
     </config>
   </facility>
