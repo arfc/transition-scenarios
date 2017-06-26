@@ -263,8 +263,8 @@ def commodity_in_out_facility(cursor, facility, commod_list,
         if is_outflux:
             res = cursor.execute(exec_string(agent_ids, 'senderid',
                                              'time, sum(quantity)') +
-                                 ' and commodity = ' + str(comm) +
-                                 ' GROUP BY time').fetchall()
+                                 ' and commodity = "' + str(comm) +
+                                 '"" GROUP BY time').fetchall()
         else:
             res = cursor.execute(exec_string(agent_ids, 'receiverid',
                                              'time, sum(quantity)') +
@@ -588,6 +588,7 @@ def u_util_calc(cursor):
 
     # timeseries of Uranium utilization
     u_util_timeseries = np.nan_to_num(fuel_timeseries / u_supply_timeseries)
+    print(u_util_timeseries)
     # print the simulation average uranium utilization
     print('The Simulation Average Uranium Utilization is:')
     print(sum(u_util_timeseries) / len(u_util_timeseries))
@@ -617,8 +618,8 @@ def where_comm(cursor, commodity, prototypes):
     init_year, init_month, duration, timestep = get_sim_time_duration(cursor)
     query = ('SELECT time, sum(quantity) FROM transactions '
              'INNER JOIN resources ON resources.resourceid = '
-             'transactions.resourceid WHERE commodity = ' +
-             str(commodity) + ' AND senderid '
+             'transactions.resourceid WHERE commodity = "' +
+             str(commodity) + '" AND senderid '
              '= 9999 GROUP BY time')
     trade_dict = collections.OrderedDict()
     for agent in prototypes:
@@ -945,56 +946,48 @@ if __name__ == "__main__":
         cur = con.cursor()
         init_year, init_month, duration, timestep = get_sim_time_duration(cur)
 
-# Europe History Case Only
-        tailings = commodity_in_out_facility(
-            cur, 'enrichment', ['tailings'], True)
-        stacked_bar_chart(tailings, timestep,
-                          'Year', 'Mass [MTHM]',
-                          'Tailings vs Time',
-                          'tailings',
+
+#Europe History Case Only
+        #tailings = commodity_in_out_facility(cur, 'uox_mixer', ['tailings'], True)
+        #stacked_bar_chart(tailings, timestep,
+        #                  'Year', 'Mass [MTHM]',
+        #                  'Tailings vs Time',
+        #                  'tailings',
+        #                  init_year)
+        #uox_pu = commodity_from_facility(cur, 'separations', ['uox_Pu'])
+        #stacked_bar_chart(uox_pu, timestep,
+        #                  'Year', 'Mass [MTHM]',
+        #                  'Pu output (UOX) vs Time',
+        #                  'tailings',
+        #                  init_year)    
+        
+
+        #mox_pu = commodity_from_facility(cur, 'separations', ['mox_Pu'])
+        #stacked_bar_chart(mox_pu, timestep,
+        #                  'Year', 'Mass [MTHM]',
+        #                  'Pu output (MOX) vs Time',
+        #                  'tailings',
+        #                  init_year)    
+        fuel_dict = where_comm(cur, 'mox', ['mox_uox_fuel_fab', 'mox_mox_fuel_fab'])
+        stacked_bar_chart(fuel_dict, timestep,
+                          'Years', 'Mass[MTHM]',
+                          'Total Fuel Mass vs Time',
+                          'where_fuel',
                           init_year)
-        # uox_pu = commodity_from_facility(cur, 'separations', ['uox_Pu'])
-        # stacked_bar_chart(uox_pu, timestep,
-        #                  'Year', 'Mass [MTHM]',
-        #                  'Pu output (UOX) vs Time',
-        #                  'tailings',
-        #                  init_year)
-
-        # mox_pu = commodity_from_facility(cur, 'separations', ['mox_Pu'])
-        # stacked_bar_chart(mox_pu, timestep,
-        #                  'Year', 'Mass [MTHM]',
-        #                  'Pu output (MOX) vs Time',
-        #                  'tailings',
-        #                  init_year)
-        # stacked_bar_chart(uox_pu, timestep,
-        #                  'Year', 'Mass [MTHM]',
-        #                  'Pu output (UOX) vs Time',
-        #                  'tailings',
-        #                  init_year)
-
-        # mox_pu = commodity_from_facility(cur, 'separations', ['mox_Pu'])
-        # stacked_bar_chart(mox_pu, timestep,
-        #                  'Year', 'Mass [MTHM]',
-        #                  'Pu output (MOX) vs Time',
-        #                  'tailings',
-        #                  init_year)
-
         plot_power(cur)
-        fuel_dict = fuel_usage_timeseries(cur, ['uox', 'mox'])
+        fuel_dict = fuel_usage_timeseries(cur, ['mox'])
         stacked_bar_chart(fuel_dict, timestep,
                           'Years', 'Mass[MTHM]',
                           'Total Fuel Mass vs Time',
                           'total_fuel',
                           init_year)
-
         dictionary = {}
         dictionary['uranium_utilization'] = u_util_calc(cur)
         stacked_bar_chart(dictionary, timestep,
                           'Years', 'U Utilization Factor',
                           'U Utilization vs Time',
                           'u_util', init_year)
-"""
-combined case
+#combined case
 
         # rep_dict = get_trade_dict(cur, 'separations', 'reactor', False, True)
         # stacked_bar_chart(rep_dict, timestep,
@@ -1002,41 +995,40 @@ combined case
         #                  'reprocessing product vs time',
         #                  'rep_product', init_year)
         # tailings = commodity_in_out_facility(cur, 'enrichment',
-                                               ['tailings'], True)
+        #                                       ['tailings'], True)
         # stacked_bar_chart(tailings, timestep,
         #                  'Year', 'Mass [MTHM]',
         #                  'Tailings vs Time',
         #                  'tailings',
         #                  init_year)
-        fuel_dict = where_comm(cur, 'mox', ['uox_mixer', 'mox_mixer'])
-        stacked_bar_chart(fuel_dict, timestep,
-                          'Years', 'Mass[MTHM]',
-                          'Total Fuel Mass vs Time',
-                          'total_fuel',
-                          init_year)
-        demand = collections.OrderedDict()
-        demand['pu_from_legacy'] = [i * .09 for i in fuel_dict['uox_mixer']]
-        demand['pu_from_spent_mox'] = [i * .09 for i in fuel_dict['mox_mixer']]
-        total_mox = ([x + y for x, y in zip(fuel_dict['uox_mixer'],
-                                            fuel_dict['mox_mixer'])])
-        demand['pu_total'] = [i *.09 for i in total_mox]
-        demand['tailings'] = [i * .91 for i in total_mox]
+        #fuel_dict = where_comm(cur, 'mox', ['uox_mixer', 'mox_mixer'])
+        #stacked_bar_chart(fuel_dict, timestep,
+        #                  'Years', 'Mass[MTHM]',
+        #                  'Total Fuel Mass vs Time',
+        #                  'total_fuel',
+        #                  init_year)
+        #demand = collections.OrderedDict()
+        #demand['pu_from_legacy'] = [i * .09 for i in fuel_dict['uox_mixer']]
+        #demand['pu_from_spent_mox'] = [i * .09 for i in fuel_dict['mox_mixer']]
+        #total_mox = ([x + y for x, y in zip(fuel_dict['uox_mixer'],
+        #                                    fuel_dict['mox_mixer'])])
+        #demand['pu_total'] = [i *.09 for i in total_mox]
+        #demand['tailings'] = [i * .91 for i in total_mox]
+        #multi_line_plot(demand, timestep,
+        #                'Years', 'Mass[MTHM]',
+        #                'Total Demand vs Time',
+        #                'demand',
+        #                init_year)
 
-        multi_line_plot(demand, timestep,
-                        'Years', 'Mass[MTHM]',
-                        'Total Demand vs Time',
-                        'demand',
-                        init_year)
+        #reprocessing_waste = get_trade_dict(cur, 'separations',
+        #                                    'sink', False, False)
+        #stacked_bar_chart(reprocessing_waste, timestep,
+        #                  'Year', 'Mass [MTHM]',
+        #                  'reprocessing waste vs time',
+        #                  'repro_waste',
+        #                  init_year)
 
-        reprocessing_waste = get_trade_dict(cur, 'separations',
-                                            'sink', False, False)
-        stacked_bar_chart(reprocessing_waste, timestep,
-                          'Year', 'Mass [MTHM]',
-                          'reprocessing waste vs time',
-                          'repro_waste',
-                          init_year)
-
-        plot_power(cur)
+        #plot_power(cur)
         #dictionary = {}
         #dictionary['uranium_utilization'] = u_util_calc(cur)
         #stacked_bar_chart(dictionary, timestep,
@@ -1046,7 +1038,7 @@ combined case
 
 """
 """
-        init_year, init_month, duration, timestep = get_sim_time_duration(cur)
+        #init_year, init_month, duration, timestep = get_sim_time_duration(cur)
 
         # waste_dict = total_waste_timeseries(cur)
         # multi_line_plot(waste_dict, timestep,
@@ -1055,18 +1047,18 @@ combined case
         #                'total_Waste',
         #                init_year)
 
-        fuel_dict = fuel_usage_timeseries(cur, ['uox', 'mox'])
+        #fuel_dict = fuel_usage_timeseries(cur, ['uox', 'mox'])
 
-        stacked_bar_chart(fuel_dict, timestep,
-                          'Years', 'Mass[MTHM]',
-                          'Total Fuel Mass vs Time',
-                          'total_fuel',
-                          init_year)
+        #stacked_bar_chart(fuel_dict, timestep,
+        #                  'Years', 'Mass[MTHM]',
+        #                  'Total Fuel Mass vs Time',
+        #                  'total_fuel',
+        #                  init_year)
 
-        tailings = commodity_from_facility(cur, 'enrichment', ['tailings'])
-        stacked_bar_chart(tailings, timestep,
-                          'Year', 'Mass [MTHM]',
-                          'Tailings vs Time',
-                          'tailings',
-                          init_year)
-"""
+        #tailings = commodity_from_facility(cur, 'enrichment', ['tailings'])
+        #stacked_bar_chart(tailings, timestep,
+        #                  'Year', 'Mass [MTHM]',
+        #                  'Tailings vs Time',
+        #                  'tailings',
+        #                  init_year)
+    
