@@ -1,6 +1,5 @@
 <DeployInst>
     <prototypes>
-        <val>Sink</val>
         {%- for reactor in reactors %}
         <val>{{reactor}}</val>
         {%- endfor %}</prototypes>
