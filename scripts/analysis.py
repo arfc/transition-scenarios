@@ -261,16 +261,16 @@ def commodity_in_out_facility(cursor, facility, commod_list,
     commodity_dict = collections.OrderedDict()
     for comm in commod_list:
         if is_outflux:
-            resources = cursor.execute(exec_string(agent_ids, 'senderid',
-                                                   'time, sum(quantity)')
-                                       + ' and commodity = "' + comm
-                                       + '" GROUP BY time').fetchall()
+            res = cursor.execute(exec_string(agent_ids, 'senderid',
+                                             'time, sum(quantity)')
+                                 ' and commodity = ' + str(comm)
+                                 ' GROUP BY time').fetchall()
         else:
-            resources = cursor.execute(exec_string(agent_ids, 'receiverid',
-                                                   'time, sum(quantity)')
-                                       + ' and commodity = "' + comm
-                                       + '" GROUP BY time').fetchall()
-        timeseries = get_timeseries(resources, duration, 0.001, True)
+            res = cursor.execute(exec_string(agent_ids, 'receiverid',
+                                             'time, sum(quantity)')
+                                 + ' and commodity = "' + comm
+                                 + '" GROUP BY time').fetchall()
+        timeseries = get_timeseries(res, duration, 0.001, True)
         commodity_dict[comm] = timeseries
 
     return commodity_dict
