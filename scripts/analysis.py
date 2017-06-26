@@ -11,6 +11,7 @@ if len(sys.argv) < 2:
 
 """HELPERS"""
 
+
 def get_agent_ids(cursor, facility):
     """ Gets all agentIds from Agententry table for wanted facility
 
@@ -23,15 +24,16 @@ def get_agent_ids(cursor, facility):
     cursor: cursor
         cursor for sqlite3
     facility: str
-        name of facility type
+        name of facility type as described in spec
 
     Returns
     -------
     sink_id: list
-        list of all the sink agentId values.
+        list of all the sink agentId values as string.
     """
     agents = cursor.execute("SELECT * FROM agententry WHERE spec LIKE '%" +
                             facility + "%' COLLATE NOCASE").fetchall()
+
     return list(str(agent[1]) for agent in agents)
 
 
@@ -48,29 +50,30 @@ def get_prototype_id(cursor, prototype):
     Returns
     -------
     agent_id: list
-        list of agent_ids for prototype
+        list of agent_ids for prototype as string.
     """
     ids = cursor.execute('SELECT agentid FROM agententry '
                          'WHERE prototype = "' +
                          str(prototype) + '" COLLATE NOCASE').fetchall()
+
     return list(str(agent[0]) for agent in ids)
 
 
 def exec_string(in_list, search, whatwant):
     """ Generates sqlite query command to select things and
-        inner join between resources and transactions.
+        inner join resources and transactions.
 
     Parameters
-    ---------
-
+    ----------
     in_list: list
-        list of criteria that generates command
+        (search) = in_list
+        list of items to specify search
     search: str
-        where [search]
-        criteria for your search
+        WHERE (search)
+        criteria for in_list search
     whatwant: str
-        select [whatwant]
-        column (set of values) you want out.
+        SELECT (whatwant)
+        column (set of values) you want out from sqlite query
 
     Returns
     -------
@@ -84,15 +87,18 @@ def exec_string(in_list, search, whatwant):
              )
     for item in in_list[1:]:
         query += ' OR (' + str(search) + ' = ' + str(item) + ')'
+
     return query
 
 
 def get_sim_time_duration(cursor):
-    """ Returns simulation time and duration of the simulation
+    """ Returns simulation start year, month, duration and
+    timesteps (in numpy linspace).
 
     Parameters
     ----------
     cursor: sqlite cursor
+        sqlite cursor
 
     Returns
     -------
@@ -127,15 +133,16 @@ def get_timeseries(in_list, duration, multiplyby, cumulative):
     duration: int
         duration of the simulation
     multiplyby: int
-        integer to multiply the value in the list by
+        integer to multiply the value in the list by for
+        unit conversion from kilograms
     cumulative: boolean
-        determine whether data is cumulative
+        determine whether returned timeseries should be
+        cumulative sum over time
 
     Returns
     -------
     timeseries list of data
     """
-
     value = 0
     value_timeseries = []
     array = np.array(in_list)
@@ -160,14 +167,13 @@ def snf(cursor):
 
     Parameters
     ----------
-    cursor: cursor
-        cursor for sqlite3
+    cursor: sqlite cursor
+        sqlite cursor
 
     Returns
     -------
-    array
-        inventory of individual nuclides
-        in format nuclide = mass [kg]
+    snf_dict: dictionary
+        dirctionary with key: isotope, and value: mass
     """
     sink_id = get_agent_ids(cur, 'sink')
 
@@ -183,6 +189,7 @@ def snf(cursor):
         for num in snf_inventory:
             if num[0] == comp[0]:
                 snf_dict[comp[1]] += num[1] * comp[2]
+
     return snf_dict
 
 
@@ -193,13 +200,19 @@ def get_isotope_transactions(resources, compositions):
     ----------
     resources: list
         resource data from the resources table
+        list[0]: time
+        list[1]: sum(quantity)
+        list[2]: qualid
     compositions: list
         composition data from the compositions table
+        list[0]: qualid
+        list[1]: nucid
+        list[2]: massfrac
 
     Returns
     -------
     transactions: dictionary
-        dictionary with keys as isotop and value as a
+        dictionary with keys as isotope and value as
         list of tuples (mass moved, time)
     """
     transactions = collections.defaultdict(list)
@@ -213,28 +226,32 @@ def get_isotope_transactions(resources, compositions):
                 # mass_frac = comp[2]
                 # res_time = res[0]
                 transactions[comp[1]].append((res[0], res[1] * comp[2]))
+
     return transactions
 
 
-def commodity_in_out_facility(cursor, facility, commodity_list, is_outflux, is_prototype):
-    """ Returns timeseries of commodity outflux from facility
+def commodity_in_out_facility(cursor, facility, commod_list,
+                              is_outflux, is_prototype):
+    """ Returns timeseries of commodity in/outflux from facility or prototype
 
     Parameters
     ----------
     cursor: sqlite cursor
         sqlite cursor
     facility: str
-        name of facility type
-    commodity_list: list
+        facility type as shown in spec or prototype name
+    commod_list: list
         list of commodities
     is_outflux: bool
         gets outflux if True, influx if False
     is_prototype: bool
-        searched prototype if True, spec if False
+        searches using prototype name if True,
+        facility type if False
 
     Returns
     -------
-    dictionary of timeseries of mass outflux of commodity from facility
+    commodity_dict: dictionary
+        dictionary with key: commodity, and value: timeseries list
     """
     init_year, init_month, duration, timestep = get_sim_time_duration(cursor)
     if is_prototype:
@@ -242,24 +259,25 @@ def commodity_in_out_facility(cursor, facility, commodity_list, is_outflux, is_p
     else:
         agent_ids = get_agent_ids(cursor, facility)
     commodity_dict = collections.OrderedDict()
-    for comm in commodity_list:
+    for comm in commod_list:
         if is_outflux:
-            resources = cursor.execute(exec_string(agent_ids, 'senderid',
-                                                   'time, sum(quantity)')
-                                       + ' and commodity = "' + comm
-                                       + '" GROUP BY time').fetchall()
+            res = cursor.execute(exec_string(agent_ids, 'senderid',
+                                             'time, sum(quantity)') +
+                                 ' and commodity = ' + str(comm) +
+                                 ' GROUP BY time').fetchall()
         else:
-            resources = cursor.execute(exec_string(agent_ids, 'receiverid',
-                                                   'time, sum(quantity)')
-                                       + ' and commodity = "' + comm
-                                       + '" GROUP BY time').fetchall()
-        timeseries = get_timeseries(resources, duration, 0.001, True)
+            res = cursor.execute(exec_string(agent_ids, 'receiverid',
+                                             'time, sum(quantity)') +
+                                 ' and commodity = ' + str(comm) +
+                                 ' GROUP BY time').fetchall()
+        timeseries = get_timeseries(res, duration, 0.001, True)
         commodity_dict[comm] = timeseries
+
     return commodity_dict
 
 
 def get_stockpile(cursor, facility):
-    """ get inventory timeseries in a fuel facility
+    """ gets inventory timeseries in a fuel facility
 
     Parameters
     ----------
@@ -270,8 +288,8 @@ def get_stockpile(cursor, facility):
 
     Returns
     -------
-    null
-    line plot of stockpile inventory
+    pile_dict: dictionary
+        dictionary with key: facility, value: timeseries of stockpile
     """
     pile_dict = collections.OrderedDict()
     agentid = get_agent_ids(cursor, facility)
@@ -295,7 +313,9 @@ def get_swu_dict(cursor):
 
     Returns
     -------
-    dictionary of swu timeseries
+    swu_dict: dictionary
+        dictionary with key: Enrichment (facility number),
+        value: swu timeseries
     """
     swu_dict = collections.OrderedDict()
     agentid = get_agent_ids(cursor, 'Enrichment')
@@ -313,18 +333,18 @@ def get_swu_dict(cursor):
 
 
 def get_power_dict(cursor):
-    """ Gets capacity vs time for every country
-        in stacked bar chart.
+    """ Gets dictionary of power capcity and number of reactors
+    by calling capacity_calc
 
     Parameters
     ----------
-    cursor: cursor
-        cursor for sqlite3
+    cursor: sqlite cursor
+        sqlite cursor
 
     Returns
-    -------
-    stacked bar chart of net capacity vs time
-
+    ------
+    capacity_calc: function
+        calls a function
     """
     init_year, init_month, duration, timestep = get_sim_time_duration(cursor)
     # get power cap values
@@ -355,14 +375,14 @@ def fuel_usage_timeseries(cursor, fuel_list):
     cursor: sqlite cursor
         sqlite cursor
     fuel_list: list
-        list of fuel commodity names (eg. uox, mox) to consider in fuel usage.
+        list of fuel commodity names (eg. uox, mox) as string
+        to consider in fuel usage.
 
     Returns
     -------
-    dict
-        dictionary of different fuels used timeseries
-    keys - fuel
-    values - timeseries list of fuel amount [kg]
+    fuel_dict: dictionary
+        dictionary with key: fuel (from fuel_list),
+        value: timeseries list of fuel amount [kg]
     """
     fuel_dict = collections.OrderedDict()
     for fuel in fuel_list:
@@ -373,7 +393,6 @@ def fuel_usage_timeseries(cursor, fuel_list):
         init_year, init_month, duration, timestep = get_sim_time_duration(
             cursor)
         quantity_timeseries = []
-
         try:
             quantity_timeseries = get_timeseries(
                 fuel_quantity, duration, .001, 'TRUE')
@@ -397,9 +416,10 @@ def nat_u_timeseries(cursor):
 
     Returns
     -------
-    Timeseries of natural U demand from enrichment [MTHM]
+    get_timeseries: function
+        calls a function that returns timeseries of natural U
+        demand from enrichment [MTHM]
     """
-
     init_year, init_month, duration, timestep = get_sim_time_duration(cursor)
 
     # Get Nat U feed to enrichment from timeseriesenrichmentfeed
@@ -410,24 +430,32 @@ def nat_u_timeseries(cursor):
 
 
 def get_trade_dict(cursor, sender, receiver, is_prototype, do_isotopic):
-    """ Returns trade timeseries between two prototypes
+    """ Returns trade timeseries between two prototypes' or facilities
+    with or without isotopics
 
     Parameters
     ----------
     cursor: sqlite cursor
         sqlite cursor
     sender: str
-        name of sender
+        name of sender as facility type or prototype name
     receiver: str
-        name of receiver
+        name of receiver as facility type or prototype name
     is_prototype: bool
-        if True, search sender and receiver as prototype, spec if False.
+        if True, search sender and receiver as prototype,
+        if False, as facility type from spec.
     do_isotopic: bool
-        perform isotopics (takes significantly longer)
+        if True, perform isotopics (takes significantly longer)
 
     Returns:
     --------
-    Timeseries list of mass traded between two prototypes
+    return_dict: dictionary
+        if do_isotopic:
+            dictionary with key: isotope,
+            value: timeseries list of mass traded between two prototypes
+        else:
+            dictionary with key: string, sender to receiver,
+            value: timeseries list of mass traded between two prototypes
 
     """
     init_year, init_month, duration, timestep = get_sim_time_duration(cursor)
@@ -453,12 +481,14 @@ def get_trade_dict(cursor, sender, receiver, is_prototype, do_isotopic):
         iso_dict = get_isotope_transactions(trade, compositions)
         iso_dict = {key: get_timeseries(
             value, duration, 0.001, True) for key, value in iso_dict.items()}
+
         return iso_dict
     else:
         return_dict = collections.defaultdict()
         key_name = str(sender)[:5] + ' to ' + str(receiver)[:5]
         return_dict[key_name] = get_timeseries(
             trade, duration, 0.001, True)
+
         return return_dict
 
 
@@ -474,7 +504,8 @@ def final_stockpile(cursor, facility):
 
     Returns
     -------
-    MTHM value of stockpile
+    outstring: str
+        MTHM value of stockpile
     """
     agentid = get_agent_ids(cursor, facility)
     outstring = ''
@@ -520,9 +551,9 @@ def fuel_into_reactors(cursor):
 
     Returns
     -------
-    Timeseries of mass of fuel into receactors [MTHM]
+    get_timeseries: function
+        Function returns timeseries of mass of fuel into receactors [MTHM]
     """
-
     init_year, init_month, duration, timestep = get_sim_time_duration(cursor)
     fuel = cursor.execute('SELECT time, sum(quantity) FROM transactions '
                           'INNER JOIN resources ON '
@@ -545,10 +576,10 @@ def u_util_calc(cursor):
 
     Returns
     -------
-    Timeseries of Uranium utilization factor
+    u_util_timeseries: numpy array
+        Timeseries of Uranium utilization factor
     Prints simulation average Uranium Utilization
     """
-
     # timeseries of natural uranium
     u_supply_timeseries = np.array(nat_u_timeseries(cursor))
 
@@ -566,7 +597,7 @@ def u_util_calc(cursor):
 
 
 def where_comm(cursor, commodity, prototypes):
-    """ Returns dict of where fuel is from
+    """ Returns dict of where a commodity is from
 
     Parameters
     ----------
@@ -575,27 +606,25 @@ def where_comm(cursor, commodity, prototypes):
     commodity: str
         name of commodity
     prototypes: list
-        list of prototypes from
+        list of prototypes that provides commodity
 
     Returns
     -------
-    Dictionary of timeseries of commodity sent from prototypes
+    trade_dict: dictioary
+        dictionary with key: prototype name,
+        value: timeseries of commodity sent from prototypes
     """
     init_year, init_month, duration, timestep = get_sim_time_duration(cursor)
-
-    execute_string = ('SELECT time, sum(quantity) FROM transactions '
-                      'INNER JOIN resources ON resources.resourceid = '
-                      'transactions.resourceid WHERE commodity '
-                      '= "' + commodity + '"' + ' AND senderid '
-                      '= 9999 GROUP BY time')
-
+    query = ('SELECT time, sum(quantity) FROM transactions '
+             'INNER JOIN resources ON resources.resourceid = '
+             'transactions.resourceid WHERE commodity = ' +
+             str(commodity) + ' AND senderid '
+             '= 9999 GROUP BY time')
     trade_dict = collections.OrderedDict()
-
     for agent in prototypes:
         agent_id = get_prototype_id(cursor, agent)
-        from_agent = cursor.execute(
-            execute_string.replace('9999', ' OR senderid = '.join(agent_id))).fetchall()
-
+        from_agent = cursor.execute(query.replace(
+            '9999', ' OR senderid = '.join(agent_id))).fetchall()
         trade_dict[agent] = get_timeseries(from_agent, duration, .001, 'TRUE')
 
     return trade_dict
@@ -618,13 +647,12 @@ def get_waste_dict(isotope_list, mass_list, time_list, duration):
 
     Returns
     -------
-    dict
-        dictionary of mass time series of each unique isotope
+    waste_dict: dictionary
+        dictionary with key: isotope,
+        value: mass timeseries of each unique isotope
     """
-
     waste_dict = collections.OrderedDict()
     isotope_set = set(isotope_list)
-
     for iso in isotope_set:
         mass = 0
         time_mass = []
@@ -634,7 +662,6 @@ def get_waste_dict(isotope_list, mass_list, time_list, duration):
             for x, y in enumerate(isotope_list):
                 if i == time_list[x] and y == iso:
                     mass += mass_list[x]
-
             time_mass.append(mass)
         waste_dict[iso] = time_mass
 
@@ -645,10 +672,10 @@ def capacity_calc(governments, timestep, entry, exit_step):
     """Adds and subtracts capacity over time for plotting
 
     Parameters
-    ---------
+    ----------
     governments: list
         list of governments (countries)
-    timestep: list
+    timestep: np.linspace
         list of timestep from 0 to simulation time
     entry: list
         power_cap, agentid, parentid, entertime
@@ -660,15 +687,15 @@ def capacity_calc(governments, timestep, entry, exit_step):
 
     Returns
     -------
-    tuple
-        (power_dict, num_dict) which holds timeseries
-        of capacity and number of reactors
-        with country_government as key
+    power_dict: dictionary
+        dictionary with key: government,
+        value: timesereies capacity
+    num_dict: dictionary
+        dictionary with key: government,
+        value: timesereis number of reactors
     """
-
     power_dict = collections.OrderedDict()
     num_dict = collections.OrderedDict()
-
     for gov in governments:
         capacity = []
         num_reactors = []
@@ -693,7 +720,6 @@ def capacity_calc(governments, timestep, entry, exit_step):
                     count -= 1
             capacity.append(cap)
             num_reactors.append(count)
-
         power_dict[gov[0]] = np.asarray(capacity)
         num_dict[gov[0]] = np.asarray(num_reactors)
 
@@ -711,22 +737,21 @@ def multi_line_plot(dictionary, timestep,
     Parameters
     ----------
     dictionary: dictionary
-        dictionary with list of timestep progressions
-    timestep: int
-        timestep of simulation (linspace)
-    xlabel: string
+        dictionary with value: list of timestep progressions
+    timestep: numpy linspace
+        timestep of simulation
+    xlabel: str
         xlabel of plot
-    ylabel: string
+    ylabel: str
         ylabel of plot
-    title: string
+    title: str
         title of plot
     init_year: int
         initial year of simulation
+
     Returns
     -------
-    stores a plot of dict data on path `outputname`
     """
-
     # set different colors for each bar
     color_index = 0
     # for every country, create bar chart with different color
@@ -764,23 +789,21 @@ def stacked_bar_chart(dictionary, timestep,
     Parameters
     ----------
     dictionary: dictionary
-        holds time series data
-    timestep: list
+        dictionary with value: timeseries data
+    timestep: numpy linspace
         list of timestep (x axis)
-    xlabel: string
+    xlabel: str
         xlabel of plot
-    ylabel: string
+    ylabel: str
         ylabel of plot
-    title: string
+    title: str
         title of plot
     init_year: int
         simulation start year
 
     Returns
     -------
-
     """
-
     # set different colors for each bar
     color_index = 0
     top_index = True
@@ -843,15 +866,12 @@ def plot_power(cursor):
 
     Parameters
     ----------
-    cursor: cursor
-        cursor for sqlite3
+    cursor: sqlite cursor
+        sqlite cursor
 
     Returns
     -------
-    stacked bar chart of net capacity vs time
-
     """
-
     init_year, init_month, duration, timestep = get_sim_time_duration(cursor)
     power_dict, num_dict = get_power_dict(cursor)
     stacked_bar_chart(power_dict, timestep,
@@ -883,7 +903,6 @@ def plot_in_out_flux(cursor, facility, influx_bool, title, outputname):
 
     Returns
     -------
-
     """
     agent_ids = get_agent_ids(cursor, facility)
     if influx_bool is True:
@@ -926,34 +945,34 @@ if __name__ == "__main__":
         cur = con.cursor()
         init_year, init_month, duration, timestep = get_sim_time_duration(cur)
 
-#Europe History Case Only
-        tailings = commodity_in_out_facility(cur, 'enrichment', ['tailings'], True)
+# Europe History Case Only
+        tailings = commodity_in_out_facility(
+            cur, 'enrichment', ['tailings'], True)
         stacked_bar_chart(tailings, timestep,
                           'Year', 'Mass [MTHM]',
                           'Tailings vs Time',
                           'tailings',
                           init_year)
-        #uox_pu = commodity_from_facility(cur, 'separations', ['uox_Pu'])
-        #stacked_bar_chart(uox_pu, timestep,
-        #                  'Year', 'Mass [MTHM]',
-        #                  'Pu output (UOX) vs Time',
-        #                  'tailings',
-        #                  init_year)    
-        
-
-        #mox_pu = commodity_from_facility(cur, 'separations', ['mox_Pu'])
-        #stacked_bar_chart(mox_pu, timestep,
-        #                  'Year', 'Mass [MTHM]',
-        #                  'Pu output (MOX) vs Time',
-        #                  'tailings',
-        #                  init_year)    
+        # uox_pu = commodity_from_facility(cur, 'separations', ['uox_Pu'])
         # stacked_bar_chart(uox_pu, timestep,
         #                  'Year', 'Mass [MTHM]',
         #                  'Pu output (UOX) vs Time',
         #                  'tailings',
         #                  init_year)
 
-        #mox_pu = commodity_from_facility(cur, 'separations', ['mox_Pu'])
+        # mox_pu = commodity_from_facility(cur, 'separations', ['mox_Pu'])
+        # stacked_bar_chart(mox_pu, timestep,
+        #                  'Year', 'Mass [MTHM]',
+        #                  'Pu output (MOX) vs Time',
+        #                  'tailings',
+        #                  init_year)
+        # stacked_bar_chart(uox_pu, timestep,
+        #                  'Year', 'Mass [MTHM]',
+        #                  'Pu output (UOX) vs Time',
+        #                  'tailings',
+        #                  init_year)
+
+        # mox_pu = commodity_from_facility(cur, 'separations', ['mox_Pu'])
         # stacked_bar_chart(mox_pu, timestep,
         #                  'Year', 'Mass [MTHM]',
         #                  'Pu output (MOX) vs Time',
@@ -977,13 +996,14 @@ if __name__ == "__main__":
 """
 combined case
 
-        #rep_dict = get_trade_dict(cur, 'separations', 'reactor', False, True)
-        #stacked_bar_chart(rep_dict, timestep,
+        # rep_dict = get_trade_dict(cur, 'separations', 'reactor', False, True)
+        # stacked_bar_chart(rep_dict, timestep,
         #                  'Year', 'Mass [MTHM]',
         #                  'reprocessing product vs time',
         #                  'rep_product', init_year)
-        #tailings = commodity_in_out_facility(cur, 'enrichment', ['tailings'], True)
-        #stacked_bar_chart(tailings, timestep,
+        # tailings = commodity_in_out_facility(cur, 'enrichment',
+                                               ['tailings'], True)
+        # stacked_bar_chart(tailings, timestep,
         #                  'Year', 'Mass [MTHM]',
         #                  'Tailings vs Time',
         #                  'tailings',
@@ -997,17 +1017,19 @@ combined case
         demand = collections.OrderedDict()
         demand['pu_from_legacy'] = [i * .09 for i in fuel_dict['uox_mixer']]
         demand['pu_from_spent_mox'] = [i * .09 for i in fuel_dict['mox_mixer']]
-        total_mox = ([x + y for x, y in zip(fuel_dict['uox_mixer'], fuel_dict['mox_mixer'])])
+        total_mox = ([x + y for x, y in zip(fuel_dict['uox_mixer'],
+                                            fuel_dict['mox_mixer'])])
         demand['pu_total'] = [i *.09 for i in total_mox]
         demand['tailings'] = [i * .91 for i in total_mox]
-        
+
         multi_line_plot(demand, timestep,
                         'Years', 'Mass[MTHM]',
                         'Total Demand vs Time',
                         'demand',
                         init_year)
 
-        reprocessing_waste = get_trade_dict(cur, 'separations', 'sink', False, False)
+        reprocessing_waste = get_trade_dict(cur, 'separations',
+                                            'sink', False, False)
         stacked_bar_chart(reprocessing_waste, timestep,
                           'Year', 'Mass [MTHM]',
                           'reprocessing waste vs time',
