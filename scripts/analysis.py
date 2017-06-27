@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import sqlite3 as lite
 import sys
 from matplotlib import cm
+from pyne import nucname
 
 
 if len(sys.argv) < 2:
@@ -288,7 +289,7 @@ def commodity_in_out_facility(cursor, facility, commod_list,
         res = cursor.execute(query).fetchall()
 
         if do_isotopic:
-            for a, b, c in res: iso_dict[c].append((a, b))
+            for a, b, c in res: iso_dict[nucname.name(c)].append((a, b))
         else:
             timeseries = get_timeseries(res, duration, 0.001, True)
             commodity_dict[comm] = timeseries
@@ -516,7 +517,7 @@ def get_trade_dict(cursor, sender, receiver, is_prototype, do_isotopic):
                                ') GROUP BY time').fetchall()
 
     if do_isotopic:
-        for a, b, c in trade: iso_dict[c].append((a, b))
+        for a, b, c in trade: iso_dict[nucname.name(c)].append((a, b))
         for key in iso_dict:
             iso_dict[key] = get_timeseries(iso_dict[key], duration, 0.001, True)
         return iso_dict
@@ -981,14 +982,15 @@ if __name__ == "__main__":
     with con:
         cur = con.cursor()
         init_year, init_month, duration, timestep = get_sim_time_duration(cur)
+        plot_power(cur)
         #combined = commodity_in_out_facility(cur, 'separations', ['mox_Pu', 'uox_Pu'], True, False, True)
         #stacked_bar_chart(combined, timestep, 'Years', 'Mass[MTHM]', 'reprocessed Pu outflux vs Time', 'combined', init_year)
         #ox_Pu = commodity_in_out_facility(cur, 'separations', ['mox_Pu'], True, False, True)
         #stacked_bar_chart(mox_Pu, timestep, 'Years', 'Mass[MTHM]', 'reprocessed Pu outflux vs Time', 'reprocessed', init_year)
         #uox_Pu = commodity_in_out_facility(cur, 'separations', ['uox_Pu'], True, False, True)
         #stacked_bar_chart(uox_Pu, timestep, 'Years', 'Mass[MTHM]', 'reprocessed Pu outflux vs Time', 'uox_reprocessed', init_year)
-        stacked_bar_chart(get_trade_dict(cur, 'uox_reprocessing', 'mox_fuel_fab', True, True), timestep,
-                          'Years', 'Mass [MTHM]', 'reprocessed Pu outflux vs Time', 'ahhhhh', init_year)
+        #stacked_bar_chart(get_trade_dict(cur, 'uox_reprocessing', 'mox_fuel_fab', True, True), timestep,
+        #                  'Years', 'Mass [MTHM]', 'reprocessed Pu outflux vs Time', 'ahhhhh', init_year)
 
 # Europe History Case Only
         #tailings = commodity_in_out_facility(cur, 'uox_mixer', ['tailings'], True)
