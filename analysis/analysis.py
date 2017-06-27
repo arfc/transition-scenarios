@@ -53,8 +53,8 @@ def get_prototype_id(cursor, prototype):
         list of agent_ids for prototype as string.
     """
     ids = cursor.execute('SELECT agentid FROM agententry '
-                         'WHERE prototype = ' + str(prototype) +
-                         ' COLLATE NOCASE').fetchall()
+                         'WHERE prototype = "' +
+                         str(prototype) + '" COLLATE NOCASE').fetchall()
 
     return list(str(agent[0]) for agent in ids)
 
@@ -263,13 +263,14 @@ def commodity_in_out_facility(cursor, facility, commod_list,
         if is_outflux:
             res = cursor.execute(exec_string(agent_ids, 'senderid',
                                              'time, sum(quantity)') +
-                                 ' and commodity = ' + str(comm) +
-                                 ' GROUP BY time').fetchall()
+                                 ' and commodity = "' + str(comm) +
+                                 '" GROUP BY time').fetchall()
         else:
             res = cursor.execute(exec_string(agent_ids, 'receiverid',
                                              'time, sum(quantity)') +
-                                 ' and commodity = ' + str(comm) +
-                                 ' GROUP BY time').fetchall()
+                                 ' and commodity = "' + str(comm) +
+                                 '" GROUP BY time').fetchall()
+
         timeseries = get_timeseries(res, duration, 0.001, True)
         commodity_dict[comm] = timeseries
 
@@ -588,6 +589,7 @@ def u_util_calc(cursor):
 
     # timeseries of Uranium utilization
     u_util_timeseries = np.nan_to_num(fuel_timeseries / u_supply_timeseries)
+    print(u_util_timeseries)
     # print the simulation average uranium utilization
     print('The Simulation Average Uranium Utilization is:')
     print(sum(u_util_timeseries) / len(u_util_timeseries))
@@ -617,8 +619,8 @@ def where_comm(cursor, commodity, prototypes):
     init_year, init_month, duration, timestep = get_sim_time_duration(cursor)
     query = ('SELECT time, sum(quantity) FROM transactions '
              'INNER JOIN resources ON resources.resourceid = '
-             'transactions.resourceid WHERE commodity = ' +
-             str(commodity) + ' AND senderid '
+             'transactions.resourceid WHERE commodity = "' +
+             str(commodity) + '" AND senderid '
              '= 9999 GROUP BY time')
     trade_dict = collections.OrderedDict()
     for agent in prototypes:
@@ -943,16 +945,41 @@ if __name__ == "__main__":
     cur = lite.connect(file).cursor()
     ini_yr, ini_month, dur, timestep = get_sim_time_duration(cur)
 
-    """nat_u consumption"""
-    consumption[nat_u] = nat_u_timeseries(cur)
+    """nat_u consumption vs Time"""
+    consumption = {}
+    consumption['Nat_u'] = nat_u_timeseries(cur)
     stacked_bar_chart(consumption, timestep,
-                      'Time [Months]',
-                      'nat_u consumed [ton]',
-                      'nat_u consumed vs time',
-                      '01. Nat_u consumption',
+                      'Time [Yr]', 'Nat_u Consumed [MTHM]',
+                      'Nat_u consumed vs time',
+                      'Nat_u consumption',
                       ini_yr)
-
-
+    """Fuel utilization factor vs Time"""
+    fuel_util = {}
+    fuel_util['Fuel Utilization Factor'] = u_util_calc(cur)
+    stacked_bar_chart(fuel_util, timestep,
+                      'Time [Yr]', 'Fuel utiliization',
+                      'Fuel utilization',
+                      'Fuel utilization', ini_yr)
+    """Number of Reactors and Capacity vs Time"""
+    plot_power(cur)
+    """Total Tailings vs Time"""
+    tailings = commodity_in_out_facility(cur, 'enrichment',
+                                         ['tails'], True, False)
+    stacked_bar_chart(tailings, timestep,
+                      'Time [Yr]', 'Tailings [MTHM]',
+                      'Tailings vs Time',
+                      'Tailings vs Time', ini_yr)
+    """Fuel to Reactor vs Time"""
+    to_reactor = {'nat_u': fuel_into_reactors(cur)}
+    stacked_bar_chart(to_reactor, timestep,
+                      'Time [Yr]', 'Fuel into Reactors [MTHM]',
+                      'Fuel to Reactors over Time',
+                      'Fuel to Reactors over Time', ini_yr)
+    """SWU vs Time"""
+    stacked_bar_chart(get_swu_dict(cur), timestep,
+                      'Time [Yr]', 'SWU',
+                      'SWU vs Time',
+                      'SWU vs Time', ini_yr)
 """
 # Europe History Case Only
         tailings = commodity_in_out_facility(
@@ -962,14 +989,14 @@ if __name__ == "__main__":
                           'Tailings vs Time',
                           'tailings',
                           init_year)
-        #uox_pu = commodity_from_facility(cur, 'separations', ['uox_Pu'])
+        # uox_pu = commodity_from_facility(cur, 'separations', ['uox_Pu'])
         # stacked_bar_chart(uox_pu, timestep,
         #                  'Year', 'Mass [MTHM]',
         #                  'Pu output (UOX) vs Time',
         #                  'tailings',
         #                  init_year)
 
-        #mox_pu = commodity_from_facility(cur, 'separations', ['mox_Pu'])
+        # mox_pu = commodity_from_facility(cur, 'separations', ['mox_Pu'])
         # stacked_bar_chart(mox_pu, timestep,
         #                  'Year', 'Mass [MTHM]',
         #                  'Pu output (MOX) vs Time',
@@ -981,7 +1008,7 @@ if __name__ == "__main__":
         #                  'tailings',
         #                  init_year)
 
-        #mox_pu = commodity_from_facility(cur, 'separations', ['mox_Pu'])
+        # mox_pu = commodity_from_facility(cur, 'separations', ['mox_Pu'])
         # stacked_bar_chart(mox_pu, timestep,
         #                  'Year', 'Mass [MTHM]',
         #                  'Pu output (MOX) vs Time',
@@ -1005,13 +1032,13 @@ if __name__ == "__main__":
 
 # combined case
 
-        #rep_dict = get_trade_dict(cur, 'separations', 'reactor', False, True)
-        #stacked_bar_chart(rep_dict, timestep,
+        # rep_dict = get_trade_dict(cur, 'separations', 'reactor', False, True)
+        # stacked_bar_chart(rep_dict, timestep,
         #                  'Year', 'Mass [MTHM]',
         #                  'reprocessing product vs time',
         #                  'rep_product', init_year)
-        #tailings = commodity_in_out_facility(cur, 'enrichment', ['tailings'], True)
-        #stacked_bar_chart(tailings, timestep,
+        # tailings = commodity_in_out_facility(cur, 'enrichment', ['tailings'], True)
+        # stacked_bar_chart(tailings, timestep,
         #                  'Year', 'Mass [MTHM]',
         #                  'Tailings vs Time',
         #                  'tailings',
@@ -1025,8 +1052,9 @@ if __name__ == "__main__":
         demand = collections.OrderedDict()
         demand['pu_from_legacy'] = [i * .09 for i in fuel_dict['uox_mixer']]
         demand['pu_from_spent_mox'] = [i * .09 for i in fuel_dict['mox_mixer']]
-        total_mox = ([x + y for x, y in zip(fuel_dict['uox_mixer'], fuel_dict['mox_mixer'])])
-        demand['pu_total'] = [i *.09 for i in total_mox]
+        total_mox = (
+            [x + y for x, y in zip(fuel_dict['uox_mixer'], fuel_dict['mox_mixer'])])
+        demand['pu_total'] = [i * .09 for i in total_mox]
         demand['tailings'] = [i * .91 for i in total_mox]
 
         multi_line_plot(demand, timestep,
@@ -1035,7 +1063,8 @@ if __name__ == "__main__":
                         'demand',
                         init_year)
 
-        reprocessing_waste = get_trade_dict(cur, 'separations', 'sink', False, False)
+        reprocessing_waste = get_trade_dict(
+            cur, 'separations', 'sink', False, False)
         stacked_bar_chart(reprocessing_waste, timestep,
                           'Year', 'Mass [MTHM]',
                           'reprocessing waste vs time',
@@ -1043,9 +1072,9 @@ if __name__ == "__main__":
                           init_year)
 
         plot_power(cur)
-        #dictionary = {}
-        #dictionary['uranium_utilization'] = u_util_calc(cur)
-        #stacked_bar_chart(dictionary, timestep,
+        # dictionary = {}
+        # dictionary['uranium_utilization'] = u_util_calc(cur)
+        # stacked_bar_chart(dictionary, timestep,
         #                  'Years', 'U Utilization Factor',
         #                  'U Utilization vs Time',
         #                  'u_util', init_year)
