@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import sqlite3 as lite
 import sys
 from matplotlib import cm
+from pyne import nucname
 
 
 if len(sys.argv) < 2:
@@ -231,7 +232,7 @@ def get_isotope_transactions(resources, compositions):
 
 
 def commodity_in_out_facility(cursor, facility, commod_list,
-                              is_outflux, is_prototype):
+                              is_outflux, is_prototype, do_isotopic):
     """ Returns timeseries of commodity in/outflux from facility or prototype
 
     Parameters
@@ -247,34 +248,59 @@ def commodity_in_out_facility(cursor, facility, commod_list,
     is_prototype: bool
         searches using prototype name if True,
         facility type if False
+    do_isotopic: bool
+        gets isotopic of outflux commodity if True
 
     Returns
     -------
     commodity_dict: dictionary
         dictionary with key: commodity, and value: timeseries list
     """
+
     init_year, init_month, duration, timestep = get_sim_time_duration(cursor)
     if is_prototype:
         agent_ids = get_prototype_id(cursor, facility)
     else:
         agent_ids = get_agent_ids(cursor, facility)
     commodity_dict = collections.OrderedDict()
+    iso_dict = collections.defaultdict(list)
     for comm in commod_list:
-        if is_outflux:
-            res = cursor.execute(exec_string(agent_ids, 'senderid',
-                                             'time, sum(quantity)') +
-                                 ' and commodity = "' + str(comm) +
-                                 '" GROUP BY time').fetchall()
+        if do_isotopic:
+            query = ('SELECT time, sum(quantity)*massfrac, nucid '
+                     'FROM transactions INNER JOIN resources '
+                     'ON resources.resourceid = transactions.resourceid '
+                     'LEFT OUTER JOIN compositions '
+                     'ON compositions.qualid = resources.qualid '
+                     'WHERE (receiverid = '
+                     + ' OR receiverid = '.join(agent_ids)
+                     + ') AND (commodity = "' + str(comm)
+                     + '") GROUP BY time, nucid')
         else:
-            res = cursor.execute(exec_string(agent_ids, 'receiverid',
-                                             'time, sum(quantity)') +
-                                 ' and commodity = "' + str(comm) +
-                                 '" GROUP BY time').fetchall()
+            query = (exec_string(agent_ids, 'receiverid',
+                                 'time, sum(quantity), qualid') +
+                     ' and commodity = "' + str(comm) +
+                     '" GROUP BY time')
 
-        timeseries = get_timeseries(res, duration, 0.001, True)
-        commodity_dict[comm] = timeseries
+        # outflux changes receiverid to senderid
+        if is_outflux:
+            query = query.replace('receiverid', 'senderid')
 
-    return commodity_dict
+        res = cursor.execute(query).fetchall()
+
+        if do_isotopic:
+            for a, b, c in res:
+                iso_dict[nucname.name(c)].append((a, b))
+        else:
+            timeseries = get_timeseries(res, duration, 0.001, True)
+            commodity_dict[comm] = timeseries
+
+    if do_isotopic:
+        for key in iso_dict:
+            iso_dict[key] = get_timeseries(
+                iso_dict[key], duration, 0.001, True)
+        return iso_dict
+    else:
+        return commodity_dict
 
 
 def get_stockpile(cursor, facility):
@@ -460,6 +486,8 @@ def get_trade_dict(cursor, sender, receiver, is_prototype, do_isotopic):
 
     """
     init_year, init_month, duration, timestep = get_sim_time_duration(cursor)
+    iso_dict = collections.defaultdict(list)
+    return_dict = collections.defaultdict()
 
     if is_prototype:
         sender_id = get_prototype_id(cursor, sender)
@@ -468,28 +496,38 @@ def get_trade_dict(cursor, sender, receiver, is_prototype, do_isotopic):
         sender_id = get_agent_ids(cursor, sender)
         receiver_id = get_agent_ids(cursor, receiver)
 
-    trade = cursor.execute('SELECT time, sum(quantity), qualid '
-                           'FROM transactions INNER JOIN resources ON '
-                           'resources.resourceid = transactions.resourceid'
-                           ' WHERE senderid = ' +
-                           ' OR senderid = '.join(sender_id) +
-                           ' AND receiverid = ' +
-                           ' OR receiverid = '.join(receiver_id) +
-                           ' GROUP BY time').fetchall()
     if do_isotopic:
-        compositions = cursor.execute('SELECT qualid, nucid, massfrac '
-                                      'FROM compositions').fetchall()
-        iso_dict = get_isotope_transactions(trade, compositions)
-        iso_dict = {key: get_timeseries(
-            value, duration, 0.001, True) for key, value in iso_dict.items()}
+        trade = cursor.execute('SELECT time, sum(quantity)*massfrac, nucid '
+                               'FROM transactions INNER JOIN resources '
+                               'ON resources.resourceid = transactions.resourceid '
+                               'LEFT OUTER JOIN compositions '
+                               'ON compositions.qualid = resources.qualid '
+                               'WHERE (senderid = ' +
+                               'OR senderid = '.join(sender_id) +
+                               ') AND (receiverid = ' +
+                               ' OR receiverid = '.join(receiver_id) +
+                               ') GROUP BY time, nucid').fetchall()
+    else:
+        trade = cursor.execute('SELECT time, sum(quantity), qualid '
+                               'FROM transactions INNER JOIN resources ON '
+                               'resources.resourceid = transactions.resourceid'
+                               ' WHERE (senderid = ' +
+                               ' OR senderid = '.join(sender_id) +
+                               ') AND (receiverid = ' +
+                               ' OR receiverid = '.join(receiver_id) +
+                               ') GROUP BY time').fetchall()
 
+    if do_isotopic:
+        for a, b, c in trade:
+            iso_dict[nucname.name(c)].append((a, b))
+        for key in iso_dict:
+            iso_dict[key] = get_timeseries(
+                iso_dict[key], duration, 0.001, True)
         return iso_dict
     else:
-        return_dict = collections.defaultdict()
         key_name = str(sender)[:5] + ' to ' + str(receiver)[:5]
         return_dict[key_name] = get_timeseries(
             trade, duration, 0.001, True)
-
         return return_dict
 
 
@@ -856,7 +894,8 @@ def stacked_bar_chart(dictionary, timestep,
     plt.ylabel(ylabel)
     plt.title(title)
     plt.xlabel(xlabel)
-    plt.legend(loc=(1.0, 0))
+    if len(dictionary) > 1:
+        plt.legend(loc=(1.0, 0))
     plt.grid(True)
     plt.savefig(outputname + '.png', format='png', bbox_inches='tight')
     plt.close()
