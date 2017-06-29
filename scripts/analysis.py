@@ -285,7 +285,6 @@ def commodity_in_out_facility(cursor, facility, commod_list,
                                 'time, sum(quantity), qualid') +
                     ' and (commodity = "' + str(comm) +
                     '") GROUP BY time')
-        print(query)
         # outflux changes receiverid to senderid
         if is_outflux:
             query = query.replace('receiverid', 'senderid')
@@ -629,7 +628,6 @@ def u_util_calc(cursor):
 
     # timeseries of Uranium utilization
     u_util_timeseries = np.nan_to_num(fuel_timeseries / u_supply_timeseries)
-    print(u_util_timeseries)
     # print the simulation average uranium utilization
     print('The Simulation Average Uranium Utilization is:')
     print(sum(u_util_timeseries) / len(u_util_timeseries))
