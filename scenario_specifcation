@@ -1,0 +1,28 @@
+eg01-23 (Pu)
+eg01-24 (TRU)
+
+uox
+Breeders
+
+BFR 
+USE MIXER TO PRODUCE THE DESIRED RECIPE
+GOAL : CF = 1.2
+
+
+-----------------------------------------
+eg01-29 (Pu)
+eg91-30 (TRU)
+
+
+use CFR for burner recipes
+
+""
+LWR - uox
+Burners
+GOAL : CF = .8
+""
+
+
+
+LWR - mox
+Breedersn
