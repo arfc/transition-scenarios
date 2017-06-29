@@ -84,10 +84,14 @@ def exec_string(in_list, search, whatwant):
     query = ("SELECT " + whatwant +
              " FROM resources INNER JOIN transactions"
              " ON transactions.resourceid = resources.resourceid"
-             " WHERE (" + str(search) + ' = ' + str(in_list[0]) + ')'
+             " WHERE (" + str(search) + ' = ' + str(in_list[0])
              )
-    for item in in_list[1:]:
-        query += ' OR (' + str(search) + ' = ' + str(item) + ')'
+    if len(in_list) == 1:
+        query += ')'
+    else:
+        for item in in_list[1:]:
+            query += ' OR ' + str(search) + ' = ' + str(item)
+        query += ')'
 
     return query
 
@@ -279,9 +283,9 @@ def commodity_in_out_facility(cursor, facility, commod_list,
         else:
             query = (exec_string(agent_ids, 'receiverid',
                                 'time, sum(quantity), qualid') +
-                    ' and commodity = "' + str(comm) +
-                    '" GROUP BY time')
-
+                    ' and (commodity = "' + str(comm) +
+                    '") GROUP BY time')
+        print(query)
         # outflux changes receiverid to senderid
         if is_outflux:
             query = query.replace('receiverid', 'senderid')
