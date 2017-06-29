@@ -21,8 +21,8 @@ def get_agent_ids(cursor, facility):
             Prototype / ParentID / Lifetime / EnterTime
 
     Parameters
-    ----------
-    cursor: cursor
+    ---------
+-    cursor: cursor
         cursor for sqlite3
     facility: str
         name of facility type as described in spec
@@ -32,10 +32,10 @@ def get_agent_ids(cursor, facility):
     sink_id: list
         list of all the sink agentId values as string.
     """
-    agents = cursor.execute("SELECT * FROM agententry WHERE spec LIKE '%" +
+    agents = cursor.execute("SELECT agentid FROM agententry WHERE spec LIKE '%" +
                             facility + "%' COLLATE NOCASE").fetchall()
 
-    return list(str(agent[1]) for agent in agents)
+    return list(str(agent[0]) for agent in agents)
 
 
 def get_prototype_id(cursor, prototype):
@@ -133,8 +133,8 @@ def get_timeseries(in_list, duration, multiplyby, cumulative):
         list[1] = value, quantity
     duration: int
         duration of the simulation
-    multiplyby: int
-        integer to multiply the value in the list by for
+    multiplyby: float
+        floating point to multiply the value in the list by for
         unit conversion from kilograms
     cumulative: boolean
         determine whether returned timeseries should be
@@ -627,10 +627,9 @@ def u_util_calc(cursor):
 
     # timeseries of Uranium utilization
     u_util_timeseries = np.nan_to_num(fuel_timeseries / u_supply_timeseries)
-    print(u_util_timeseries)
     # print the simulation average uranium utilization
-    print('The Simulation Average Uranium Utilization is:')
-    print(sum(u_util_timeseries) / len(u_util_timeseries))
+    print('The Simulation Average Uranium Utilization is: ' +
+          str(sum(u_util_timeseries) / len(u_util_timeseries)))
 
     # return dictionary of u_util_timeseries
     return u_util_timeseries
@@ -764,6 +763,34 @@ def capacity_calc(governments, timestep, entry, exit_step):
         num_dict[gov[0]] = np.asarray(num_reactors)
 
     return power_dict, num_dict
+
+
+def source_throughput(cursor, duration, frac_prod, frac_tail):
+    """ Calculates throughput required for nat_u source before enrichment
+    by calculating the average mass of fuel gone into reactors over
+    simulation. Assuming natural uranium is put as feed
+
+    Parameters
+    ----------
+    cursor: sqlite cursor
+        sqlite cursor
+    duration: int
+        duration of simulation
+    frac_prod: float
+        mass fraction of U235 in fuel after enrichment in decimals
+    frac_tail: float
+        mass fraction of U235 in tailings after enrichment in decimals
+
+    Returns
+    -------
+    throughput: float
+        appropriate nat_u throughput for source
+    """
+    avg_fuel_used = fuel_into_reactors(cur)[-1] * 1000 / duration
+    feed_factor = (frac_prod - frac_tail) / (0.00711 - frac_tail)
+    print('Throughput should be at least: ' +
+          str(feed_factor * avg_fuel_used) + ' [kg]')
+    return feed_factor * avg_fuel_used
 
 
 """PLOTTER"""
@@ -990,7 +1017,7 @@ if __name__ == "__main__":
     stacked_bar_chart(consumption, timestep,
                       'Time [Yr]', 'Nat_u Consumed [MTHM]',
                       'Nat_u consumed vs time',
-                      'Nat_u consumption',
+                      'results/Nat_u consumption',
                       ini_yr)
     """Fuel utilization factor vs Time"""
     fuel_util = {}
@@ -998,27 +1025,37 @@ if __name__ == "__main__":
     stacked_bar_chart(fuel_util, timestep,
                       'Time [Yr]', 'Fuel utiliization',
                       'Fuel utilization',
-                      'Fuel utilization', ini_yr)
+                      'results/Fuel utilization', ini_yr)
     """Number of Reactors and Capacity vs Time"""
-    plot_power(cur)
+    power_dict, num_dict = get_power_dict(cur)
+    stacked_bar_chart(power_dict, timestep,
+                      'Years', 'Net_Capacity [GWe]',
+                      'Net Capacity vs Time',
+                      'results/Capacity vs Time', ini_yr)
+
+    stacked_bar_chart(num_dict, timestep,
+                      'Years', 'Number of Reactors',
+                      'Number of Reactors vs Time',
+                      'results/Number of Reactors vs Time', ini_yr)
     """Total Tailings vs Time"""
     tailings = commodity_in_out_facility(cur, 'enrichment',
-                                         ['tails'], True, False)
+                                         ['tails'], True, False, False)
     stacked_bar_chart(tailings, timestep,
                       'Time [Yr]', 'Tailings [MTHM]',
                       'Tailings vs Time',
-                      'Tailings vs Time', ini_yr)
+                      'results/Tailings vs Time', ini_yr)
     """Fuel to Reactor vs Time"""
     to_reactor = {'nat_u': fuel_into_reactors(cur)}
     stacked_bar_chart(to_reactor, timestep,
                       'Time [Yr]', 'Fuel into Reactors [MTHM]',
                       'Fuel to Reactors over Time',
-                      'Fuel to Reactors over Time', ini_yr)
+                      'results/Fuel to Reactors over Time', ini_yr)
     """SWU vs Time"""
     stacked_bar_chart(get_swu_dict(cur), timestep,
                       'Time [Yr]', 'SWU',
                       'SWU vs Time',
-                      'SWU vs Time', ini_yr)
+                      'results/SWU vs Time', ini_yr)
+
 """
 # Europe History Case Only
         tailings = commodity_in_out_facility(
