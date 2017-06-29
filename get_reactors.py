@@ -7,8 +7,8 @@ import sys
 
 # Check number of input arguments
 if len(sys.argv) < 3:
-    print('Usage: python recipe_generator.py [Fleetcomp]\
-          [ReactorTemplate]')
+    print('Usage: python get_reactors.py [Fleetcomp] '
+          '[ReactorTemplate]')
 
 
 def import_csv(in_csv):

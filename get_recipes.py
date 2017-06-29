@@ -8,8 +8,8 @@ import sys
 
 # Check number of input arguments
 if len(sys.argv) < 3:
-    print('Usage: python recipe_generator.py [Fleetcomp]\
-          [ReactorTemplate]')
+    print('Usage: python get_recipes.py [Fleetcomp] '
+          '[ReactorTemplate]')
 
 
 def import_csv(in_csv):
@@ -105,7 +105,7 @@ def write_recipes(in_dict, in_template, burnup):
     with open('./cyclus_input/recipes/uox_' +
               burnup +
               '.xml', 'w') as output:
-                output.write(rendered)
+        output.write(rendered)
 
 
 def main(in_csv, recipe_template, burnup):
