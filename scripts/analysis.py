@@ -606,6 +606,86 @@ def fuel_into_reactors(cursor):
     return get_timeseries(fuel, duration, .001, 'TRUE')
 
 
+def conv_factor(cursor, in_commod, out_commod):
+    """ Returns conversion factor of two commodities
+
+    Parameters
+    ----------
+    cursor: sqlite cursor
+        sqlite cursor
+    in_commod: str
+        name of in commodity
+    out_commod: str
+        name of out commodity
+
+    Returns
+    -------
+    prints conversion factor
+    """
+
+    in_commod_qualid = cursor.execute(exec_string(['"' + in_commod + '"'],
+                                                  'commodity', 'qualid')).fetchone()[0]
+    out_commod_qualid = cursor.execute(exec_string(['"' + out_commod + '"'],
+                                                  'commodity', 'qualid')).fetchone()[0]
+    in_recipe = cursor.execute('SELECT nucid, massfrac FROM compositions '
+                               'WHERE qualid = ' + str(in_commod_qualid)).fetchall()
+    out_recipe = cursor.execute('SELECT nucid, massfrac FROM compositions '
+                                'WHERE qualid = ' + str(out_commod_qualid)).fetchall()
+    fissile_list = [922350000, 942410000, 942390000]
+    FP = sum([massfrac for (nucid, massfrac) in out_recipe if 350000000 < nucid < 880000000])
+    fissile_in_spent = sum([massfrac for (nucid, massfrac) in out_recipe if nucid in fissile_list])
+    in_fissile = sum([massfrac for (nucid, massfrac) in in_recipe if nucid in fissile_list])
+    print('The Conversion Factor is:')
+    print((FP+fissile_in_spent-in_fissile)/FP)
+
+
+def mix_ratio(cursor, fuel_recipe_name, spent_fuel_recipe_name, depleted_u_recipe_name, what_reprocess):
+    """ Finds the mixing ratio of separated material and depleted Uranium
+
+    Parameters
+    ----------
+    cursor: sqlite cursor
+        sqlite cursor
+    fuel_recipe_name: str
+        name of desired fuel recipe
+    spent_fuel_recipe_name: str
+        name of spent fuel recipe
+    depleted_u_recipe_name: str
+        name of depleted uranium recipe
+    what_reprocess: list
+        list of what elements are separated [zz, zz, zz]
+
+    Returns
+    -------
+    prints ratio of separated material to depleted uranium
+    """
+    query = ('SELECT nucid, massfrac FROM recipes '
+             'INNER JOIN compositions '
+             'ON recipes.qualid = compositions.qualid '
+             'WHERE recipe = "dummy"')
+    fuel_recipe = cursor.execute(query.replace('dummy',fuel_recipe_name)).fetchall()
+    spent_fuel_recipe = cursor.execute(query.replace('dummy', spent_fuel_recipe_name)).fetchall()
+    depleted_u_recipe = cursor.execute(query.replace('dummy', depleted_u_recipe_name)).fetchall()
+    sep_matl = [[nucid, massfrac] for (nucid, massfrac) in spent_fuel_recipe if nucid/10000000 in what_reprocess]
+    
+    # finite difference approx to find optimal mix
+    ratio_list = np.arange(0,1,.001)
+    prev_err = 1
+    optimal_ratio = 0
+    for ratio in ratio_list:
+        total_err = 0
+        for t in fuel_recipe:
+            reprocessed = sum([massfrac for (nucid, massfrac) in sep_matl if nucid == t[0]]) * ratio
+            uranium = sum([massfrac for (nucid, massfrac) in depleted_u_recipe if nucid == t[0]]) * (1-ratio)
+            value = reprocessed + uranium
+            err = abs(value - t[1])
+            total_err += err
+        if prev_err > total_err:
+            optimal_ratio = ratio
+            prev_err = total_err
+    print('The Optimal Ratio is:')
+    print(optimal_ratio)
+
 def u_util_calc(cursor):
     """ Returns fuel utilization factor of fuel cycle
 
@@ -985,7 +1065,8 @@ if __name__ == "__main__":
     with con:
         cur = con.cursor()
         init_year, init_month, duration, timestep = get_sim_time_duration(cur)
-
+        mix_ratio(cur, 'mox_fuel_recipe', 'sfr_spent_mox_recipe', 'depleted_u', [94])
+        conv_factor(cur, 'mox', 'sfr_spent_mox')
         # get fuel source and inventory
         fuel_dict = where_comm(
             cur, 'mox', ['mox_uox_fuel_fab', 'mox_mixer'])
