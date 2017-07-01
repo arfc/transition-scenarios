@@ -261,7 +261,6 @@ def commodity_in_out_facility(cursor, facility, commod_list,
         dictionary with key: commodity, and value: timeseries list
     """
 
-
     init_year, init_month, duration, timestep = get_sim_time_duration(cursor)
     if is_prototype:
         agent_ids = get_prototype_id(cursor, facility)
@@ -282,9 +281,9 @@ def commodity_in_out_facility(cursor, facility, commod_list,
                      + '") GROUP BY time, nucid')
         else:
             query = (exec_string(agent_ids, 'receiverid',
-                                'time, sum(quantity), qualid') +
-                    ' and (commodity = "' + str(comm) +
-                    '") GROUP BY time')
+                                 'time, sum(quantity), qualid') +
+                     ' and (commodity = "' + str(comm) +
+                     '") GROUP BY time')
         # outflux changes receiverid to senderid
         if is_outflux:
             query = query.replace('receiverid', 'senderid')
@@ -292,15 +291,17 @@ def commodity_in_out_facility(cursor, facility, commod_list,
         res = cursor.execute(query).fetchall()
 
         if do_isotopic:
-            for a, b, c in res: iso_dict[nucname.name(c)].append((a, b))
+            for a, b, c in res:
+                iso_dict[nucname.name(c)].append((a, b))
         else:
             timeseries = get_timeseries(res, duration, 0.001, True)
             commodity_dict[comm] = timeseries
 
     if do_isotopic:
         for key in iso_dict:
-            iso_dict[key] = get_timeseries(iso_dict[key], duration, 0.001, True)
-        return iso_dict    
+            iso_dict[key] = get_timeseries(
+                iso_dict[key], duration, 0.001, True)
+        return iso_dict
     else:
         return commodity_dict
 
@@ -520,16 +521,17 @@ def get_trade_dict(cursor, sender, receiver, is_prototype, do_isotopic):
                                ') GROUP BY time').fetchall()
 
     if do_isotopic:
-        for a, b, c in trade: iso_dict[nucname.name(c)].append((a, b))
+        for a, b, c in trade:
+            iso_dict[nucname.name(c)].append((a, b))
         for key in iso_dict:
-            iso_dict[key] = get_timeseries(iso_dict[key], duration, 0.001, True)
+            iso_dict[key] = get_timeseries(
+                iso_dict[key], duration, 0.001, True)
         return iso_dict
-    else:        
+    else:
         key_name = str(sender)[:5] + ' to ' + str(receiver)[:5]
         return_dict[key_name] = get_timeseries(
             trade, duration, 0.001, True)
         return return_dict
-
 
 
 def final_stockpile(cursor, facility):
@@ -626,17 +628,20 @@ def conv_factor(cursor, in_commod, out_commod):
     in_commod_qualid = cursor.execute(exec_string(['"' + in_commod + '"'],
                                                   'commodity', 'qualid')).fetchone()[0]
     out_commod_qualid = cursor.execute(exec_string(['"' + out_commod + '"'],
-                                                  'commodity', 'qualid')).fetchone()[0]
+                                                   'commodity', 'qualid')).fetchone()[0]
     in_recipe = cursor.execute('SELECT nucid, massfrac FROM compositions '
                                'WHERE qualid = ' + str(in_commod_qualid)).fetchall()
     out_recipe = cursor.execute('SELECT nucid, massfrac FROM compositions '
                                 'WHERE qualid = ' + str(out_commod_qualid)).fetchall()
     fissile_list = [922350000, 942410000, 942390000]
-    FP = sum([massfrac for (nucid, massfrac) in out_recipe if 350000000 < nucid < 880000000])
-    fissile_in_spent = sum([massfrac for (nucid, massfrac) in out_recipe if nucid in fissile_list])
-    in_fissile = sum([massfrac for (nucid, massfrac) in in_recipe if nucid in fissile_list])
+    FP = sum([massfrac for (nucid, massfrac)
+              in out_recipe if 350000000 < nucid < 880000000])
+    fissile_in_spent = sum(
+        [massfrac for (nucid, massfrac) in out_recipe if nucid in fissile_list])
+    in_fissile = sum([massfrac for (nucid, massfrac)
+                      in in_recipe if nucid in fissile_list])
     print('The Conversion Factor is:')
-    print((FP+fissile_in_spent-in_fissile)/FP)
+    print((FP + fissile_in_spent - in_fissile) / FP)
 
 
 def mix_ratio(cursor, fuel_recipe_name, spent_fuel_recipe_name, depleted_u_recipe_name, what_reprocess):
@@ -663,20 +668,26 @@ def mix_ratio(cursor, fuel_recipe_name, spent_fuel_recipe_name, depleted_u_recip
              'INNER JOIN compositions '
              'ON recipes.qualid = compositions.qualid '
              'WHERE recipe = "dummy"')
-    fuel_recipe = cursor.execute(query.replace('dummy',fuel_recipe_name)).fetchall()
-    spent_fuel_recipe = cursor.execute(query.replace('dummy', spent_fuel_recipe_name)).fetchall()
-    depleted_u_recipe = cursor.execute(query.replace('dummy', depleted_u_recipe_name)).fetchall()
-    sep_matl = [[nucid, massfrac] for (nucid, massfrac) in spent_fuel_recipe if nucid/10000000 in what_reprocess]
-    
+    fuel_recipe = cursor.execute(query.replace(
+        'dummy', fuel_recipe_name)).fetchall()
+    spent_fuel_recipe = cursor.execute(query.replace(
+        'dummy', spent_fuel_recipe_name)).fetchall()
+    depleted_u_recipe = cursor.execute(query.replace(
+        'dummy', depleted_u_recipe_name)).fetchall()
+    sep_matl = [[nucid, massfrac] for (
+        nucid, massfrac) in spent_fuel_recipe if nucid / 10000000 in what_reprocess]
+
     # finite difference approx to find optimal mix
-    ratio_list = np.arange(0,1,.001)
+    ratio_list = np.arange(0, 1, .001)
     prev_err = 1
     optimal_ratio = 0
     for ratio in ratio_list:
         total_err = 0
         for t in fuel_recipe:
-            reprocessed = sum([massfrac for (nucid, massfrac) in sep_matl if nucid == t[0]]) * ratio
-            uranium = sum([massfrac for (nucid, massfrac) in depleted_u_recipe if nucid == t[0]]) * (1-ratio)
+            reprocessed = sum([massfrac for (nucid, massfrac)
+                               in sep_matl if nucid == t[0]]) * ratio
+            uranium = sum([massfrac for (nucid, massfrac)
+                           in depleted_u_recipe if nucid == t[0]]) * (1 - ratio)
             value = reprocessed + uranium
             err = abs(value - t[1])
             total_err += err
@@ -686,13 +697,16 @@ def mix_ratio(cursor, fuel_recipe_name, spent_fuel_recipe_name, depleted_u_recip
     print('The Optimal Ratio is:')
     print(optimal_ratio)
     for t in fuel_recipe:
-        reprocessed = sum([massfrac for (nucid, massfrac) in sep_matl if nucid == t[0]]) * optimal_ratio
-        uranium = sum([massfrac for (nucid, massfrac) in depleted_u_recipe if nucid == t[0]]) * (1-optimal_ratio)
+        reprocessed = sum([massfrac for (nucid, massfrac)
+                           in sep_matl if nucid == t[0]]) * optimal_ratio
+        uranium = sum([massfrac for (nucid, massfrac) in depleted_u_recipe if nucid == t[
+                      0]]) * (1 - optimal_ratio)
         value = reprocessed + uranium
         err = abs(value - t[1])
-        print('Error for ' + str(t[0]) + ': ' + str(err) + ' (' + str((err*100)/t[1]) + ' %)')
+        print('Error for ' + str(t[0]) + ': ' +
+              str(err) + ' (' + str((err * 100) / t[1]) + ' %)')
 
- 
+
 def u_util_calc(cursor):
     """ Returns fuel utilization factor of fuel cycle
 
@@ -1072,7 +1086,8 @@ if __name__ == "__main__":
     with con:
         cur = con.cursor()
         init_year, init_month, duration, timestep = get_sim_time_duration(cur)
-        mix_ratio(cur, 'mox_fuel_recipe', 'sfr_spent_mox_recipe', 'depleted_u', [94])
+        mix_ratio(cur, 'mox_fuel_recipe',
+                  'sfr_spent_mox_recipe', 'depleted_u', [94])
         conv_factor(cur, 'mox', 'sfr_spent_mox')
         # get fuel source and inventory
         fuel_dict = where_comm(
@@ -1087,10 +1102,13 @@ if __name__ == "__main__":
 
         # get pu demand
         demand = collections.OrderedDict()
-        demand['pu_from_legacy'] = [i * .09 for i in fuel_dict['from_spent_uox']]
-        demand['pu_from_spent_mox'] = [i * .09 for i in fuel_dict['from_spent_mox']]
-        total_mox = ([x + y for x, y in zip(fuel_dict['from_spent_uox'], fuel_dict['from_spent_mox'])])
-        demand['pu_total'] = [i *.09 for i in total_mox]
+        demand['pu_from_legacy'] = [
+            i * .09 for i in fuel_dict['from_spent_uox']]
+        demand['pu_from_spent_mox'] = [
+            i * .09 for i in fuel_dict['from_spent_mox']]
+        total_mox = (
+            [x + y for x, y in zip(fuel_dict['from_spent_uox'], fuel_dict['from_spent_mox'])])
+        demand['pu_total'] = [i * .09 for i in total_mox]
         demand['tailings'] = [i * .91 for i in total_mox]
         multi_line_plot(demand, timestep,
                         'Years', 'Mass[MTHM]',
@@ -1102,8 +1120,10 @@ if __name__ == "__main__":
         plot_power(cur)
 
         # get reprocessing waste
-        reprocess_waste = commodity_in_out_facility(cur, 'separations', ['mox_reprocess_waste', 'reprocess_waste'], True, False, False)
-        stacked_bar_chart(reprocess_waste, timestep, 'Years', 'Mass [MTHM]', 'Reprocess Waste vs Time', 'reprocess_waste', init_year)
+        reprocess_waste = commodity_in_out_facility(
+            cur, 'separations', ['mox_reprocess_waste', 'reprocess_waste'], True, False, False)
+        stacked_bar_chart(reprocess_waste, timestep, 'Years',
+                          'Mass [MTHM]', 'Reprocess Waste vs Time', 'reprocess_waste', init_year)
 
 """
         dictionary = collections.OrderedDict()
