@@ -608,31 +608,40 @@ def fuel_into_reactors(cursor):
     return get_timeseries(fuel, duration, .001, 'TRUE')
 
 
-def conv_factor(cursor, in_commod, out_commod):
+def conv_factor(cursor, in_, out, is_recipe):
     """ Returns conversion factor of two commodities
 
     Parameters
     ----------
     cursor: sqlite cursor
         sqlite cursor
-    in_commod: str
-        name of in commodity
-    out_commod: str
-        name of out commodity
+    in_: str
+        name of in recipe / commodity
+    out: str
+        name of out recipe / commodity
+    is_recipe: bool
+        recipe if true, commodity if false
 
     Returns
     -------
     prints conversion factor
     """
 
-    in_commod_qualid = cursor.execute(exec_string(['"' + in_commod + '"'],
-                                                  'commodity', 'qualid')).fetchone()[0]
-    out_commod_qualid = cursor.execute(exec_string(['"' + out_commod + '"'],
-                                                   'commodity', 'qualid')).fetchone()[0]
+    if is_recipe:
+        in_qualid = cursor.execute(exec_string(['"' + in_commod + '"'],
+                                                      'commodity', 'qualid')).fetchone()[0]
+        out_qualid = cursor.execute(exec_string(['"' + out_commod + '"'],
+                                                       'commodity', 'qualid')).fetchone()[0]
+    else:
+        in_qualid = cursor.execute('SELECT qualid FROM recipes '
+                                   'WHERE recipe = "' + in_ + '"')
+        out_qualid = cursor.execute('SELECT qualid FROM recipes '
+                                    'WHERE recipe = "' + out + '"')
+
     in_recipe = cursor.execute('SELECT nucid, massfrac FROM compositions '
-                               'WHERE qualid = ' + str(in_commod_qualid)).fetchall()
+                               'WHERE qualid = ' + str(in_qualid)).fetchall()
     out_recipe = cursor.execute('SELECT nucid, massfrac FROM compositions '
-                                'WHERE qualid = ' + str(out_commod_qualid)).fetchall()
+                                'WHERE qualid = ' + str(out_qualid)).fetchall()
     fissile_list = [922350000, 942410000, 942390000]
     FP = sum([massfrac for (nucid, massfrac)
               in out_recipe if 350000000 < nucid < 880000000])
