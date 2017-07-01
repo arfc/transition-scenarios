@@ -685,7 +685,14 @@ def mix_ratio(cursor, fuel_recipe_name, spent_fuel_recipe_name, depleted_u_recip
             prev_err = total_err
     print('The Optimal Ratio is:')
     print(optimal_ratio)
+    for t in fuel_recipe:
+        reprocessed = sum([massfrac for (nucid, massfrac) in sep_matl if nucid == t[0]]) * optimal_ratio
+        uranium = sum([massfrac for (nucid, massfrac) in depleted_u_recipe if nucid == t[0]]) * (1-optimal_ratio)
+        value = reprocessed + uranium
+        err = abs(value - t[1])
+        print('Error for ' + str(t[0]) + ': ' + str(err) + ' (' + str((err*100)/t[1]) + ' %)')
 
+ 
 def u_util_calc(cursor):
     """ Returns fuel utilization factor of fuel cycle
 
