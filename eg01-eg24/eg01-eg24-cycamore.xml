@@ -14,6 +14,9 @@ Fast Reactors available 2050
 
 Fast Reactors (After 2050)
 80 year lifetime
+
+FR fuel Recipe
+BFR
 -->
 
 <simulation>
@@ -120,7 +123,7 @@ Fast Reactors (After 2050)
                         </item>
                         <item>
                             <commodity>mox_TRU</commodity>
-                            <pref>1.0</pref>
+                            <pref>2.0</pref>
                         </item>
                     </commodities>
                 </stream>
@@ -1230,6 +1233,8 @@ Fast Reactors (After 2050)
         </config>
     <name>fr_inst</name>
   </institution>
+
+
     <name>USA</name>
   </region>
 
@@ -1335,10 +1340,10 @@ Fast Reactors (After 2050)
    <nuclide> <id>Cs134</id>  <comp>0.0001230928</comp> </nuclide> 
    <nuclide> <id>Cs135</id>  <comp>0.0003052821</comp> </nuclide> 
    <nuclide> <id>Cs137</id>  <comp>0.0012009297</comp> </nuclide> 
-
   </recipe> 
 
-    <recipe>
+
+  <recipe>
     <name>sfr_spent_mox_recipe</name>
     <basis>mass</basis>
     <nuclide> <id>He4</id>  <comp>7.82728308837734E-06</comp> </nuclide> 
@@ -1392,6 +1397,7 @@ Fast Reactors (After 2050)
    <nuclide> <id>Cs134</id>  <comp>5.39176274056139E-05</comp> </nuclide> 
    <nuclide> <id>Cs135</id>  <comp>0.0028561724</comp> </nuclide> 
    <nuclide> <id>Cs137</id>  <comp>0.0025192026</comp> </nuclide> 
+   <nuclide> <id>H1</id>  <comp>0.061484761462610435</comp> </nuclide> 
 
   </recipe> 
 

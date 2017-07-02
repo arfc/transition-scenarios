@@ -608,8 +608,8 @@ def fuel_into_reactors(cursor):
     return get_timeseries(fuel, duration, .001, 'TRUE')
 
 
-def conv_factor(cursor, in_, out, is_recipe):
-    """ Returns conversion factor of two commodities
+def conv_ratio(cursor, in_, out, is_recipe):
+    """ Returns conversion ratio of two commodities
 
     Parameters
     ----------
@@ -624,27 +624,27 @@ def conv_factor(cursor, in_, out, is_recipe):
 
     Returns
     -------
-    prints conversion factor
+    prints conversion ratio
     """
 
     if is_recipe:
-        in_qualid = cursor.execute(exec_string(['"' + in_commod + '"'],
-                                                      'commodity', 'qualid')).fetchone()[0]
-        out_qualid = cursor.execute(exec_string(['"' + out_commod + '"'],
-                                                       'commodity', 'qualid')).fetchone()[0]
-    else:
         in_qualid = cursor.execute('SELECT qualid FROM recipes '
-                                   'WHERE recipe = "' + in_ + '"')
+                                   'WHERE recipe = "' + in_ + '"').fetchone()[0]
         out_qualid = cursor.execute('SELECT qualid FROM recipes '
-                                    'WHERE recipe = "' + out + '"')
-
+                                    'WHERE recipe = "' + out + '"').fetchone()[0]
+    else:
+        in_qualid = cursor.execute(exec_string(['"' + in_ + '"'],
+                                                      'commodity', 'qualid')).fetchone()[0]
+        out_qualid = cursor.execute(exec_string(['"' + out + '"'],
+                                                       'commodity', 'qualid')).fetchone()[0]
     in_recipe = cursor.execute('SELECT nucid, massfrac FROM compositions '
                                'WHERE qualid = ' + str(in_qualid)).fetchall()
     out_recipe = cursor.execute('SELECT nucid, massfrac FROM compositions '
                                 'WHERE qualid = ' + str(out_qualid)).fetchall()
+
     fissile_list = [922350000, 942410000, 942390000]
     FP = sum([massfrac for (nucid, massfrac)
-              in out_recipe if 350000000 < nucid < 880000000])
+              in out_recipe if 350000000 < nucid < 890000000])
     fissile_in_spent = sum(
         [massfrac for (nucid, massfrac) in out_recipe if nucid in fissile_list])
     in_fissile = sum([massfrac for (nucid, massfrac)
@@ -684,9 +684,8 @@ def mix_ratio(cursor, fuel_recipe_name, spent_fuel_recipe_name, depleted_u_recip
     depleted_u_recipe = cursor.execute(query.replace(
         'dummy', depleted_u_recipe_name)).fetchall()
     sep_matl = [[nucid, massfrac] for (
-        nucid, massfrac) in spent_fuel_recipe if nucid / 10000000 in what_reprocess]
+        nucid, massfrac) in spent_fuel_recipe if int(nucid / 10000000) in what_reprocess]
 
-    # finite difference approx to find optimal mix
     ratio_list = np.arange(0, 1, .001)
     prev_err = 1
     optimal_ratio = 0
@@ -1096,9 +1095,9 @@ if __name__ == "__main__":
     with con:
         cur = con.cursor()
         init_year, init_month, duration, timestep = get_sim_time_duration(cur)
-        mix_ratio(cur, 'mox_fuel_recipe',
-                  'sfr_spent_mox_recipe', 'depleted_u', [94])
-        conv_factor(cur, 'mox', 'sfr_spent_mox')
+        mix_ratio(cur, 'cfr_fresh',
+                  'cfr_spent', 'depleted_u', [94, 95, 96, 97])
+        conv_ratio(cur, 'cfr_fresh', 'cfr_spent', True)
         # get fuel source and inventory
         fuel_dict = where_comm(
             cur, 'mox', ['mox_uox_fuel_fab', 'mox_mixer'])
