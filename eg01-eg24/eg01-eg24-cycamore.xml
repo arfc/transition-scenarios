@@ -449,7 +449,7 @@ BFR
       <name>sink_source_facilities</name>
     </institution>
 
-   <institution>
+    <institution>
       <name>lwr_inst</name>
       <config>
         <DeployInst>
@@ -782,6 +782,7 @@ BFR
     </institution>
 
     <institution>
+      <name>fr_inst</name>
       <config>
         <DeployInst>
           <prototypes>
@@ -883,18 +884,8 @@ BFR
               <val>fr</val>
               <val>fr</val>
               <val>fr</val>
-              <val>fr</val>
-              <val>fr</val>
-              <val>fr</val>
-              <val>fr</val>
-              <val>fr</val>
             </prototypes>
             <n_build>
-              <val>9</val>
-              <val>9</val>
-              <val>16</val>
-              <val>13</val>
-              <val>18</val>
               <val>15</val>
               <val>16</val>
               <val>13</val>
@@ -995,11 +986,6 @@ BFR
               <val>39</val>
             </n_build>
             <build_times>
-              <val>1788</val>
-              <val>1800</val>
-              <val>1812</val>
-              <val>1824</val>
-              <val>1836</val>
               <val>1848</val>
               <val>1860</val>
               <val>1872</val>
@@ -1101,15 +1087,161 @@ BFR
             </build_times>
           </DeployInst>
         </config>
-    <name>fr_inst</name>
-  </institution>
+    </institution>
+
+    <institution>
+      <name>lwr_new_inst</name>
+      <config>
+        <DeployInst>
+          <build_times>
+            <val>1116</val>
+            <val>1140</val>
+            <val>1188</val>
+            <val>1212</val>
+            <val>1260</val>
+            <val>1284</val>
+            <val>1308</val>
+            <val>1360</val>
+            <val>1388</val>
+            <val>1416</val>
+            <val>1428</val>
+            <val>1440</val>
+            <val>1452</val>
+            <val>1464</val>
+            <val>1476</val>
+            <val>1488</val>
+            <val>1500</val>
+            <val>1512</val>
+            <val>1524</val>
+            <val>1536</val>
+            <val>1548</val>
+            <val>1560</val>
+            <val>1572</val>
+            <val>1584</val>
+            <val>1596</val>
+            <val>1608</val>
+            <val>1620</val>
+            <val>1632</val>
+            <val>1644</val>
+            <val>1656</val>
+            <val>1668</val>
+            <val>1680</val>
+            <val>1692</val>
+            <val>1704</val>
+            <val>1716</val>
+            <val>1728</val>
+            <val>1740</val>
+            <val>1752</val>
+            <val>1764</val>
+            <val>1776</val>
+            <val>1780</val>
+            <val>1800</val>
+            <val>1809</val>
+            <val>1818</val>
+            <val>1827</val>
+          </build_times>
+          <n_build>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+              <val>1</val>
+              <val>2</val>
+              <val>2</val>
+              <val>2</val>
+              <val>3</val>
+              <val>2</val>
+              <val>2</val>
+              <val>2</val>
+              <val>2</val>
+              <val>2</val>
+              <val>2</val>
+              <val>2</val>
+              <val>2</val>
+              <val>3</val>
+              <val>3</val>
+              <val>2</val>
+              <val>2</val>
+              <val>3</val>
+              <val>3</val>
+              <val>3</val>
+              <val>3</val>
+              <val>3</val>
+              <val>3</val>
+              <val>3</val>
+              <val>3</val>
+              <val>4</val>
+              <val>4</val>
+              <val>4</val>
+              <val>4</val>
+              <val>3</val>
+              <val>3</val>
+              <val>3</val>
+              <val>4</val>
+              <val>5</val>
+              <val>5</val>
+              <val>6</val>
+              <val>4</val>
+              <val>4</val>
+              <val>4</val>
+              <val>4</val>
+          </n_build>
+          <prototypes>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+          </prototypes>
+        </DeployInst>
+      </config>
+    </institution>
 
     <name>USA</name>
   </region>
 
 <!-- Recipes -->
-
-
   <recipe>
     <name>natl_u_recipe</name>
     <basis>mass</basis>
