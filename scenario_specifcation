@@ -1,3 +1,28 @@
+---------------------------------------
+GAPS:
+
+Recipe Reactor Limitations:
+    Can't match with Burnup, needs recipe (always same composition out)
+
+Fuel Cycle Facility limitations:
+    Simple infinite capacity / throughput
+        instead of deployment of multiple facilities depending on need.
+    FuelFab cannot mix three commodities (Nat U, Rep U, Rep TRU/Pu)
+
+FR modeling limitations:
+    blanket and driver composition has to be averaged
+    separate EFPY for blanket and driver can't be modeled
+
+Can't Match Demand:
+    demand of FR fuel can't be met, and the FR just gets deployed,
+        but does not produce power
+
+
+    
+---------------------------------------
+
+
+
 eg01-23 (Pu)
 eg01-24 (TRU)
 
