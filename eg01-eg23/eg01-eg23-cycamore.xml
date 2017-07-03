@@ -14,6 +14,19 @@ Fast Reactors available 2050
 
 Fast Reactors (After 2050)
 80 year lifetime
+
+SFR:
+91.21% Driver
+    15.3% of Driver Pu
+    84.7% Rep U
+8.79% Blanket
+    100% of Blanket Nat U
+
+Total (5867 kg / 14months)
+    13.9% Pu
+    8.79% Nat U
+    77.25% Rep U
+
 -->
 
 <simulation>
@@ -102,13 +115,69 @@ Fast Reactors (After 2050)
     </config>
   </facility>
 
+
+  <facility>
+    <name>mox_mixer</name>
+    <config>
+        <Mixer>
+            <in_streams>
+                <stream>
+                    <info>
+                        <mixing_ratio>0.139</mixing_ratio>
+                        <buf_size>1e100</buf_size>
+                    </info>
+                    <commodities>
+                        <item>
+                            <commodity>uox_Pu</commodity>
+                            <pref>1.0</pref>
+                        </item>
+                        <item>
+                            <commodity>mox_Pu</commodity>
+                            <pref>2.0</pref>
+                        </item>
+                    </commodities>
+                </stream>
+                <stream>
+                    <info>
+                        <mixing_ratio>0.7731</mixing_ratio>
+                        <buf_size>1e100</buf_size>
+                    </info>
+                    <commodities>
+                        <item>
+                            <commodity>uox_U</commodity>
+                            <pref>1.0</pref>
+                        </item>
+                        <item>
+                            <commodity>mox_U</commodity>
+                            <pref>1.0</pref>
+                        </item>
+                    </commodities>
+                </stream>
+                <stream>
+                    <info>
+                        <mixing_ratio>0.0879</mixing_ratio>
+                        <buf_size>1e100</buf_size>
+                    </info>
+                    <commodities>
+                        <item>
+                            <commodity>natl_u</commodity>
+                            <pref>1.0</pref>
+                        </item>
+                    </commodities>
+                </stream>
+            </in_streams>
+            <out_commod>mox</out_commod>
+            <out_buf_size>1e100</out_buf_size>
+            <throughput>1e100</throughput>
+        </Mixer>
+    </config>
+</facility>
+
   <facility>
     <name>sink</name>
     <config>
       <Sink>
         <in_commods>
-          <val>cool_uox_waste</val>
-          <val>cool_mox_waste</val>
           <val>tailings</val>
           <val>reprocess_waste</val>
           <val>mox_reprocess_waste</val>
@@ -161,8 +230,8 @@ Fast Reactors (After 2050)
     <name>mox_reprocessing</name>
     <config>
       <Separations>
-         <feed_commods>   <val>cool_sfr_spent</val> <val>cool_mox_waste</val> </feed_commods>
-         <feed_commod_prefs> <val>2.0</val> <val>1.0</val> </feed_commod_prefs>
+         <feed_commods>   <val>cool_sfr_spent</val>  </feed_commods>
+         <feed_commod_prefs> <val>2.0</val> </feed_commod_prefs>
          <feedbuf_size>1E100</feedbuf_size>
          <throughput>1E100</throughput>
          <leftover_commod>mox_reprocess_waste</leftover_commod>
@@ -194,32 +263,6 @@ Fast Reactors (After 2050)
       </Separations>
     </config>
   </facility>
-
-  <facility>
-    <config>
-      <FuelFab>
-        <fill_commods>
-          <val>tailings</val>
-        </fill_commods>
-        <fill_recipe>depleted_u</fill_recipe>
-        <fill_size>1e+60</fill_size>
-        <fiss_commod_prefs>
-          <val>1</val>
-          <val>2</val>
-        </fiss_commod_prefs>
-        <fiss_commods>
-          <val>uox_Pu</val>
-          <val>mox_Pu</val>
-        </fiss_commods>
-        <fiss_size>1e+60</fiss_size>
-        <outcommod>mox</outcommod>
-        <spectrum>fission_spectrum_ave</spectrum>
-        <throughput>1e+60</throughput>
-      </FuelFab>
-    </config>
-    <name>mox_fuel_fab</name>
-  </facility>
-
 
   <facility>
       <name>uox_pool</name>
@@ -291,7 +334,7 @@ Fast Reactors (After 2050)
           <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
           <cycle_time>14</cycle_time>
           <refuel_time>1</refuel_time>
-          <assem_size>10000</assem_size>
+          <assem_size>5867</assem_size>
           <n_assem_core>3</n_assem_core>
           <n_assem_batch>1</n_assem_batch>
           <power_cap>400</power_cap>
@@ -317,7 +360,7 @@ Fast Reactors (After 2050)
 
         <entry>
           <number>1</number>
-          <prototype>mox_fuel_fab</prototype>
+          <prototype>mox_mixer</prototype>
         </entry>
 
 
@@ -1212,116 +1255,121 @@ Fast Reactors (After 2050)
   </recipe>  
 
 
-
-  <recipe>
+   <recipe>
     <name>uox_used_fuel_recipe</name>
     <basis>mass</basis>
-        <nuclide>
-      <comp>156.729</comp>
-      <id>U235</id>
-    </nuclide>
-    <nuclide>
-      <comp>102.103</comp>
-      <id>U236</id>
-    </nuclide>
-    <nuclide>
-      <comp>18280.324</comp>
-      <id>U238</id>
-    </nuclide>
-    <nuclide>
-      <comp>13.656</comp>
-      <id>Np237</id>
-    </nuclide>
-    <nuclide>
-      <comp>5.043</comp>
-      <id>Pu238</id>
-    </nuclide>
-    <nuclide>
-      <comp>106.343</comp>
-      <id>Pu239</id>
-    </nuclide>
-    <nuclide>
-      <comp>41.357</comp>
-      <id>Pu240</id>
-    </nuclide>
-    <nuclide>
-      <comp>36.477</comp>
-      <id>Pu241</id>
-    </nuclide>
-    <nuclide>
-      <comp>15.387</comp>
-      <id>Pu242</id>
-    </nuclide>
-    <nuclide>
-      <comp>1.234</comp>
-      <id>Am241</id>
-    </nuclide>
-    <nuclide>
-      <comp>3.607</comp>
-      <id>Am243</id>
-    </nuclide>
-    <nuclide>
-      <comp>0.431</comp>
-      <id>Cm244</id>
-    </nuclide>
-    <nuclide>
-      <comp>1.263</comp>
-      <id>Cm245</id>
-    </nuclide>
+    <nuclide> <id>He4</id>  <comp>9.47457840128509E-07</comp> </nuclide> 
+     <nuclide> <id>Ra226</id>  <comp>9.78856442957042E-14</comp> </nuclide> 
+     <nuclide> <id>Ra228</id>  <comp>2.75087759176098E-20</comp> </nuclide> 
+     <nuclide> <id>Pb206</id>  <comp>5.57475193532078E-18</comp> </nuclide> 
+     <nuclide> <id>Pb207</id>  <comp>1.68592497990149E-15</comp> </nuclide> 
+     <nuclide> <id>Pb208</id>  <comp>3.6888358546006E-12</comp> </nuclide> 
+     <nuclide> <id>Pb210</id>  <comp>3.02386544437848E-19</comp> </nuclide> 
+     <nuclide> <id>Th228</id>  <comp>8.47562285269577E-12</comp> </nuclide> 
+     <nuclide> <id>Th229</id>  <comp>2.72787861516683E-12</comp> </nuclide> 
+     <nuclide> <id>Th230</id>  <comp>2.6258831537493E-09</comp> </nuclide> 
+     <nuclide> <id>Th232</id>  <comp>4.17481422959E-10</comp> </nuclide> 
+     <nuclide> <id>Bi209</id>  <comp>6.60770597104927E-16</comp> </nuclide> 
+     <nuclide> <id>Ac227</id>  <comp>3.0968621961773E-14</comp> </nuclide> 
+     <nuclide> <id>Pa231</id>  <comp>9.24658854635179E-10</comp> </nuclide> 
+     <nuclide> <id>U232</id>  <comp>0.000000001</comp> </nuclide> 
+     <nuclide> <id>U233</id>  <comp>2.21390148606282E-09</comp> </nuclide> 
+     <nuclide> <id>U234</id>  <comp>0.0001718924</comp> </nuclide> 
+     <nuclide> <id>U235</id>  <comp>0.0076486597</comp> </nuclide> 
+     <nuclide> <id>U236</id>  <comp>0.0057057461</comp> </nuclide> 
+     <nuclide> <id>U238</id>  <comp>0.9208590237</comp> </nuclide> 
+     <nuclide> <id>Np237</id>  <comp>0.0006091729</comp> </nuclide> 
+     <nuclide> <id>Pu238</id>  <comp>0.000291487</comp> </nuclide> 
+     <nuclide> <id>Pu239</id>  <comp>0.0060657301</comp> </nuclide> 
+     <nuclide> <id>Pu240</id>  <comp>0.0029058707</comp> </nuclide> 
+     <nuclide> <id>Pu241</id>  <comp>0.0017579218</comp> </nuclide> 
+     <nuclide> <id>Pu242</id>  <comp>0.0008638616</comp> </nuclide> 
+     <nuclide> <id>Pu244</id>  <comp>2.86487251922763E-08</comp> </nuclide> 
+     <nuclide> <id>Am241</id>  <comp>6.44271331287386E-05</comp> </nuclide> 
+     <nuclide> <id>Am242m</id>  <comp>8.53362027193319E-07</comp> </nuclide> 
+     <nuclide> <id>Am243</id>  <comp>0.0001983912</comp> </nuclide> 
+     <nuclide> <id>Cm242</id>  <comp>2.58988475560194E-05</comp> </nuclide> 
+     <nuclide> <id>Cm243</id>  <comp>0.000000771</comp> </nuclide> 
+     <nuclide> <id>Cm244</id>  <comp>8.5616190260478E-05</comp> </nuclide> 
+     <nuclide> <id>Cm245</id>  <comp>5.72174539442251E-06</comp> </nuclide> 
+     <nuclide> <id>Cm246</id>  <comp>7.29567535786554E-07</comp> </nuclide> 
+     <nuclide> <id>Cm247</id>  <comp>0.00000001</comp> </nuclide> 
+     <nuclide> <id>Cm248</id>  <comp>7.69165773748653E-10</comp> </nuclide> 
+     <nuclide> <id>Cm250</id>  <comp>4.2808095130239E-18</comp> </nuclide> 
+     <nuclide> <id>Cf249</id>  <comp>1.64992658175413E-12</comp> </nuclide> 
+     <nuclide> <id>Cf250</id>  <comp>2.04190913935875E-12</comp> </nuclide> 
+     <nuclide> <id>Cf251</id>  <comp>9.86556100338561E-13</comp> </nuclide> 
+     <nuclide> <id>Cf252</id>  <comp>6.57970721693466E-13</comp> </nuclide> 
+     <nuclide> <id>H3</id>  <comp>8.58461800264195E-08</comp> </nuclide> 
+     <nuclide> <id>C14</id>  <comp>4.05781943561107E-11</comp> </nuclide> 
+     <nuclide> <id>Kr81</id>  <comp>4.21681236076192E-11</comp> </nuclide> 
+     <nuclide> <id>Kr85</id>  <comp>3.44484671160181E-05</comp> </nuclide> 
+     <nuclide> <id>Sr90</id>  <comp>0.0007880649</comp> </nuclide> 
+     <nuclide> <id>Tc99</id>  <comp>0.0011409492</comp> </nuclide> 
+     <nuclide> <id>I129</id>  <comp>0.0002731878</comp> </nuclide> 
+     <nuclide> <id>Cs134</id>  <comp>0.0002300898</comp> </nuclide> 
+     <nuclide> <id>Cs135</id>  <comp>0.0006596706</comp> </nuclide> 
+     <nuclide> <id>Cs137</id>  <comp>0.0018169192</comp> </nuclide> 
+     <nuclide> <id>H1</id>  <comp>0.0477938151</comp> </nuclide> 
+
   </recipe> 
 
   <recipe>
     <name>sfr_spent_mox_recipe</name>
     <basis>mass</basis>
-   <nuclide>
-      <comp>0.859</comp>
-      <id>U238</id>
-    </nuclide>
-    <nuclide>
-      <comp>0.0902</comp>
-      <id>Pu239</id>
-    </nuclide>
-    <nuclide>
-      <comp>0.0013</comp>
-      <id>Am241</id>
-    </nuclide>
-    <nuclide>
-      <comp>0.006770</comp>
-      <id>La139</id>
-    </nuclide>
-    <nuclide>
-      <comp>0.006525</comp>
-      <id>Ce140</id>
-    </nuclide>
-    <nuclide>
-      <comp>0.006121</comp>
-      <id>Ce142</id>
-    </nuclide>
-    <nuclide>
-      <comp>0.006550</comp>
-      <id>Pr141</id>
-    </nuclide>
-    <nuclide>
-      <comp>0.004830</comp>
-      <id>Nd143</id>
-    </nuclide>
-    <nuclide>
-      <comp>0.004291</comp>
-      <id>Nd144</id>
-    </nuclide>
-    <nuclide>
-      <comp>0.002968</comp>
-      <id>Nd145</id>
-    </nuclide>
-    <nuclide>
-      <comp>0.002985</comp>
-      <id>Nd146</id>
-    </nuclide>
-    <nuclide>
-      <comp>0.002189</comp>
-      <id>Nd148</id>
-    </nuclide>
-  </recipe> 
+    <nuclide> <id>He4</id>  <comp>1.16802301232034E-05</comp> </nuclide> 
+     <nuclide> <id>Ra226</id>  <comp>4.087E-14</comp> </nuclide> 
+     <nuclide> <id>Ra228</id>  <comp>3.3631E-21</comp> </nuclide> 
+     <nuclide> <id>Pb206</id>  <comp>1.03535E-18</comp> </nuclide> 
+     <nuclide> <id>Pb207</id>  <comp>1.66609222439738E-16</comp> </nuclide> 
+     <nuclide> <id>Pb208</id>  <comp>6.47413314022303E-11</comp> </nuclide> 
+     <nuclide> <id>Pb210</id>  <comp>2.553670127E-17</comp> </nuclide> 
+     <nuclide> <id>Th228</id>  <comp>1.10018E-10</comp> </nuclide> 
+     <nuclide> <id>Th229</id>  <comp>4.4703E-12</comp> </nuclide> 
+     <nuclide> <id>Th230</id>  <comp>0.000000002</comp> </nuclide> 
+     <nuclide> <id>Th232</id>  <comp>3.5132819E-11</comp> </nuclide> 
+     <nuclide> <id>Bi209</id>  <comp>3.11567502093043E-14</comp> </nuclide> 
+     <nuclide> <id>Ac227</id>  <comp>4.332E-15</comp> </nuclide> 
+     <nuclide> <id>Pa231</id>  <comp>1.3482717E-10</comp> </nuclide> 
+     <nuclide> <id>U232</id>  <comp>2.23196457966102E-08</comp> </nuclide> 
+     <nuclide> <id>U233</id>  <comp>6.40710808103E-09</comp> </nuclide> 
+     <nuclide> <id>U234</id>  <comp>0.00018946</comp> </nuclide> 
+     <nuclide> <id>U235</id>  <comp>0.00019783</comp> </nuclide> 
+     <nuclide> <id>U236</id>  <comp>0.00030615</comp> </nuclide> 
+     <nuclide> <id>U238</id>  <comp>0.7818</comp> </nuclide> 
+     <nuclide> <id>Np237</id>  <comp>0.0008513799</comp> </nuclide> 
+     <nuclide> <id>Pu238</id>  <comp>0.0014857521</comp> </nuclide> 
+     <nuclide> <id>Pu239</id>  <comp>0.0900362699</comp> </nuclide> 
+     <nuclide> <id>Pu240</id>  <comp>0.0372000021</comp> </nuclide> 
+     <nuclide> <id>Pu241</id>  <comp>0.0046492</comp> </nuclide> 
+     <nuclide> <id>Pu242</id>  <comp>0.0030911766</comp> </nuclide> 
+     <nuclide> <id>Pu244</id>  <comp>1.3563E-08</comp> </nuclide> 
+     <nuclide> <id>Am241</id>  <comp>0.0017947</comp> </nuclide> 
+     <nuclide> <id>Am242m</id>  <comp>0.000116096</comp> </nuclide> 
+     <nuclide> <id>Am243</id>  <comp>0.0008391316</comp> </nuclide> 
+     <nuclide> <id>Cm242</id>  <comp>8.819610463E-05</comp> </nuclide> 
+     <nuclide> <id>Cm243</id>  <comp>6.1176E-06</comp> </nuclide> 
+     <nuclide> <id>Cm244</id>  <comp>0.0005056051</comp> </nuclide> 
+     <nuclide> <id>Cm245</id>  <comp>0.00012435</comp> </nuclide> 
+     <nuclide> <id>Cm246</id>  <comp>0.00006587</comp> </nuclide> 
+     <nuclide> <id>Cm247</id>  <comp>0.00000261</comp> </nuclide> 
+     <nuclide> <id>Cm248</id>  <comp>1.8586E-07</comp> </nuclide> 
+     <nuclide> <id>Cm250</id>  <comp>3.8398E-14</comp> </nuclide> 
+     <nuclide> <id>Cf249</id>  <comp>6.65601184999E-09</comp> </nuclide> 
+     <nuclide> <id>Cf250</id>  <comp>3.256333438174E-10</comp> </nuclide> 
+     <nuclide> <id>Cf251</id>  <comp>9.379E-12</comp> </nuclide> 
+     <nuclide> <id>Cf252</id>  <comp>2.0887E-13</comp> </nuclide> 
+     <nuclide> <id>H3</id>  <comp>1.9315E-07</comp> </nuclide> 
+     <nuclide> <id>Kr81</id>  <comp>8.734E-12</comp> </nuclide> 
+     <nuclide> <id>Kr85</id>  <comp>0.000032471</comp> </nuclide> 
+     <nuclide> <id>Sr90</id>  <comp>0.0005990221</comp> </nuclide> 
+     <nuclide> <id>Tc99</id>  <comp>0.0018153</comp> </nuclide> 
+     <nuclide> <id>I129</id>  <comp>0.00057137</comp> </nuclide> 
+     <nuclide> <id>Cs134</id>  <comp>0.00006369</comp> </nuclide> 
+     <nuclide> <id>Cs135</id>  <comp>0.0031084</comp> </nuclide> 
+     <nuclide> <id>Cs137</id>  <comp>0.0027637004</comp> </nuclide> 
+     <nuclide> <id>H1</id>  <comp>0.06768403861706125</comp> </nuclide> 
 
+  </recipe> 
 
 </simulation>
