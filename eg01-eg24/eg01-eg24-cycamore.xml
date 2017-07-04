@@ -35,7 +35,7 @@ BFR
     <spec>
       <lib>cycamore</lib>
       <name>Sink</name>
-    </spec> 
+    </spec>
     <spec>
       <lib>cycamore</lib>
       <name>Reactor</name>
@@ -449,7 +449,7 @@ BFR
       <name>sink_source_facilities</name>
     </institution>
 
-   <institution>
+    <institution>
       <name>lwr_inst</name>
       <config>
         <DeployInst>
@@ -559,7 +559,7 @@ BFR
             <val>1296</val>
             <val>1308</val>
             <val>1320</val>
-            
+
           </build_times>
           <n_build>
             <val>2</val>
@@ -667,7 +667,7 @@ BFR
             <val>3</val>
             <val>5</val>
             <val>2</val>
-            
+
           </n_build>
           <prototypes>
             <val>lwr</val>
@@ -775,13 +775,14 @@ BFR
             <val>lwr</val>
             <val>lwr</val>
             <val>lwr</val>
-           
+
           </prototypes>
         </DeployInst>
       </config>
     </institution>
 
     <institution>
+      <name>fr_inst</name>
       <config>
         <DeployInst>
           <prototypes>
@@ -883,128 +884,8 @@ BFR
               <val>fr</val>
               <val>fr</val>
               <val>fr</val>
-              <val>fr</val>
-              <val>fr</val>
-              <val>fr</val>
-              <val>fr</val>
-              <val>fr</val>
-              <val>fr</val>
-              <val>fr</val>
-              <val>fr</val>
-              <val>fr</val>
-              <val>fr</val>
-              <val>fr</val>
-              <val>fr</val>
-              <val>fr</val>
-              <val>fr</val>
-              <val>fr</val>
-              <val>fr</val>
-              <val>fr</val>
-              <val>fr</val>
-              <val>fr</val>
-              <val>fr</val>
-              <val>fr</val>
-              <val>fr</val>
-              <val>fr</val>
-              <val>fr</val>
-              <val>fr</val>
-              <val>fr</val>
-              <val>fr</val>
-              <val>fr</val>
-              <val>fr</val>
-              <val>fr</val>
-              <val>fr</val>
-              <val>fr</val>
-              <val>fr</val>
-              <val>fr</val>
-              <val>fr</val>
-              <val>fr</val>
-              <val>fr</val>
-              <val>fr</val>
-              <val>fr</val>
-              <val>fr</val>
-              <val>fr</val>
-              <val>fr</val>
-              <val>fr</val>
-              <val>fr</val>
-              <val>fr</val>
-              <val>fr</val>
-              <val>fr</val>
-              <val>fr</val>
-              <val>fr</val>
-              <val>fr</val>
-              <val>fr</val>
-              <val>fr</val>
-              <val>fr</val>
-              <val>fr</val>
-              <val>fr</val>
-              <val>fr</val>
-              <val>fr</val>
-              <val>fr</val>
-              <val>fr</val>
-              <val>fr</val>
             </prototypes>
             <n_build>
-              <val>1</val>
-              <val>1</val>
-              <val>1</val>
-              <val>1</val>
-              <val>1</val>
-              <val>1</val>
-              <val>1</val>
-              <val>1</val>
-              <val>1</val>
-              <val>1</val>
-              <val>1</val>
-              <val>1</val>
-              <val>1</val>
-              <val>1</val>
-              <val>1</val>
-              <val>1</val>
-              <val>4</val>
-              <val>4</val>
-              <val>4</val>
-              <val>5</val>
-              <val>4</val>
-              <val>5</val>
-              <val>4</val>
-              <val>5</val>
-              <val>4</val>
-              <val>5</val>
-              <val>5</val>
-              <val>5</val>
-              <val>4</val>
-              <val>5</val>
-              <val>5</val>
-              <val>5</val>
-              <val>5</val>
-              <val>5</val>
-              <val>5</val>
-              <val>5</val>
-              <val>5</val>
-              <val>5</val>
-              <val>5</val>
-              <val>5</val>
-              <val>5</val>
-              <val>5</val>
-              <val>8</val>
-              <val>8</val>
-              <val>8</val>
-              <val>8</val>
-              <val>8</val>
-              <val>9</val>
-              <val>8</val>
-              <val>9</val>
-              <val>8</val>
-              <val>9</val>
-              <val>11</val>
-              <val>8</val>
-              <val>9</val>
-              <val>9</val>
-              <val>9</val>
-              <val>16</val>
-              <val>13</val>
-              <val>18</val>
               <val>15</val>
               <val>16</val>
               <val>13</val>
@@ -1105,66 +986,6 @@ BFR
               <val>39</val>
             </n_build>
             <build_times>
-              <val>1092</val>
-              <val>1116</val>
-              <val>1128</val>
-              <val>1140</val>
-              <val>1152</val>
-              <val>1164</val>
-              <val>1176</val>
-              <val>1188</val>
-              <val>1212</val>
-              <val>1224</val>
-              <val>1236</val>
-              <val>1260</val>
-              <val>1272</val>
-              <val>1284</val>
-              <val>1296</val>
-              <val>1308</val>
-              <val>1320</val>
-              <val>1332</val>
-              <val>1344</val>
-              <val>1356</val>
-              <val>1368</val>
-              <val>1380</val>
-              <val>1392</val>
-              <val>1404</val>
-              <val>1416</val>
-              <val>1428</val>
-              <val>1440</val>
-              <val>1452</val>
-              <val>1464</val>
-              <val>1476</val>
-              <val>1488</val>
-              <val>1500</val>
-              <val>1512</val>
-              <val>1524</val>
-              <val>1536</val>
-              <val>1548</val>
-              <val>1560</val>
-              <val>1572</val>
-              <val>1584</val>
-              <val>1596</val>
-              <val>1608</val>
-              <val>1620</val>
-              <val>1632</val>
-              <val>1644</val>
-              <val>1656</val>
-              <val>1668</val>
-              <val>1680</val>
-              <val>1692</val>
-              <val>1704</val>
-              <val>1716</val>
-              <val>1728</val>
-              <val>1740</val>
-              <val>1752</val>
-              <val>1764</val>
-              <val>1776</val>
-              <val>1788</val>
-              <val>1800</val>
-              <val>1812</val>
-              <val>1824</val>
-              <val>1836</val>
               <val>1848</val>
               <val>1860</val>
               <val>1872</val>
@@ -1266,15 +1087,161 @@ BFR
             </build_times>
           </DeployInst>
         </config>
-    <name>fr_inst</name>
-  </institution>
+    </institution>
+
+    <institution>
+      <name>lwr_new_inst</name>
+      <config>
+        <DeployInst>
+          <build_times>
+            <val>1116</val>
+            <val>1140</val>
+            <val>1188</val>
+            <val>1212</val>
+            <val>1260</val>
+            <val>1284</val>
+            <val>1308</val>
+            <val>1360</val>
+            <val>1388</val>
+            <val>1416</val>
+            <val>1428</val>
+            <val>1440</val>
+            <val>1452</val>
+            <val>1464</val>
+            <val>1476</val>
+            <val>1488</val>
+            <val>1500</val>
+            <val>1512</val>
+            <val>1524</val>
+            <val>1536</val>
+            <val>1548</val>
+            <val>1560</val>
+            <val>1572</val>
+            <val>1584</val>
+            <val>1596</val>
+            <val>1608</val>
+            <val>1620</val>
+            <val>1632</val>
+            <val>1644</val>
+            <val>1656</val>
+            <val>1668</val>
+            <val>1680</val>
+            <val>1692</val>
+            <val>1704</val>
+            <val>1716</val>
+            <val>1728</val>
+            <val>1740</val>
+            <val>1752</val>
+            <val>1764</val>
+            <val>1776</val>
+            <val>1780</val>
+            <val>1800</val>
+            <val>1809</val>
+            <val>1818</val>
+            <val>1827</val>
+          </build_times>
+          <n_build>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+              <val>1</val>
+              <val>2</val>
+              <val>2</val>
+              <val>2</val>
+              <val>3</val>
+              <val>2</val>
+              <val>2</val>
+              <val>2</val>
+              <val>2</val>
+              <val>2</val>
+              <val>2</val>
+              <val>2</val>
+              <val>2</val>
+              <val>3</val>
+              <val>3</val>
+              <val>2</val>
+              <val>2</val>
+              <val>3</val>
+              <val>3</val>
+              <val>3</val>
+              <val>3</val>
+              <val>3</val>
+              <val>3</val>
+              <val>3</val>
+              <val>3</val>
+              <val>4</val>
+              <val>4</val>
+              <val>4</val>
+              <val>4</val>
+              <val>3</val>
+              <val>3</val>
+              <val>3</val>
+              <val>4</val>
+              <val>5</val>
+              <val>5</val>
+              <val>6</val>
+              <val>4</val>
+              <val>4</val>
+              <val>4</val>
+              <val>4</val>
+          </n_build>
+          <prototypes>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+          </prototypes>
+        </DeployInst>
+      </config>
+    </institution>
 
     <name>USA</name>
   </region>
 
 <!-- Recipes -->
-
-
   <recipe>
     <name>natl_u_recipe</name>
     <basis>mass</basis>
@@ -1285,10 +1252,10 @@ BFR
   <recipe>
     <name>uox_fuel_recipe</name>
     <basis>mass</basis>
-     <nuclide> <id>U234</id>  <comp>0.0002558883</comp> </nuclide> 
-     <nuclide> <id>U235</id>  <comp>0.0319885317</comp> </nuclide> 
-     <nuclide> <id>U238</id>  <comp>0.96775558</comp> </nuclide> 
-  </recipe> 
+     <nuclide> <id>U234</id>  <comp>0.0002558883</comp> </nuclide>
+     <nuclide> <id>U235</id>  <comp>0.0319885317</comp> </nuclide>
+     <nuclide> <id>U238</id>  <comp>0.96775558</comp> </nuclide>
+  </recipe>
 
   <recipe>
     <name>depleted_u</name>
@@ -1300,33 +1267,33 @@ BFR
   <recipe>
     <name>mox_fuel_recipe</name>
     <basis>mass</basis>
-   <nuclide> <id>U234</id>  <comp>9.7224110389438E-05</comp> </nuclide> 
-   <nuclide> <id>U235</id>  <comp>0.0039469814</comp> </nuclide> 
-   <nuclide> <id>U236</id>  <comp>0.0021573569</comp> </nuclide> 
-   <nuclide> <id>U238</id>  <comp>0.8665733427</comp> </nuclide> 
-   <nuclide> <id>Np237</id>  <comp>0.0060565044</comp> </nuclide> 
-   <nuclide> <id>Pu238</id>  <comp>0.0030040068</comp> </nuclide> 
-   <nuclide> <id>Pu239</id>  <comp>0.0606135352</comp> </nuclide> 
-   <nuclide> <id>Pu240</id>  <comp>0.0286774758</comp> </nuclide> 
-   <nuclide> <id>Pu241</id>  <comp>0.0134998465</comp> </nuclide> 
-   <nuclide> <id>Pu242</id>  <comp>0.0084034605</comp> </nuclide> 
-   <nuclide> <id>Am241</id>  <comp>0.0042991968</comp> </nuclide> 
-   <nuclide> <id>Am242m</id>  <comp>7.73428708584307E-06</comp> </nuclide> 
-   <nuclide> <id>Am243</id>  <comp>0.0019207217</comp> </nuclide> 
-   <nuclide> <id>Cm243</id>  <comp>6.47352555460846E-06</comp> </nuclide> 
-   <nuclide> <id>Cm244</id>  <comp>0.0006812961</comp> </nuclide> 
-   <nuclide> <id>Cm245</id>  <comp>5.48431266087054E-05</comp> </nuclide> 
-  </recipe> 
+   <nuclide> <id>U234</id>  <comp>9.7224110389438E-05</comp> </nuclide>
+   <nuclide> <id>U235</id>  <comp>0.0039469814</comp> </nuclide>
+   <nuclide> <id>U236</id>  <comp>0.0021573569</comp> </nuclide>
+   <nuclide> <id>U238</id>  <comp>0.8665733427</comp> </nuclide>
+   <nuclide> <id>Np237</id>  <comp>0.0060565044</comp> </nuclide>
+   <nuclide> <id>Pu238</id>  <comp>0.0030040068</comp> </nuclide>
+   <nuclide> <id>Pu239</id>  <comp>0.0606135352</comp> </nuclide>
+   <nuclide> <id>Pu240</id>  <comp>0.0286774758</comp> </nuclide>
+   <nuclide> <id>Pu241</id>  <comp>0.0134998465</comp> </nuclide>
+   <nuclide> <id>Pu242</id>  <comp>0.0084034605</comp> </nuclide>
+   <nuclide> <id>Am241</id>  <comp>0.0042991968</comp> </nuclide>
+   <nuclide> <id>Am242m</id>  <comp>7.73428708584307E-06</comp> </nuclide>
+   <nuclide> <id>Am243</id>  <comp>0.0019207217</comp> </nuclide>
+   <nuclide> <id>Cm243</id>  <comp>6.47352555460846E-06</comp> </nuclide>
+   <nuclide> <id>Cm244</id>  <comp>0.0006812961</comp> </nuclide>
+   <nuclide> <id>Cm245</id>  <comp>5.48431266087054E-05</comp> </nuclide>
+  </recipe>
 
   <recipe>
     <name>uox_U</name>
     <basis>mass</basis>
-    <nuclide> <id>U232</id>  <comp>1.39991809249232E-10</comp> </nuclide> 
-   <nuclide> <id>U233</id>  <comp>1.31692294843742E-09</comp> </nuclide> 
-   <nuclide> <id>U234</id>  <comp>0.0001558909</comp> </nuclide> 
-   <nuclide> <id>U235</id>  <comp>0.0080635282</comp> </nuclide> 
-   <nuclide> <id>U236</id>  <comp>0.0038647739</comp> </nuclide> 
-   <nuclide> <id>U238</id>  <comp>0.9441447592</comp> </nuclide> 
+    <nuclide> <id>U232</id>  <comp>1.39991809249232E-10</comp> </nuclide>
+   <nuclide> <id>U233</id>  <comp>1.31692294843742E-09</comp> </nuclide>
+   <nuclide> <id>U234</id>  <comp>0.0001558909</comp> </nuclide>
+   <nuclide> <id>U235</id>  <comp>0.0080635282</comp> </nuclide>
+   <nuclide> <id>U236</id>  <comp>0.0038647739</comp> </nuclide>
+   <nuclide> <id>U238</id>  <comp>0.9441447592</comp> </nuclide>
 </recipe>
 
   <recipe>
@@ -1390,69 +1357,69 @@ BFR
 <recipe>
     <name>mox_U</name>
     <basis>mass</basis>
-    <nuclide> <id>U232</id>  <comp>0.000000008</comp> </nuclide> 
-   <nuclide> <id>U233</id>  <comp>5.52862186184228E-09</comp> </nuclide> 
-   <nuclide> <id>U234</id>  <comp>0.0001627099</comp> </nuclide> 
-   <nuclide> <id>U235</id>  <comp>0.0001995866</comp> </nuclide> 
-   <nuclide> <id>U236</id>  <comp>0.0003138632</comp> </nuclide> 
-   <nuclide> <id>U238</id>  <comp>0.8081542214</comp> </nuclide> 
+    <nuclide> <id>U232</id>  <comp>0.000000008</comp> </nuclide>
+   <nuclide> <id>U233</id>  <comp>5.52862186184228E-09</comp> </nuclide>
+   <nuclide> <id>U234</id>  <comp>0.0001627099</comp> </nuclide>
+   <nuclide> <id>U235</id>  <comp>0.0001995866</comp> </nuclide>
+   <nuclide> <id>U236</id>  <comp>0.0003138632</comp> </nuclide>
+   <nuclide> <id>U238</id>  <comp>0.8081542214</comp> </nuclide>
 </recipe>
   <recipe>
     <name>sfr_spent_mox_recipe</name>
     <basis>mass</basis>
-    <nuclide> <id>He4</id>  <comp>2.09831385957263E-05</comp> </nuclide> 
-     <nuclide> <id>Ra226</id>  <comp>3.72988283859146E-14</comp> </nuclide> 
-     <nuclide> <id>Ra228</id>  <comp>2.31188391399821E-20</comp> </nuclide> 
-     <nuclide> <id>Pb206</id>  <comp>6.86482161284288E-19</comp> </nuclide> 
-     <nuclide> <id>Pb207</id>  <comp>1.60084931913672E-16</comp> </nuclide> 
-     <nuclide> <id>Pb208</id>  <comp>2.26797455006134E-10</comp> </nuclide> 
-     <nuclide> <id>Pb210</id>  <comp>3.49859039813661E-17</comp> </nuclide> 
-     <nuclide> <id>Th228</id>  <comp>4.35671155143007E-10</comp> </nuclide> 
-     <nuclide> <id>Th229</id>  <comp>1.59429663122883E-11</comp> </nuclide> 
-     <nuclide> <id>Th230</id>  <comp>1.80332447925928E-09</comp> </nuclide> 
-     <nuclide> <id>Th232</id>  <comp>2.2342415209649E-10</comp> </nuclide> 
-     <nuclide> <id>Bi209</id>  <comp>9.91098670972432E-14</comp> </nuclide> 
-     <nuclide> <id>Ac227</id>  <comp>4.19385789764795E-15</comp> </nuclide> 
-     <nuclide> <id>Pa231</id>  <comp>1.16795363584767E-10</comp> </nuclide> 
-     <nuclide> <id>U232</id>  <comp>0.000000037</comp> </nuclide> 
-     <nuclide> <id>U233</id>  <comp>1.01208961711884E-08</comp> </nuclide> 
-     <nuclide> <id>U234</id>  <comp>0.0001826351</comp> </nuclide> 
-     <nuclide> <id>U235</id>  <comp>0.0015174339</comp> </nuclide> 
-     <nuclide> <id>U236</id>  <comp>0.0017173994</comp> </nuclide> 
-     <nuclide> <id>U238</id>  <comp>0.7984778666</comp> </nuclide> 
-     <nuclide> <id>Np237</id>  <comp>0.0032273328</comp> </nuclide> 
-     <nuclide> <id>Pu238</id>  <comp>0.0032183434</comp> </nuclide> 
-     <nuclide> <id>Pu239</id>  <comp>0.0778531673</comp> </nuclide> 
-     <nuclide> <id>Pu240</id>  <comp>0.028550189</comp> </nuclide> 
-     <nuclide> <id>Pu241</id>  <comp>0.0058633536</comp> </nuclide> 
-     <nuclide> <id>Pu242</id>  <comp>0.0064253773</comp> </nuclide> 
-     <nuclide> <id>Pu244</id>  <comp>2.27899884799438E-08</comp> </nuclide> 
-     <nuclide> <id>Am241</id>  <comp>0.0033014527</comp> </nuclide> 
-     <nuclide> <id>Am242m</id>  <comp>0.0001582138</comp> </nuclide> 
-     <nuclide> <id>Am243</id>  <comp>0.0015915546</comp> </nuclide> 
-     <nuclide> <id>Cm242</id>  <comp>0.0001420473</comp> </nuclide> 
-     <nuclide> <id>Cm243</id>  <comp>7.76545331153907E-06</comp> </nuclide> 
-     <nuclide> <id>Cm244</id>  <comp>0.0007042559</comp> </nuclide> 
-     <nuclide> <id>Cm245</id>  <comp>0.0001137771</comp> </nuclide> 
-     <nuclide> <id>Cm246</id>  <comp>9.68418596174143E-06</comp> </nuclide> 
-     <nuclide> <id>Cm247</id>  <comp>2.57107923346194E-07</comp> </nuclide> 
-     <nuclide> <id>Cm248</id>  <comp>1.46649994206004E-08</comp> </nuclide> 
-     <nuclide> <id>Cm250</id>  <comp>2.18505326076478E-15</comp> </nuclide> 
-     <nuclide> <id>Cf249</id>  <comp>2.14871674305275E-10</comp> </nuclide> 
-     <nuclide> <id>Cf250</id>  <comp>2.14974082800981E-11</comp> </nuclide> 
-     <nuclide> <id>Cf251</id>  <comp>5.8386251729569E-13</comp> </nuclide> 
-     <nuclide> <id>Cf252</id>  <comp>1.19541703503733E-14</comp> </nuclide> 
-     <nuclide> <id>H3</id>  <comp>1.68687609187297E-07</comp> </nuclide> 
-     <nuclide> <id>Kr81</id>  <comp>6.9089136516688E-12</comp> </nuclide> 
-     <nuclide> <id>Kr85</id>  <comp>2.85706925795958E-05</comp> </nuclide> 
-     <nuclide> <id>Sr90</id>  <comp>0.0005419393</comp> </nuclide> 
-     <nuclide> <id>Tc99</id>  <comp>0.0016116915</comp> </nuclide> 
-     <nuclide> <id>I129</id>  <comp>0.0004920099</comp> </nuclide> 
-     <nuclide> <id>Cs134</id>  <comp>5.14541088482533E-05</comp> </nuclide> 
-     <nuclide> <id>Cs135</id>  <comp>0.0027578425</comp> </nuclide> 
-     <nuclide> <id>Cs137</id>  <comp>0.0024408536</comp> </nuclide> 
-     <nuclide> <id>H1</id>  <comp>0.05899229217972462</comp> </nuclide> 
+    <nuclide> <id>He4</id>  <comp>2.09831385957263E-05</comp> </nuclide>
+     <nuclide> <id>Ra226</id>  <comp>3.72988283859146E-14</comp> </nuclide>
+     <nuclide> <id>Ra228</id>  <comp>2.31188391399821E-20</comp> </nuclide>
+     <nuclide> <id>Pb206</id>  <comp>6.86482161284288E-19</comp> </nuclide>
+     <nuclide> <id>Pb207</id>  <comp>1.60084931913672E-16</comp> </nuclide>
+     <nuclide> <id>Pb208</id>  <comp>2.26797455006134E-10</comp> </nuclide>
+     <nuclide> <id>Pb210</id>  <comp>3.49859039813661E-17</comp> </nuclide>
+     <nuclide> <id>Th228</id>  <comp>4.35671155143007E-10</comp> </nuclide>
+     <nuclide> <id>Th229</id>  <comp>1.59429663122883E-11</comp> </nuclide>
+     <nuclide> <id>Th230</id>  <comp>1.80332447925928E-09</comp> </nuclide>
+     <nuclide> <id>Th232</id>  <comp>2.2342415209649E-10</comp> </nuclide>
+     <nuclide> <id>Bi209</id>  <comp>9.91098670972432E-14</comp> </nuclide>
+     <nuclide> <id>Ac227</id>  <comp>4.19385789764795E-15</comp> </nuclide>
+     <nuclide> <id>Pa231</id>  <comp>1.16795363584767E-10</comp> </nuclide>
+     <nuclide> <id>U232</id>  <comp>0.000000037</comp> </nuclide>
+     <nuclide> <id>U233</id>  <comp>1.01208961711884E-08</comp> </nuclide>
+     <nuclide> <id>U234</id>  <comp>0.0001826351</comp> </nuclide>
+     <nuclide> <id>U235</id>  <comp>0.0015174339</comp> </nuclide>
+     <nuclide> <id>U236</id>  <comp>0.0017173994</comp> </nuclide>
+     <nuclide> <id>U238</id>  <comp>0.7984778666</comp> </nuclide>
+     <nuclide> <id>Np237</id>  <comp>0.0032273328</comp> </nuclide>
+     <nuclide> <id>Pu238</id>  <comp>0.0032183434</comp> </nuclide>
+     <nuclide> <id>Pu239</id>  <comp>0.0778531673</comp> </nuclide>
+     <nuclide> <id>Pu240</id>  <comp>0.028550189</comp> </nuclide>
+     <nuclide> <id>Pu241</id>  <comp>0.0058633536</comp> </nuclide>
+     <nuclide> <id>Pu242</id>  <comp>0.0064253773</comp> </nuclide>
+     <nuclide> <id>Pu244</id>  <comp>2.27899884799438E-08</comp> </nuclide>
+     <nuclide> <id>Am241</id>  <comp>0.0033014527</comp> </nuclide>
+     <nuclide> <id>Am242m</id>  <comp>0.0001582138</comp> </nuclide>
+     <nuclide> <id>Am243</id>  <comp>0.0015915546</comp> </nuclide>
+     <nuclide> <id>Cm242</id>  <comp>0.0001420473</comp> </nuclide>
+     <nuclide> <id>Cm243</id>  <comp>7.76545331153907E-06</comp> </nuclide>
+     <nuclide> <id>Cm244</id>  <comp>0.0007042559</comp> </nuclide>
+     <nuclide> <id>Cm245</id>  <comp>0.0001137771</comp> </nuclide>
+     <nuclide> <id>Cm246</id>  <comp>9.68418596174143E-06</comp> </nuclide>
+     <nuclide> <id>Cm247</id>  <comp>2.57107923346194E-07</comp> </nuclide>
+     <nuclide> <id>Cm248</id>  <comp>1.46649994206004E-08</comp> </nuclide>
+     <nuclide> <id>Cm250</id>  <comp>2.18505326076478E-15</comp> </nuclide>
+     <nuclide> <id>Cf249</id>  <comp>2.14871674305275E-10</comp> </nuclide>
+     <nuclide> <id>Cf250</id>  <comp>2.14974082800981E-11</comp> </nuclide>
+     <nuclide> <id>Cf251</id>  <comp>5.8386251729569E-13</comp> </nuclide>
+     <nuclide> <id>Cf252</id>  <comp>1.19541703503733E-14</comp> </nuclide>
+     <nuclide> <id>H3</id>  <comp>1.68687609187297E-07</comp> </nuclide>
+     <nuclide> <id>Kr81</id>  <comp>6.9089136516688E-12</comp> </nuclide>
+     <nuclide> <id>Kr85</id>  <comp>2.85706925795958E-05</comp> </nuclide>
+     <nuclide> <id>Sr90</id>  <comp>0.0005419393</comp> </nuclide>
+     <nuclide> <id>Tc99</id>  <comp>0.0016116915</comp> </nuclide>
+     <nuclide> <id>I129</id>  <comp>0.0004920099</comp> </nuclide>
+     <nuclide> <id>Cs134</id>  <comp>5.14541088482533E-05</comp> </nuclide>
+     <nuclide> <id>Cs135</id>  <comp>0.0027578425</comp> </nuclide>
+     <nuclide> <id>Cs137</id>  <comp>0.0024408536</comp> </nuclide>
+     <nuclide> <id>H1</id>  <comp>0.05899229217972462</comp> </nuclide>
 
-  </recipe> 
+  </recipe>
 
 </simulation>
