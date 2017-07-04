@@ -42,7 +42,7 @@ demand for startup of new reactors.
 | Normalized % |91.21% | 8.79 % |
 
 For 100 GW-year (250 FR-year), uses 1,257,400 kg of fuel  
--> 1 FR spends 1,257,400/250 * (14/12) = **5867 kg / Batch**
+-> 1 FR spends 1,257,400/250 * (14/12) = **5867 kg / Batch**  
 
 Refueling frequency: 14 months  
 Refueling time: 1 month
@@ -71,10 +71,11 @@ of uranium required as makeup for the roughly 7% of heavy metal fissioned each r
  
 
 For 100 GW-year (250 FR-year), uses 1,251,200 kg of fuel  
--> 1 FR spends 1,251,200/250 * (14/12) = **5838 kg / Batch**
+-> 1 FR spends 1,251,200/250 * (14/12) = **5838 kg / Batch**  
 
 Refueling frequency: 14 months  
 Refueling time: 1 month
+
 ------
 ### EG29
 Pu/U produced in SFR used to operate PWR in continuous recycle strategy:
@@ -113,11 +114,12 @@ Refueling time: 1 month
 
 **MOX LWR:**
 For 38.92 GW-year (39 LWR-year), uses 861,400 kg of fuel  
--> 1 MOX LWR spends 861,400/39 * (18/12) = **33130 kg / Batch**
+-> 1 MOX LWR spends 861,400/39 * (18/12) = **33130 kg / Batch**  
 Refueling frequency: 18 months  
 Refueling time: 1 month
 
 ------
+
 ### EG30
 TRU/U produced in SFR used to operate PWR in continuous recycle strategy:
 This is a counterpart Analysis Example to the example for EG29, with the exception that TRU
@@ -146,14 +148,14 @@ low level waste is also sent to disposal.
 | Fuel Residence Time | 4.9 years (avg) | 3.9 years |
 | Normalized % | 47 %  | 53 % | 100% |
 
-**FR:**
+**FR:**  
 For 87.0 GW-year (218 FR-year), uses 1,218,300 kg of fuel  
--> 1 FR spends 1,218,300/218 * (14/12) = **6519 kg / Batch**  
+-> 1 FR spends 1,218,300/218 * (14/12) = **6519 kg / Batch**    
 Refueling frequency: 14 months  
 Refueling time: 1 month
 
-**MOX LWR:**
+**MOX LWR:**  
 For 13 GW-year (13 LWR-year), uses 287,000 kg of fuel  
--> 1 MOX LWR spends 287,000/13 * (18/12) = **33115 kg / Batch**  
+-> 1 MOX LWR spends 287,000/13 * (18/12) = **33115 kg / Batch**    
 Refueling frequency: 18 months  
 Refueling time: 1 month
