@@ -169,7 +169,7 @@ Mass = 33130 kg (18/2/3 batch)
                 </stream>
                 <stream>
                     <info>
-                        <mixing_ratio>0.818</mixing_ratio>
+                        <mixing_ratio>0.819</mixing_ratio>
                         <buf_size>1e100</buf_size>
                     </info>
                     <commodities>
@@ -531,7 +531,7 @@ Mass = 33130 kg (18/2/3 batch)
           <number>1</number>
           <prototype>mine</prototype>
         </entry>
-
+        <entry>
         <number>1</number>
           <prototype>sink</prototype>
         </entry>
@@ -578,8 +578,6 @@ Mass = 33130 kg (18/2/3 batch)
           <number>1</number>
           <prototype>sfr_reprocessing</prototype>
         </entry>
-        <entry>
-
       </initialfacilitylist>
       <name>sink_source_facilities</name>
     </institution>
