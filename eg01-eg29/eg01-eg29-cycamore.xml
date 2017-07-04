@@ -194,6 +194,10 @@ Mass = 33130 kg (18/2/3 batch)
                     <commodities>
                         <item>
                             <commodity>tailings</commodity>
+                            <pref>2.0</pref>
+                        </item>
+                        <item>
+                            <commodity>natl_u</commodity>
                             <pref>1.0</pref>
                         </item>
                     </commodities>
@@ -268,6 +272,7 @@ Mass = 33130 kg (18/2/3 batch)
           <val>cool_uox_waste</val>
           <val>tailings</val>
           <val>reprocess_waste</val>
+          <val>sfr_reprocess_waste</val>
           <val>mox_reprocess_waste</val>
         </in_commods>
         <capacity>1e299</capacity>

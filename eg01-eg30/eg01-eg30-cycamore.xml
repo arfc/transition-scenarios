@@ -1,4 +1,17 @@
 <!--
+-------------------------------------------
+COMMODITY (RECIPE)
+
+mox(mox_recipe)
+mox_waste(mox_waste_recipe)
+
+sfr_fuel(sfr_fuel_recipe)
+sfr_waste(sfr_waste_recipe)
+
+uox(uox_recipe)
+uox_waste(uox_waste_recipe)
+-------------------------------------------
+
 transition starts at 2015 and runs for 200 years
 100 GWe of LWR installed Capacity (90% CF)
 1 % Assumed annual growth in nuclear energy
@@ -14,6 +27,31 @@ Fast Reactors available 2050
 
 Fast Reactors (After 2050)
 80 year lifetime
+
+
+-------------------------------------------
+SFR input fuel (Driver(47%) + Blanket(53%))
+Mass = 6519 kg (14/1/3 batch)
+"sfr_fuel"
+-------------------------------------------
+Driver:
+    24.4% TRU
+    75.6% % Rep U
+Blanket:
+    100 % Rep U ( or Dep U)
+
+Total:
+    11.46% TRU
+    88.54% Rep U (or Dep U)
+-------------------------------------------
+-------------------------------------------
+MOX PWR input fuel
+Mass = 33115 kg (18/2/3 batch)
+"mox"
+-------------------------------------------
+10.4% TRU
+89.6% Rep U
+-------------------------------------------
 -->
 
 <simulation>
@@ -110,7 +148,7 @@ Fast Reactors (After 2050)
             <in_streams>
                 <stream>
                     <info>
-                        <mixing_ratio>0.13</mixing_ratio>
+                        <mixing_ratio>0.104</mixing_ratio>
                         <buf_size>1e100</buf_size>
                     </info>
                     <commodities>
@@ -122,14 +160,30 @@ Fast Reactors (After 2050)
                             <commodity>mox_TRU</commodity>
                             <pref>1.0</pref>
                         </item>
+                        <item>
+                            <commodity>sfr_TRU</commodity>
+                            <pref>1.0</pref>
+                        </item>
                     </commodities>
                 </stream>
                 <stream>
                     <info>
-                        <mixing_ratio>0.87</mixing_ratio>
+                        <mixing_ratio>0.896</mixing_ratio>
                         <buf_size>1e100</buf_size>
                     </info>
                     <commodities>
+                        <item>
+                            <commodity>uox_U</commodity>
+                            <pref>2.0</pref>
+                        </item>
+                        <item>
+                            <commodity>mox_U</commodity>
+                            <pref>2.0</pref>
+                        </item>
+                        <item>
+                            <commodity>sfr_U</commodity>
+                            <pref>2.0</pref>
+                        </item>
                         <item>
                             <commodity>tailings</commodity>
                             <pref>1.0</pref>
@@ -151,7 +205,7 @@ Fast Reactors (After 2050)
             <in_streams>
                 <stream>
                     <info>
-                        <mixing_ratio>0.20</mixing_ratio>
+                        <mixing_ratio>0.1146</mixing_ratio>
                         <buf_size>1e100</buf_size>
                     </info>
                     <commodities>
@@ -163,14 +217,30 @@ Fast Reactors (After 2050)
                             <commodity>mox_TRU</commodity>
                             <pref>1.0</pref>
                         </item>
+                        <item>
+                            <commodity>sfr_TRU</commodity>
+                            <pref>1.0</pref>
+                        </item>
                     </commodities>
                 </stream>
                 <stream>
                     <info>
-                        <mixing_ratio>0.87</mixing_ratio>
+                        <mixing_ratio>0.8854</mixing_ratio>
                         <buf_size>1e100</buf_size>
                     </info>
                     <commodities>
+                        <item>
+                            <commodity>uox_U</commodity>
+                            <pref>2.0</pref>
+                        </item>
+                        <item>
+                            <commodity>mox_U</commodity>
+                            <pref>2.0</pref>
+                        </item>
+                        <item>
+                            <commodity>sfr_U</commodity>
+                            <pref>2.0</pref>
+                        </item>
                         <item>
                             <commodity>tailings</commodity>
                             <pref>1.0</pref>
@@ -178,7 +248,7 @@ Fast Reactors (After 2050)
                     </commodities>
                 </stream>
             </in_streams>
-            <out_commod>mox</out_commod>
+            <out_commod>sfr_fuel</out_commod>
             <out_buf_size>1e100</out_buf_size>
             <throughput>1e100</throughput>
         </Mixer>
@@ -195,6 +265,7 @@ Fast Reactors (After 2050)
           <val>tailings</val>
           <val>reprocess_waste</val>
           <val>mox_reprocess_waste</val>
+          <val>sfr_reprocess_waste</val>
         </in_commods>
         <capacity>1e299</capacity>
       </Sink>
@@ -207,7 +278,7 @@ Fast Reactors (After 2050)
       <Separations>
          <feed_commods>   <val>cool_uox_waste</val> </feed_commods>
          <feed_commod_prefs> <val>1.0</val> </feed_commod_prefs>
-         <feed_recipe>uox_used_fuel_recipe</feed_recipe>
+         <feed_recipe>uox_waste_recipe</feed_recipe>
          <feedbuf_size>1E100</feedbuf_size>
          <throughput>1E100</throughput>
          <leftover_commod>reprocess_waste</leftover_commod>
@@ -253,7 +324,7 @@ Fast Reactors (After 2050)
     <name>mox_reprocessing</name>
     <config>
       <Separations>
-         <feed_commods>   <val>cool_sfr_spent</val>  </feed_commods>
+         <feed_commods>   <val>cool_mox_waste</val>  </feed_commods>
          <feed_commod_prefs> <val>2.0</val> </feed_commod_prefs>
          <feedbuf_size>1E100</feedbuf_size>
          <throughput>1E100</throughput>
@@ -296,29 +367,52 @@ Fast Reactors (After 2050)
     </config>
   </facility>
 
+
   <facility>
+    <name>sfr_reprocessing</name>
     <config>
-      <FuelFab>
-        <fill_commods>
-          <val>tailings</val>
-        </fill_commods>
-        <fill_recipe>depleted_u</fill_recipe>
-        <fill_size>1e+60</fill_size>
-        <fiss_commod_prefs>
-          <val>1</val>
-          <val>2</val>
-        </fiss_commod_prefs>
-        <fiss_commods>
-          <val>uox_TRU</val>
-          <val>mox_TRU</val>
-        </fiss_commods>
-        <fiss_size>1e+60</fiss_size>
-        <outcommod>mox</outcommod>
-        <spectrum>fission_spectrum_ave</spectrum>
-        <throughput>1e+60</throughput>
-      </FuelFab>
+      <Separations>
+         <feed_commods>   <val>cool_sfr_waste</val>  </feed_commods>
+         <feed_commod_prefs> <val>2.0</val> </feed_commod_prefs>
+         <feedbuf_size>1E100</feedbuf_size>
+         <throughput>1E100</throughput>
+         <leftover_commod>sfr_reprocess_waste</leftover_commod>
+         <leftoverbuf_size>1E100</leftoverbuf_size>
+         <streams>
+          <item>
+            <commod>sfr_TRU</commod>
+            <info>
+              <buf_size>1E100</buf_size>
+              <efficiencies>
+                <item>
+                  <comp>Np</comp> <eff>.998</eff>
+                </item>
+                <item>
+                  <comp>Am</comp> <eff>.998</eff>
+                </item>
+                <item>
+                  <comp>Cm</comp> <eff>.998</eff>
+                </item>
+                <item>
+                  <comp>Pu</comp> <eff>.998</eff>
+                </item>
+              </efficiencies>
+            </info>
+          </item>
+          <item>
+            <commod>sfr_U</commod>
+            <info>
+              <buf_size>1E100</buf_size>
+              <efficiencies>
+                <item>
+                  <comp>U</comp> <eff>.998</eff>
+                </item>
+              </efficiencies>
+            </info>
+          </item>
+        </streams>
+      </Separations>
     </config>
-    <name>mox_fuel_fab</name>
   </facility>
 
 
@@ -341,17 +435,38 @@ Fast Reactors (After 2050)
       </config>
   </facility>
 
+
   <facility>
-      <name>sfr_mox_pool</name>
+      <name>mox_pool</name>
       <!-- Spent Fuel Spends ~3 years (36 timesteps) -->
       <!-- in NPP pools prior to process (carre_overview_2009) -->
       <config>
           <Storage>
               <in_commods>
-                  <val>sfr_spent_mox</val>
+                  <val>mox_waste</val>
               </in_commods>
               <out_commods>
-                  <val>cool_sfr_spent</val>
+                  <val>cool_mox_waste</val>
+              </out_commods>
+              <residence_time>36</residence_time>
+              <throughput>1e299</throughput>
+              <max_inv_size>1e299</max_inv_size>
+          </Storage>
+      </config>
+  </facility>
+
+
+  <facility>
+      <name>sfr_pool</name>
+      <!-- Spent Fuel Spends ~3 years (36 timesteps) -->
+      <!-- in NPP pools prior to process (carre_overview_2009) -->
+      <config>
+          <Storage>
+              <in_commods>
+                  <val>sfr_waste</val>
+              </in_commods>
+              <out_commods>
+                  <val>cool_sfr_waste</val>
               </out_commods>
               <residence_time>36</residence_time>
               <throughput>1e299</throughput>
@@ -362,17 +477,38 @@ Fast Reactors (After 2050)
 
   <facility>
     <name>lwr</name>
+    <!-- Westinghouse Fuel Mass 90200 kg-->
     <lifetime>960</lifetime>
     <config>
       <Reactor>
-        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
-        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_inrecipes>  <val>uox_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_waste_recipe</val>  </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
         <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>1</refuel_time>
-        <assem_size>11666.7</assem_size>
+        <assem_size>30106</assem_size>
+        <n_assem_core>3</n_assem_core>
+        <n_assem_batch>1</n_assem_batch>
+        <power_cap>1000</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+    <facility>
+    <name>mox_lwr</name>
+    <lifetime>960</lifetime>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>mox_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>mox_waste_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>mox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>mox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>1</refuel_time>
+        <assem_size>33115</assem_size>
         <n_assem_core>3</n_assem_core>
         <n_assem_batch>1</n_assem_batch>
         <power_cap>1000</power_cap>
@@ -385,14 +521,14 @@ Fast Reactors (After 2050)
       <lifetime>960</lifetime>
       <config>
         <Reactor>
-          <fuel_inrecipes>  <val>mox_fuel_recipe</val>       </fuel_inrecipes>
-          <fuel_outrecipes> <val>sfr_spent_mox_recipe</val>  </fuel_outrecipes>
-          <fuel_incommods>  <val>mox</val>                   </fuel_incommods>
-          <fuel_outcommods> <val>sfr_spent_mox</val>             </fuel_outcommods>
+          <fuel_inrecipes>  <val>sfr_fuel_recipe</val>       </fuel_inrecipes>
+          <fuel_outrecipes> <val>sfr_waste_recipe</val>  </fuel_outrecipes>
+          <fuel_incommods>  <val>sfr_fuel</val>                   </fuel_incommods>
+          <fuel_outcommods> <val>sfr_waste</val>             </fuel_outcommods>
           <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
           <cycle_time>14</cycle_time>
           <refuel_time>1</refuel_time>
-          <assem_size>10000</assem_size>
+          <assem_size>6519</assem_size>
           <n_assem_core>3</n_assem_core>
           <n_assem_batch>1</n_assem_batch>
           <power_cap>400</power_cap>
@@ -411,34 +547,11 @@ Fast Reactors (After 2050)
         <NullInst/>
       </config>
       <initialfacilitylist>
+
+        <!-- NAT U SOURCE, SINK, ENRICHMENT-->
         <entry>
           <number>1</number>
           <prototype>mine</prototype>
-        </entry>
-
-        <entry>
-          <number>1</number>
-          <prototype>mox_mixer</prototype>
-        </entry>
-
-
-        <entry>
-          <number>1</number>
-          <prototype>sfr_mox_pool</prototype>
-        </entry>
-        <entry>
-          <number>1</number>
-          <prototype>uox_pool</prototype>
-        </entry>
-
-
-        <entry>
-          <number>1</number>
-          <prototype>uox_reprocessing</prototype>
-        </entry>
-        <entry>
-          <number>1</number>
-          <prototype>mox_reprocessing</prototype>
         </entry>
         <entry>
           <number>1</number>
@@ -448,6 +561,46 @@ Fast Reactors (After 2050)
           <number>1</number>
           <prototype>enrichment</prototype>
         </entry>
+
+        <!-- MIXERS -->
+        <entry>
+          <number>1</number>
+          <prototype>mox_mixer</prototype>
+        </entry>
+        <entry>
+          <number>1</number>
+          <prototype>sfr_mixer</prototype>
+        </entry>
+
+
+        <!-- POOLS -->
+        <entry>
+          <number>1</number>
+          <prototype>sfr_pool</prototype>
+        </entry>
+        <entry>
+          <number>1</number>
+          <prototype>uox_pool</prototype>
+        </entry>
+        <entry>
+          <number>1</number>
+          <prototype>mox_pool</prototype>
+        </entry>
+
+        <!-- REPROCESSING PLANTS -->
+        <entry>
+          <number>1</number>
+          <prototype>uox_reprocessing</prototype>
+        </entry>
+        <entry>
+          <number>1</number>
+          <prototype>sfr_reprocessing</prototype>
+        </entry>
+        <entry>
+          <number>1</number>
+          <prototype>mox_reprocessing</prototype>
+        </entry>
+        
       </initialfacilitylist>
       <name>sink_source_facilities</name>
     </institution>
@@ -1285,7 +1438,7 @@ Fast Reactors (After 2050)
   </recipe>
 
   <recipe>
-    <name>uox_fuel_recipe</name>
+    <name>uox_recipe</name>
     <basis>mass</basis> 
      <nuclide> <id>U235</id>  <comp>0.04</comp> </nuclide> 
      <nuclide> <id>U238</id>  <comp>0.96</comp> </nuclide> 
@@ -1299,7 +1452,7 @@ Fast Reactors (After 2050)
   </recipe>
 
   <recipe>
-    <name>mox_fuel_recipe</name>
+    <name>mox_recipe</name>
     <basis>mass</basis>
        <nuclide> <id>U234</id>  <comp>0.0001387087</comp> </nuclide> 
    <nuclide> <id>U235</id>  <comp>0.0041782621</comp> </nuclide> 
@@ -1321,7 +1474,7 @@ Fast Reactors (After 2050)
   </recipe>
 
   <recipe>
-    <name>uox_used_fuel_recipe</name>
+    <name>uox_waste_recipe</name>
     <basis>mass</basis>
     <nuclide> <id>He4</id>  <comp>9.47457840128509E-07</comp> </nuclide> 
      <nuclide> <id>Ra226</id>  <comp>9.78856442957042E-14</comp> </nuclide> 
@@ -1380,7 +1533,7 @@ Fast Reactors (After 2050)
   </recipe> 
 
   <recipe>
-  <name>sfr_spent_mox_recipe</name>
+  <name>sfr_waste_recipe</name>
   <basis>mass</basis>
   <nuclide> <id>He4</id>  <comp>0.0001414018</comp> </nuclide> 
    <nuclide> <id>Ra226</id>  <comp>2.74046902462026E-13</comp> </nuclide> 

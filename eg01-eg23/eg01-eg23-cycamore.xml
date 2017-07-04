@@ -179,6 +179,10 @@ Total (5867 kg / 14months)
                     <commodities>
                         <item>
                             <commodity>tailings</commodity>
+                            <pref>2.0</pref>
+                        </item>
+                        <item>
+                            <commodity>natl_u</commodity>
                             <pref>1.0</pref>
                         </item>
                     </commodities>
@@ -198,7 +202,7 @@ Total (5867 kg / 14months)
         <in_commods>
           <val>tailings</val>
           <val>reprocess_waste</val>
-          <val>mox_reprocess_waste</val>
+          <val>sfr_reprocess_waste</val>
         </in_commods>
         <capacity>1e299</capacity>
       </Sink>
