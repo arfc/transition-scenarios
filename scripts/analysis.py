@@ -29,8 +29,8 @@ def get_agent_ids(cursor, archetype):
 
     Returns
     -------
-    sink_id: list
-        list of all the sink agentId values as string.
+    id_list: list
+        list of all agentId strings
     """
     agents = cursor.execute("SELECT * FROM agententry WHERE spec LIKE '%" +
                             archetype + "%' COLLATE NOCASE").fetchall()
