@@ -66,8 +66,8 @@
         <in_streams>
           <stream>
             <info>
-              <mixing_ratio>.09</mixing_ratio>
-              <buf_size>100000</buf_size>
+              <mixing_ratio>0.09</mixing_ratio>
+              <buf_size>1E5</buf_size>
             </info>
             <commodities>
               <item>
@@ -78,8 +78,8 @@
           </stream>
           <stream>
             <info>
-              <mixing_ratio>.91</mixing_ratio>
-              <buf_size>1000000</buf_size>
+              <mixing_ratio>0.91</mixing_ratio>
+              <buf_size>1E6</buf_size>
             </info>
             <commodities>
               <item>
@@ -90,8 +90,8 @@
           </stream>
         </in_streams>
         <out_commod>mox</out_commod>
-        <out_buf_size>100000</out_buf_size>
-        <throughput>30000</throughput>
+        <out_buf_size>1E5</out_buf_size>
+        <throughput>3E4</throughput>
       </Mixer>
     </config>
 </facility>
@@ -104,8 +104,8 @@
         <in_streams>
           <stream>
             <info>
-              <mixing_ratio>.1</mixing_ratio>
-              <buf_size>100000</buf_size>
+              <mixing_ratio>0.1</mixing_ratio>
+              <buf_size>1E5</buf_size>
             </info>
             <commodities>
               <item>
@@ -116,8 +116,8 @@
           </stream>
           <stream>
             <info>
-              <mixing_ratio>.9</mixing_ratio>
-              <buf_size>1000000</buf_size>
+              <mixing_ratio>0.9</mixing_ratio>
+              <buf_size>1E6</buf_size>
             </info>
             <commodities>
               <item>
@@ -128,8 +128,8 @@
           </stream>
         </in_streams>
         <out_commod>mox</out_commod>
-        <out_buf_size>1000000</out_buf_size>
-        <throughput>30000</throughput>
+        <out_buf_size>1E6</out_buf_size>
+        <throughput>3E4</throughput>
       </Mixer>
     </config>
 </facility>
@@ -139,7 +139,7 @@
     <name>uox_reprocessing</name>
     <config>
       <Separations>
-         <feed_commods>   <val>uox_waste</val> </feed_commods>
+         <feed_commods>   <val>cool_uox_waste</val> </feed_commods>
          <feed_commod_prefs> <val>1.0</val> </feed_commod_prefs>
          <feed_recipe>uox_used_fuel_recipe</feed_recipe>
          <feedbuf_size>183200</feedbuf_size>
@@ -154,7 +154,7 @@
               <buf_size>91600</buf_size>
               <efficiencies>
                 <item>
-                  <comp>Pu</comp> <eff>.998</eff>
+                  <comp>Pu</comp> <eff>0.998</eff>
                 </item>
               </efficiencies>
             </info>
@@ -165,7 +165,7 @@
               <buf_size>91600</buf_size>
               <efficiencies>
                 <item>
-                  <comp>U</comp> <eff>.998</eff>
+                  <comp>U</comp> <eff>0.998</eff>
                 </item>
               </efficiencies>
             </info>
@@ -180,7 +180,7 @@
     <name>mox_reprocessing</name>
     <config>
       <Separations>
-         <feed_commods>   <val>mox_waste</val> </feed_commods>
+         <feed_commods>   <val>cool_mox_waste</val> </feed_commods>
          <feed_commod_prefs> <val>1.0</val> </feed_commod_prefs>
          <feed_recipe>mox_used_fuel_recipe</feed_recipe>
          <feedbuf_size>183200</feedbuf_size>
@@ -195,7 +195,7 @@
               <buf_size>91600</buf_size>
               <efficiencies>
                 <item>
-                  <comp>Pu</comp> <eff>.998</eff>
+                  <comp>Pu</comp> <eff>0.998</eff>
                 </item>
               </efficiencies>
             </info>
@@ -206,7 +206,7 @@
               <buf_size>91600</buf_size>
               <efficiencies>
                 <item>
-                  <comp>U</comp> <eff>.998</eff>
+                  <comp>U</comp> <eff>0.998</eff>
                 </item>
               </efficiencies>
             </info>
@@ -251,9 +251,9 @@
                 <val>uox_waste</val>
             </in_commods>
             <out_commods>
-                <val>uox_waste</val>
+                <val>cool_uox_waste</val>
             </out_commods>
-            <residence_time> 1 </residence_time>
+            <residence_time>1</residence_time>
         </Storage>
     </config>
   </facility>
@@ -266,9 +266,9 @@
                 <val>mox_waste</val>
             </in_commods>
             <out_commods>
-                <val>mox_waste</val>
+                <val>cool_mox_waste</val>
             </out_commods>
-            <residence_time> 1 </residence_time>
+            <residence_time>1</residence_time>
         </Storage>
     </config>
   </facility>
