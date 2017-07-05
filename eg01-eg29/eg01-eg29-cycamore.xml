@@ -1197,6 +1197,7 @@ Mass = 33130 kg (18/2/3 batch)
   <nuclide> <id>Cm243</id>  <comp>2.49115624531971E-05</comp> </nuclide>
   <nuclide> <id>Cm244</id>  <comp>0.0026211644</comp> </nuclide>
   <nuclide> <id>Cm245</id>  <comp>0.0002109132</comp> </nuclide>
+</recipe>
 
   <recipe>
     <name>sfr_fuel_recipe</name>
