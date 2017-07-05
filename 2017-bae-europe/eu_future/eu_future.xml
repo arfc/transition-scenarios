@@ -274,7 +274,7 @@
   </facility>
 
   <facility>
-    <name>SomeSink</name>
+    <name>sink</name>
     <config>
       <Sink>
         <in_commods>
@@ -5651,7 +5651,7 @@
           </entry>
           <entry>
             <number>1</number>
-            <prototype>SomeSink</prototype>
+            <prototype>sink</prototype>
           </entry>
           <entry>
             <number>1</number>
