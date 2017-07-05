@@ -99,7 +99,7 @@ def exec_string(in_list, search, request_colmn):
     return query
 
 
-def get_sim_time_duration(cursor):
+def get_timesteps(cursor):
     """ Returns simulation start year, month, duration and
     timesteps (in numpy linspace).
 
@@ -264,7 +264,7 @@ def commodity_in_out_facility(cursor, facility, commod_list,
         dictionary with key: commodity, and value: timeseries list
     """
 
-    init_year, init_month, duration, timestep = get_sim_time_duration(cursor)
+    init_year, init_month, duration, timestep = get_timesteps(cursor)
     if is_prototype:
         agent_ids = get_prototype_id(cursor, facility)
     else:
@@ -329,7 +329,7 @@ def get_stockpile(cursor, facility):
     query = exec_string(agentid, 'agentid', 'timecreated, quantity, qualid')
     query = query.replace('transactions', 'agentstateinventories')
     stockpile = cursor.execute(query).fetchall()
-    init_year, init_month, duration, timestep = get_sim_time_duration(cursor)
+    init_year, init_month, duration, timestep = get_timesteps(cursor)
     stock_timeseries = get_timeseries(stockpile, duration, .001, 'TRUE')
     pile_dict[facility] = stock_timeseries
 
@@ -352,7 +352,7 @@ def get_swu_dict(cursor):
     """
     swu_dict = collections.OrderedDict()
     agentid = get_agent_ids(cursor, 'Enrichment')
-    init_year, init_month, duration, timestep = get_sim_time_duration(cursor)
+    init_year, init_month, duration, timestep = get_timesteps(cursor)
     facility_num = 1
     for num in agentid:
         swu_data = cursor.execute('SELECT time, value '
@@ -379,7 +379,7 @@ def get_power_dict(cursor):
     capacity_calc: function
         calls a function
     """
-    init_year, init_month, duration, timestep = get_sim_time_duration(cursor)
+    init_year, init_month, duration, timestep = get_timesteps(cursor)
     # get power cap values
     governments = cursor.execute('SELECT prototype, agentid FROM agententry '
                                  'WHERE kind = "Inst"').fetchall()
@@ -423,7 +423,7 @@ def fuel_usage_timeseries(cursor, fuel_list):
         fuel_quantity = cursor.execute(exec_string(temp_list, 'commodity',
                                                    'time, sum(quantity)') +
                                        ' GROUP BY time').fetchall()
-        init_year, init_month, duration, timestep = get_sim_time_duration(
+        init_year, init_month, duration, timestep = get_timesteps(
             cursor)
         quantity_timeseries = []
         try:
@@ -453,7 +453,7 @@ def nat_u_timeseries(cursor):
         calls a function that returns timeseries of natural U
         demand from enrichment [MTHM]
     """
-    init_year, init_month, duration, timestep = get_sim_time_duration(cursor)
+    init_year, init_month, duration, timestep = get_timesteps(cursor)
 
     # Get Nat U feed to enrichment from timeseriesenrichmentfeed
     feed = cursor.execute('SELECT time, sum(value) '
@@ -491,7 +491,7 @@ def get_trade_dict(cursor, sender, receiver, is_prototype, do_isotopic):
             value: timeseries list of mass traded between two prototypes
 
     """
-    init_year, init_month, duration, timestep = get_sim_time_duration(cursor)
+    init_year, init_month, duration, timestep = get_timesteps(cursor)
     iso_dict = collections.defaultdict(list)
     return_dict = collections.defaultdict()
 
@@ -599,7 +599,7 @@ def fuel_into_reactors(cursor):
     get_timeseries: function
         Function returns timeseries of mass of fuel into receactors [MTHM]
     """
-    init_year, init_month, duration, timestep = get_sim_time_duration(cursor)
+    init_year, init_month, duration, timestep = get_timesteps(cursor)
     fuel = cursor.execute('SELECT time, sum(quantity) FROM transactions '
                           'INNER JOIN resources ON '
                           'resources.resourceid = transactions.resourceid '
@@ -767,7 +767,7 @@ def where_comm(cursor, commodity, prototypes):
         dictionary with key: prototype name,
         value: timeseries of commodity sent from prototypes
     """
-    init_year, init_month, duration, timestep = get_sim_time_duration(cursor)
+    init_year, init_month, duration, timestep = get_timesteps(cursor)
     query = ('SELECT time, sum(quantity) FROM transactions '
              'INNER JOIN resources ON resources.resourceid = '
              'transactions.resourceid WHERE commodity = "' +
@@ -1026,7 +1026,7 @@ def plot_power(cursor):
     Returns
     -------
     """
-    init_year, init_month, duration, timestep = get_sim_time_duration(cursor)
+    init_year, init_month, duration, timestep = get_timesteps(cursor)
     power_dict, num_dict = get_power_dict(cursor)
     stacked_bar_chart(power_dict, timestep,
                       'Years', 'Net_Capacity [GWe]',
@@ -1075,7 +1075,7 @@ def plot_in_out_flux(cursor, facility, influx_bool, title, outputname):
     compositions = cursor.execute('SELECT qualid, nucid, massfrac '
                                   'FROM compositions').fetchall()
 
-    init_year, init_month, duration, timestep = get_sim_time_duration(cursor)
+    init_year, init_month, duration, timestep = get_timesteps(cursor)
     transactions = get_isotope_transactions(resources, compositions)
     waste_dict = get_waste_dict(transactions.keys(),
                                 transactions.values()[0],
@@ -1097,7 +1097,7 @@ if __name__ == "__main__":
     con = lite.connect(file)
     with con:
         cur = con.cursor()
-        init_year, init_month, duration, timestep = get_sim_time_duration(cur)
+        init_year, init_month, duration, timestep = get_timesteps(cur)
         mix_ratio(cur, 'cfr_fresh',
                   'cfr_spent', 'depleted_u', [94, 95, 96, 97])
         conv_ratio(cur, 'cfr_fresh', 'cfr_spent', True)
@@ -1239,7 +1239,7 @@ if __name__ == "__main__":
 
 """
 """
-#init_year, init_month, duration, timestep = get_sim_time_duration(cur)
+#init_year, init_month, duration, timestep = get_timesteps(cur)
 
 # waste_dict = total_waste_timeseries(cur)
 # multi_line_plot(waste_dict, timestep,
