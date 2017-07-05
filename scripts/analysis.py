@@ -13,8 +13,8 @@ if len(sys.argv) < 2:
 """HELPERS"""
 
 
-def get_agent_ids(cursor, facility):
-    """ Gets all agentIds from Agententry table for wanted facility
+def get_agent_ids(cursor, archetype):
+    """ Gets all agentIds from Agententry table for wanted archetype
 
         agententry table has the following format:
             SimId / AgentId / Kind / Spec /
@@ -24,8 +24,8 @@ def get_agent_ids(cursor, facility):
     ----------
     cursor: cursor
         cursor for sqlite3
-    facility: str
-        name of facility type as described in spec
+    archetype: str
+        agent's archetype specification
 
     Returns
     -------
@@ -33,7 +33,7 @@ def get_agent_ids(cursor, facility):
         list of all the sink agentId values as string.
     """
     agents = cursor.execute("SELECT * FROM agententry WHERE spec LIKE '%" +
-                            facility + "%' COLLATE NOCASE").fetchall()
+                            archetype + "%' COLLATE NOCASE").fetchall()
 
     return list(str(agent[1]) for agent in agents)
 
@@ -634,9 +634,9 @@ def conv_ratio(cursor, in_, out, is_recipe):
                                     'WHERE recipe = "' + out + '"').fetchone()[0]
     else:
         in_qualid = cursor.execute(exec_string(['"' + in_ + '"'],
-                                                      'commodity', 'qualid')).fetchone()[0]
+                                               'commodity', 'qualid')).fetchone()[0]
         out_qualid = cursor.execute(exec_string(['"' + out + '"'],
-                                                       'commodity', 'qualid')).fetchone()[0]
+                                                'commodity', 'qualid')).fetchone()[0]
     in_recipe = cursor.execute('SELECT nucid, massfrac FROM compositions '
                                'WHERE qualid = ' + str(in_qualid)).fetchall()
     out_recipe = cursor.execute('SELECT nucid, massfrac FROM compositions '
@@ -708,7 +708,7 @@ def mix_ratio(cursor, fuel_recipe_name, spent_fuel_recipe_name, depleted_u_recip
         reprocessed = sum([massfrac for (nucid, massfrac)
                            in sep_matl if nucid == t[0]]) * optimal_ratio
         uranium = sum([massfrac for (nucid, massfrac)
-                       in depleted_u_recipe 
+                       in depleted_u_recipe
                        if nucid == t[0]]) * (1 - optimal_ratio)
         value = reprocessed + uranium
         err = abs(value - t[1])
@@ -1184,7 +1184,7 @@ if __name__ == "__main__":
                           'Total Fuel Mass vs Time',
                           'total_fuel',
                           init_year)
-        
+
 # combined case
 
         # rep_dict = get_trade_dict(cur, 'separations', 'reactor', False, True)
