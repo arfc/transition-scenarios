@@ -51,7 +51,7 @@ def get_prototype_id(cursor, prototype):
     Returns
     -------
     agent_id: list
-        list of agent_ids for prototype as string.
+        list of prototype agent_ids as strings
     """
     ids = cursor.execute('SELECT agentid FROM agententry '
                          'WHERE prototype = "' +
@@ -60,28 +60,31 @@ def get_prototype_id(cursor, prototype):
     return list(str(agent[0]) for agent in ids)
 
 
-def exec_string(in_list, search, whatwant):
+def exec_string(in_list, search, request_colmn):
     """ Generates sqlite query command to select things and
         inner join resources and transactions.
 
     Parameters
     ----------
     in_list: list
-        (search) = in_list
         list of items to specify search
+        This variable will be inserted as sqlite
+        query arugment following the search keyword
     search: str
-        WHERE (search)
         criteria for in_list search
-    whatwant: str
-        SELECT (whatwant)
-        column (set of values) you want out from sqlite query
+        This variable will be inserted as sqlite
+        query arugment following the WHERE keyword
+    request_colmn: str
+        column (set of values) that the sqlite query should return
+        This variable will be inserted as sqlite
+        query arugment following the SELECT keyword
 
     Returns
     -------
     str
         sqlite query command.
     """
-    query = ("SELECT " + whatwant +
+    query = ("SELECT " + request_colmn +
              " FROM resources INNER JOIN transactions"
              " ON transactions.resourceid = resources.resourceid"
              " WHERE (" + str(search) + ' = ' + str(in_list[0])
