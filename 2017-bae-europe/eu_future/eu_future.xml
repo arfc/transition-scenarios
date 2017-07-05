@@ -4653,6 +4653,48 @@
 <region>
     <name>France</name>
     <config><NullRegion/></config>
+    <institution>  
+       <name>french_fuel_facilities</name>
+       <config><NullInst/></config>
+       <initialfacilitylist>
+              <entry>
+                <number>1</number>
+                <prototype>nat_u_source</prototype>
+            </entry>
+            <entry>
+                <number>1</number>
+                <prototype>enrichment</prototype>
+            </entry>
+            <entry>
+                <number>1</number>
+                <prototype>sink</prototype>
+            </entry>
+            <entry>
+                <number>1</number>
+                <prototype>storage_uox</prototype>
+            </entry>
+            <entry>
+                <number>1</number>
+                <prototype>storage_mox</prototype>
+            </entry>
+            <entry>
+                <number>1</number>
+                <prototype>uox_mixer</prototype>
+            </entry>
+            <entry>
+                <number>1</number>
+                <prototype>mox_mixer</prototype>
+            </entry>
+            <entry>
+                <number>1</number>
+                <prototype>uox_reprocessing</prototype>
+            </entry>
+            <entry>
+                <number>1</number>
+                <prototype>mox_reprocessing</prototype>
+            </entry>
+        </initialfacilitylist>
+    </institution>
     <institution>
       <name>France_government</name>
       <config>
@@ -5543,54 +5585,6 @@
 </institution>
 </region>
 
-
-<region>
-    <name>Sink_Source</name>
-    <config><NullRegion/></config>
-    <institution>  
-       <name>Sink_Source_Inst</name>
-       <config><NullInst/></config>
-       <initialfacilitylist>
-          <entry>
-            <number>1</number>
-            <prototype>nat_u_source</prototype>
-        </entry>
-        <entry>
-            <number>1</number>
-            <prototype>enrichment</prototype>
-        </entry>
-        <entry>
-            <number>1</number>
-            <prototype>sink</prototype>
-        </entry>
-        <entry>
-            <number>1</number>
-            <prototype>storage_uox</prototype>
-        </entry>
-        <entry>
-            <number>1</number>
-            <prototype>storage_mox</prototype>
-        </entry>
-        <entry>
-            <number>1</number>
-            <prototype>uox_mixer</prototype>
-        </entry>
-        <entry>
-            <number>1</number>
-            <prototype>mox_mixer</prototype>
-        </entry>
-        <entry>
-            <number>1</number>
-            <prototype>uox_reprocessing</prototype>
-        </entry>
-        <entry>
-            <number>1</number>
-            <prototype>mox_reprocessing</prototype>
-        </entry>
-
-    </initialfacilitylist>
-</institution>
-</region>  
 
 <recipe>
     <name>natl_u_recipe</name>
