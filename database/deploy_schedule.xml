@@ -830,8 +830,7 @@ modified by gpark29
 (+126 lwr, -315 fr)
 --------------------
 <copy>
-
-  <institution>
+6  <institution>
     <name>lwr_inst</name>
     <config>
       <DeployInst>
@@ -1620,7 +1619,7 @@ modified by gpark29
     </config>
   </institution>
 </copy>
---------------------
+--------------------6
 3.
 Original By Scopatz
 modified by gpark29
