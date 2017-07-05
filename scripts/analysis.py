@@ -124,7 +124,7 @@ def get_timesteps(cursor):
     init_year = info[0]
     init_month = info[1]
     duration = info[2]
-    timestep = np.linspace(0, info[2] - 1, num=info[2])
+    timestep = np.linspace(0, duration - 1, num=duration)
 
     return init_year, init_month, duration, timestep
 
