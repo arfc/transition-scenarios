@@ -130,7 +130,7 @@ def get_timesteps(cursor):
 
 
 def get_timeseries(in_list, duration, multiplyby, cumulative):
-    """ returns a timeseries list of a given data
+    """ returns a timeseries list from in_list data.
 
     Parameters
     ----------
