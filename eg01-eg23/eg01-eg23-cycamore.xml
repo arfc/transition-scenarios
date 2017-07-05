@@ -202,7 +202,7 @@ Fast Reactors (After 2050)
           <val>tailings</val>
         </fill_commods>
         <fill_recipe>depleted_u</fill_recipe>
-        <fill_size>1e+60</fill_size>
+        <fill_size>1E100</fill_size>
         <fiss_commod_prefs>
           <val>1</val>
           <val>2</val>
@@ -211,10 +211,10 @@ Fast Reactors (After 2050)
           <val>uox_Pu</val>
           <val>mox_Pu</val>
         </fiss_commods>
-        <fiss_size>1e+60</fiss_size>
+        <fiss_size>1E100</fiss_size>
         <outcommod>mox</outcommod>
         <spectrum>fission_spectrum_ave</spectrum>
-        <throughput>1e+60</throughput>
+        <throughput>1E100</throughput>
       </FuelFab>
     </config>
     <name>mox_fuel_fab</name>
