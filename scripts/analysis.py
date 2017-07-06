@@ -146,18 +146,14 @@ def get_timeseries(in_list, duration, kg_to_tons):
     -------
     timeseries list of commodities stored in in_list
     """
-    value = 0
     value_timeseries = []
     array = np.array(in_list)
-    if kg_to_tons:
-        for i in range(0, duration):
-            value = sum(array[array[:, 0] == i][:, 1])
+    for i in range(0, duration):
+        value = sum(array[array[:, 0] == i][:, 1])
+        if kg_to_tons:
             value_timeseries.append(value * 0.001)
-    else:
-        for i in range(0, duration):
-            value = sum(array[array[:, 0] == i][:, 1])
+        else:
             value_timeseries.append(value)
-
     return value_timeseries
 
 
