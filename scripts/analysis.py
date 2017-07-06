@@ -10,8 +10,6 @@ from pyne import nucname
 if len(sys.argv) < 2:
     print('Usage: python analysis.py [cylus_output_file]')
 
-# Helpers
-
 
 def get_agent_ids(cursor, archetype):
     """ Gets all agentIds from Agententry table for wanted archetype
@@ -163,7 +161,7 @@ def get_timeseries(in_list, duration, kg_to_tons):
     return value_timeseries
 
 
-def get_timeseries_cumulate(in_list, kg_to_tons):
+def get_timeseries_cum(in_list, kg_to_tons):
     """ returns a timeseries list from in_list data.
 
     Parameters
@@ -183,20 +181,16 @@ def get_timeseries_cumulate(in_list, kg_to_tons):
     -------
     timeseries list of commodities stored in in_list
     """
-    # value = 0
-    # value_timeseries = []
-    # array = np.array(in_list)
-    # for i in range(0, duration):
-    #     if len(array) > 0:
-    #         value += sum(array[array[:, 0] == i][:, 1])
-    #     value_timeseries.append(value * multiplyby)
-    if kg_to_tons:
-        return np.cumsum(in_list) * 0.001
-    else:
-        return np.cumsum(in_list)
-
-
-# Getters
+    value = 0
+    value_timeseries = []
+    array = np.array(in_list)
+    for i in range(0, duration):
+        if len(array) > 0:
+            value += sum(array[array[:, 0] == i][:, 1])
+        if kg_to_tons:
+            value_timeseries.append(value * 0.001)
+        else:
+            value_timeseries.append(value)
 
 
 def snf(cursor):
@@ -326,12 +320,12 @@ def commodity_in_out_facility(cursor, facility, commod_list,
             for a, b, c in res:
                 iso_dict[nucname.name(c)].append((a, b))
         else:
-            timeseries = get_timeseries_cumulate(res, True)
+            timeseries = get_timeseries_cum(res, True)
             commodity_dict[comm] = timeseries
 
     if do_isotopic:
         for key in iso_dict:
-            iso_dict[key] = get_timeseries_cumulate(
+            iso_dict[key] = get_timeseries_cum(
                 iso_dict[key], True)
         return iso_dict
     else:
@@ -359,7 +353,7 @@ def get_stockpile(cursor, facility):
     query = query.replace('transactions', 'agentstateinventories')
     stockpile = cursor.execute(query).fetchall()
     init_year, init_month, duration, timestep = get_timesteps(cursor)
-    stock_timeseries = get_timeseries_cumulate(stockpile, True)
+    stock_timeseries = get_timeseries_cum(stockpile, True)
     pile_dict[facility] = stock_timeseries
 
     return pile_dict
@@ -387,7 +381,7 @@ def get_swu_dict(cursor):
         swu_data = cursor.execute('SELECT time, value '
                                   'FROM timeseriesenrichmentswu '
                                   'WHERE agentid = ' + str(num)).fetchall()
-        swu_timeseries = get_timeseries_cumulate(swu_data, False)
+        swu_timeseries = get_timeseries_cum(swu_data, False)
         swu_dict['Enrichment' + str(facility_num)] = swu_timeseries
         facility_num += 1
 
@@ -456,7 +450,7 @@ def fuel_usage_timeseries(cursor, fuel_list):
             cursor)
         quantity_timeseries = []
         try:
-            quantity_timeseries = get_timeseries_cumulate(
+            quantity_timeseries = get_timeseries_cum(
                 fuel_quantity, True)
             fuel_dict[fuel] = quantity_timeseries
         except:
@@ -488,7 +482,7 @@ def nat_u_timeseries(cursor):
     feed = cursor.execute('SELECT time, sum(value) '
                           'FROM timeseriesenrichmentfeed '
                           'GROUP BY time').fetchall()
-    return get_timeseries_cumulate(feed, True)
+    return get_timeseries_cum(feed, True)
 
 
 def get_trade_dict(cursor, sender, receiver, is_prototype, do_isotopic):
@@ -556,12 +550,12 @@ def get_trade_dict(cursor, sender, receiver, is_prototype, do_isotopic):
         for a, b, c in trade:
             iso_dict[nucname.name(c)].append((a, b))
         for key in iso_dict:
-            iso_dict[key] = get_timeseries_cumulate(
+            iso_dict[key] = get_timeseries_cum(
                 iso_dict[key], True)
         return iso_dict
     else:
         key_name = str(sender)[:5] + ' to ' + str(receiver)[:5]
-        return_dict[key_name] = get_timeseries_cumulate(
+        return_dict[key_name] = get_timeseries_cum(
             trade, True)
         return return_dict
 
@@ -637,7 +631,7 @@ def fuel_into_reactors(cursor):
                           'WHERE spec LIKE "%Reactor%" '
                           'GROUP BY time').fetchall()
 
-    return get_timeseries_cumulate(fuel, True)
+    return get_timeseries_cum(fuel, True)
 
 
 def conv_ratio(cursor, in_, out, is_recipe):
@@ -807,7 +801,7 @@ def where_comm(cursor, commodity, prototypes):
         agent_id = get_prototype_id(cursor, agent)
         from_agent = cursor.execute(query.replace(
             '9999', ' OR senderid = '.join(agent_id))).fetchall()
-        trade_dict[agent] = get_timeseries_cumulate(from_agent, True)
+        trade_dict[agent] = get_timeseries_cum(from_agent, True)
 
     return trade_dict
 
@@ -906,9 +900,6 @@ def capacity_calc(governments, timestep, entry, exit_step):
         num_dict[gov[0]] = np.asarray(num_reactors)
 
     return power_dict, num_dict
-
-
-# Plotter
 
 
 def multi_line_plot(dictionary, timestep,
