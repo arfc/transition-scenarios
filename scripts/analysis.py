@@ -193,36 +193,6 @@ def get_timeseries_cum(in_list, duration, kg_to_tons):
 
     return value_timeseries
 
-def snf(cursor):
-    """returns a dictionary of isotopics in sink at the end of simulation
-
-    Parameters
-    ----------
-    cursor: sqlite cursor
-        sqlite cursor
-
-    Returns
-    -------
-    snf_dict: dictionary
-        dirctionary with key: isotope, and value: mass
-    """
-    sink_id = get_agent_ids(cur, 'sink')
-
-    # get list of sum(quantity) and qualid for snf
-    snf_inventory = cursor.execute(exec_string(sink_id,
-                                               'transactions.receiverId',
-                                               'sum(quantity), qualid') +
-                                   ' GROUP BY qualid').fetchall()
-    compositions = cursor.execute('SELECT qualid, nucid, massfrac '
-                                  'FROM compositions').fetchall()
-    snf_dict = collections.defaultdict(float)
-    for comp in compositions:
-        for num in snf_inventory:
-            if num[0] == comp[0]:
-                snf_dict[comp[1]] += num[1] * comp[2]
-
-    return snf_dict
-
 
 def get_isotope_transactions(resources, compositions):
     """Creates a dictionary with isotope name, mass, and time
@@ -243,8 +213,8 @@ def get_isotope_transactions(resources, compositions):
     Returns
     -------
     transactions: dictionary
-        dictionary with keys as isotope and value as
-        list of tuples (mass moved, time)
+        dictionary with "keys=isotope, and
+        value=list of tuples (mass moved, time)"
     """
     transactions = collections.defaultdict(list)
     for res in resources:
