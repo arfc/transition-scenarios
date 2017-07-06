@@ -178,7 +178,7 @@ def get_timeseries_cum(in_list, duration, kg_to_tons):
 
     Returns
     -------
-    timeseries list of commodities stored in in_list
+    timeseries of commodities in kg or tons
     """
     value = 0
     value_timeseries = []
@@ -228,7 +228,7 @@ def get_isotope_transactions(resources, compositions):
 
 
 def facility_commodity_flux(cursor, agent_ids, commod_list, is_outflux):
-    """ Returns timeseries of commodity in/outflux from facility or prototype
+    """ Returns timeseries of commodity in/outflux from agents
 
     Parameters
     ----------
@@ -247,9 +247,8 @@ def facility_commodity_flux(cursor, agent_ids, commod_list, is_outflux):
     -------
     commodity_dict: dictionary
         dictionary with "key=commodity, and
-        value=timeseries list of commodity"
+        value=timeseries of masses in kg"
     """
-
     init_year, init_month, duration, timestep = get_timesteps(cursor)
     commodity_dict = collections.OrderedDict()
     iso_dict = collections.defaultdict(list)
@@ -272,6 +271,26 @@ def facility_commodity_flux(cursor, agent_ids, commod_list, is_outflux):
 
 def facility_commodity_flux_isotopics(cursor, agent_ids,
                                       commod_list, is_outflux):
+    """ Returns timeseries isotoptics of commodity in/outflux
+    from agents
+
+    Parameters
+    ----------
+    cursor: sqlite cursor
+        sqlite cursor
+    agent_ids: list
+        list of agentids
+    commod_list: list
+        list of commodities
+    is_outflux: bool
+        gets outflux if True, influx if False
+
+    Returns
+    -------
+    iso_dict: dictionary
+        dictionary with "key=isotope, and
+        value=timeseries masses in kg"
+    """
     init_year, init_month, duration, timestep = get_timesteps(cursor)
     commodity_dict = collections.OrderedDict()
     iso_dict = collections.defaultdict(list)
@@ -366,14 +385,17 @@ def get_power_dict(cursor):
 
     Returns
     ------
-    capacity_calc: function
-        calls a function
+    power_dict: dictionary
+        dictionary with key: government,
+        value: timesereies capacity
+    num_dict: dictionary
+        dictionary with key: government,
+        value: timesereis number of reactors
     """
     init_year, init_month, duration, timestep = get_timesteps(cursor)
-    # get power cap values
-    governments = cursor.execute('SELECT prototype, agentid FROM agententry '
-                                 'WHERE kind = "Inst"').fetchall()
+    governments = get_insts(cursor)
 
+    # get power cap values
     entry = cursor.execute('SELECT max(value), timeseriespower.agentid, '
                            'parentid, entertime FROM agententry '
                            'INNER JOIN timeseriespower '
