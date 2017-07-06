@@ -213,7 +213,7 @@ def get_isotope_transactions(resources, compositions):
     Returns
     -------
     transactions: dictionary
-        dictionary with "keys=isotope, and
+        dictionary with "key=isotope, and
         value=list of tuples (mass moved, time)"
     """
     transactions = collections.defaultdict(list)
@@ -250,7 +250,8 @@ def commodity_in_out_facility(cursor, facility, commod_list,
     Returns
     -------
     commodity_dict: dictionary
-        dictionary with key: commodity, and value: timeseries list
+        dictionary with "key=commodity, and
+        value=timeseries list of commodity"
     """
 
     init_year, init_month, duration, timestep = get_timesteps(cursor)
@@ -310,7 +311,8 @@ def get_stockpile(cursor, facility):
     Returns
     -------
     pile_dict: dictionary
-        dictionary with key: facility, value: timeseries of stockpile
+        dictionary with "key=agent type, and
+        value=timeseries of stockpile"
     """
     pile_dict = collections.OrderedDict()
     agentid = get_agent_ids(cursor, facility)
@@ -335,8 +337,8 @@ def get_swu_dict(cursor):
     Returns
     -------
     swu_dict: dictionary
-        dictionary with key: Enrichment (facility number),
-        value: swu timeseries
+        dictionary with "key=Enrichment (facility number), and
+        value=swu timeseries"
     """
     swu_dict = collections.OrderedDict()
     agentid = get_agent_ids(cursor, 'Enrichment')
@@ -402,8 +404,8 @@ def fuel_usage_timeseries(cursor, fuel_list):
     Returns
     -------
     fuel_dict: dictionary
-        dictionary with key: fuel (from fuel_list),
-        value: timeseries list of fuel amount [kg]
+        dictionary with "key=fuel (from fuel_list),
+        value=timeseries list of fuel amount [kg]"
     """
     fuel_dict = collections.OrderedDict()
     for fuel in fuel_list:
@@ -471,11 +473,14 @@ def get_trade_dict(cursor, sender, receiver, is_prototype, do_isotopic):
     --------
     return_dict: dictionary
         if do_isotopic:
-            dictionary with key: isotope,
-            value: timeseries list of mass traded between two prototypes
+            dictionary with "key=isotope, and
+                        value=timeseries list
+                        of mass traded between
+                        two prototypes"
         else:
-            dictionary with key: string, sender to receiver,
-            value: timeseries list of mass traded between two prototypes
+            dictionary with "key=string, sender to receiver,
+                        value=timeseries list of mass traded
+                        between two prototypes"
 
     """
     init_year, init_month, duration, timestep = get_timesteps(cursor)
