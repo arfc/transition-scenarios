@@ -227,7 +227,7 @@ def get_isotope_transactions(resources, compositions):
     return transactions
 
 
-def commodity_in_out_facility(cursor, agent_ids, commod_list, is_outflux):
+def facility_commodity_flux(cursor, agent_ids, commod_list, is_outflux):
     """ Returns timeseries of commodity in/outflux from facility or prototype
 
     Parameters
@@ -265,13 +265,13 @@ def commodity_in_out_facility(cursor, agent_ids, commod_list, is_outflux):
         res = cursor.execute(query).fetchall()
 
         timeseries = get_timeseries_cum(res, True)
-        commodity_dict[comm] = timeseries
+        commodity_dcict[comm] = timeseries
 
     return commodity_dict
 
 
-def commodity_in_out_facility_isotopics(cursor, agent_ids,
-                                        commod_list, is_outflux):
+def facility_commodity_flux_isotopics(cursor, agent_ids,
+                                      commod_list, is_outflux):
     init_year, init_month, duration, timestep = get_timesteps(cursor)
     commodity_dict = collections.OrderedDict()
     iso_dict = collections.defaultdict(list)
