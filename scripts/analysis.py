@@ -249,7 +249,7 @@ def get_isotope_transactions(resources, compositions):
             # comp_qualid = comp[0]
             if res[2] == comp[0]:
                 # comp_nucid = comp[1]
-                # res_quantity = res[1s
+                # res_quantity = res[1]
                 # mass_frac = comp[2]
                 # res_time = res[0]
                 transactions[comp[1]].append((res[0], res[1] * comp[2]))
