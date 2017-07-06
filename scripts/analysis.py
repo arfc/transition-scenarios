@@ -157,7 +157,7 @@ def get_timeseries(in_list, duration, kg_to_tons):
     return value_timeseries
 
 
-def get_timeseries_cum(in_list, kg_to_tons):
+def get_timeseries_cum(in_list, duration, kg_to_tons):
     """ returns a timeseries list from in_list data.
 
     Parameters
