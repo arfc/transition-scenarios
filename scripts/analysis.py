@@ -225,12 +225,12 @@ def get_isotope_transactions(resources, compositions):
 
     Parameters
     ----------
-    resources: list
+    resources: list of tuples
         resource data from the resources table
         list[0]: time
         list[1]: sum(quantity)
         list[2]: qualid
-    compositions: list
+    compositions: list of tuples
         composition data from the compositions table
         list[0]: qualid
         list[1]: nucid
