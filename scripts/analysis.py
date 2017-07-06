@@ -10,7 +10,7 @@ from pyne import nucname
 if len(sys.argv) < 2:
     print('Usage: python analysis.py [cylus_output_file]')
 
-"""HELPERS"""
+# Helpers
 
 
 def get_agent_ids(cursor, archetype):
@@ -146,7 +146,7 @@ def get_timeseries(in_list, duration, kg_to_tons):
 
     Returns
     -------
-    timeseries list of data
+    timeseries list of commodities stored in in_list
     """
     value = 0
     value_timeseries = []
@@ -172,18 +172,16 @@ def get_timeseries_cumulate(in_list, kg_to_tons):
         list of data to be created into timeseries
         list[0] = time
         list[1] = value, quantity
-    duration: int
-        duration of the simulation
     multiplyby: int
         integer to multiply the value in the list by for
         unit conversion from kilograms
-    cumulative: boolean
-        determine whether returned timeseries should be
-        cumulative sum over time
+    kg_to_tons: bool
+        if True, list returned has units of tons
+        if False, list returned as units of kilograms
 
     Returns
     -------
-    timeseries list of data
+    timeseries list of commodities stored in in_list
     """
     # value = 0
     # value_timeseries = []
@@ -198,7 +196,7 @@ def get_timeseries_cumulate(in_list, kg_to_tons):
         return np.cumsum(in_list)
 
 
-"""GETTERS"""
+# Getters
 
 
 def snf(cursor):
@@ -910,7 +908,7 @@ def capacity_calc(governments, timestep, entry, exit_step):
     return power_dict, num_dict
 
 
-"""PLOTTER"""
+# Plotter
 
 
 def multi_line_plot(dictionary, timestep,
