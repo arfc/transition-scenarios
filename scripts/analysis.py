@@ -30,10 +30,10 @@ def get_agent_ids(cursor, archetype):
     id_list: list
         list of all agentId strings
     """
-    agents = cursor.execute("SELECT * FROM agententry WHERE spec LIKE '%" +
+    agents = cursor.execute("SELECT agentid FROM agententry WHERE spec LIKE '%" +
                             archetype + "%' COLLATE NOCASE").fetchall()
 
-    return list(str(agent[1]) for agent in agents)
+    return list(str(agent['agentid']) for agent in agents)
 
 
 def get_prototype_id(cursor, prototype):
@@ -55,7 +55,7 @@ def get_prototype_id(cursor, prototype):
                          'WHERE prototype = "' +
                          str(prototype) + '" COLLATE NOCASE').fetchall()
 
-    return list(str(agent[0]) for agent in ids)
+    return list(str(agent['agentid']) for agent in ids)
 
 
 def exec_string(in_list, search, request_colmn):
@@ -122,9 +122,9 @@ def get_timesteps(cursor):
     """
     info = cursor.execute('SELECT initialyear, initialmonth, '
                           'duration FROM info').fetchone()
-    init_year = info[0]
-    init_month = info[1]
-    duration = info[2]
+    init_year = info['initialyear']
+    init_month = info['initialmonth']
+    duration = info['duration']
     timestep = np.linspace(0, duration - 1, num=duration)
 
     return init_year, init_month, duration, timestep
@@ -219,14 +219,10 @@ def get_isotope_transactions(resources, compositions):
     transactions = collections.defaultdict(list)
     for res in resources:
         for comp in compositions:
-            # res_qualid = res[2]
-            # comp_qualid = comp[0]
-            if res[2] == comp[0]:
-                # comp_nucid = comp[1]
-                # res_quantity = res[1]
-                # mass_frac = comp[2]
-                # res_time = res[0]
-                transactions[comp[1]].append((res[0], res[1] * comp[2]))
+            if res['qualid'] == comp['qualid']:
+                transactions[comp['nucid']].append((res['time'],
+                                                    res['sum(quantity)'] *
+                                                    comp['massfrac']))
 
     return transactions
 
@@ -287,16 +283,15 @@ def commodity_in_out_facility(cursor, facility, commod_list,
         res = cursor.execute(query).fetchall()
 
         if do_isotopic:
-            for a, b, c in res:
-                iso_dict[nucname.name(c)].append((a, b))
+            for time, amount, nucid in res:
+                iso_dict[nucname.name(nucid)].append((time, amount))
         else:
             timeseries = get_timeseries_cum(res, True)
             commodity_dict[comm] = timeseries
 
     if do_isotopic:
         for key in iso_dict:
-            iso_dict[key] = get_timeseries_cum(
-                iso_dict[key], True)
+            iso_dict[key] = get_timeseries_cum(iso_dict[key], True)
         return iso_dict
     else:
         return commodity_dict
@@ -420,8 +415,7 @@ def fuel_usage_timeseries(cursor, fuel_list):
             cursor)
         quantity_timeseries = []
         try:
-            quantity_timeseries = get_timeseries_cum(
-                fuel_quantity, True)
+            quantity_timeseries = get_timeseries_cum(fuel_quantity, True)
             fuel_dict[fuel] = quantity_timeseries
         except:
             print(str(fuel) + ' has not been used.')
@@ -517,16 +511,14 @@ def get_trade_dict(cursor, sender, receiver, is_prototype, do_isotopic):
                                ') GROUP BY time').fetchall()
 
     if do_isotopic:
-        for a, b, c in trade:
-            iso_dict[nucname.name(c)].append((a, b))
+        for time, amount, nucid in trade:
+            iso_dict[nucname.name(nucid)].append((time, amount))
         for key in iso_dict:
-            iso_dict[key] = get_timeseries_cum(
-                iso_dict[key], True)
+            iso_dict[key] = get_timeseries_cum(iso_dict[key], True)
         return iso_dict
     else:
         key_name = str(sender)[:5] + ' to ' + str(receiver)[:5]
-        return_dict[key_name] = get_timeseries_cum(
-            trade, True)
+        return_dict[key_name] = get_timeseries_cum(trade, True)
         return return_dict
 
 
@@ -562,15 +554,18 @@ def final_stockpile(cursor, facility):
                                  ' = """ + str(agent) + """ GROUP BY'
                                  ' inventoryname').fetchall()
         for stream in stkpile:
-            masses = cursor.execute('SELECT * FROM compositions '
+            masses = cursor.execute('SELECT qualid, nucid, massfrac '
+                                    'FROM compositions '
                                     'WHERE qualid = ' +
-                                    str(stream[2])).fetchall()
+                                    str(stream['qualid'])).fetchall()
 
             outstring += ('Stream ' + str(count) +
-                          ' Total = ' + str(stream[0]) + ' kg \n')
+                          ' Total = ' + str(stream['sum(quantity)']) + ' kg \n')
             for isotope in masses:
-                outstring += (str(isotope[2]) + ' = ' +
-                              str(isotope[3] * stream[0]) + ' kg \n')
+                outstring += (str(isotope['nucid']) + ' = ' +
+                              str(isotope['massfrac'] *
+                                  stream['sum(quantity)']) +
+                              ' kg \n')
             outstring += '\n'
             count += 1
         outstring += '\n'
@@ -689,11 +684,11 @@ def mix_ratio(cursor, fuel_recipe_name, spent_fuel_recipe_name, depleted_u_recip
         total_err = 0
         for t in fuel_recipe:
             reprocessed = sum([massfrac for (nucid, massfrac)
-                               in sep_matl if nucid == t[0]]) * ratio
+                               in sep_matl if nucid == t['nucid']]) * ratio
             uranium = sum([massfrac for (nucid, massfrac)
-                           in depleted_u_recipe if nucid == t[0]]) * (1 - ratio)
+                           in depleted_u_recipe if nucid == t['nucid']]) * (1 - ratio)
             value = reprocessed + uranium
-            err = abs(value - t[1])
+            err = abs(value - t['massfrac'])
             total_err += err
         if prev_err > total_err:
             optimal_ratio = ratio
@@ -702,14 +697,14 @@ def mix_ratio(cursor, fuel_recipe_name, spent_fuel_recipe_name, depleted_u_recip
     print(optimal_ratio)
     for t in fuel_recipe:
         reprocessed = sum([massfrac for (nucid, massfrac)
-                           in sep_matl if nucid == t[0]]) * optimal_ratio
+                           in sep_matl if nucid == t['nucid']]) * optimal_ratio
         uranium = sum([massfrac for (nucid, massfrac)
                        in depleted_u_recipe
-                       if nucid == t[0]]) * (1 - optimal_ratio)
+                       if nucid == t['nucid']]) * (1 - optimal_ratio)
         value = reprocessed + uranium
-        err = abs(value - t[1])
-        print('Error for ' + str(t[0]) + ': ' +
-              str(err) + ' (' + str((err * 100) / t[1]) + ' %)')
+        err = abs(value - t['massfrac'])
+        print('Error for ' + str(t['nucid']) + ': ' +
+              str(err) + ' (' + str((err * 100) / t['massfrac']) + ' %)')
 
 
 def u_util_calc(cursor):
@@ -849,25 +844,19 @@ def capacity_calc(governments, timestep, entry, exit_step):
         count = 0
         for t in timestep:
             for enter in entry:
-                entertime = enter[3]
-                parentgov = enter[2]
-                gov_agentid = gov[1]
-                power_cap = enter[0]
-                if entertime == t and parentgov == gov_agentid:
-                    cap += power_cap / 1000
+                if (enter['entertime'] == t and
+                        enter['parentid'] == gov['agentid']):
+                    cap += enter['max(value)'] / 1000
                     count += 1
             for dec in exit_step:
-                exittime = dec[3]
-                parentgov = dec[2]
-                gov_agentid = gov[1]
-                power_cap = dec[0]
-                if exittime == t and parentgov == gov_agentid:
-                    cap -= power_cap / 1000
+                if (dec['exittime'] == t and
+                        dec['parentid'] == gov['agentid']):
+                    cap -= dec['max(value)'] / 1000
                     count -= 1
             capacity.append(cap)
             num_reactors.append(count)
-        power_dict[gov[0]] = np.asarray(capacity)
-        num_dict[gov[0]] = np.asarray(num_reactors)
+        power_dict[gov['prototype']] = np.asarray(capacity)
+        num_dict[gov['prototype']] = np.asarray(num_reactors)
 
     return power_dict, num_dict
 
@@ -1085,6 +1074,7 @@ def plot_in_out_flux(cursor, facility, influx_bool, title, outputname):
 if __name__ == "__main__":
     file = sys.argv[1]
     con = lite.connect(file)
+    con.row_factory = lite.Row
     with con:
         cur = con.cursor()
         init_year, init_month, duration, timestep = get_timesteps(cur)
