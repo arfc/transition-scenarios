@@ -227,23 +227,19 @@ def get_isotope_transactions(resources, compositions):
     return transactions
 
 
-def commodity_in_out_facility(cursor, facility, commod_list,
-                              is_outflux, is_prototype, do_isotopic):
+def commodity_in_out_facility(cursor, agent_ids, commod_list, is_outflux):
     """ Returns timeseries of commodity in/outflux from facility or prototype
 
     Parameters
     ----------
     cursor: sqlite cursor
         sqlite cursor
-    facility: str
-        facility type as shown in spec or prototype name
+    agent_ids: list
+        list of agentids
     commod_list: list
         list of commodities
     is_outflux: bool
         gets outflux if True, influx if False
-    is_prototype: bool
-        searches using prototype name if True,
-        facility type if False
     do_isotopic: bool
         gets isotopic of outflux commodity if True
 
@@ -255,47 +251,51 @@ def commodity_in_out_facility(cursor, facility, commod_list,
     """
 
     init_year, init_month, duration, timestep = get_timesteps(cursor)
-    if is_prototype:
-        agent_ids = get_prototype_id(cursor, facility)
-    else:
-        agent_ids = get_agent_ids(cursor, facility)
     commodity_dict = collections.OrderedDict()
     iso_dict = collections.defaultdict(list)
     for comm in commod_list:
-        if do_isotopic:
-            query = ('SELECT time, sum(quantity)*massfrac, nucid '
-                     'FROM transactions INNER JOIN resources '
-                     'ON resources.resourceid = transactions.resourceid '
-                     'LEFT OUTER JOIN compositions '
-                     'ON compositions.qualid = resources.qualid '
-                     'WHERE (receiverid = '
-                     + ' OR receiverid = '.join(agent_ids)
-                     + ') AND (commodity = "' + str(comm)
-                     + '") GROUP BY time, nucid')
-        else:
-            query = (exec_string(agent_ids, 'receiverid',
-                                 'time, sum(quantity), qualid') +
-                     ' and (commodity = "' + str(comm) +
-                     '") GROUP BY time')
+        query = (exec_string(agent_ids, 'receiverid',
+                             'time, sum(quantity), qualid') +
+                 ' and (commodity = "' + str(comm) +
+                 '") GROUP BY time')
         # outflux changes receiverid to senderid
         if is_outflux:
             query = query.replace('receiverid', 'senderid')
 
         res = cursor.execute(query).fetchall()
 
-        if do_isotopic:
-            for time, amount, nucid in res:
-                iso_dict[nucname.name(nucid)].append((time, amount))
-        else:
-            timeseries = get_timeseries_cum(res, True)
-            commodity_dict[comm] = timeseries
+        timeseries = get_timeseries_cum(res, True)
+        commodity_dict[comm] = timeseries
 
-    if do_isotopic:
-        for key in iso_dict:
-            iso_dict[key] = get_timeseries_cum(iso_dict[key], True)
-        return iso_dict
-    else:
-        return commodity_dict
+    return commodity_dict
+
+
+def commodity_in_out_facility_isotopics(cursor, agent_ids,
+                                        commod_list, is_outflux):
+    init_year, init_month, duration, timestep = get_timesteps(cursor)
+    commodity_dict = collections.OrderedDict()
+    iso_dict = collections.defaultdict(list)
+    for comm in commod_list:
+        query = ('SELECT time, sum(quantity)*massfrac, nucid '
+                 'FROM transactions INNER JOIN resources '
+                 'ON resources.resourceid = transactions.resourceid '
+                 'LEFT OUTER JOIN compositions '
+                 'ON compositions.qualid = resources.qualid '
+                 'WHERE (receiverid = '
+                 + ' OR receiverid = '.join(agent_ids)
+                 + ') AND (commodity = "' + str(comm)
+                 + '") GROUP BY time, nucid')
+        # outflux changes receiverid to senderid
+        if is_outflux:
+            query = query.replace('receiverid', 'senderid')
+
+        res = cursor.execute(query).fetchall()
+        for time, amount, nucid in res:
+            iso_dict[nucname.name(nucid)].append((time, amount))
+    for key in iso_dict:
+        iso_dict[key] = get_timeseries_cum(iso_dict[key], True)
+
+    return iso_dict
 
 
 def get_stockpile(cursor, facility):
