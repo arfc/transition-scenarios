@@ -58,6 +58,22 @@ def get_prototype_id(cursor, prototype):
     return list(str(agent['agentid']) for agent in ids)
 
 
+def get_inst_id(cursor):
+    """ Returns agentid of a prototype
+
+    Parameters
+    ----------
+    cursor: sqlite cursor
+        sqlite cursor
+
+    Returns
+    -------
+    sqlite query result
+    """
+    return cursor.execute('SELECT prototype, agentid FROM agententry '
+                          'WHERE kind = "Inst"').fetchall()
+
+
 def exec_string(in_list, search, request_colmn):
     """ Generates sqlite query command to select things and
         inner join resources and transactions.
@@ -393,7 +409,7 @@ def get_power_dict(cursor):
         value: timesereis number of reactors
     """
     init_year, init_month, duration, timestep = get_timesteps(cursor)
-    governments = get_insts(cursor)
+    governments = get_inst_id(cursor)
 
     # get power cap values
     entry = cursor.execute('SELECT max(value), timeseriespower.agentid, '
