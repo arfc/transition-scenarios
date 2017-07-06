@@ -188,6 +188,7 @@ def get_timeseries_cum(in_list, duration, kg_to_tons):
         else:
             value_timeseries.append(value)
 
+    return value_timeseries
 
 def snf(cursor):
     """returns a dictionary of isotopics in sink at the end of simulation
