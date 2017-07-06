@@ -82,6 +82,9 @@ def exec_string(in_list, search, request_colmn):
     str
         sqlite query command.
     """
+    if type(in_list[0]) == str:
+        in_list = ['"' + x + '"' for x in in_list]
+
     query = ("SELECT " + request_colmn +
              " FROM resources INNER JOIN transactions"
              " ON transactions.resourceid = resources.resourceid"
