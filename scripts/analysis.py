@@ -402,11 +402,11 @@ def get_power_dict(cursor):
     Returns
     ------
     power_dict: dictionary
-        dictionary with key: government,
-        value: timesereies capacity
+        "dictionary with key=government, and
+        value=timesereies capacity"
     num_dict: dictionary
-        dictionary with key: government,
-        value: timesereis number of reactors
+        "dictionary with key=government, and
+        value=timesereis number of reactors"
     """
     init_year, init_month, duration, timestep = get_timesteps(cursor)
     governments = get_inst(cursor)
@@ -801,11 +801,7 @@ def u_util_calc(cursor):
 
     # timeseries of Uranium utilization
     u_util_timeseries = np.nan_to_num(fuel_timeseries / u_supply_timeseries)
-    # print the simulation average uranium utilization
-    print('The Simulation Average Uranium Utilization is:')
-    print(sum(u_util_timeseries) / len(u_util_timeseries))
 
-    # return dictionary of u_util_timeseries
     return u_util_timeseries
 
 
@@ -819,13 +815,13 @@ def where_comm(cursor, commodity, prototypes):
     commodity: str
         name of commodity
     prototypes: list
-        list of prototypes that provides commodity
+        list of prototypes that provide the commodity
 
     Returns
     -------
     trade_dict: dictioary
-        dictionary with key: prototype name,
-        value: timeseries of commodity sent from prototypes
+        "dictionary with key=prototype name, and
+        value=timeseries of commodity sent from prototypes"
     """
     init_year, init_month, duration, timestep = get_timesteps(cursor)
     query = ('SELECT time, sum(quantity) FROM transactions '
@@ -861,8 +857,8 @@ def get_waste_dict(isotope_list, mass_list, time_list, duration):
     Returns
     -------
     waste_dict: dictionary
-        dictionary with key: isotope,
-        value: mass timeseries of each unique isotope
+        dictionary with "key=isotope, and
+        value=mass timeseries of each unique isotope"
     """
     waste_dict = collections.OrderedDict()
     isotope_set = set(isotope_list)
@@ -901,36 +897,69 @@ def capacity_calc(governments, timestep, entry, exit_step):
     Returns
     -------
     power_dict: dictionary
-        dictionary with key: government,
-        value: timesereies capacity
-    num_dict: dictionary
-        dictionary with key: government,
-        value: timesereis number of reactors
+        "dictionary with key=government, and
+        value=timesereies capacity"
     """
     power_dict = collections.OrderedDict()
-    num_dict = collections.OrderedDict()
     for gov in governments:
         capacity = []
-        num_reactors = []
         cap = 0
-        count = 0
         for t in timestep:
             for enter in entry:
                 if (enter['entertime'] == t and
                         enter['parentid'] == gov['agentid']):
                     cap += enter['max(value)'] / 1000
-                    count += 1
             for dec in exit_step:
                 if (dec['exittime'] == t and
                         dec['parentid'] == gov['agentid']):
                     cap -= dec['max(value)'] / 1000
-                    count -= 1
             capacity.append(cap)
-            num_reactors.append(count)
         power_dict[gov['prototype']] = np.asarray(capacity)
+
+    return power_dict
+
+
+def reactor_deployments(governments, timestep, entry, exit_step):
+    """Adds and subtracts number of reactors deployed over time
+    for plotting
+
+    Parameters
+    ----------
+    governments: list
+        list of governments (countries)
+    timestep: np.linspace
+        list of timestep from 0 to simulation time
+    entry: list
+        power_cap, agentid, parentid, entertime
+        of all entered reactors
+
+    exit_step: list
+        power_cap, agentid, parenitd, exittime
+        of all decommissioned reactors
+
+    Returns
+    -------
+    num_dict: dictionary
+        "dictionary with key=government, and
+        value=timeseries number of reactors"
+    """
+    num_dict = collections.OrderedDict()
+    for gov in governments:
+        num_reactors = []
+        count = 0
+        for t in timestep:
+            for enter in entry:
+                if (enter['entertime'] == t and
+                        enter['parentid'] == gov['agentid']):
+                    count += 1
+            for dec in exit_step:
+                if (dec['exittime'] == t and
+                        dec['parentid'] == gov['agentid']):
+                    count -= 1
+            num_reactors.append(count)
         num_dict[gov['prototype']] = np.asarray(num_reactors)
 
-    return power_dict, num_dict
+    return num_dict
 
 
 def multi_line_plot(dictionary, timestep,
