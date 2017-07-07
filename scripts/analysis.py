@@ -707,7 +707,8 @@ def mix_ratio(cursor, fuel_recipe_name, spent_fuel_recipe_name, depleted_u_recip
 
     Returns
     -------
-    prints ratio of separated material to depleted uranium
+    optimal_ratio: float
+        optimal ratio of separated material to depleted uranium
     """
     query = ('SELECT nucid, massfrac FROM recipes '
              'INNER JOIN compositions '
@@ -722,24 +723,11 @@ def mix_ratio(cursor, fuel_recipe_name, spent_fuel_recipe_name, depleted_u_recip
     sep_matl = [[nucid, massfrac] for (
         nucid, massfrac) in spent_fuel_recipe if int(nucid / 10000000) in what_reprocess]
 
-    ratio_list = np.arange(0, 1, .001)
-    prev_err = 1
-    optimal_ratio = 0
-    for ratio in ratio_list:
-        total_err = 0
-        for t in fuel_recipe:
-            reprocessed = sum([massfrac for (nucid, massfrac)
-                               in sep_matl if nucid == t['nucid']]) * ratio
-            uranium = sum([massfrac for (nucid, massfrac)
-                           in depleted_u_recipe if nucid == t['nucid']]) * (1 - ratio)
-            value = reprocessed + uranium
-            err = abs(value - t['massfrac'])
-            total_err += err
-        if prev_err > total_err:
-            optimal_ratio = ratio
-            prev_err = total_err
+    optimal_ratio = find_opt_ratio(fuel_recipe, sep_matl, depleted_u_recipe)
+
     print('The Optimal Ratio is:')
     print(optimal_ratio)
+
     for t in fuel_recipe:
         reprocessed = sum([massfrac for (nucid, massfrac)
                            in sep_matl if nucid == t['nucid']]) * optimal_ratio
@@ -750,6 +738,45 @@ def mix_ratio(cursor, fuel_recipe_name, spent_fuel_recipe_name, depleted_u_recip
         err = abs(value - t['massfrac'])
         print('Error for ' + str(t['nucid']) + ': ' +
               str(err) + ' (' + str((err * 100) / t['massfrac']) + ' %)')
+
+    return optimal_ratio
+
+
+def find_opt_ratio(fuel_recipe, fissile_stream_ratio, fill_stream_ratio):
+    """ Finds the mixing ratio of separated material and depleted Uranium
+
+    Parameters
+    ----------
+    cursor: sqlite cursor
+        sqlite cursor
+    fuel_recipe_name: str
+        name of desired fuel recipe
+    spent_fuel_recipe_name: str
+        name of spent fuel recipe
+    depleted_u_recipe_name: str
+        name of depleted uranium recipe
+    what_reprocess: list
+        list of what elements are separated [zz, zz, zz]
+
+    Returns
+    -------
+    optimal_ratio: float
+        optimal ratio of separated material to depleted uranium
+    """
+    ratio_list = np.arange(0, 1, .001)
+    err_list = []
+    for ratio in ratio_list:
+        total_err = 0
+        for t in fuel_recipe:
+            reprocessed = sum([massfrac for (nucid, massfrac)
+                               in sep_matl if nucid == t['nucid']]) * ratio
+            uranium = sum([massfrac for (nucid, massfrac)
+                           in depleted_u_recipe if nucid == t['nucid']]) * (1 - ratio)
+            value = reprocessed + uranium
+            err = abs(value - t['massfrac'])
+            total_err += err
+        err_list.append(total_err)
+    return ratio_list[err_list.index(min(err_index))]
 
 
 def u_util_calc(cursor):
