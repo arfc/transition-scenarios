@@ -1098,7 +1098,7 @@ def stacked_bar_chart(dictionary, timestep,
                            height=dictionary[key],
                            width=0.1,
                            color=cm.viridis(
-                1. * color_index / len(dictionary)),
+                float(color_index) / len(dictionary)),
                 edgecolor='none',
                 label=label)
             prev = dictionary[key]
@@ -1112,7 +1112,7 @@ def stacked_bar_chart(dictionary, timestep,
                            height=dictionary[key],
                            width=0.1,
                            color=cm.viridis(
-                1. * color_index / len(dictionary)),
+                float(color_index) / len(dictionary)),
                 edgecolor='none',
                 bottom=prev,
                 label=label)
