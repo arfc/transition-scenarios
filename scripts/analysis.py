@@ -420,6 +420,10 @@ def get_power_dict(cursor):
                                ' INNER JOIN agententry '
                                'ON agentexit.agentid = agententry.agentid '
                                'GROUP BY timeseriespower.agentid').fetchall()
+    print(governments)
+    print(entry)
+    print(exit_step)
+    print(timestep)
     return capacity_calc(governments, timestep, entry, exit_step)
 
 
@@ -884,7 +888,7 @@ def capacity_calc(governments, timestep, entry, exit_step):
                 gov_agentid = gov[1]
                 power_cap = enter[0]
                 if entertime == t and parentgov == gov_agentid:
-                    cap += power_cap / 1000
+                    cap += power_cap * 0.001
                     count += 1
             for dec in exit_step:
                 exittime = dec[3]
@@ -892,7 +896,7 @@ def capacity_calc(governments, timestep, entry, exit_step):
                 gov_agentid = gov[1]
                 power_cap = dec[0]
                 if exittime == t and parentgov == gov_agentid:
-                    cap -= power_cap / 1000
+                    cap -= power_cap * 0.001
                     count -= 1
             capacity.append(cap)
             num_reactors.append(count)
@@ -1116,22 +1120,22 @@ if __name__ == "__main__":
     file = sys.argv[1]
     con = lite.connect(file)
     with con:
-        cur = con.cursor()
-        init_year, init_month, duration, timestep = get_timesteps(cur)
-        mix_ratio(cur, 'cfr_fresh',
-                  'cfr_spent', 'depleted_u', [94, 95, 96, 97])
-        conv_ratio(cur, 'cfr_fresh', 'cfr_spent', True)
-        # get fuel source and inventory
-        fuel_dict = where_comm(
-            cur, 'mox', ['mox_uox_fuel_fab', 'mox_mixer'])
-        fuel_dict['from_spent_uox'] = fuel_dict.pop('mox_uox_fuel_fab')
-        fuel_dict['from_spent_mox'] = fuel_dict.pop('mox_mixer')
-        stacked_bar_chart(fuel_dict, timestep,
-                          'Years', 'Mass[MTHM]',
-                          'Total Fuel Mass vs Time',
-                          'where_fuel',
-                          init_year)
-
+        resources = [(1, 50, 2), (2, 70, 3), (4, 100, 4)]
+        compositions = [(2, 922350000, .5), (2, 922380000, .5),
+                        (3, 942390000, .3), (3, 942400000, .7),
+                        (4, 942390000, .5), (4, 942410000, .5)]
+        x = get_isotope_transactions(resources, compositions)
+        answer = collections.defaultdict(list)
+        answer[922350000].append((1, 25.0))
+        answer[922380000].append((1, 25.0))
+        answer[922390000].append((2, 21.0))
+        answer[922390000].append((4, 50.0))
+        answer[942400000].append((2, 49.0))
+        answer[942410000].append((4, 50.0))
+        for key in x:
+            print(key)
+            print(x[key])
+            print(answer[key])
         # get pu demand
         demand = collections.OrderedDict()
         demand['pu_from_legacy'] = [
