@@ -74,6 +74,10 @@ def get_inst(cursor):
                           'WHERE kind = "Inst"').fetchall()
 
 
+def timestep_to_years(init_year, timestep):
+    return init_year + (timestep / 12)
+
+
 def exec_string(in_list, search, request_colmn):
     """ Generates sqlite query command to select things and
         inner join resources and transactions.
@@ -391,8 +395,7 @@ def get_swu_dict(cursor):
 
 
 def get_power_dict(cursor):
-    """ Gets dictionary of power capcity and number of reactors
-    by calling capacity_calc
+    """ Gets dictionary of power capcity by calling capacity_calc
 
     Parameters
     ----------
@@ -426,6 +429,44 @@ def get_power_dict(cursor):
                                'ON agentexit.agentid = agententry.agentid '
                                'GROUP BY timeseriespower.agentid').fetchall()
     return capacity_calc(governments, timestep, entry, exit_step)
+
+
+def get_deployment_dict(cursor):
+    """ Gets dictionary of reactors deployed over time
+    by calling reactor_deployments
+
+    Parameters
+    ----------
+    cursor: sqlite cursor
+        sqlite cursor
+
+    Returns
+    ------
+    power_dict: dictionary
+        "dictionary with key=government, and
+        value=timesereies capacity"
+    num_dict: dictionary
+        "dictionary with key=government, and
+        value=timesereis number of reactors"
+    """
+    init_year, init_month, duration, timestep = get_timesteps(cursor)
+    governments = get_inst(cursor)
+
+    # get power cap values
+    entry = cursor.execute('SELECT max(value), timeseriespower.agentid, '
+                           'parentid, entertime FROM agententry '
+                           'INNER JOIN timeseriespower '
+                           'ON agententry.agentid = timeseriespower.agentid '
+                           'GROUP BY timeseriespower.agentid').fetchall()
+
+    exit_step = cursor.execute('SELECT max(value), timeseriespower.agentid, '
+                               'parentid, exittime FROM agentexit '
+                               'INNER JOIN timeseriespower '
+                               'ON agentexit.agentid = timeseriespower.agentid'
+                               ' INNER JOIN agententry '
+                               'ON agentexit.agentid = agententry.agentid '
+                               'GROUP BY timeseriespower.agentid').fetchall()
+    return reactor_deployments(governments, timestep, entry, exit_step)
 
 
 def fuel_usage_timeseries(cursor, fuel_list):
@@ -939,11 +980,11 @@ def reactor_deployments(governments, timestep, entry, exit_step):
 
     Returns
     -------
-    num_dict: dictionary
+    deployment: dictionary
         "dictionary with key=government, and
         value=timeseries number of reactors"
     """
-    num_dict = collections.OrderedDict()
+    deployment = collections.OrderedDict()
     for gov in governments:
         num_reactors = []
         count = 0
@@ -957,9 +998,9 @@ def reactor_deployments(governments, timestep, entry, exit_step):
                         dec['parentid'] == gov['agentid']):
                     count -= 1
             num_reactors.append(count)
-        num_dict[gov['prototype']] = np.asarray(num_reactors)
+        deployment[gov['prototype']] = np.asarray(num_reactors)
 
-    return num_dict
+    return deployment
 
 
 def multi_line_plot(dictionary, timestep,
@@ -970,7 +1011,8 @@ def multi_line_plot(dictionary, timestep,
     Parameters
     ----------
     dictionary: dictionary
-        dictionary with value: list of timestep progressions
+        dictionary with "key=description of timestep, and
+        value=list of timestep progressions"
     timestep: numpy linspace
         timestep of simulation
     xlabel: str
@@ -995,7 +1037,7 @@ def multi_line_plot(dictionary, timestep,
         else:
             label = str(key)
 
-        plt.plot(init_year + (timestep / 12),
+        plt.plot(timestep_to_years(init_year, timestep),
                  dictionary[key],
                  label=label)
         color_index += 1
@@ -1052,7 +1094,7 @@ def stacked_bar_chart(dictionary, timestep,
         if sum(dictionary[key]) == 0:
             print(label + ' has no values')
         elif top_index is True:
-            plot = plt.bar(left=init_year + (timestep / 12),
+            plot = plt.bar(left=timestep_to_years(init_year, timestep),
                            height=dictionary[key],
                            width=0.1,
                            color=cm.viridis(
@@ -1066,7 +1108,7 @@ def stacked_bar_chart(dictionary, timestep,
         # All curves except the first have a 'bottom'
         # defined by the previous curve
         else:
-            plot = plt.bar(left=init_year + (timestep / 12),
+            plot = plt.bar(left=timestep_to_years(init_year, timestep),
                            height=dictionary[key],
                            width=0.1,
                            color=cm.viridis(
@@ -1107,19 +1149,21 @@ def plot_power(cursor):
     -------
     """
     init_year, init_month, duration, timestep = get_timesteps(cursor)
-    power_dict, num_dict = get_power_dict(cursor)
+    power_dict = get_power_dict(cursor)
     stacked_bar_chart(power_dict, timestep,
                       'Years', 'Net_Capacity [GWe]',
-                      'Net Capacity vs Time', 'power_plot', init_year)
+                      'Net Capacity vs Time',
+                      'Net Capacity vs Time', init_year)
 
-    stacked_bar_chart(num_dict, timestep,
+    deployment_dict = get_deployment_dict(cursor)
+    stacked_bar_chart(deployment_dict, timestep,
                       'Years', 'Number of Reactors',
                       'Number of Reactors vs Time',
-                      'number_plot', init_year)
+                      'Number of Reactors vs Time', init_year)
 
 
 def plot_in_out_flux(cursor, facility, influx_bool, title, outputname):
-    """plots timeseries outflux from facility name in kg.
+    """plots timeseries influx/ outflux from facility name in kg.
 
     Parameters
     ----------
