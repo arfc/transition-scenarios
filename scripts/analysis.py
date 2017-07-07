@@ -58,8 +58,8 @@ def get_prototype_id(cursor, prototype):
     return list(str(agent['agentid']) for agent in ids)
 
 
-def get_inst_id(cursor):
-    """ Returns agentid of a prototype
+def get_inst(cursor):
+    """ Returns prototype and agentids of institutions
 
     Parameters
     ----------
@@ -409,7 +409,7 @@ def get_power_dict(cursor):
         value: timesereis number of reactors
     """
     init_year, init_month, duration, timestep = get_timesteps(cursor)
-    governments = get_inst_id(cursor)
+    governments = get_inst(cursor)
 
     # get power cap values
     entry = cursor.execute('SELECT max(value), timeseriespower.agentid, '
@@ -465,9 +465,8 @@ def fuel_usage_timeseries(cursor, fuel_list):
 
 def nat_u_timeseries(cursor):
     """ Finds natural uranium supply from source
-
-            Since currently the source supplies all its capacity,
-            the timeseriesenrichmentfeed is used.
+        Since currently the source supplies all its capacity,
+        the timeseriesenrichmentfeed is used.
 
     Parameters
     ----------
@@ -627,8 +626,7 @@ def fuel_into_reactors(cursor):
 
     Returns
     -------
-    get_timeseries: function
-        Function returns timeseries of mass of fuel into receactors [MTHM]
+    timeseries of fuel into reactors [tons]
     """
     init_year, init_month, duration, timestep = get_timesteps(cursor)
     fuel = cursor.execute('SELECT time, sum(quantity) FROM transactions '
@@ -658,7 +656,8 @@ def conv_ratio(cursor, in_, out, is_recipe):
 
     Returns
     -------
-    prints conversion ratio
+    conversion_fac: float
+        conversion factor
     """
 
     if is_recipe:
@@ -683,8 +682,11 @@ def conv_ratio(cursor, in_, out, is_recipe):
         [massfrac for (nucid, massfrac) in out_recipe if nucid in fissile_list])
     in_fissile = sum([massfrac for (nucid, massfrac)
                       in in_recipe if nucid in fissile_list])
+    conversion_fac = (FP + fissile_in_spent - in_fissile) / FP
     print('The Conversion Factor is:')
-    print((FP + fissile_in_spent - in_fissile) / FP)
+    print(conversion_fac)
+
+    return conversion_fac
 
 
 def mix_ratio(cursor, fuel_recipe_name, spent_fuel_recipe_name, depleted_u_recipe_name, what_reprocess):
