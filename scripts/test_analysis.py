@@ -2,9 +2,41 @@ import unittest
 import analysis as an
 import numpy as np
 import collections
+import sqlite3 as lite
+
+
+def get_sqlite():
+    con = lite.connect('test.sqlite')
+    con.row_factory = lite.Row
+    with con:
+        cur = con.cursor()
+        return cur
 
 class AnalysisTest(unittest.TestCase):
     """ Tests for analysis.py """
+
+    def test_get_agent_ids(self):
+        """ Test if get_agent_ids returns the right agentids"""
+        cur = get_sqlite()
+        ids = an.get_agent_ids(cur, 'reactor')
+        answer = ['39', '40', '41', '42', '43', '44']
+        self.assertCountEqual(ids, answer)
+
+    def test_get_prototype_id(self):
+        """ Test if get_prototype_id returns the right agentids"""
+        cur = get_sqlite()
+        ids = an.get_prototype_id(cur, 'lwr')
+        answer = ['39', '40', '42']
+        self.assertCountEqual(ids, answer)
+
+    def test_get_timesteps(self):
+        """ Tests if get_timesteps function outputs the right information"""
+        cur = get_sqlite()
+        init_year, init_month, duration, timestep = an.get_timesteps(cur)
+        self.assertEqual(init_year, 2000)
+        self.assertEqual(init_month, 1)
+        self.assertEqual(duration, 10)
+        self.assertEqual(timestep.all(), np.linspace(0, 9, num=10).all())
 
     def test_exec_string_receiverid(self):
         """Test if exec_string function prints the right thing
