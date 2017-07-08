@@ -119,6 +119,8 @@ def exec_string(in_list, search, request_colmn):
     str
         sqlite query command.
     """
+    if len(in_list) == 0:
+        raise Exception('Cannot create an exec_string with an empty list')
     if type(in_list[0]) == str:
         in_list = ['"' + x + '"' for x in in_list]
 
@@ -127,12 +129,9 @@ def exec_string(in_list, search, request_colmn):
              " ON transactions.resourceid = resources.resourceid"
              " WHERE (" + str(search) + ' = ' + str(in_list[0])
              )
-    if len(in_list) == 1:
-        query += ')'
-    else:
-        for item in in_list[1:]:
-            query += ' OR ' + str(search) + ' = ' + str(item)
-        query += ')'
+    for item in in_list[1:]:
+        query += ' OR ' + str(search) + ' = ' + str(item)
+    query += ')'
 
     return query
 
@@ -159,7 +158,6 @@ def get_timesteps(cursor):
     """
     info = cursor.execute('SELECT initialyear, initialmonth, '
                           'duration FROM info').fetchone()
-    print(type(info))
     init_year = info['initialyear']
     init_month = info['initialmonth']
     duration = info['duration']
@@ -371,7 +369,6 @@ def get_stockpile(cursor, facility):
     """
     pile_dict = collections.OrderedDict()
     agentid = get_agent_ids(cursor, facility)
-    print(agentid)
     query = exec_string(agentid, 'agentid', 'timecreated, quantity, qualid')
     query = query.replace('transactions', 'agentstateinventories')
     stockpile = cursor.execute(query).fetchall()
@@ -445,14 +442,7 @@ def get_power_dict(cursor):
                                ' INNER JOIN agententry '
                                'ON agentexit.agentid = agententry.agentid '
                                'GROUP BY timeseriespower.agentid').fetchall()
-    print('governments')
-    print(governments)
-    print('entry')
-    print(entry)
-    print('exit_step')
-    print(exit_step)
-    print('timestep')
-    print(timestep)
+
     return capacity_calc(governments, timestep, entry, exit_step)
 
 
@@ -972,7 +962,6 @@ def capacity_calc(governments, timestep, entry, exit_step):
         cap = 0
         for t in timestep:
             for enter in entry:
-                print(type(enter))
                 if (enter['entertime'] == t and
                         enter['parentid'] == gov['agentid']):
                     cap += enter['max(value)'] * 0.001
