@@ -11,6 +11,23 @@ if len(sys.argv) < 2:
     print('Usage: python analysis.py [cylus_output_file]')
 
 
+def get_cursor(file_name):
+    """ Connects and returns a cursor to an sqlite output file
+
+    Parameters
+    ----------
+    file_name: str
+        name of the sqlite file
+
+    Returns
+    -------
+    sqlite cursor3
+    """
+    con = lite.connect(file_name)
+    con.row_factory = lite.Row
+    return con.cursor()
+
+
 def get_agent_ids(cursor, archetype):
     """ Gets all agentIds from Agententry table for wanted archetype
 
@@ -1256,6 +1273,7 @@ def plot_in_out_flux(cursor, facility, influx_bool, title, outputname):
 if __name__ == "__main__":
     file = sys.argv[1]
     cur = lite.connect(file).cursor()
+    con.row_factory = lite.Row
     ini_yr, ini_month, dur, timestep = get_sim_time_duration(cur)
 
     """nat_u consumption vs Time"""
