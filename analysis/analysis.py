@@ -119,6 +119,8 @@ def exec_string(in_list, search, request_colmn):
     str
         sqlite query command.
     """
+    if len(in_list) == 0:
+        raise Exception('Cannot create an exec_string with an empty list')
     if type(in_list[0]) == str:
         in_list = ['"' + x + '"' for x in in_list]
 
@@ -127,12 +129,9 @@ def exec_string(in_list, search, request_colmn):
              " ON transactions.resourceid = resources.resourceid"
              " WHERE (" + str(search) + ' = ' + str(in_list[0])
              )
-    if len(in_list) == 1:
-        query += ')'
-    else:
-        for item in in_list[1:]:
-            query += ' OR ' + str(search) + ' = ' + str(item)
-        query += ')'
+    for item in in_list[1:]:
+        query += ' OR ' + str(search) + ' = ' + str(item)
+    query += ')'
 
     return query
 
@@ -991,7 +990,6 @@ def capacity_calc(governments, timestep, entry, exit_step):
         cap = 0
         for t in timestep:
             for enter in entry:
-                print(type(enter))
                 if (enter['entertime'] == t and
                         enter['parentid'] == gov['agentid']):
                     cap += enter['max(value)'] * 0.001
