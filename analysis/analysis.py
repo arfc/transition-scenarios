@@ -159,7 +159,6 @@ def get_timesteps(cursor):
     """
     info = cursor.execute('SELECT initialyear, initialmonth, '
                           'duration FROM info').fetchone()
-    print(type(info))
     init_year = info['initialyear']
     init_month = info['initialmonth']
     duration = info['duration']
@@ -371,7 +370,6 @@ def get_stockpile(cursor, facility):
     """
     pile_dict = collections.OrderedDict()
     agentid = get_agent_ids(cursor, facility)
-    print(agentid)
     query = exec_string(agentid, 'agentid', 'timecreated, quantity, qualid')
     query = query.replace('transactions', 'agentstateinventories')
     stockpile = cursor.execute(query).fetchall()
@@ -445,14 +443,7 @@ def get_power_dict(cursor):
                                ' INNER JOIN agententry '
                                'ON agentexit.agentid = agententry.agentid '
                                'GROUP BY timeseriespower.agentid').fetchall()
-    print('governments')
-    print(governments)
-    print('entry')
-    print(entry)
-    print('exit_step')
-    print(exit_step)
-    print('timestep')
-    print(timestep)
+
     return capacity_calc(governments, timestep, entry, exit_step)
 
 
