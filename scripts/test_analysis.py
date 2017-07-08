@@ -38,6 +38,72 @@ class AnalysisTest(unittest.TestCase):
         self.assertEqual(duration, 10)
         self.assertEqual(timestep.all(), np.linspace(0, 9, num=10).all())
 
+    def test_facility_commodity_flux(self):
+        """ Tests if facility_commodity_flux works properly"""
+        cur = get_sqlite()
+        agent_ids = ['39', '40', '42']
+        commod_list_send = ['uox_waste']
+        commod_list_rec = ['uox']
+        x = an.facility_commodity_flux(cur, agent_ids, commod_list_send, True)
+        y = an.facility_commodity_flux(cur, agent_ids, commod_list_rec, False)
+        answer_x = collections.OrderedDict()
+        answer_y = collections.OrderedDict()
+        answer_x['uox_waste'] = [0.0, 0.0, 0.3, 0.3, 0.7, 0.7, 1.0, 1.0, 1.0, 1.0]
+        answer_y['uox'] = [0.0, 0.3, 0.6, 0.9, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+        self.assertEqual(x['uox_waste'], answer_x['uox_waste'])
+        self.assertEqual(y['uox'], answer_y['uox'])
+
+    def test_facility_commodity_flux_isotopics(self):
+        """ Tests if facility_commodity_flux_isotopics works properly"""
+        cur = get_sqlite()
+        agent_ids = ['27']
+        commod_list_send = ['reprocess_waste', 'uox_Pu']
+        commod_list_rec = ['uox_waste']
+        x = an.facility_commodity_flux_isotopics(cur, agent_ids, commod_list_send, True)
+        y = an.facility_commodity_flux_isotopics(cur, agent_ids, commod_list_rec, False)
+        answer_x = collections.OrderedDict()
+        answer_y = collections.OrderedDict()
+        answer_x['U235'] = [0, 0, 0, 2.64e-05, 2.64e-05, 6.28e-05,
+                            6.28e-05, 8.92e-05, 8.92e-05, 8.92e-05]
+        answer_y['U235'] = [0, 0, 0.01, 0.01, 0.03, 0.03,
+                            0.04, 0.04, 0.04, 0.04]
+        self.assertEqual(x['U235'], answer_x['U235'])
+        self.assertEqual(y['U235'], answer_y['U235'])
+
+    def test_get_stockpile(self):
+        """ Tests if get_stockpile function works properly """
+        cur = get_sqlite()
+        facility = 'separations'
+        pile_dict = an.get_stockpile(cur, facility)
+        answer = collections.OrderedDict()
+        answer[facility] = [ 0, 0, 0, 0.28, 0.28, 0.65, 0.65, 0.928, .0928, 0.928]
+        self.assertEqual(pile_dict[facility], answer[facility])
+
+    def test_get_swu_dict(self):
+        """ Tests if get_swu_dict function works properly """
+        cur = get_sqlite()
+        swu_dict = an.get_swu_dict(cur)
+        answer = collections.OrderedDict()
+        answer['Enrichment1'] = [0, 1144, 2288, 3432, 3814, 3814, 3814, 3814, 3814, 3814]
+        self.assertEqual(swu_dict('Enrichment1'), answer['Enrichment1'])
+
+    def test_get_power_dict(self):
+        """ Tests if get_power_dict function works properly """
+        cur = get_sqlite()
+        power_dict = an.get_power_dict(cur)
+        lwr_inst = [0, 1, 1, 2, 1, 1, 0, 0, 0, 0]
+        fr_inst = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        self.assertEqual(power_dict['lwr_inst'], lwr_inst)
+        self.assertEqual(power_dict['fr_inst'], fr_inst)
+
+    def u_util_calc(self):
+        """ Tests if u_util_calc function works properly """
+        cur = get_sqlite()
+        x = an.u_util_calc(cur)
+        answer = [0, 0.142, 0.142, 0.142, 0.142,
+                  0.142, 0.142, 0.142, 0.142, 0.142]
+        self.assertEqual(x, answer)
+
     def test_exec_string_receiverid(self):
         """Test if exec_string function prints the right thing
            When the query wants to find receiverid """
