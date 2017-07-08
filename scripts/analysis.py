@@ -142,6 +142,7 @@ def get_timesteps(cursor):
     """
     info = cursor.execute('SELECT initialyear, initialmonth, '
                           'duration FROM info').fetchone()
+    print(type(info))
     init_year = info['initialyear']
     init_month = info['initialmonth']
     duration = info['duration']
@@ -170,9 +171,8 @@ def get_timeseries(in_list, duration, kg_to_tons):
     timeseries list of commodities stored in in_list
     """
     value_timeseries = []
-    array = np.array(in_list)
     for i in range(0, duration):
-        value = sum(array[array[:, 0] == i][:, 1])
+        value = sum(in_list[in_list[:, 0] == i][:, 1])
         if kg_to_tons:
             value_timeseries.append(value * 0.001)
         else:
@@ -204,13 +204,12 @@ def get_timeseries_cum(in_list, duration, kg_to_tons):
     value_timeseries = []
     array = np.array(in_list)
     for i in range(0, duration):
-        if len(array) > 0:
+        if len(in_list) > 0:
             value += sum(array[array[:, 0] == i][:, 1])
         if kg_to_tons:
             value_timeseries.append(value * 0.001)
         else:
             value_timeseries.append(value)
-
     return value_timeseries
 
 
@@ -283,8 +282,8 @@ def facility_commodity_flux(cursor, agent_ids, commod_list, is_outflux):
 
         res = cursor.execute(query).fetchall()
 
-        timeseries = get_timeseries_cum(res, True)
-        commodity_dcict[comm] = timeseries
+        timeseries = get_timeseries_cum(res, duration, True)
+        commodity_dict[comm] = timeseries
 
     return commodity_dict
 
@@ -332,7 +331,7 @@ def facility_commodity_flux_isotopics(cursor, agent_ids,
         for time, amount, nucid in res:
             iso_dict[nucname.name(nucid)].append((time, amount))
     for key in iso_dict:
-        iso_dict[key] = get_timeseries_cum(iso_dict[key], True)
+        iso_dict[key] = get_timeseries_cum(iso_dict[key], duration, True)
 
     return iso_dict
 
@@ -355,11 +354,12 @@ def get_stockpile(cursor, facility):
     """
     pile_dict = collections.OrderedDict()
     agentid = get_agent_ids(cursor, facility)
+    print(agentid)
     query = exec_string(agentid, 'agentid', 'timecreated, quantity, qualid')
     query = query.replace('transactions', 'agentstateinventories')
     stockpile = cursor.execute(query).fetchall()
     init_year, init_month, duration, timestep = get_timesteps(cursor)
-    stock_timeseries = get_timeseries_cum(stockpile, True)
+    stock_timeseries = get_timeseries_cum(stockpile, duration, True)
     pile_dict[facility] = stock_timeseries
 
     return pile_dict
@@ -387,7 +387,7 @@ def get_swu_dict(cursor):
         swu_data = cursor.execute('SELECT time, value '
                                   'FROM timeseriesenrichmentswu '
                                   'WHERE agentid = ' + str(num)).fetchall()
-        swu_timeseries = get_timeseries_cum(swu_data, False)
+        swu_timeseries = get_timeseries_cum(swu_data, duration, False)
         swu_dict['Enrichment' + str(facility_num)] = swu_timeseries
         facility_num += 1
 
@@ -395,7 +395,7 @@ def get_swu_dict(cursor):
 
 
 def get_power_dict(cursor):
-    """ Gets dictionary of power capcity by calling capacity_calc
+    """ Gets dictionary of power capacity by calling capacity_calc
 
     Parameters
     ----------
@@ -406,10 +406,10 @@ def get_power_dict(cursor):
     ------
     power_dict: dictionary
         "dictionary with key=government, and
-        value=timesereies capacity"
+        value=timeseries capacity"
     num_dict: dictionary
         "dictionary with key=government, and
-        value=timesereis number of reactors"
+        value=timeseries number of reactors"
     """
     init_year, init_month, duration, timestep = get_timesteps(cursor)
     governments = get_inst(cursor)
@@ -428,9 +428,13 @@ def get_power_dict(cursor):
                                ' INNER JOIN agententry '
                                'ON agentexit.agentid = agententry.agentid '
                                'GROUP BY timeseriespower.agentid').fetchall()
+    print('governments')
     print(governments)
+    print('entry')
     print(entry)
+    print('exit_step')
     print(exit_step)
+    print('timestep')
     print(timestep)
     return capacity_calc(governments, timestep, entry, exit_step)
 
@@ -530,7 +534,7 @@ def nat_u_timeseries(cursor):
     feed = cursor.execute('SELECT time, sum(value) '
                           'FROM timeseriesenrichmentfeed '
                           'GROUP BY time').fetchall()
-    return get_timeseries_cum(feed, True)
+    return get_timeseries_cum(feed, duration, True)
 
 
 def get_trade_dict(cursor, sender, receiver, is_prototype, do_isotopic):
@@ -682,7 +686,7 @@ def fuel_into_reactors(cursor):
                           'WHERE spec LIKE "%Reactor%" '
                           'GROUP BY time').fetchall()
 
-    return get_timeseries_cum(fuel, True)
+    return get_timeseries_cum(fuel, duration, True)
 
 
 def conv_ratio(cursor, in_, out, is_recipe):
@@ -951,13 +955,14 @@ def capacity_calc(governments, timestep, entry, exit_step):
         cap = 0
         for t in timestep:
             for enter in entry:
+                print(type(enter))
                 if (enter['entertime'] == t and
                         enter['parentid'] == gov['agentid']):
-                    cap += enter['max(value)'] / 1000
+                    cap += enter['max(value)'] * 0.001
             for dec in exit_step:
                 if (dec['exittime'] == t and
                         dec['parentid'] == gov['agentid']):
-                    cap -= dec['max(value)'] / 1000
+                    cap -= dec['max(value)'] * 0.001
             capacity.append(cap)
         power_dict[gov['prototype']] = np.asarray(capacity)
 
