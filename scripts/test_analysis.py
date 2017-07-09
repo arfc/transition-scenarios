@@ -99,10 +99,10 @@ class AnalysisTest(unittest.TestCase):
         cur = get_sqlite()
         swu_dict = an.get_swu_dict(cur)
         answer = collections.OrderedDict()
-        answer['Enrichment1'] = [0, 1144.307, 2288.615,
+        answer['Enrichment_30'] = [0, 1144.307, 2288.615,
                                  3432.922, 3814.358, 3814.358,
                                  3814.358, 3814.358, 3814.358, 3814.358]
-        self.assertEqual(len(swu_dict['Enrichmen_30']),
+        self.assertEqual(len(swu_dict['Enrichment_30']),
                          len(answer['Enrichment_30']))
         for expected, actual in zip(swu_dict['Enrichment_30'], answer['Enrichment_30']):
             self.assertAlmostEqual(expected, actual, delta=1e-3)
@@ -191,20 +191,29 @@ class AnalysisTest(unittest.TestCase):
     def test_get_isotope_transactions(self):
         """Test if get_isotope_transactions function
            If it returns the right dictionary"""
-        resources = [(1, 50, 2), (2, 70, 3), (4, 100, 4)]
-        compositions = [(2, 922350000, .5), (2, 922380000, .5),
-                        (3, 942390000, .3), (3, 942400000, .7),
-                        (4, 942390000, .5), (4, 942410000, .5)]
+        cur = get_sqlite()
+        resources = cur.execute('SELECT sum(quantity), time, qualid FROM transactions '
+                                'INNER JOIN resources '
+                                'ON resources.resourceid = transactions.resourceid '
+                                'WHERE commodity = "reprocess_waste" '
+                                'GROUP BY time').fetchall()
+        compositions = cur.execute('SELECT * FROM compositions').fetchall()
         x = an.get_isotope_transactions(resources, compositions)
         answer = collections.defaultdict(list)
-        answer[922350000].append((1, 25.0))
-        answer[922380000].append((1, 25.0))
-        answer[942390000].append((2, 21.0))
-        answer[942390000].append((4, 50.0))
-        answer[942400000].append((2, 49.0))
-        answer[942410000].append((4, 50.0))
+        answer[922350000].append((3, 0.02639))
+        answer[922350000].append((5, 0.03639))
+        answer[922350000].append((7, 0.02639))
+        answer[922380000].append((3, 0.5336))
+        answer[922380000].append((5, 0.7036))
+        answer[922380000].append((7, 0.53360))
+        answer[942380000].append((3, 0.04))
+        answer[942380000].append((5, 0.06))
+        answer[942380000].append((7, 0.04))
         for key in x:
-            self.assertEqual(answer[key], x[key])
+            self.assertEqual(len(x[key]), len(answer[key]))
+            for expected, actual in zip(x[key], answer[key]):
+                for i in range(0,1):
+                    self.assertAlmostEqual(expected[i], actual[i], delta=1e-3)
 
     def test_capacity_calc(self):
         """Test capacity_calc function"""
