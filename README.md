@@ -1,14 +1,12 @@
 # transition-scenarios
 
 ## Script Folder
-The script folder contains scripts that can be used to generate cyclus
-input files and anaylse cyclus output files.
-
-
+The script folder contains scripts that can be used to generate CYCLUS
+input files and analyze CYCLUS output files.
 
 
 ### write_reactors.py
-Python script for Cyclus input file generation.
+Python script for CYCLUS input file generation.
 
 The assumptions for the parameters are as follows:
 
@@ -18,7 +16,7 @@ The assumptions for the parameters are as follows:
 			  		  523.4 UO2 / assembly for rest [PWR](nucleartourist.com)
 	#of assemblies 	= 193 for 1000MWe, linearly adjusted for other capacities
 
-This script allows generation of cyclus input file types from csv files.
+This script allows generation of CYCLUS input file types from csv files.
 
 Input : csv file, initial_time, duration, reprocessing 
 
@@ -39,14 +37,45 @@ To run:
 
 
 ### analysis.py
-Script that can be used to:
-1. print total snf amount and isotope mass (analysis.snf(cursor))
-2. create stacked bar chart of power capacity and number of reactors per region (analysis.plot_power(cursor))
-3. create a multi-line plot chart of waste isotope per time (analysis.isotope_vs_time(cursor))
 
-The following command on the terminal will execute all three:
+Input : CYCLUS output file (.sqlite)
+`python analysis.py [outputfile]`
 
-`python anaylsis.py [cylcus_output_file]`
+Most functions return a dictionary of lists (timeseries of a value)
+that can be used to plot a stacked bar chart or a line plot.
+
+Major analysis functions include:
+1. commodity_in_out_facility
+Returns dictionary of influx/outflux of a commodity from a facility.
+
+2.  get_stockpile
+Returns dictionary of stockpile in a fuel cycle facility.
+
+3. get_swu_dict
+Returns dictionary of swu timeseries for each enrichment plant.
+
+4. fuel_usage_timeseries
+Returns dictionary of timeseries of fuel used in simulation.
+
+5. get_trade_dict
+Returns dictionary of trade timeseries between two prototype/specs.
+
+6. u_util_calc
+Returns dictionary of timeseries of uranium utilization factor (fuel/natu_supply).
+
+7. where_comm
+Returns dictionary of timeseries of a commodity separated by its origin.
+
+8. plot_power
+Returns dictionary of timeseries of number of reactors & installed capacity.
+
+
+The Returned Dictionaries can be used to build plots:
+1. stacked_bar_chart
+stacked bar chart (every key in dictionary is plotted on top of each other)
+
+2. multi_line_plot
+creates separate line plot for each key in dictionary.
 
 
 ## Templates Folder
