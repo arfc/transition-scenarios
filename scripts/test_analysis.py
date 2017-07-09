@@ -102,9 +102,9 @@ class AnalysisTest(unittest.TestCase):
         answer['Enrichment1'] = [0, 1144.307, 2288.615,
                                  3432.922, 3814.358, 3814.358,
                                  3814.358, 3814.358, 3814.358, 3814.358]
-        self.assertEqual(len(swu_dict['Enrichment1']),
-                         len(answer['Enrichment1']))
-        for expected, actual in zip(swu_dict['Enrichment1'], answer['Enrichment1']):
+        self.assertEqual(len(swu_dict['Enrichmen_30']),
+                         len(answer['Enrichment_30']))
+        for expected, actual in zip(swu_dict['Enrichment_30'], answer['Enrichment_30']):
             self.assertAlmostEqual(expected, actual, delta=1e-3)
 
     def test_get_power_dict(self):
