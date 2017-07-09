@@ -100,8 +100,8 @@ class AnalysisTest(unittest.TestCase):
         swu_dict = an.get_swu_dict(cur)
         answer = collections.OrderedDict()
         answer['Enrichment_30'] = [0, 1144.307, 2288.615,
-                                 3432.922, 3814.358, 3814.358,
-                                 3814.358, 3814.358, 3814.358, 3814.358]
+                                   3432.922, 3814.358, 3814.358,
+                                   3814.358, 3814.358, 3814.358, 3814.358]
         self.assertEqual(len(swu_dict['Enrichment_30']),
                          len(answer['Enrichment_30']))
         for expected, actual in zip(swu_dict['Enrichment_30'], answer['Enrichment_30']):
@@ -150,7 +150,6 @@ class AnalysisTest(unittest.TestCase):
         in_list = [[1, 245], [5, 375], [10, 411]]
         duration = 13
         x = an.get_timeseries(in_list, duration, False)
-        print(x)
         answer = [0, 245, 0, 0, 0, 375, 0,
                   0, 0, 0, 411, 0, 0]
         self.assertEqual(x, answer)
@@ -212,33 +211,35 @@ class AnalysisTest(unittest.TestCase):
         for key in x:
             self.assertEqual(len(x[key]), len(answer[key]))
             for expected, actual in zip(x[key], answer[key]):
-                for i in range(0,1):
+                for i in range(0, 1):
                     self.assertAlmostEqual(expected[i], actual[i], delta=1e-3)
 
     def test_capacity_calc(self):
         """Test capacity_calc function"""
-        governments = [('korea', 1), ('japan', 2)]
-        timestep = np.linspace(0, 9, num=10)
-        entry = [(600, 30, 1, 3), (1000, 31, 2, 4),
-                 (700, 32, 1, 5), (500, 33, 2, 7)]
-        exit_step = [(600, 30, 1, 7), (1000, 31, 2, 8),
-                     (700, 32, 1, 9)]
+        cur = get_sqlite()
+        init_year, init_month, duration, timestep = an.get_timesteps(cur)
+        governments = an.get_inst(cur)
+        entry = cur.execute('SELECT max(value), timeseriespower.agentid, '
+                            'parentid, entertime FROM agententry '
+                            'INNER JOIN timeseriespower '
+                            'ON agententry.agentid = timeseriespower.agentid '
+                            'GROUP BY timeseriespower.agentid').fetchall()
+        exit_step = cur.execute('SELECT max(value), timeseriespower.agentid, '
+                                'parentid, exittime FROM agentexit '
+                                'INNER JOIN timeseriespower '
+                                'ON agentexit.agentid = timeseriespower.agentid'
+                                ' INNER JOIN agententry '
+                                'ON agentexit.agentid = agententry.agentid '
+                                'GROUP BY timeseriespower.agentid').fetchall()
         power_dict = an.capacity_calc(governments, timestep, entry, exit_step)
-        num_dict = an.reactor_deployments(governments, timestep, entry,
-                                          exit_step)
         answer_power = collections.OrderedDict()
-        answer_num = collections.OrderedDict()
-        answer_power['korea'] = np.asarray([0, 0, 0, 600, 600, 1300, 1300,
-                                            700, 700, 0])
-        answer_power['japan'] = np.asarray([0, 0, 0, 0, 1000, 1000,
-                                            1000, 1500, 500, 500])
-        answer_power['korea'] = answer_power['korea'] * 0.001
-        answer_power['japan'] = answer_power['japan'] * 0.001
-        answer_num['korea'] = np.asarray([0, 0, 0, 1, 1, 2, 2, 1, 1, 0])
-        answer_num['japan'] = np.asarray([0, 0, 0, 0, 1, 1, 1, 2, 1, 1])
+        answer_power['lwr_inst'] = np.asarray([0, 1, 1, 2, 1, 1, 0, 0, 0, 0])
+        answer_power['fr_inst'] = np.asarray([0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+        answer_power['sink_source_facilities'] = np.asarray(
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
         for key in power_dict:
-            self.assertTrue(np.array_equal(power_dict[key], answer_power[key]))
-            self.assertTrue(np.array_equal(num_dict[key], answer_num[key]))
+            self.assertTrue(np.array_equal(
+                power_dict[key], answer_power[key]))
 
 
 if __name__ == '__main__':
