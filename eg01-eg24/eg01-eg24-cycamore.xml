@@ -1273,7 +1273,7 @@ Driver:
   <recipe>
     <name>sfr_fuel_recipe</name>
     <basis>mass</basis>
-       <nuclide> <id>U234</id>  <comp>9.7224110389438E-05</comp> </nuclide> 
+   <nuclide> <id>U234</id>  <comp>9.7224110389438E-05</comp> </nuclide> 
    <nuclide> <id>U235</id>  <comp>0.0039469814</comp> </nuclide> 
    <nuclide> <id>U236</id>  <comp>0.0021573569</comp> </nuclide> 
    <nuclide> <id>U238</id>  <comp>0.8665733427</comp> </nuclide> 

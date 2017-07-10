@@ -4,59 +4,59 @@
     <duration>960</duration>
     <startmonth>1 </startmonth>
     <startyear>1970 </startyear>
-  </control>
+</control>
 
 
-  <archetypes>
+<archetypes>
     <spec>
       <lib>cycamore</lib>
       <name>Source</name>
-    </spec>
-    <spec>
+  </spec>
+  <spec>
       <lib>cycamore</lib>
       <name>Sink</name>
-    </spec> 
-    <spec>
+  </spec> 
+  <spec>
       <lib>cycamore</lib>
       <name>Reactor</name>
-    </spec>
-    <spec>
+  </spec>
+  <spec>
       <lib>cycamore</lib>
       <name>Storage</name>
-    </spec>
-    <spec>
-        <lib>cycamore</lib>
-        <name>Mixer</name>
-    </spec>
-    <spec>
-      <lib>agents</lib>
-      <name>NullRegion</name>
-    </spec>
-    <spec>
-      <lib>agents</lib>
-      <name>NullInst</name>
-    </spec>
-    <spec>
-      <lib>cycamore</lib>
-      <name>Separations</name>
-    </spec>
-    <spec>
-      <lib>cycamore</lib>
-      <name>DeployInst</name>
-    </spec>
-    <spec>
-      <lib>cycamore</lib>
-      <name>Separations</name>
-    </spec>
-    <spec>
-      <lib>cycamore</lib>
-      <name>Enrichment</name>
-    </spec>
-    <spec>
-      <lib>cycamore</lib>
-      <name>FuelFab</name>
-    </spec>
-  </archetypes>
+  </spec>
+  <spec>
+    <lib>cycamore</lib>
+    <name>Mixer</name>
+</spec>
+<spec>
+  <lib>agents</lib>
+  <name>NullRegion</name>
+</spec>
+<spec>
+  <lib>agents</lib>
+  <name>NullInst</name>
+</spec>
+<spec>
+  <lib>cycamore</lib>
+  <name>Separations</name>
+</spec>
+<spec>
+  <lib>cycamore</lib>
+  <name>DeployInst</name>
+</spec>
+<spec>
+  <lib>cycamore</lib>
+  <name>Separations</name>
+</spec>
+<spec>
+  <lib>cycamore</lib>
+  <name>Enrichment</name>
+</spec>
+<spec>
+  <lib>cycamore</lib>
+  <name>FuelFab</name>
+</spec>
+</archetypes>
 
 
 <facility>
@@ -66,34 +66,34 @@
         <in_streams>
           <stream>
             <info>
-              <mixing_ratio>.09</mixing_ratio>
-              <buf_size>100000</buf_size>
-            </info>
-            <commodities>
+              <mixing_ratio>0.09</mixing_ratio>
+              <buf_size>1E5</buf_size>
+          </info>
+          <commodities>
               <item>
                 <commodity>uox_Pu</commodity>
                 <pref>1.0</pref>
-              </item>
-            </commodities>
-          </stream>
-          <stream>
-            <info>
-              <mixing_ratio>.91</mixing_ratio>
-              <buf_size>1000000</buf_size>
-            </info>
-            <commodities>
-              <item>
-                <commodity>tailings</commodity>
-                <pref>1.0</pref>
-              </item>
-            </commodities>
-          </stream>
-        </in_streams>
-        <out_commod>mox</out_commod>
-        <out_buf_size>100000</out_buf_size>
-        <throughput>30000</throughput>
-      </Mixer>
-    </config>
+            </item>
+        </commodities>
+    </stream>
+    <stream>
+        <info>
+          <mixing_ratio>0.91</mixing_ratio>
+          <buf_size>1E6</buf_size>
+      </info>
+      <commodities>
+          <item>
+            <commodity>tailings</commodity>
+            <pref>1.0</pref>
+        </item>
+    </commodities>
+</stream>
+</in_streams>
+<out_commod>mox</out_commod>
+<out_buf_size>1E5</out_buf_size>
+<throughput>3E4</throughput>
+</Mixer>
+</config>
 </facility>
 
 
@@ -104,120 +104,120 @@
         <in_streams>
           <stream>
             <info>
-              <mixing_ratio>.1</mixing_ratio>
-              <buf_size>100000</buf_size>
-            </info>
-            <commodities>
+              <mixing_ratio>0.1</mixing_ratio>
+              <buf_size>1E5</buf_size>
+          </info>
+          <commodities>
               <item>
                 <commodity>mox_Pu</commodity>
                 <pref>1.0</pref>
-              </item>
-            </commodities>
-          </stream>
-          <stream>
-            <info>
-              <mixing_ratio>.9</mixing_ratio>
-              <buf_size>1000000</buf_size>
-            </info>
-            <commodities>
-              <item>
-                <commodity>tailings</commodity>
-                <pref>1.0</pref>
-              </item>
-            </commodities>
-          </stream>
-        </in_streams>
-        <out_commod>mox</out_commod>
-        <out_buf_size>1000000</out_buf_size>
-        <throughput>30000</throughput>
-      </Mixer>
-    </config>
+            </item>
+        </commodities>
+    </stream>
+    <stream>
+        <info>
+          <mixing_ratio>0.9</mixing_ratio>
+          <buf_size>1E6</buf_size>
+      </info>
+      <commodities>
+          <item>
+            <commodity>tailings</commodity>
+            <pref>1.0</pref>
+        </item>
+    </commodities>
+</stream>
+</in_streams>
+<out_commod>mox</out_commod>
+<out_buf_size>1E6</out_buf_size>
+<throughput>3E4</throughput>
+</Mixer>
+</config>
 </facility>
 
 <!-- La Hague Model from Schneider & Marignac -->
-  <facility>
+<facility>
     <name>uox_reprocessing</name>
     <config>
       <Separations>
-         <feed_commods>   <val>uox_waste</val> </feed_commods>
-         <feed_commod_prefs> <val>1.0</val> </feed_commod_prefs>
-         <feed_recipe>uox_used_fuel_recipe</feed_recipe>
-         <feedbuf_size>183200</feedbuf_size>
-         <!-- 1100 tons/year 91.6 tons/timestep --> 
-         <throughput>91600</throughput>
-         <leftover_commod>reprocess_waste</leftover_commod>
-         <leftoverbuf_size>91600</leftoverbuf_size>
-         <streams>
+       <feed_commods>   <val>cool_uox_waste</val> </feed_commods>
+       <feed_commod_prefs> <val>1.0</val> </feed_commod_prefs>
+       <feed_recipe>uox_used_fuel_recipe</feed_recipe>
+       <feedbuf_size>183200</feedbuf_size>
+       <!-- 1100 tons/year 91.6 tons/timestep --> 
+       <throughput>91600</throughput>
+       <leftover_commod>reprocess_waste</leftover_commod>
+       <leftoverbuf_size>91600</leftoverbuf_size>
+       <streams>
           <item>
             <commod>uox_Pu</commod>
             <info>
               <buf_size>91600</buf_size>
               <efficiencies>
                 <item>
-                  <comp>Pu</comp> <eff>.998</eff>
-                </item>
-              </efficiencies>
-            </info>
-          </item>
-          <item>
-            <commod>uox_U</commod>
-            <info>
-              <buf_size>91600</buf_size>
-              <efficiencies>
-                <item>
-                  <comp>U</comp> <eff>.998</eff>
-                </item>
-              </efficiencies>
-            </info>
-          </item>
-        </streams>
-      </Separations>
-    </config>
-  </facility>
+                  <comp>Pu</comp> <eff>0.998</eff>
+              </item>
+          </efficiencies>
+      </info>
+  </item>
+  <item>
+    <commod>uox_U</commod>
+    <info>
+      <buf_size>91600</buf_size>
+      <efficiencies>
+        <item>
+          <comp>U</comp> <eff>0.998</eff>
+      </item>
+  </efficiencies>
+</info>
+</item>
+</streams>
+</Separations>
+</config>
+</facility>
 
 <!-- La Hague Model from Schneider & Marignac -->
-  <facility>
+<facility>
     <name>mox_reprocessing</name>
     <config>
       <Separations>
-         <feed_commods>   <val>mox_waste</val> </feed_commods>
-         <feed_commod_prefs> <val>1.0</val> </feed_commod_prefs>
-         <feed_recipe>mox_used_fuel_recipe</feed_recipe>
-         <feedbuf_size>183200</feedbuf_size>
-         <!-- 1100 tons/year 91.6 tons/timestep --> 
-         <throughput>91600</throughput>
-         <leftover_commod>mox_reprocess_waste</leftover_commod>
-         <leftoverbuf_size>91600</leftoverbuf_size>
-         <streams>
+       <feed_commods>   <val>cool_mox_waste</val> </feed_commods>
+       <feed_commod_prefs> <val>1.0</val> </feed_commod_prefs>
+       <feed_recipe>mox_used_fuel_recipe</feed_recipe>
+       <feedbuf_size>183200</feedbuf_size>
+       <!-- 1100 tons/year 91.6 tons/timestep --> 
+       <throughput>91600</throughput>
+       <leftover_commod>mox_reprocess_waste</leftover_commod>
+       <leftoverbuf_size>91600</leftoverbuf_size>
+       <streams>
           <item>
             <commod>mox_Pu</commod>
             <info>
               <buf_size>91600</buf_size>
               <efficiencies>
                 <item>
-                  <comp>Pu</comp> <eff>.998</eff>
-                </item>
-              </efficiencies>
-            </info>
-          </item>
-          <item>
-            <commod>mox_U</commod>
-            <info>
-              <buf_size>91600</buf_size>
-              <efficiencies>
-                <item>
-                  <comp>U</comp> <eff>.998</eff>
-                </item>
-              </efficiencies>
-            </info>
-          </item>
-        </streams>
-      </Separations>
-    </config>
-  </facility>
+                  <comp>Pu</comp> <eff>0.998</eff>
+              </item>
+          </efficiencies>
+      </info>
+  </item>
+  <item>
+    <commod>mox_U</commod>
+    <info>
+      <buf_size>91600</buf_size>
+      <efficiencies>
+        <item>
+          <comp>U</comp> <eff>0.998</eff>
+      </item>
+  </efficiencies>
+</info>
+</item>
+</streams>
+</Separations>
+</config>
+</facility>
 
 
-  <facility>
+<facility>
     <name>enrichment</name>
     <config>
       <Enrichment>
@@ -228,22 +228,22 @@
         <tails_commod>tailings</tails_commod>
         <swu_capacity>1e100</swu_capacity>
         <initial_feed>1e100</initial_feed>
-      </Enrichment>
-    </config>
-  </facility>
+    </Enrichment>
+</config>
+</facility>
 
-  <facility>
+<facility>
     <name>nat_u_source</name>
     <config>
       <Source>
         <outcommod>natl_u</outcommod>
         <outrecipe>natl_u_recipe</outrecipe>
         <throughput>1e100</throughput>
-      </Source>
-    </config>
-  </facility>
+    </Source>
+</config>
+</facility>
 
-  <facility>
+<facility>
     <name>storage_uox</name>
     <config>
         <Storage>
@@ -251,14 +251,14 @@
                 <val>uox_waste</val>
             </in_commods>
             <out_commods>
-                <val>uox_waste</val>
+                <val>cool_uox_waste</val>
             </out_commods>
-            <residence_time> 1 </residence_time>
+            <residence_time>1</residence_time>
         </Storage>
     </config>
-  </facility>
+</facility>
 
-  <facility>
+<facility>
     <name>storage_mox</name>
     <config>
         <Storage>
@@ -266,33 +266,33 @@
                 <val>mox_waste</val>
             </in_commods>
             <out_commods>
-                <val>mox_waste</val>
+                <val>cool_mox_waste</val>
             </out_commods>
-            <residence_time> 1 </residence_time>
+            <residence_time>1</residence_time>
         </Storage>
     </config>
-  </facility>
+</facility>
 
-  <facility>
-    <name>SomeSink</name>
+<facility>
+    <name>sink</name>
     <config>
       <Sink>
         <in_commods>
           <val>tailings</val>
           <val>reprocess_waste</val>
           <val>mox_reprocess_waste</val>
-        </in_commods>
-        <capacity>1e299</capacity>
-      </Sink>
-    </config>
-  </facility>
+      </in_commods>
+      <capacity>1e299</capacity>
+  </Sink>
+</config>
+</facility>
 
 <facility>
     <!-- EPR from  Martin_Symbiotic-->
     <name>EPR</name>
     <config>
       <Reactor>
-                <fuel_inrecipes>  <val>uox_fuel_recipe</val>       <val>mox_fuel_recipe</val>        </fuel_inrecipes>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       <val>mox_fuel_recipe</val>        </fuel_inrecipes>
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
         <fuel_outcommods> <val>uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
@@ -303,12 +303,12 @@
         <n_assem_core>216</n_assem_core>
         <n_assem_batch>72</n_assem_batch>
         <power_cap>1600</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
 
- <facility>
+<facility>
     <name>AP1000</name>
     <config>
       <Reactor>
@@ -323,11 +323,11 @@
         <n_assem_core>157</n_assem_core>
         <n_assem_batch>52</n_assem_batch>
         <power_cap>1200</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Belgium -->
     <name>DOEL-1</name>
     <config>
@@ -343,11 +343,11 @@
         <n_assem_core>84</n_assem_core>
         <n_assem_batch>28</n_assem_batch>
         <power_cap>433</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Belgium -->
     <name>TIHANGE-1</name>
     <config>
@@ -363,11 +363,11 @@
         <n_assem_core>186</n_assem_core>
         <n_assem_batch>62</n_assem_batch>
         <power_cap>962</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Belgium -->
     <name>DOEL-2</name>
     <config>
@@ -383,11 +383,11 @@
         <n_assem_core>84</n_assem_core>
         <n_assem_batch>28</n_assem_batch>
         <power_cap>433</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Belgium -->
     <name>DOEL-3</name>
     <config>
@@ -403,11 +403,11 @@
         <n_assem_core>194</n_assem_core>
         <n_assem_batch>65</n_assem_batch>
         <power_cap>1006</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Belgium -->
     <name>TIHANGE-2</name>
     <config>
@@ -423,11 +423,11 @@
         <n_assem_core>195</n_assem_core>
         <n_assem_batch>65</n_assem_batch>
         <power_cap>1008</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Belgium -->
     <name>TIHANGE-3</name>
     <config>
@@ -443,11 +443,11 @@
         <n_assem_core>202</n_assem_core>
         <n_assem_batch>67</n_assem_batch>
         <power_cap>1046</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Belgium -->
     <name>DOEL-4</name>
     <config>
@@ -463,11 +463,11 @@
         <n_assem_core>201</n_assem_core>
         <n_assem_batch>67</n_assem_batch>
         <power_cap>1039</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Bulgaria -->
     <name>KOZLODUY-1</name>
     <config>
@@ -483,11 +483,11 @@
         <n_assem_core>79</n_assem_core>
         <n_assem_batch>26</n_assem_batch>
         <power_cap>408</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Bulgaria -->
     <name>KOZLODUY-2</name>
     <config>
@@ -503,11 +503,11 @@
         <n_assem_core>79</n_assem_core>
         <n_assem_batch>26</n_assem_batch>
         <power_cap>408</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Bulgaria -->
     <name>KOZLODUY-3</name>
     <config>
@@ -523,11 +523,11 @@
         <n_assem_core>79</n_assem_core>
         <n_assem_batch>26</n_assem_batch>
         <power_cap>408</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Bulgaria -->
     <name>KOZLODUY-4</name>
     <config>
@@ -543,11 +543,11 @@
         <n_assem_core>79</n_assem_core>
         <n_assem_batch>26</n_assem_batch>
         <power_cap>408</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Bulgaria -->
     <name>KOZLODUY-5</name>
     <config>
@@ -563,11 +563,11 @@
         <n_assem_core>184</n_assem_core>
         <n_assem_batch>61</n_assem_batch>
         <power_cap>953</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Bulgaria -->
     <name>KOZLODUY-6</name>
     <config>
@@ -583,11 +583,11 @@
         <n_assem_core>184</n_assem_core>
         <n_assem_batch>61</n_assem_batch>
         <power_cap>953</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Czechoslovakia -->
     <name>BOHUNICE-1</name>
     <config>
@@ -603,11 +603,11 @@
         <n_assem_core>79</n_assem_core>
         <n_assem_batch>26</n_assem_batch>
         <power_cap>408</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Czechoslovakia -->
     <name>BOHUNICE-2</name>
     <config>
@@ -623,11 +623,11 @@
         <n_assem_core>79</n_assem_core>
         <n_assem_batch>26</n_assem_batch>
         <power_cap>408</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Czechoslovakia -->
     <name>BOHUNICE-3</name>
     <config>
@@ -643,11 +643,11 @@
         <n_assem_core>91</n_assem_core>
         <n_assem_batch>30</n_assem_batch>
         <power_cap>471</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Czechoslovakia -->
     <name>BOHUNICE-4</name>
     <config>
@@ -663,11 +663,11 @@
         <n_assem_core>91</n_assem_core>
         <n_assem_batch>30</n_assem_batch>
         <power_cap>471</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Czechoslovakia -->
     <name>DUKOVANY-1</name>
     <config>
@@ -683,11 +683,11 @@
         <n_assem_core>90</n_assem_core>
         <n_assem_batch>30</n_assem_batch>
         <power_cap>468</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Czechoslovakia -->
     <name>DUKOVANY-2</name>
     <config>
@@ -703,11 +703,11 @@
         <n_assem_core>91</n_assem_core>
         <n_assem_batch>30</n_assem_batch>
         <power_cap>471</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Czechoslovakia -->
     <name>DUKOVANY-3</name>
     <config>
@@ -723,11 +723,11 @@
         <n_assem_core>90</n_assem_core>
         <n_assem_batch>30</n_assem_batch>
         <power_cap>468</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Czechoslovakia -->
     <name>DUKOVANY-4</name>
     <config>
@@ -743,11 +743,11 @@
         <n_assem_core>91</n_assem_core>
         <n_assem_batch>30</n_assem_batch>
         <power_cap>471</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Czechoslovakia -->
     <name>MOCHOVCE-1</name>
     <config>
@@ -763,11 +763,11 @@
         <n_assem_core>84</n_assem_core>
         <n_assem_batch>28</n_assem_batch>
         <power_cap>436</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Czechoslovakia -->
     <name>MOCHOVCE-2</name>
     <config>
@@ -783,11 +783,11 @@
         <n_assem_core>84</n_assem_core>
         <n_assem_batch>28</n_assem_batch>
         <power_cap>436</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Czechoslovakia -->
     <name>TEMELIN-1</name>
     <config>
@@ -803,11 +803,11 @@
         <n_assem_core>194</n_assem_core>
         <n_assem_batch>65</n_assem_batch>
         <power_cap>1003</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Czechoslovakia -->
     <name>TEMELIN-2</name>
     <config>
@@ -823,11 +823,11 @@
         <n_assem_core>194</n_assem_core>
         <n_assem_batch>65</n_assem_batch>
         <power_cap>1003</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Czechoslovakia -->
     <name>MOCHOVCE-3</name>
     <config>
@@ -843,11 +843,11 @@
         <n_assem_core>85</n_assem_core>
         <n_assem_batch>28</n_assem_batch>
         <power_cap>440</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Czechoslovakia -->
     <name>MOCHOVCE-4</name>
     <config>
@@ -863,11 +863,11 @@
         <n_assem_core>85</n_assem_core>
         <n_assem_batch>28</n_assem_batch>
         <power_cap>440</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Finland -->
     <name>LOVIISA-1</name>
     <config>
@@ -883,11 +883,11 @@
         <n_assem_core>96</n_assem_core>
         <n_assem_batch>32</n_assem_batch>
         <power_cap>496</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Finland -->
     <name>LOVIISA-2</name>
     <config>
@@ -903,11 +903,11 @@
         <n_assem_core>96</n_assem_core>
         <n_assem_batch>32</n_assem_batch>
         <power_cap>496</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Finland -->
     <name>OLKILUOTO-1</name>
     <config>
@@ -923,11 +923,11 @@
         <n_assem_core>672</n_assem_core>
         <n_assem_batch>224</n_assem_batch>
         <power_cap>880</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Finland -->
     <name>OLKILUOTO-2</name>
     <config>
@@ -943,11 +943,11 @@
         <n_assem_core>672</n_assem_core>
         <n_assem_batch>224</n_assem_batch>
         <power_cap>880</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- France -->
     <name>CHINON A-2</name>
     <config>
@@ -963,11 +963,11 @@
         <n_assem_core>35</n_assem_core>
         <n_assem_batch>12</n_assem_batch>
         <power_cap>180</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- France -->
     <name>CHINON A-3</name>
     <config>
@@ -983,11 +983,11 @@
         <n_assem_core>69</n_assem_core>
         <n_assem_batch>23</n_assem_batch>
         <power_cap>360</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- France -->
     <name>CHOOZ-A (ARDENNES)</name>
     <config>
@@ -1003,11 +1003,11 @@
         <n_assem_core>59</n_assem_core>
         <n_assem_batch>20</n_assem_batch>
         <power_cap>305</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- France -->
     <name>ST. LAURENT A-1</name>
     <config>
@@ -1023,11 +1023,11 @@
         <n_assem_core>75</n_assem_core>
         <n_assem_batch>25</n_assem_batch>
         <power_cap>390</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- France -->
     <name>BUGEY-1</name>
     <config>
@@ -1043,11 +1043,11 @@
         <n_assem_core>104</n_assem_core>
         <n_assem_batch>35</n_assem_batch>
         <power_cap>540</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- France -->
     <name>ST. LAURENT A-2</name>
     <config>
@@ -1063,11 +1063,11 @@
         <n_assem_core>90</n_assem_core>
         <n_assem_batch>30</n_assem_batch>
         <power_cap>465</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- France -->
     <name>FESSENHEIM-1</name>
     <config>
@@ -1083,11 +1083,11 @@
         <n_assem_core>170</n_assem_core>
         <n_assem_batch>57</n_assem_batch>
         <power_cap>880</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- France -->
     <name>FESSENHEIM-2</name>
     <config>
@@ -1103,11 +1103,11 @@
         <n_assem_core>170</n_assem_core>
         <n_assem_batch>57</n_assem_batch>
         <power_cap>880</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- France -->
     <name>BUGEY-2</name>
     <config>
@@ -1123,11 +1123,11 @@
         <n_assem_core>176</n_assem_core>
         <n_assem_batch>59</n_assem_batch>
         <power_cap>910</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- France -->
     <name>BUGEY-3</name>
     <config>
@@ -1143,11 +1143,11 @@
         <n_assem_core>176</n_assem_core>
         <n_assem_batch>59</n_assem_batch>
         <power_cap>910</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- France -->
     <name>BUGEY-4</name>
     <config>
@@ -1163,11 +1163,11 @@
         <n_assem_core>170</n_assem_core>
         <n_assem_batch>57</n_assem_batch>
         <power_cap>880</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- France -->
     <name>BUGEY-5</name>
     <config>
@@ -1183,11 +1183,11 @@
         <n_assem_core>170</n_assem_core>
         <n_assem_batch>57</n_assem_batch>
         <power_cap>880</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- France -->
     <name>TRICASTIN-1</name>
     <config>
@@ -1203,11 +1203,11 @@
         <n_assem_core>177</n_assem_core>
         <n_assem_batch>59</n_assem_batch>
         <power_cap>915</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- France -->
     <name>TRICASTIN-2</name>
     <config>
@@ -1223,11 +1223,11 @@
         <n_assem_core>177</n_assem_core>
         <n_assem_batch>59</n_assem_batch>
         <power_cap>915</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- France -->
     <name>DAMPIERRE-1</name>
     <config>
@@ -1243,11 +1243,11 @@
         <n_assem_core>172</n_assem_core>
         <n_assem_batch>57</n_assem_batch>
         <power_cap>890</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- France -->
     <name>GRAVELINES-1</name>
     <config>
@@ -1263,11 +1263,11 @@
         <n_assem_core>176</n_assem_core>
         <n_assem_batch>59</n_assem_batch>
         <power_cap>910</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- France -->
     <name>GRAVELINES-2</name>
     <config>
@@ -1283,11 +1283,11 @@
         <n_assem_core>176</n_assem_core>
         <n_assem_batch>59</n_assem_batch>
         <power_cap>910</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- France -->
     <name>DAMPIERRE-2</name>
     <config>
@@ -1303,11 +1303,11 @@
         <n_assem_core>172</n_assem_core>
         <n_assem_batch>57</n_assem_batch>
         <power_cap>890</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- France -->
     <name>TRICASTIN-3</name>
     <config>
@@ -1323,11 +1323,11 @@
         <n_assem_core>177</n_assem_core>
         <n_assem_batch>59</n_assem_batch>
         <power_cap>915</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- France -->
     <name>TRICASTIN-4</name>
     <config>
@@ -1343,11 +1343,11 @@
         <n_assem_core>177</n_assem_core>
         <n_assem_batch>59</n_assem_batch>
         <power_cap>915</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- France -->
     <name>DAMPIERRE-3</name>
     <config>
@@ -1363,11 +1363,11 @@
         <n_assem_core>172</n_assem_core>
         <n_assem_batch>57</n_assem_batch>
         <power_cap>890</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- France -->
     <name>DAMPIERRE-4</name>
     <config>
@@ -1383,11 +1383,11 @@
         <n_assem_core>172</n_assem_core>
         <n_assem_batch>57</n_assem_batch>
         <power_cap>890</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- France -->
     <name>GRAVELINES-3</name>
     <config>
@@ -1403,11 +1403,11 @@
         <n_assem_core>176</n_assem_core>
         <n_assem_batch>59</n_assem_batch>
         <power_cap>910</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- France -->
     <name>GRAVELINES-4</name>
     <config>
@@ -1423,11 +1423,11 @@
         <n_assem_core>176</n_assem_core>
         <n_assem_batch>59</n_assem_batch>
         <power_cap>910</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- France -->
     <name>ST. LAURENT B-1</name>
     <config>
@@ -1443,11 +1443,11 @@
         <n_assem_core>177</n_assem_core>
         <n_assem_batch>59</n_assem_batch>
         <power_cap>915</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- France -->
     <name>ST. LAURENT B-2</name>
     <config>
@@ -1463,11 +1463,11 @@
         <n_assem_core>177</n_assem_core>
         <n_assem_batch>59</n_assem_batch>
         <power_cap>915</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- France -->
     <name>BLAYAIS-1</name>
     <config>
@@ -1483,11 +1483,11 @@
         <n_assem_core>176</n_assem_core>
         <n_assem_batch>59</n_assem_batch>
         <power_cap>910</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- France -->
     <name>BLAYAIS-2</name>
     <config>
@@ -1503,11 +1503,11 @@
         <n_assem_core>176</n_assem_core>
         <n_assem_batch>59</n_assem_batch>
         <power_cap>910</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- France -->
     <name>CHINON B-1</name>
     <config>
@@ -1523,11 +1523,11 @@
         <n_assem_core>175</n_assem_core>
         <n_assem_batch>58</n_assem_batch>
         <power_cap>905</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- France -->
     <name>CHINON B-2</name>
     <config>
@@ -1543,11 +1543,11 @@
         <n_assem_core>175</n_assem_core>
         <n_assem_batch>58</n_assem_batch>
         <power_cap>905</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- France -->
     <name>PALUEL-1</name>
     <config>
@@ -1563,11 +1563,11 @@
         <n_assem_core>257</n_assem_core>
         <n_assem_batch>86</n_assem_batch>
         <power_cap>1330</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- France -->
     <name>PALUEL-2</name>
     <config>
@@ -1583,11 +1583,11 @@
         <n_assem_core>257</n_assem_core>
         <n_assem_batch>86</n_assem_batch>
         <power_cap>1330</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- France -->
     <name>BLAYAIS-3</name>
     <config>
@@ -1603,11 +1603,11 @@
         <n_assem_core>176</n_assem_core>
         <n_assem_batch>59</n_assem_batch>
         <power_cap>910</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- France -->
     <name>BLAYAIS-4</name>
     <config>
@@ -1623,11 +1623,11 @@
         <n_assem_core>176</n_assem_core>
         <n_assem_batch>59</n_assem_batch>
         <power_cap>910</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- France -->
     <name>CRUAS-1</name>
     <config>
@@ -1643,11 +1643,11 @@
         <n_assem_core>177</n_assem_core>
         <n_assem_batch>59</n_assem_batch>
         <power_cap>915</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- France -->
     <name>CRUAS-2</name>
     <config>
@@ -1663,11 +1663,11 @@
         <n_assem_core>177</n_assem_core>
         <n_assem_batch>59</n_assem_batch>
         <power_cap>915</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- France -->
     <name>ST. ALBAN-1</name>
     <config>
@@ -1683,11 +1683,11 @@
         <n_assem_core>258</n_assem_core>
         <n_assem_batch>86</n_assem_batch>
         <power_cap>1335</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- France -->
     <name>PALUEL-3</name>
     <config>
@@ -1703,11 +1703,11 @@
         <n_assem_core>257</n_assem_core>
         <n_assem_batch>86</n_assem_batch>
         <power_cap>1330</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- France -->
     <name>CRUAS-3</name>
     <config>
@@ -1723,11 +1723,11 @@
         <n_assem_core>177</n_assem_core>
         <n_assem_batch>59</n_assem_batch>
         <power_cap>915</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- France -->
     <name>ST. ALBAN-2</name>
     <config>
@@ -1743,11 +1743,11 @@
         <n_assem_core>258</n_assem_core>
         <n_assem_batch>86</n_assem_batch>
         <power_cap>1335</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- France -->
     <name>CRUAS-4</name>
     <config>
@@ -1763,11 +1763,11 @@
         <n_assem_core>177</n_assem_core>
         <n_assem_batch>59</n_assem_batch>
         <power_cap>915</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- France -->
     <name>GRAVELINES-5</name>
     <config>
@@ -1783,11 +1783,11 @@
         <n_assem_core>176</n_assem_core>
         <n_assem_batch>59</n_assem_batch>
         <power_cap>910</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- France -->
     <name>GRAVELINES-6</name>
     <config>
@@ -1803,11 +1803,11 @@
         <n_assem_core>176</n_assem_core>
         <n_assem_batch>59</n_assem_batch>
         <power_cap>910</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- France -->
     <name>CATTENOM-1</name>
     <config>
@@ -1823,11 +1823,11 @@
         <n_assem_core>251</n_assem_core>
         <n_assem_batch>84</n_assem_batch>
         <power_cap>1300</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- France -->
     <name>FLAMANVILLE-1</name>
     <config>
@@ -1843,11 +1843,11 @@
         <n_assem_core>257</n_assem_core>
         <n_assem_batch>86</n_assem_batch>
         <power_cap>1330</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- France -->
     <name>PALUEL-4</name>
     <config>
@@ -1863,11 +1863,11 @@
         <n_assem_core>257</n_assem_core>
         <n_assem_batch>86</n_assem_batch>
         <power_cap>1330</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility> 
+<facility> 
     <!-- France -->
     <name>BELLEVILLE-1</name>
     <config>
@@ -1883,11 +1883,11 @@
         <n_assem_core>253</n_assem_core>
         <n_assem_batch>84</n_assem_batch>
         <power_cap>1310</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- France -->
     <name>FLAMANVILLE-2</name>
     <config>
@@ -1903,11 +1903,11 @@
         <n_assem_core>257</n_assem_core>
         <n_assem_batch>86</n_assem_batch>
         <power_cap>1330</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- France -->
     <name>CATTENOM-2</name>
     <config>
@@ -1923,11 +1923,11 @@
         <n_assem_core>251</n_assem_core>
         <n_assem_batch>84</n_assem_batch>
         <power_cap>1300</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- France -->
     <name>BELLEVILLE-2</name>
     <config>
@@ -1943,11 +1943,11 @@
         <n_assem_core>253</n_assem_core>
         <n_assem_batch>84</n_assem_batch>
         <power_cap>1310</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- France -->
     <name>CHINON B-3</name>
     <config>
@@ -1963,11 +1963,11 @@
         <n_assem_core>175</n_assem_core>
         <n_assem_batch>58</n_assem_batch>
         <power_cap>905</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- France -->
     <name>CHINON B-4</name>
     <config>
@@ -1983,11 +1983,11 @@
         <n_assem_core>175</n_assem_core>
         <n_assem_batch>58</n_assem_batch>
         <power_cap>905</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- France -->
     <name>NOGENT-1</name>
     <config>
@@ -2003,11 +2003,11 @@
         <n_assem_core>253</n_assem_core>
         <n_assem_batch>84</n_assem_batch>
         <power_cap>1310</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- France -->
     <name>NOGENT-2</name>
     <config>
@@ -2023,11 +2023,11 @@
         <n_assem_core>253</n_assem_core>
         <n_assem_batch>84</n_assem_batch>
         <power_cap>1310</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- France -->
     <name>CATTENOM-3</name>
     <config>
@@ -2043,11 +2043,11 @@
         <n_assem_core>251</n_assem_core>
         <n_assem_batch>84</n_assem_batch>
         <power_cap>1300</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- France -->
     <name>PENLY-1</name>
     <config>
@@ -2063,11 +2063,11 @@
         <n_assem_core>257</n_assem_core>
         <n_assem_batch>86</n_assem_batch>
         <power_cap>1330</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- France -->
     <name>GOLFECH-1</name>
     <config>
@@ -2083,11 +2083,11 @@
         <n_assem_core>253</n_assem_core>
         <n_assem_batch>84</n_assem_batch>
         <power_cap>1310</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- France -->
     <name>CATTENOM-4</name>
     <config>
@@ -2103,11 +2103,11 @@
         <n_assem_core>251</n_assem_core>
         <n_assem_batch>84</n_assem_batch>
         <power_cap>1300</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- France -->
     <name>CHOOZ B-1</name>
     <config>
@@ -2123,11 +2123,11 @@
         <n_assem_core>290</n_assem_core>
         <n_assem_batch>96</n_assem_batch>
         <power_cap>1500</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- France -->
     <name>PENLY-2</name>
     <config>
@@ -2143,11 +2143,11 @@
         <n_assem_core>257</n_assem_core>
         <n_assem_batch>86</n_assem_batch>
         <power_cap>1330</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- France -->
     <name>GOLFECH-2</name>
     <config>
@@ -2163,11 +2163,11 @@
         <n_assem_core>253</n_assem_core>
         <n_assem_batch>84</n_assem_batch>
         <power_cap>1310</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- France -->
     <name>CHOOZ B-2</name>
     <config>
@@ -2183,11 +2183,11 @@
         <n_assem_core>290</n_assem_core>
         <n_assem_batch>96</n_assem_batch>
         <power_cap>1500</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- France -->
     <name>CIVAUX-1</name>
     <config>
@@ -2203,11 +2203,11 @@
         <n_assem_core>289</n_assem_core>
         <n_assem_batch>96</n_assem_batch>
         <power_cap>1495</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- France -->
     <name>CIVAUX-2</name>
     <config>
@@ -2223,11 +2223,11 @@
         <n_assem_core>289</n_assem_core>
         <n_assem_batch>96</n_assem_batch>
         <power_cap>1495</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- France -->
     <name>FLAMANVILLE-3</name>
     <config>
@@ -2243,11 +2243,11 @@
         <n_assem_core>309</n_assem_core>
         <n_assem_batch>103</n_assem_batch>
         <power_cap>1600</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Germany -->
     <name>GUNDREMMINGEN-A</name>
     <config>
@@ -2263,11 +2263,11 @@
         <n_assem_core>181</n_assem_core>
         <n_assem_batch>60</n_assem_batch>
         <power_cap>237</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Germany -->
     <name>LINGEN</name>
     <config>
@@ -2283,11 +2283,11 @@
         <n_assem_core>140</n_assem_core>
         <n_assem_batch>47</n_assem_batch>
         <power_cap>183</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Germany -->
     <name>OBRIGHEIM</name>
     <config>
@@ -2303,11 +2303,11 @@
         <n_assem_core>66</n_assem_core>
         <n_assem_batch>22</n_assem_batch>
         <power_cap>340</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Germany -->
     <name>NIEDERAICHBACH</name>
     <config>
@@ -2323,11 +2323,11 @@
         <n_assem_core>19</n_assem_core>
         <n_assem_batch>6</n_assem_batch>
         <power_cap>100</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Germany -->
     <name>STADE</name>
     <config>
@@ -2343,11 +2343,11 @@
         <n_assem_core>124</n_assem_core>
         <n_assem_batch>41</n_assem_batch>
         <power_cap>640</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Germany -->
     <name>WUERGASSEN</name>
     <config>
@@ -2363,11 +2363,11 @@
         <n_assem_core>489</n_assem_core>
         <n_assem_batch>163</n_assem_batch>
         <power_cap>640</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Germany -->
     <name>BIBLIS-A</name>
     <config>
@@ -2383,11 +2383,11 @@
         <n_assem_core>225</n_assem_core>
         <n_assem_batch>75</n_assem_batch>
         <power_cap>1167</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Germany -->
     <name>GREIFSWALD-1</name>
     <config>
@@ -2403,11 +2403,11 @@
         <n_assem_core>79</n_assem_core>
         <n_assem_batch>26</n_assem_batch>
         <power_cap>408</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Germany -->
     <name>GREIFSWALD-2</name>
     <config>
@@ -2423,11 +2423,11 @@
         <n_assem_core>79</n_assem_core>
         <n_assem_batch>26</n_assem_batch>
         <power_cap>408</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Germany -->
     <name>BRUNSBUETTEL</name>
     <config>
@@ -2443,11 +2443,11 @@
         <n_assem_core>589</n_assem_core>
         <n_assem_batch>196</n_assem_batch>
         <power_cap>771</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Germany -->
     <name>PHILIPPSBURG-1</name>
     <config>
@@ -2463,11 +2463,11 @@
         <n_assem_core>680</n_assem_core>
         <n_assem_batch>227</n_assem_batch>
         <power_cap>890</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Germany -->
     <name>THTR-300</name>
     <config>
@@ -2483,11 +2483,11 @@
         <n_assem_core>57</n_assem_core>
         <n_assem_batch>19</n_assem_batch>
         <power_cap>296</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Germany -->
     <name>BIBLIS-B</name>
     <config>
@@ -2503,11 +2503,11 @@
         <n_assem_core>239</n_assem_core>
         <n_assem_batch>80</n_assem_batch>
         <power_cap>1240</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Germany -->
     <name>NECKARWESTHEIM-1</name>
     <config>
@@ -2523,11 +2523,11 @@
         <n_assem_core>152</n_assem_core>
         <n_assem_batch>51</n_assem_batch>
         <power_cap>785</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Germany -->
     <name>GREIFSWALD-3</name>
     <config>
@@ -2543,11 +2543,11 @@
         <n_assem_core>79</n_assem_core>
         <n_assem_batch>26</n_assem_batch>
         <power_cap>408</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Germany -->
     <name>GREIFSWALD-4</name>
     <config>
@@ -2563,11 +2563,11 @@
         <n_assem_core>79</n_assem_core>
         <n_assem_batch>26</n_assem_batch>
         <power_cap>408</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Germany -->
     <name>ISAR-1</name>
     <config>
@@ -2583,11 +2583,11 @@
         <n_assem_core>671</n_assem_core>
         <n_assem_batch>224</n_assem_batch>
         <power_cap>878</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Germany -->
     <name>UNTERWESER</name>
     <config>
@@ -2603,11 +2603,11 @@
         <n_assem_core>260</n_assem_core>
         <n_assem_batch>87</n_assem_batch>
         <power_cap>1345</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Germany -->
     <name>KRUEMMEL</name>
     <config>
@@ -2623,11 +2623,11 @@
         <n_assem_core>1028</n_assem_core>
         <n_assem_batch>343</n_assem_batch>
         <power_cap>1346</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Germany -->
     <name>GRAFENRHEINFELD</name>
     <config>
@@ -2643,11 +2643,11 @@
         <n_assem_core>246</n_assem_core>
         <n_assem_batch>82</n_assem_batch>
         <power_cap>1275</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Germany -->
     <name>MUELHEIM-KAERLICH</name>
     <config>
@@ -2663,11 +2663,11 @@
         <n_assem_core>235</n_assem_core>
         <n_assem_batch>78</n_assem_batch>
         <power_cap>1219</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Germany -->
     <name>BROKDORF</name>
     <config>
@@ -2683,11 +2683,11 @@
         <n_assem_core>272</n_assem_core>
         <n_assem_batch>91</n_assem_batch>
         <power_cap>1410</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Germany -->
     <name>GROHNDE</name>
     <config>
@@ -2703,11 +2703,11 @@
         <n_assem_core>262</n_assem_core>
         <n_assem_batch>87</n_assem_batch>
         <power_cap>1360</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Germany -->
     <name>GUNDREMMINGEN-B</name>
     <config>
@@ -2723,11 +2723,11 @@
         <n_assem_core>981</n_assem_core>
         <n_assem_batch>327</n_assem_batch>
         <power_cap>1284</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Germany -->
     <name>GUNDREMMINGEN-C</name>
     <config>
@@ -2743,11 +2743,11 @@
         <n_assem_core>984</n_assem_core>
         <n_assem_batch>328</n_assem_batch>
         <power_cap>1288</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Germany -->
     <name>GREIFSWALD-5</name>
     <config>
@@ -2763,11 +2763,11 @@
         <n_assem_core>79</n_assem_core>
         <n_assem_batch>26</n_assem_batch>
         <power_cap>408</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Germany -->
     <name>PHILIPPSBURG-2</name>
     <config>
@@ -2783,11 +2783,11 @@
         <n_assem_core>271</n_assem_core>
         <n_assem_batch>90</n_assem_batch>
         <power_cap>1402</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Germany -->
     <name>EMSLAND</name>
     <config>
@@ -2803,11 +2803,11 @@
         <n_assem_core>256</n_assem_core>
         <n_assem_batch>85</n_assem_batch>
         <power_cap>1329</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Germany -->
     <name>ISAR-2</name>
     <config>
@@ -2823,11 +2823,11 @@
         <n_assem_core>272</n_assem_core>
         <n_assem_batch>91</n_assem_batch>
         <power_cap>1410</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Germany -->
     <name>NECKARWESTHEIM-2</name>
     <config>
@@ -2843,11 +2843,11 @@
         <n_assem_core>253</n_assem_core>
         <n_assem_batch>84</n_assem_batch>
         <power_cap>1310</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Hungary -->
     <name>PAKS-1</name>
     <config>
@@ -2863,11 +2863,11 @@
         <n_assem_core>91</n_assem_core>
         <n_assem_batch>30</n_assem_batch>
         <power_cap>470</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Hungary -->
     <name>PAKS-2</name>
     <config>
@@ -2883,11 +2883,11 @@
         <n_assem_core>91</n_assem_core>
         <n_assem_batch>30</n_assem_batch>
         <power_cap>473</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Hungary -->
     <name>PAKS-3</name>
     <config>
@@ -2903,11 +2903,11 @@
         <n_assem_core>91</n_assem_core>
         <n_assem_batch>30</n_assem_batch>
         <power_cap>473</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Hungary -->
     <name>PAKS-4</name>
     <config>
@@ -2923,11 +2923,11 @@
         <n_assem_core>91</n_assem_core>
         <n_assem_batch>30</n_assem_batch>
         <power_cap>473</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Italy -->
     <name>LATINA</name>
     <config>
@@ -2943,11 +2943,11 @@
         <n_assem_core>30</n_assem_core>
         <n_assem_batch>10</n_assem_batch>
         <power_cap>153</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Italy -->
     <name>GARIGLIANO</name>
     <config>
@@ -2963,11 +2963,11 @@
         <n_assem_core>115</n_assem_core>
         <n_assem_batch>38</n_assem_batch>
         <power_cap>150</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Italy -->
     <name>ENRICO FERMI</name>
     <config>
@@ -2983,11 +2983,11 @@
         <n_assem_core>50</n_assem_core>
         <n_assem_batch>17</n_assem_batch>
         <power_cap>260</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Italy -->
     <name>CAORSO</name>
     <config>
@@ -3003,11 +3003,11 @@
         <n_assem_core>657</n_assem_core>
         <n_assem_batch>219</n_assem_batch>
         <power_cap>860</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Netherlands -->
     <name>BORSSELE</name>
     <config>
@@ -3023,11 +3023,11 @@
         <n_assem_core>93</n_assem_core>
         <n_assem_batch>31</n_assem_batch>
         <power_cap>482</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Romania -->
     <name>CERNAVODA-1</name>
     <config>
@@ -3043,11 +3043,11 @@
         <n_assem_core>125</n_assem_core>
         <n_assem_batch>42</n_assem_batch>
         <power_cap>650</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Romania -->
     <name>CERNAVODA-2</name>
     <config>
@@ -3063,11 +3063,11 @@
         <n_assem_core>125</n_assem_core>
         <n_assem_batch>42</n_assem_batch>
         <power_cap>650</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Slovenia -->
     <name>KRSKO</name>
     <config>
@@ -3083,11 +3083,11 @@
         <n_assem_core>133</n_assem_core>
         <n_assem_batch>44</n_assem_batch>
         <power_cap>688</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Spain -->
     <name>JOSE CABRERA-1</name>
     <config>
@@ -3103,11 +3103,11 @@
         <n_assem_core>27</n_assem_core>
         <n_assem_batch>9</n_assem_batch>
         <power_cap>141</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Spain -->
     <name>SANTA MARIA DE GARONA</name>
     <config>
@@ -3123,11 +3123,11 @@
         <n_assem_core>341</n_assem_core>
         <n_assem_batch>114</n_assem_batch>
         <power_cap>446</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Spain -->
     <name>VANDELLOS-1</name>
     <config>
@@ -3143,11 +3143,11 @@
         <n_assem_core>93</n_assem_core>
         <n_assem_batch>31</n_assem_batch>
         <power_cap>480</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Spain -->
     <name>ALMARAZ-1</name>
     <config>
@@ -3163,11 +3163,11 @@
         <n_assem_core>195</n_assem_core>
         <n_assem_batch>65</n_assem_batch>
         <power_cap>1011</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Spain -->
     <name>ALMARAZ-2</name>
     <config>
@@ -3183,11 +3183,11 @@
         <n_assem_core>194</n_assem_core>
         <n_assem_batch>65</n_assem_batch>
         <power_cap>1006</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Spain -->
     <name>ASCO-1</name>
     <config>
@@ -3203,11 +3203,11 @@
         <n_assem_core>192</n_assem_core>
         <n_assem_batch>64</n_assem_batch>
         <power_cap>995</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Spain -->
     <name>ASCO-2</name>
     <config>
@@ -3223,11 +3223,11 @@
         <n_assem_core>192</n_assem_core>
         <n_assem_batch>64</n_assem_batch>
         <power_cap>997</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Spain -->
     <name>COFRENTES</name>
     <config>
@@ -3243,11 +3243,11 @@
         <n_assem_core>813</n_assem_core>
         <n_assem_batch>271</n_assem_batch>
         <power_cap>1064</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Spain -->
     <name>TRILLO-1</name>
     <config>
@@ -3263,11 +3263,11 @@
         <n_assem_core>194</n_assem_core>
         <n_assem_batch>65</n_assem_batch>
         <power_cap>1003</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Spain -->
     <name>VANDELLOS-2</name>
     <config>
@@ -3283,11 +3283,11 @@
         <n_assem_core>202</n_assem_core>
         <n_assem_batch>67</n_assem_batch>
         <power_cap>1045</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Sweden -->
     <name>OSKARSHAMN-1</name>
     <config>
@@ -3303,11 +3303,11 @@
         <n_assem_core>361</n_assem_core>
         <n_assem_batch>120</n_assem_batch>
         <power_cap>473</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Sweden -->
     <name>RINGHALS-1</name>
     <config>
@@ -3323,11 +3323,11 @@
         <n_assem_core>671</n_assem_core>
         <n_assem_batch>224</n_assem_batch>
         <power_cap>878</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Sweden -->
     <name>OSKARSHAMN-2</name>
     <config>
@@ -3343,11 +3343,11 @@
         <n_assem_core>487</n_assem_core>
         <n_assem_batch>162</n_assem_batch>
         <power_cap>638</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Sweden -->
     <name>RINGHALS-2</name>
     <config>
@@ -3363,11 +3363,11 @@
         <n_assem_core>156</n_assem_core>
         <n_assem_batch>52</n_assem_batch>
         <power_cap>807</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Sweden -->
     <name>BARSEBACK-1</name>
     <config>
@@ -3383,11 +3383,11 @@
         <n_assem_core>458</n_assem_core>
         <n_assem_batch>153</n_assem_batch>
         <power_cap>600</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Sweden -->
     <name>RINGHALS-3</name>
     <config>
@@ -3403,11 +3403,11 @@
         <n_assem_core>205</n_assem_core>
         <n_assem_batch>68</n_assem_batch>
         <power_cap>1062</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Sweden -->
     <name>BARSEBACK-2</name>
     <config>
@@ -3423,11 +3423,11 @@
         <n_assem_core>458</n_assem_core>
         <n_assem_batch>153</n_assem_batch>
         <power_cap>600</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Sweden -->
     <name>FORSMARK-1</name>
     <config>
@@ -3443,11 +3443,11 @@
         <n_assem_core>752</n_assem_core>
         <n_assem_batch>251</n_assem_batch>
         <power_cap>984</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Sweden -->
     <name>RINGHALS-4</name>
     <config>
@@ -3463,11 +3463,11 @@
         <n_assem_core>181</n_assem_core>
         <n_assem_batch>60</n_assem_batch>
         <power_cap>938</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Sweden -->
     <name>FORSMARK-2</name>
     <config>
@@ -3483,11 +3483,11 @@
         <n_assem_core>856</n_assem_core>
         <n_assem_batch>285</n_assem_batch>
         <power_cap>1120</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Sweden -->
     <name>FORSMARK-3</name>
     <config>
@@ -3503,11 +3503,11 @@
         <n_assem_core>894</n_assem_core>
         <n_assem_batch>298</n_assem_batch>
         <power_cap>1170</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Sweden -->
     <name>OSKARSHAMN-3</name>
     <config>
@@ -3523,11 +3523,11 @@
         <n_assem_core>1070</n_assem_core>
         <n_assem_batch>357</n_assem_batch>
         <power_cap>1400</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Switzerland -->
     <name>BEZNAU-1</name>
     <config>
@@ -3543,11 +3543,11 @@
         <n_assem_core>70</n_assem_core>
         <n_assem_batch>23</n_assem_batch>
         <power_cap>365</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Switzerland -->
     <name>MUEHLEBERG</name>
     <config>
@@ -3563,11 +3563,11 @@
         <n_assem_core>285</n_assem_core>
         <n_assem_batch>95</n_assem_batch>
         <power_cap>373</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Switzerland -->
     <name>BEZNAU-2</name>
     <config>
@@ -3583,11 +3583,11 @@
         <n_assem_core>70</n_assem_core>
         <n_assem_batch>23</n_assem_batch>
         <power_cap>365</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Switzerland -->
     <name>GOESGEN</name>
     <config>
@@ -3603,11 +3603,11 @@
         <n_assem_core>190</n_assem_core>
         <n_assem_batch>63</n_assem_batch>
         <power_cap>985</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Switzerland -->
     <name>LEIBSTADT</name>
     <config>
@@ -3623,11 +3623,11 @@
         <n_assem_core>932</n_assem_core>
         <n_assem_batch>311</n_assem_batch>
         <power_cap>1220</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- UK -->
     <name>BERKELEY-1</name>
     <config>
@@ -3643,11 +3643,11 @@
         <n_assem_core>27</n_assem_core>
         <n_assem_batch>9</n_assem_batch>
         <power_cap>138</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- UK -->
     <name>BERKELEY-2</name>
     <config>
@@ -3663,11 +3663,11 @@
         <n_assem_core>27</n_assem_core>
         <n_assem_batch>9</n_assem_batch>
         <power_cap>138</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- UK -->
     <name>BRADWELL-1</name>
     <config>
@@ -3683,11 +3683,11 @@
         <n_assem_core>24</n_assem_core>
         <n_assem_batch>8</n_assem_batch>
         <power_cap>123</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- UK -->
     <name>BRADWELL-2</name>
     <config>
@@ -3703,11 +3703,11 @@
         <n_assem_core>24</n_assem_core>
         <n_assem_batch>8</n_assem_batch>
         <power_cap>123</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- UK -->
     <name>HUNTERSTON A-1</name>
     <config>
@@ -3723,11 +3723,11 @@
         <n_assem_core>29</n_assem_core>
         <n_assem_batch>10</n_assem_batch>
         <power_cap>150</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- UK -->
     <name>HUNTERSTON A-2</name>
     <config>
@@ -3743,11 +3743,11 @@
         <n_assem_core>29</n_assem_core>
         <n_assem_batch>10</n_assem_batch>
         <power_cap>150</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- UK -->
     <name>HINKLEY POINT A-1</name>
     <config>
@@ -3763,11 +3763,11 @@
         <n_assem_core>45</n_assem_core>
         <n_assem_batch>15</n_assem_batch>
         <power_cap>235</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- UK -->
     <name>HINKLEY POINT A-2</name>
     <config>
@@ -3783,11 +3783,11 @@
         <n_assem_core>45</n_assem_core>
         <n_assem_batch>15</n_assem_batch>
         <power_cap>235</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- UK -->
     <name>TRAWSFYNYDD-1</name>
     <config>
@@ -3803,11 +3803,11 @@
         <n_assem_core>38</n_assem_core>
         <n_assem_batch>13</n_assem_batch>
         <power_cap>195</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- UK -->
     <name>TRAWSFYNYDD-2</name>
     <config>
@@ -3823,11 +3823,11 @@
         <n_assem_core>38</n_assem_core>
         <n_assem_batch>13</n_assem_batch>
         <power_cap>195</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- UK -->
     <name>DUNGENESS A-1</name>
     <config>
@@ -3843,11 +3843,11 @@
         <n_assem_core>43</n_assem_core>
         <n_assem_batch>14</n_assem_batch>
         <power_cap>225</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- UK -->
     <name>DUNGENESS A-2</name>
     <config>
@@ -3863,11 +3863,11 @@
         <n_assem_core>43</n_assem_core>
         <n_assem_batch>14</n_assem_batch>
         <power_cap>225</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- UK -->
     <name>SIZEWELL A-1</name>
     <config>
@@ -3883,11 +3883,11 @@
         <n_assem_core>41</n_assem_core>
         <n_assem_batch>14</n_assem_batch>
         <power_cap>210</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- UK -->
     <name>SIZEWELL A-2</name>
     <config>
@@ -3903,11 +3903,11 @@
         <n_assem_core>41</n_assem_core>
         <n_assem_batch>14</n_assem_batch>
         <power_cap>210</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- UK -->
     <name>OLDBURY A-1</name>
     <config>
@@ -3923,11 +3923,11 @@
         <n_assem_core>42</n_assem_core>
         <n_assem_batch>14</n_assem_batch>
         <power_cap>217</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- UK -->
     <name>OLDBURY A-2</name>
     <config>
@@ -3943,11 +3943,11 @@
         <n_assem_core>42</n_assem_core>
         <n_assem_batch>14</n_assem_batch>
         <power_cap>217</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- UK -->
     <name>WYLFA-1</name>
     <config>
@@ -3963,11 +3963,11 @@
         <n_assem_core>95</n_assem_core>
         <n_assem_batch>32</n_assem_batch>
         <power_cap>490</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- UK -->
     <name>WYLFA-2</name>
     <config>
@@ -3983,11 +3983,11 @@
         <n_assem_core>95</n_assem_core>
         <n_assem_batch>32</n_assem_batch>
         <power_cap>490</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- UK -->
     <name>DUNGENESS B-1</name>
     <config>
@@ -4003,11 +4003,11 @@
         <n_assem_core>100</n_assem_core>
         <n_assem_batch>33</n_assem_batch>
         <power_cap>520</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- UK -->
     <name>DUNGENESS B-2</name>
     <config>
@@ -4023,11 +4023,11 @@
         <n_assem_core>100</n_assem_core>
         <n_assem_batch>33</n_assem_batch>
         <power_cap>520</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- UK -->
     <name>DOUNREAY PFR</name>
     <config>
@@ -4043,11 +4043,11 @@
         <n_assem_core>45</n_assem_core>
         <n_assem_batch>15</n_assem_batch>
         <power_cap>234</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- UK -->
     <name>HINKLEY POINT B-1</name>
     <config>
@@ -4063,11 +4063,11 @@
         <n_assem_core>84</n_assem_core>
         <n_assem_batch>28</n_assem_batch>
         <power_cap>435</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- UK -->
     <name>HINKLEY POINT B-2</name>
     <config>
@@ -4083,11 +4083,11 @@
         <n_assem_core>84</n_assem_core>
         <n_assem_batch>28</n_assem_batch>
         <power_cap>435</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- UK -->
     <name>HUNTERSTON B-1</name>
     <config>
@@ -4103,11 +4103,11 @@
         <n_assem_core>89</n_assem_core>
         <n_assem_batch>30</n_assem_batch>
         <power_cap>460</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- UK -->
     <name>HUNTERSTON B-2</name>
     <config>
@@ -4123,11 +4123,11 @@
         <n_assem_core>83</n_assem_core>
         <n_assem_batch>28</n_assem_batch>
         <power_cap>430</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- UK -->
     <name>HARTLEPOOL A-1</name>
     <config>
@@ -4143,11 +4143,11 @@
         <n_assem_core>115</n_assem_core>
         <n_assem_batch>38</n_assem_batch>
         <power_cap>595</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- UK -->
     <name>HARTLEPOOL A-2</name>
     <config>
@@ -4163,11 +4163,11 @@
         <n_assem_core>113</n_assem_core>
         <n_assem_batch>38</n_assem_batch>
         <power_cap>585</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- UK -->
     <name>HEYSHAM A-1</name>
     <config>
@@ -4183,11 +4183,11 @@
         <n_assem_core>113</n_assem_core>
         <n_assem_batch>38</n_assem_batch>
         <power_cap>585</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- UK -->
     <name>HEYSHAM A-2</name>
     <config>
@@ -4203,11 +4203,11 @@
         <n_assem_core>111</n_assem_core>
         <n_assem_batch>37</n_assem_batch>
         <power_cap>575</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- UK -->
     <name>HEYSHAM B-1</name>
     <config>
@@ -4223,11 +4223,11 @@
         <n_assem_core>118</n_assem_core>
         <n_assem_batch>39</n_assem_batch>
         <power_cap>610</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- UK -->
     <name>HEYSHAM B-2</name>
     <config>
@@ -4243,11 +4243,11 @@
         <n_assem_core>118</n_assem_core>
         <n_assem_batch>39</n_assem_batch>
         <power_cap>610</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- UK -->
     <name>TORNESS-1</name>
     <config>
@@ -4263,11 +4263,11 @@
         <n_assem_core>115</n_assem_core>
         <n_assem_batch>38</n_assem_batch>
         <power_cap>595</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- UK -->
     <name>TORNESS-2</name>
     <config>
@@ -4283,11 +4283,11 @@
         <n_assem_core>115</n_assem_core>
         <n_assem_batch>38</n_assem_batch>
         <power_cap>595</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- UK -->
     <name>SIZEWELL B</name>
     <config>
@@ -4303,11 +4303,11 @@
         <n_assem_core>230</n_assem_core>
         <n_assem_batch>77</n_assem_batch>
         <power_cap>1191</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Lithuania -->
     <name>Ignalina-1</name>
     <config>
@@ -4323,11 +4323,11 @@
         <n_assem_core>229</n_assem_core>
         <n_assem_batch>76</n_assem_batch>
         <power_cap>1185</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
- <facility>
+<facility>
     <!-- Lithuania -->
     <name>Ignalina-2</name>
     <config>
@@ -4343,1496 +4343,1400 @@
         <n_assem_core>229</n_assem_core>
         <n_assem_batch>76</n_assem_batch>
         <power_cap>1185</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+    </Reactor>
+</config>
+</facility>
 
 
 
-  
-  <region>
+
+<region>
     <name>Czechoslovakia</name>
     <config><NullRegion/></config>
     <institution>
       <name>Czechoslovakia_government</name>
       <config>
         <DeployInst>
-
           <prototypes>
-  <val>BOHUNICE-1</val>
-<val>BOHUNICE-2</val>
-<val>BOHUNICE-3</val>
-<val>BOHUNICE-4</val>
-<val>DUKOVANY-1</val>
-<val>DUKOVANY-2</val>
-<val>DUKOVANY-3</val>
-<val>DUKOVANY-4</val>
-<val>MOCHOVCE-1</val>
-<val>MOCHOVCE-2</val>
-<val>TEMELIN-1</val>
-<val>TEMELIN-2</val>
-<val>MOCHOVCE-3</val>
-<val>MOCHOVCE-4</val>
+              <val>BOHUNICE-1</val>
+              <val>BOHUNICE-2</val>
+              <val>BOHUNICE-3</val>
+              <val>BOHUNICE-4</val>
+              <val>DUKOVANY-1</val>
+              <val>DUKOVANY-2</val>
+              <val>DUKOVANY-3</val>
+              <val>DUKOVANY-4</val>
+              <val>MOCHOVCE-1</val>
+              <val>MOCHOVCE-2</val>
+              <val>TEMELIN-1</val>
+              <val>TEMELIN-2</val>
+              <val>MOCHOVCE-3</val>
+              <val>MOCHOVCE-4</val>
 
-<val>AP1000</val>
-<val>AP1000</val>
+              <val>AP1000</val>
+              <val>AP1000</val>
+          </prototypes>
+          <build_times>
+              <val>107</val>
+              <val>122</val>
+              <val>175</val>
+              <val>187</val>
+              <val>181</val>
+              <val>193</val>
+              <val>202</val>
+              <val>209</val>
+              <val>341</val>
+              <val>359</val>
+              <val>369</val>
+              <val>389</val>
+              <val>560</val>
+              <val>572</val>
 
-</prototypes>
-<build_times>
-  <val>107</val>
-<val>122</val>
-<val>175</val>
-<val>187</val>
-<val>181</val>
-<val>193</val>
-<val>202</val>
-<val>209</val>
-<val>341</val>
-<val>359</val>
-<val>369</val>
-<val>389</val>
-<val>560</val>
-<val>572</val>
+              <val>780</val>
+              <val>780</val>
+          </build_times>
+          <n_build>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
 
-<val>780</val>
-<val>780</val>
+              <val>1</val>
+              <val>1</val>
+          </n_build>
+          <lifetimes>
+              <val>337</val>
+              <val>346</val>
+              <val>720</val>
+              <val>720</val>
+              <val>720</val>
+              <val>720</val>
+              <val>720</val>
+              <val>720</val>
+              <val>720</val>
+              <val>720</val>
+              <val>720</val>
+              <val>720</val>
+              <val>720</val>
+              <val>720</val>
 
-</build_times>
-<n_build>
-  <val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
+              <val>711</val>
+              <val>710</val>
+          </lifetimes>
+      </DeployInst>
+  </config>
+</institution>
+</region>
 
-<val>1</val>
-<val>1</val>
-
-</n_build>
-<lifetimes>
-  <val>337</val>
-<val>346</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-
-<val>711</val>
-<val>710</val>
-
-</lifetimes>
-          
-        </DeployInst>
-      </config>
-    </institution>
-  </region>
-  
-  <region>
+<region>
     <name>Netherlands</name>
     <config><NullRegion/></config>
     <institution>
       <name>Netherlands_government</name>
       <config>
         <DeployInst>
-
           <prototypes>
-  <val>BORSSELE</val>
+              <val>BORSSELE</val>
+          </prototypes>
+          <build_times>
+              <val>42</val>
+          </build_times>
+          <n_build>
+              <val>1</val>
+          </n_build>
+          <lifetimes>
+              <val>720</val>
+          </lifetimes>
+      </DeployInst>
+  </config>
+</institution>
+</region>
 
-</prototypes>
-<build_times>
-  <val>42</val>
-
-</build_times>
-<n_build>
-  <val>1</val>
-
-</n_build>
-<lifetimes>
-  <val>720</val>
-
-</lifetimes>
-          
-        </DeployInst>
-      </config>
-    </institution>
-  </region>
-  
-  <region>
+<region>
     <name>Sweden</name>
     <config><NullRegion/></config>
     <institution>
       <name>Sweden_government</name>
       <config>
         <DeployInst>
-
           <prototypes>
-  <val>OSKARSHAMN-1</val>
-<val>RINGHALS-1</val>
-<val>OSKARSHAMN-2</val>
-<val>RINGHALS-2</val>
-<val>BARSEBACK-1</val>
-<val>RINGHALS-3</val>
-<val>BARSEBACK-2</val>
-<val>FORSMARK-1</val>
-<val>RINGHALS-4</val>
-<val>FORSMARK-2</val>
-<val>FORSMARK-3</val>
-<val>OSKARSHAMN-3</val>
+              <val>OSKARSHAMN-1</val>
+              <val>RINGHALS-1</val>
+              <val>OSKARSHAMN-2</val>
+              <val>RINGHALS-2</val>
+              <val>BARSEBACK-1</val>
+              <val>RINGHALS-3</val>
+              <val>BARSEBACK-2</val>
+              <val>FORSMARK-1</val>
+              <val>RINGHALS-4</val>
+              <val>FORSMARK-2</val>
+              <val>FORSMARK-3</val>
+              <val>OSKARSHAMN-3</val>
+          </prototypes>
+          <build_times>
+              <val>11</val>
+              <val>44</val>
+              <val>50</val>
+              <val>54</val>
+              <val>61</val>
+              <val>127</val>
+              <val>86</val>
+              <val>124</val>
+              <val>149</val>
+              <val>130</val>
+              <val>178</val>
+              <val>180</val>
+          </build_times>
+          <n_build>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+          </n_build>
+          <lifetimes>
+              <val>720</val>
+              <val>720</val>
+              <val>720</val>
+              <val>720</val>
+              <val>298</val>
+              <val>720</val>
+              <val>339</val>
+              <val>720</val>
+              <val>720</val>
+              <val>720</val>
+              <val>720</val>
+              <val>720</val>
+          </lifetimes>
+      </DeployInst>
+  </config>
+</institution>
+</region>
 
-</prototypes>
-<build_times>
-  <val>11</val>
-<val>44</val>
-<val>50</val>
-<val>54</val>
-<val>61</val>
-<val>127</val>
-<val>86</val>
-<val>124</val>
-<val>149</val>
-<val>130</val>
-<val>178</val>
-<val>180</val>
-
-</build_times>
-<n_build>
-  <val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-
-</n_build>
-<lifetimes>
-  <val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>298</val>
-<val>720</val>
-<val>339</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-
-</lifetimes>
-          
-        </DeployInst>
-      </config>
-    </institution>
-  </region>
-  
-  <region>
+<region>
     <name>Hungary</name>
     <config><NullRegion/></config>
     <institution>
       <name>Hungary_government</name>
       <config>
         <DeployInst>
-
           <prototypes>
-  <val>PAKS-1</val>
-<val>PAKS-2</val>
-<val>PAKS-3</val>
-<val>PAKS-4</val>
+              <val>PAKS-1</val>
+              <val>PAKS-2</val>
+              <val>PAKS-3</val>
+              <val>PAKS-4</val>
 
-<val>AP1000</val>
-<val>AP1000</val>
+              <val>AP1000</val>
+              <val>AP1000</val>
+          </prototypes>
+          <build_times>
+              <val>155</val>
+              <val>176</val>
+              <val>200</val>
+              <val>211</val>
 
-</prototypes>
-<build_times>
-  <val>155</val>
-<val>176</val>
-<val>200</val>
-<val>211</val>
+              <val>660</val>
+              <val>660</val>
+          </build_times>
+          <n_build>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
 
-<val>660</val>
-<val>660</val>
+              <val>1</val>
+              <val>1</val>
+          </n_build>
+          <lifetimes>
+              <val>720</val>
+              <val>720</val>
+              <val>720</val>
+              <val>720</val>
 
-</build_times>
-<n_build>
-  <val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
+              <val>731</val>
+              <val>709</val>
+          </lifetimes>
+      </DeployInst>
+  </config>
+</institution>
+</region>
 
-<val>1</val>
-<val>1</val>
-
-</n_build>
-<lifetimes>
-  <val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-
-<val>731</val>
-<val>709</val>
-
-</lifetimes>
-          
-        </DeployInst>
-      </config>
-    </institution>
-  </region>
-  
-  <region>
+<region>
     <name>Slovenia</name>
     <config><NullRegion/></config>
     <institution>
       <name>Slovenia_government</name>
       <config>
         <DeployInst>
-
           <prototypes>
-  <val>KRSKO</val>
+              <val>KRSKO</val>
+          </prototypes>
+          <build_times>
+              <val>140</val>
+          </build_times>
+          <n_build>
+              <val>1</val>
+          </n_build>
+          <lifetimes>
+              <val>720</val>
+          </lifetimes>
+      </DeployInst>
+  </config>
+</institution>
+</region>
 
-</prototypes>
-<build_times>
-  <val>140</val>
-
-</build_times>
-<n_build>
-  <val>1</val>
-
-</n_build>
-<lifetimes>
-  <val>720</val>
-
-</lifetimes>
-          
-        </DeployInst>
-      </config>
-    </institution>
-  </region>
-  
-  <region>
+<region>
     <name>Finland</name>
     <config><NullRegion/></config>
     <institution>
       <name>Finland_government</name>
       <config>
         <DeployInst>
-
           <prototypes>
-  <val>LOVIISA-1</val>
-<val>LOVIISA-2</val>
-<val>OLKILUOTO-1</val>
-<val>OLKILUOTO-2</val>
+              <val>LOVIISA-1</val>
+              <val>LOVIISA-2</val>
+              <val>OLKILUOTO-1</val>
+              <val>OLKILUOTO-2</val>
 
-<val>EPR</val>
-<val>AP1000</val>
+              <val>EPR</val>
+              <val>AP1000</val>
+          </prototypes>
+          <build_times>
+              <val>85</val>
+              <val>130</val>
+              <val>103</val>
+              <val>117</val>
 
-</prototypes>
-<build_times>
-  <val>85</val>
-<val>130</val>
-<val>103</val>
-<val>117</val>
+              <val>576</val>
+              <val>648</val>
+          </build_times>
+          <n_build>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
 
-<val>576</val>
-<val>648</val>
+              <val>1</val>
+              <val>1</val>
+          </n_build>
+          <lifetimes>
+              <val>720</val>
+              <val>720</val>
+              <val>720</val>
+              <val>720</val>
 
-</build_times>
-<n_build>
-  <val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
+              <val>721</val>
+              <val>722</val>
+          </lifetimes>
+      </DeployInst>
+  </config>
+</institution>
+</region>
 
-<val>1</val>
-<val>1</val>
-
-</n_build>
-<lifetimes>
-  <val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-
-<val>721</val>
-<val>722</val>
-
-</lifetimes>
-
-        </DeployInst>
-      </config>
-    </institution>
-  </region>
-  
-  <region>
+<region>
     <name>France</name>
     <config><NullRegion/></config>
+    <institution>  
+       <name>french_fuel_facilities</name>
+       <config><NullInst/></config>
+       <initialfacilitylist>
+              <entry>
+                <number>1</number>
+                <prototype>nat_u_source</prototype>
+            </entry>
+            <entry>
+                <number>1</number>
+                <prototype>enrichment</prototype>
+            </entry>
+            <entry>
+                <number>1</number>
+                <prototype>sink</prototype>
+            </entry>
+            <entry>
+                <number>1</number>
+                <prototype>storage_uox</prototype>
+            </entry>
+            <entry>
+                <number>1</number>
+                <prototype>storage_mox</prototype>
+            </entry>
+            <entry>
+                <number>1</number>
+                <prototype>uox_mixer</prototype>
+            </entry>
+            <entry>
+                <number>1</number>
+                <prototype>mox_mixer</prototype>
+            </entry>
+            <entry>
+                <number>1</number>
+                <prototype>uox_reprocessing</prototype>
+            </entry>
+            <entry>
+                <number>1</number>
+                <prototype>mox_reprocessing</prototype>
+            </entry>
+        </initialfacilitylist>
+    </institution>
     <institution>
       <name>France_government</name>
       <config>
         <DeployInst>
-
           <prototypes>
-  <val>CHINON A-2</val>
-<val>CHINON A-3</val>
-<val>CHOOZ-A (ARDENNES)</val>
-<val>ST. LAURENT A-1</val>
-<val>BUGEY-1</val>
-<val>ST. LAURENT A-2</val>
-<val>FESSENHEIM-1</val>
-<val>FESSENHEIM-2</val>
-<val>BUGEY-2</val>
-<val>BUGEY-3</val>
-<val>BUGEY-4</val>
-<val>BUGEY-5</val>
-<val>TRICASTIN-1</val>
-<val>TRICASTIN-2</val>
-<val>DAMPIERRE-1</val>
-<val>GRAVELINES-1</val>
-<val>GRAVELINES-2</val>
-<val>DAMPIERRE-2</val>
-<val>TRICASTIN-3</val>
-<val>TRICASTIN-4</val>
-<val>DAMPIERRE-3</val>
-<val>DAMPIERRE-4</val>
-<val>GRAVELINES-3</val>
-<val>GRAVELINES-4</val>
-<val>ST. LAURENT B-1</val>
-<val>ST. LAURENT B-2</val>
-<val>BLAYAIS-1</val>
-<val>BLAYAIS-2</val>
-<val>CHINON B-1</val>
-<val>CHINON B-2</val>
-<val>PALUEL-1</val>
-<val>PALUEL-2</val>
-<val>BLAYAIS-3</val>
-<val>BLAYAIS-4</val>
-<val>CRUAS-1</val>
-<val>CRUAS-2</val>
-<val>ST. ALBAN-1</val>
-<val>PALUEL-3</val>
-<val>CRUAS-3</val>
-<val>ST. ALBAN-2</val>
-<val>CRUAS-4</val>
-<val>GRAVELINES-5</val>
-<val>GRAVELINES-6</val>
-<val>CATTENOM-1</val>
-<val>FLAMANVILLE-1</val>
-<val>PALUEL-4</val>
-<val>BELLEVILLE-1</val>
-<val>FLAMANVILLE-2</val>
-<val>CATTENOM-2</val>
-<val>BELLEVILLE-2</val>
-<val>CHINON B-3</val>
-<val>CHINON B-4</val>
-<val>NOGENT-1</val>
-<val>NOGENT-2</val>
-<val>CATTENOM-3</val>
-<val>PENLY-1</val>
-<val>GOLFECH-1</val>
-<val>CATTENOM-4</val>
-<val>CHOOZ B-1</val>
-<val>PENLY-2</val>
-<val>GOLFECH-2</val>
-<val>CHOOZ B-2</val>
-<val>CIVAUX-1</val>
-<val>CIVAUX-2</val>
-<val>FLAMANVILLE-3</val>
+              <val>CHINON A-2</val>
+              <val>CHINON A-3</val>
+              <val>CHOOZ-A (ARDENNES)</val>
+              <val>ST. LAURENT A-1</val>
+              <val>BUGEY-1</val>
+              <val>ST. LAURENT A-2</val>
+              <val>FESSENHEIM-1</val>
+              <val>FESSENHEIM-2</val>
+              <val>BUGEY-2</val>
+              <val>BUGEY-3</val>
+              <val>BUGEY-4</val>
+              <val>BUGEY-5</val>
+              <val>TRICASTIN-1</val>
+              <val>TRICASTIN-2</val>
+              <val>DAMPIERRE-1</val>
+              <val>GRAVELINES-1</val>
+              <val>GRAVELINES-2</val>
+              <val>DAMPIERRE-2</val>
+              <val>TRICASTIN-3</val>
+              <val>TRICASTIN-4</val>
+              <val>DAMPIERRE-3</val>
+              <val>DAMPIERRE-4</val>
+              <val>GRAVELINES-3</val>
+              <val>GRAVELINES-4</val>
+              <val>ST. LAURENT B-1</val>
+              <val>ST. LAURENT B-2</val>
+              <val>BLAYAIS-1</val>
+              <val>BLAYAIS-2</val>
+              <val>CHINON B-1</val>
+              <val>CHINON B-2</val>
+              <val>PALUEL-1</val>
+              <val>PALUEL-2</val>
+              <val>BLAYAIS-3</val>
+              <val>BLAYAIS-4</val>
+              <val>CRUAS-1</val>
+              <val>CRUAS-2</val>
+              <val>ST. ALBAN-1</val>
+              <val>PALUEL-3</val>
+              <val>CRUAS-3</val>
+              <val>ST. ALBAN-2</val>
+              <val>CRUAS-4</val>
+              <val>GRAVELINES-5</val>
+              <val>GRAVELINES-6</val>
+              <val>CATTENOM-1</val>
+              <val>FLAMANVILLE-1</val>
+              <val>PALUEL-4</val>
+              <val>BELLEVILLE-1</val>
+              <val>FLAMANVILLE-2</val>
+              <val>CATTENOM-2</val>
+              <val>BELLEVILLE-2</val>
+              <val>CHINON B-3</val>
+              <val>CHINON B-4</val>
+              <val>NOGENT-1</val>
+              <val>NOGENT-2</val>
+              <val>CATTENOM-3</val>
+              <val>PENLY-1</val>
+              <val>GOLFECH-1</val>
+              <val>CATTENOM-4</val>
+              <val>CHOOZ B-1</val>
+              <val>PENLY-2</val>
+              <val>GOLFECH-2</val>
+              <val>CHOOZ B-2</val>
+              <val>CIVAUX-1</val>
+              <val>CIVAUX-2</val>
+              <val>FLAMANVILLE-3</val>
+          </prototypes>
+          <build_times>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>27</val>
+              <val>18</val>
+              <val>86</val>
+              <val>90</val>
+              <val>100</val>
+              <val>104</val>
+              <val>110</val>
+              <val>114</val>
+              <val>122</val>
+              <val>127</val>
+              <val>122</val>
+              <val>122</val>
+              <val>127</val>
+              <val>131</val>
+              <val>131</val>
+              <val>137</val>
+              <val>133</val>
+              <val>139</val>
+              <val>131</val>
+              <val>137</val>
+              <val>132</val>
+              <val>136</val>
+              <val>137</val>
+              <val>150</val>
+              <val>154</val>
+              <val>165</val>
+              <val>172</val>
+              <val>175</val>
+              <val>163</val>
+              <val>160</val>
+              <val>159</val>
+              <val>175</val>
+              <val>187</val>
+              <val>187</val>
+              <val>171</val>
+              <val>197</val>
+              <val>177</val>
+              <val>175</val>
+              <val>187</val>
+              <val>202</val>
+              <val>189</val>
+              <val>195</val>
+              <val>212</val>
+              <val>197</val>
+              <val>211</val>
+              <val>221</val>
+              <val>201</val>
+              <val>213</val>
+              <val>212</val>
+              <val>225</val>
+              <val>241</val>
+              <val>243</val>
+              <val>244</val>
+              <val>256</val>
+              <val>319</val>
+              <val>264</val>
+              <val>281</val>
+              <val>326</val>
+              <val>335</val>
+              <val>359</val>
+              <val>564</val>
+          </build_times>
+          <n_build>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+        </n_build>
+        <lifetimes>
+          <val>161</val>
+          <val>245</val>
+          <val>262</val>
+          <val>244</val>
+          <val>266</val>
+          <val>227</val>
+          <val>720</val>
+          <val>720</val>
+          <val>720</val>
+          <val>720</val>
+          <val>720</val>
+          <val>720</val>
+          <val>720</val>
+          <val>720</val>
+          <val>720</val>
+          <val>720</val>
+          <val>720</val>
+          <val>720</val>
+          <val>720</val>
+          <val>720</val>
+          <val>720</val>
+          <val>720</val>
+          <val>720</val>
+          <val>720</val>
+          <val>720</val>
+          <val>720</val>
+          <val>720</val>
+          <val>720</val>
+          <val>720</val>
+          <val>720</val>
+          <val>720</val>
+          <val>720</val>
+          <val>720</val>
+          <val>720</val>
+          <val>720</val>
+          <val>720</val>
+          <val>720</val>
+          <val>720</val>
+          <val>720</val>
+          <val>720</val>
+          <val>720</val>
+          <val>720</val>
+          <val>720</val>
+          <val>720</val>
+          <val>720</val>
+          <val>720</val>
+          <val>720</val>
+          <val>720</val>
+          <val>720</val>
+          <val>720</val>
+          <val>720</val>
+          <val>720</val>
+          <val>720</val>
+          <val>720</val>
+          <val>720</val>
+          <val>720</val>
+          <val>720</val>
+          <val>720</val>
+          <val>720</val>
+          <val>720</val>
+          <val>720</val>
+          <val>720</val>
+          <val>720</val>
+          <val>720</val>
+          <val>720</val>
+      </lifetimes>
 
-</prototypes>
-<build_times>
-  <val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>27</val>
-<val>18</val>
-<val>86</val>
-<val>90</val>
-<val>100</val>
-<val>104</val>
-<val>110</val>
-<val>114</val>
-<val>122</val>
-<val>127</val>
-<val>122</val>
-<val>122</val>
-<val>127</val>
-<val>131</val>
-<val>131</val>
-<val>137</val>
-<val>133</val>
-<val>139</val>
-<val>131</val>
-<val>137</val>
-<val>132</val>
-<val>136</val>
-<val>137</val>
-<val>150</val>
-<val>154</val>
-<val>165</val>
-<val>172</val>
-<val>175</val>
-<val>163</val>
-<val>160</val>
-<val>159</val>
-<val>175</val>
-<val>187</val>
-<val>187</val>
-<val>171</val>
-<val>197</val>
-<val>177</val>
-<val>175</val>
-<val>187</val>
-<val>202</val>
-<val>189</val>
-<val>195</val>
-<val>212</val>
-<val>197</val>
-<val>211</val>
-<val>221</val>
-<val>201</val>
-<val>213</val>
-<val>212</val>
-<val>225</val>
-<val>241</val>
-<val>243</val>
-<val>244</val>
-<val>256</val>
-<val>319</val>
-<val>264</val>
-<val>281</val>
-<val>326</val>
-<val>335</val>
-<val>359</val>
-<val>564</val>
+  </DeployInst>
+</config>
+</institution>
+</region>
 
-</build_times>
-<n_build>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-
-</n_build>
-<lifetimes>
-  <val>161</val>
-<val>245</val>
-<val>262</val>
-<val>244</val>
-<val>266</val>
-<val>227</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-
-</lifetimes>
-          
-        </DeployInst>
-      </config>
-    </institution>
-  </region>
-  
-  <region>
+<region>
     <name>Romania</name>
     <config><NullRegion/></config>
     <institution>
       <name>Romania_government</name>
       <config>
         <DeployInst>
-
           <prototypes>
-  <val>CERNAVODA-1</val>
-<val>CERNAVODA-2</val>
+              <val>CERNAVODA-1</val>
+              <val>CERNAVODA-2</val>
 
-<val>AP1000</val>
+              <val>AP1000</val>
+          </prototypes>
+          <build_times>
+              <val>315</val>
+              <val>448</val>
 
-</prototypes>
-<build_times>
-  <val>315</val>
-<val>448</val>
+              <val>600</val>
+          </build_times>
+          <n_build>
+              <val>1</val>
+              <val>1</val>
 
-<val>600</val>
+              <val>1</val>
+          </n_build>
+          <lifetimes>
+              <val>720</val>
+              <val>720</val>
 
-</build_times>
-<n_build>
-  <val>1</val>
-<val>1</val>
+              <val>719</val>
+          </lifetimes>
+      </DeployInst>
+  </config>
+</institution>
+</region>
 
-<val>1</val>
-
-</n_build>
-<lifetimes>
-  <val>720</val>
-<val>720</val>
-
-<val>719</val>
-
-</lifetimes>
-          
-        </DeployInst>
-      </config>
-    </institution>
-  </region>
-  
-  <region>
+<region>
     <name>Spain</name>
     <config><NullRegion/></config>
     <institution>
       <name>Spain_government</name>
       <config>
         <DeployInst>
-
           <prototypes>
-  <val>JOSE CABRERA-1</val>
-<val>SANTA MARIA DE GARONA</val>
-<val>VANDELLOS-1</val>
-<val>ALMARAZ-1</val>
-<val>ALMARAZ-2</val>
-<val>ASCO-1</val>
-<val>ASCO-2</val>
-<val>COFRENTES</val>
-<val>TRILLO-1</val>
-<val>VANDELLOS-2</val>
+              <val>JOSE CABRERA-1</val>
+              <val>SANTA MARIA DE GARONA</val>
+              <val>VANDELLOS-1</val>
+              <val>ALMARAZ-1</val>
+              <val>ALMARAZ-2</val>
+              <val>ASCO-1</val>
+              <val>ASCO-2</val>
+              <val>COFRENTES</val>
+              <val>TRILLO-1</val>
+              <val>VANDELLOS-2</val>
+          </prototypes>
+          <build_times>
+              <val>1</val>
+              <val>10</val>
+              <val>25</val>
+              <val>135</val>
+              <val>165</val>
+              <val>161</val>
+              <val>188</val>
+              <val>176</val>
+              <val>220</val>
+              <val>214</val>
+          </build_times>
+          <n_build>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+          </n_build>
+          <lifetimes>
+              <val>412</val>
+              <val>720</val>
+              <val>222</val>
+              <val>720</val>
+              <val>720</val>
+              <val>720</val>
+              <val>720</val>
+              <val>720</val>
+              <val>720</val>
+              <val>720</val>
+          </lifetimes>
+      </DeployInst>
+  </config>
+</institution>
+</region>
 
-</prototypes>
-<build_times>
-  <val>1</val>
-<val>10</val>
-<val>25</val>
-<val>135</val>
-<val>165</val>
-<val>161</val>
-<val>188</val>
-<val>176</val>
-<val>220</val>
-<val>214</val>
-
-</build_times>
-<n_build>
-  <val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-
-</n_build>
-<lifetimes>
-  <val>412</val>
-<val>720</val>
-<val>222</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-
-</lifetimes>
-          
-        </DeployInst>
-      </config>
-    </institution>
-  </region>
-  
-  <region>
+<region>
     <name>Italy</name>
     <config><NullRegion/></config>
     <institution>
       <name>Italy_government</name>
       <config>
         <DeployInst>
-
           <prototypes>
-  <val>LATINA</val>
-<val>GARIGLIANO</val>
-<val>ENRICO FERMI</val>
-<val>CAORSO</val>
+              <val>LATINA</val>
+              <val>GARIGLIANO</val>
+              <val>ENRICO FERMI</val>
+              <val>CAORSO</val>
+          </prototypes>
+          <build_times>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>96</val>
+          </build_times>
+          <n_build>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+          </n_build>
+          <lifetimes>
+              <val>191</val>
+              <val>122</val>
+              <val>246</val>
+              <val>126</val>
+          </lifetimes>
+      </DeployInst>
+  </config>
+</institution>
+</region>
 
-</prototypes>
-<build_times>
-  <val>1</val>
-<val>1</val>
-<val>1</val>
-<val>96</val>
-
-</build_times>
-<n_build>
-  <val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-
-</n_build>
-<lifetimes>
-  <val>191</val>
-<val>122</val>
-<val>246</val>
-<val>126</val>
-
-</lifetimes>
-          
-        </DeployInst>
-      </config>
-    </institution>
-  </region>
-  
-  <region>
+<region>
     <name>UK</name>
     <config><NullRegion/></config>
     <institution>
       <name>UK_government</name>
       <config>
         <DeployInst>
-
           <prototypes>
-  <val>BERKELEY-1</val>
-<val>BERKELEY-2</val>
-<val>BRADWELL-1</val>
-<val>BRADWELL-2</val>
-<val>HUNTERSTON A-1</val>
-<val>HUNTERSTON A-2</val>
-<val>HINKLEY POINT A-1</val>
-<val>HINKLEY POINT A-2</val>
-<val>TRAWSFYNYDD-1</val>
-<val>TRAWSFYNYDD-2</val>
-<val>DUNGENESS A-1</val>
-<val>DUNGENESS A-2</val>
-<val>SIZEWELL A-1</val>
-<val>SIZEWELL A-2</val>
-<val>OLDBURY A-1</val>
-<val>OLDBURY A-2</val>
-<val>WYLFA-1</val>
-<val>WYLFA-2</val>
-<val>DUNGENESS B-1</val>
-<val>DUNGENESS B-2</val>
-<val>DOUNREAY PFR</val>
-<val>HINKLEY POINT B-1</val>
-<val>HINKLEY POINT B-2</val>
-<val>HUNTERSTON B-1</val>
-<val>HUNTERSTON B-2</val>
-<val>HARTLEPOOL A-1</val>
-<val>HARTLEPOOL A-2</val>
-<val>HEYSHAM A-1</val>
-<val>HEYSHAM A-2</val>
-<val>HEYSHAM B-1</val>
-<val>HEYSHAM B-2</val>
-<val>TORNESS-1</val>
-<val>TORNESS-2</val>
-<val>SIZEWELL B</val>
+              <val>BERKELEY-1</val>
+              <val>BERKELEY-2</val>
+              <val>BRADWELL-1</val>
+              <val>BRADWELL-2</val>
+              <val>HUNTERSTON A-1</val>
+              <val>HUNTERSTON A-2</val>
+              <val>HINKLEY POINT A-1</val>
+              <val>HINKLEY POINT A-2</val>
+              <val>TRAWSFYNYDD-1</val>
+              <val>TRAWSFYNYDD-2</val>
+              <val>DUNGENESS A-1</val>
+              <val>DUNGENESS A-2</val>
+              <val>SIZEWELL A-1</val>
+              <val>SIZEWELL A-2</val>
+              <val>OLDBURY A-1</val>
+              <val>OLDBURY A-2</val>
+              <val>WYLFA-1</val>
+              <val>WYLFA-2</val>
+              <val>DUNGENESS B-1</val>
+              <val>DUNGENESS B-2</val>
+              <val>DOUNREAY PFR</val>
+              <val>HINKLEY POINT B-1</val>
+              <val>HINKLEY POINT B-2</val>
+              <val>HUNTERSTON B-1</val>
+              <val>HUNTERSTON B-2</val>
+              <val>HARTLEPOOL A-1</val>
+              <val>HARTLEPOOL A-2</val>
+              <val>HEYSHAM A-1</val>
+              <val>HEYSHAM A-2</val>
+              <val>HEYSHAM B-1</val>
+              <val>HEYSHAM B-2</val>
+              <val>TORNESS-1</val>
+              <val>TORNESS-2</val>
+              <val>SIZEWELL B</val>
 
-<val>EPR</val>
-<val>EPR</val>
-<val>EPR</val>
-<val>EPR</val>
-<val>EPR</val>
-<val>AP1000</val>
-<val>AP1000</val>
-<val>AP1000</val>
-<val>AP1000</val>
-<val>AP1000</val>
-<val>AP1000</val>
-<val>AP1000</val>
-<val>AP1000</val>
+              <val>EPR</val>
+              <val>EPR</val>
+              <val>EPR</val>
+              <val>EPR</val>
+              <val>EPR</val>
+              <val>AP1000</val>
+              <val>AP1000</val>
+              <val>AP1000</val>
+              <val>AP1000</val>
+              <val>AP1000</val>
+              <val>AP1000</val>
+              <val>AP1000</val>
+              <val>AP1000</val>
+          </prototypes>
+          <build_times>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>8</val>
+              <val>156</val>
+              <val>191</val>
+              <val>50</val>
+              <val>81</val>
+              <val>73</val>
+              <val>73</val>
+              <val>87</val>
+              <val>162</val>
+              <val>176</val>
+              <val>159</val>
+              <val>173</val>
+              <val>222</val>
+              <val>226</val>
+              <val>219</val>
+              <val>228</val>
+              <val>301</val>
 
+              <val>672</val>
+              <val>684</val>
+              <val>720</val>
+              <val>720</val>
+              <val>720</val>
+              <val>660</val>
+              <val>660</val>
+              <val>660</val>
+              <val>660</val>
+              <val>660</val>
+              <val>720</val>
+              <val>720</val>
+              <val>720</val>
+          </build_times>
+          <n_build>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
 
-</prototypes>
-<build_times>
-  <val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>8</val>
-<val>156</val>
-<val>191</val>
-<val>50</val>
-<val>81</val>
-<val>73</val>
-<val>73</val>
-<val>87</val>
-<val>162</val>
-<val>176</val>
-<val>159</val>
-<val>173</val>
-<val>222</val>
-<val>226</val>
-<val>219</val>
-<val>228</val>
-<val>301</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+          </n_build>
+          <lifetimes>
+              <val>207</val>
+              <val>226</val>
+              <val>363</val>
+              <val>387</val>
+              <val>219</val>
+              <val>240</val>
+              <val>365</val>
+              <val>341</val>
+              <val>229</val>
+              <val>229</val>
+              <val>444</val>
+              <val>444</val>
+              <val>444</val>
+              <val>444</val>
+              <val>482</val>
+              <val>474</val>
+              <val>718</val>
+              <val>476</val>
+              <val>720</val>
+              <val>720</val>
+              <val>241</val>
+              <val>720</val>
+              <val>720</val>
+              <val>720</val>
+              <val>720</val>
+              <val>720</val>
+              <val>720</val>
+              <val>720</val>
+              <val>720</val>
+              <val>720</val>
+              <val>720</val>
+              <val>720</val>
+              <val>720</val>
+              <val>720</val>
 
-<val>672</val>
-<val>684</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>660</val>
-<val>660</val>
-<val>660</val>
-<val>660</val>
-<val>660</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
+              <val>720</val>
+              <val>720</val>
+              <val>720</val>
+              <val>720</val>
+              <val>714</val>
+              <val>726</val>
+              <val>725</val>
+              <val>715</val>
+              <val>716</val>
+              <val>724</val>
+              <val>723</val>
+              <val>717</val>
+              <val>718</val>
+          </lifetimes>
+      </DeployInst>
+  </config>
+</institution>
+</region>
 
-</build_times>
-<n_build>
-  <val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-
-</n_build>
-<lifetimes>
-  <val>207</val>
-<val>226</val>
-<val>363</val>
-<val>387</val>
-<val>219</val>
-<val>240</val>
-<val>365</val>
-<val>341</val>
-<val>229</val>
-<val>229</val>
-<val>444</val>
-<val>444</val>
-<val>444</val>
-<val>444</val>
-<val>482</val>
-<val>474</val>
-<val>718</val>
-<val>476</val>
-<val>720</val>
-<val>720</val>
-<val>241</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>714</val>
-<val>726</val>
-<val>725</val>
-<val>715</val>
-<val>716</val>
-<val>724</val>
-<val>723</val>
-<val>717</val>
-<val>718</val>
-
-</lifetimes>
-          
-        </DeployInst>
-      </config>
-    </institution>
-  </region>
-  
-  <region>
+<region>
     <name>Belgium</name>
     <config><NullRegion/></config>
     <institution>
       <name>Belgium_government</name>
       <config>
         <DeployInst>
-
           <prototypes>
-  <val>DOEL-1</val>
-<val>TIHANGE-1</val>
-<val>DOEL-2</val>
-<val>DOEL-3</val>
-<val>TIHANGE-2</val>
-<val>TIHANGE-3</val>
-<val>DOEL-4</val>
+              <val>DOEL-1</val>
+              <val>TIHANGE-1</val>
+              <val>DOEL-2</val>
+              <val>DOEL-3</val>
+              <val>TIHANGE-2</val>
+              <val>TIHANGE-3</val>
+              <val>DOEL-4</val>
+          </prototypes>
+          <build_times>
+              <val>55</val>
+              <val>62</val>
+              <val>67</val>
+              <val>149</val>
+              <val>153</val>
+              <val>185</val>
+              <val>183</val>
+          </build_times>
+          <n_build>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+          </n_build>
+          <lifetimes>
+              <val>605</val>
+              <val>598</val>
+              <val>593</val>
+              <val>511</val>
+              <val>507</val>
+              <val>475</val>
+              <val>477</val>
+          </lifetimes>
+      </DeployInst>
+  </config>
+</institution>
+</region>
 
-</prototypes>
-<build_times>
-  <val>55</val>
-<val>62</val>
-<val>67</val>
-<val>149</val>
-<val>153</val>
-<val>185</val>
-<val>183</val>
-
-</build_times>
-<n_build>
-  <val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-
-</n_build>
-<lifetimes>
-  <val>605</val>
-<val>598</val>
-<val>593</val>
-<val>511</val>
-<val>507</val>
-<val>475</val>
-<val>477</val>
-
-</lifetimes>
-          
-        </DeployInst>
-      </config>
-    </institution>
-  </region>
-  
-  <region>
+<region>
     <name>Germany</name>
     <config><NullRegion/></config>
     <institution>
       <name>Germany_government</name>
       <config>
         <DeployInst>
-
           <prototypes>
-  <val>GUNDREMMINGEN-A</val>
-<val>LINGEN</val>
-<val>OBRIGHEIM</val>
-<val>NIEDERAICHBACH</val>
-<val>STADE</val>
-<val>WUERGASSEN</val>
-<val>BIBLIS-A</val>
-<val>GREIFSWALD-1</val>
-<val>GREIFSWALD-2</val>
-<val>BRUNSBUETTEL</val>
-<val>PHILIPPSBURG-1</val>
-<val>THTR-300</val>
-<val>BIBLIS-B</val>
-<val>NECKARWESTHEIM-1</val>
-<val>GREIFSWALD-3</val>
-<val>GREIFSWALD-4</val>
-<val>ISAR-1</val>
-<val>UNTERWESER</val>
-<val>KRUEMMEL</val>
-<val>GRAFENRHEINFELD</val>
-<val>MUELHEIM-KAERLICH</val>
-<val>BROKDORF</val>
-<val>GROHNDE</val>
-<val>GUNDREMMINGEN-B</val>
-<val>GUNDREMMINGEN-C</val>
-<val>GREIFSWALD-5</val>
-<val>PHILIPPSBURG-2</val>
-<val>EMSLAND</val>
-<val>ISAR-2</val>
-<val>NECKARWESTHEIM-2</val>
+              <val>GUNDREMMINGEN-A</val>
+              <val>LINGEN</val>
+              <val>OBRIGHEIM</val>
+              <val>NIEDERAICHBACH</val>
+              <val>STADE</val>
+              <val>WUERGASSEN</val>
+              <val>BIBLIS-A</val>
+              <val>GREIFSWALD-1</val>
+              <val>GREIFSWALD-2</val>
+              <val>BRUNSBUETTEL</val>
+              <val>PHILIPPSBURG-1</val>
+              <val>THTR-300</val>
+              <val>BIBLIS-B</val>
+              <val>NECKARWESTHEIM-1</val>
+              <val>GREIFSWALD-3</val>
+              <val>GREIFSWALD-4</val>
+              <val>ISAR-1</val>
+              <val>UNTERWESER</val>
+              <val>KRUEMMEL</val>
+              <val>GRAFENRHEINFELD</val>
+              <val>MUELHEIM-KAERLICH</val>
+              <val>BROKDORF</val>
+              <val>GROHNDE</val>
+              <val>GUNDREMMINGEN-B</val>
+              <val>GUNDREMMINGEN-C</val>
+              <val>GREIFSWALD-5</val>
+              <val>PHILIPPSBURG-2</val>
+              <val>EMSLAND</val>
+              <val>ISAR-2</val>
+              <val>NECKARWESTHEIM-2</val>
+          </prototypes>
+          <build_times>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>36</val>
+              <val>24</val>
+              <val>22</val>
+              <val>54</val>
+              <val>47</val>
+              <val>59</val>
+              <val>78</val>
+              <val>110</val>
+              <val>164</val>
+              <val>75</val>
+              <val>77</val>
+              <val>93</val>
+              <val>115</val>
+              <val>95</val>
+              <val>104</val>
+              <val>164</val>
+              <val>143</val>
+              <val>194</val>
+              <val>201</val>
+              <val>176</val>
+              <val>170</val>
+              <val>178</val>
+              <val>231</val>
+              <val>179</val>
+              <val>219</val>
+              <val>216</val>
+              <val>228</val>
+          </build_times>
+          <n_build>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+          </n_build>
+          <lifetimes>
+              <val>60</val>
+              <val>60</val>
+              <val>400</val>
+              <val>-5</val>
+              <val>382</val>
+              <val>250</val>
+              <val>445</val>
+              <val>170</val>
+              <val>158</val>
+              <val>421</val>
+              <val>389</val>
+              <val>61</val>
+              <val>424</val>
+              <val>422</val>
+              <val>125</val>
+              <val>132</val>
+              <val>380</val>
+              <val>371</val>
+              <val>311</val>
+              <val>481</val>
+              <val>30</val>
+              <val>423</val>
+              <val>448</val>
+              <val>454</val>
+              <val>446</val>
+              <val>8</val>
+              <val>445</val>
+              <val>405</val>
+              <val>408</val>
+              <val>396</val>
+          </lifetimes>
+      </DeployInst>
+  </config>
+</institution>
+</region>
 
-</prototypes>
-<build_times>
-  <val>1</val>
-<val>1</val>
-<val>1</val>
-<val>36</val>
-<val>24</val>
-<val>22</val>
-<val>54</val>
-<val>47</val>
-<val>59</val>
-<val>78</val>
-<val>110</val>
-<val>164</val>
-<val>75</val>
-<val>77</val>
-<val>93</val>
-<val>115</val>
-<val>95</val>
-<val>104</val>
-<val>164</val>
-<val>143</val>
-<val>194</val>
-<val>201</val>
-<val>176</val>
-<val>170</val>
-<val>178</val>
-<val>231</val>
-<val>179</val>
-<val>219</val>
-<val>216</val>
-<val>228</val>
-
-</build_times>
-<n_build>
-  <val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-
-</n_build>
-<lifetimes>
-  <val>60</val>
-<val>60</val>
-<val>400</val>
-<val>-5</val>
-<val>382</val>
-<val>250</val>
-<val>445</val>
-<val>170</val>
-<val>158</val>
-<val>421</val>
-<val>389</val>
-<val>61</val>
-<val>424</val>
-<val>422</val>
-<val>125</val>
-<val>132</val>
-<val>380</val>
-<val>371</val>
-<val>311</val>
-<val>481</val>
-<val>30</val>
-<val>423</val>
-<val>448</val>
-<val>454</val>
-<val>446</val>
-<val>8</val>
-<val>445</val>
-<val>405</val>
-<val>408</val>
-<val>396</val>
-
-</lifetimes>
-          
-        </DeployInst>
-      </config>
-    </institution>
-  </region>
-  
-  <region>
+<region>
     <name>Bulgaria</name>
     <config><NullRegion/></config>
     <institution>
       <name>Bulgaria_government</name>
       <config>
         <DeployInst>
-
           <prototypes>
-  <val>KOZLODUY-1</val>
-<val>KOZLODUY-2</val>
-<val>KOZLODUY-3</val>
-<val>KOZLODUY-4</val>
-<val>KOZLODUY-5</val>
-<val>KOZLODUY-6</val>
+              <val>KOZLODUY-1</val>
+              <val>KOZLODUY-2</val>
+              <val>KOZLODUY-3</val>
+              <val>KOZLODUY-4</val>
+              <val>KOZLODUY-5</val>
+              <val>KOZLODUY-6</val>
 
-<val>AP1000</val>
+              <val>AP1000</val>
+          </prototypes>
+          <build_times>
+              <val>54</val>
+              <val>68</val>
+              <val>131</val>
+              <val>148</val>
+              <val>214</val>
+              <val>257</val>
 
-</prototypes>
-<build_times>
-  <val>54</val>
-<val>68</val>
-<val>131</val>
-<val>148</val>
-<val>214</val>
-<val>257</val>
+              <val>600</val>
+          </build_times>
+          <n_build>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
 
-<val>600</val>
+              <val>1</val>
+          </n_build>
+          <lifetimes>
+              <val>342</val>
+              <val>328</val>
+              <val>313</val>
+              <val>296</val>
+              <val>720</val>
+              <val>720</val>
 
-</build_times>
-<n_build>
-  <val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
+              <val>720</val>
+          </lifetimes>
+      </DeployInst>
+  </config>
+</institution>
+</region>
 
-<val>1</val>
-
-</n_build>
-<lifetimes>
-  <val>342</val>
-<val>328</val>
-<val>313</val>
-<val>296</val>
-<val>720</val>
-<val>720</val>
-
-<val>720</val>
-
-</lifetimes>
-          
-        </DeployInst>
-      </config>
-    </institution>
-  </region>
-  
-  <region>
+<region>
     <name>Lithuania</name>
     <config><NullRegion/></config>
     <institution>
       <name>Lithuania_government</name>
       <config>
         <DeployInst>
-
           <prototypes>
-  <val>Ignalina-1</val>
-<val>Ignalina-2</val>
+              <val>Ignalina-1</val>
+              <val>Ignalina-2</val>
+          </prototypes>
+          <build_times>
+              <val>167</val>
+              <val>211</val>
+          </build_times>
+          <n_build>
+              <val>1</val>
+              <val>1</val>
+          </n_build>
+          <lifetimes>
+              <val>720</val>
+              <val>720</val>
+          </lifetimes>
+      </DeployInst>
+  </config>
+</institution>
+</region>
 
-</prototypes>
-<build_times>
-  <val>167</val>
-<val>211</val>
 
-</build_times>
-<n_build>
-  <val>1</val>
-<val>1</val>
-
-</n_build>
-<lifetimes>
-  <val>720</val>
-<val>720</val>
-
-</lifetimes>
-          
-        </DeployInst>
-      </config>
-    </institution>
-  </region>
-
-  
-<region>
-    <name>Sink_Source</name>
-    <config><NullRegion/></config>
-            <institution>  
-         <name>Sink_Source_Inst</name>
-         <config><NullInst/></config>
-        <initialfacilitylist>
-          <entry>
-            <number>1</number>
-            <prototype>nat_u_source</prototype>
-          </entry>
-          <entry>
-            <number>1</number>
-            <prototype>enrichment</prototype>
-          </entry>
-          <entry>
-            <number>1</number>
-            <prototype>SomeSink</prototype>
-          </entry>
-          <entry>
-            <number>1</number>
-            <prototype>storage_uox</prototype>
-          </entry>
-          <entry>
-            <number>1</number>
-            <prototype>storage_mox</prototype>
-          </entry>
-          <entry>
-            <number>1</number>
-            <prototype>uox_mixer</prototype>
-          </entry>
-          <entry>
-            <number>1</number>
-            <prototype>mox_mixer</prototype>
-        </entry>
-          <entry>
-            <number>1</number>
-            <prototype>uox_reprocessing</prototype>
-          </entry>
-          <entry>
-            <number>1</number>
-            <prototype>mox_reprocessing</prototype>
-          </entry>
-
-        </initialfacilitylist>
-    </institution>
-</region>  
-
-  <recipe>
+<recipe>
     <name>natl_u_recipe</name>
     <basis>mass</basis>
     <nuclide> <id>U235</id> <comp>0.711</comp> </nuclide>
     <nuclide> <id>U238</id> <comp>99.289</comp> </nuclide>
-  </recipe>
+</recipe>
 
-  <recipe>
+<recipe>
     <name>uox_fuel_recipe</name>
     <basis>mass</basis>
-     <nuclide> <id>U234</id>  <comp>0.0002558883</comp> </nuclide> 
-     <nuclide> <id>U235</id>  <comp>0.0319885317</comp> </nuclide> 
-     <nuclide> <id>U238</id>  <comp>0.96775558</comp> </nuclide> 
-  </recipe> 
+    <nuclide> <id>U234</id>  <comp>0.0002558883</comp> </nuclide> 
+    <nuclide> <id>U235</id>  <comp>0.0319885317</comp> </nuclide> 
+    <nuclide> <id>U238</id>  <comp>0.96775558</comp> </nuclide> 
+</recipe> 
 
-  <recipe>
+<recipe>
     <name>depleted_u</name>
     <basis>mass</basis>
     <nuclide> <id>U235</id><comp>0.003</comp></nuclide>
     <nuclide><id>U238</id><comp>0.997</comp></nuclide>
-  </recipe>
+</recipe>
 
-  <recipe>
+<recipe>
     <name>mox_fuel_recipe</name>
     <basis>mass</basis>
-     <nuclide> <id>U235</id>  <comp>.0026936</comp> </nuclide> 
-     <nuclide> <id>U238</id>  <comp>.90729</comp> </nuclide>
-     <nuclide> <id>Pu238</id>  <comp>0.00108</comp> </nuclide> 
-     <nuclide> <id>Pu239</id>  <comp>0.0498373</comp> </nuclide> 
-     <nuclide> <id>Pu240</id>  <comp>0.0223277</comp> </nuclide> 
-     <nuclide> <id>Pu241</id>  <comp>0.012071</comp> </nuclide> 
-     <nuclide> <id>Pu242</id>  <comp>0.004683</comp> </nuclide>
-  </recipe> 
+    <nuclide> <id>U235</id>  <comp>.0026936</comp> </nuclide> 
+    <nuclide> <id>U238</id>  <comp>.90729</comp> </nuclide>
+    <nuclide> <id>Pu238</id>  <comp>0.00108</comp> </nuclide> 
+    <nuclide> <id>Pu239</id>  <comp>0.0498373</comp> </nuclide> 
+    <nuclide> <id>Pu240</id>  <comp>0.0223277</comp> </nuclide> 
+    <nuclide> <id>Pu241</id>  <comp>0.012071</comp> </nuclide> 
+    <nuclide> <id>Pu242</id>  <comp>0.004683</comp> </nuclide>
+</recipe> 
 
 
-   <recipe>
+<recipe>
     <name>mox_used_fuel_recipe</name>
     <basis>mass</basis>
-     <nuclide> <id>He4</id>  <comp>2.51087058608741E-05</comp> </nuclide> 
-     <nuclide> <id>Ra226</id>  <comp>6.85864649540962E-14</comp> </nuclide> 
-     <nuclide> <id>Ra228</id>  <comp>1.0769444927185E-19</comp> </nuclide> 
-     <nuclide> <id>Pb206</id>  <comp>3.63781250186619E-18</comp> </nuclide> 
-     <nuclide> <id>Pb207</id>  <comp>1.05894542041679E-15</comp> </nuclide> 
-     <nuclide> <id>Pb208</id>  <comp>2.00189681933373E-12</comp> </nuclide> 
-     <nuclide> <id>Pb210</id>  <comp>1.1829390296063E-19</comp> </nuclide> 
-     <nuclide> <id>Th228</id>  <comp>4.90174735683015E-12</comp> </nuclide> 
-     <nuclide> <id>Th229</id>  <comp>1.43792588721374E-12</comp> </nuclide> 
-     <nuclide> <id>Th230</id>  <comp>2.39987630689358E-09</comp> </nuclide> 
-     <nuclide> <id>Th232</id>  <comp>8.76554821092882E-10</comp> </nuclide> 
-     <nuclide> <id>Bi209</id>  <comp>2.68786146372081E-16</comp> </nuclide> 
-     <nuclide> <id>Ac227</id>  <comp>2.46087316302713E-14</comp> </nuclide> 
-     <nuclide> <id>Pa231</id>  <comp>7.06963562072402E-10</comp> </nuclide> 
-     <nuclide> <id>U232</id>  <comp>5.93369416879439E-10</comp> </nuclide> 
-     <nuclide> <id>U233</id>  <comp>1.03594660580906E-08</comp> </nuclide> 
-     <nuclide> <id>U234</id>  <comp>0.0002656863</comp> </nuclide> 
-     <nuclide> <id>U235</id>  <comp>0.0043397763</comp> </nuclide> 
-     <nuclide> <id>U236</id>  <comp>0.0051097366</comp> </nuclide> 
-     <nuclide> <id>U238</id>  <comp>0.8283573053</comp> </nuclide> 
-     <nuclide> <id>Np237</id>  <comp>0.0043297768</comp> </nuclide> 
-     <nuclide> <id>Pu238</id>  <comp>0.0060396887</comp> </nuclide> 
-     <nuclide> <id>Pu239</id>  <comp>0.0410078864</comp> </nuclide> 
-     <nuclide> <id>Pu240</id>  <comp>0.0283985363</comp> </nuclide> 
-     <nuclide> <id>Pu241</id>  <comp>0.0146892429</comp> </nuclide> 
-     <nuclide> <id>Pu242</id>  <comp>0.0098784908</comp> </nuclide> 
-     <nuclide> <id>Pu244</id>  <comp>2.18888718157919E-07</comp> </nuclide> 
-     <nuclide> <id>Am241</id>  <comp>0.0021278903</comp> </nuclide> 
-     <nuclide> <id>Am242m</id>  <comp>5.0357404506317E-05</comp> </nuclide> 
-     <nuclide> <id>Am243</id>  <comp>0.0020828926</comp> </nuclide> 
-     <nuclide> <id>Cm242</id>  <comp>0.0002752858</comp> </nuclide> 
-     <nuclide> <id>Cm243</id>  <comp>1.26393485496395E-05</comp> </nuclide> 
-     <nuclide> <id>Cm244</id>  <comp>0.0010179475</comp> </nuclide> 
-     <nuclide> <id>Cm245</id>  <comp>0.0001275934</comp> </nuclide> 
-     <nuclide> <id>Cm246</id>  <comp>6.14068350026396E-06</comp> </nuclide> 
-     <nuclide> <id>Cm247</id>  <comp>1.20593784421403E-07</comp> </nuclide> 
-     <nuclide> <id>Cm248</id>  <comp>9.15852795618264E-09</comp> </nuclide> 
-     <nuclide> <id>Cm250</id>  <comp>3.73380755414193E-17</comp> </nuclide> 
-     <nuclide> <id>Cf249</id>  <comp>4.05679090711136E-11</comp> </nuclide> 
-     <nuclide> <id>Cf250</id>  <comp>2.9328488367162E-11</comp> </nuclide> 
-     <nuclide> <id>Cf251</id>  <comp>1.4479253718258E-11</comp> </nuclide> 
-     <nuclide> <id>Cf252</id>  <comp>7.53461165518465E-12</comp> </nuclide> 
-     <nuclide> <id>H3</id>  <comp>1.02694706965821E-07</comp> </nuclide> 
-     <nuclide> <id>C14</id>  <comp>3.95879595791321E-11</comp> </nuclide> 
-     <nuclide> <id>Kr81</id>  <comp>7.34462144755557E-11</comp> </nuclide> 
-     <nuclide> <id>Kr85</id>  <comp>2.05489408777763E-05</comp> </nuclide> 
-     <nuclide> <id>Sr90</id>  <comp>0.000408279</comp> </nuclide> 
-     <nuclide> <id>Tc99</id>  <comp>0.0011189423</comp> </nuclide> 
-     <nuclide> <id>I129</id>  <comp>0.0003505819</comp> </nuclide> 
-     <nuclide> <id>Cs134</id>  <comp>0.0002101892</comp> </nuclide> 
-     <nuclide> <id>Cs135</id>  <comp>0.0009355518</comp> </nuclide> 
-     <nuclide> <id>Cs137</id>  <comp>0.0018309056</comp> </nuclide> 
-  </recipe> 
+    <nuclide> <id>He4</id>  <comp>2.51087058608741E-05</comp> </nuclide> 
+    <nuclide> <id>Ra226</id>  <comp>6.85864649540962E-14</comp> </nuclide> 
+    <nuclide> <id>Ra228</id>  <comp>1.0769444927185E-19</comp> </nuclide> 
+    <nuclide> <id>Pb206</id>  <comp>3.63781250186619E-18</comp> </nuclide> 
+    <nuclide> <id>Pb207</id>  <comp>1.05894542041679E-15</comp> </nuclide> 
+    <nuclide> <id>Pb208</id>  <comp>2.00189681933373E-12</comp> </nuclide> 
+    <nuclide> <id>Pb210</id>  <comp>1.1829390296063E-19</comp> </nuclide> 
+    <nuclide> <id>Th228</id>  <comp>4.90174735683015E-12</comp> </nuclide> 
+    <nuclide> <id>Th229</id>  <comp>1.43792588721374E-12</comp> </nuclide> 
+    <nuclide> <id>Th230</id>  <comp>2.39987630689358E-09</comp> </nuclide> 
+    <nuclide> <id>Th232</id>  <comp>8.76554821092882E-10</comp> </nuclide> 
+    <nuclide> <id>Bi209</id>  <comp>2.68786146372081E-16</comp> </nuclide> 
+    <nuclide> <id>Ac227</id>  <comp>2.46087316302713E-14</comp> </nuclide> 
+    <nuclide> <id>Pa231</id>  <comp>7.06963562072402E-10</comp> </nuclide> 
+    <nuclide> <id>U232</id>  <comp>5.93369416879439E-10</comp> </nuclide> 
+    <nuclide> <id>U233</id>  <comp>1.03594660580906E-08</comp> </nuclide> 
+    <nuclide> <id>U234</id>  <comp>0.0002656863</comp> </nuclide> 
+    <nuclide> <id>U235</id>  <comp>0.0043397763</comp> </nuclide> 
+    <nuclide> <id>U236</id>  <comp>0.0051097366</comp> </nuclide> 
+    <nuclide> <id>U238</id>  <comp>0.8283573053</comp> </nuclide> 
+    <nuclide> <id>Np237</id>  <comp>0.0043297768</comp> </nuclide> 
+    <nuclide> <id>Pu238</id>  <comp>0.0060396887</comp> </nuclide> 
+    <nuclide> <id>Pu239</id>  <comp>0.0410078864</comp> </nuclide> 
+    <nuclide> <id>Pu240</id>  <comp>0.0283985363</comp> </nuclide> 
+    <nuclide> <id>Pu241</id>  <comp>0.0146892429</comp> </nuclide> 
+    <nuclide> <id>Pu242</id>  <comp>0.0098784908</comp> </nuclide> 
+    <nuclide> <id>Pu244</id>  <comp>2.18888718157919E-07</comp> </nuclide> 
+    <nuclide> <id>Am241</id>  <comp>0.0021278903</comp> </nuclide> 
+    <nuclide> <id>Am242m</id>  <comp>5.0357404506317E-05</comp> </nuclide> 
+    <nuclide> <id>Am243</id>  <comp>0.0020828926</comp> </nuclide> 
+    <nuclide> <id>Cm242</id>  <comp>0.0002752858</comp> </nuclide> 
+    <nuclide> <id>Cm243</id>  <comp>1.26393485496395E-05</comp> </nuclide> 
+    <nuclide> <id>Cm244</id>  <comp>0.0010179475</comp> </nuclide> 
+    <nuclide> <id>Cm245</id>  <comp>0.0001275934</comp> </nuclide> 
+    <nuclide> <id>Cm246</id>  <comp>6.14068350026396E-06</comp> </nuclide> 
+    <nuclide> <id>Cm247</id>  <comp>1.20593784421403E-07</comp> </nuclide> 
+    <nuclide> <id>Cm248</id>  <comp>9.15852795618264E-09</comp> </nuclide> 
+    <nuclide> <id>Cm250</id>  <comp>3.73380755414193E-17</comp> </nuclide> 
+    <nuclide> <id>Cf249</id>  <comp>4.05679090711136E-11</comp> </nuclide> 
+    <nuclide> <id>Cf250</id>  <comp>2.9328488367162E-11</comp> </nuclide> 
+    <nuclide> <id>Cf251</id>  <comp>1.4479253718258E-11</comp> </nuclide> 
+    <nuclide> <id>Cf252</id>  <comp>7.53461165518465E-12</comp> </nuclide> 
+    <nuclide> <id>H3</id>  <comp>1.02694706965821E-07</comp> </nuclide> 
+    <nuclide> <id>C14</id>  <comp>3.95879595791321E-11</comp> </nuclide> 
+    <nuclide> <id>Kr81</id>  <comp>7.34462144755557E-11</comp> </nuclide> 
+    <nuclide> <id>Kr85</id>  <comp>2.05489408777763E-05</comp> </nuclide> 
+    <nuclide> <id>Sr90</id>  <comp>0.000408279</comp> </nuclide> 
+    <nuclide> <id>Tc99</id>  <comp>0.0011189423</comp> </nuclide> 
+    <nuclide> <id>I129</id>  <comp>0.0003505819</comp> </nuclide> 
+    <nuclide> <id>Cs134</id>  <comp>0.0002101892</comp> </nuclide> 
+    <nuclide> <id>Cs135</id>  <comp>0.0009355518</comp> </nuclide> 
+    <nuclide> <id>Cs137</id>  <comp>0.0018309056</comp> </nuclide> 
+</recipe> 
 
-  <recipe>
+<recipe>
     <name>uox_used_fuel_recipe</name>
     <basis>mass</basis>
-     <nuclide> <id>He4</id>  <comp>2.09687731425456E-07</comp> </nuclide> 
-     <nuclide> <id>Ra226</id>  <comp>1.18893043712383E-14</comp> </nuclide> 
-     <nuclide> <id>Ra228</id>  <comp>6.05164592554536E-21</comp> </nuclide> 
-     <nuclide> <id>Pb206</id>  <comp>7.66855132237399E-20</comp> </nuclide> 
-     <nuclide> <id>Pb207</id>  <comp>6.51861860354101E-17</comp> </nuclide> 
-     <nuclide> <id>Pb208</id>  <comp>1.2309279798986E-13</comp> </nuclide> 
-     <nuclide> <id>Pb210</id>  <comp>2.49685391210951E-20</comp> </nuclide> 
-     <nuclide> <id>Th228</id>  <comp>6.56361597079969E-13</comp> </nuclide> 
-     <nuclide> <id>Th229</id>  <comp>1.70690013134599E-13</comp> </nuclide> 
-     <nuclide> <id>Th230</id>  <comp>0.000000001</comp> </nuclide> 
-     <nuclide> <id>Th232</id>  <comp>1.56490843910748E-10</comp> </nuclide> 
-     <nuclide> <id>Bi209</id>  <comp>2.5848487636376E-17</comp> </nuclide> 
-     <nuclide> <id>Ac227</id>  <comp>3.45679774696139E-15</comp> </nuclide> 
-     <nuclide> <id>Pa231</id>  <comp>2.25186824592336E-10</comp> </nuclide> 
-     <nuclide> <id>U232</id>  <comp>1.39991809249232E-10</comp> </nuclide> 
-     <nuclide> <id>U233</id>  <comp>1.31692294843742E-09</comp> </nuclide> 
-     <nuclide> <id>U234</id>  <comp>0.0001558909</comp> </nuclide> 
-     <nuclide> <id>U235</id>  <comp>0.0080635282</comp> </nuclide> 
-     <nuclide> <id>U236</id>  <comp>0.0038647739</comp> </nuclide> 
-     <nuclide> <id>U238</id>  <comp>0.9441447592</comp> </nuclide> 
-     <nuclide> <id>Np237</id>  <comp>0.0003316806</comp> </nuclide> 
-     <nuclide> <id>Pu238</id>  <comp>0.0001076937</comp> </nuclide> 
-     <nuclide> <id>Pu239</id>  <comp>0.0050287058</comp> </nuclide> 
-     <nuclide> <id>Pu240</id>  <comp>0.0022528682</comp> </nuclide> 
-     <nuclide> <id>Pu241</id>  <comp>0.0012229284</comp> </nuclide> 
-     <nuclide> <id>Pu242</id>  <comp>0.0004725724</comp> </nuclide> 
-     <nuclide> <id>Pu244</id>  <comp>1.24592710231816E-08</comp> </nuclide> 
-     <nuclide> <id>Am241</id>  <comp>2.97982565401936E-05</comp> </nuclide> 
-     <nuclide> <id>Am242m</id>  <comp>3.55779183791976E-07</comp> </nuclide> 
-     <nuclide> <id>Am243</id>  <comp>7.89053833418348E-05</comp> </nuclide> 
-     <nuclide> <id>Cm242</id>  <comp>1.15793225079007E-05</comp> </nuclide> 
-     <nuclide> <id>Cm243</id>  <comp>0.00000024</comp> </nuclide> 
-     <nuclide> <id>Cm244</id>  <comp>2.20987070314859E-05</comp> </nuclide> 
-     <nuclide> <id>Cm245</id>  <comp>1.02693991499258E-06</comp> </nuclide> 
-     <nuclide> <id>Cm246</id>  <comp>9.56844016218499E-08</comp> </nuclide> 
-     <nuclide> <id>Cm247</id>  <comp>8.39550878897535E-10</comp> </nuclide> 
-     <nuclide> <id>Cm248</id>  <comp>4.3267468472959E-11</comp> </nuclide> 
-     <nuclide> <id>Cm250</id>  <comp>1.99688316479083E-19</comp> </nuclide> 
-     <nuclide> <id>Cf249</id>  <comp>4.3937429274366E-14</comp> </nuclide> 
-     <nuclide> <id>Cf250</id>  <comp>8.11752505346616E-14</comp> </nuclide> 
-     <nuclide> <id>Cf251</id>  <comp>3.16081506454872E-14</comp> </nuclide> 
-     <nuclide> <id>Cf252</id>  <comp>1.66790241305513E-14</comp> </nuclide> 
-     <nuclide> <id>H3</id>  <comp>5.74866365267024E-08</comp> </nuclide> 
-     <nuclide> <id>C14</id>  <comp>2.63084607239092E-11</comp> </nuclide> 
-     <nuclide> <id>Kr81</id>  <comp>2.16087356991135E-11</comp> </nuclide> 
-     <nuclide> <id>Kr85</id>  <comp>2.41685859253852E-05</comp> </nuclide> 
-     <nuclide> <id>Sr90</id>  <comp>0.0005372686</comp> </nuclide> 
-     <nuclide> <id>Tc99</id>  <comp>0.0007822542</comp> </nuclide> 
-     <nuclide> <id>I129</id>  <comp>0.0001810894</comp> </nuclide> 
-     <nuclide> <id>Cs134</id>  <comp>0.0001230928</comp> </nuclide> 
-     <nuclide> <id>Cs135</id>  <comp>0.0003052821</comp> </nuclide> 
-     <nuclide> <id>Cs137</id>  <comp>0.0012009297</comp> </nuclide> 
+    <nuclide> <id>He4</id>  <comp>2.09687731425456E-07</comp> </nuclide> 
+    <nuclide> <id>Ra226</id>  <comp>1.18893043712383E-14</comp> </nuclide> 
+    <nuclide> <id>Ra228</id>  <comp>6.05164592554536E-21</comp> </nuclide> 
+    <nuclide> <id>Pb206</id>  <comp>7.66855132237399E-20</comp> </nuclide> 
+    <nuclide> <id>Pb207</id>  <comp>6.51861860354101E-17</comp> </nuclide> 
+    <nuclide> <id>Pb208</id>  <comp>1.2309279798986E-13</comp> </nuclide> 
+    <nuclide> <id>Pb210</id>  <comp>2.49685391210951E-20</comp> </nuclide> 
+    <nuclide> <id>Th228</id>  <comp>6.56361597079969E-13</comp> </nuclide> 
+    <nuclide> <id>Th229</id>  <comp>1.70690013134599E-13</comp> </nuclide> 
+    <nuclide> <id>Th230</id>  <comp>0.000000001</comp> </nuclide> 
+    <nuclide> <id>Th232</id>  <comp>1.56490843910748E-10</comp> </nuclide> 
+    <nuclide> <id>Bi209</id>  <comp>2.5848487636376E-17</comp> </nuclide> 
+    <nuclide> <id>Ac227</id>  <comp>3.45679774696139E-15</comp> </nuclide> 
+    <nuclide> <id>Pa231</id>  <comp>2.25186824592336E-10</comp> </nuclide> 
+    <nuclide> <id>U232</id>  <comp>1.39991809249232E-10</comp> </nuclide> 
+    <nuclide> <id>U233</id>  <comp>1.31692294843742E-09</comp> </nuclide> 
+    <nuclide> <id>U234</id>  <comp>0.0001558909</comp> </nuclide> 
+    <nuclide> <id>U235</id>  <comp>0.0080635282</comp> </nuclide> 
+    <nuclide> <id>U236</id>  <comp>0.0038647739</comp> </nuclide> 
+    <nuclide> <id>U238</id>  <comp>0.9441447592</comp> </nuclide> 
+    <nuclide> <id>Np237</id>  <comp>0.0003316806</comp> </nuclide> 
+    <nuclide> <id>Pu238</id>  <comp>0.0001076937</comp> </nuclide> 
+    <nuclide> <id>Pu239</id>  <comp>0.0050287058</comp> </nuclide> 
+    <nuclide> <id>Pu240</id>  <comp>0.0022528682</comp> </nuclide> 
+    <nuclide> <id>Pu241</id>  <comp>0.0012229284</comp> </nuclide> 
+    <nuclide> <id>Pu242</id>  <comp>0.0004725724</comp> </nuclide> 
+    <nuclide> <id>Pu244</id>  <comp>1.24592710231816E-08</comp> </nuclide> 
+    <nuclide> <id>Am241</id>  <comp>2.97982565401936E-05</comp> </nuclide> 
+    <nuclide> <id>Am242m</id>  <comp>3.55779183791976E-07</comp> </nuclide> 
+    <nuclide> <id>Am243</id>  <comp>7.89053833418348E-05</comp> </nuclide> 
+    <nuclide> <id>Cm242</id>  <comp>1.15793225079007E-05</comp> </nuclide> 
+    <nuclide> <id>Cm243</id>  <comp>0.00000024</comp> </nuclide> 
+    <nuclide> <id>Cm244</id>  <comp>2.20987070314859E-05</comp> </nuclide> 
+    <nuclide> <id>Cm245</id>  <comp>1.02693991499258E-06</comp> </nuclide> 
+    <nuclide> <id>Cm246</id>  <comp>9.56844016218499E-08</comp> </nuclide> 
+    <nuclide> <id>Cm247</id>  <comp>8.39550878897535E-10</comp> </nuclide> 
+    <nuclide> <id>Cm248</id>  <comp>4.3267468472959E-11</comp> </nuclide> 
+    <nuclide> <id>Cm250</id>  <comp>1.99688316479083E-19</comp> </nuclide> 
+    <nuclide> <id>Cf249</id>  <comp>4.3937429274366E-14</comp> </nuclide> 
+    <nuclide> <id>Cf250</id>  <comp>8.11752505346616E-14</comp> </nuclide> 
+    <nuclide> <id>Cf251</id>  <comp>3.16081506454872E-14</comp> </nuclide> 
+    <nuclide> <id>Cf252</id>  <comp>1.66790241305513E-14</comp> </nuclide> 
+    <nuclide> <id>H3</id>  <comp>5.74866365267024E-08</comp> </nuclide> 
+    <nuclide> <id>C14</id>  <comp>2.63084607239092E-11</comp> </nuclide> 
+    <nuclide> <id>Kr81</id>  <comp>2.16087356991135E-11</comp> </nuclide> 
+    <nuclide> <id>Kr85</id>  <comp>2.41685859253852E-05</comp> </nuclide> 
+    <nuclide> <id>Sr90</id>  <comp>0.0005372686</comp> </nuclide> 
+    <nuclide> <id>Tc99</id>  <comp>0.0007822542</comp> </nuclide> 
+    <nuclide> <id>I129</id>  <comp>0.0001810894</comp> </nuclide> 
+    <nuclide> <id>Cs134</id>  <comp>0.0001230928</comp> </nuclide> 
+    <nuclide> <id>Cs135</id>  <comp>0.0003052821</comp> </nuclide> 
+    <nuclide> <id>Cs137</id>  <comp>0.0012009297</comp> </nuclide> 
 
-  </recipe> 
+</recipe> 
 
-  <recipe>
+<recipe>
     <name>fr_fuel_recipe</name>
     <basis>mass</basis>
     <nuclide> <id>U234</id>  <comp>0.000538</comp> </nuclide>
@@ -5852,9 +5756,9 @@
     <nuclide> <id>Cm244</id> <comp>0.469900</comp> </nuclide>
     <nuclide> <id>Cm245</id> <comp>0.083910</comp> </nuclide>
     <nuclide> <id>Cm246</id> <comp>0.027150</comp> </nuclide>
-  </recipe> 
+</recipe> 
 
-  <recipe>
+<recipe>
     <name>fr_used_fuel_recipe</name>
     <basis>mass</basis>
     <nuclide> <id>U234</id>  <comp>5.408E02</comp> </nuclide>
@@ -5875,6 +5779,6 @@
     <nuclide> <id>Cm244</id> <comp>3.836E03</comp> </nuclide>
     <nuclide> <id>Cm245</id> <comp>1.036E03</comp> </nuclide>
     <nuclide> <id>Cm246</id> <comp>3.374E02</comp> </nuclide>
-  </recipe>
+</recipe>
 
 </simulation>
