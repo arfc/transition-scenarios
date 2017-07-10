@@ -361,12 +361,12 @@
 
           <entry>
             <number>1</number>
-            <prototype>mox_mox_fuel_fab</prototype>
+            <prototype>uox_mixer</prototype>
           </entry>
 
           <entry>
             <number>1</number>
-            <prototype>mox_uox_fuel_fab</prototype>
+            <prototype>mox_mixer</prototype>
           </entry>
 
           <entry>
