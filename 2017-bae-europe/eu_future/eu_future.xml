@@ -4,6 +4,7 @@
     <duration>960</duration>
     <startmonth>1 </startmonth>
     <startyear>1970 </startyear>
+    <decay>lazy</decay>
   </control>
 
 
@@ -19,10 +20,6 @@
     <spec>
       <lib>cycamore</lib>
       <name>Reactor</name>
-    </spec>
-    <spec>
-      <lib>cycamore</lib>
-      <name>Storage</name>
     </spec>
     <spec>
         <lib>cycamore</lib>
@@ -244,40 +241,12 @@
   </facility>
 
   <facility>
-    <name>storage_uox</name>
-    <config>
-        <Storage>
-            <in_commods>
-                <val>uox_waste</val>
-            </in_commods>
-            <out_commods>
-                <val>uox_waste</val>
-            </out_commods>
-            <residence_time> 1 </residence_time>
-        </Storage>
-    </config>
-  </facility>
-
-  <facility>
-    <name>storage_mox</name>
-    <config>
-        <Storage>
-            <in_commods>
-                <val>mox_waste</val>
-            </in_commods>
-            <out_commods>
-                <val>mox_waste</val>
-            </out_commods>
-            <residence_time> 1 </residence_time>
-        </Storage>
-    </config>
-  </facility>
-
-  <facility>
     <name>SomeSink</name>
     <config>
       <Sink>
         <in_commods>
+          <val>uox_waste</val>
+          <val>mox_waste</val>
           <val>tailings</val>
           <val>reprocess_waste</val>
           <val>mox_reprocess_waste</val>
@@ -5652,14 +5621,6 @@
           <entry>
             <number>1</number>
             <prototype>SomeSink</prototype>
-          </entry>
-          <entry>
-            <number>1</number>
-            <prototype>storage_uox</prototype>
-          </entry>
-          <entry>
-            <number>1</number>
-            <prototype>storage_mox</prototype>
           </entry>
           <entry>
             <number>1</number>
