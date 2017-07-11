@@ -506,8 +506,8 @@ def fuel_usage_timeseries(cursor, fuel_list):
     for fuel in fuel_list:
         temp_list = ['"' + fuel + '"']
         fuel_quantity = cursor.execute(exec_string(temp_list, 'commodity',
-                                                   'time, sum(quantity)') +
-                                       ' GROUP BY time').fetchall()
+                                                   'time, sum(quantity)') 
+                                       + ' GROUP BY time').fetchall()
         init_year, init_month, duration, timestep = get_timesteps(
             cursor)
         quantity_timeseries = []
@@ -889,7 +889,7 @@ def where_comm(cursor, commodity, prototypes):
         agent_id = get_prototype_id(cursor, agent)
         from_agent = cursor.execute(query.replace(
             '9999', ' OR senderid = '.join(agent_id))).fetchall()
-        trade_dict[agent] = get_timeseries_cum(from_agent, True)
+        trade_dict[agent] = get_timeseries_cum(from_agent, duration, True)
 
     return trade_dict
 
