@@ -28,6 +28,22 @@ def get_cursor(file_name):
     return con.cursor()
 
 
+def get_no_indx_cursor(file_name):
+    """ Connects and returns a cursor to an sqlite output file, but without column name indexing
+
+    Parameters
+    ----------
+    file_name: str
+        name of the sqlite file
+
+    Returns
+    -------
+    sqlite cursor3
+    """
+    con = lite.connect(file_name)
+    return con.cursor()
+
+
 def get_agent_ids(cursor, archetype):
     """ Gets all agentIds from Agententry table for wanted archetype
 
@@ -233,13 +249,13 @@ def get_timeseries_cum(in_list, duration, kg_to_tons):
     value = 0
     value_timeseries = []
     array = np.array(in_list)
-    for i in range(0, duration):
-        if len(in_list) > 0:
+    if len(in_list) > 0:
+        for i in range(0, duration):
             value += sum(array[array[:, 0] == i][:, 1])
-        if kg_to_tons:
-            value_timeseries.append(value * 0.001)
-        else:
-            value_timeseries.append(value)
+            if kg_to_tons:
+                value_timeseries.append(value * 0.001)
+            else:
+                value_timeseries.append(value)
     return value_timeseries
 
 
@@ -503,16 +519,13 @@ def fuel_usage_timeseries(cursor, fuel_list):
         value=timeseries list of fuel amount [kg]"
     """
     fuel_dict = collections.OrderedDict()
+    init_year, init_month, duration, timestep = get_timesteps(cursor)
     for fuel in fuel_list:
-        temp_list = ['"' + fuel + '"']
-        fuel_quantity = cursor.execute(exec_string(temp_list, 'commodity',
-                                                   'time, sum(quantity)') 
-                                       + ' GROUP BY time').fetchall()
-        init_year, init_month, duration, timestep = get_timesteps(
-            cursor)
-        quantity_timeseries = []
+        temp_list = [fuel]
+        fuel_quantity = cursor.execute(exec_string(temp_list, 'commodity','time, sum(quantity)') + ' GROUP BY time').fetchall()
+        print(fuel_quantity)
         try:
-            quantity_timeseries = get_timeseries_cum(fuel_quantity, True)
+            quantity_timeseries = get_timeseries_cum(fuel_quantity, duration, True)
             fuel_dict[fuel] = quantity_timeseries
         except:
             print(str(fuel) + ' has not been used.')
