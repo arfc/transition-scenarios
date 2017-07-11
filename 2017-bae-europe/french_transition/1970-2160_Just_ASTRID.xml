@@ -361,12 +361,12 @@
 
           <entry>
             <number>1</number>
-            <prototype>uox_mixer</prototype>
+            <prototype>mox_mox_fuel_fab</prototype>
           </entry>
 
           <entry>
             <number>1</number>
-            <prototype>mox_mixer</prototype>
+            <prototype>mox_uox_fuel_fab</prototype>
           </entry>
 
           <entry>
@@ -399,7 +399,6 @@
       <name>France_government</name>
       <config>
         <DeployInst>
-
           <prototypes>
             <val>enrichment</val>
 
@@ -452,6 +451,108 @@
             <val>astrid</val>
             <val>astrid</val>
             <val>astrid</val>
+
+
+ <val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
 
 
 </prototypes>
@@ -508,8 +609,116 @@
             <val>1078</val>
             <val>1283</val>
 
+
+
+
+
+
+
+<val>1800</val>
+<val>1800</val>
+<val>1800</val>
+<val>1800</val>
+<val>1800</val>
+<val>1800</val>
+<val>1800</val>
+<val>1800</val>
+<val>1800</val>
+<val>1800</val>
+<val>1800</val>
+<val>1800</val>
+<val>1800</val>
+<val>1800</val>
+<val>1800</val>
+<val>1800</val>
+<val>1800</val>
+<val>1800</val>
+<val>1800</val>
+<val>1800</val>
+<val>1800</val>
+<val>1800</val>
+<val>1801</val>
+<val>1801</val>
+<val>1806</val>
+<val>1810</val>
+<val>1810</val>
+<val>1811</val>
+<val>1811</val>
+<val>1812</val>
+<val>1815</val>
+<val>1815</val>
+<val>1816</val>
+<val>1818</val>
+<val>1818</val>
+<val>1829</val>
+<val>1833</val>
+<val>1833</val>
+<val>1838</val>
+<val>1839</val>
+<val>1839</val>
+<val>1842</val>
+<val>1844</val>
+<val>1844</val>
+<val>1850</val>
+<val>1850</val>
+<val>1853</val>
+<val>1853</val>
+<val>1854</val>
+<val>1854</val>
+<val>1856</val>
+<val>1865</val>
+<val>1865</val>
+<val>1866</val>
+<val>1866</val>
+<val>1867</val>
+<val>1867</val>
+<val>1873</val>
+<val>1873</val>
+<val>1875</val>
+<val>1875</val>
+<val>1880</val>
+<val>1880</val>
+<val>1880</val>
+<val>1889</val>
+<val>1889</val>
+<val>1890</val>
+<val>1890</val>
+<val>1892</val>
+<val>1892</val>
+<val>1899</val>
+<val>1899</val>
+<val>1903</val>
+<val>1903</val>
+<val>1919</val>
+<val>1919</val>
+<val>1921</val>
+<val>1921</val>
+<val>1922</val>
+<val>1922</val>
+<val>1934</val>
+<val>1934</val>
+<val>1934</val>
+<val>1942</val>
+<val>1942</val>
+<val>1959</val>
+<val>1959</val>
+<val>1997</val>
+<val>1997</val>
+<val>2004</val>
+<val>2004</val>
+<val>2004</val>
+<val>2013</val>
+<val>2013</val>
+<val>2013</val>
+<val>2037</val>
+<val>2037</val>
+<val>2242</val>
+<val>2242</val>
+<val>2242</val>
+
 </build_times>
 <n_build>
+
             <val>1</val>
 
             <val>22</val>
@@ -561,67 +770,276 @@
             <val>3</val>
             <val>2</val>
             <val>3</val>
+
+
+
+
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+
 </n_build>
 
 <lifetimes>
             <val>1</val>
-            
-            <val>9999</val>
+
+            <val>960</val>
 
 
-            <val>9999</val>
-            <val>9999</val>  
-            <val>9999</val>
-            <val>9999</val>
-            <val>9999</val>
+            <val>960</val>
+            <val>960</val>  
+            <val>960</val>
+            <val>960</val>
+            <val>960</val>
 
-            <val>9999</val>
-            <val>9999</val>
-            <val>9999</val>
-            <val>9999</val>
-            <val>9999</val>
+            <val>960</val>
+            <val>960</val>
+            <val>960</val>
+            <val>960</val>
+            <val>960</val>
 
-            <val>9999</val>
-            <val>9999</val>
-            <val>9999</val>
-            <val>9999</val>
-            <val>9999</val>
+            <val>960</val>
+            <val>960</val>
+            <val>960</val>
+            <val>960</val>
+            <val>960</val>
 
-            <val>9999</val>
-            <val>9999</val>
-            <val>9999</val>
-            <val>9999</val>
-            <val>9999</val>
+            <val>960</val>
+            <val>960</val>
+            <val>960</val>
+            <val>960</val>
+            <val>960</val>
 
-            <val>9999</val>
-            <val>9999</val>
-            <val>9999</val>
-            <val>9999</val>
-            <val>9999</val>
+            <val>960</val>
+            <val>960</val>
+            <val>960</val>
+            <val>960</val>
+            <val>960</val>
 
-            <val>9999</val>
-            <val>9999</val>
-            <val>9999</val>
-            <val>9999</val>
-            <val>9999</val>
+            <val>960</val>
+            <val>960</val>
+            <val>960</val>
+            <val>960</val>
+            <val>960</val>
 
-            <val>9999</val>
-            <val>9999</val>
-            <val>9999</val>
-            <val>9999</val>
-            <val>9999</val>
+            <val>960</val>
+            <val>960</val>
+            <val>960</val>
+            <val>960</val>
+            <val>960</val>
 
-            <val>9999</val>
-            <val>9999</val>
-            <val>9999</val>
-            <val>9999</val>
-            <val>9999</val>
+            <val>960</val>
+            <val>960</val>
+            <val>960</val>
+            <val>960</val>
+            <val>960</val>
+
+
+
+
+
+ <val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
 </lifetimes>
-    
-          
         </DeployInst>
       </config>
     </institution>
+
   </region>
 
   <recipe>
