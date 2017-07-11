@@ -1155,7 +1155,7 @@ def plot_power(cursor):
 
     Parameters
     ----------
-    cursor: sqlite cursorp
+    cursor: sqlite cursor
         sqlite cursor
 
     Returns
