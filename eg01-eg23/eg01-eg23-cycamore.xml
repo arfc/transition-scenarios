@@ -540,6 +540,17 @@ CF = 13.64 /(12.9*.998) = 1.059
                          <val>1296</val>
                          <val>1308</val>
                          <val>1320</val>
+
+                          <val>1141</val>
+                         <val>1190</val>
+                         <val>1239</val>
+                         <val>1288</val>
+                         <val>1338</val>
+                         <val>1387</val>
+                         <val>1436</val>
+                         <val>1485</val>
+                         <val>1534</val>
+                         <val>1584</val>
                     </build_times>
                     <n_build>
                          <val>2</val>
@@ -647,6 +658,18 @@ CF = 13.64 /(12.9*.998) = 1.059
                          <val>3</val>
                          <val>5</val>
                          <val>2</val>
+
+
+                         <val>5</val>
+                         <val>5</val>
+                         <val>5</val>
+                         <val>5</val>
+                         <val>5</val>
+                         <val>5</val>
+                         <val>5</val>
+                         <val>5</val>
+                         <val>5</val>
+                         <val>5</val>
                     </n_build>
                     <prototypes>
                          <val>lwr</val>
@@ -744,6 +767,18 @@ CF = 13.64 /(12.9*.998) = 1.059
                          <val>lwr</val>
                          <val>lwr</val>
                          <val>lwr</val>
+                         <val>lwr</val>
+                         <val>lwr</val>
+                         <val>lwr</val>
+                         <val>lwr</val>
+                         <val>lwr</val>
+                         <val>lwr</val>
+                         <val>lwr</val>
+                         <val>lwr</val>
+                         <val>lwr</val>
+                         <val>lwr</val>
+
+
                          <val>lwr</val>
                          <val>lwr</val>
                          <val>lwr</val>
@@ -1130,52 +1165,6 @@ CF = 13.64 /(12.9*.998) = 1.059
           <name>fr_inst</name>
      </institution>
 
-     <institution>
-          <name>lwr_inst_new</name>
-          <config>
-               <DeployInst>
-                    <build_times>
-                         <val>1141</val>
-                         <val>1190</val>
-                         <val>1239</val>
-                         <val>1288</val>
-                         <val>1338</val>
-                         <val>1387</val>
-                         <val>1436</val>
-                         <val>1485</val>
-                         <val>1534</val>
-                         <val>1584</val>
-
-                    </build_times>
-                    <n_build>
-                         <val>5</val>
-                         <val>5</val>
-                         <val>5</val>
-                         <val>5</val>
-                         <val>5</val>
-                         <val>5</val>
-                         <val>5</val>
-                         <val>5</val>
-                         <val>5</val>
-                         <val>5</val>
-
-                    </n_build>
-                    <prototypes>
-                         <val>lwr</val>
-                         <val>lwr</val>
-                         <val>lwr</val>
-                         <val>lwr</val>
-                         <val>lwr</val>
-                         <val>lwr</val>
-                         <val>lwr</val>
-                         <val>lwr</val>
-                         <val>lwr</val>
-                         <val>lwr</val>
-
-                    </prototypes>
-               </DeployInst>
-          </config>
-     </institution>
     <name>USA</name>
   </region>
 
