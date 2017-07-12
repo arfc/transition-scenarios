@@ -522,10 +522,13 @@ def fuel_usage_timeseries(cursor, fuel_list):
     init_year, init_month, duration, timestep = get_timesteps(cursor)
     for fuel in fuel_list:
         temp_list = [fuel]
-        fuel_quantity = cursor.execute(exec_string(temp_list, 'commodity','time, sum(quantity)') + ' GROUP BY time').fetchall()
-        print(fuel_quantity)
+        fuel_quantity = cursor.execute(exec_string(temp_list, 'commodity',
+                                                   'time, sum(quantity)') +
+                                       ' GROUP BY time').fetchall()
+        quantity_timeseries = []
         try:
-            quantity_timeseries = get_timeseries_cum(fuel_quantity, duration, True)
+            quantity_timeseries = get_timeseries_cum(
+                fuel_quantity, duration, True)
             fuel_dict[fuel] = quantity_timeseries
         except:
             print(str(fuel) + ' has not been used.')
@@ -868,7 +871,7 @@ def u_util_calc(cursor):
     # timeseries of Uranium utilization
     u_util_timeseries = np.nan_to_num(fuel_timeseries / u_supply_timeseries)
     print('The Average Fuel Utilization Factor is: ')
-    print(sum(u_util_timeseries)/len(u_util_timeseries))
+    print(sum(u_util_timeseries) / len(u_util_timeseries))
 
     return u_util_timeseries
 
