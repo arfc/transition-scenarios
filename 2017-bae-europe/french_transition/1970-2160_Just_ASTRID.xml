@@ -184,7 +184,7 @@
          <feed_recipe>uox_used_fuel_recipe</feed_recipe>
          <feedbuf_size>1E100</feedbuf_size>
          <!-- 1100 tons/year 91.6 tons/timestep --> 
-         <throughput>1E100</throughput>
+         <throughput>2e5</throughput>
          <leftover_commod>reprocess_waste</leftover_commod>
          <leftoverbuf_size>1E100</leftoverbuf_size>
          <streams>
@@ -355,10 +355,6 @@
             <prototype>SomeSink</prototype>
           </entry>
 
-          <entry>
-            <number>1</number>
-            <prototype>uox_reprocessing</prototype>
-          </entry>
 
           <entry>
             <number>1</number>
@@ -385,10 +381,13 @@
             <prototype>tails_source_mox</prototype>
           </entry>
           
-
-          <entry>
+           <entry>
             <number>1</number>
             <prototype>mox_reprocessing</prototype>
+          </entry>
+           <entry>
+            <number>1</number>
+            <prototype>uox_reprocessing</prototype>
           </entry>
 
 
