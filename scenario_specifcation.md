@@ -15,6 +15,8 @@
 4. Can't Match Demand:
    * Demand of FR fuel can't be met, and the FR just gets deployed, but does not produce power
 
+5. EG29, 30 reprocessed material only goes in one mixer if both mixer has infinite throughput / buffer.
+
 
 
 
