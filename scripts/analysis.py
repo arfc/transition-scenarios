@@ -1182,13 +1182,13 @@ def plot_power(cursor):
     stacked_bar_chart(power_dict, timestep,
                       'Years', 'Net_Capacity [GWe]',
                       'Net Capacity vs Time',
-                      'Net Capacity vs Time', init_year)
+                      'power_plot', init_year)
 
     deployment_dict = get_deployment_dict(cursor)
     stacked_bar_chart(deployment_dict, timestep,
                       'Years', 'Number of Reactors',
                       'Number of Reactors vs Time',
-                      'Number of Reactors vs Time', init_year)
+                      'num_plot', init_year)
 
 
 def plot_in_out_flux(cursor, facility, influx_bool, title, outputname):
