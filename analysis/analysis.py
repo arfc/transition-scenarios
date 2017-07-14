@@ -11,8 +11,8 @@ if len(sys.argv) < 2:
     print('Usage: python analysis.py [cylus_output_file]')
 
 
-def get_cursor(file_name):
-    """ Connects and returns a cursor to an sqlite output file
+def get_cur(file_name):
+    """ Connects and returns a cur to an sqlite output file
 
     Parameters
     ----------
@@ -25,10 +25,10 @@ def get_cursor(file_name):
     """
     con = lite.connect(file_name)
     con.row_factory = lite.Row
-    return con.cursor()
+    return con.cur()
 
 
-def get_agent_ids(cursor, archetype):
+def get_agent_ids(cur, archetype):
     """ Gets all agentIds from Agententry table for wanted archetype
 
         agententry table has the following format:
@@ -37,8 +37,8 @@ def get_agent_ids(cursor, archetype):
 
     Parameters
     ----------
-    cursor: cursor
-        cursor for sqlite3
+    cur: cursor
+        sqlite cursor3
     archetype: str
         agent's archetype specification
 
@@ -47,18 +47,19 @@ def get_agent_ids(cursor, archetype):
     id_list: list
         list of all agentId strings
     """
-    agents = cursor.execute("SELECT agentid FROM agententry WHERE spec LIKE '%" +
-                            archetype + "%' COLLATE NOCASE").fetchall()
+    agents = cur.execute("SELECT agentid FROM agententry WHERE spec "
+                         "LIKE '%" + archetype + "%' COLLATE NOCASE"
+                         ).fetchall()
 
     return list(str(agent['agentid']) for agent in agents)
 
 
-def get_prototype_id(cursor, prototype):
+def get_prototype_id(cur, prototype):
     """ Returns agentid of a prototype
 
     Parameters
     ----------
-    cursor: sqlite cursor
+    cur: sqlite cursor
         sqlite cursor
     prototype: str
         name of prototype
@@ -68,27 +69,27 @@ def get_prototype_id(cursor, prototype):
     agent_id: list
         list of prototype agent_ids as strings
     """
-    ids = cursor.execute('SELECT agentid FROM agententry '
-                         'WHERE prototype = "' +
-                         str(prototype) + '" COLLATE NOCASE').fetchall()
+    ids = cur.execute('SELECT agentid FROM agententry '
+                      'WHERE prototype = "' +
+                      str(prototype) + '" COLLATE NOCASE').fetchall()
 
     return list(str(agent['agentid']) for agent in ids)
 
 
-def get_inst(cursor):
+def get_inst(cur):
     """ Returns prototype and agentids of institutions
 
     Parameters
     ----------
-    cursor: sqlite cursor
+    cur: sqlite cursor
         sqlite cursor
 
     Returns
     -------
     sqlite query result (list of tuples)
     """
-    return cursor.execute('SELECT prototype, agentid FROM agententry '
-                          'WHERE kind = "Inst"').fetchall()
+    return cur.execute('SELECT prototype, agentid FROM agententry '
+                       'WHERE kind = "Inst"').fetchall()
 
 
 def timestep_to_years(init_year, timestep):
@@ -150,13 +151,13 @@ def exec_string(in_list, search, request_colmn):
     return query
 
 
-def get_timesteps(cursor):
+def get_timesteps(cur):
     """ Returns simulation start year, month, duration and
     timesteps (in numpy linspace).
 
     Parameters
     ----------
-    cursor: sqlite cursor
+    cur: sqlite cursor
         sqlite cursor
 
     Returns
@@ -170,8 +171,8 @@ def get_timesteps(cursor):
     timestep: list
         linspace up to duration
     """
-    info = cursor.execute('SELECT initialyear, initialmonth, '
-                          'duration FROM info').fetchone()
+    info = cur.execute('SELECT initialyear, initialmonth, '
+                       'duration FROM info').fetchone()
     init_year = info['initialyear']
     init_month = info['initialmonth']
     duration = info['duration']
@@ -274,12 +275,12 @@ def get_isotope_transactions(resources, compositions):
     return transactions
 
 
-def facility_commodity_flux(cursor, agent_ids, commod_list, is_outflux):
+def facility_commodity_flux(cur, agent_ids, commod_list, is_outflux):
     """ Returns timeseries of commodity in/outflux from agents
 
     Parameters
     ----------
-    cursor: sqlite cursor
+    cur: sqlite cursor
         sqlite cursor
     agent_ids: list
         list of agentids
@@ -294,9 +295,8 @@ def facility_commodity_flux(cursor, agent_ids, commod_list, is_outflux):
         dictionary with "key=commodity, and
         value=timeseries list of masses in kg"
     """
-    init_year, init_month, duration, timestep = get_timesteps(cursor)
+    init_year, init_month, duration, timestep = get_timesteps(cur)
     commodity_dict = collections.OrderedDict()
-    iso_dict = collections.defaultdict(list)
     for comm in commod_list:
         query = (exec_string(agent_ids, 'receiverid',
                              'time, sum(quantity), qualid') +
@@ -306,7 +306,7 @@ def facility_commodity_flux(cursor, agent_ids, commod_list, is_outflux):
         if is_outflux:
             query = query.replace('receiverid', 'senderid')
 
-        res = cursor.execute(query).fetchall()
+        res = cur.execute(query).fetchall()
 
         timeseries = get_timeseries_cum(res, duration, True)
         commodity_dict[comm] = timeseries
@@ -314,14 +314,14 @@ def facility_commodity_flux(cursor, agent_ids, commod_list, is_outflux):
     return commodity_dict
 
 
-def facility_commodity_flux_isotopics(cursor, agent_ids,
+def facility_commodity_flux_isotopics(cur, agent_ids,
                                       commod_list, is_outflux):
     """ Returns timeseries isotoptics of commodity in/outflux
     from agents
 
     Parameters
     ----------
-    cursor: sqlite cursor
+    cur: sqlite cursor
         sqlite cursor
     agent_ids: list
         list of agentids
@@ -336,8 +336,7 @@ def facility_commodity_flux_isotopics(cursor, agent_ids,
         dictionary with "key=isotope, and
         value=timeseries list of masses in kg"
     """
-    init_year, init_month, duration, timestep = get_timesteps(cursor)
-    commodity_dict = collections.OrderedDict()
+    init_year, init_month, duration, timestep = get_timesteps(cur)
     iso_dict = collections.defaultdict(list)
     for comm in commod_list:
         query = ('SELECT time, sum(quantity)*massfrac, nucid '
@@ -345,15 +344,15 @@ def facility_commodity_flux_isotopics(cursor, agent_ids,
                  'ON resources.resourceid = transactions.resourceid '
                  'LEFT OUTER JOIN compositions '
                  'ON compositions.qualid = resources.qualid '
-                 'WHERE (receiverid = '
-                 + ' OR receiverid = '.join(agent_ids)
-                 + ') AND (commodity = "' + str(comm)
-                 + '") GROUP BY time, nucid')
+                 'WHERE (receiverid = ' +
+                 ' OR receiverid = '.join(agent_ids) +
+                 ') AND (commodity = "' + str(comm) +
+                 '") GROUP BY time, nucid')
         # outflux changes receiverid to senderid
         if is_outflux:
             query = query.replace('receiverid', 'senderid')
 
-        res = cursor.execute(query).fetchall()
+        res = cur.execute(query).fetchall()
         for time, amount, nucid in res:
             iso_dict[nucname.name(nucid)].append((time, amount))
     for key in iso_dict:
@@ -362,12 +361,12 @@ def facility_commodity_flux_isotopics(cursor, agent_ids,
     return iso_dict
 
 
-def get_stockpile(cursor, facility):
+def get_stockpile(cur, facility):
     """ gets inventory timeseries in a fuel facility
 
     Parameters
     ----------
-    cursor: sqlite cursor
+    cur: sqlite cursor
         sqlite cursor
     facility: str
         name of facility
@@ -379,23 +378,23 @@ def get_stockpile(cursor, facility):
         value=timeseries list of stockpile"
     """
     pile_dict = collections.OrderedDict()
-    agentid = get_agent_ids(cursor, facility)
+    agentid = get_agent_ids(cur, facility)
     query = exec_string(agentid, 'agentid', 'timecreated, quantity, qualid')
     query = query.replace('transactions', 'agentstateinventories')
-    stockpile = cursor.execute(query).fetchall()
-    init_year, init_month, duration, timestep = get_timesteps(cursor)
+    stockpile = cur.execute(query).fetchall()
+    init_year, init_month, duration, timestep = get_timesteps(cur)
     stock_timeseries = get_timeseries_cum(stockpile, duration, True)
     pile_dict[facility] = stock_timeseries
 
     return pile_dict
 
 
-def get_swu_dict(cursor):
+def get_swu_dict(cur):
     """ returns dictionary of swu timeseries for each enrichment plant
 
     Parameters
     ----------
-    cursor: sqlite cursor
+    cur: sqlite cursor
         sqlite cursor
 
     Returns
@@ -405,24 +404,24 @@ def get_swu_dict(cursor):
         value=swu timeseries list"
     """
     swu_dict = collections.OrderedDict()
-    agentid = get_agent_ids(cursor, 'Enrichment')
-    init_year, init_month, duration, timestep = get_timesteps(cursor)
+    agentid = get_agent_ids(cur, 'Enrichment')
+    init_year, init_month, duration, timestep = get_timesteps(cur)
     for num in agentid:
-        swu_data = cursor.execute('SELECT time, value '
-                                  'FROM timeseriesenrichmentswu '
-                                  'WHERE agentid = ' + str(num)).fetchall()
+        swu_data = cur.execute('SELECT time, value '
+                               'FROM timeseriesenrichmentswu '
+                               'WHERE agentid = ' + str(num)).fetchall()
         swu_timeseries = get_timeseries_cum(swu_data, duration, False)
         swu_dict['Enrichment_' + str(num)] = swu_timeseries
 
     return swu_dict
 
 
-def get_power_dict(cursor):
+def get_power_dict(cur):
     """ Gets dictionary of power capacity by calling capacity_calc
 
     Parameters
     ----------
-    cursor: sqlite cursor
+    cur: sqlite cursor
         sqlite cursor
 
     Returns
@@ -431,34 +430,34 @@ def get_power_dict(cursor):
         "dictionary with key=government, and
         value=timeseries list of installed capacity"
     """
-    init_year, init_month, duration, timestep = get_timesteps(cursor)
-    governments = get_inst(cursor)
+    init_year, init_month, duration, timestep = get_timesteps(cur)
+    governments = get_inst(cur)
 
     # get power cap values
-    entry = cursor.execute('SELECT max(value), timeseriespower.agentid, '
-                           'parentid, entertime FROM agententry '
-                           'INNER JOIN timeseriespower '
-                           'ON agententry.agentid = timeseriespower.agentid '
-                           'GROUP BY timeseriespower.agentid').fetchall()
+    entry = cur.execute('SELECT max(value), timeseriespower.agentid, '
+                        'parentid, entertime FROM agententry '
+                        'INNER JOIN timeseriespower '
+                        'ON agententry.agentid = timeseriespower.agentid '
+                        'GROUP BY timeseriespower.agentid').fetchall()
 
-    exit_step = cursor.execute('SELECT max(value), timeseriespower.agentid, '
-                               'parentid, exittime FROM agentexit '
-                               'INNER JOIN timeseriespower '
-                               'ON agentexit.agentid = timeseriespower.agentid'
-                               ' INNER JOIN agententry '
-                               'ON agentexit.agentid = agententry.agentid '
-                               'GROUP BY timeseriespower.agentid').fetchall()
+    exit_step = cur.execute('SELECT max(value), timeseriespower.agentid, '
+                            'parentid, exittime FROM agentexit '
+                            'INNER JOIN timeseriespower '
+                            'ON agentexit.agentid = timeseriespower.agentid'
+                            ' INNER JOIN agententry '
+                            'ON agentexit.agentid = agententry.agentid '
+                            'GROUP BY timeseriespower.agentid').fetchall()
 
     return capacity_calc(governments, timestep, entry, exit_step)
 
 
-def get_deployment_dict(cursor):
+def get_deployment_dict(cur):
     """ Gets dictionary of reactors deployed over time
     by calling reactor_deployments
 
     Parameters
     ----------
-    cursor: sqlite cursor
+    cur: sqlite cursor
         sqlite cursor
 
     Returns
@@ -467,32 +466,32 @@ def get_deployment_dict(cursor):
         "dictionary with key=government, and
         value=timeseries list of number of reactors"
     """
-    init_year, init_month, duration, timestep = get_timesteps(cursor)
-    governments = get_inst(cursor)
+    init_year, init_month, duration, timestep = get_timesteps(cur)
+    governments = get_inst(cur)
 
     # get power cap values
-    entry = cursor.execute('SELECT max(value), timeseriespower.agentid, '
-                           'parentid, entertime FROM agententry '
-                           'INNER JOIN timeseriespower '
-                           'ON agententry.agentid = timeseriespower.agentid '
-                           'GROUP BY timeseriespower.agentid').fetchall()
+    entry = cur.execute('SELECT max(value), timeseriespower.agentid, '
+                        'parentid, entertime FROM agententry '
+                        'INNER JOIN timeseriespower '
+                        'ON agententry.agentid = timeseriespower.agentid '
+                        'GROUP BY timeseriespower.agentid').fetchall()
 
-    exit_step = cursor.execute('SELECT max(value), timeseriespower.agentid, '
-                               'parentid, exittime FROM agentexit '
-                               'INNER JOIN timeseriespower '
-                               'ON agentexit.agentid = timeseriespower.agentid'
-                               ' INNER JOIN agententry '
-                               'ON agentexit.agentid = agententry.agentid '
-                               'GROUP BY timeseriespower.agentid').fetchall()
+    exit_step = cur.execute('SELECT max(value), timeseriespower.agentid, '
+                            'parentid, exittime FROM agentexit '
+                            'INNER JOIN timeseriespower '
+                            'ON agentexit.agentid = timeseriespower.agentid'
+                            ' INNER JOIN agententry '
+                            'ON agentexit.agentid = agententry.agentid '
+                            'GROUP BY timeseriespower.agentid').fetchall()
     return reactor_deployments(governments, timestep, entry, exit_step)
 
 
-def fuel_usage_timeseries(cursor, fuel_list):
+def fuel_usage_timeseries(cur, fuel_list):
     """ Calculates total fuel usage over time
 
     Parameters
     ----------
-    cursor: sqlite cursor
+    cur: sqlite cursor
         sqlite cursor
     fuel_list: list
         list of fuel commodity names (eg. uox, mox) as string
@@ -505,12 +504,12 @@ def fuel_usage_timeseries(cursor, fuel_list):
         value=timeseries list of fuel amount [kg]"
     """
     fuel_dict = collections.OrderedDict()
-    init_year, init_month, duration, timestep = get_timesteps(cursor)
+    init_year, init_month, duration, timestep = get_timesteps(cur)
     for fuel in fuel_list:
         temp_list = [fuel]
-        fuel_quantity = cursor.execute(exec_string(temp_list, 'commodity',
-                                                   'time, sum(quantity)') +
-                                       ' GROUP BY time').fetchall()
+        fuel_quantity = cur.execute(exec_string(temp_list, 'commodity',
+                                                'time, sum(quantity)') +
+                                    ' GROUP BY time').fetchall()
         quantity_timeseries = []
         try:
             quantity_timeseries = get_timeseries_cum(
@@ -522,14 +521,14 @@ def fuel_usage_timeseries(cursor, fuel_list):
     return fuel_dict
 
 
-def nat_u_timeseries(cursor):
+def nat_u_timeseries(cur):
     """ Finds natural uranium supply from source
         Since currently the source supplies all its capacity,
         the timeseriesenrichmentfeed is used.
 
     Parameters
     ----------
-    cursor: sqlite cursor
+    cur: sqlite cursor
         sqlite cursor
 
     Returns
@@ -538,22 +537,22 @@ def nat_u_timeseries(cursor):
         calls a function that returns timeseries list of natural U
         demand from enrichment [MTHM]
     """
-    init_year, init_month, duration, timestep = get_timesteps(cursor)
+    init_year, init_month, duration, timestep = get_timesteps(cur)
 
     # Get Nat U feed to enrichment from timeseriesenrichmentfeed
-    feed = cursor.execute('SELECT time, sum(value) '
-                          'FROM timeseriesenrichmentfeed '
-                          'GROUP BY time').fetchall()
+    feed = cur.execute('SELECT time, sum(value) '
+                       'FROM timeseriesenrichmentfeed '
+                       'GROUP BY time').fetchall()
     return get_timeseries_cum(feed, duration, True)
 
 
-def get_trade_dict(cursor, sender, receiver, is_prototype, do_isotopic):
+def get_trade_dict(cur, sender, receiver, is_prototype, do_isotopic):
     """ Returns trade timeseries between two prototypes' or facilities
     with or without isotopics
 
     Parameters
     ----------
-    cursor: sqlite cursor
+    cur: sqlite cursor
         sqlite cursor
     sender: str
         name of sender as facility type or prototype name
@@ -579,37 +578,37 @@ def get_trade_dict(cursor, sender, receiver, is_prototype, do_isotopic):
                         between two prototypes"
 
     """
-    init_year, init_month, duration, timestep = get_timesteps(cursor)
+    init_year, init_month, duration, timestep = get_timesteps(cur)
     iso_dict = collections.defaultdict(list)
     return_dict = collections.defaultdict()
 
     if is_prototype:
-        sender_id = get_prototype_id(cursor, sender)
-        receiver_id = get_prototype_id(cursor, receiver)
+        sender_id = get_prototype_id(cur, sender)
+        receiver_id = get_prototype_id(cur, receiver)
     else:
-        sender_id = get_agent_ids(cursor, sender)
-        receiver_id = get_agent_ids(cursor, receiver)
+        sender_id = get_agent_ids(cur, sender)
+        receiver_id = get_agent_ids(cur, receiver)
 
     if do_isotopic:
-        trade = cursor.execute('SELECT time, sum(quantity)*massfrac, nucid '
-                               'FROM transactions INNER JOIN resources '
-                               'ON resources.resourceid = transactions.resourceid '
-                               'LEFT OUTER JOIN compositions '
-                               'ON compositions.qualid = resources.qualid '
-                               'WHERE (senderid = ' +
-                               'OR senderid = '.join(sender_id) +
-                               ') AND (receiverid = ' +
-                               ' OR receiverid = '.join(receiver_id) +
-                               ') GROUP BY time, nucid').fetchall()
+        trade = cur.execute('SELECT time, sum(quantity)*massfrac, nucid '
+                            'FROM transactions INNER JOIN resources ON '
+                            'resources.resourceid = transactions.resourceid '
+                            'LEFT OUTER JOIN compositions '
+                            'ON compositions.qualid = resources.qualid '
+                            'WHERE (senderid = ' +
+                            'OR senderid = '.join(sender_id) +
+                            ') AND (receiverid = ' +
+                            ' OR receiverid = '.join(receiver_id) +
+                            ') GROUP BY time, nucid').fetchall()
     else:
-        trade = cursor.execute('SELECT time, sum(quantity), qualid '
-                               'FROM transactions INNER JOIN resources ON '
-                               'resources.resourceid = transactions.resourceid'
-                               ' WHERE (senderid = ' +
-                               ' OR senderid = '.join(sender_id) +
-                               ') AND (receiverid = ' +
-                               ' OR receiverid = '.join(receiver_id) +
-                               ') GROUP BY time').fetchall()
+        trade = cur.execute('SELECT time, sum(quantity), qualid '
+                            'FROM transactions INNER JOIN resources ON '
+                            'resources.resourceid = transactions.resourceid'
+                            ' WHERE (senderid = ' +
+                            ' OR senderid = '.join(sender_id) +
+                            ') AND (receiverid = ' +
+                            ' OR receiverid = '.join(receiver_id) +
+                            ') GROUP BY time').fetchall()
 
     if do_isotopic:
         for time, amount, nucid in trade:
@@ -623,12 +622,12 @@ def get_trade_dict(cursor, sender, receiver, is_prototype, do_isotopic):
         return return_dict
 
 
-def final_stockpile(cursor, facility):
+def final_stockpile(cur, facility):
     """ get final stockpile in a fuel facility
 
     Parameters
     ----------
-    cursor: sqlite cursor
+    cur: sqlite cursor
         sqlite cursor
     facility: str
         name of facility
@@ -638,30 +637,31 @@ def final_stockpile(cursor, facility):
     outstring: str
         MTHM value of stockpile
     """
-    agentid = get_agent_ids(cursor, facility)
+    agentid = get_agent_ids(cur, facility)
     outstring = ''
     for agent in agentid:
         count = 1
-        name = cursor.execute('SELECT prototype FROM agententry'
-                              'WHERE agentid = ' + str(agent)).fetchone()
+        name = cur.execute('SELECT prototype FROM agententry'
+                           'WHERE agentid = ' + str(agent)).fetchone()
 
         outstring += 'The Stockpile in ' + str(name[0]) + ' : \n \n'
-        stkpile = cursor.execute('SELECT sum(quantity), inventoryname, qualid'
-                                 ' FROM agentstateinventories'
-                                 ' INNER JOIN resources'
-                                 ' ON resources.resourceid'
-                                 ' = agentstateinventories.resourceid'
-                                 ' WHERE agentstateinventories.agentid'
-                                 ' = """ + str(agent) + """ GROUP BY'
-                                 ' inventoryname').fetchall()
+        stkpile = cur.execute('SELECT sum(quantity), inventoryname, qualid'
+                              ' FROM agentstateinventories'
+                              ' INNER JOIN resources'
+                              ' ON resources.resourceid'
+                              ' = agentstateinventories.resourceid'
+                              ' WHERE agentstateinventories.agentid'
+                              ' = """ + str(agent) + """ GROUP BY'
+                              ' inventoryname').fetchall()
         for stream in stkpile:
-            masses = cursor.execute('SELECT qualid, nucid, massfrac '
-                                    'FROM compositions '
-                                    'WHERE qualid = ' +
-                                    str(stream['qualid'])).fetchall()
+            masses = cur.execute('SELECT qualid, nucid, massfrac '
+                                 'FROM compositions '
+                                 'WHERE qualid = ' +
+                                 str(stream['qualid'])).fetchall()
 
             outstring += ('Stream ' + str(count) +
-                          ' Total = ' + str(stream['sum(quantity)']) + ' kg \n')
+                          ' Total = ' + str(stream['sum(quantity)']) +
+                          ' kg \n')
             for isotope in masses:
                 outstring += (str(isotope['nucid']) + ' = ' +
                               str(isotope['massfrac'] *
@@ -675,171 +675,36 @@ def final_stockpile(cursor, facility):
     return outstring
 
 
-def fuel_into_reactors(cursor):
+def fuel_into_reactors(cur):
     """ Finds timeseries of mass of fuel received by reactors
 
     Parameters
     ----------
-    cursor: sqlite cursor
+    cur: sqlite cursor
         sqlite cursor
 
     Returns
     -------
     timeseries list of fuel into reactors [tons]
     """
-    init_year, init_month, duration, timestep = get_timesteps(cursor)
-    fuel = cursor.execute('SELECT time, sum(quantity) FROM transactions '
-                          'INNER JOIN resources ON '
-                          'resources.resourceid = transactions.resourceid '
-                          'INNER JOIN agententry ON '
-                          'transactions.receiverid = agententry.agentid '
-                          'WHERE spec LIKE "%Reactor%" '
-                          'GROUP BY time').fetchall()
+    init_year, init_month, duration, timestep = get_timesteps(cur)
+    fuel = cur.execute('SELECT time, sum(quantity) FROM transactions '
+                       'INNER JOIN resources ON '
+                       'resources.resourceid = transactions.resourceid '
+                       'INNER JOIN agententry ON '
+                       'transactions.receiverid = agententry.agentid '
+                       'WHERE spec LIKE "%Reactor%" '
+                       'GROUP BY time').fetchall()
 
     return get_timeseries_cum(fuel, duration, True)
 
 
-def conv_ratio(cursor, in_, out, is_recipe):
-    """ Returns conversion ratio of two commodities
-
-    Parameters
-    ----------
-    cursor: sqlite cursor
-        sqlite cursor
-    in_: str
-        name of in recipe / commodity
-    out: str
-        name of out recipe / commodity
-    is_recipe: bool
-        recipe if true, commodity if false
-
-    Returns
-    -------
-    conversion_fac: float
-        conversion factor
-    """
-
-    if is_recipe:
-        in_qualid = cursor.execute('SELECT qualid FROM recipes '
-                                   'WHERE recipe = "' + in_ + '"').fetchone()[0]
-        out_qualid = cursor.execute('SELECT qualid FROM recipes '
-                                    'WHERE recipe = "' + out + '"').fetchone()[0]
-    else:
-        in_qualid = cursor.execute(exec_string(['"' + in_ + '"'],
-                                               'commodity', 'qualid')).fetchone()[0]
-        out_qualid = cursor.execute(exec_string(['"' + out + '"'],
-                                                'commodity', 'qualid')).fetchone()[0]
-    in_recipe = cursor.execute('SELECT nucid, massfrac FROM compositions '
-                               'WHERE qualid = ' + str(in_qualid)).fetchall()
-    out_recipe = cursor.execute('SELECT nucid, massfrac FROM compositions '
-                                'WHERE qualid = ' + str(out_qualid)).fetchall()
-
-    fissile_list = [922350000, 942410000, 942390000]
-    FP = sum([massfrac for (nucid, massfrac)
-              in out_recipe if 350000000 < nucid < 890000000])
-    fissile_in_spent = sum(
-        [massfrac for (nucid, massfrac) in out_recipe if nucid in fissile_list])
-    in_fissile = sum([massfrac for (nucid, massfrac)
-                      in in_recipe if nucid in fissile_list])
-    conversion_fac = (FP + fissile_in_spent - in_fissile) / FP
-    print('The Conversion Factor is:')
-    print(conversion_fac)
-
-    return conversion_fac
-
-
-def mix_ratio(cursor, fuel_recipe_name, spent_fuel_recipe_name, depleted_u_recipe_name, what_reprocess):
-    """ Finds the mixing ratio of separated material and depleted Uranium
-
-    Parameters
-    ----------
-    cursor: sqlite cursor
-        sqlite cursor
-    fuel_recipe_name: str
-        name of desired fuel recipe
-    spent_fuel_recipe_name: str
-        name of spent fuel recipe
-    depleted_u_recipe_name: str
-        name of depleted uranium recipe
-    what_reprocess: list
-        list of what elements are separated [zz, zz, zz]
-
-    Returns
-    -------
-    optimal_ratio: float
-        optimal ratio of separated material to depleted uranium
-    """
-    query = ('SELECT nucid, massfrac FROM recipes '
-             'INNER JOIN compositions '
-             'ON recipes.qualid = compositions.qualid '
-             'WHERE recipe = "dummy"')
-    fuel_recipe = cursor.execute(query.replace(
-        'dummy', fuel_recipe_name)).fetchall()
-    spent_fuel_recipe = cursor.execute(query.replace(
-        'dummy', spent_fuel_recipe_name)).fetchall()
-    depleted_u_recipe = cursor.execute(query.replace(
-        'dummy', depleted_u_recipe_name)).fetchall()
-    sep_matl = [[nucid, massfrac] for (
-        nucid, massfrac) in spent_fuel_recipe if int(nucid / 10000000) in what_reprocess]
-
-    optimal_ratio = find_opt_ratio(fuel_recipe, sep_matl, depleted_u_recipe)
-
-    print('The Optimal Ratio is:')
-    print(optimal_ratio)
-
-    for t in fuel_recipe:
-        reprocessed = sum([massfrac for (nucid, massfrac)
-                           in sep_matl if nucid == t['nucid']]) * optimal_ratio
-        uranium = sum([massfrac for (nucid, massfrac)
-                       in depleted_u_recipe
-                       if nucid == t['nucid']]) * (1 - optimal_ratio)
-        value = reprocessed + uranium
-        err = abs(value - t['massfrac'])
-        print('Error for ' + str(t['nucid']) + ': ' +
-              str(err) + ' (' + str((err * 100) / t['massfrac']) + ' %)')
-
-    return optimal_ratio
-
-
-def find_opt_ratio(fuel_recipe, fissile_stream_ratio, fill_stream_ratio):
-    """ Finds the mixing ratio of separated material and depleted Uranium
-
-    Parameters
-    ----------
-    fuel_recipe: list of tuples
-        fuel recipe (nucid, massfrac)
-    fisiile_stream_ratio: list of tuples
-        fissile stream ratio (nucid, massfrac)
-    fill_stream_ratio: list of tuples
-        fill stream ratio (nucid, massfrac)
-
-    Returns
-    -------
-    optimal_ratio: float
-        optimal ratio of separated material to depleted uranium
-    """
-    ratio_list = np.arange(0, 1, .001)
-    err_list = []
-    for ratio in ratio_list:
-        total_err = 0
-        for t in fuel_recipe:
-            reprocessed = sum([massfrac for (nucid, massfrac)
-                               in sep_matl if nucid == t['nucid']]) * ratio
-            uranium = sum([massfrac for (nucid, massfrac)
-                           in depleted_u_recipe if nucid == t['nucid']]) * (1 - ratio)
-            value = reprocessed + uranium
-            err = abs(value - t['massfrac'])
-            total_err += err
-        err_list.append(total_err)
-    return ratio_list[err_list.index(min(err_index))]
-
-
-def u_util_calc(cursor):
+def u_util_calc(cur):
     """ Returns fuel utilization factor of fuel cycle
 
     Parameters
     ----------
-    cursor: sqlite cursor
+    cur: sqlite cursor
         sqlite cursor
 
     Returns
@@ -849,10 +714,10 @@ def u_util_calc(cursor):
     Prints simulation average Uranium Utilization
     """
     # timeseries of natural uranium
-    u_supply_timeseries = np.array(nat_u_timeseries(cursor))
+    u_supply_timeseries = np.array(nat_u_timeseries(cur))
 
     # timeseries of fuel into reactors
-    fuel_timeseries = np.array(fuel_into_reactors(cursor))
+    fuel_timeseries = np.array(fuel_into_reactors(cur))
 
     # timeseries of Uranium utilization
     u_util_timeseries = np.nan_to_num(fuel_timeseries / u_supply_timeseries)
@@ -862,12 +727,12 @@ def u_util_calc(cursor):
     return u_util_timeseries
 
 
-def where_comm(cursor, commodity, prototypes):
+def where_comm(cur, commodity, prototypes):
     """ Returns dict of where a commodity is from
 
     Parameters
     ----------
-    cursor: sqlite cursor
+    cur: sqlite cursor
         sqlite cursor
     commodity: str
         name of commodity
@@ -880,7 +745,7 @@ def where_comm(cursor, commodity, prototypes):
         "dictionary with key=prototype name, and
         value=timeseries list of commodity sent from prototypes"
     """
-    init_year, init_month, duration, timestep = get_timesteps(cursor)
+    init_year, init_month, duration, timestep = get_timesteps(cur)
     query = ('SELECT time, sum(quantity) FROM transactions '
              'INNER JOIN resources ON resources.resourceid = '
              'transactions.resourceid WHERE commodity = "' +
@@ -888,8 +753,8 @@ def where_comm(cursor, commodity, prototypes):
              '= 9999 GROUP BY time')
     trade_dict = collections.OrderedDict()
     for agent in prototypes:
-        agent_id = get_prototype_id(cursor, agent)
-        from_agent = cursor.execute(query.replace(
+        agent_id = get_prototype_id(cur, agent)
+        from_agent = cur.execute(query.replace(
             '9999', ' OR senderid = '.join(agent_id))).fetchall()
         trade_dict[agent] = get_timeseries_cum(from_agent, duration, True)
 
@@ -1151,38 +1016,38 @@ def stacked_bar_chart(dictionary, timestep,
     plt.close()
 
 
-def plot_power(cursor):
+def plot_power(cur):
     """ Gets capacity vs time for every country
         in stacked bar chart.
 
     Parameters
     ----------
-    cursor: sqlite cursor
+    cur: sqlite cursor
         sqlite cursor
 
     Returns
     -------
     """
-    init_year, init_month, duration, timestep = get_timesteps(cursor)
-    power_dict = get_power_dict(cursor)
+    init_year, init_month, duration, timestep = get_timesteps(cur)
+    power_dict = get_power_dict(cur)
     stacked_bar_chart(power_dict, timestep,
                       'Years', 'Net_Capacity [GWe]',
                       'Net Capacity vs Time',
                       'power_plot', init_year)
 
-    deployment_dict = get_deployment_dict(cursor)
+    deployment_dict = get_deployment_dict(cur)
     stacked_bar_chart(deployment_dict, timestep,
                       'Years', 'Number of Reactors',
                       'Number of Reactors vs Time',
                       'num_plot', init_year)
 
 
-def plot_in_out_flux(cursor, facility, influx_bool, title, outputname):
+def plot_in_out_flux(cur, facility, influx_bool, title, outputname):
     """plots timeseries influx/ outflux from facility name in kg.
 
     Parameters
     ----------
-    cursor: sqlite cursor
+    cur: sqlite cursor
         sqlite cursor
     facility: str
         facility name
@@ -1197,24 +1062,24 @@ def plot_in_out_flux(cursor, facility, influx_bool, title, outputname):
     Returns
     -------
     """
-    agent_ids = get_agent_ids(cursor, facility)
+    agent_ids = get_agent_ids(cur, facility)
     if influx_bool is True:
-        resources = cursor.execute(exec_string(agent_ids,
-                                               'transactions.receiverId',
-                                               'time, sum(quantity), '
-                                               'qualid') +
-                                   ' GROUP BY time, qualid').fetchall()
+        resources = cur.execute(exec_string(agent_ids,
+                                            'transactions.receiverId',
+                                            'time, sum(quantity), '
+                                            'qualid') +
+                                ' GROUP BY time, qualid').fetchall()
     else:
-        resources = cursor.execute(exec_string(agent_ids,
-                                               'transactions.senderId',
-                                               'time, sum(quantity), '
-                                               'qualid') +
-                                   ' GROUP BY time, qualid').fetchall()
+        resources = cur.execute(exec_string(agent_ids,
+                                            'transactions.senderId',
+                                            'time, sum(quantity), '
+                                            'qualid') +
+                                ' GROUP BY time, qualid').fetchall()
 
-    compositions = cursor.execute('SELECT qualid, nucid, massfrac '
-                                  'FROM compositions').fetchall()
+    compositions = cur.execute('SELECT qualid, nucid, massfrac '
+                               'FROM compositions').fetchall()
 
-    init_year, init_month, duration, timestep = get_timesteps(cursor)
+    init_year, init_month, duration, timestep = get_timesteps(cur)
     transactions = get_isotope_transactions(resources, compositions)
     waste_dict = get_waste_dict(transactions.keys(),
                                 transactions.values()[0],
@@ -1231,14 +1096,14 @@ def plot_in_out_flux(cursor, facility, influx_bool, title, outputname):
                         title, outputname, init_year)
 
 
-def source_throughput(cursor, duration, frac_prod, frac_tail):
+def source_throughput(cur, duration, frac_prod, frac_tail):
     """ Calculates throughput required for nat_u source before enrichment
     by calculating the average mass of fuel gone into reactors over
     simulation. Assuming natural uranium is put as feed
 
     Parameters
     ----------
-    cursor: sqlite cursor
+    cur: sqlite cursor
         sqlite cursor
     duration: int
         duration of simulation
@@ -1252,7 +1117,7 @@ def source_throughput(cursor, duration, frac_prod, frac_tail):
     throughput: float
         appropriate nat_u throughput for source
     """
-    avg_fuel_used = fuel_into_reactors(cursor)[-1] * 1000 / duration
+    avg_fuel_used = fuel_into_reactors(cur)[-1] * 1000 / duration
     feed_factor = (frac_prod - frac_tail) / (0.00711 - frac_tail)
     print('Throughput should be at least: ' +
           str(feed_factor * avg_fuel_used) + ' [kg]')
