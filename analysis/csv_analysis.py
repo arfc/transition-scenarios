@@ -2,8 +2,7 @@ import csv
 
 
 def import_csv(in_csv):
-    """ 
-    Imports contents of a tab delimited csv file
+    """ Imports contents of a tab delimited csv file
     to a 2D list.
 
     Parameters
@@ -21,12 +20,12 @@ def import_csv(in_csv):
         data_list = []
         for row in sourcereader:
             data_list.append(row)
+
     return data_list
 
 
 def get_cf(in_list):
-    """
-    Creates a list of capacity factor from 
+    """ Creates a list of capacity factor from
     the imported csv file
     """
     cf = []
