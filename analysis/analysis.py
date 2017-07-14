@@ -11,7 +11,7 @@ if len(sys.argv) < 2:
     print('Usage: python analysis.py [cylus_output_file]')
 
 
-def get_cur(file_name):
+def get_cursor(file_name):
     """ Connects and returns a cur to an sqlite output file
 
     Parameters
@@ -25,7 +25,7 @@ def get_cur(file_name):
     """
     con = lite.connect(file_name)
     con.row_factory = lite.Row
-    return con.cur()
+    return con.cursor()
 
 
 def get_agent_ids(cur, archetype):
