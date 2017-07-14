@@ -285,7 +285,6 @@ def facility_commodity_flux(cursor, agent_ids, commod_list, is_outflux):
     """
     init_year, init_month, duration, timestep = get_timesteps(cursor)
     commodity_dict = collections.OrderedDict()
-    iso_dict = collections.defaultdict(list)
     for comm in commod_list:
         query = (exec_string(agent_ids, 'receiverid',
                              'time, sum(quantity), qualid') +
@@ -326,7 +325,6 @@ def facility_commodity_flux_isotopics(cursor, agent_ids,
         value=timeseries masses in kg"
     """
     init_year, init_month, duration, timestep = get_timesteps(cursor)
-    commodity_dict = collections.OrderedDict()
     iso_dict = collections.defaultdict(list)
     for comm in commod_list:
         query = ('SELECT time, sum(quantity)*massfrac, nucid '
@@ -505,7 +503,7 @@ def source_throughput(cursor, duration, frac_prod, frac_tail):
     throughput: float
         appropriate nat_u throughput for source
     """
-    avg_fuel_used = fuel_into_reactors(cur)[-1] * 1000 / duration
+    avg_fuel_used = fuel_into_reactors(cursor)[-1] * 1000 / duration
     feed_factor = (frac_prod - frac_tail) / (0.00711 - frac_tail)
     print('Throughput should be at least: ' +
           str(feed_factor * avg_fuel_used) + ' [kg]')
