@@ -12,7 +12,7 @@ if len(sys.argv) < 2:
 
 
 def get_cursor(file_name):
-    """ Connects and returns a cur to an sqlite output file
+    """ Connects and returns a cursor to an sqlite output file
 
     Parameters
     ----------
