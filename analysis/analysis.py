@@ -85,13 +85,27 @@ def get_inst(cursor):
 
     Returns
     -------
-    sqlite query result
+    sqlite query result (list of tuples)
     """
     return cursor.execute('SELECT prototype, agentid FROM agententry '
                           'WHERE kind = "Inst"').fetchall()
 
 
 def timestep_to_years(init_year, timestep):
+    """ Returns list of years in simulation
+
+    Parameters
+    ----------
+    init_year: int
+        initial year in simulation
+    timestep: np.array
+        timestep of simulation (months)
+
+    Returns
+    -------
+    array of years
+    """
+
     return init_year + (timestep / 12)
 
 
@@ -154,7 +168,7 @@ def get_timesteps(cursor):
     duration: int
         duration of simulation
     timestep: list
-        timeseries up to duration
+        linspace up to duration
     """
     info = cursor.execute('SELECT initialyear, initialmonth, '
                           'duration FROM info').fetchone()
@@ -185,13 +199,16 @@ def get_timeseries(in_list, duration, kg_to_tons):
     -------
     timeseries list of commodities stored in in_list
     """
+    value = 0
     value_timeseries = []
-    for i in range(0, duration):
-        value = sum(in_list[in_list[:, 0] == i][:, 1])
-        if kg_to_tons:
-            value_timeseries.append(value * 0.001)
-        else:
-            value_timeseries.append(value)
+    array = np.array(in_list)
+    if len(in_list) > 0:
+        for i in range(0, duration):
+            value = sum(array[array[:, 0] == i][:, 1])
+            if kg_to_tons:
+                value_timeseries.append(value * 0.001)
+            else:
+                value_timeseries.append(value)
     return value_timeseries
 
 
@@ -218,13 +235,13 @@ def get_timeseries_cum(in_list, duration, kg_to_tons):
     value = 0
     value_timeseries = []
     array = np.array(in_list)
-    for i in range(0, duration):
-        if len(in_list) > 0:
+    if len(in_list) > 0:
+        for i in range(0, duration):
             value += sum(array[array[:, 0] == i][:, 1])
-        if kg_to_tons:
-            value_timeseries.append(value * 0.001)
-        else:
-            value_timeseries.append(value)
+            if kg_to_tons:
+                value_timeseries.append(value * 0.001)
+            else:
+                value_timeseries.append(value)
     return value_timeseries
 
 
@@ -235,20 +252,16 @@ def get_isotope_transactions(resources, compositions):
     ----------
     resources: list of tuples
         resource data from the resources table
-        list[0]: time
-        list[1]: sum(quantity)
-        list[2]: qualid
+        (times, sum(quantity), qualid)
     compositions: list of tuples
         composition data from the compositions table
-        list[0]: qualid
-        list[1]: nucid
-        list[2]: massfrac
+        (qualid, nucid, massfrac)
 
     Returns
     -------
     transactions: dictionary
         dictionary with "key=isotope, and
-        value=list of tuples (mass moved, time)"
+        value=list of tuples (time, mass_moved)"
     """
     transactions = collections.defaultdict(list)
     for res in resources:
@@ -274,17 +287,16 @@ def facility_commodity_flux(cursor, agent_ids, commod_list, is_outflux):
         list of commodities
     is_outflux: bool
         gets outflux if True, influx if False
-    do_isotopic: bool
-        gets isotopic of outflux commodity if True
 
     Returns
     -------
     commodity_dict: dictionary
         dictionary with "key=commodity, and
-        value=timeseries of masses in kg"
+        value=timeseries list of masses in kg"
     """
     init_year, init_month, duration, timestep = get_timesteps(cursor)
     commodity_dict = collections.OrderedDict()
+    iso_dict = collections.defaultdict(list)
     for comm in commod_list:
         query = (exec_string(agent_ids, 'receiverid',
                              'time, sum(quantity), qualid') +
@@ -322,9 +334,10 @@ def facility_commodity_flux_isotopics(cursor, agent_ids,
     -------
     iso_dict: dictionary
         dictionary with "key=isotope, and
-        value=timeseries masses in kg"
+        value=timeseries list of masses in kg"
     """
     init_year, init_month, duration, timestep = get_timesteps(cursor)
+    commodity_dict = collections.OrderedDict()
     iso_dict = collections.defaultdict(list)
     for comm in commod_list:
         query = ('SELECT time, sum(quantity)*massfrac, nucid '
@@ -363,7 +376,7 @@ def get_stockpile(cursor, facility):
     -------
     pile_dict: dictionary
         dictionary with "key=agent type, and
-        value=timeseries of stockpile"
+        value=timeseries list of stockpile"
     """
     pile_dict = collections.OrderedDict()
     agentid = get_agent_ids(cursor, facility)
@@ -389,19 +402,17 @@ def get_swu_dict(cursor):
     -------
     swu_dict: dictionary
         dictionary with "key=Enrichment (facility number), and
-        value=swu timeseries"
+        value=swu timeseries list"
     """
     swu_dict = collections.OrderedDict()
     agentid = get_agent_ids(cursor, 'Enrichment')
     init_year, init_month, duration, timestep = get_timesteps(cursor)
-    facility_num = 1
     for num in agentid:
         swu_data = cursor.execute('SELECT time, value '
                                   'FROM timeseriesenrichmentswu '
                                   'WHERE agentid = ' + str(num)).fetchall()
         swu_timeseries = get_timeseries_cum(swu_data, duration, False)
-        swu_dict['Enrichment' + str(facility_num)] = swu_timeseries
-        facility_num += 1
+        swu_dict['Enrichment_' + str(num)] = swu_timeseries
 
     return swu_dict
 
@@ -418,10 +429,7 @@ def get_power_dict(cursor):
     ------
     power_dict: dictionary
         "dictionary with key=government, and
-        value=timeseries capacity"
-    num_dict: dictionary
-        "dictionary with key=government, and
-        value=timeseries number of reactors"
+        value=timeseries list of installed capacity"
     """
     init_year, init_month, duration, timestep = get_timesteps(cursor)
     governments = get_inst(cursor)
@@ -455,12 +463,9 @@ def get_deployment_dict(cursor):
 
     Returns
     ------
-    power_dict: dictionary
-        "dictionary with key=government, and
-        value=timesereies capacity"
     num_dict: dictionary
         "dictionary with key=government, and
-        value=timesereis number of reactors"
+        value=timeseries list of number of reactors"
     """
     init_year, init_month, duration, timestep = get_timesteps(cursor)
     governments = get_inst(cursor)
@@ -482,34 +487,6 @@ def get_deployment_dict(cursor):
     return reactor_deployments(governments, timestep, entry, exit_step)
 
 
-def source_throughput(cursor, duration, frac_prod, frac_tail):
-    """ Calculates throughput required for nat_u source before enrichment
-    by calculating the average mass of fuel gone into reactors over
-    simulation. Assuming natural uranium is put as feed
-
-    Parameters
-    ----------
-    cursor: sqlite cursor
-        sqlite cursor
-    duration: int
-        duration of simulation
-    frac_prod: float
-        mass fraction of U235 in fuel after enrichment in decimals
-    frac_tail: float
-        mass fraction of U235 in tailings after enrichment in decimals
-
-    Returns
-    -------
-    throughput: float
-        appropriate nat_u throughput for source
-    """
-    avg_fuel_used = fuel_into_reactors(cursor)[-1] * 1000 / duration
-    feed_factor = (frac_prod - frac_tail) / (0.00711 - frac_tail)
-    print('Throughput should be at least: ' +
-          str(feed_factor * avg_fuel_used) + ' [kg]')
-    return feed_factor * avg_fuel_used
-
-
 def fuel_usage_timeseries(cursor, fuel_list):
     """ Calculates total fuel usage over time
 
@@ -528,16 +505,16 @@ def fuel_usage_timeseries(cursor, fuel_list):
         value=timeseries list of fuel amount [kg]"
     """
     fuel_dict = collections.OrderedDict()
+    init_year, init_month, duration, timestep = get_timesteps(cursor)
     for fuel in fuel_list:
-        temp_list = ['"' + fuel + '"']
+        temp_list = [fuel]
         fuel_quantity = cursor.execute(exec_string(temp_list, 'commodity',
                                                    'time, sum(quantity)') +
                                        ' GROUP BY time').fetchall()
-        init_year, init_month, duration, timestep = get_timesteps(
-            cursor)
         quantity_timeseries = []
         try:
-            quantity_timeseries = get_timeseries_cum(fuel_quantity, True)
+            quantity_timeseries = get_timeseries_cum(
+                fuel_quantity, duration, True)
             fuel_dict[fuel] = quantity_timeseries
         except:
             print(str(fuel) + ' has not been used.')
@@ -558,7 +535,7 @@ def nat_u_timeseries(cursor):
     Returns
     -------
     get_timeseries: function
-        calls a function that returns timeseries of natural U
+        calls a function that returns timeseries list of natural U
         demand from enrichment [MTHM]
     """
     init_year, init_month, duration, timestep = get_timesteps(cursor)
@@ -708,7 +685,7 @@ def fuel_into_reactors(cursor):
 
     Returns
     -------
-    timeseries of fuel into reactors [tons]
+    timeseries list of fuel into reactors [tons]
     """
     init_year, init_month, duration, timestep = get_timesteps(cursor)
     fuel = cursor.execute('SELECT time, sum(quantity) FROM transactions '
@@ -829,16 +806,12 @@ def find_opt_ratio(fuel_recipe, fissile_stream_ratio, fill_stream_ratio):
 
     Parameters
     ----------
-    cursor: sqlite cursor
-        sqlite cursor
-    fuel_recipe_name: str
-        name of desired fuel recipe
-    spent_fuel_recipe_name: str
-        name of spent fuel recipe
-    depleted_u_recipe_name: str
-        name of depleted uranium recipe
-    what_reprocess: list
-        list of what elements are separated [zz, zz, zz]
+    fuel_recipe: list of tuples
+        fuel recipe (nucid, massfrac)
+    fisiile_stream_ratio: list of tuples
+        fissile stream ratio (nucid, massfrac)
+    fill_stream_ratio: list of tuples
+        fill stream ratio (nucid, massfrac)
 
     Returns
     -------
@@ -883,6 +856,8 @@ def u_util_calc(cursor):
 
     # timeseries of Uranium utilization
     u_util_timeseries = np.nan_to_num(fuel_timeseries / u_supply_timeseries)
+    print('The Average Fuel Utilization Factor is: ')
+    print(sum(u_util_timeseries) / len(u_util_timeseries))
 
     return u_util_timeseries
 
@@ -903,7 +878,7 @@ def where_comm(cursor, commodity, prototypes):
     -------
     trade_dict: dictioary
         "dictionary with key=prototype name, and
-        value=timeseries of commodity sent from prototypes"
+        value=timeseries list of commodity sent from prototypes"
     """
     init_year, init_month, duration, timestep = get_timesteps(cursor)
     query = ('SELECT time, sum(quantity) FROM transactions '
@@ -916,7 +891,7 @@ def where_comm(cursor, commodity, prototypes):
         agent_id = get_prototype_id(cursor, agent)
         from_agent = cursor.execute(query.replace(
             '9999', ' OR senderid = '.join(agent_id))).fetchall()
-        trade_dict[agent] = get_timeseries_cum(from_agent, True)
+        trade_dict[agent] = get_timeseries_cum(from_agent, duration, True)
 
     return trade_dict
 
@@ -971,7 +946,6 @@ def capacity_calc(governments, timestep, entry, exit_step):
     entry: list
         power_cap, agentid, parentid, entertime
         of all entered reactors
-
     exit_step: list
         power_cap, agentid, parenitd, exittime
         of all decommissioned reactors
@@ -980,7 +954,7 @@ def capacity_calc(governments, timestep, entry, exit_step):
     -------
     power_dict: dictionary
         "dictionary with key=government, and
-        value=timesereies capacity"
+        value=timeseries list capacity"
     """
     power_dict = collections.OrderedDict()
     for gov in governments:
@@ -1194,13 +1168,13 @@ def plot_power(cursor):
     stacked_bar_chart(power_dict, timestep,
                       'Years', 'Net_Capacity [GWe]',
                       'Net Capacity vs Time',
-                      'Net Capacity vs Time', init_year)
+                      'power_plot', init_year)
 
     deployment_dict = get_deployment_dict(cursor)
     stacked_bar_chart(deployment_dict, timestep,
                       'Years', 'Number of Reactors',
                       'Number of Reactors vs Time',
-                      'Number of Reactors vs Time', init_year)
+                      'num_plot', init_year)
 
 
 def plot_in_out_flux(cursor, facility, influx_bool, title, outputname):
@@ -1255,3 +1229,31 @@ def plot_in_out_flux(cursor, facility, influx_bool, title, outputname):
         multi_line_plot(waste_dict, timestep,
                         'Years', 'Mass [kg]',
                         title, outputname, init_year)
+
+
+def source_throughput(cursor, duration, frac_prod, frac_tail):
+    """ Calculates throughput required for nat_u source before enrichment
+    by calculating the average mass of fuel gone into reactors over
+    simulation. Assuming natural uranium is put as feed
+
+    Parameters
+    ----------
+    cursor: sqlite cursor
+        sqlite cursor
+    duration: int
+        duration of simulation
+    frac_prod: float
+        mass fraction of U235 in fuel after enrichment in decimals
+    frac_tail: float
+        mass fraction of U235 in tailings after enrichment in decimals
+
+    Returns
+    -------
+    throughput: float
+        appropriate nat_u throughput for source
+    """
+    avg_fuel_used = fuel_into_reactors(cursor)[-1] * 1000 / duration
+    feed_factor = (frac_prod - frac_tail) / (0.00711 - frac_tail)
+    print('Throughput should be at least: ' +
+          str(feed_factor * avg_fuel_used) + ' [kg]')
+    return feed_factor * avg_fuel_used
