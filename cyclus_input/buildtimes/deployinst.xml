@@ -1,6 +1,6 @@
 <DeployInst>
     <prototypes>
-        <val>Sink</val>
+        <val>Sink_HLW</val>
         <val>Haddam_Neck</val>
         <val>Oyster_Creek</val>
         <val>Nine_Mile_Point_1</val>
@@ -112,7 +112,8 @@
         <val>Comanche_Peak_1</val>
         <val>Seabrook</val>
         <val>Comanche_Peak_2</val>
-        <val>Watts_Bar_1</val></prototypes>
+        <val>Watts_Bar_1</val>
+    </prototypes>
     <build_times>
         <val>900</val>
         <val>36</val>
@@ -226,7 +227,8 @@
         <val>308</val>
         <val>308</val>
         <val>344</val>
-        <val>374</val></build_times>
+        <val>374</val>
+    </build_times>
     <n_build>
         <val>1</val>
         <val>1</val>
@@ -340,5 +342,6 @@
         <val>1</val>
         <val>1</val>
         <val>1</val>
-        <val>1</val></n_build>
+        <val>1</val>
+    </n_build>
 </DeployInst>

@@ -1,4 +1,4 @@
-﻿<simulation xml:base="/home/user/cyclus/predicting-the-past/cyclus_input/"
+﻿<simulation xml:base="/home/gyutae/cyclus/predicting-the-past/cyclus_input/"
   xmlns:xi="http://www.w3.org/2001/XInclude">
   <control>
     <duration>1020</duration>
@@ -17,15 +17,24 @@
   </archetypes>
   <xi:include href="./buildtimes/inclusions.xml#xpointer(/inclusions/child::*)"/>
   <facility>
-    <name>Sink</name>
+    <name>Sink_HLW</name>
     <config>
       <Sink>
         <in_commods>
           <val>casked_spent_uox</val>
-          <val>tails</val>
         </in_commods>
       </Sink>
     </config>
+  </facility>
+  <facility>
+  	<name>Sink_LLW</name>
+  	<config>
+  		<Sink>
+  			<in_commods>
+  				<val>tails</val>
+  			</in_commods>
+  		</Sink>
+  	</config>
   </facility>
   <facility>
     <name>Mine</name>
@@ -75,8 +84,9 @@
         <feed_recipe>uf6</feed_recipe>
         <product_commod>enr_u</product_commod>
         <tails_commod>tails</tails_commod>
-        <tails_assay>0.001</tails_assay>
+        <tails_assay>0.002</tails_assay>
         <max_enrich>0.045</max_enrich>
+        
       </Enrichment>
     </config>
   </facility>
@@ -133,6 +143,10 @@
       <name>FuelCycle</name>
       <initialfacilitylist>
         <entry>
+          <prototype>Sink_LLW</prototype>
+          <number>1</number>
+        </entry>
+        <entry>
           <prototype>Mine</prototype>
           <number>1</number>
         </entry>
@@ -164,6 +178,7 @@
       <config>
         <ManagerInst>
           <prototypes>
+          	<val>Sink_LLW</val>
             <val>Mine</val>
             <val>Mill</val>
             <val>Conversion</val>

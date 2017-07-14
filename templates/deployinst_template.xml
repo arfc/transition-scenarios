@@ -1,17 +1,20 @@
 <DeployInst>
     <prototypes>
-        <val>Sink</val>
+        <val>Sink_HLW</val>
         {%- for reactor in reactors %}
         <val>{{reactor}}</val>
-        {%- endfor %}</prototypes>
+        {%- endfor %}
+    </prototypes>
     <build_times>
         <val>900</val>
         {%- for buildtime in buildtimes %}
         <val>{{buildtime}}</val>
-        {%- endfor %}</build_times>
+        {%- endfor %}
+    </build_times>
     <n_build>
         <val>1</val>
         {%- for buildtime in buildtimes %}
         <val>1</val>
-        {%- endfor %}</n_build>
+        {%- endfor %}
+    </n_build>
 </DeployInst>
