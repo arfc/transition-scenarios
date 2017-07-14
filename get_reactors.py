@@ -85,7 +85,7 @@ def write_reactors_xml(in_list, in_template):
                                       assem_size=assem_size,
                                       n_assem_core=assem_no,
                                       n_assem_batch=assem_per_batch,
-                                      power_cap=in_list[col][1])
+                                      power_cap=in_list[col][2])
         with open('./cyclus_input/reactors/' +
                   in_list[col][0].replace(' ', '_') +
                   '.xml', 'w') as output:
