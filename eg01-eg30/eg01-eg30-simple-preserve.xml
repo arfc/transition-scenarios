@@ -1,4 +1,10 @@
 <!--
+THIS IS A SIMPLE VERSION WHERE:
+ALL U -> U238
+ALL PU -> PU239
+ALL MA -> AM241
+ALL FP -> CS137
+FOR SPENT SFR AND MOX RECIPE.
 ****************************************
 COMMODITY (RECIPE)
 
@@ -49,6 +55,8 @@ Waste:
     11.38 % Pu
     0.81 % MA
     6.59 % FP
+
+CF = 17.97*.998 / 11.46 = 1.56
 ****************************************
 Deploy EG 30 (-175 SFR, -10 MOX_LWR, +80 LWR)
 ****************************************
@@ -149,6 +157,28 @@ Waste:
     <name>uox_waste_source</name>
   </facility>
 
+    <facility>
+    <config>
+      <Source>
+        <outcommod>mox</outcommod>
+        <throughput>1e299</throughput>
+        <outrecipe>mox_recipe</outrecipe>
+      </Source>
+    </config>
+    <name>mox_source</name>
+  </facility>
+
+    <facility>
+    <config>
+      <Source>
+        <outcommod>sfr_fuel</outcommod>
+        <throughput>1e299</throughput>
+        <outrecipe>sfr_fuel_recipe</outrecipe>
+      </Source>
+    </config>
+    <name>sfr_fuel_source</name>
+  </facility>
+
   <facility>
     <name>enrichment</name>
     <config>
@@ -173,7 +203,7 @@ Waste:
                 <stream>
                     <info>
                         <mixing_ratio>0.104</mixing_ratio>
-                        <buf_size>9e4</buf_size>
+                        <buf_size>1e5</buf_size>
                     </info>
                     <commodities>
                         <item>
@@ -193,7 +223,7 @@ Waste:
                 <stream>
                     <info>
                         <mixing_ratio>0.896</mixing_ratio>
-                        <buf_size>8e5</buf_size>
+                        <buf_size>9e5</buf_size>
                     </info>
                     <commodities>
                         <item>
@@ -216,7 +246,7 @@ Waste:
                 </stream>
             </in_streams>
             <out_commod>mox</out_commod>
-            <out_buf_size>1e299</out_buf_size>
+            <out_buf_size>1e6</out_buf_size>
             <throughput>9e5</throughput>
         </Mixer>
     </config>
@@ -230,7 +260,7 @@ Waste:
                 <stream>
                     <info>
                         <mixing_ratio>0.1146</mixing_ratio>
-                        <buf_size>1e6</buf_size>
+                        <buf_size>9e5</buf_size>
                     </info>
                     <commodities>
                         <item>
@@ -250,7 +280,7 @@ Waste:
                 <stream>
                     <info>
                         <mixing_ratio>0.8854</mixing_ratio>
-                        <buf_size>9e6</buf_size>
+                        <buf_size>8e6</buf_size>
                     </info>
                     <commodities>
                         <item>
@@ -273,8 +303,8 @@ Waste:
                 </stream>
             </in_streams>
             <out_commod>sfr_fuel</out_commod>
-            <out_buf_size>1e299</out_buf_size>
-            <throughput>1e7</throughput>
+            <out_buf_size>9e6</out_buf_size>
+            <throughput>4e6</throughput>
         </Mixer>
     </config>
 </facility>
@@ -285,7 +315,6 @@ Waste:
     <config>
       <Sink>
         <in_commods>
-          <val>tailings</val>
           <val>reprocess_waste</val>
           <val>mox_reprocess_waste</val>
           <val>sfr_reprocess_waste</val>
@@ -626,8 +655,7 @@ Waste:
       </initialfacilitylist>
       <name>sink_source_facilities</name>
     </institution>
-
-    <institution>
+<institution>
           <name>lwr_inst</name>
           <config>
                <DeployInst>
@@ -738,16 +766,22 @@ Waste:
                          <val>1308</val>
                          <val>1320</val>
 
-                          <val>1178</val>
+                         <val>1178</val>
                          <val>1264</val>
                          <val>1351</val>
                          <val>1437</val>
-
                          <val>1524</val>
+
                          <val>1572</val>
                          <val>1608</val>
                          <val>1644</val>
                          <val>1680</val>
+                         <val>1716</val>
+                         <val>1747</val>
+                         <val>1766</val>
+                         <val>1785</val>
+                         <val>1804</val>
+                         <val>1824</val>
 
                     </build_times>
                     <n_build>
@@ -861,7 +895,13 @@ Waste:
                          <val>8</val>
                          <val>8</val>
                          <val>8</val>
+                         <val>8</val>
 
+                         <val>8</val>
+                         <val>8</val>
+                         <val>8</val>
+                         <val>8</val>
+                         <val>8</val>
                          <val>8</val>
                          <val>8</val>
                          <val>8</val>
@@ -980,12 +1020,19 @@ Waste:
                          <val>lwr</val>
                          <val>lwr</val>
                          <val>lwr</val>
+                         <val>lwr</val>
 
+                        <val>lwr</val>
                          <val>lwr</val>
                          <val>lwr</val>
                          <val>lwr</val>
                          <val>lwr</val>
                          <val>lwr</val>
+                         <val>lwr</val>
+                         <val>lwr</val>
+                         <val>lwr</val>
+                         <val>lwr</val>
+
 
                     </prototypes>
                </DeployInst>
@@ -997,13 +1044,6 @@ Waste:
                <DeployInst>
                     <prototypes>
                         
-                         
-                         <val>fr</val>
-                         <val>fr</val>
-                         <val>fr</val>
-                         <val>fr</val>
-                         <val>fr</val>
-                         <val>fr</val>
                          <val>fr</val>
                          <val>fr</val>
                          <val>fr</val>
@@ -1053,13 +1093,6 @@ Waste:
                     </prototypes>
                     <n_build>
                          
-                         
-                         <val>17</val>
-                         <val>17</val>
-                         <val>18</val>
-                         <val>17</val>
-                         <val>18</val>
-                         <val>17</val>
                          <val>51</val>
                          <val>54</val>
                          <val>51</val>
@@ -1109,13 +1142,6 @@ Waste:
                     </n_build>
                     <build_times>
                          
-                         
-                         <val>1716</val>
-                         <val>1747</val>
-                         <val>1766</val>
-                         <val>1785</val>
-                         <val>1804</val>
-                         <val>1824</val>
                          <val>1876</val>
                          <val>1917</val>
                          <val>1958</val>
@@ -1174,13 +1200,6 @@ Waste:
                <DeployInst>
                     <prototypes>
                          
-                         
-                         <val>mox_lwr</val>
-                         <val>mox_lwr</val>
-                         <val>mox_lwr</val>
-                         <val>mox_lwr</val>
-                         <val>mox_lwr</val>
-                         <val>mox_lwr</val>
                          <val>mox_lwr</val>
                          <val>mox_lwr</val>
                          <val>mox_lwr</val>
@@ -1210,13 +1229,6 @@ Waste:
                     </prototypes>
                     <n_build>
                          
-                         
-                         <val>1</val>
-                         <val>1</val>
-                         <val>1</val>
-                         <val>1</val>
-                         <val>1</val>
-                         <val>1</val>
                          <val>4</val>
                          <val>3</val>
                          <val>3</val>
@@ -1245,14 +1257,7 @@ Waste:
 
                     </n_build>
                     <build_times>
-                        
                          
-                         <val>1716</val>
-                         <val>1747</val>
-                         <val>1766</val>
-                         <val>1785</val>
-                         <val>1804</val>
-                         <val>1824</val>
                          <val>1876</val>
                          <val>1917</val>
                          <val>1958</val>
@@ -1332,63 +1337,6 @@ Waste:
   <nuclide> <id>Cm244</id>  <comp>0.0026211644</comp> </nuclide>
   <nuclide> <id>Cm245</id>  <comp>0.0002109132</comp> </nuclide>
 </recipe>
-
-  <recipe>
-    <name>mox_waste_recipe</name>
-    <basis>mass</basis>
-    <nuclide> <id>He4</id>  <comp>0.0001414018</comp> </nuclide>
-    <nuclide> <id>Ra226</id>  <comp>2.74046902462026E-13</comp> </nuclide>
-    <nuclide> <id>Ra228</id>  <comp>1.23689288220878E-20</comp> </nuclide>
-    <nuclide> <id>Pb206</id>  <comp>1.51352701032949E-18</comp> </nuclide>
-    <nuclide> <id>Pb207</id>  <comp>6.94869106714716E-16</comp> </nuclide>
-    <nuclide> <id>Pb208</id>  <comp>3.33851618649273E-10</comp> </nuclide>
-    <nuclide> <id>Pb210</id>  <comp>1.32048017272007E-16</comp> </nuclide>
-    <nuclide> <id>Th228</id>  <comp>0.000000001</comp> </nuclide>
-    <nuclide> <id>Th229</id>  <comp>3.89974513706855E-11</comp> </nuclide>
-    <nuclide> <id>Th230</id>  <comp>2.01306057981365E-08</comp> </nuclide>
-    <nuclide> <id>Th232</id>  <comp>1.81603339503703E-10</comp> </nuclide>
-    <nuclide> <id>Bi209</id>  <comp>2.40014934182428E-13</comp> </nuclide>
-    <nuclide> <id>Ac227</id>  <comp>3.09471992250145E-14</comp> </nuclide>
-    <nuclide> <id>Pa231</id>  <comp>1.41501341794118E-09</comp> </nuclide>
-    <nuclide> <id>U232</id>  <comp>1.08364951627141E-07</comp> </nuclide>
-    <nuclide> <id>U233</id>  <comp>1.01100818046993E-07</comp> </nuclide>
-    <nuclide> <id>U234</id>  <comp>0.0026638473</comp> </nuclide>
-    <nuclide> <id>U235</id>  <comp>0.0008951801</comp> </nuclide>
-    <nuclide> <id>U236</id>  <comp>0.0021931713</comp> </nuclide>
-    <nuclide> <id>U238</id>  <comp>0.3263884677</comp> </nuclide>
-    <nuclide> <id>Np237</id>  <comp>0.0094274523</comp> </nuclide>
-    <nuclide> <id>Pu238</id>  <comp>0.0224591089</comp> </nuclide>
-    <nuclide> <id>Pu239</id>  <comp>0.1118477554</comp> </nuclide>
-    <nuclide> <id>Pu240</id>  <comp>0.1611045516</comp> </nuclide>
-    <nuclide> <id>Pu241</id>  <comp>0.0313651357</comp> </nuclide>
-    <nuclide> <id>Pu242</id>  <comp>0.0627700748</comp> </nuclide>
-    <nuclide> <id>Pu244</id>  <comp>4.63312410262597E-07</comp> </nuclide>
-    <nuclide> <id>Am241</id>  <comp>0.0168866229</comp> </nuclide>
-    <nuclide> <id>Am242m</id>  <comp>0.0140406746</comp> </nuclide>
-    <nuclide> <id>Am243</id>  <comp>0.0215336782</comp> </nuclide>
-    <nuclide> <id>Cm242</id>  <comp>0.0013881461</comp> </nuclide>
-    <nuclide> <id>Cm243</id>  <comp>0.0001208035</comp> </nuclide>
-    <nuclide> <id>Cm244</id>  <comp>0.0158019783</comp> </nuclide>
-    <nuclide> <id>Cm245</id>  <comp>0.0040659246</comp> </nuclide>
-    <nuclide> <id>Cm246</id>  <comp>0.0021802352</comp> </nuclide>
-    <nuclide> <id>Cm247</id>  <comp>0.0001002052</comp> </nuclide>
-    <nuclide> <id>Cm248</id>  <comp>7.3427454367004E-06</comp> </nuclide>
-    <nuclide> <id>Cm250</id>  <comp>2.09266752315774E-12</comp> </nuclide>
-    <nuclide> <id>Cf249</id>  <comp>9.60756297483972E-08</comp> </nuclide>
-    <nuclide> <id>Cf250</id>  <comp>1.26376022558741E-08</comp> </nuclide>
-    <nuclide> <id>Cf251</id>  <comp>3.61415522782163E-10</comp> </nuclide>
-    <nuclide> <id>Cf252</id>  <comp>8.19055938331494E-12</comp> </nuclide>
-    <nuclide> <id>H3</id>  <comp>4.95553222316953E-07</comp> </nuclide>
-    <nuclide> <id>Kr81</id>  <comp>1.60607008196699E-11</comp> </nuclide>
-    <nuclide> <id>Kr85</id>  <comp>7.30095179144475E-05</comp> </nuclide>
-    <nuclide> <id>Sr90</id>  <comp>0.0013055539</comp> </nuclide>
-    <nuclide> <id>Tc99</id>  <comp>0.0043714163</comp> </nuclide>
-    <nuclide> <id>I129</id>  <comp>0.0012657504</comp> </nuclide>
-    <nuclide> <id>Cs134</id>  <comp>0.0001866783</comp> </nuclide>
-    <nuclide> <id>Cs135</id>  <comp>0.0077517261</comp> </nuclide>
-    <nuclide> <id>Cs137</id>  <comp>0.0070750671</comp> </nuclide>
-  </recipe>
-
 
   <recipe>
     <name>sfr_fuel_recipe</name>
@@ -1471,60 +1419,24 @@ Waste:
 
   </recipe> 
 
-  <recipe>
-  <name>sfr_waste_recipe</name>
-  <basis>mass</basis>
-  <nuclide> <id>He4</id>  <comp>0.0001414018</comp> </nuclide> 
-   <nuclide> <id>Ra226</id>  <comp>2.74046902462026E-13</comp> </nuclide> 
-   <nuclide> <id>Ra228</id>  <comp>1.23689288220878E-20</comp> </nuclide> 
-   <nuclide> <id>Pb206</id>  <comp>1.51352701032949E-18</comp> </nuclide> 
-   <nuclide> <id>Pb207</id>  <comp>6.94869106714716E-16</comp> </nuclide> 
-   <nuclide> <id>Pb208</id>  <comp>3.33851618649273E-10</comp> </nuclide> 
-   <nuclide> <id>Pb210</id>  <comp>1.32048017272007E-16</comp> </nuclide> 
-   <nuclide> <id>Th228</id>  <comp>0.000000001</comp> </nuclide> 
-   <nuclide> <id>Th229</id>  <comp>3.89974513706855E-11</comp> </nuclide> 
-   <nuclide> <id>Th230</id>  <comp>2.01306057981365E-08</comp> </nuclide> 
-   <nuclide> <id>Th232</id>  <comp>1.81603339503703E-10</comp> </nuclide> 
-   <nuclide> <id>Bi209</id>  <comp>2.40014934182428E-13</comp> </nuclide> 
-   <nuclide> <id>Ac227</id>  <comp>3.09471992250145E-14</comp> </nuclide> 
-   <nuclide> <id>Pa231</id>  <comp>1.41501341794118E-09</comp> </nuclide> 
-   <nuclide> <id>U232</id>  <comp>1.08364951627141E-07</comp> </nuclide> 
-   <nuclide> <id>U233</id>  <comp>1.01100818046993E-07</comp> </nuclide> 
-   <nuclide> <id>U234</id>  <comp>0.0026638473</comp> </nuclide> 
-   <nuclide> <id>U235</id>  <comp>0.0008951801</comp> </nuclide> 
-   <nuclide> <id>U236</id>  <comp>0.0021931713</comp> </nuclide> 
-   <nuclide> <id>U238</id>  <comp>0.3263884677</comp> </nuclide> 
-   <nuclide> <id>Np237</id>  <comp>0.0094274523</comp> </nuclide> 
-   <nuclide> <id>Pu238</id>  <comp>0.0224591089</comp> </nuclide> 
-   <nuclide> <id>Pu239</id>  <comp>0.1118477554</comp> </nuclide> 
-   <nuclide> <id>Pu240</id>  <comp>0.1611045516</comp> </nuclide> 
-   <nuclide> <id>Pu241</id>  <comp>0.0313651357</comp> </nuclide> 
-   <nuclide> <id>Pu242</id>  <comp>0.0627700748</comp> </nuclide> 
-   <nuclide> <id>Pu244</id>  <comp>4.63312410262597E-07</comp> </nuclide> 
-   <nuclide> <id>Am241</id>  <comp>0.0168866229</comp> </nuclide> 
-   <nuclide> <id>Am242m</id>  <comp>0.0140406746</comp> </nuclide> 
-   <nuclide> <id>Am243</id>  <comp>0.0215336782</comp> </nuclide> 
-   <nuclide> <id>Cm242</id>  <comp>0.0013881461</comp> </nuclide> 
-   <nuclide> <id>Cm243</id>  <comp>0.0001208035</comp> </nuclide> 
-   <nuclide> <id>Cm244</id>  <comp>0.0158019783</comp> </nuclide> 
-   <nuclide> <id>Cm245</id>  <comp>0.0040659246</comp> </nuclide> 
-   <nuclide> <id>Cm246</id>  <comp>0.0021802352</comp> </nuclide> 
-   <nuclide> <id>Cm247</id>  <comp>0.0001002052</comp> </nuclide> 
-   <nuclide> <id>Cm248</id>  <comp>7.3427454367004E-06</comp> </nuclide> 
-   <nuclide> <id>Cm250</id>  <comp>2.09266752315774E-12</comp> </nuclide> 
-   <nuclide> <id>Cf249</id>  <comp>9.60756297483972E-08</comp> </nuclide> 
-   <nuclide> <id>Cf250</id>  <comp>1.26376022558741E-08</comp> </nuclide> 
-   <nuclide> <id>Cf251</id>  <comp>3.61415522782163E-10</comp> </nuclide> 
-   <nuclide> <id>Cf252</id>  <comp>8.19055938331494E-12</comp> </nuclide> 
-   <nuclide> <id>H3</id>  <comp>4.95553222316953E-07</comp> </nuclide> 
-   <nuclide> <id>Kr81</id>  <comp>1.60607008196699E-11</comp> </nuclide> 
-   <nuclide> <id>Kr85</id>  <comp>7.30095179144475E-05</comp> </nuclide> 
-   <nuclide> <id>Sr90</id>  <comp>0.0013055539</comp> </nuclide> 
-   <nuclide> <id>Tc99</id>  <comp>0.0043714163</comp> </nuclide> 
-   <nuclide> <id>I129</id>  <comp>0.0012657504</comp> </nuclide> 
-   <nuclide> <id>Cs134</id>  <comp>0.0001866783</comp> </nuclide> 
-   <nuclide> <id>Cs135</id>  <comp>0.0077517261</comp> </nuclide> 
-   <nuclide> <id>Cs137</id>  <comp>0.0070750671</comp> </nuclide> 
+   <recipe>
+    <name>sfr_waste_recipe</name>
+    <basis>mass</basis>
+     <nuclide> <id>U238</id>  <comp>80.20</comp> </nuclide> 
+     <nuclide> <id>Pu239</id>  <comp>11.38</comp> </nuclide> 
+     <nuclide> <id>Am241</id>  <comp>0.81</comp> </nuclide> 
+     <nuclide> <id>Cs137</id>  <comp>6.59</comp> </nuclide> 
+
+  </recipe> 
+
+    <recipe>
+    <name>mox_waste_recipe</name>
+    <basis>mass</basis>
+     <nuclide> <id>U238</id>  <comp>85.78</comp> </nuclide> 
+   <nuclide> <id>Pu239</id>  <comp>7.38</comp> </nuclide> 
+   <nuclide> <id>Am241</id>  <comp>0.80</comp> </nuclide> 
+   <nuclide> <id>Cs137</id>  <comp>5.01</comp> </nuclide> 
+
 
   </recipe> 
 

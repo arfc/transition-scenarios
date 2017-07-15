@@ -203,7 +203,7 @@ Waste:
                 <stream>
                     <info>
                         <mixing_ratio>0.104</mixing_ratio>
-                        <buf_size>9e4</buf_size>
+                        <buf_size>1e5</buf_size>
                     </info>
                     <commodities>
                         <item>
@@ -223,7 +223,7 @@ Waste:
                 <stream>
                     <info>
                         <mixing_ratio>0.896</mixing_ratio>
-                        <buf_size>8e5</buf_size>
+                        <buf_size>9e5</buf_size>
                     </info>
                     <commodities>
                         <item>
@@ -246,7 +246,7 @@ Waste:
                 </stream>
             </in_streams>
             <out_commod>mox</out_commod>
-            <out_buf_size>1e299</out_buf_size>
+            <out_buf_size>1e6</out_buf_size>
             <throughput>9e5</throughput>
         </Mixer>
     </config>
@@ -260,7 +260,7 @@ Waste:
                 <stream>
                     <info>
                         <mixing_ratio>0.1146</mixing_ratio>
-                        <buf_size>1e6</buf_size>
+                        <buf_size>9e5</buf_size>
                     </info>
                     <commodities>
                         <item>
@@ -280,7 +280,7 @@ Waste:
                 <stream>
                     <info>
                         <mixing_ratio>0.8854</mixing_ratio>
-                        <buf_size>9e6</buf_size>
+                        <buf_size>8e6</buf_size>
                     </info>
                     <commodities>
                         <item>
@@ -303,8 +303,8 @@ Waste:
                 </stream>
             </in_streams>
             <out_commod>sfr_fuel</out_commod>
-            <out_buf_size>1e299</out_buf_size>
-            <throughput>1e7</throughput>
+            <out_buf_size>9e6</out_buf_size>
+            <throughput>4e6</throughput>
         </Mixer>
     </config>
 </facility>
@@ -612,14 +612,6 @@ Waste:
         <entry>
           <number>1</number>
           <prototype>enrichment</prototype>
-        </entry>
-        <entry>
-          <number>1</number>
-          <prototype>sfr_fuel_source</prototype>
-        </entry>
-        <entry>
-          <number>1</number>
-          <prototype>mox_source</prototype>
         </entry>
         <!-- MIXERS -->
         <entry>
