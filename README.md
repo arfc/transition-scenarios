@@ -38,53 +38,56 @@ To run:
 
 ### analysis.py
 
-Input : CYCLUS output file (.sqlite)
-`python analysis.py [outputfile]`
+Input : CYCLUS output file (.sqlite)  
+```
+python analysis.py [outputfile]
+```
 
 Most functions return a dictionary of lists (timeseries of a value)
 that can be used to plot a stacked bar chart or a line plot.
 
 Major analysis functions include:
-1. facility_commodity_flux
+1. facility_commodity_flux  
 Returns dictionary of influx/outflux of a commodity from a facility.
 
-2.  get_stockpile
+2.  get_stockpile  
 Returns dictionary of stockpile in a fuel cycle facility.
 
-3. get_swu_dict
+3. get_swu_dict  
 Returns dictionary of swu timeseries for each enrichment plant.
 
-4. fuel_usage_timeseries
+4. fuel_usage_timeseries  
 Returns dictionary of timeseries of fuel used in simulation.
 
-5. get_trade_dict
+5. get_trade_dict  
 Returns dictionary of trade timeseries between two prototype/specs.
 
-6. u_util_calc
+6. u_util_calc  
 Returns dictionary of timeseries of uranium utilization factor (fuel/natu_supply).
 
-7. where_comm
+7. where_comm  
 Returns dictionary of timeseries of a commodity separated by its origin.
 
-8. plot_power
+8. plot_power  
 Returns dictionary of timeseries of number of reactors & installed capacity.
 
-9. facility_commodity_flux_isotopics
+9. facility_commodity_flux_isotopics  
 Returns dictionary of influx/outflux of isotopes of a commodity 
 from a facility
 
-The Returned Dictionaries can be used to build plots:
-1. stacked_bar_chart
+The Returned Dictionaries can be used to build plots:  
+1. stacked_bar_chart  
 stacked bar chart (every key in dictionary is plotted on top of each other)
 
-2. multi_line_plot
+2. multi_line_plot  
 creates separate line plot for each key in dictionary.
 
 ### test.sqlite
-simple Cyclus output for testing purposes.
+Simple Cyclus output for testing purposes.
 
 ### test_analysis.py
-testfile for analysis.py. To run:
+testfile for analysis.py.  
+To run:  
 ```
 python test_analysis.py
 ```
