@@ -1,4 +1,5 @@
-﻿<simulation xmlns:xi="http://www.w3.org/2001/XInclude">
+﻿<simulation xml:base="/home/gyutae/cyclus/predicting-the-past/cyclus_input/"
+  xmlns:xi="http://www.w3.org/2001/XInclude">
   <control>
     <duration>1020</duration>
     <startmonth>1</startmonth>
@@ -16,7 +17,7 @@
   </archetypes>
   <xi:include href="./buildtimes/inclusions.xml#xpointer(/inclusions/child::*)"/>
   <facility>
-    <name>Sink</name>
+    <name>Sink_HLW</name>
     <config>
       <Sink>
         <in_commods>
@@ -26,12 +27,22 @@
     </config>
   </facility>
   <facility>
+  	<name>Sink_LLW</name>
+  	<config>
+  		<Sink>
+  			<in_commods>
+  				<val>tails</val>
+  			</in_commods>
+  		</Sink>
+  	</config>
+  </facility>
+  <facility>
     <name>Mine</name>
     <config>
       <Source>
         <outcommod>nat_u</outcommod>
         <outrecipe>nat_u</outrecipe>
-        <throughput>1384555031.396084452</throughput>
+        <throughput>1e6</throughput>
       </Source>
     </config>
   </facility>
@@ -42,6 +53,7 @@
         <in_commods>
           <val>nat_u</val>
         </in_commods>
+        <in_recipe>nat_u</in_recipe>
         <out_commods>
           <val>u3o8</val>
         </out_commods>
@@ -56,6 +68,7 @@
         <in_commods>
           <val>u3o8</val>
         </in_commods>
+        <in_recipe>u3o8</in_recipe>
         <out_commods>
           <val>uf6</val>
         </out_commods>
@@ -71,7 +84,9 @@
         <feed_recipe>uf6</feed_recipe>
         <product_commod>enr_u</product_commod>
         <tails_commod>tails</tails_commod>
+        <tails_assay>0.002</tails_assay>
         <max_enrich>0.045</max_enrich>
+        
       </Enrichment>
     </config>
   </facility>
@@ -82,6 +97,7 @@
         <in_commods>
           <val>enr_u</val>
         </in_commods>
+        <in_recipe>enr_u</in_recipe>
         <out_commods>
           <val>fresh_uox</val>
         </out_commods>
@@ -96,6 +112,7 @@
         <in_commods>
           <val>spent_uox</val>
         </in_commods>
+        <in_recipe>spent_uox</in_recipe>
         <out_commods>
           <val>cool_spent_uox</val>
         </out_commods>
@@ -110,6 +127,7 @@
         <in_commods>
           <val>cool_spent_uox</val>
         </in_commods>
+        <in_recipe>cool_spent_uox</in_recipe>
         <out_commods>
           <val>casked_spent_uox</val>
         </out_commods>
@@ -124,6 +142,10 @@
     <institution>
       <name>FuelCycle</name>
       <initialfacilitylist>
+        <entry>
+          <prototype>Sink_LLW</prototype>
+          <number>1</number>
+        </entry>
         <entry>
           <prototype>Mine</prototype>
           <number>1</number>
@@ -156,6 +178,7 @@
       <config>
         <ManagerInst>
           <prototypes>
+          	<val>Sink_LLW</val>
             <val>Mine</val>
             <val>Mill</val>
             <val>Conversion</val>

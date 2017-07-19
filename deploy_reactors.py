@@ -4,9 +4,9 @@ import os
 import sys
 
 if len(sys.argv) < 5:
-    print('Usage: python deploy_reactors.py [fleet]\
-          [DeployinstTemplate] [InclusionsTemplate]\
-          [Reactor1] [Reactor2] ...')
+    print('Usage: python deploy_reactors.py [FleetcompFile] '
+          '[DeployinstTemplate] [InclusionsTemplate] '
+          '[Reactor1] [Reactor2] ...')
 
 
 def import_csv(in_csv):
@@ -67,9 +67,9 @@ def get_build_time(in_list, *args):
     data_dict = {}
     for col, item in enumerate(in_list):
         start_date = [in_list[col][11], in_list[col][9], in_list[col][10]]
-        month_diff = int((int(start_date[0])-1965) * 12 +
+        month_diff = int((int(start_date[0]) - 1965) * 12 +
                          int(start_date[1]) +
-                         int(start_date[2]) / (365/12))
+                         int(start_date[2]) / (365 / 12))
         for index, reactor in enumerate(args[0][0]):
             fleet_name = in_list[col][0].replace(' ', '_')
             file_name = reactor.replace(os.path.dirname(args[0][0][index]), '')
@@ -105,9 +105,9 @@ def make_recipe(in_dict, deployinst_template, inclusions_template):
                                                      buildtimes=buildtime_list)
     rendered_inclusions = inclusions_template.render(reactors=reactor_list)
     with open('cyclus_input/buildtimes/deployinst.xml', 'w') as output1:
-            output1.write(rendered_deployinst)
+        output1.write(rendered_deployinst)
     with open('cyclus_input/buildtimes/inclusions.xml', 'w') as output2:
-            output2.write(rendered_inclusions)
+        output2.write(rendered_inclusions)
 
 
 def main(in_csv, deployinst_template, inclusions_template, *args):

@@ -30,9 +30,9 @@ contains the reactor files to process all reactors in the folder.
 Usage:
 
     1. python get_reactors.py [Fleetcomp Data] [ReactorTemplate]
-    2. python deploy_reactors.py [Fleetcomp Data] [BuildtimeTemplate] [Reactor1] ...
+    2. python deploy_reactors.py [Fleetcomp Data] [DeployInstTemplate] [InclusionTemplate] [Reactor1] ...
     or
-    2. python deploy_reactors.py [Fleetcomp Data] [BuildtimeTemplate] [Folder]
+    2. python deploy_reactors.py [Fleetcomp Data] [DeployInstTemplate] [InclusionTemplate] [Folder]
 
 How to include xml files within an xml file
 ===========================================
