@@ -49,18 +49,6 @@ def load_template(in_template):
     return output_template
 
 
-def get_cf(in_list):
-    """ Creates a list of capacity factor from
-    the imported csv file
-    """
-    cf = []
-    for row in in_list[1:]:
-        for i in range(0, 12):
-            cf.append(float(row[1]) / 100)
-
-    return cf
-
-
 def get_composition(in_list, burnup):
     """ Returns a dictionary of reactor name and build_time (in months)
     using the fleetcomp list for reactors specified in *args.

@@ -1,4 +1,5 @@
 import collections
+import csv
 import numpy as np
 import matplotlib.pyplot as plt
 import sqlite3 as lite
@@ -1122,3 +1123,39 @@ def source_throughput(cur, duration, frac_prod, frac_tail):
     print('Throughput should be at least: ' +
           str(feed_factor * avg_fuel_used) + ' [kg]')
     return feed_factor * avg_fuel_used
+
+
+def import_csv(in_csv, delimit):
+    """ Imports contents of a comma delimited csv file
+    to a 2D list.
+
+    Parameters
+    ---------
+    in_csv: str
+        csv file name.
+    delimit: str
+        delimiter of the csv file
+
+    Returns
+    -------
+    data_list: list
+        list with fleetcomp data.
+    """
+    with open(in_csv, 'r') as source:
+        sourcereader = csv.reader(source, delimiter=delimit)
+        data_list = []
+        for row in sourcereader:
+            data_list.append(row)
+    return data_list
+
+
+def get_cf(in_list):
+    """ Creates a list of capacity factor from
+    the imported csv file
+    """
+    cf = []
+    for row in in_list[1:]:
+        for i in range(0, 12):
+            cf.append(float(row[1]) / 100)
+
+    return cf
