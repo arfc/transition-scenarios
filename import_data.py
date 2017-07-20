@@ -7,11 +7,6 @@ import jinja2
 import os
 import sys
 
-# Check number of input arguments
-if len(sys.argv) < 3:
-    print('Usage: python get_recipes.py [Fleetcomp] '
-          '[ReactorTemplate]')
-
 
 def import_csv(in_csv, delimit):
     """ Imports contents of a comma delimited csv file
@@ -119,7 +114,7 @@ def write_recipes(in_dict, in_template, burnup):
         output.write(rendered)
 
 
-def get_build_time(in_list, *args):
+def get_build_time(in_list, reactors):
     """ Returns a dictionary of reactor name and build_time (in months)
     using the fleetcomp list for reactors specified in *args.
 
@@ -141,10 +136,10 @@ def get_build_time(in_list, *args):
         month_diff = int((int(start_date[0]) - 1965) * 12 +
                          int(start_date[1]) +
                          int(start_date[2]) / (365.0 / 12))
-        for index, reactor in enumerate(args[0][0]):
+        for index, reactor in enumerate(reactors):
             fleet_name = in_list[col][0].replace(' ', '_')
             file_name = reactor.replace(
-                os.path.dirname(args[0][0][index]), '')
+                os.path.dirname(reactors[index]), '')
             file_name = file_name.replace('/', '')
             if (fleet_name + '.xml' == file_name):
                 data_dict.update({fleet_name: month_diff})
@@ -171,11 +166,8 @@ def write_deployment(in_dict, deployinst_template, inclusions_template):
         generates single xml file that includes reactors specified in
         the dictionary.
     """
-    reactor_list = in_dict.keys()
-    buildtime_list = in_dict.values()
-    rendered_deployinst = deployinst_template.render(reactors=reactor_list,
-                                                     buildtimes=buildtime_list)
-    rendered_inclusions = inclusions_template.render(reactors=reactor_list)
+    rendered_deployinst = deployinst_template.render(reactors=in_dict)
+    rendered_inclusions = inclusions_template.render(reactors=in_dict)
     with open('cyclus_input/buildtimes/deployinst.xml', 'w') as output1:
         output1.write(rendered_deployinst)
     with open('cyclus_input/buildtimes/inclusions.xml', 'w') as output2:
@@ -288,14 +280,16 @@ def deploy_reactors(in_csv, deployinst_template, inclusions_template, path):
     for files in os.listdir(path):
         lists.append(path + files)
     fleet_list = import_csv(in_csv, '\t')
+    buildtime_dict = get_build_time(fleet_list, lists)
     deployinst_temp = load_template(deployinst_template)
     inclusions_temp = load_template(inclusions_template)
-    buildtime_dict = get_build_time(fleet_list, path)
     write_deployment(buildtime_dict, deployinst_temp, inclusions_temp)
 
 if __name__ == '__main__':
     recipes('vision_recipes/uox.csv', 'templates/recipes_template.xml', 51)
     obtain_reactors('fleetcomp/US_Fleet.txt',
                     'templates/reactors_template.xml')
-    deploy_reactors('fleetcomp/US_Fleet.txt', 'templates/deployinst_template.xml',
-                    'templates/inclusions_template.xml', 'cyclus_input/reactors/')
+    deploy_reactors('fleetcomp/US_Fleet.txt',
+                    'templates/deployinst_template.xml',
+                    'templates/inclusions_template.xml',
+                    'cyclus_input/reactors/')
