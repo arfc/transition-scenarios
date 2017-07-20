@@ -290,10 +290,9 @@ def set_xml_base(cyclus_template, path):
         generates single xml file that includes reactors specified in
         the dictionary.
     """
-    path = os.path.abspath(path)
-    print(path)
+    path = os.path.abspath(path) + '/'
     cyclus_input = load_template(cyclus_template).render(base_dir=path)
-    with open(path + '/predicting_the_past.xml', 'w') as output1:
+    with open(path + 'predicting_the_past.xml', 'w') as output1:
         output1.write(cyclus_input)
 
 
