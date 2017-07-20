@@ -87,13 +87,13 @@ def get_composition(in_list, burnup):
         if i > 1:
             if burnup == 33:
                 data_dict.update({nn.id(in_list[i][0]):
-                                  in_list[i][2]})
+                                  float(in_list[i][2])})
             elif burnup == 51:
                 data_dict.update({nn.id(in_list[i][0]):
-                                  in_list[i][4]})
+                                  float(in_list[i][4])})
             else:
                 data_dict.update({nn.id(in_list[i][0]):
-                                  in_list[i][6]})
+                                  float(in_list[i][6])})
     return data_dict
 
 
@@ -113,12 +113,8 @@ def write_recipes(in_dict, in_template, burnup):
     null
         generates reactor files for cyclus.
     """
-    isotope_list = in_dict.keys()
-    composition_list = in_dict.values()
-    rendered = in_template.render(id=isotope_list,
-                                  comp=composition_list)
-    with open('./cyclus_input/recipes/uox_' +
-              str(burnup) +
+    rendered = in_template.render(vision=in_dict)
+    with open('cyclus_input/recipes/uox_' + str(burnup) +
               '.xml', 'w') as output:
         output.write(rendered)
 

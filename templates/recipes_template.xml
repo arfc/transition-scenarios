@@ -14,11 +14,8 @@
   <recipe>
     <name>spent_uox</name>
     <basis>atom</basis>
-    {%- for isotopes in id %}
-    <nuclide>
-        <id>{{ id[loop.index0] }}</id>
-        <comp>{{ comp[loop.index0] }}</comp>
-    </nuclide>
-    {%- endfor %}
+    {% for key, value in vision.items() -%}
+    <nuclide>  <id>{{ key }}</id>  <comp>{{ value }}</comp>  </nuclide>
+    {% endfor -%}
   </recipe>
 </recipes>
