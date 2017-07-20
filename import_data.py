@@ -273,6 +273,30 @@ def deploy_reactors(in_csv, deployinst_template, inclusions_template, path):
     inclusions_temp = load_template(inclusions_template)
     write_deployment(buildtime_dict, deployinst_temp, inclusions_temp)
 
+
+def set_xml_base(cyclus_template, path):
+    """ Sets xml:base attribute for cyclus input
+
+    Parameters
+    ---------
+    cyclus_template: str
+        path and name to cyclus input template
+    path: str
+        relative path to cyclus input file
+
+    Returns
+    -------
+    null
+        generates single xml file that includes reactors specified in
+        the dictionary.
+    """
+    path = os.path.abspath(path)
+    print(path)
+    cyclus_input = load_template(cyclus_template).render(base_dir=path)
+    with open(path + '/predicting_the_past.xml', 'w') as output1:
+        output1.write(cyclus_input)
+
+
 if __name__ == '__main__':
     recipes('import_data/vision_recipes/uox.csv',
             'templates/recipes_template.xml', 51)
@@ -282,3 +306,5 @@ if __name__ == '__main__':
                     'templates/deployinst_template.xml',
                     'templates/inclusions_template.xml',
                     'cyclus/input/reactors/')
+    set_xml_base('templates/predicting_the_past_template.xml',
+                 'cyclus/input/')
