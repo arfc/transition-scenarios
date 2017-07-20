@@ -1,0 +1,305 @@
+# Imports a tab delimited data file containing
+# reactor data to output formatted input for
+# Cycamore Reactors.
+from pyne import nucname as nn
+import csv
+import jinja2
+import os
+import sys
+
+# Check number of input arguments
+if len(sys.argv) < 3:
+    print('Usage: python get_recipes.py [Fleetcomp] '
+          '[ReactorTemplate]')
+
+
+def import_csv(in_csv, delimit):
+    """ Imports contents of a comma delimited csv file
+    to a 2D list.
+
+    Parameters
+    ---------
+    in_csv: str
+        csv file name.
+    delimit: str
+        delimiter of the csv file
+
+    Returns
+    -------
+    data_list: list
+        list with fleetcomp data.
+    """
+    with open(in_csv, 'r') as source:
+        sourcereader = csv.reader(source, delimiter=delimit)
+        data_list = []
+        for row in sourcereader:
+            data_list.append(row)
+    return data_list
+
+
+def load_template(in_template):
+    """ Returns a jinja2 template.
+
+    Parameters
+    ---------
+    in_template: str
+        template file name.
+
+    Returns
+    -------
+    output_template: jinja template object
+    """
+    with open(in_template, 'r') as default:
+        output_template = jinja2.Template(default.read())
+    return output_template
+
+
+def get_cf(in_list):
+    """ Creates a list of capacity factor from
+    the imported csv file
+    """
+    cf = []
+    for row in in_list[1:]:
+        for i in range(0, 12):
+            cf.append(float(row[1]) / 100)
+
+    return cf
+
+
+def get_composition(in_list, burnup):
+    """ Returns a dictionary of reactor name and build_time (in months)
+    using the fleetcomp list for reactors specified in *args.
+
+    Parameters
+    ---------
+    in_list: list
+        list file containing fleetcomp data.
+    *args: str
+        path and name of reactors that will be added to cyclus simulation.
+
+    Returns
+    -------
+    data_dict: dictionary
+        dictionary with key: isotope, and value: composition.
+    """
+    data_dict = {}
+    for i in range(len(in_list)):
+        if i > 1:
+            if burnup == 33:
+                data_dict.update({nn.id(in_list[i][0]):
+                                  in_list[i][2]})
+            elif burnup == 51:
+                data_dict.update({nn.id(in_list[i][0]):
+                                  in_list[i][4]})
+            else:
+                data_dict.update({nn.id(in_list[i][0]):
+                                  in_list[i][6]})
+    return data_dict
+
+
+def write_recipes(in_dict, in_template, burnup):
+    """ Renders jinja template using data from in_list and
+    outputs an xml file for a single reactor.
+
+    Parameters
+    ---------
+    data_dict: dictionary
+        dictionary with key: isotope, and value: composition.
+    in_template: jinja template object
+        jinja template object to be rendered.
+
+    Returns
+    -------
+    null
+        generates reactor files for cyclus.
+    """
+    isotope_list = in_dict.keys()
+    composition_list = in_dict.values()
+    rendered = in_template.render(id=isotope_list,
+                                  comp=composition_list)
+    with open('./cyclus_input/recipes/uox_' +
+              str(burnup) +
+              '.xml', 'w') as output:
+        output.write(rendered)
+
+
+def get_build_time(in_list, *args):
+    """ Returns a dictionary of reactor name and build_time (in months)
+    using the fleetcomp list for reactors specified in *args.
+
+    Parameters
+    ---------
+    in_list: list
+        list file containing fleetcomp data.
+    *args: str
+        path and name of reactors that will be added to cyclus simulation.
+
+    Returns
+    -------
+    data_dict: dictionary
+        dictionary with key: reactor name, and value: buildtime.
+    """
+    data_dict = {}
+    for col, item in enumerate(in_list):
+        start_date = [in_list[col][11], in_list[col][9], in_list[col][10]]
+        month_diff = int((int(start_date[0]) - 1965) * 12 +
+                         int(start_date[1]) +
+                         int(start_date[2]) / (365.0 / 12))
+        for index, reactor in enumerate(args[0][0]):
+            fleet_name = in_list[col][0].replace(' ', '_')
+            file_name = reactor.replace(
+                os.path.dirname(args[0][0][index]), '')
+            file_name = file_name.replace('/', '')
+            if (fleet_name + '.xml' == file_name):
+                data_dict.update({fleet_name: month_diff})
+    return data_dict
+
+
+def write_deployment(in_dict, deployinst_template, inclusions_template):
+    """ Renders jinja template using dictionary of reactor name and buildtime
+    and outputs an xml file that uses xinclude to include the reactors located
+    in cyclus_input/reactors.
+
+    Parameters
+    ---------
+    in_dict: dictionary
+        dictionary with key: reactor name, and value: buildtime.
+    deployinst_template: jinja template object
+        jinja template object to be rendered with deployinst.
+    inclusions_template: jinja template object
+        jinja template object to be rendered with reactor inclusions.
+
+    Returns
+    -------
+    null
+        generates single xml file that includes reactors specified in
+        the dictionary.
+    """
+    reactor_list = in_dict.keys()
+    buildtime_list = in_dict.values()
+    rendered_deployinst = deployinst_template.render(reactors=reactor_list,
+                                                     buildtimes=buildtime_list)
+    rendered_inclusions = inclusions_template.render(reactors=reactor_list)
+    with open('cyclus_input/buildtimes/deployinst.xml', 'w') as output1:
+        output1.write(rendered_deployinst)
+    with open('cyclus_input/buildtimes/inclusions.xml', 'w') as output2:
+        output2.write(rendered_inclusions)
+
+
+def write_reactors_xml(in_list, in_template):
+    """ Renders jinja template using data from in_list and
+    outputs an xml file for a single reactor.
+
+    Parameters
+    ---------
+    in_list: list
+        list file containing fleetcomp data.
+    in_template: jinja template object
+        jinja template object to be rendered.
+
+    Returns
+    -------
+    null
+        generates reactor files for cyclus.
+    """
+    for col, item in enumerate(in_list):
+        reactor_type = in_list[col][6]
+        batch = int(in_list[col][24])
+        assem_per_batch = 0
+        assem_no = 0
+        assem_size = 0
+        if reactor_type == 'BWR':
+            assem_no = 732
+            assem_per_batch = assem_no / batch
+            assem_size = float(in_list[col][8]) / assem_no
+        else:
+            assem_no = 240
+            assem_per_batch = int(assem_no / batch)
+            assem_size = float(in_list[col][8]) / assem_no
+        rendered = in_template.render(name=in_list[col][0].replace(' ', '_'),
+                                      lifetime=in_list[col][6],
+                                      assem_size=assem_size,
+                                      n_assem_core=assem_no,
+                                      n_assem_batch=assem_per_batch,
+                                      power_cap=in_list[col][2])
+        with open('./cyclus_input/reactors/' +
+                  in_list[col][0].replace(' ', '_') +
+                  '.xml', 'w') as output:
+            output.write(rendered)
+
+
+def recipes(in_csv, recipe_template, burnup):
+    """ Generates commodity composition xml input for cyclus.
+
+    Parameters
+    ---------
+    in_csv: str
+        csv file name.
+    reactor_template: str
+        template file name.
+
+    Returns
+    -------
+    null
+        Generates commodity composition xml input for cyclus.
+    """
+    write_recipes(get_composition(import_csv(in_csv, ','), burnup),
+                  load_template(recipe_template), burnup)
+
+
+def obtain_reactors(in_csv, reactor_template):
+    """ Writes xml files for individual reactors in US fleet.
+
+    Parameters
+    ---------
+    in_csv: str
+        csv file name.
+    reactor_template: str
+        template file name.
+
+    Returns
+    -------
+    null
+        Writes xml files for individual reactors in US fleet.
+    """
+    write_reactors_xml(import_csv(in_csv, '\t'),
+                       load_template(reactor_template))
+
+
+def deploy_reactors(in_csv, deployinst_template, inclusions_template, path):
+    """ Generates xml files that specifies the reactors that will be included
+    in a cyclus simulation.
+
+    Parameters
+    ---------
+    in_csv: str
+        csv file name.
+    deployinst_template: jinja template object
+        jinja template object to be rendered with deployinst.
+    inclusions_template: jinja template object
+        jinja template object to be rendered with reactor inclusions.
+    *args: str
+        path and name of reactors that will be added to cyclus simulation.
+
+    Returns
+    -------
+    null
+        generates single xml file that includes reactors specified in
+        the dictionary.
+    """
+
+    lists = []
+    for files in os.listdir(path):
+        lists.append(path + files)
+    fleet_list = import_csv(in_csv, '\t')
+    deployinst_temp = load_template(deployinst_template)
+    inclusions_temp = load_template(inclusions_template)
+    buildtime_dict = get_build_time(fleet_list, path)
+    write_deployment(buildtime_dict, deployinst_temp, inclusions_temp)
+
+if __name__ == '__main__':
+    recipes('vision_recipes/uox.csv', 'templates/recipes_template.xml', 51)
+    obtain_reactors('fleetcomp/US_Fleet.txt',
+                    'templates/reactors_template.xml')
+    deploy_reactors('fleetcomp/US_Fleet.txt', 'templates/deployinst_template.xml',
+                    'templates/inclusions_template.xml', 'cyclus_input/reactors/')
