@@ -31,6 +31,6 @@ def get_cf(in_list):
     cf = []
     for row in in_list[1:]:
         for i in range(0, 12):
-            cf.append(float(row[1]) / 100)
+            cf.append(float(row[1]) / 1000)
 
     return cf
