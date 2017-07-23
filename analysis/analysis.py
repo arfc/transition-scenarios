@@ -1152,6 +1152,16 @@ def import_csv(in_csv, delimit):
 def get_cf(in_list):
     """ Creates a list of capacity factor from
     the imported csv file
+
+    Parameters
+    ----------
+    in_list: list
+        list containing data stored in a csv file
+
+    Returns
+    -------
+    cf: list
+        list of capacity factors per month
     """
     cf = []
     for row in in_list[1:]:
@@ -1159,3 +1169,25 @@ def get_cf(in_list):
             cf.append(float(row[1]) / 100)
 
     return cf
+
+
+def get_generation(in_list):
+    """ Creates a list of power generated from
+    the imported csv file
+
+    Parameters
+    ----------
+    in_list: list
+        list containing data stored in a csv file
+
+    Returns
+    -------
+    generation: list
+        list of power generated per month
+    """
+    generation = []
+    for row in in_list[1:]:
+        for i in range(0, 12):
+            generation.append(float(row[2]) / 1000)
+
+    return generation
