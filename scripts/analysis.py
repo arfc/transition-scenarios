@@ -353,7 +353,6 @@ def commodity_flux_region(cur, agent_ids, commodity_list, is_outflux):
     if is_outflux:
         query = query.replace('receiverid', 'senderid')
         query = query.replace('SENDERID', 'RECEIVERID')
-    print(query)
     resources = cur.execute(query).fetchall()
     govs = cur.execute('SELECT agentid, prototype FROM agententry '
                        'WHERE kind = "Inst"').fetchall()
