@@ -276,7 +276,7 @@ def get_isotope_transactions(resources, compositions):
 
 
 def facility_commodity_flux(cur, agent_ids, commod_list, is_outflux):
-    """ Returns timeseries of commodity in/outflux from agents
+    """ Returns dictionary of commodity in/outflux from agents
 
     Parameters
     ----------
@@ -310,6 +310,57 @@ def facility_commodity_flux(cur, agent_ids, commod_list, is_outflux):
 
         timeseries = get_timeseries_cum(res, duration, True)
         commodity_dict[comm] = timeseries
+
+    return commodity_dict
+
+
+def commodity_flux_region(cur, agent_ids, commodity_list, is_outflux):
+    """ Returns dictionary of timeseries of all the commodity outflux,
+        that is either coming in/out of the agent
+        separated by region
+
+    Parameters
+    ----------
+    cur: sqlite cursor
+        sqlite cursor
+    agent_ids: list
+        list of agentids
+    commodity: list
+        list of commodities to include
+    is_outflux: bool
+        gets outflux from agent if True
+        gets influx to agent if False
+
+    Returns
+    -------
+    commodity_dict: dictionary
+        dictionary with "key=region, and
+        value= timeseries list of masses in kg"
+    """
+    init_year, init_month, duration, timestep = get_timesteps(cur)
+    commodity_dict = collections.OrderedDict()
+    commodity_list = ['"' + x + '"' for x in commodity_list]
+    query = ('SELECT time, sum(quantity), parentid '
+             'FROM transactions '
+             'INNER JOIN resources '
+             'ON resources.resourceid = '
+             'transactions.resourceid '
+             'INNER JOIN agententry '
+             'ON agententry.agentid = transactions.SENDERID '
+             'WHERE (commodity = ' + ' OR commodity = '.join(commodity_list) + ') AND ('
+             'receiverid = ' + ' OR receiverid = '.join(agent_ids) + ') GROUP BY '
+             'time, parentid')
+    if is_outflux:
+        query = query.replace('receiverid', 'senderid')
+        query = query.replace('SENDERID', 'RECEIVERID')
+    print(query)
+    resources = cur.execute(query).fetchall()
+    govs = cur.execute('SELECT agentid, prototype FROM agententry '
+                       'WHERE kind = "Inst"').fetchall()
+    for gov in govs:
+        from_gov = [(x['time'], x['sum(quantity)'])
+                    for x in resources if x['parentid'] == gov['agentid']]  
+        commodity_dict[gov['prototype']] = get_timeseries_cum(from_gov, duration, True)
 
     return commodity_dict
 
