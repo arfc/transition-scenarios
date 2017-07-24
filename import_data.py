@@ -274,7 +274,7 @@ def deploy_reactors(in_csv, deployinst_template, inclusions_template, path):
     write_deployment(buildtime_dict, deployinst_temp, inclusions_temp)
 
 
-def set_xml_base(cyclus_template, path):
+def set_xml_base(cyclus_template, path, output_name):
     """ Sets xml:base attribute for cyclus input
 
     Parameters
@@ -283,6 +283,8 @@ def set_xml_base(cyclus_template, path):
         path and name to cyclus input template
     path: str
         relative path to cyclus input file
+    output_name: str
+        name of the output file
 
     Returns
     -------
@@ -292,7 +294,7 @@ def set_xml_base(cyclus_template, path):
     """
     path = os.path.abspath(path) + '/'
     cyclus_input = load_template(cyclus_template).render(base_dir=path)
-    with open(path + 'predicting_the_past.xml', 'w') as output1:
+    with open(path + output_name + '.xml', 'w') as output1:
         output1.write(cyclus_input)
 
 
@@ -305,5 +307,6 @@ if __name__ == '__main__':
                     'templates/deployinst_template.xml',
                     'templates/inclusions_template.xml',
                     'cyclus/input/reactors/')
-    set_xml_base('templates/predicting_the_past_template.xml',
-                 'cyclus/input/')
+    set_xml_base('templates/US_template.xml',
+                 'cyclus/input/',
+                 'US')
