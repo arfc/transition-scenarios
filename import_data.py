@@ -97,7 +97,7 @@ def write_recipes(in_dict, in_template, burnup):
         generates reactor files for cyclus.
     """
     rendered = in_template.render(vision=in_dict)
-    with open('cyclus/input/recipes/uox_' + str(burnup) +
+    with open('cyclus/input/US/recipes/uox_' + str(burnup) +
               '.xml', 'w') as output:
         output.write(rendered)
 
@@ -156,9 +156,9 @@ def write_deployment(in_dict, deployinst_template, inclusions_template):
     """
     rendered_deployinst = deployinst_template.render(reactors=in_dict)
     rendered_inclusions = inclusions_template.render(reactors=in_dict)
-    with open('cyclus/input/buildtimes/deployinst.xml', 'w') as output1:
+    with open('cyclus/input/US/buildtimes/deployinst.xml', 'w') as output1:
         output1.write(rendered_deployinst)
-    with open('cyclus/input/buildtimes/inclusions.xml', 'w') as output2:
+    with open('cyclus/input/US/buildtimes/inclusions.xml', 'w') as output2:
         output2.write(rendered_inclusions)
 
 
@@ -198,7 +198,7 @@ def write_reactors_xml(in_list, in_template):
                                       n_assem_core=assem_no,
                                       n_assem_batch=assem_per_batch,
                                       power_cap=in_list[col][2])
-        with open('cyclus/input/reactors/' +
+        with open('cyclus/input/US/reactors/' +
                   in_list[col][0].replace(' ', '_') +
                   '.xml', 'w') as output:
             output.write(rendered)
@@ -300,13 +300,13 @@ def set_xml_base(cyclus_template, path, output_name):
 
 if __name__ == '__main__':
     recipes('import_data/vision_recipes/uox.csv',
-            'templates/recipes_template.xml', 51)
+            'templates/US/recipes_template.xml', 51)
     obtain_reactors('import_data/fleetcomp/US_Fleet.txt',
                     'templates/reactors_template.xml')
     deploy_reactors('import_data/fleetcomp/US_Fleet.txt',
-                    'templates/deployinst_template.xml',
+                    'templates/US/deployinst_template.xml',
                     'templates/inclusions_template.xml',
-                    'cyclus/input/reactors/')
-    set_xml_base('templates/US_template.xml',
+                    'cyclus/input/US/reactors/')
+    set_xml_base('templates/US/US_template.xml',
                  'cyclus/input/',
                  'US')

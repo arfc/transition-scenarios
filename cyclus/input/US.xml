@@ -15,7 +15,7 @@
     <spec><lib>cycamore</lib> <name>ManagerInst</name></spec>
     <spec><lib>agents</lib>   <name>NullRegion</name> </spec>
   </archetypes>
-  <xi:include href="./buildtimes/inclusions.xml#xpointer(/inclusions/child::*)"/>
+  <xi:include href="US/buildtimes/inclusions.xml#xpointer(/inclusions/child::*)"/>
   <facility>
     <name>Sink_HLW</name>
     <config>
@@ -193,10 +193,10 @@
     <institution>
       <name>Power</name>
       <config>
-        <xi:include href="./buildtimes/deployinst.xml"/>
+        <xi:include href="US/buildtimes/deployinst.xml"/>
       </config>
     </institution>
   </region>
-  <xi:include href="./recipes/uox_51.xml#xpointer(/recipes/child::*)"/>
-  <xi:include href="./recipes/facility.xml#xpointer(/recipes/child::*)"/>
+  <xi:include href="US/recipes/uox_51.xml#xpointer(/recipes/child::*)"/>
+  <xi:include href="US/recipes/facility.xml#xpointer(/recipes/child::*)"/>
 </simulation>
