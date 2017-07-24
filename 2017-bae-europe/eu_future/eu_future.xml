@@ -56,54 +56,23 @@
 
 
 <facility>
-    <name>uox_mixer</name>
+  <!--MELOX 195tHM/y-->
+  <!-- 1995 -->
+  <!-- world-nuclear.org FRANCE-->
+    <name>MELOX</name>
     <config>
       <Mixer>
         <in_streams>
           <stream>
             <info>
               <mixing_ratio>.09</mixing_ratio>
-              <buf_size>100000</buf_size>
+              <buf_size>16250</buf_size>
             </info>
             <commodities>
               <item>
                 <commodity>uox_Pu</commodity>
                 <pref>1.0</pref>
               </item>
-            </commodities>
-          </stream>
-          <stream>
-            <info>
-              <mixing_ratio>.91</mixing_ratio>
-              <buf_size>1000000</buf_size>
-            </info>
-            <commodities>
-              <item>
-                <commodity>tailings</commodity>
-                <pref>1.0</pref>
-              </item>
-            </commodities>
-          </stream>
-        </in_streams>
-        <out_commod>mox</out_commod>
-        <out_buf_size>100000</out_buf_size>
-        <throughput>30000</throughput>
-      </Mixer>
-    </config>
-</facility>
-
-
-<facility>
-    <name>mox_mixer</name>
-    <config>
-      <Mixer>
-        <in_streams>
-          <stream>
-            <info>
-              <mixing_ratio>.1</mixing_ratio>
-              <buf_size>100000</buf_size>
-            </info>
-            <commodities>
               <item>
                 <commodity>mox_Pu</commodity>
                 <pref>1.0</pref>
@@ -112,8 +81,8 @@
           </stream>
           <stream>
             <info>
-              <mixing_ratio>.9</mixing_ratio>
-              <buf_size>1000000</buf_size>
+              <mixing_ratio>.91</mixing_ratio>
+              <buf_size>16250</buf_size>
             </info>
             <commodities>
               <item>
@@ -124,25 +93,28 @@
           </stream>
         </in_streams>
         <out_commod>mox</out_commod>
-        <out_buf_size>1000000</out_buf_size>
-        <throughput>30000</throughput>
+        <out_buf_size>16250</out_buf_size>
+        <throughput>16250</throughput>
       </Mixer>
     </config>
 </facility>
 
+
+
 <!-- La Hague Model from Schneider & Marignac -->
+<!-- Since 1976 -->
   <facility>
     <name>uox_reprocessing</name>
     <config>
       <Separations>
-         <feed_commods>   <val>uox_waste</val> </feed_commods>
+         <feed_commods>   <val>french_uox_waste</val> </feed_commods>
          <feed_commod_prefs> <val>1.0</val> </feed_commod_prefs>
          <feed_recipe>uox_used_fuel_recipe</feed_recipe>
          <feedbuf_size>183200</feedbuf_size>
          <!-- 1100 tons/year 91.6 tons/timestep --> 
          <throughput>91600</throughput>
          <leftover_commod>reprocess_waste</leftover_commod>
-         <leftoverbuf_size>91600</leftoverbuf_size>
+         <leftoverbuf_size>183200</leftoverbuf_size>
          <streams>
           <item>
             <commod>uox_Pu</commod>
@@ -172,6 +144,7 @@
   </facility>
 
 <!-- La Hague Model from Schneider & Marignac -->
+<!-- Since 1976 -->
   <facility>
     <name>mox_reprocessing</name>
     <config>
@@ -183,7 +156,7 @@
          <!-- 1100 tons/year 91.6 tons/timestep --> 
          <throughput>91600</throughput>
          <leftover_commod>mox_reprocess_waste</leftover_commod>
-         <leftoverbuf_size>91600</leftoverbuf_size>
+         <leftoverbuf_size>183200</leftoverbuf_size>
          <streams>
           <item>
             <commod>mox_Pu</commod>
@@ -246,6 +219,7 @@
         <in_commods>
           <val>uox_waste</val>
           <val>mox_waste</val>
+          <val>french_uox_waste</val>
           <val>tailings</val>
           <val>reprocess_waste</val>
           <val>mox_reprocess_waste</val>
@@ -254,6 +228,19 @@
       </Sink>
     </config>
   </facility>
+
+  <facility>
+    <name>repusink</name>
+    <config>
+        <Sink>
+            <in_commods>
+                <val>uox_U</val>
+                <val>mox_U</val>
+            </in_commods>
+        <capacity>1e299</capacity>
+    </Sink>
+</config>
+</facility>
 
 <facility>
     <!-- EPR from  Martin_Symbiotic-->
@@ -923,7 +910,7 @@
         <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_outcommods> <val>french_uox_waste</val>             </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
@@ -943,7 +930,7 @@
         <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_outcommods> <val>french_uox_waste</val>             </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
@@ -963,7 +950,7 @@
         <fuel_inrecipes>  <val>uox_fuel_recipe</val>       <val>mox_fuel_recipe</val>        </fuel_inrecipes>
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
+        <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
@@ -983,7 +970,7 @@
         <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_outcommods> <val>french_uox_waste</val>             </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
@@ -1003,7 +990,7 @@
         <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_outcommods> <val>french_uox_waste</val>             </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
@@ -1023,7 +1010,7 @@
         <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_outcommods> <val>french_uox_waste</val>             </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
@@ -1043,7 +1030,7 @@
         <fuel_inrecipes>  <val>uox_fuel_recipe</val>       <val>mox_fuel_recipe</val>        </fuel_inrecipes>
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
+        <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
@@ -1063,7 +1050,7 @@
         <fuel_inrecipes>  <val>uox_fuel_recipe</val>       <val>mox_fuel_recipe</val>        </fuel_inrecipes>
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
+        <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
@@ -1083,7 +1070,7 @@
         <fuel_inrecipes>  <val>uox_fuel_recipe</val>       <val>mox_fuel_recipe</val>        </fuel_inrecipes>
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
+        <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
@@ -1103,7 +1090,7 @@
         <fuel_inrecipes>  <val>uox_fuel_recipe</val>       <val>mox_fuel_recipe</val>        </fuel_inrecipes>
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
+        <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
@@ -1123,7 +1110,7 @@
         <fuel_inrecipes>  <val>uox_fuel_recipe</val>       <val>mox_fuel_recipe</val>        </fuel_inrecipes>
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
+        <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
@@ -1143,7 +1130,7 @@
         <fuel_inrecipes>  <val>uox_fuel_recipe</val>       <val>mox_fuel_recipe</val>        </fuel_inrecipes>
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
+        <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
@@ -1163,7 +1150,7 @@
         <fuel_inrecipes>  <val>uox_fuel_recipe</val>       <val>mox_fuel_recipe</val>        </fuel_inrecipes>
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
+        <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
@@ -1183,7 +1170,7 @@
         <fuel_inrecipes>  <val>uox_fuel_recipe</val>       <val>mox_fuel_recipe</val>        </fuel_inrecipes>
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
+        <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
@@ -1203,7 +1190,7 @@
         <fuel_inrecipes>  <val>uox_fuel_recipe</val>       <val>mox_fuel_recipe</val>        </fuel_inrecipes>
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
+        <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
@@ -1223,7 +1210,7 @@
         <fuel_inrecipes>  <val>uox_fuel_recipe</val>       <val>mox_fuel_recipe</val>        </fuel_inrecipes>
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
+        <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
@@ -1243,7 +1230,7 @@
         <fuel_inrecipes>  <val>uox_fuel_recipe</val>       <val>mox_fuel_recipe</val>        </fuel_inrecipes>
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
+        <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
@@ -1263,7 +1250,7 @@
         <fuel_inrecipes>  <val>uox_fuel_recipe</val>       <val>mox_fuel_recipe</val>        </fuel_inrecipes>
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
+        <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
@@ -1283,7 +1270,7 @@
         <fuel_inrecipes>  <val>uox_fuel_recipe</val>       <val>mox_fuel_recipe</val>        </fuel_inrecipes>
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
+        <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
@@ -1303,7 +1290,7 @@
         <fuel_inrecipes>  <val>uox_fuel_recipe</val>       <val>mox_fuel_recipe</val>        </fuel_inrecipes>
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
+        <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
@@ -1323,7 +1310,7 @@
         <fuel_inrecipes>  <val>uox_fuel_recipe</val>       <val>mox_fuel_recipe</val>        </fuel_inrecipes>
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
+        <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
@@ -1343,7 +1330,7 @@
         <fuel_inrecipes>  <val>uox_fuel_recipe</val>       <val>mox_fuel_recipe</val>        </fuel_inrecipes>
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
+        <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
@@ -1363,7 +1350,7 @@
         <fuel_inrecipes>  <val>uox_fuel_recipe</val>       <val>mox_fuel_recipe</val>        </fuel_inrecipes>
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
+        <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
@@ -1383,7 +1370,7 @@
         <fuel_inrecipes>  <val>uox_fuel_recipe</val>       <val>mox_fuel_recipe</val>        </fuel_inrecipes>
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
+        <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
@@ -1403,7 +1390,7 @@
         <fuel_inrecipes>  <val>uox_fuel_recipe</val>       <val>mox_fuel_recipe</val>        </fuel_inrecipes>
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
+        <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
@@ -1423,7 +1410,7 @@
         <fuel_inrecipes>  <val>uox_fuel_recipe</val>       <val>mox_fuel_recipe</val>        </fuel_inrecipes>
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
+        <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
@@ -1443,7 +1430,7 @@
         <fuel_inrecipes>  <val>uox_fuel_recipe</val>       <val>mox_fuel_recipe</val>        </fuel_inrecipes>
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
+        <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
@@ -1463,7 +1450,7 @@
         <fuel_inrecipes>  <val>uox_fuel_recipe</val>       <val>mox_fuel_recipe</val>        </fuel_inrecipes>
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
+        <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
@@ -1483,7 +1470,7 @@
         <fuel_inrecipes>  <val>uox_fuel_recipe</val>       <val>mox_fuel_recipe</val>        </fuel_inrecipes>
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
+        <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
@@ -1503,7 +1490,7 @@
         <fuel_inrecipes>  <val>uox_fuel_recipe</val>       <val>mox_fuel_recipe</val>        </fuel_inrecipes>
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
+        <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
@@ -1523,7 +1510,7 @@
         <fuel_inrecipes>  <val>uox_fuel_recipe</val>       <val>mox_fuel_recipe</val>        </fuel_inrecipes>
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
+        <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
@@ -1543,7 +1530,7 @@
         <fuel_inrecipes>  <val>uox_fuel_recipe</val>       <val>mox_fuel_recipe</val>        </fuel_inrecipes>
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
+        <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
@@ -1563,7 +1550,7 @@
         <fuel_inrecipes>  <val>uox_fuel_recipe</val>       <val>mox_fuel_recipe</val>        </fuel_inrecipes>
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
+        <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
@@ -1583,7 +1570,7 @@
         <fuel_inrecipes>  <val>uox_fuel_recipe</val>       <val>mox_fuel_recipe</val>        </fuel_inrecipes>
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
+        <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
@@ -1603,7 +1590,7 @@
         <fuel_inrecipes>  <val>uox_fuel_recipe</val>       <val>mox_fuel_recipe</val>        </fuel_inrecipes>
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
+        <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
@@ -1623,7 +1610,7 @@
         <fuel_inrecipes>  <val>uox_fuel_recipe</val>       <val>mox_fuel_recipe</val>        </fuel_inrecipes>
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
+        <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
@@ -1643,7 +1630,7 @@
         <fuel_inrecipes>  <val>uox_fuel_recipe</val>       <val>mox_fuel_recipe</val>        </fuel_inrecipes>
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
+        <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
@@ -1663,7 +1650,7 @@
         <fuel_inrecipes>  <val>uox_fuel_recipe</val>       <val>mox_fuel_recipe</val>        </fuel_inrecipes>
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
+        <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
@@ -1683,7 +1670,7 @@
         <fuel_inrecipes>  <val>uox_fuel_recipe</val>       <val>mox_fuel_recipe</val>        </fuel_inrecipes>
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
+        <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
@@ -1703,7 +1690,7 @@
         <fuel_inrecipes>  <val>uox_fuel_recipe</val>       <val>mox_fuel_recipe</val>        </fuel_inrecipes>
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
+        <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
@@ -1723,7 +1710,7 @@
         <fuel_inrecipes>  <val>uox_fuel_recipe</val>       <val>mox_fuel_recipe</val>        </fuel_inrecipes>
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
+        <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
@@ -1743,7 +1730,7 @@
         <fuel_inrecipes>  <val>uox_fuel_recipe</val>       <val>mox_fuel_recipe</val>        </fuel_inrecipes>
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
+        <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
@@ -1763,7 +1750,7 @@
         <fuel_inrecipes>  <val>uox_fuel_recipe</val>       <val>mox_fuel_recipe</val>        </fuel_inrecipes>
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
+        <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
@@ -1783,7 +1770,7 @@
         <fuel_inrecipes>  <val>uox_fuel_recipe</val>       <val>mox_fuel_recipe</val>        </fuel_inrecipes>
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
+        <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
@@ -1803,7 +1790,7 @@
         <fuel_inrecipes>  <val>uox_fuel_recipe</val>       <val>mox_fuel_recipe</val>        </fuel_inrecipes>
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
+        <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
@@ -1823,7 +1810,7 @@
         <fuel_inrecipes>  <val>uox_fuel_recipe</val>       <val>mox_fuel_recipe</val>        </fuel_inrecipes>
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
+        <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
@@ -1843,7 +1830,7 @@
         <fuel_inrecipes>  <val>uox_fuel_recipe</val>       <val>mox_fuel_recipe</val>        </fuel_inrecipes>
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
+        <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
@@ -1863,7 +1850,7 @@
         <fuel_inrecipes>  <val>uox_fuel_recipe</val>       <val>mox_fuel_recipe</val>        </fuel_inrecipes>
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
+        <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
@@ -1883,7 +1870,7 @@
         <fuel_inrecipes>  <val>uox_fuel_recipe</val>       <val>mox_fuel_recipe</val>        </fuel_inrecipes>
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
+        <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
@@ -1903,7 +1890,7 @@
         <fuel_inrecipes>  <val>uox_fuel_recipe</val>       <val>mox_fuel_recipe</val>        </fuel_inrecipes>
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
+        <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
@@ -1923,7 +1910,7 @@
         <fuel_inrecipes>  <val>uox_fuel_recipe</val>       <val>mox_fuel_recipe</val>        </fuel_inrecipes>
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
+        <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
@@ -1943,7 +1930,7 @@
         <fuel_inrecipes>  <val>uox_fuel_recipe</val>       <val>mox_fuel_recipe</val>        </fuel_inrecipes>
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
+        <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
@@ -1963,7 +1950,7 @@
         <fuel_inrecipes>  <val>uox_fuel_recipe</val>       <val>mox_fuel_recipe</val>        </fuel_inrecipes>
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
+        <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
@@ -1983,7 +1970,7 @@
         <fuel_inrecipes>  <val>uox_fuel_recipe</val>       <val>mox_fuel_recipe</val>        </fuel_inrecipes>
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
+        <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
@@ -2003,7 +1990,7 @@
         <fuel_inrecipes>  <val>uox_fuel_recipe</val>       <val>mox_fuel_recipe</val>        </fuel_inrecipes>
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
+        <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
@@ -2023,7 +2010,7 @@
         <fuel_inrecipes>  <val>uox_fuel_recipe</val>       <val>mox_fuel_recipe</val>        </fuel_inrecipes>
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
+        <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
@@ -2043,7 +2030,7 @@
         <fuel_inrecipes>  <val>uox_fuel_recipe</val>       <val>mox_fuel_recipe</val>        </fuel_inrecipes>
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
+        <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
@@ -2063,7 +2050,7 @@
         <fuel_inrecipes>  <val>uox_fuel_recipe</val>       <val>mox_fuel_recipe</val>        </fuel_inrecipes>
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
+        <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
@@ -2083,7 +2070,7 @@
         <fuel_inrecipes>  <val>uox_fuel_recipe</val>       <val>mox_fuel_recipe</val>        </fuel_inrecipes>
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
+        <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
@@ -2103,7 +2090,7 @@
         <fuel_inrecipes>  <val>uox_fuel_recipe</val>       <val>mox_fuel_recipe</val>        </fuel_inrecipes>
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
+        <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
@@ -2123,7 +2110,7 @@
         <fuel_inrecipes>  <val>uox_fuel_recipe</val>       <val>mox_fuel_recipe</val>        </fuel_inrecipes>
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
+        <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
@@ -2143,7 +2130,7 @@
         <fuel_inrecipes>  <val>uox_fuel_recipe</val>       <val>mox_fuel_recipe</val>        </fuel_inrecipes>
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
+        <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
@@ -2163,7 +2150,7 @@
         <fuel_inrecipes>  <val>uox_fuel_recipe</val>       <val>mox_fuel_recipe</val>        </fuel_inrecipes>
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
+        <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
@@ -2183,7 +2170,7 @@
         <fuel_inrecipes>  <val>uox_fuel_recipe</val>       <val>mox_fuel_recipe</val>        </fuel_inrecipes>
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
+        <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
@@ -2203,7 +2190,7 @@
         <fuel_inrecipes>  <val>uox_fuel_recipe</val>       <val>mox_fuel_recipe</val>        </fuel_inrecipes>
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
+        <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
@@ -4663,6 +4650,9 @@
         <DeployInst>
 
           <prototypes>
+<val>MELOX</val>
+<val>uox_reprocessing</val>
+<val>mox_reprocessing</val>
   <val>CHINON A-2</val>
 <val>CHINON A-3</val>
 <val>CHOOZ-A (ARDENNES)</val>
@@ -4731,6 +4721,9 @@
 
 </prototypes>
 <build_times>
+<val>300</val>
+<val>72</val>
+<val>72</val>
   <val>1</val>
 <val>1</val>
 <val>1</val>
@@ -4799,6 +4792,9 @@
 
 </build_times>
 <n_build>
+  <val>1</val>
+<val>1</val>
+<val>1</val>
 <val>1</val>
 <val>1</val>
 <val>1</val>
@@ -4867,6 +4863,9 @@
 
 </n_build>
 <lifetimes>
+  <val>9999</val>
+<val>9999</val>
+<val>9999</val>
   <val>161</val>
 <val>245</val>
 <val>262</val>
@@ -5623,21 +5622,8 @@
           </entry>
           <entry>
             <number>1</number>
-            <prototype>uox_mixer</prototype>
+            <prototype>repusink</prototype>
           </entry>
-          <entry>
-            <number>1</number>
-            <prototype>mox_mixer</prototype>
-        </entry>
-          <entry>
-            <number>1</number>
-            <prototype>uox_reprocessing</prototype>
-          </entry>
-          <entry>
-            <number>1</number>
-            <prototype>mox_reprocessing</prototype>
-          </entry>
-
         </initialfacilitylist>
     </institution>
 </region>  
