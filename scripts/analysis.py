@@ -640,13 +640,23 @@ def get_trade_dict(cur, sender, receiver, is_prototype, do_isotopic):
         receiver_id = get_agent_ids(cur, receiver)
 
     if do_isotopic:
+        print('SELECT time, sum(quantity)*massfrac, nucid '
+                            'FROM transactions INNER JOIN resources ON '
+                            'resources.resourceid = transactions.resourceid '
+                            'LEFT OUTER JOIN compositions '
+                            'ON compositions.qualid = resources.qualid '
+                            'WHERE (senderid = ' +
+                            ' OR senderid = '.join(sender_id) +
+                            ') AND (receiverid = ' +
+                            ' OR receiverid = '.join(receiver_id) +
+                            ') GROUP BY time, nucid')
         trade = cur.execute('SELECT time, sum(quantity)*massfrac, nucid '
                             'FROM transactions INNER JOIN resources ON '
                             'resources.resourceid = transactions.resourceid '
                             'LEFT OUTER JOIN compositions '
                             'ON compositions.qualid = resources.qualid '
                             'WHERE (senderid = ' +
-                            'OR senderid = '.join(sender_id) +
+                            ' OR senderid = '.join(sender_id) +
                             ') AND (receiverid = ' +
                             ' OR receiverid = '.join(receiver_id) +
                             ') GROUP BY time, nucid').fetchall()
@@ -664,7 +674,7 @@ def get_trade_dict(cur, sender, receiver, is_prototype, do_isotopic):
         for time, amount, nucid in trade:
             iso_dict[nucname.name(nucid)].append((time, amount))
         for key in iso_dict:
-            iso_dict[key] = get_timeseries_cum(iso_dict[key], True)
+            iso_dict[key] = get_timeseries_cum(iso_dict[key], duration, True)
         return iso_dict
     else:
         key_name = str(sender)[:5] + ' to ' + str(receiver)[:5]
