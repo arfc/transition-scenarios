@@ -273,7 +273,7 @@ Waste:
           <stream>
             <info>
               <mixing_ratio>0.0911</mixing_ratio>
-              <buf_size>3e8</buf_size>
+              <buf_size>2e5</buf_size>
             </info>
             <commodities>
               <item>
@@ -293,7 +293,7 @@ Waste:
           <stream>
             <info>
               <mixing_ratio>0.9089</mixing_ratio>
-              <buf_size>3e8</buf_size>
+              <buf_size>2e6</buf_size>
             </info>
             <commodities>
               <item>
@@ -312,8 +312,8 @@ Waste:
           </stream>
         </in_streams>
         <out_commod>mox</out_commod>
-        <out_buf_size>1e11</out_buf_size>
-        <throughput>3e9</throughput>
+        <out_buf_size>2e6</out_buf_size>
+        <throughput>2e6</throughput>
       </Mixer>
     </config>
   </facility>
@@ -639,12 +639,18 @@ Waste:
       <config>
          <DeployInst>
             <prototypes>
-               <val>fr</val>
+               
+               
+               
+               
                
                <val>fr</val>
                <val>fr</val>
-               <val>fr</val>          
-               
+               <val>fr</val>
+               <val>fr</val>
+               <val>fr</val>
+               <val>fr</val>
+               <val>fr</val>
                <val>fr</val>
                <val>fr</val>
                <val>fr</val>
@@ -676,13 +682,16 @@ Waste:
           </prototypes>
           <n_build>
               
-               <val>15</val>
-
+               
+              
+               
                <val>15</val>
                <val>16</val>
-               <val>16</val>  
-               
-               
+               <val>15</val>
+               <val>16</val>
+               <val>15</val>
+               <val>16</val>
+               <val>17</val>
                <val>31</val>
                <val>32</val>
                <val>31</val>
@@ -714,13 +723,16 @@ Waste:
           </n_build>
           <build_times>
                
-
+               
+               
+               
+               <val>2055</val>
+               <val>2070</val>
+               <val>2086</val>
                <val>2101</val>
-
                <val>2117</val>
                <val>2132</val>
                <val>2148</val>
-               
                <val>2196</val>
                <val>2232</val>
                <val>2268</val>
@@ -760,12 +772,16 @@ Waste:
     <DeployInst>
        <prototypes>
           
+          
+          
+         
           <val>mox_lwr</val>
-
           <val>mox_lwr</val>
           <val>mox_lwr</val>
           <val>mox_lwr</val>
-
+          <val>mox_lwr</val>
+          <val>mox_lwr</val>
+          <val>mox_lwr</val>
           <val>mox_lwr</val>
           <val>mox_lwr</val>
           <val>mox_lwr</val>
@@ -797,13 +813,16 @@ Waste:
      </prototypes>
      <build_times>
           
-
+          
+         
+         
+          <val>2055</val>
+          <val>2070</val>
+          <val>2086</val>
           <val>2101</val>
-
           <val>2117</val>
           <val>2132</val>
           <val>2148</val>
-                  
           <val>2196</val>
           <val>2232</val>
           <val>2268</val>
@@ -835,12 +854,15 @@ Waste:
      </build_times>
      <n_build>
           
-          <val>4</val>
+        
           
           <val>4</val>
           <val>4</val>
-          <val>4</val>          
-         
+          <val>4</val>
+          <val>4</val>
+          <val>4</val>
+          <val>4</val>
+          <val>4</val>
           <val>8</val>
           <val>8</val>
           <val>8</val>
@@ -869,8 +891,6 @@ Waste:
           <val>12</val>
           <val>12</val>
           <val>11</val>
-
-
      </n_build>
 </DeployInst>
 </config>
@@ -881,7 +901,6 @@ Waste:
       <config>
          <DeployInst>
             <build_times>
-
                <val>12</val>
                <val>24</val>
                <val>36</val>
@@ -1040,12 +1059,6 @@ Waste:
                <val>2014</val>
                <val>2021</val>
                <val>2028</val>
-
-               <val>2055</val>
-               <val>2070</val>
-
-
-               <val>2086</val>
 
           </build_times>
           <n_build>
@@ -1208,10 +1221,7 @@ Waste:
                <val>5</val>
                <val>5</val>
 
-               <val>10</val>
-               <val>10</val>
 
-               <val>10</val>
 
           </n_build>
           <prototypes>
@@ -1372,11 +1382,6 @@ Waste:
                <val>lwr</val>
                <val>lwr</val>
                <val>lwr</val>
-               <val>lwr</val>
-
-               <val>lwr</val>
-               <val>lwr</val>
-
                <val>lwr</val>
           </prototypes>
      </DeployInst>
