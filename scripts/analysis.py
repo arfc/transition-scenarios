@@ -347,8 +347,10 @@ def commodity_flux_region(cur, agent_ids, commodity_list, is_outflux):
              'transactions.resourceid '
              'INNER JOIN agententry '
              'ON agententry.agentid = transactions.SENDERID '
-             'WHERE (commodity = ' + ' OR commodity = '.join(commodity_list) + ') AND ('
-             'receiverid = ' + ' OR receiverid = '.join(agent_ids) + ') GROUP BY '
+             'WHERE (commodity = ' +
+             ' OR commodity = '.join(commodity_list) + ') AND ('
+             'receiverid = ' +
+             ' OR receiverid = '.join(agent_ids) + ') GROUP BY '
              'time, parentid')
     if is_outflux:
         query = query.replace('receiverid', 'senderid')
@@ -358,8 +360,9 @@ def commodity_flux_region(cur, agent_ids, commodity_list, is_outflux):
                        'WHERE kind = "Inst"').fetchall()
     for gov in govs:
         from_gov = [(x['time'], x['sum(quantity)'])
-                    for x in resources if x['parentid'] == gov['agentid']]  
-        commodity_dict[gov['prototype']] = get_timeseries_cum(from_gov, duration, True)
+                    for x in resources if x['parentid'] == gov['agentid']]
+        commodity_dict[gov['prototype']] = get_timeseries_cum(
+            from_gov, duration, True)
 
     return commodity_dict
 
@@ -659,7 +662,7 @@ def get_trade_dict(cur, sender, receiver, is_prototype, do_isotopic):
                             ') AND (receiverid = ' +
                             ' OR receiverid = '.join(receiver_id) +
                             ') GROUP BY time').fetchall(
-)
+        )
     if do_isotopic:
         for time, amount, nucid in trade:
             iso_dict[nucname.name(nucid)].append((time, amount))

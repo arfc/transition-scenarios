@@ -1,3 +1,19 @@
+## ASSUMPTIONS, PARAMETERS, MODELS, AND REFERENCES:
+
+1. The compositions, core mass and reactor ratio is referenced from [appendix B of E&S study](https://fuelcycleevaluation.inl.gov/Shared%20Documents/ES%20Appendix%20B.pdf).
+
+2. The assumptions of net installed power increase and advanced technology availability is referenced from [FCO study](https://github.com/arfc/transition-scenarios/files/796778/5061-.final.pdf).
+
+3. `CYCAMORE::REACTOR`, the recipe reactor, was used for the reactor archetype.
+
+4. `CYCAMORE::MIXER`, the fixed ratio mixer, was used for the fuel fabrication archetype.
+
+5. EG23 and EG24 are done using an approximate recipe from ORGIEN.
+
+6. EG29 and EG30 are done using a simplification (4 group - U, TRU, MA, FP) model.
+
+7. For SFRs, blanket and driver are averaged into one 'core' (added mass with weighted composition).
+
 ## GAPS:
 
 1. Recipe Reactor Limitations:
@@ -17,6 +33,9 @@
 
 5. EG29, 30 reprocessed material only goes in one mixer if both mixer has infinite throughput / buffer.
 
+6. Throughput should be adjusted according to fuel demand, in order for the distribution
+of fissile commodity (rep U, TRU, PU) among different fuel fab facilities. (inf throughput
+ -> one facility gets all fissile commodity)
 
 
 
