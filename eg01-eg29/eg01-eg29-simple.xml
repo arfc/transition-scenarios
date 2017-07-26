@@ -324,6 +324,7 @@ Waste:
     <config>
       <Sink>
         <in_commods>
+          <val>tailings</val>
           <val>reprocess_waste</val>
           <val>sfr_reprocess_waste</val>
           <val>mox_reprocess_waste</val>
