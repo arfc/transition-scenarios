@@ -51,22 +51,19 @@ def read_csv(csv_file):
                                          'int', 'int',
                                          'int', 'int',
                                          'int', 'int',
-                                         'int', 'float'),
+                                         'int', 'float', 'int'),
                                   names=('country', 'reactor_name',
                                          'type', 'capacity',
                                          'status', 'operator', 'const_date',
                                          'cons_year', 'first_crit',
                                          'entry_time', 'lifetime',
                                          'first_grid', 'commercial',
-                                         'shutdown_date', 'ucf'))
+                                         'shutdown_date', 'ucf', 'EOL'))
     # deletes experimental reactors (reactors with capacity < 100 MWe)
     hitlist = []
-    count = 0
     for data in reactor_lists:
-        if data['capacity'] < 100:
+        if data['capacity'] < 300:
             hitlist.append(count)
-        count += 1
-
     reactor_lists = np.delete(reactor_lists, hitlist)
 
     return reactor_lists
