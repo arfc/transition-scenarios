@@ -1,4 +1,6 @@
 import import_data as indata
+import numpy as np
+import write_deployinst_input as wdi
 
 
 def select_region(in_list, region):
@@ -52,8 +54,8 @@ def write_reactors(in_list, in_template):
     ----------
     in_list: list
             list containing PRIS data
-    in_template: str
-            name of reactor template file
+    in_template: jinja template object
+            jinja template object to be rendered.
 
     Returns
     -------
@@ -72,14 +74,20 @@ def write_reactors(in_list, in_template):
             assem_no = 732
             assem_per_batch = assem_no / 3
             assem_size = 150
-        elif reactor_type == 'PWR':
+        else:
             assem_no = 240
             assem_per_batch = assem_no / 3
             assem_size = 417
-        elif reactor_type == 'PHWR':
-            assem_no = 347
-            assem_per_batch = assem_no /
-        elif reactor_type == 'WCR':
-        elif reactor_type == 'GCR':
-        elif reactor_type == 'FBR':
-        elif reactor_type == 'LWGR':
+        rendered = in_template.render(name=name,
+                                      lifetime=get_lifetime(name),
+                                      assem_size=assem_size,
+                                      n_assem_core=assem_no,
+                                      n_assem_batch=assem_per_batch,
+                                      power_cap=in_list[row][3])
+        with open('cyclus/input/europe_test/reactors/' +
+                  name.replace(' ', '_') +
+                  '.xml', 'w') as output:
+            output.write(rendered)
+
+
+def get_lifetime(in_list):
