@@ -102,7 +102,7 @@ def write_recipes(in_dict, in_template, burnup):
         output.write(rendered)
 
 
-def get_build_time(in_list, reactors):
+def get_build_time(in_list, path_list):
     """ Returns a dictionary of reactor name and build_time (in months)
     using the fleetcomp list for reactors specified in *args.
 
@@ -110,7 +110,7 @@ def get_build_time(in_list, reactors):
     ---------
     in_list: list
         list file containing fleetcomp data.
-    *args: str
+    path_list: str
         path and name of reactors that will be added to cyclus simulation.
 
     Returns
@@ -119,15 +119,15 @@ def get_build_time(in_list, reactors):
         dictionary with key: reactor name, and value: buildtime.
     """
     data_dict = {}
-    for col, item in enumerate(in_list):
-        start_date = [in_list[col][11], in_list[col][9], in_list[col][10]]
+    for row, item in enumerate(in_list):
+        start_date = [in_list[row][11], in_list[row][9], in_list[row][10]]
         month_diff = int((int(start_date[0]) - 1965) * 12 +
                          int(start_date[1]) +
                          int(start_date[2]) / (365.0 / 12))
-        for index, reactor in enumerate(reactors):
-            fleet_name = in_list[col][0].replace(' ', '_')
+        for index, reactor in enumerate(path_list):
+            fleet_name = in_list[row][0].replace(' ', '_')
             file_name = reactor.replace(
-                os.path.dirname(reactors[index]), '')
+                os.path.dirname(path_list[index]), '')
             file_name = file_name.replace('/', '')
             if (fleet_name + '.xml' == file_name):
                 data_dict.update({fleet_name: month_diff})
@@ -263,8 +263,9 @@ def deploy_reactors(in_csv, deployinst_template, inclusions_template, path):
         generates single xml file that includes reactors specified in
         the dictionary.
     """
-
     lists = []
+    if path[-1] != '/':
+        path += '/'
     for files in os.listdir(path):
         lists.append(path + files)
     fleet_list = import_csv(in_csv, '\t')
@@ -306,7 +307,7 @@ if __name__ == '__main__':
     deploy_reactors('import_data/fleetcomp/US_Fleet.txt',
                     'templates/US/deployinst_template.xml',
                     'templates/inclusions_template.xml',
-                    'cyclus/input/US/reactors/')
+                    'cyclus/input/US/reactors')
     set_xml_base('templates/US/US_template.xml',
                  'cyclus/input/',
                  'US')
