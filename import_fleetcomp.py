@@ -24,7 +24,7 @@ def import_csv(in_csv, delimit):
     data_list: list
         list with fleetcomp data.
     """
-    with open(in_csv, 'r') as source:
+    with open(in_csv, encoding='utf-8') as source:
         sourcereader = csv.reader(source, delimiter=delimit)
         data_list = []
         for row in sourcereader:
