@@ -1,8 +1,13 @@
 import csv
 import dateutil.parser as date
-import import_data as idata
+import import_fleetcomp as idata
+import jinja2
 import numpy as np
 import os
+import sys
+
+if len(sys.argv) < 4:
+    print('Usage: python import_pris.py [region] [sim_start_yr]')
 
 
 def select_region(in_list, region):
@@ -44,8 +49,8 @@ def select_region(in_list, region):
         raise ValueError(region + 'is not a valid region')
     reactor_list = []
     for row in in_list:
-        country = in_list[row][0]
-        if country in regions[region]:
+        country = row[0]
+        if country.upper() in regions[region.upper()]:
             start_date = row[9]
             if start_date.strip():
                 reactor_list.append(row)
@@ -60,7 +65,7 @@ def get_lifetime(in_list):
     Parameters
     ----------
     in_list: list
-        single row from PRIS data that contains reactor 
+        single row from PRIS data that contains reactor
         information
 
     Returns
@@ -100,13 +105,14 @@ def get_buildtime(in_list, start_year, path_list):
     for row in in_list:
         grid_date = date.parse(row[9])
         start_date = [grid_date.year, grid_date.month, grid_date.day]
-        delta = ((start_date[0] - start_year) * 12 +
+        delta = ((start_date[0] - int(start_year)) * 12 +
                  (start_date[1]) +
                  round(start_date[2] / (365.0 / 12)))
         for index, reactor in enumerate(path_list):
-            name = row[0].replace(' ', '')
+            name = row[1].replace(' ', '_')
             file_name = (reactor.replace(
                 os.path.dirname(path_list[index]), '')).replace('/', '')
+            # print(file_name)
             if (name + '.xml' == file_name):
                 buildtime_dict.update({name: delta})
     return buildtime_dict
@@ -128,13 +134,13 @@ def write_reactors(in_list, reactor_template):
     null
     """
     for row in in_list:
-        capacity = float(in_list[row][3])
+        capacity = float(row[3])
         if capacity >= 400:
-            name = row[0].replace(' ', '')
+            name = row[1].replace(' ', '')
             assem_per_batch = 0
             assem_no = 0
             assem_size = 0
-            reactor_type = in_list[row][2]
+            reactor_type = row[2]
             if reactor_type == 'BWR':
                 assem_no = 732
                 assem_per_batch = assem_no / 3
@@ -148,14 +154,47 @@ def write_reactors(in_list, reactor_template):
                                                assem_size=assem_size,
                                                n_assem_core=assem_no,
                                                n_assem_batch=assem_per_batch,
-                                               power_cap=in_list[row][3])
+                                               power_cap=row[3])
             with open('cyclus/input/europe_test/reactors/' +
                       name.replace(' ', '_') +
                       '.xml', 'w') as output:
                 output.write(rendered)
 
 
-def obtain_reactors(in_csv, reactor_template):
+def write_deployment(in_dict, out_path, deployinst_template,
+                     inclusions_template):
+    """ Renders jinja template using dictionary of reactor name and buildtime
+    and outputs an xml file that uses xinclude to include the reactors located
+    in cyclus_input/reactors.
+
+    Parameters
+    ---------
+    in_dict: dictionary
+        dictionary with key: reactor name, and value: buildtime.
+    out_path: str
+        output path for files
+    deployinst_template: jinja template object
+        jinja template object to be rendered with deployinst.
+    inclusions_template: jinja template object
+        jinja template object to be rendered with reactor inclusions.
+
+    Returns
+    -------
+    null
+        generates single xml file that includes reactors specified in
+        the dictionary.
+    """
+    if out_path[-1] != '/':
+        out_path += '/'
+    deployinst = deployinst_template.render(reactors=in_dict)
+    inclusions = inclusions_template.render(reactors=in_dict)
+    with open(out_path + 'deployinst.xml', 'w') as output1:
+        output1.write(deployinst)
+    with open(out_path + 'inclusions.xml', 'w') as output2:
+        output2.write(inclusions)
+
+
+def obtain_reactors(in_csv, region, reactor_template):
     """ Writes xml files for individual reactors in US fleet.
 
     Parameters
@@ -164,15 +203,22 @@ def obtain_reactors(in_csv, reactor_template):
         csv file name.
     reactor_template: str
         template file name.
+    region: str
+        region name
 
     Returns
     -------
     null
         Writes xml files for individual reactors in US fleet.
     """
+    in_data = idata.import_csv(in_csv, ',')
+    reactor_list = select_region(in_data, region)
+    reactor_tmpl = idata.load_template(reactor_template)
+    write_reactors(reactor_list, reactor_tmpl)
 
 
-def deploy_reactors(in_csv, deployinst_template, inclusions_template, path):
+def deploy_reactors(in_csv, region, start_year, deployinst_template,
+                    inclusions_template, reactors_path, deployment_path):
     """ Generates xml files that specifies the reactors that will be included
     in a cyclus simulation.
 
@@ -194,7 +240,24 @@ def deploy_reactors(in_csv, deployinst_template, inclusions_template, path):
         the dictionary.
     """
     lists = []
-    if path[-1] != '/':
-        path += '/'
-    for files in os.listdir(path):
-        lists.append(path + files)
+    if reactors_path[-1] != '/':
+        reactors_path += '/'
+    for files in os.listdir(reactors_path):
+        lists.append(reactors_path + files)
+    in_data = idata.import_csv(in_csv, ',')
+    reactor_list = select_region(in_data, region)
+    buildtime = get_buildtime(reactor_list, start_year, lists)
+    deploy_tmpl = idata.load_template(deployinst_template)
+    incl_tmpl = idata.load_template(inclusions_template)
+    write_deployment(buildtime, deployment_path, deploy_tmpl, incl_tmpl)
+
+
+if __name__ == '__main__':
+    pris_file = 'import_data/reactors_pris_2016.csv'
+    obtain_reactors(pris_file, sys.argv[1], 'templates/reactors_template.xml')
+    deployinst_tmpl = 'templates/' + sys.argv[1] + '/deployinst_template.xml'
+    deploy_reactors(pris_file,
+                    sys.argv[1], sys.argv[2], deployinst_tmpl,
+                    'templates/inclusions_template.xml',
+                    'cyclus/input/europe_test/reactors',
+                    'cyclus/input/europe_test/buildtimes')
