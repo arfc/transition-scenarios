@@ -931,7 +931,7 @@ def multi_line_plot(dictionary, timestep,
         plt.xlabel(xlabel)
         plt.legend(loc=(1.0, 0), prop={'size': 10})
         plt.grid(True)
-        plt.savefig(label + '_' + outputname + '.png',
+        plt.savefig(outputname + '_' + label + '.png',
                     format='png',
                     bbox_inches='tight')
         plt.close()
