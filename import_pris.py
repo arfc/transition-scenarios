@@ -163,7 +163,8 @@ def write_reactors(in_list, out_path, reactor_template):
                                                lifetime=get_lifetime(row),
                                                assem_size=assem_size,
                                                n_assem_core=assem_no,
-                                               n_assem_batch=assem_per_batch,
+                                               n_assem_batch=int(
+                                                   assem_per_batch),
                                                power_cap=row[3])
             with open(out_path + name.replace(' ', '_') + '.xml',
                       'w') as output:
