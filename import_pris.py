@@ -203,10 +203,11 @@ def write_deployment(in_dict, out_path, deployinst_template,
         for reactor in in_dict.keys():
             if in_dict[reactor][0] == nation:
                 temp_dict.update({reactor: in_dict[reactor][1]})
-        pathlib.Path(out_path + nation +
+        pathlib.Path(out_path + nation.replace(' ', '_') +
                      '/').mkdir(parents=True, exist_ok=True)
         deployinst = deployinst_template.render(reactors=temp_dict)
-        with open(out_path + nation + '/deployinst.xml', 'w') as output1:
+        with open(out_path + nation.replace(' ', '_') +
+                  '/deployinst.xml', 'w') as output1:
             output1.write(deployinst)
     inclusions = inclusions_template.render(reactors=in_dict)
     with open(out_path + 'inclusions.xml', 'w') as output2:
@@ -301,8 +302,9 @@ def render_cyclus(cyclus_template, region, in_dict, out_path):
     if out_path[-1] != '/':
         out_path += '/'
     cyclus_template = idata.load_template(cyclus_template)
-    country_list = {value[0] for value in in_dict.values()}
-    rendered = cyclus_template.render(countries=country_list)
+    country_list = {value[0].replace(' ', '_') for value in in_dict.values()}
+    rendered = cyclus_template.render(countries=country_list,
+                                      base_dir=os.path.abspath(out_path) + '/')
     with open(out_path + region + '.xml', 'w') as output:
         output.write(rendered)
 
