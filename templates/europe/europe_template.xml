@@ -153,6 +153,10 @@
       <name>FuelCycle</name>
       <initialfacilitylist>
         <entry>
+          <prototype>Sink_HLW</prototype>
+          <number>1</number>
+        </entry>
+        <entry>
           <prototype>Sink_LLW</prototype>
           <number>1</number>
         </entry>
