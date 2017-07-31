@@ -1,5 +1,6 @@
 <DeployInst>
     <prototypes>
+        <val>SANTA_MARIA_DE_GARONA</val>
         <val>VANDELLOS-1</val>
         <val>ALMARAZ-1</val>
         <val>ALMARAZ-2</val>
@@ -10,6 +11,7 @@
         <val>VANDELLOS-2</val>
     </prototypes>
     <build_times>
+        <val>75</val>
         <val>89</val>
         <val>197</val>
         <val>226</val>
@@ -20,6 +22,7 @@
         <val>276</val>
     </build_times>
     <n_build>
+        <val>1</val>
         <val>1</val>
         <val>1</val>
         <val>1</val>
