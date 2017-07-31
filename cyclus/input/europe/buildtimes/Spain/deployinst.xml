@@ -1,0 +1,32 @@
+<DeployInst>
+    <prototypes>
+        <val>VANDELLOS-1</val>
+        <val>ALMARAZ-1</val>
+        <val>ALMARAZ-2</val>
+        <val>ASCO-1</val>
+        <val>ASCO-2</val>
+        <val>COFRENTES</val>
+        <val>TRILLO-1</val>
+        <val>VANDELLOS-2</val>
+    </prototypes>
+    <build_times>
+        <val>89</val>
+        <val>197</val>
+        <val>226</val>
+        <val>224</val>
+        <val>251</val>
+        <val>238</val>
+        <val>282</val>
+        <val>276</val>
+    </build_times>
+    <n_build>
+        <val>1</val>
+        <val>1</val>
+        <val>1</val>
+        <val>1</val>
+        <val>1</val>
+        <val>1</val>
+        <val>1</val>
+        <val>1</val>
+    </n_build>
+</DeployInst>

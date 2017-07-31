@@ -1,0 +1,20 @@
+<DeployInst>
+    <prototypes>
+        <val>WYLFA-1</val>
+        <val>WYLFA-2</val>
+        <val>TORNESS-1</val>
+        <val>TORNESS-2</val>
+    </prototypes>
+    <build_times>
+        <val>74</val>
+        <val>80</val>
+        <val>282</val>
+        <val>290</val>
+    </build_times>
+    <n_build>
+        <val>1</val>
+        <val>1</val>
+        <val>1</val>
+        <val>1</val>
+    </n_build>
+</DeployInst>
