@@ -188,6 +188,7 @@
       <config>
         <ManagerInst>
           <prototypes>
+            <val>Sink_HLW</val>
           	<val>Sink_LLW</val>
             <val>Mine</val>
             <val>Mill</val>
