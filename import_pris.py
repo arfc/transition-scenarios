@@ -146,7 +146,7 @@ def write_reactors(in_list, out_path, reactor_template):
     for row in in_list:
         capacity = float(row[3])
         if capacity >= 400:
-            name = row[1].replace(' ', '')
+            name = row[1].replace(' ', '_')
             assem_per_batch = 0
             assem_no = 0
             assem_size = 0
@@ -202,7 +202,7 @@ def write_deployment(in_dict, out_path, deployinst_template,
     for nation in country_list:
         temp_dict = {}
         for reactor in in_dict.keys():
-            if in_dict[reactor][0] == nation:
+            if in_dict[reactor][0].upper() == nation.upper():
                 temp_dict.update({reactor: in_dict[reactor][1]})
         pathlib.Path(out_path + nation.replace(' ', '_') +
                      '/').mkdir(parents=True, exist_ok=True)
