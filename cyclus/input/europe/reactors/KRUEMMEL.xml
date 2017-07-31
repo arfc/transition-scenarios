@@ -11,7 +11,7 @@
       <refuel_time>1</refuel_time>
       <assem_size>150</assem_size>
       <n_assem_core>732</n_assem_core>
-      <n_assem_batch>244.0</n_assem_batch>
+      <n_assem_batch>244</n_assem_batch>
       <power_cap>1346</power_cap>
     </Reactor>
   </config>

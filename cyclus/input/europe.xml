@@ -1,4 +1,4 @@
-﻿<simulation xml:base=""
+﻿<simulation xml:base="/home/gyutae/cyclus/predicting-the-past/cyclus/input/"
   xmlns:xi="http://www.w3.org/2001/XInclude">
   <control>
     <duration>1400</duration>
@@ -203,44 +203,9 @@
     </institution>
     
     <institution>
-      <name>Czechoslovakia</name>
-      <config>
-        <xi:include href="europe/buildtimes/Czechoslovakia/deployinst.xml"/>
-      </config>
-    </institution>
-    
-    <institution>
-      <name>Russia</name>
-      <config>
-        <xi:include href="europe/buildtimes/Russia/deployinst.xml"/>
-      </config>
-    </institution>
-    
-    <institution>
-      <name>Germany</name>
-      <config>
-        <xi:include href="europe/buildtimes/Germany/deployinst.xml"/>
-      </config>
-    </institution>
-    
-    <institution>
-      <name>Bulgaria</name>
-      <config>
-        <xi:include href="europe/buildtimes/Bulgaria/deployinst.xml"/>
-      </config>
-    </institution>
-    
-    <institution>
       <name>Netherlands</name>
       <config>
         <xi:include href="europe/buildtimes/Netherlands/deployinst.xml"/>
-      </config>
-    </institution>
-    
-    <institution>
-      <name>Switzerland</name>
-      <config>
-        <xi:include href="europe/buildtimes/Switzerland/deployinst.xml"/>
       </config>
     </institution>
     
@@ -252,37 +217,9 @@
     </institution>
     
     <institution>
-      <name>Sweden</name>
+      <name>Bulgaria</name>
       <config>
-        <xi:include href="europe/buildtimes/Sweden/deployinst.xml"/>
-      </config>
-    </institution>
-    
-    <institution>
-      <name>United Kingdom</name>
-      <config>
-        <xi:include href="europe/buildtimes/United Kingdom/deployinst.xml"/>
-      </config>
-    </institution>
-    
-    <institution>
-      <name>Finland</name>
-      <config>
-        <xi:include href="europe/buildtimes/Finland/deployinst.xml"/>
-      </config>
-    </institution>
-    
-    <institution>
-      <name>France</name>
-      <config>
-        <xi:include href="europe/buildtimes/France/deployinst.xml"/>
-      </config>
-    </institution>
-    
-    <institution>
-      <name>Italy</name>
-      <config>
-        <xi:include href="europe/buildtimes/Italy/deployinst.xml"/>
+        <xi:include href="europe/buildtimes/Bulgaria/deployinst.xml"/>
       </config>
     </institution>
     
@@ -294,9 +231,37 @@
     </institution>
     
     <institution>
-      <name>Belgium</name>
+      <name>Finland</name>
       <config>
-        <xi:include href="europe/buildtimes/Belgium/deployinst.xml"/>
+        <xi:include href="europe/buildtimes/Finland/deployinst.xml"/>
+      </config>
+    </institution>
+    
+    <institution>
+      <name>Germany</name>
+      <config>
+        <xi:include href="europe/buildtimes/Germany/deployinst.xml"/>
+      </config>
+    </institution>
+    
+    <institution>
+      <name>Switzerland</name>
+      <config>
+        <xi:include href="europe/buildtimes/Switzerland/deployinst.xml"/>
+      </config>
+    </institution>
+    
+    <institution>
+      <name>United_Kingdom</name>
+      <config>
+        <xi:include href="europe/buildtimes/United_Kingdom/deployinst.xml"/>
+      </config>
+    </institution>
+    
+    <institution>
+      <name>Sweden</name>
+      <config>
+        <xi:include href="europe/buildtimes/Sweden/deployinst.xml"/>
       </config>
     </institution>
     
@@ -308,9 +273,44 @@
     </institution>
     
     <institution>
-      <name>Soviet Union</name>
+      <name>France</name>
       <config>
-        <xi:include href="europe/buildtimes/Soviet Union/deployinst.xml"/>
+        <xi:include href="europe/buildtimes/France/deployinst.xml"/>
+      </config>
+    </institution>
+    
+    <institution>
+      <name>Belgium</name>
+      <config>
+        <xi:include href="europe/buildtimes/Belgium/deployinst.xml"/>
+      </config>
+    </institution>
+    
+    <institution>
+      <name>Russia</name>
+      <config>
+        <xi:include href="europe/buildtimes/Russia/deployinst.xml"/>
+      </config>
+    </institution>
+    
+    <institution>
+      <name>Italy</name>
+      <config>
+        <xi:include href="europe/buildtimes/Italy/deployinst.xml"/>
+      </config>
+    </institution>
+    
+    <institution>
+      <name>Soviet_Union</name>
+      <config>
+        <xi:include href="europe/buildtimes/Soviet_Union/deployinst.xml"/>
+      </config>
+    </institution>
+    
+    <institution>
+      <name>Czechoslovakia</name>
+      <config>
+        <xi:include href="europe/buildtimes/Czechoslovakia/deployinst.xml"/>
       </config>
     </institution>
     
