@@ -196,7 +196,6 @@ def write_deployment(in_dict, out_path, deployinst_template,
         for reactor in in_dict.keys():
             if in_dict[reactor][0] == nation:
                 temp_dict.update({reactor: in_dict[reactor][1]})
-        print(temp_dict)
         pathlib.Path(out_path + nation +
                      '/').mkdir(parents=True, exist_ok=True)
         deployinst = deployinst_template.render(reactors=temp_dict)
