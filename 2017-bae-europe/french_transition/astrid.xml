@@ -1,3 +1,4 @@
+<!-- Spent MOX recipe from UOX_to_BFR_EQ_SF_5-->
 <simulation>
   <control>
     <duration>2280</duration>
@@ -50,6 +51,10 @@
       <lib>cycamore</lib>
       <name>FuelFab</name>
     </spec>
+     <spec>
+      <lib>cycamore</lib>
+      <name>Storage</name>
+    </spec>
   </archetypes>
 
 
@@ -95,7 +100,50 @@
     <name>mox_uox_fuel_fab</name>
   </facility>
 
-
+<facility>
+    <name>mixer</name>
+    <config>
+      <Mixer>
+        <in_streams>
+          <stream>
+            <info>
+              <mixing_ratio>.11</mixing_ratio>
+              <buf_size>1e4</buf_size>
+            </info>
+            <commodities>
+              <item>
+                <commodity>uox_Pu</commodity>
+                <pref>1.0</pref>
+              </item>
+              <item>
+                <commodity>mox_Pu</commodity>
+                <pref>1.0</pref>
+              </item>
+            </commodities>
+          </stream>
+          <stream>
+            <info>
+              <mixing_ratio>.89</mixing_ratio>
+              <buf_size>1e5</buf_size>
+            </info>
+            <commodities>
+              <item>
+                <commodity>tailings</commodity>
+                <pref>5.0</pref>
+              </item>
+              <item>
+                <commodity>natu</commodity>
+                <pref>1.0</pref>
+              </item>
+            </commodities>
+          </stream>
+        </in_streams>
+        <out_commod>mox</out_commod>
+        <out_buf_size>1e100</out_buf_size>
+        <throughput>1E100</throughput>
+      </Mixer>
+    </config>
+</facility>
 
 <!-- Infinite UOX_Pu to MOX mixer -->
 <facility>
@@ -183,8 +231,8 @@
          <feed_recipe>uox_used_fuel_recipe</feed_recipe>
          <feedbuf_size>1E100</feedbuf_size>
          <!-- 1100 tons/year 91.6 tons/timestep --> 
-         <throughput>1E100</throughput>
-         <leftover_commod>reprocess_waste</leftover_commod>
+         <throughput>2e5</throughput>
+         <leftover_commod>uox_reprocess_waste</leftover_commod>
          <leftoverbuf_size>1E100</leftoverbuf_size>
          <streams>
           <item>
@@ -220,7 +268,7 @@
     <config>
       <Enrichment>
         <feed_commod>natl_u</feed_commod>
-        <feed_recipe>natl_u_recipe</feed_recipe>
+        <feed_recipe>natu_recipe</feed_recipe>
         <product_commod>uox</product_commod>
         <tails_assay>0.003</tails_assay>
         <tails_commod>tailings</tails_commod>
@@ -277,7 +325,7 @@
       <Source>
         <outcommod>uox_waste</outcommod>
         <outrecipe>uox_used_fuel_recipe</outrecipe>
-        <inventory_size>183992000</inventory_size>
+        <inventory_size>157472086</inventory_size>
       </Source>
     </config>
   </facility>
@@ -288,7 +336,7 @@
       <Source>
         <outcommod>tailings</outcommod>
         <outrecipe>depleted_u</outrecipe>
-        <inventory_size>1166021000</inventory_size>
+        <inventory_size>1063909562</inventory_size>
       </Source>
     </config>
   </facility>
@@ -299,7 +347,18 @@
       <Source>
         <outcommod>tailings_mox</outcommod>
         <outrecipe>depleted_u</outrecipe>
-        <inventory_size>1166021000</inventory_size>
+        <inventory_size>1063909562</inventory_size>
+      </Source>
+    </config>
+  </facility>
+
+    <facility>
+    <name>natu_source</name>
+    <config>
+      <Source>
+        <outcommod>natu</outcommod>
+        <outrecipe>natu_recipe</outrecipe>
+        <inventory_size>1e299</inventory_size>
       </Source>
     </config>
   </facility>
@@ -309,14 +368,27 @@
     <config>
       <Sink>
         <in_commods>
-          <val>uox_waste</val>
-          <val>mox_waste</val>
-          <val>reprocess_waste</val>
+          <val>uox_reprocess_waste</val>
           <val>mox_reprocess_waste</val>
           <val>fr_reprocess_waste</val>
         </in_commods>
         <capacity>1e299</capacity>
       </Sink>
+    </config>
+  </facility>
+
+  <facility>
+    <name>repu_sink</name>
+    <config>
+      <Storage>
+        <in_commods>
+          <val>uox_U</val>
+          <val>mox_U</val>
+        </in_commods>
+        <out_commods>
+          <val>null</val>
+        </out_commods>
+      </Storage>
     </config>
   </facility>
 
@@ -332,7 +404,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>12</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>16300</assem_size>
+        <assem_size>11136</assem_size>
         <n_assem_core>4</n_assem_core>
         <n_assem_batch>1</n_assem_batch>
         <power_cap>600</power_cap>
@@ -354,21 +426,7 @@
             <prototype>SomeSink</prototype>
           </entry>
 
-          <entry>
-            <number>1</number>
-            <prototype>uox_reprocessing</prototype>
-          </entry>
-
-          <entry>
-            <number>1</number>
-            <prototype>mox_mox_fuel_fab</prototype>
-          </entry>
-
-          <entry>
-            <number>1</number>
-            <prototype>mox_uox_fuel_fab</prototype>
-          </entry>
-
+          
           <entry>
             <number>1</number>
             <prototype>spent_fuel_source</prototype>
@@ -378,18 +436,12 @@
             <number>1</number>
             <prototype>tails_source</prototype>
           </entry>
-          
-          <entry>
-            <number>1</number>
-            <prototype>tails_source_mox</prototype>
-          </entry>
-          
 
           <entry>
             <number>1</number>
-            <prototype>mox_reprocessing</prototype>
+            <prototype>repu_sink</prototype>
           </entry>
-
+          
 
 
         </initialfacilitylist>
@@ -399,9 +451,10 @@
       <name>France_government</name>
       <config>
         <DeployInst>
-
           <prototypes>
-            <val>enrichment</val>
+            <val>uox_reprocessing</val>
+            <val>mox_reprocessing</val>
+            <val>mixer</val>
 
             <val>astrid</val>
 
@@ -454,9 +507,113 @@
             <val>astrid</val>
 
 
+ <val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+
+
 </prototypes>
 <build_times>
-            <val>1</val>
+            <val>600</val>
+            <val>600</val>
+            <val>300</val>
 
             <val>841</val>
 
@@ -508,8 +665,118 @@
             <val>1078</val>
             <val>1283</val>
 
+
+
+
+
+
+
+<val>1800</val>
+<val>1800</val>
+<val>1800</val>
+<val>1800</val>
+<val>1800</val>
+<val>1800</val>
+<val>1800</val>
+<val>1800</val>
+<val>1800</val>
+<val>1800</val>
+<val>1800</val>
+<val>1800</val>
+<val>1800</val>
+<val>1800</val>
+<val>1800</val>
+<val>1800</val>
+<val>1800</val>
+<val>1800</val>
+<val>1800</val>
+<val>1800</val>
+<val>1800</val>
+<val>1800</val>
+<val>1801</val>
+<val>1801</val>
+<val>1806</val>
+<val>1810</val>
+<val>1810</val>
+<val>1811</val>
+<val>1811</val>
+<val>1812</val>
+<val>1815</val>
+<val>1815</val>
+<val>1816</val>
+<val>1818</val>
+<val>1818</val>
+<val>1829</val>
+<val>1833</val>
+<val>1833</val>
+<val>1838</val>
+<val>1839</val>
+<val>1839</val>
+<val>1842</val>
+<val>1844</val>
+<val>1844</val>
+<val>1850</val>
+<val>1850</val>
+<val>1853</val>
+<val>1853</val>
+<val>1854</val>
+<val>1854</val>
+<val>1856</val>
+<val>1865</val>
+<val>1865</val>
+<val>1866</val>
+<val>1866</val>
+<val>1867</val>
+<val>1867</val>
+<val>1873</val>
+<val>1873</val>
+<val>1875</val>
+<val>1875</val>
+<val>1880</val>
+<val>1880</val>
+<val>1880</val>
+<val>1889</val>
+<val>1889</val>
+<val>1890</val>
+<val>1890</val>
+<val>1892</val>
+<val>1892</val>
+<val>1899</val>
+<val>1899</val>
+<val>1903</val>
+<val>1903</val>
+<val>1919</val>
+<val>1919</val>
+<val>1921</val>
+<val>1921</val>
+<val>1922</val>
+<val>1922</val>
+<val>1934</val>
+<val>1934</val>
+<val>1934</val>
+<val>1942</val>
+<val>1942</val>
+<val>1959</val>
+<val>1959</val>
+<val>1997</val>
+<val>1997</val>
+<val>2004</val>
+<val>2004</val>
+<val>2004</val>
+<val>2013</val>
+<val>2013</val>
+<val>2013</val>
+<val>2037</val>
+<val>2037</val>
+<val>2242</val>
+<val>2242</val>
+<val>2242</val>
+
 </build_times>
 <n_build>
+
+            <val>1</val>
+            <val>1</val>
             <val>1</val>
 
             <val>22</val>
@@ -561,71 +828,283 @@
             <val>3</val>
             <val>2</val>
             <val>3</val>
+
+
+
+
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+
 </n_build>
 
 <lifetimes>
-            <val>1</val>
-            
-            <val>9999</val>
-
-
-            <val>9999</val>
-            <val>9999</val>  
             <val>9999</val>
             <val>9999</val>
             <val>9999</val>
 
-            <val>9999</val>
-            <val>9999</val>
-            <val>9999</val>
-            <val>9999</val>
-            <val>9999</val>
 
-            <val>9999</val>
-            <val>9999</val>
-            <val>9999</val>
-            <val>9999</val>
-            <val>9999</val>
+            <val>960</val>
 
-            <val>9999</val>
-            <val>9999</val>
-            <val>9999</val>
-            <val>9999</val>
-            <val>9999</val>
 
-            <val>9999</val>
-            <val>9999</val>
-            <val>9999</val>
-            <val>9999</val>
-            <val>9999</val>
+            <val>960</val>
+            <val>960</val>  
+            <val>960</val>
+            <val>960</val>
+            <val>960</val>
 
-            <val>9999</val>
-            <val>9999</val>
-            <val>9999</val>
-            <val>9999</val>
-            <val>9999</val>
+            <val>960</val>
+            <val>960</val>
+            <val>960</val>
+            <val>960</val>
+            <val>960</val>
 
-            <val>9999</val>
-            <val>9999</val>
-            <val>9999</val>
-            <val>9999</val>
-            <val>9999</val>
+            <val>960</val>
+            <val>960</val>
+            <val>960</val>
+            <val>960</val>
+            <val>960</val>
 
-            <val>9999</val>
-            <val>9999</val>
-            <val>9999</val>
-            <val>9999</val>
-            <val>9999</val>
+            <val>960</val>
+            <val>960</val>
+            <val>960</val>
+            <val>960</val>
+            <val>960</val>
+
+            <val>960</val>
+            <val>960</val>
+            <val>960</val>
+            <val>960</val>
+            <val>960</val>
+
+            <val>960</val>
+            <val>960</val>
+            <val>960</val>
+            <val>960</val>
+            <val>960</val>
+
+            <val>960</val>
+            <val>960</val>
+            <val>960</val>
+            <val>960</val>
+            <val>960</val>
+
+            <val>960</val>
+            <val>960</val>
+            <val>960</val>
+            <val>960</val>
+            <val>960</val>
+
+
+
+
+
+ <val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
+<val>960</val>
 </lifetimes>
-    
-          
         </DeployInst>
       </config>
     </institution>
+
   </region>
 
   <recipe>
-    <name>natl_u_recipe</name>
+    <name>natu_recipe</name>
     <basis>mass</basis>
     <nuclide> <id>U235</id> <comp>0.711</comp> </nuclide>
     <nuclide> <id>U238</id> <comp>99.289</comp> </nuclide>
