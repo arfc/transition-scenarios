@@ -38,45 +38,24 @@ To run:
 
 ### analysis.py
 
-Input : CYCLUS output file (.sqlite)
-`python analysis.py [outputfile]`
+Input : CYCLUS output file (.sqlite)  
+```
+python analysis.py [outputfile]
+```
 
 Most functions return a dictionary of lists (timeseries of a value)
 that can be used to plot a stacked bar chart or a line plot.
 
-Major analysis functions include:
-1. commodity_in_out_facility
-Returns dictionary of influx/outflux of a commodity from a facility.
 
-2.  get_stockpile
-Returns dictionary of stockpile in a fuel cycle facility.
+### test.sqlite
+Simple Cyclus output for testing purposes.
 
-3. get_swu_dict
-Returns dictionary of swu timeseries for each enrichment plant.
-
-4. fuel_usage_timeseries
-Returns dictionary of timeseries of fuel used in simulation.
-
-5. get_trade_dict
-Returns dictionary of trade timeseries between two prototype/specs.
-
-6. u_util_calc
-Returns dictionary of timeseries of uranium utilization factor (fuel/natu_supply).
-
-7. where_comm
-Returns dictionary of timeseries of a commodity separated by its origin.
-
-8. plot_power
-Returns dictionary of timeseries of number of reactors & installed capacity.
-
-
-The Returned Dictionaries can be used to build plots:
-1. stacked_bar_chart
-stacked bar chart (every key in dictionary is plotted on top of each other)
-
-2. multi_line_plot
-creates separate line plot for each key in dictionary.
-
+### test_analysis.py
+testfile for analysis.py.  
+To run:  
+```
+python test_analysis.py
+```
 
 ## Templates Folder
 This folder contains templates that are used in the write_reactors.py script.
@@ -105,7 +84,7 @@ Grouped region prototypes will be rendered into this file.
 
 ## Database Folder
 
-# eu_reactors_pris.csv
+### eu_reactors_pris.csv
 The eu_reactors_pris.csv file lists all the nulear reactors in europe,
 but more in detail. The data is from [PRIS - IAEA](https://www.iaea.org/pris/)
 and is converted to as csv file.
@@ -126,3 +105,15 @@ The csv file lists the following :
 * Shutdown date
 * UCF (Unit Capacity Factor) for 2013 (in %)
 
+### deploy_schedule.xml
+This file contains various deployment schedules for transition
+scenarios (EG01 - EG 23, 24, 29, 30). The simulation starts
+at 100 GWe of LWR installed capacity in 2015. The simulation
+is 200 years long and an annual growth of 1% is assumed. The
+new reactor types (or fuel cycles) are available from 2050.
+
+## scenario_specification.md
+This file contains specific details about the transition
+scenarios such as fuel mass, composition, and refueling
+cycles. The file also identifies some gaps in the current
+CYCLUS regarding transition scenarios.
