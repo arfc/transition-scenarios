@@ -1,4 +1,4 @@
-## ASSUMPTIONS, PARAMETERS, MODELS, AND REFERENCES:
+## Assumption, Parameters, Models and References:
 
 1. The compositions, core mass and reactor ratio is referenced from [appendix B of E&S study](https://fuelcycleevaluation.inl.gov/Shared%20Documents/ES%20Appendix%20B.pdf).
 
