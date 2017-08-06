@@ -1433,18 +1433,18 @@ CF: 14.08 /(13.9*.998) = 1.014
       <nuclide> <id>Eu152</id>  <comp>3.119730595977948e-10</comp> </nuclide> 
       <nuclide> <id>Eu154</id>  <comp>8.254287201858323e-08</comp> </nuclide> 
       <nuclide> <id>Eu155</id>  <comp>0.00011114040248171444</comp> </nuclide> 
-      <nuclide> <id>Pu238</id>  <comp>0.0011640619277300001</comp> </nuclide> 
-      <nuclide> <id>Pu239</id>  <comp>0.09902105569189999</comp> </nuclide> 
-      <nuclide> <id>Pu240</id>  <comp>0.03247296208775</comp> </nuclide> 
-      <nuclide> <id>Pu241</id>  <comp>0.00362201892385</comp> </nuclide> 
-      <nuclide> <id>Pu242</id>  <comp>0.00181989501617</comp> </nuclide> 
-      <nuclide> <id>Pu244</id>  <comp>6.3526000000000006e-09</comp> </nuclide> 
-      <nuclide> <id>U232</id>  <comp>7.649564162139188e-09</comp> </nuclide> 
-      <nuclide> <id>U233</id>  <comp>5.2864434575459875e-09</comp> </nuclide> 
-      <nuclide> <id>U234</id>  <comp>0.00015558248046000002</comp> </nuclide> 
-      <nuclide> <id>U235</id>  <comp>0.0001908437973</comp> </nuclide> 
-      <nuclide> <id>U236</id>  <comp>0.00030011462172000006</comp> </nuclide> 
-      <nuclide> <id>U238</id>  <comp>0.7727534461847401</comp> </nuclide> 
+      <nuclide> <id>Pu238</id>  <comp>0.001164798127359022</comp> </nuclide> 
+      <nuclide> <id>Pu239</id>  <comp>0.09908368059417465</comp> </nuclide> 
+      <nuclide> <id>Pu240</id>  <comp>0.03249349929635785</comp> </nuclide> 
+      <nuclide> <id>Pu241</id>  <comp>0.0036243096344423897</comp> </nuclide> 
+      <nuclide> <id>Pu242</id>  <comp>0.0018210459910484378</comp> </nuclide> 
+      <nuclide> <id>Pu244</id>  <comp>6.35661764e-09</comp> </nuclide> 
+      <nuclide> <id>U232</id>  <comp>7.648700297471588e-09</comp> </nuclide> 
+      <nuclide> <id>U233</id>  <comp>5.285846459910117e-09</comp> </nuclide> 
+      <nuclide> <id>U234</id>  <comp>0.000155564910542954</comp> </nuclide> 
+      <nuclide> <id>U235</id>  <comp>0.00019082224532527</comp> </nuclide> 
+      <nuclide> <id>U236</id>  <comp>0.000300080729799828</comp> </nuclide> 
+      <nuclide> <id>U238</id>  <comp>0.7726661792000105</comp> </nuclide> 
 
   </recipe> 
 
