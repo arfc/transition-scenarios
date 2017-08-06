@@ -1381,7 +1381,7 @@ CF = 12.9*.998/12.9 = .998
       <nuclide> <id>Cf249</id>  <comp>2.663901762699056e-10</comp> </nuclide> 
       <nuclide> <id>Cf250</id>  <comp>2.770057246475794e-11</comp> </nuclide> 
       <nuclide> <id>Cf251</id>  <comp>7.86552046775879e-13</comp> </nuclide> 
-      <nuclide> <id>Cf 252</id>  <comp>1.6590299474012222e-14</comp> </nuclide> 
+      <nuclide> <id>Cf252</id>  <comp>1.6590299474012222e-14</comp> </nuclide> 
       <nuclide> <id>Np237</id>  <comp>0.00029379130132000005</comp> </nuclide> 
 
   </recipe> 
