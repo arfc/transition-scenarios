@@ -566,6 +566,22 @@ CF = 12.9*.998/12.9 = .998
                          <val>1656</val>
                          <val>1668</val>
                          <val>1680</val>
+
+                          <val>1692</val>
+                         <val>1704</val>
+                         <val>1716</val>
+                         <val>1728</val>
+                         <val>1740</val>
+
+                          <val>1752</val>
+                         <val>1764</val>
+                         <val>1776</val>
+                         <val>1788</val>
+                         <val>1800</val>
+                        
+                         <val>1812</val>
+                         <val>1824</val>
+                         <val>1836</val>
                     </build_times>
                     <n_build>
                          <val>2</val>
@@ -695,6 +711,24 @@ CF = 12.9*.998/12.9 = .998
                          <val>3</val>
                          <val>3</val>
                          <val>3</val>
+
+                         <val>3</val>
+                         <val>4</val>
+                         <val>4</val>
+                         <val>4</val>
+                         <val>4</val>
+
+                         <val>4</val>
+                         <val>4</val>
+                         <val>4</val>
+                         <val>4</val>
+                         <val>3</val>
+
+                         <val>7</val>
+                         <val>6</val>
+                         <val>6</val>
+
+
                     </n_build>
                     <prototypes>
                          <val>lwr</val>
@@ -825,6 +859,21 @@ CF = 12.9*.998/12.9 = .998
                          <val>lwr</val>
                          <val>lwr</val>
 
+                         <val>lwr</val>
+                         <val>lwr</val>
+                         <val>lwr</val>
+                         <val>lwr</val>
+                         <val>lwr</val>
+
+                         <val>lwr</val>
+                         <val>lwr</val>
+                         <val>lwr</val>
+                         <val>lwr</val>
+                         <val>lwr</val>
+
+                         <val>lwr</val>
+                         <val>lwr</val>
+                         <val>lwr</val>
                     </prototypes>
                </DeployInst>
           </config>
@@ -834,19 +883,7 @@ CF = 12.9*.998/12.9 = .998
           <config>
                <DeployInst>
                     <prototypes>
-                         <val>fr</val>
-                         <val>fr</val>
-                         <val>fr</val>
-                         <val>fr</val>
-                         <val>fr</val>
-                         <val>fr</val>
-                         <val>fr</val>
-                         <val>fr</val>
-                         <val>fr</val>
-                         <val>fr</val>
-                         <val>fr</val>
-                         <val>fr</val>
-                         <val>fr</val>
+                         
                          <val>fr</val>
                          <val>fr</val>
                          <val>fr</val>
@@ -949,19 +986,8 @@ CF = 12.9*.998/12.9 = .998
                     <n_build>
                         
                         
-                         <val>9</val>
-                         <val>8</val>
-                         <val>9</val>
-                         <val>8</val>
-                         <val>9</val>
-                         <val>11</val>
-                         <val>8</val>
-                         <val>9</val>
-                         <val>9</val>
-                         <val>9</val>
-                         <val>16</val>
-                         <val>13</val>
-                         <val>18</val>
+                        
+                        
                          <val>15</val>
                          <val>16</val>
                          <val>13</val>
@@ -1063,20 +1089,6 @@ CF = 12.9*.998/12.9 = .998
                     </n_build>
                     <build_times>
                          
-                         
-                         <val>1692</val>
-                         <val>1704</val>
-                         <val>1716</val>
-                         <val>1728</val>
-                         <val>1740</val>
-                         <val>1752</val>
-                         <val>1764</val>
-                         <val>1776</val>
-                         <val>1788</val>
-                         <val>1800</val>
-                         <val>1812</val>
-                         <val>1824</val>
-                         <val>1836</val>
                          <val>1848</val>
                          <val>1860</val>
                          <val>1872</val>
@@ -1380,7 +1392,7 @@ CF = 12.9*.998/12.9 = .998
       <nuclide> <id>Cf249</id>  <comp>2.7154845877404104e-09</comp> </nuclide> 
       <nuclide> <id>Cf250</id>  <comp>2.823695627703007e-10</comp> </nuclide> 
       <nuclide> <id>Cf251</id>  <comp>8.017825545907209e-12</comp> </nuclide> 
-      <nuclide> <id>Cf 252</id>  <comp>1.691154800019082e-13</comp> </nuclide> 
+      <nuclide> <id>Cf252</id>  <comp>1.691154800019082e-13</comp> </nuclide> 
       <nuclide> <id>Np237</id>  <comp>0.0029948016924556</comp> </nuclide> 
     </recipe>
     
