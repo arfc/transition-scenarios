@@ -548,7 +548,7 @@ Waste:
     </config>
   </facility>
 
-    <facility>
+  <facility>
     <name>mox_lwr</name>
     <lifetime>960</lifetime>
     <config>
