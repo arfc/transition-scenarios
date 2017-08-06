@@ -110,11 +110,11 @@
          <feed_commods>   <val>french_uox_waste</val> </feed_commods>
          <feed_commod_prefs> <val>1.0</val> </feed_commod_prefs>
          <feed_recipe>uox_used_fuel_recipe</feed_recipe>
-         <feedbuf_size>91600</feedbuf_size>
+         <feedbuf_size>183200</feedbuf_size>
          <!-- 1100 tons/year 91.6 tons/timestep --> 
          <throughput>91600</throughput>
          <leftover_commod>reprocess_waste</leftover_commod>
-         <leftoverbuf_size>183200</leftoverbuf_size>
+         <leftoverbuf_size>91600</leftoverbuf_size>
          <streams>
           <item>
             <commod>uox_Pu</commod>
@@ -152,11 +152,11 @@
          <feed_commods>   <val>mox_waste</val> </feed_commods>
          <feed_commod_prefs> <val>1.0</val> </feed_commod_prefs>
          <feed_recipe>mox_used_fuel_recipe</feed_recipe>
-         <feedbuf_size>91600</feedbuf_size>
+         <feedbuf_size>183200</feedbuf_size>
          <!-- 1100 tons/year 91.6 tons/timestep --> 
          <throughput>91600</throughput>
          <leftover_commod>mox_reprocess_waste</leftover_commod>
-         <leftoverbuf_size>183200</leftoverbuf_size>
+         <leftoverbuf_size>91600</leftoverbuf_size>
          <streams>
           <item>
             <commod>mox_Pu</commod>
@@ -219,7 +219,6 @@
         <in_commods>
           <val>uox_waste</val>
           <val>mox_waste</val>
-          <val>french_uox_waste</val>
           <val>tailings</val>
           <val>reprocess_waste</val>
           <val>mox_reprocess_waste</val>

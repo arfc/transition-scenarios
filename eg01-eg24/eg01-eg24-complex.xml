@@ -1308,7 +1308,6 @@ CF: 14.08 /(13.9*.998) = 1.014
    <nuclide> <id>Cm244</id>  <comp>0.0011</comp> </nuclide> 
    <nuclide> <id>Cm245</id>  <comp>0.0003</comp> </nuclide> 
    <nuclide> <id>Cm246</id>  <comp>0.0001</comp> </nuclide> 
-
   </recipe> 
   
   <recipe>
@@ -1447,5 +1446,4 @@ CF: 14.08 /(13.9*.998) = 1.014
       <nuclide> <id>U238</id>  <comp>0.7726661792000105</comp> </nuclide> 
 
   </recipe> 
-
 </simulation>

@@ -1584,6 +1584,7 @@ Waste:
     <nuclide> <id>Cs137</id>  <comp>0.0018169192</comp> </nuclide>
     <nuclide> <id>H1</id>  <comp>0.0477938151</comp> </nuclide>
   </recipe>
+
   <recipe>
     <name>mox_waste_recipe</name>
     <basis>mass</basis>
@@ -1679,7 +1680,8 @@ Waste:
 
   </recipe> 
 
-    <recipe>
+
+  <recipe>
     <name>sfr_waste_recipe</name>
     <basis>mass</basis>
       <nuclide> <id>H1</id>  <comp>1.3366626338570914e-06</comp> </nuclide> 

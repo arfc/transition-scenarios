@@ -1290,7 +1290,6 @@ CF = 12.9*.998/12.9 = .998
      <nuclide> <id>Cm245</id>  <comp>5.48431266087054E-05</comp> </nuclide> 
      <nuclide> <id>H1</id>  <comp>0</comp> </nuclide> 
   </recipe> 
-
   <recipe>
     <name>sfr_waste_recipe</name>
     <basis>mass</basis>
@@ -1383,7 +1382,6 @@ CF = 12.9*.998/12.9 = .998
       <nuclide> <id>Cf251</id>  <comp>8.017825545907209e-12</comp> </nuclide> 
       <nuclide> <id>Cf 252</id>  <comp>1.691154800019082e-13</comp> </nuclide> 
       <nuclide> <id>Np237</id>  <comp>0.0029948016924556</comp> </nuclide> 
-
-  </recipe> 
-
+    </recipe>
+    
 </simulation>

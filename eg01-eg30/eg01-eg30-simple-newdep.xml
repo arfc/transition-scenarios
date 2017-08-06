@@ -203,7 +203,7 @@ Waste:
                 <stream>
                     <info>
                         <mixing_ratio>0.104</mixing_ratio>
-                        <buf_size>9e4</buf_size>
+                        <buf_size>1e5</buf_size>
                     </info>
                     <commodities>
                         <item>
@@ -223,7 +223,7 @@ Waste:
                 <stream>
                     <info>
                         <mixing_ratio>0.896</mixing_ratio>
-                        <buf_size>8e5</buf_size>
+                        <buf_size>9e5</buf_size>
                     </info>
                     <commodities>
                         <item>
@@ -246,8 +246,8 @@ Waste:
                 </stream>
             </in_streams>
             <out_commod>mox</out_commod>
-            <out_buf_size>8e5</out_buf_size>
-            <throughput>8e5</throughput>
+            <out_buf_size>1e6</out_buf_size>
+            <throughput>9e5</throughput>
         </Mixer>
     </config>
 </facility>
@@ -303,7 +303,7 @@ Waste:
                 </stream>
             </in_streams>
             <out_commod>sfr_fuel</out_commod>
-            <out_buf_size>4e6</out_buf_size>
+            <out_buf_size>9e6</out_buf_size>
             <throughput>4e6</throughput>
         </Mixer>
     </config>
@@ -315,7 +315,6 @@ Waste:
     <config>
       <Sink>
         <in_commods>
-          <val>tailings</val>
           <val>reprocess_waste</val>
           <val>mox_reprocess_waste</val>
           <val>sfr_reprocess_waste</val>
@@ -887,6 +886,7 @@ Waste:
                          <val>8</val>
                          <val>8</val>
 
+
                     </n_build>
                     <prototypes>
                          <val>lwr</val>
@@ -1050,7 +1050,22 @@ Waste:
                          <val>fr</val>
                          <val>fr</val>
                          <val>fr</val>
-                         
+                         <val>fr</val>
+                         <val>fr</val>
+                         <val>fr</val>
+                         <val>fr</val>
+                         <val>fr</val>
+                         <val>fr</val>
+                         <val>fr</val>
+                         <val>fr</val>
+                         <val>fr</val>
+                         <val>fr</val>
+                         <val>fr</val>
+                         <val>fr</val>
+                         <val>fr</val>
+                         <val>fr</val>
+                         <val>fr</val>
+                         <val>fr</val>
 
                     </prototypes>
                     <n_build>
@@ -1094,11 +1109,26 @@ Waste:
                          <val>18</val>
                          <val>17</val>
                          <val>18</val>
-                        
+                         <val>17</val>
+                         <val>17</val>
+                         <val>18</val>
+                         <val>17</val>
+                         <val>18</val>
+                         <val>17</val>
+                         <val>17</val>
+                         <val>18</val>
+                         <val>17</val>
+                         <val>18</val>
+                         <val>17</val>
+                         <val>51</val>
+                         <val>54</val>
+                         <val>51</val>
+                         <val>52</val>
+                         <val>45</val>
 
                     </n_build>
                     <build_times>
-                        
+                         
                          <val>1572</val>
                          <val>1608</val>
                          <val>1644</val>
@@ -1139,7 +1169,22 @@ Waste:
                          <val>2223</val>
                          <val>2310</val>
                          <val>2396</val>
-                         
+                         <val>2483</val>
+                         <val>2531</val>
+                         <val>2567</val>
+                         <val>2603</val>
+                         <val>2639</val>
+                         <val>2675</val>
+                         <val>2706</val>
+                         <val>2725</val>
+                         <val>2744</val>
+                         <val>2763</val>
+                         <val>2783</val>
+                         <val>2835</val>
+                         <val>2876</val>
+                         <val>2917</val>
+                         <val>2958</val>
+                         <val>2999</val>
 
                     </build_times>
                </DeployInst>
@@ -1151,7 +1196,8 @@ Waste:
           <config>
                <DeployInst>
                     <prototypes>
-                        
+                         
+                         <val>mox_lwr</val>
                          <val>mox_lwr</val>
                          <val>mox_lwr</val>
                          <val>mox_lwr</val>
@@ -1224,10 +1270,10 @@ Waste:
                          <val>6</val>
                          <val>6</val>
                          <val>6</val>
+                         <val>6</val>
 
                     </n_build>
                     <build_times>
-                         
                          <val>1572</val>
                          <val>1608</val>
                          <val>1644</val>
@@ -1262,6 +1308,7 @@ Waste:
                          <val>2896</val>
                          <val>2935</val>
                          <val>2973</val>
+                         <val>3012</val>
 
                     </build_times>
                </DeployInst>

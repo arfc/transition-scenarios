@@ -70,11 +70,7 @@
             </info>
             <commodities>
               <item>
-                <commodity>uox_Pu</commodity>
-                <pref>1.0</pref>
-              </item>
-              <item>
-                <commodity>mox_Pu</commodity>
+                <commodity>Pu</commodity>
                 <pref>1.0</pref>
               </item>
             </commodities>
@@ -104,22 +100,21 @@
 <!-- La Hague Model from Schneider & Marignac -->
 <!-- Since 1976 -->
   <facility>
-    <name>uox_reprocessing</name>
+    <name>LA_HAGUE</name>
     <config>
       <Separations>
-         <feed_commods>   <val>french_uox_waste</val> </feed_commods>
-         <feed_commod_prefs> <val>1.0</val> </feed_commod_prefs>
-         <feed_recipe>uox_used_fuel_recipe</feed_recipe>
-         <feedbuf_size>91600</feedbuf_size>
+         <feed_commods>   <val>french_uox_waste</val> <val>mox_waste</val> </feed_commods>
+         <feed_commod_prefs> <val>1.0</val> <val>2.0</val> </feed_commod_prefs>
+         <feedbuf_size>3000</feedbuf_size>
          <!-- 1100 tons/year 91.6 tons/timestep --> 
          <throughput>91600</throughput>
          <leftover_commod>reprocess_waste</leftover_commod>
-         <leftoverbuf_size>183200</leftoverbuf_size>
+         <leftoverbuf_size>3000</leftoverbuf_size>
          <streams>
           <item>
-            <commod>uox_Pu</commod>
+            <commod>Pu</commod>
             <info>
-              <buf_size>91600</buf_size>
+              <buf_size>3000</buf_size>
               <efficiencies>
                 <item>
                   <comp>Pu</comp> <eff>.998</eff>
@@ -128,9 +123,9 @@
             </info>
           </item>
           <item>
-            <commod>uox_U</commod>
+            <commod>U</commod>
             <info>
-              <buf_size>91600</buf_size>
+              <buf_size>3000</buf_size>
               <efficiencies>
                 <item>
                   <comp>U</comp> <eff>.998</eff>
@@ -152,11 +147,11 @@
          <feed_commods>   <val>mox_waste</val> </feed_commods>
          <feed_commod_prefs> <val>1.0</val> </feed_commod_prefs>
          <feed_recipe>mox_used_fuel_recipe</feed_recipe>
-         <feedbuf_size>91600</feedbuf_size>
+         <feedbuf_size>183200</feedbuf_size>
          <!-- 1100 tons/year 91.6 tons/timestep --> 
          <throughput>91600</throughput>
          <leftover_commod>mox_reprocess_waste</leftover_commod>
-         <leftoverbuf_size>183200</leftoverbuf_size>
+         <leftoverbuf_size>91600</leftoverbuf_size>
          <streams>
           <item>
             <commod>mox_Pu</commod>
@@ -217,9 +212,9 @@
     <config>
       <Sink>
         <in_commods>
+          <val>french_uox_waste</val>
           <val>uox_waste</val>
           <val>mox_waste</val>
-          <val>french_uox_waste</val>
           <val>tailings</val>
           <val>reprocess_waste</val>
           <val>mox_reprocess_waste</val>
@@ -234,8 +229,7 @@
     <config>
         <Sink>
             <in_commods>
-                <val>uox_U</val>
-                <val>mox_U</val>
+                <val>U</val>
             </in_commods>
         <capacity>1e299</capacity>
     </Sink>
@@ -4651,8 +4645,7 @@
 
           <prototypes>
 <val>MELOX</val>
-<val>uox_reprocessing</val>
-<val>mox_reprocessing</val>
+<val>LA_HAGUE</val>
   <val>CHINON A-2</val>
 <val>CHINON A-3</val>
 <val>CHOOZ-A (ARDENNES)</val>
@@ -4722,7 +4715,6 @@
 </prototypes>
 <build_times>
 <val>300</val>
-<val>72</val>
 <val>72</val>
   <val>1</val>
 <val>1</val>
@@ -4859,12 +4851,10 @@
 <val>1</val>
 <val>1</val>
 <val>1</val>
-<val>1</val>
 
 </n_build>
 <lifetimes>
   <val>9999</val>
-<val>9999</val>
 <val>9999</val>
   <val>161</val>
 <val>245</val>
