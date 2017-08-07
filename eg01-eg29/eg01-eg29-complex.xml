@@ -197,7 +197,7 @@ Waste:
           <stream>
             <info>
               <mixing_ratio>0.071</mixing_ratio>
-              <buf_size>1e4</buf_size>
+              <buf_size>1e6</buf_size>
             </info>
             <commodities>
               <item>
@@ -217,7 +217,7 @@ Waste:
           <stream>
             <info>
               <mixing_ratio>0.819</mixing_ratio>
-              <buf_size>1e5</buf_size>
+              <buf_size>1e6</buf_size>
             </info>
             <commodities>
               <item>
@@ -237,7 +237,7 @@ Waste:
           <stream>
             <info>
               <mixing_ratio>0.110</mixing_ratio>
-              <buf_size>1e4</buf_size>
+              <buf_size>3e5</buf_size>
             </info>
             <commodities>
               <item>
@@ -252,8 +252,8 @@ Waste:
           </stream>
         </in_streams>
         <out_commod>sfr_fuel</out_commod>
-        <out_buf_size>1e8</out_buf_size>
-        <throughput>1e8</throughput>
+        <out_buf_size>1e3</out_buf_size>
+        <throughput>2e6</throughput>
       </Mixer>
     </config>
   </facility>
@@ -266,7 +266,7 @@ Waste:
           <stream>
             <info>
               <mixing_ratio>0.0911</mixing_ratio>
-              <buf_size>1e4</buf_size>
+              <buf_size>3e8</buf_size>
             </info>
             <commodities>
               <item>
@@ -286,7 +286,7 @@ Waste:
           <stream>
             <info>
               <mixing_ratio>0.9089</mixing_ratio>
-              <buf_size>1e5</buf_size>
+              <buf_size>3e8</buf_size>
             </info>
             <commodities>
               <item>
@@ -305,8 +305,8 @@ Waste:
           </stream>
         </in_streams>
         <out_commod>mox</out_commod>
-        <out_buf_size>3e8</out_buf_size>
-        <throughput>3e8</throughput>
+        <out_buf_size>1e5</out_buf_size>
+        <throughput>3e9</throughput>
       </Mixer>
     </config>
   </facility>
@@ -317,6 +317,7 @@ Waste:
     <config>
       <Sink>
         <in_commods>
+          <val>tailings</val>
           <val>reprocess_waste</val>
           <val>sfr_reprocess_waste</val>
           <val>mox_reprocess_waste</val>
@@ -584,6 +585,16 @@ Waste:
           <number>1</number>
           <prototype>enrichment</prototype>
       </entry>
+<!--
+       <entry>
+          <number>1</number>
+          <prototype>mox_source</prototype>
+      </entry>
+       <entry>
+          <number>1</number>
+          <prototype>sfr_fuel_source</prototype>
+      </entry>
+-->
 
       <!-- POOLS -->
       <entry>
@@ -833,36 +844,36 @@ Waste:
           
           <val>4</val>
           <val>4</val>
-          <val>4</val>          
-         
+          <val>4</val>
+
           <val>8</val>
           <val>8</val>
+          <val>9</val>
           <val>8</val>
           <val>8</val>
+          <val>9</val>
           <val>8</val>
           <val>8</val>
+          <val>9</val>
+          <val>8</val>
+          <val>9</val>
+          <val>8</val>
+          <val>9</val>
           <val>8</val>
           <val>8</val>
+          <val>9</val>
           <val>8</val>
           <val>8</val>
+          <val>9</val>
           <val>8</val>
-          <val>8</val>
-          <val>8</val>
-          <val>8</val>
-          <val>8</val>
-          <val>8</val>
-          <val>8</val>
-          <val>8</val>
-          <val>8</val>
-          <val>8</val>
-          <val>8</val>
-          <val>11</val>
-          <val>12</val>
-          <val>11</val>
-          <val>11</val>
+          <val>9</val>
           <val>12</val>
           <val>12</val>
-          <val>11</val>
+          <val>12</val>
+          <val>12</val>
+          <val>12</val>
+          <val>12</val>
+          <val>12</val>
 
 
      </n_build>
