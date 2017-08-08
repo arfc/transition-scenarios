@@ -56,7 +56,7 @@ Waste:
     0.81 % MA
     6.59 % FP
 
-CF = 17.97*.998 / 11.46 = 1.56
+CF = (11.4998+0.8208)*.998/11.655 = 1.0444
 ****************************************
 Deploy EG 30 (-175 SFR, -10 MOX_LWR, +80 LWR)
 ****************************************
@@ -202,7 +202,7 @@ Waste:
             <in_streams>
                 <stream>
                     <info>
-                        <mixing_ratio>0.104</mixing_ratio>
+                        <mixing_ratio>0.10359</mixing_ratio>
                         <buf_size>9e4</buf_size>
                     </info>
                     <commodities>
@@ -222,7 +222,7 @@ Waste:
                 </stream>
                 <stream>
                     <info>
-                        <mixing_ratio>0.896</mixing_ratio>
+                        <mixing_ratio>0.89641</mixing_ratio>
                         <buf_size>8e5</buf_size>
                     </info>
                     <commodities>
@@ -259,7 +259,7 @@ Waste:
             <in_streams>
                 <stream>
                     <info>
-                        <mixing_ratio>0.1146</mixing_ratio>
+                        <mixing_ratio>0.11655</mixing_ratio>
                         <buf_size>9e5</buf_size>
                     </info>
                     <commodities>
@@ -279,7 +279,7 @@ Waste:
                 </stream>
                 <stream>
                     <info>
-                        <mixing_ratio>0.8854</mixing_ratio>
+                        <mixing_ratio>0.88345</mixing_ratio>
                         <buf_size>8e6</buf_size>
                     </info>
                     <commodities>
@@ -1401,22 +1401,19 @@ Waste:
    <recipe>
     <name>sfr_waste_recipe</name>
     <basis>mass</basis>
-     <nuclide> <id>U238</id>  <comp>80.20</comp> </nuclide> 
-     <nuclide> <id>Pu239</id>  <comp>11.38</comp> </nuclide> 
-     <nuclide> <id>Am241</id>  <comp>0.81</comp> </nuclide> 
-     <nuclide> <id>Cs137</id>  <comp>6.59</comp> </nuclide> 
+     <nuclide> <id>U238</id>  <comp>81.0131</comp> </nuclide> 
+     <nuclide> <id>Pu239</id>  <comp>11.4998</comp> </nuclide> 
+     <nuclide> <id>Am241</id>  <comp>0.8208</comp> </nuclide> 
+     <nuclide> <id>Cs137</id>  <comp>6.6661</comp> </nuclide> 
 
   </recipe> 
 
-    <recipe>
+  <recipe>
     <name>mox_waste_recipe</name>
     <basis>mass</basis>
-     <nuclide> <id>U238</id>  <comp>85.78</comp> </nuclide> 
-   <nuclide> <id>Pu239</id>  <comp>7.38</comp> </nuclide> 
-   <nuclide> <id>Am241</id>  <comp>0.80</comp> </nuclide> 
-   <nuclide> <id>Cs137</id>  <comp>5.01</comp> </nuclide> 
-
-
+     <nuclide> <id>U238</id>  <comp>86.6596</comp> </nuclide> 
+   <nuclide> <id>Pu239</id>  <comp>7.4621</comp> </nuclide> 
+   <nuclide> <id>Am241</id>  <comp>0.8095</comp> </nuclide> 
+   <nuclide> <id>Cs137</id>  <comp>5.0686</comp> </nuclide> 
   </recipe> 
-
 </simulation>
