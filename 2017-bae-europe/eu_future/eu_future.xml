@@ -2,8 +2,8 @@
 <simulation>
   <control>
     <duration>960</duration>
-    <startmonth>1 </startmonth>
-    <startyear>1970 </startyear>
+    <startmonth>1</startmonth>
+    <startyear>1970</startyear>
   </control>
 
 
