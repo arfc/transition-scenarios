@@ -65,7 +65,7 @@
         <in_streams>
           <stream>
             <info>
-              <mixing_ratio>.09</mixing_ratio>
+              <mixing_ratio>0.09</mixing_ratio>
               <buf_size>16250</buf_size>
             </info>
             <commodities>
@@ -81,7 +81,7 @@
           </stream>
           <stream>
             <info>
-              <mixing_ratio>.91</mixing_ratio>
+              <mixing_ratio>0.91</mixing_ratio>
               <buf_size>16250</buf_size>
             </info>
             <commodities>
@@ -122,7 +122,7 @@
             <buf_size>91600</buf_size>
             <efficiencies>
               <item>
-                <comp>Pu</comp> <eff>.998</eff>
+                <comp>Pu</comp> <eff>0.998</eff>
               </item>
             </efficiencies>
           </info>
@@ -133,7 +133,7 @@
             <buf_size>91600</buf_size>
             <efficiencies>
               <item>
-                <comp>U</comp> <eff>.998</eff>
+                <comp>U</comp> <eff>0.998</eff>
               </item>
             </efficiencies>
           </info>
@@ -164,7 +164,7 @@
               <buf_size>91600</buf_size>
               <efficiencies>
                 <item>
-                  <comp>Pu</comp> <eff>.998</eff>
+                  <comp>Pu</comp> <eff>0.998</eff>
                 </item>
               </efficiencies>
             </info>
@@ -175,7 +175,7 @@
               <buf_size>91600</buf_size>
               <efficiencies>
                 <item>
-                  <comp>U</comp> <eff>.998</eff>
+                  <comp>U</comp> <eff>0.998</eff>
                 </item>
               </efficiencies>
             </info>
