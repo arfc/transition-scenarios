@@ -1,0 +1,213 @@
+\documentclass{article}
+
+%%%% packages and definitions (optional)
+\usepackage{graphicx} % allows inclusion of graphics
+\usepackage{graphics}
+\usepackage{placeins}
+\usepackage{booktabs} % nice rules (thick lines) for tables
+\usepackage{microtype} % improves typography for PDF
+\usepackage{xspace}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xspace}
+\usepackage{hhline}
+
+\usepackage{tabularx}
+\newcolumntype{b}{X}
+\newcolumntype{s}{>{\hsize=.5\hsize}X}
+\newcolumntype{m}{>{\hsize=.75\hsize}X}
+
+\newcommand{\SN}{S$_N$}
+\renewcommand{\vec}[1]{\bm{#1}} %vector is bold italic
+\newcommand{\vd}{\bm{\cdot}} % slightly bold vector dot
+\newcommand{\grad}{\vec{\nabla}} % gradient
+\newcommand{\ud}{\mathop{}\!\mathrm{d}} % upright derivative symbol
+\newcommand{\Cyclus}{\textsc{Cyclus}\xspace}%
+\newcommand{\Cycamore}{\textsc{Cycamore}\xspace}%
+\graphicspath{ {images/} }
+\usepackage[affil-it]{authblk}
+\usepackage{tikz}
+\usetikzlibrary{positioning, arrows, decorations, shapes }
+\usepackage{cleveref}
+
+
+\usepackage[acronym,toc]{glossaries}
+\include{acros}
+	
+\makeglossaries
+
+\title{Non-algorithmic Capability Gaps for \Cyclus and \Cycamore for transition analyses }
+\author{Jin Whan Bae, Kathryn Huff}
+\affil{Dept. of Nuclear, Plasma, and Radiological Engineering, University of Illinois at Urbana-Champaign
+		  Urbana, IL}
+\date{}                     %% if you don't need date to appear
+\setcounter{Maxaffil}{0}
+\renewcommand\Affilfont{\itshape\small}
+%%%%%%%%%%%%%%actual words%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+
+
+\begin{document}
+
+\section{Introduction}
+As part of NEUP-FY16-10512 (PI: Dr. Kathryn Huff), a test-run of fuel cycle
+transition scenarios was done using \Cyclus. The purpose of this study
+is to identify the non-algorithmic capability gaps necessary for a complete simulation.
+The fuel cycle models are from the Idaho National Laboratory Nuclear Fuel Cycle Evaluation and Screening Report
+(Hereby E\&S Report) \cite{wigeland_nuclear_2014}. The transition scenarios begin with EG01 and transitions to EG23, EG24, EG29, EG30,
+separately. The descriptions of each fuel cycle is in \cref{tab:es}.
+
+
+\begin{table}[h]
+	\centering
+	\resizebox{\textwidth}{!}{
+		\begin{tabular}{|c|c|}
+			\hline
+			Fuel Cycle & Description \\ \hline
+			EG01 & Once-through using \gls{UOX} fuel in \glspl{LWR} \\ \hline
+			EG23 & Continuous recycle of U/Pu with new natural U fuel in fast critical reactors \\ \hline 
+			EG24 & Continuous recycle of U/TRU with new natural U fuel in fast critical reactors \\ \hline
+			EG29 & Continuous recycle of U/Pu with new natural U fuel in both fast and thermal critical reactors \\ \hline
+			EG30 & Continuous recycle of U/TRU with new natural U fuel in both fast and thermal critical reactors \\ \hline
+		\end{tabular}
+		}
+		\caption{Evaluation groups identified by the E\&S report.}
+		\label{tab:es}
+\end {table} 
+
+
+
+\section{Simulation Specifics}
+The transition scenarios followed a common set of base-case parameters and assumptions,
+adapted by the Fuel Cycle Options Campaign \cite{djokic_application_2015}.
+% Need to list them?
+
+The reactor specifications (mass of core, batch, refueling cycle) follows
+the specifications given by the E\&S report appendix B \cite{wigeland_nuclear_2014}.
+
+For the compositions of the fresh and spent fuels, various models give different answers.
+As it will be discussed later, the recipe (more specifically the Breeding Ratio of the \gls{SFR}),
+plays an extremely crucial role in the rapidity and validity of the transition. 
+
+With that being said,the swiftness of the transition greately depends on the 
+breeding ratio of the \gls{SFR} since new \glspl{SFR} cannot be deployed 
+without a sufficient fissile inventory. 
+
+\subsection{Important Parameters}
+For a successful transition, there must be enough fissile materials in store prior to transition
+to start new advanced reactors. Also, enough surplus fissile materials have to be produced
+during the transition to support the start of new reactors.
+
+To satisfy such conditions, the important simulation parameters identified are:
+\begin{enumerate}
+	\item Breeding Ratio of \gls{SFR}
+	\item Deployment Scheme (Transition initiating time, Transition sharpness)
+	\item Reprocessing and Fabrication Throughput and Buffer
+\end{enumerate}
+
+
+This is assuming that the following parameters are fixed:
+\begin{enumerate}
+	\item Reactor Specifics (core size, refueling cycle, power)
+	\item Separation Efficiency
+	\item Increase Rate of Power Demand
+\end{enumerate}
+
+\subsection{Recipes}
+The reactor archetype in \Cycamore uses recipes to do depletion calculations,
+where the spent fuel composition is user-defined and constant. 
+
+The recipe from appendix B of the E\&S report does not take into account
+additional deployment of reactors from increased power demand (In other words, the Breeding Ratio
+of \glspl{SFR} in the appendix are low), which means that there is no (or very little)
+extra fissile material (Pu or TRU) inventory. For EG23 and EG24, the Breeding Ratios are
+a little over breakeven (~1.01), which makes deployment of additional reactors solely 
+dependent on fissile material inventory from legacy LWR \gls{UNF}. For EG29 and EG30,
+the Breeding Ratios are big higher (~1.29 and 1.05, respectively) to feed the
+\gls{MOX} \glspl{LWR}, but still does not accumulate fissile material inventory for
+additional reactor deployment.
+
+To solve this problem, an ORIGEN-generated depletion recipe is used. This recipe
+has a fresh fuel plutonium composition of 12.9\%, and a BR of $1.16$. This breeding
+ratio allows complete SFR transition in 2170 for EG23 and EG24. For the EG29 and EG30,
+the BRs have to be higher to feed the \gls{MOX} \glspl{LWR}. 
+
+
+\section{Gaps}
+The test-runs with \Cyclus and \Cycamore allowed identifications of various non-algorithmic gaps
+of the current \Cycamore archetypes as well as the \Cyclus greedy exchange model.
+
+\subsection{Critical Gaps}
+Critical gaps are defined as gaps that, if not fixed, will not allow a complete transition,
+or provide a completely trivial solution.
+
+\subsubsection{Throughput of fuel cycle facilities}
+The throughput and capacity values of fuel cycle support facilities, such as fuel fabrication plant
+(\textsc{FuelFab}\xspace, \textsc{Mixer}\xspace) need to adjust according to demand. In EG23 and EG24,
+there is one archetype that receives separated fissile materials. In this case, a reprocessing
+plant or a fuel fab plant can have infinite buffer/throughput because it is the only
+archetype with the demand for that commodity. However, EG29 and EG30 has two archetypes
+that compete for the fissile materials (ie. \gls{MOX} fuel fab competes with \gls{SFR} fuel fab for separated plutonium).
+In this case, if both fabrication plants have infinite buffer/throughput, one fabrication takes all the
+separated fissile material, leaving the other plant debilitated. This comes from the \Cyclus greedy exchange,
+where if there isn't enough supply for all demands, the bigger demand gets filled first. 
+
+
+\Cref{fig:mox} and \cref{fig:sfr} plot the fuel demand of \gls{MOX} \glspl{LWR} and \glspl{SFR},
+respectively, in an EG29 scenario.
+
+
+\begin{figure}[htbp!]
+	\begin{center}
+		\includegraphics[scale=0.6]{./images/mox_fuel.png}
+	\end{center}
+	\caption{\gls{MOX} fuel demand for EG29}
+	\label{fig:mox}
+\end{figure}
+\begin{figure}[htbp!]
+	\begin{center}
+		\includegraphics[scale=0.6]{./images/sfr_fuel.png}
+	\end{center}
+	\caption{\gls{SFR} fuel demand for EG29}
+	\label{fig:sfr}
+\end{figure}
+\FloatBarrier
+
+A fix for this could be to have a dynamic throughput that adjusts according
+to predicted fuel demand, or, more realistically, have an archetype with fixed, reasonable, throughput/buffer
+that is deployed when there is fuel demand beyond its predicted throughput.
+
+\subsubsection{Irresponsible deployment}
+The \textsc{DeployInst}\xspace model deploys prototypes in a user-defined time period, even though there is not 
+enough fuel to operate the reactor. The deployed reactor is deployed, but remains idle. 
+
+\subsection{Improvement}
+The following concepts are, if improved upon, would allow for more accurate modeling of
+transition of fuel cycle.
+
+\subsubsection{Dynamic parameters}
+The various parameters for \Cyclus archetypes are static except for the \Cycamore \textsc{Reactor}\xspace
+where the incoming and outgoing recipe and commodity can be changed. A dynamic parameter would be able
+to better accommodate the fluctuating fuel demand. The throughput can be adjusted in many different ways:
+from predicted fuel demand from simulation, a function of installed power capacity, a function of time, etc.
+
+\subsubsection{Blanket capability for \textsc{Reactor}\xspace}
+For \glspl{SFR}, the blanket and the driver have different effective fuel residence times, meaning that
+they should (ideally) be handled separately. However, with current capabilities, the option is the average
+the mass and composition of driver and blanket to treat is as one commodity.
+
+\subsubsection{Depletion Calculations}
+Depletion calculations are done outside of the simulation. However, if models like \textsc{Cyborg}\xspace
+or \textsc{Bright-Lite}\xspace are utilized, there could be more accurate depletion calculations and 
+perhaps dynamic Breeding Ratio modeling.
+
+\subsubsection{\textsc{Reactor}\xspace Decommissioning Behavior}
+The \Cycamore \textsc{Reactor}\xspace, when decommissioned mid-cycle, supposedly transmutes half of
+its current assemblies (I tried and it transmuted all, and discharges all). An alternative would
+be to have recipes for each stage (ie. for four batch, there would be three spent fuel recipes).
+
+
+\bibliographystyle{abbrv}
+\bibliography{./bibliography.bib}
+
+
+\end{document}
+\grid
