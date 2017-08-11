@@ -76,7 +76,7 @@ separately. The descriptions of each fuel cycle is in \cref{tab:es}.
 
 
 \section{Simulation Specifics}
-The transition scenarios followed a common set of base-case parameters and assumptions,
+The transition scenarios in this study follows a common set of base-case parameters and assumptions,
 adapted by the Fuel Cycle Options Campaign \cite{djokic_application_2015}.
 % Need to list them?
 
@@ -85,9 +85,9 @@ the specifications given by the E\&S report appendix B \cite{wigeland_nuclear_20
 
 For the compositions of the fresh and spent fuels, various models give different answers.
 As it will be discussed later, the recipe (more specifically the Breeding Ratio of the \gls{SFR}),
-plays an extremely crucial role in the rapidity and validity of the transition. 
+plays an extremely crucial role in the rapidity and success of the transition. 
 
-With that being said,the swiftness of the transition greately depends on the 
+With that being said,the swiftness of the transition greatly depends on the 
 breeding ratio of the \gls{SFR} since new \glspl{SFR} cannot be deployed 
 without a sufficient fissile inventory. 
 
@@ -118,7 +118,7 @@ where the spent fuel composition is user-defined and constant.
 The recipe from appendix B of the E\&S report does not take into account
 additional deployment of reactors from increased power demand (In other words, the Breeding Ratio
 of \glspl{SFR} in the appendix are low), which means that there is no (or very little)
-extra fissile material (Pu or TRU) inventory. For EG23 and EG24, the Breeding Ratios are
+extra fissile material (Pu or TRU) produced. For EG23 and EG24, the Breeding Ratios are
 a little over breakeven (~1.01), which makes deployment of additional reactors solely 
 dependent on fissile material inventory from legacy LWR \gls{UNF}. For EG29 and EG30,
 the Breeding Ratios are big higher (~1.29 and 1.05, respectively) to feed the
@@ -133,11 +133,11 @@ the BRs have to be higher to feed the \gls{MOX} \glspl{LWR}.
 
 \section{Gaps}
 The test-runs with \Cyclus and \Cycamore allowed identifications of various non-algorithmic gaps
-of the current \Cycamore archetypes as well as the \Cyclus greedy exchange model.
+of the current \Cycamore archetypes as well as the \Cyclus material exchange model.
 
 \subsection{Critical Gaps}
 Critical gaps are defined as gaps that, if not fixed, will not allow a complete transition,
-or provide a completely trivial solution.
+or provide a completely erroneous solution.
 
 \subsubsection{Throughput of fuel cycle facilities}
 The throughput and capacity values of fuel cycle support facilities, such as fuel fabrication plant
