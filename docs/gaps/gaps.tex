@@ -31,7 +31,7 @@
 
 
 \usepackage[acronym,toc]{glossaries}
-\include{acros}
+\include{acros.tex}
 	
 \makeglossaries
 
@@ -133,23 +133,24 @@ the BRs have to be higher to feed the \gls{MOX} \glspl{LWR}.
 
 \section{Gaps}
 The test-runs with \Cyclus and \Cycamore allowed identifications of various non-algorithmic gaps
-of the current \Cycamore archetypes as well as the \Cyclus material exchange model.
+of the current \Cycamore archetypes as well as the \Cyclus framework itself. 
 
-\subsection{Critical Gaps}
-Critical gaps are defined as gaps that, if not fixed, will not allow a complete transition,
-or provide a completely erroneous solution.
+The most fundamental issue is that the capacity and deployment (thus the supply) is not
+demand-driven, but static. All of the parameters for fuel support facilities (\textsc{FuelFab}\xspace,
+\textsc{Mixer}\xspace, \textsc{Separations}\xspace) remain static throughout the simulation.
+This is not desirable, especially given the dynamic nature of transition scenarios. 
 
-\subsubsection{Throughput of fuel cycle facilities}
-The throughput and capacity values of fuel cycle support facilities, such as fuel fabrication plant
-(\textsc{FuelFab}\xspace, \textsc{Mixer}\xspace) need to adjust according to demand. In EG23 and EG24,
+\subsection{Greedy Exchange Model}
+The \Cyclus greedy exchange,
+dictates that if there isn't enough supply for all demands, the bigger demand gets filled first.
+This was an attempt to model real market situation, where a higher demand would mean higher price. 
+In EG23 and EG24,
 there is one archetype that receives separated fissile materials. In this case, a reprocessing
 plant or a fuel fab plant can have infinite buffer/throughput because it is the only
 archetype with the demand for that commodity. However, EG29 and EG30 has two archetypes
 that compete for the fissile materials (ie. \gls{MOX} fuel fab competes with \gls{SFR} fuel fab for separated plutonium).
 In this case, if both fabrication plants have infinite buffer/throughput, one fabrication takes all the
-separated fissile material, leaving the other plant debilitated. This comes from the \Cyclus greedy exchange,
-where if there isn't enough supply for all demands, the bigger demand gets filled first. 
-
+separated fissile material, leaving the other plant idle.
 
 \Cref{fig:mox} and \cref{fig:sfr} plot the fuel demand of \gls{MOX} \glspl{LWR} and \glspl{SFR},
 respectively, in an EG29 scenario.
@@ -171,37 +172,110 @@ respectively, in an EG29 scenario.
 \end{figure}
 \FloatBarrier
 
-A fix for this could be to have a dynamic throughput that adjusts according
+
+\subsection{Static Parameters}
+Various parameters, most notably throughput and capacity values of fuel cycle support facilities,
+need to adjust according to demand. With transition scenarios with increasing power demand, the 
+demand for fuel and fissile material generally increases over time. The current workaround is to either
+have a facility with infinite capacity, or to set the capacity to a manually-calculated (look-back method)
+maximum fuel demand. The infinite capacity method fails for EG29 and EG30, due to the greedy exchange
+model. The look-back method allows a complete simulation, but inefficiencies occur with the distribution
+of fissile material, since the facility with the higher demand has to fill up first in order for the facility
+with the lower demand to receive fissile material. 
+
+A fix for this is to have a dynamic throughput that adjusts according
 to predicted fuel demand, or, more realistically, have an archetype with fixed, reasonable, throughput/buffer
 that is deployed when there is fuel demand beyond its predicted throughput.
 
-\subsubsection{Irresponsible deployment}
+\subsection{Individual Demand Estimation}
+Currently, the \Cyclus framework's market is completely agent-based. At every timestep, each agent `submits' its
+demand and supply and the trade is made. However, this individual frame can cause inefficiencies mentioned previously.
+A more efficient process would be to set all demands proportional to the fuel demand. An example is illustrated
+in \cref{diag:hd}.
+
+% Define block styles
+\tikzstyle{decision} = [diamond, draw, fill=blue!20, 
+text width=4.5em, text badly centered, node distance=3cm, inner sep=0pt]
+\tikzstyle{block} = [rectangle, draw, fill=blue!20, 
+text width=5em, text centered, rounded corners, minimum height=4em]
+\tikzstyle{line} = [draw, -latex']
+\tikzstyle{cloud} = [draw, ellipse,fill=red!20, node distance=3cm,
+minimum height=2em]
+
+
+\begin{figure}
+	\centering
+	\scalebox{0.7}{
+		\begin{tikzpicture}[align=center, node distance = 3cm and 3cm, auto]
+		% Place nodes
+		\node [block] (rea) {\texttt{Reactor}};
+		\node [cloud, below of=rea] (d1) {1. Demand: \mathbf{Fuel}};
+		\node [cloud, below of=d1] (s1) {2. Change throughput to \mathbf{Fuel}};
+		\node [block, below of=s1] (ff) {\texttt{FuelFab}};
+		\node [cloud, below of=ff] (d2) {3. Demand: Fissile Material $\propto \mathbf{Fuel}$};		
+		\node [cloud, below of=d2] (s2) {4. Change capacity to $\propto \mathbf{Fuel}$};
+		\node [block, below of=s2] (rep) {\texttt{Separations}};
+		
+		
+		\draw[->, thick] (rea) -- (d1);
+		\draw[->, thick] (d1) -- (s1);
+		\draw[->, thick] (s1) -- (ff);
+		\draw[->, thick] (ff) -- (d2);
+		\draw[->, thick] (d2) -- (s2);
+		\draw[->, thick] (s2) -- (rep);
+		\end{tikzpicture}
+		
+	}
+	\caption{Fuel-centered Demand Logic Flow}
+	\label{diag:hd}
+\end{figure}
+ 
+
+\subsection{A Need For Market-Peeking}
+The \Cyclus framework can benefit greatly from a market-peeking capability,
+where each agent can query the market (previous transactions or demand) to adjust its parameters. For example, fuel fabrication
+agents can query the previous (or, eventually, expected) demand of fuel and adjust their throughputs to meet the demand. 
+The market-peeking capability is essential for demand-prediction models.
+
+Moreover, with the market-peeking capability, support facilities can estimate adjust their
+capacities by estimating
+the demand of fuel/fissile material proportional to power demand (`power' is a market commodity in \Cyclus).
+
+\subsection{A Need For Inter-Agent Feedback}
+Inter-agent feedback means that agents can communicate with each other and change its parameters accordingly. 
+For example, an increase in fabrication capacity, should cause an increase in reprocessing capacity. Also,
+if a reactor is shutdown due to lack of fuel, this should cause a flag to increase fabrication capacity,
+or `investigate'
+This would be problematic in parallel to the market-peeking capability, since there would be more than one algorithm
+that changes the throughput of an agent. 
+
+\subsection{Irresponsible deployment}
 The \textsc{DeployInst}\xspace model deploys prototypes in a user-defined time period, even though there is not 
-enough fuel to operate the reactor. The deployed reactor is deployed, but remains idle. 
+enough fuel to operate the reactor. The deployed reactor is remains idle if the fuel supply is short. Deploying new reactors
+without sufficient fissile material to support it can cause other already-deployed reactors without fuel, causing
+a cascade of shutdowns. Using the market-peeking or feedback capability, new reactors should be deployed only
+if there is sufficient fuel to support the startup of the reactor as well as currently deployed reactors. 
 
-\subsection{Improvement}
-The following concepts are, if improved upon, would allow for more accurate modeling of
-transition of fuel cycle.
 
-\subsubsection{Dynamic parameters}
-The various parameters for \Cyclus archetypes are static except for the \Cycamore \textsc{Reactor}\xspace
-where the incoming and outgoing recipe and commodity can be changed. A dynamic parameter would be able
-to better accommodate the fluctuating fuel demand. The throughput can be adjusted in many different ways:
-from predicted fuel demand from simulation, a function of installed power capacity, a function of time, etc.
+\subsection{Additional Possible Improvements}
+Though not critical to the current goal, having the following capabilities can increase
+the accuracy of simulations.
 
-\subsubsection{Blanket capability for \textsc{Reactor}\xspace}
+
+\subsection{Blanket capability for \textsc{Reactor}\xspace}
 For \glspl{SFR}, the blanket and the driver have different effective fuel residence times, meaning that
-they should (ideally) be handled separately. However, with current capabilities, the option is the average
+they should (ideally) be discharged and loaded separately. However, with current capabilities, the option is the average
 the mass and composition of driver and blanket to treat is as one commodity.
 
-\subsubsection{Depletion Calculations}
-Depletion calculations are done outside of the simulation. However, if models like \textsc{Cyborg}\xspace
+\subsection{Depletion Calculations}
+Depletion calculations are done outside of the simulation. However, if advanced reactor models like \textsc{Cyborg}\xspace
 or \textsc{Bright-Lite}\xspace are utilized, there could be more accurate depletion calculations and 
 perhaps dynamic Breeding Ratio modeling.
 
-\subsubsection{\textsc{Reactor}\xspace Decommissioning Behavior}
-The \Cycamore \textsc{Reactor}\xspace, when decommissioned mid-cycle, supposedly transmutes half of
-its current assemblies (I tried and it transmuted all, and discharges all). An alternative would
+\subsection{\textsc{Reactor}\xspace Decommissioning Behavior}
+The \Cycamore \textsc{Reactor}\xspace, when decommissioned mid-cycle, transmutes half of
+its current assemblies, and discharges all its core as waste commodity. This is in order to model the average
+composition of discharged assemblies in different stages. An alternative would
 be to have recipes for each stage (ie. for four batch, there would be three spent fuel recipes).
 
 
@@ -210,4 +284,3 @@ be to have recipes for each stage (ie. for four batch, there would be three spen
 
 
 \end{document}
-\grid
