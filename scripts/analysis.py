@@ -276,7 +276,9 @@ def get_isotope_transactions(resources, compositions):
     return transactions
 
 
-def facility_commodity_flux(cur, agent_ids, commod_list, is_outflux, is_cum=True):
+def facility_commodity_flux(cur, agent_ids,
+                            commod_list, is_outflux,
+                            is_cum=True):
     """ Returns dictionary of commodity in/outflux from agents
 
     Parameters
@@ -318,7 +320,8 @@ def facility_commodity_flux(cur, agent_ids, commod_list, is_outflux, is_cum=True
     return commodity_dict
 
 
-def commodity_flux_region(cur, agent_ids, commodity_list, is_outflux, is_cum=True):
+def commodity_flux_region(cur, agent_ids, commodity_list,
+                          is_outflux, is_cum=True):
     """ Returns dictionary of timeseries of all the commodity outflux,
         that is either coming in/out of the agent
         separated by region
@@ -371,7 +374,8 @@ def commodity_flux_region(cur, agent_ids, commodity_list, is_outflux, is_cum=Tru
             commodity_dict[gov['prototype']] = get_timeseries_cum(
                 from_gov, duration, True)
         else:
-            commodity_dict[gov['prototpype']] = get_timeseries(from_gov, duration, True)
+            commodity_dict[gov['prototpype']] = get_timeseries(
+                from_gov, duration, True)
     return commodity_dict
 
 
@@ -594,7 +598,8 @@ def fuel_usage_timeseries(cur, fuel_list, is_cum=True):
                 quantity_timeseries = get_timeseries_cum(
                     fuel_quantity, duration, True)
             else:
-                quantity_timeseries = get_timeseries(fuel_quantity, duration, True)
+                quantity_timeseries = get_timeseries(
+                    fuel_quantity, duration, True)
             fuel_dict[fuel] = quantity_timeseries
         except:
             print(str(fuel) + ' has not been used.')
@@ -631,7 +636,10 @@ def nat_u_timeseries(cur, is_cum=True):
     else:
         return get_timeseries(feed, duration, True)
 
-def get_trade_dict(cur, sender, receiver, is_prototype, do_isotopic, is_cum=True):
+
+def get_trade_dict(cur, sender, receiver,
+                   is_prototype, do_isotopic,
+                   is_cum=True):
     """ Returns trade timeseries between two prototypes' or facilities
     with or without isotopics
 
@@ -702,7 +710,8 @@ def get_trade_dict(cur, sender, receiver, is_prototype, do_isotopic, is_cum=True
             iso_dict[nucname.name(nucid)].append((time, amount))
         for key in iso_dict:
             if is_cum:
-                iso_dict[key] = get_timeseries_cum(iso_dict[key], duration, True)
+                iso_dict[key] = get_timeseries_cum(
+                    iso_dict[key], duration, True)
             else:
                 iso_dict[key] = get_timeseries(iso_dict[key], duration, True)
         return iso_dict
@@ -795,6 +804,7 @@ def fuel_into_reactors(cur, is_cum=True):
         return get_timeseries_cum(fuel, duration, True)
     else:
         return get_timeseries(fuel, duration, True)
+
 
 def u_util_calc(cur):
     """ Returns fuel utilization factor of fuel cycle
@@ -983,8 +993,8 @@ def reactor_deployments(governments, timestep, entry, exit_step):
 
 
 def multiple_line_plots(dictionary, timestep,
-                       xlabel, ylabel, title,
-                       outputname, init_year):
+                        xlabel, ylabel, title,
+                        outputname, init_year):
     """ Creates multiple line plots of timestep vs dictionary
 
     Parameters
@@ -1036,8 +1046,8 @@ def multiple_line_plots(dictionary, timestep,
 
 
 def combined_line_plot(dictionary, timestep,
-                        xlabel, ylabel, title,
-                        outputname, init_year):
+                       xlabel, ylabel, title,
+                       outputname, init_year):
     """ Creates a combined line plot of timestep vs dictionary
 
     Parameters
@@ -1160,7 +1170,7 @@ def double_axis_plot(dictionary1, dictionary2, timestep,
         ax = plt.gca()
         ax.get_yaxis().set_major_formatter(
             plt.FuncFormatter(lambda x, loc: "{:,}".format(int(x))))
-    
+
     plt.title(title)
     plt.legend(loc=(1.0, 0), prop={'size': 10})
     plt.grid(True)
@@ -1168,6 +1178,7 @@ def double_axis_plot(dictionary1, dictionary2, timestep,
                 format='png',
                 bbox_inches='tight')
     plt.close()
+
 
 def stacked_bar_chart(dictionary, timestep,
                       xlabel, ylabel, title,
