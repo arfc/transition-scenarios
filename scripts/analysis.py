@@ -1101,9 +1101,104 @@ def combined_line_plot(dictionary, timestep,
     plt.close()
 
 
-def double_axis_plot(dictionary1, dictionary2, timestep,
-                     xlabel, ylabel1, ylabel2,
-                     title, outputname, init_year):
+def double_axis_bar_line_plot(dictionary1, dictionary2, timestep,
+                              xlabel, ylabel1, ylabel2,
+                              title, outputname, init_year):
+    """ Creates a double-axis plot of timestep vs dictionary
+
+    It is recommended that a non-cumulative timeseries is on dictionary1.
+
+    Parameters
+    ----------
+    dictionary1: dictionary
+        dictionary with "key=description of timestep, and
+        value=list of timestep progressions"
+    dictionary2: dictionary
+        dictionary with "key=description of timestep, and
+        value=list of timestep progressions"
+    timestep: numpy linspace
+        timestep of simulation
+    xlabel: str
+        xlabel of plot
+    ylabel: str
+        ylabel of plot
+    title: str
+        title of plot
+    init_year: int
+        initial year of simulation
+
+    Returns
+    -------
+    """
+    # set different colors for each bar
+    
+    fig, ax1 = plt.subplots()
+    top = True
+    # for every country, create bar chart with different color
+    for key in dictionary1:
+        # label is the name of the nuclide (converted from ZZAAA0000 format)
+        if isinstance(key, str) is True:
+            label = key.replace('_government', '')
+        else:
+            label = str(key)
+        if top:
+            lns = ax1.bar(timestep_to_years(init_year, timestep),
+                  dictionary1[key],
+                  label=label,
+                  color='r')
+            top = False
+        else:
+            lns += ax1.bar(timestep_to_years(init_year, timestep),
+                           dictionary1[key],
+                           label=label,
+                           color='r')
+    ax1.set_xlabel(xlabel)
+    ax1.set_ylabel(ylabel1, color='r')
+    ax1.tick_params('y', colors='r')
+    if sum(sum(dictionary1[k]) for k in dictionary1) > 1000:
+        ax1 = plt.gca()
+        ax1.get_yaxis().set_major_formatter(
+            plt.FuncFormatter(lambda x, loc: "{:,}".format(int(x))))
+    ax2 = ax1.twinx()
+
+    lines = ['-', '--', '-.', ':']
+    linecycler = cycle(lines)
+    for key in dictionary2:
+        # label is the name of the nuclide (converted from ZZAAA0000 format)
+        if isinstance(key, str) is True:
+            label = key.replace('_government', '')
+        else:
+            label = str(key)
+
+        ax2.plot(timestep_to_years(init_year, timestep),
+                 dictionary2[key],
+                 label=label,
+                 color='b',
+                 linestyle=next(linecycler))
+    ax2.set_ylabel(ylabel2, color='b')
+    ax2.tick_params('y', colors='b')
+
+    if sum(sum(dictionary2[k]) for k in dictionary2) > 1000:
+        ax2 = plt.gca()
+        ax2.get_yaxis().set_major_formatter(
+            plt.FuncFormatter(lambda x, loc: "{:,}".format(int(x))))
+
+   
+    plt.title(title)
+    labs = [l.get_label() for l in lns]
+    plt.legend(lns, labs, loc=0, prop={'size': 10})
+    ax2.legend(loc=(1,0))
+    plt.grid(True)
+    plt.savefig(label + '_' + outputname + '.png',
+                format='png',
+                bbox_inches='tight')
+    plt.close()
+
+
+
+def double_axis_line_line_plot(dictionary1, dictionary2, timestep,
+                               xlabel, ylabel1, ylabel2,
+                               title, outputname, init_year):
     """ Creates a double-axis plot of timestep vs dictionary
 
     Parameters
@@ -1132,6 +1227,7 @@ def double_axis_plot(dictionary1, dictionary2, timestep,
     lines = ['-', '--', '-.', ':']
     linecycler = cycle(lines)
     fig, ax1 = plt.subplots()
+    top = True
     # for every country, create bar chart with different color
     for key in dictionary1:
         # label is the name of the nuclide (converted from ZZAAA0000 format)
@@ -1139,16 +1235,28 @@ def double_axis_plot(dictionary1, dictionary2, timestep,
             label = key.replace('_government', '')
         else:
             label = str(key)
-
-        ax1.plot(timestep_to_years(init_year, timestep),
-                 dictionary1[key],
-                 label=label,
-                 color='orange',
-                 linestyle=next(linecycler))
+        if top:
+            lns = ax1.plot(timestep_to_years(init_year, timestep),
+                           dictionary1[key],
+                           label=label,
+                           color='r',
+                           linestyle=next(linecycler))
+            top = False
+        else:
+            lns += ax1.plot(timestep_to_years(init_year, timestep),
+                           dictionary1[key],
+                           label=label,
+                           color='r',
+                           linestyle=next(linecycler))
     ax1.set_xlabel(xlabel)
-    ax1.set_ylabel(ylabel1, color='orange')
-    ax1.tick_params('y', colors='orange')
+    ax1.set_ylabel(ylabel1, color='r')
+    ax1.tick_params('y', colors='r')
+    if sum(sum(dictionary1[k]) for k in dictionary1) > 1000:
+        ax1 = plt.gca()
+        ax1.get_yaxis().set_major_formatter(
+            plt.FuncFormatter(lambda x, loc: "{:,}".format(int(x))))
     ax2 = ax1.twinx()
+
     linecycler = cycle(lines)
 
     for key in dictionary2:
@@ -1158,21 +1266,23 @@ def double_axis_plot(dictionary1, dictionary2, timestep,
         else:
             label = str(key)
 
-        ax2.plot(timestep_to_years(init_year, timestep),
-                 dictionary2[key],
-                 label=label,
-                 color='b',
-                 linestyle=next(linecycler))
+        lns += ax2.plot(timestep_to_years(init_year, timestep),
+                        dictionary2[key],
+                        label=label,
+                        color='b',
+                        linestyle=next(linecycler))
     ax2.set_ylabel(ylabel2, color='b')
     ax2.tick_params('y', colors='b')
 
-    if sum(sum(dictionary1[k]) for k in dictionary1) > 1000:
-        ax = plt.gca()
-        ax.get_yaxis().set_major_formatter(
+    if sum(sum(dictionary2[k]) for k in dictionary2) > 1000:
+        ax2 = plt.gca()
+        ax2.get_yaxis().set_major_formatter(
             plt.FuncFormatter(lambda x, loc: "{:,}".format(int(x))))
 
+
     plt.title(title)
-    plt.legend(loc=(1.0, 0), prop={'size': 10})
+    labs = [l.get_label() for l in lns]
+    plt.legend(lns, labs, loc=0, prop={'size': 10})
     plt.grid(True)
     plt.savefig(label + '_' + outputname + '.png',
                 format='png',
