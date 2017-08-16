@@ -374,7 +374,7 @@ def commodity_flux_region(cur, agent_ids, commodity_list,
             commodity_dict[gov['prototype']] = get_timeseries_cum(
                 from_gov, duration, True)
         else:
-            commodity_dict[gov['prototpype']] = get_timeseries(
+            commodity_dict[gov['prototype']] = get_timeseries(
                 from_gov, duration, True)
     return commodity_dict
 
@@ -1133,28 +1133,25 @@ def double_axis_bar_line_plot(dictionary1, dictionary2, timestep,
     # set different colors for each bar
     
     fig, ax1 = plt.subplots()
-    top = True
     # for every country, create bar chart with different color
+    color1 = 'r'
+    color2 = 'b'
     for key in dictionary1:
         # label is the name of the nuclide (converted from ZZAAA0000 format)
         if isinstance(key, str) is True:
             label = key.replace('_government', '')
         else:
             label = str(key)
-        if top:
-            lns = ax1.bar(timestep_to_years(init_year, timestep),
-                  dictionary1[key],
-                  label=label,
-                  color='r')
-            top = False
+        if sum(dictionary1[key]) == 0:
+            print(label + ' has no values')
         else:
-            lns += ax1.bar(timestep_to_years(init_year, timestep),
-                           dictionary1[key],
-                           label=label,
-                           color='r')
+            ax1.bar(timestep_to_years(init_year, timestep),
+                    dictionary1[key],
+                    label=label,
+                    color=color1)
     ax1.set_xlabel(xlabel)
-    ax1.set_ylabel(ylabel1, color='r')
-    ax1.tick_params('y', colors='r')
+    ax1.set_ylabel(ylabel1, color=color1)
+    ax1.tick_params('y', colors=color1)
     if sum(sum(dictionary1[k]) for k in dictionary1) > 1000:
         ax1 = plt.gca()
         ax1.get_yaxis().set_major_formatter(
@@ -1170,13 +1167,16 @@ def double_axis_bar_line_plot(dictionary1, dictionary2, timestep,
         else:
             label = str(key)
 
-        ax2.plot(timestep_to_years(init_year, timestep),
-                 dictionary2[key],
-                 label=label,
-                 color='b',
-                 linestyle=next(linecycler))
-    ax2.set_ylabel(ylabel2, color='b')
-    ax2.tick_params('y', colors='b')
+        if sum(dictionary2[key]) == 0:
+            print(label + ' has no values')
+        else:
+            ax2.plot(timestep_to_years(init_year, timestep),
+                     dictionary2[key],
+                     label=label,
+                     color=color2,
+                     linestyle=next(linecycler))
+    ax2.set_ylabel(ylabel2, color=color2)
+    ax2.tick_params('y', colors=color2)
 
     if sum(sum(dictionary2[k]) for k in dictionary2) > 1000:
         ax2 = plt.gca()
@@ -1185,9 +1185,6 @@ def double_axis_bar_line_plot(dictionary1, dictionary2, timestep,
 
    
     plt.title(title)
-    labs = [l.get_label() for l in lns]
-    plt.legend(lns, labs, loc=0, prop={'size': 10})
-    ax2.legend(loc=(1,0))
     plt.grid(True)
     plt.savefig(label + '_' + outputname + '.png',
                 format='png',
@@ -1228,6 +1225,8 @@ def double_axis_line_line_plot(dictionary1, dictionary2, timestep,
     linecycler = cycle(lines)
     fig, ax1 = plt.subplots()
     top = True
+    color1 = 'r'
+    color2 = 'b'
     # for every country, create bar chart with different color
     for key in dictionary1:
         # label is the name of the nuclide (converted from ZZAAA0000 format)
@@ -1239,18 +1238,18 @@ def double_axis_line_line_plot(dictionary1, dictionary2, timestep,
             lns = ax1.plot(timestep_to_years(init_year, timestep),
                            dictionary1[key],
                            label=label,
-                           color='r',
+                           color=color1,
                            linestyle=next(linecycler))
             top = False
         else:
             lns += ax1.plot(timestep_to_years(init_year, timestep),
                            dictionary1[key],
                            label=label,
-                           color='r',
+                           color=color1,
                            linestyle=next(linecycler))
     ax1.set_xlabel(xlabel)
-    ax1.set_ylabel(ylabel1, color='r')
-    ax1.tick_params('y', colors='r')
+    ax1.set_ylabel(ylabel1, color=color1)
+    ax1.tick_params('y', colors=color1)
     if sum(sum(dictionary1[k]) for k in dictionary1) > 1000:
         ax1 = plt.gca()
         ax1.get_yaxis().set_major_formatter(
@@ -1269,10 +1268,10 @@ def double_axis_line_line_plot(dictionary1, dictionary2, timestep,
         lns += ax2.plot(timestep_to_years(init_year, timestep),
                         dictionary2[key],
                         label=label,
-                        color='b',
+                        color=color2,
                         linestyle=next(linecycler))
-    ax2.set_ylabel(ylabel2, color='b')
-    ax2.tick_params('y', colors='b')
+    ax2.set_ylabel(ylabel2, color=color2)
+    ax2.tick_params('y', colors=color2)
 
     if sum(sum(dictionary2[k]) for k in dictionary2) > 1000:
         ax2 = plt.gca()
@@ -1363,6 +1362,7 @@ def stacked_bar_chart(dictionary, timestep,
     plt.ylabel(ylabel)
     plt.title(title)
     plt.xlabel(xlabel)
+    axes = plt.gca()
     if len(dictionary) > 1:
         plt.legend(loc=(1.0, 0))
     plt.grid(True)
@@ -1448,6 +1448,31 @@ def plot_in_out_flux(cur, facility, influx_bool, title, outputname):
         multi_line_plot(waste_dict, timestep,
                         'Years', 'Mass [kg]',
                         title, outputname, init_year)
+
+
+def entered_power(cur):
+    """ Returns dictionary of power entered into simulation.
+
+    Parameters
+    ---------
+    cur: sqlite cursor
+        sqlite cursor
+
+    Returns
+    -------
+    power_dict: dictionary
+        key: 'power'
+        value: timeseries of power entered (non-cumulative)
+    """
+    power_dict = {}
+    entered = cur.execute('SELECT entertime, max(value) FROM '
+                          'agententry INNER JOIN timeseriespower '
+                          'ON agententry.agentid = timeseriespower.agentid '
+                          'WHERE spec LIKE "%reactor%" '
+                          'GROUP BY agententry.agentid').fetchall()
+    init_year, init_month, duration, timestep = get_timesteps(cur)
+    power_dict['power'] = get_timeseries(entered, duration, False)
+    return power_dict
 
 
 def source_throughput(cur, duration, frac_prod, frac_tail):
