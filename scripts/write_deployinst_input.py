@@ -227,9 +227,9 @@ def reactor_render(list, template, mox_template, output_file):
         elif data['type'].decode('utf-8') == 'PWR' and data['country'].decode('utf-8') == 'France':
             reactor_body = mox_template.render(country=data['country'].decode('utf-8'),
                                                reactor_name=name,
-                                               assem_size=523.4,
-                                               n_assem_core=int(round(data['capacity']/1000 * 193)),
-                                               n_assem_batch=int(round(data['capacity']/3000 * 193)),
+                                               assem_size=467,
+                                               n_assem_core=int(round(data['capacity']/1150 * 193)),
+                                               n_assem_batch=int(round(data['capacity']/3450 * 193)),
                                                capacity=data['capacity'])
         # if not BWRS, all go with PWR specification.
         else:
