@@ -8,6 +8,28 @@ import os
 import sys
 
 
+def import_csv(in_csv, delimit):
+    """ Imports contents of a comma delimited csv file
+    to a 2D list.
+    Parameters
+    ---------
+    in_csv: str
+        csv file name.
+    delimit: str
+        delimiter of the csv file
+    Returns
+    -------
+    data_list: list
+        list with fleetcomp data.
+    """
+    with open(in_csv, encoding='utf-8') as source:
+        sourcereader = csv.reader(source, delimiter=delimit)
+        data_list = []
+        for row in sourcereader:
+            data_list.append(row)
+    return data_list
+    
+
 def load_template(in_template):
     """ Returns a jinja2 template.
 
