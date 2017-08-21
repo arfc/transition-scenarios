@@ -112,11 +112,11 @@ This is assuming that the following parameters are fixed:
 \end{enumerate}
 
 \subsection{Recipes}
-The reactor archetype in \Cycamore uses recipes to do depletion calculations,
+The \textsc{Reactor}\xspace archetype in \Cycamore uses recipes to do depletion calculations,
 where the spent fuel composition is user-defined and constant. 
 
 The recipe from appendix B of the E\&S report does not take into account
-additional deployment of reactors from increased power demand (In other words, the Breeding Ratio
+additional deployment of reactors from increased power demand ( The Breeding Ratio
 of \glspl{SFR} in the appendix are low), which means that there is no (or very little)
 extra fissile material (Pu or TRU) produced. For EG23 and EG24, the Breeding Ratios are
 a little over breakeven (~1.01), which makes deployment of additional reactors solely 
@@ -212,8 +212,8 @@ minimum height=2em]
 		\node [cloud, below of=rea] (d1) {1. Demand: \mathbf{Fuel}};
 		\node [cloud, below of=d1] (s1) {2. Change throughput to \mathbf{Fuel}};
 		\node [block, below of=s1] (ff) {\texttt{FuelFab}};
-		\node [cloud, below of=ff] (d2) {3. Demand: Fissile Material $\propto \mathbf{Fuel}$};		
-		\node [cloud, below of=d2] (s2) {4. Change capacity to $\propto \mathbf{Fuel}$};
+		\node [cloud, below of=ff] (d2) {3. Demand: Fissile Material ($\propto \mathbf{Fuel}$)};		
+		\node [cloud, below of=d2] (s2) {4. Change capacity to ($\propto \mathbf{Fuel}$)};
 		\node [block, below of=s2] (rep) {\texttt{Separations}};
 		
 		
@@ -257,7 +257,7 @@ a cascade of shutdowns. Using the market-peeking or feedback capability, new rea
 if there is sufficient fuel to support the startup of the reactor as well as currently deployed reactors. 
 
 
-\subsection{Additional Possible Improvements}
+\section{Additional Possible Improvements}
 Though not critical to the current goal, having the following capabilities can increase
 the accuracy of simulations.
 
