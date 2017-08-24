@@ -1,6 +1,7 @@
 <recipes>
   <recipe>
     <name>fresh_uox</name>
+    <basis>mass</basis>
     <nuclide>  <id>20040000</id>  <comp>0.0</comp>  </nuclide>
     <nuclide>  <id>882260000</id>  <comp>0.0</comp>  </nuclide>
     <nuclide>  <id>882280000</id>  <comp>0.0</comp>  </nuclide>
@@ -56,7 +57,7 @@
     </recipe>
   <recipe>
     <name>spent_uox</name>
-    <basis>atom</basis>
+    <basis>mass</basis>
     <nuclide>  <id>20040000</id>  <comp>2.0692755421168e-06</comp>  </nuclide>
     <nuclide>  <id>882260000</id>  <comp>0.0</comp>  </nuclide>
     <nuclide>  <id>882280000</id>  <comp>6.0138599011451e-20</comp>  </nuclide>
