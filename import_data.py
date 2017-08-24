@@ -233,7 +233,7 @@ def recipes(in_csv, recipe_template, burnup):
     """
     recipe = import_csv(in_csv, ',')
     write_recipes(get_composition_fresh(recipe, burnup),
-                  get_composition_spent(recipe, burnup)
+                  get_composition_spent(recipe, burnup),
                   load_template(recipe_template), burnup)
 
 
