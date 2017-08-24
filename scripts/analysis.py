@@ -1131,7 +1131,7 @@ def double_axis_bar_line_plot(dictionary1, dictionary2, timestep,
     -------
     """
     # set different colors for each bar
-    
+
     fig, ax1 = plt.subplots()
     # for every country, create bar chart with different color
     color1 = 'r'
@@ -1183,14 +1183,12 @@ def double_axis_bar_line_plot(dictionary1, dictionary2, timestep,
         ax2.get_yaxis().set_major_formatter(
             plt.FuncFormatter(lambda x, loc: "{:,}".format(int(x))))
 
-   
     plt.title(title)
     plt.grid(True)
     plt.savefig(label + '_' + outputname + '.png',
                 format='png',
                 bbox_inches='tight')
     plt.close()
-
 
 
 def double_axis_line_line_plot(dictionary1, dictionary2, timestep,
@@ -1243,10 +1241,10 @@ def double_axis_line_line_plot(dictionary1, dictionary2, timestep,
             top = False
         else:
             lns += ax1.plot(timestep_to_years(init_year, timestep),
-                           dictionary1[key],
-                           label=label,
-                           color=color1,
-                           linestyle=next(linecycler))
+                            dictionary1[key],
+                            label=label,
+                            color=color1,
+                            linestyle=next(linecycler))
     ax1.set_xlabel(xlabel)
     ax1.set_ylabel(ylabel1, color=color1)
     ax1.tick_params('y', colors=color1)
@@ -1277,7 +1275,6 @@ def double_axis_line_line_plot(dictionary1, dictionary2, timestep,
         ax2 = plt.gca()
         ax2.get_yaxis().set_major_formatter(
             plt.FuncFormatter(lambda x, loc: "{:,}".format(int(x))))
-
 
     plt.title(title)
     labs = [l.get_label() for l in lns]
