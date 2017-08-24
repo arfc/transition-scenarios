@@ -26,15 +26,15 @@ def load_template(in_template):
 
 
 def get_composition_fresh(in_list, burnup):
-    """ Returns a dictionary of reactor name and build_time (in months)
-    using the fleetcomp list for reactors specified in *args.
+    """ Returns a dictionary of isotope and composition (in mass fraction)
+    using vision_recipes for fresh UOX
 
     Parameters
     ---------
     in_list: list
-        list file containing fleetcomp data.
-    *args: str
-        path and name of reactors that will be added to cyclus simulation.
+        list file containing vision_recipes data.
+    burnup: int
+        burnup
 
     Returns
     -------
@@ -57,15 +57,15 @@ def get_composition_fresh(in_list, burnup):
 
 
 def get_composition_spent(in_list, burnup):
-    """ Returns a dictionary of reactor name and build_time (in months)
-    using the fleetcomp list for reactors specified in *args.
+    """ Returns a dictionary of isotope and composition (in mass fraction)
+    using vision_recipes for spent nuclear fuel
 
     Parameters
     ---------
     in_list: list
-        list file containing fleetcomp data.
-    *args: str
-        path and name of reactors that will be added to cyclus simulation.
+        list file containing vision_recipes data.
+    burnup: int
+        burnup
 
     Returns
     -------
@@ -88,15 +88,19 @@ def get_composition_spent(in_list, burnup):
 
 
 def write_recipes(fresh_dict, spent_dict, in_template, burnup):
-    """ Renders jinja template using data from in_list and
-    outputs an xml file for a single reactor.
+    """ Renders jinja template using fresh and spent fuel composition and
+    outputs an xml file containing recipe data
 
     Parameters
     ---------
-    data_dict: dictionary
-        dictionary with key: isotope, and value: composition.
+    fresh_dict: dictionary
+        dictionary with key=isotope, and value=composition for fresh UOX
+    spent_dict: dictionary
+        dictionary with key=isotope, and value=composition for spent fuel
     in_template: jinja template object
         jinja template object to be rendered.
+    burnup: int
+        amount of burnup
 
     Returns
     -------
