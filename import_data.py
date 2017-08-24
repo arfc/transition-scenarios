@@ -25,7 +25,38 @@ def load_template(in_template):
     return output_template
 
 
-def get_composition(in_list, burnup):
+def get_composition_fresh(in_list, burnup):
+    """ Returns a dictionary of reactor name and build_time (in months)
+    using the fleetcomp list for reactors specified in *args.
+
+    Parameters
+    ---------
+    in_list: list
+        list file containing fleetcomp data.
+    *args: str
+        path and name of reactors that will be added to cyclus simulation.
+
+    Returns
+    -------
+    data_dict: dictionary
+        dictionary with key: isotope, and value: composition.
+    """
+    data_dict = {}
+    for i in range(len(in_list)):
+        if i > 1:
+            if burnup == 33:
+                data_dict.update({nn.id(in_list[i][0]):
+                                  float(in_list[i][1])})
+            elif burnup == 51:
+                data_dict.update({nn.id(in_list[i][0]):
+                                  float(in_list[i][3])})
+            else:
+                data_dict.update({nn.id(in_list[i][0]):
+                                  float(in_list[i][5])})
+    return data_dict
+
+
+def get_composition_spent(in_list, burnup):
     """ Returns a dictionary of reactor name and build_time (in months)
     using the fleetcomp list for reactors specified in *args.
 
@@ -56,7 +87,7 @@ def get_composition(in_list, burnup):
     return data_dict
 
 
-def write_recipes(in_dict, in_template, burnup):
+def write_recipes(fresh_dict, spent_dict, in_template, burnup):
     """ Renders jinja template using data from in_list and
     outputs an xml file for a single reactor.
 
@@ -72,7 +103,8 @@ def write_recipes(in_dict, in_template, burnup):
     null
         generates reactor files for cyclus.
     """
-    rendered = in_template.render(vision=in_dict)
+    rendered = in_template.render(fresh=fresh_dict,
+                                  spent=spent_dict)
     with open('cyclus/input/US/recipes/uox_' + str(burnup) +
               '.xml', 'w') as output:
         output.write(rendered)
@@ -195,7 +227,9 @@ def recipes(in_csv, recipe_template, burnup):
     null
         Generates commodity composition xml input for cyclus.
     """
-    write_recipes(get_composition(import_csv(in_csv, ','), burnup),
+    recipe = import_csv(in_csv, ',')
+    write_recipes(get_composition_fresh(recipe, burnup),
+                  get_composition_spent(recipe, burnup)
                   load_template(recipe_template), burnup)
 
 
