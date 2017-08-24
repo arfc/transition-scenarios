@@ -1,16 +1,59 @@
 <recipes>
   <recipe>
     <name>fresh_uox</name>
-    <basis>atom</basis>
-    <nuclide>
-      <id>922350000</id>
-      <comp>4.5</comp>
-    </nuclide>
-    <nuclide>
-      <id>922380000</id>
-      <comp>95.5</comp>
-    </nuclide>
-  </recipe>
+    <nuclide>  <id>20040000</id>  <comp>0.0</comp>  </nuclide>
+    <nuclide>  <id>882260000</id>  <comp>0.0</comp>  </nuclide>
+    <nuclide>  <id>882280000</id>  <comp>0.0</comp>  </nuclide>
+    <nuclide>  <id>822060000</id>  <comp>0.0</comp>  </nuclide>
+    <nuclide>  <id>822070000</id>  <comp>0.0</comp>  </nuclide>
+    <nuclide>  <id>822080000</id>  <comp>0.0</comp>  </nuclide>
+    <nuclide>  <id>822100000</id>  <comp>0.0</comp>  </nuclide>
+    <nuclide>  <id>902280000</id>  <comp>0.0</comp>  </nuclide>
+    <nuclide>  <id>902290000</id>  <comp>0.0</comp>  </nuclide>
+    <nuclide>  <id>902300000</id>  <comp>0.0</comp>  </nuclide>
+    <nuclide>  <id>902320000</id>  <comp>0.0</comp>  </nuclide>
+    <nuclide>  <id>832090000</id>  <comp>0.0</comp>  </nuclide>
+    <nuclide>  <id>892270000</id>  <comp>0.0</comp>  </nuclide>
+    <nuclide>  <id>912310000</id>  <comp>0.0</comp>  </nuclide>
+    <nuclide>  <id>922320000</id>  <comp>0.0</comp>  </nuclide>
+    <nuclide>  <id>922330000</id>  <comp>0.0</comp>  </nuclide>
+    <nuclide>  <id>922340000</id>  <comp>0.0003439849</comp>  </nuclide>
+    <nuclide>  <id>922350000</id>  <comp>0.0429981081</comp>  </nuclide>
+    <nuclide>  <id>922360000</id>  <comp>0.0</comp>  </nuclide>
+    <nuclide>  <id>922380000</id>  <comp>0.9566579071</comp>  </nuclide>
+    <nuclide>  <id>932370000</id>  <comp>0.0</comp>  </nuclide>
+    <nuclide>  <id>942380000</id>  <comp>0.0</comp>  </nuclide>
+    <nuclide>  <id>942390000</id>  <comp>0.0</comp>  </nuclide>
+    <nuclide>  <id>942400000</id>  <comp>0.0</comp>  </nuclide>
+    <nuclide>  <id>942410000</id>  <comp>0.0</comp>  </nuclide>
+    <nuclide>  <id>942420000</id>  <comp>0.0</comp>  </nuclide>
+    <nuclide>  <id>942440000</id>  <comp>0.0</comp>  </nuclide>
+    <nuclide>  <id>952410000</id>  <comp>0.0</comp>  </nuclide>
+    <nuclide>  <id>952420001</id>  <comp>0.0</comp>  </nuclide>
+    <nuclide>  <id>952430000</id>  <comp>0.0</comp>  </nuclide>
+    <nuclide>  <id>962420000</id>  <comp>0.0</comp>  </nuclide>
+    <nuclide>  <id>962430000</id>  <comp>0.0</comp>  </nuclide>
+    <nuclide>  <id>962440000</id>  <comp>0.0</comp>  </nuclide>
+    <nuclide>  <id>962450000</id>  <comp>0.0</comp>  </nuclide>
+    <nuclide>  <id>962460000</id>  <comp>0.0</comp>  </nuclide>
+    <nuclide>  <id>962470000</id>  <comp>0.0</comp>  </nuclide>
+    <nuclide>  <id>962480000</id>  <comp>0.0</comp>  </nuclide>
+    <nuclide>  <id>962500000</id>  <comp>0.0</comp>  </nuclide>
+    <nuclide>  <id>982490000</id>  <comp>0.0</comp>  </nuclide>
+    <nuclide>  <id>982500000</id>  <comp>0.0</comp>  </nuclide>
+    <nuclide>  <id>982510000</id>  <comp>0.0</comp>  </nuclide>
+    <nuclide>  <id>982520000</id>  <comp>0.0</comp>  </nuclide>
+    <nuclide>  <id>10030000</id>  <comp>0.0</comp>  </nuclide>
+    <nuclide>  <id>60140000</id>  <comp>0.0</comp>  </nuclide>
+    <nuclide>  <id>360810000</id>  <comp>0.0</comp>  </nuclide>
+    <nuclide>  <id>360850000</id>  <comp>0.0</comp>  </nuclide>
+    <nuclide>  <id>380900000</id>  <comp>0.0</comp>  </nuclide>
+    <nuclide>  <id>430990000</id>  <comp>0.0</comp>  </nuclide>
+    <nuclide>  <id>531290000</id>  <comp>0.0</comp>  </nuclide>
+    <nuclide>  <id>551340000</id>  <comp>0.0</comp>  </nuclide>
+    <nuclide>  <id>551350000</id>  <comp>0.0</comp>  </nuclide>
+    <nuclide>  <id>551370000</id>  <comp>0.0</comp>  </nuclide>
+    </recipe>
   <recipe>
     <name>spent_uox</name>
     <basis>atom</basis>
