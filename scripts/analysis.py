@@ -275,7 +275,7 @@ def get_isotope_transactions(resources, compositions):
     return transactions
 
 
-def facility_commodity_flux(cur, agent_ids, commod_list, is_outflux):
+def facility_commodity_flux(cur, agent_ids, commod_list, is_outflux, is_cum=True):
     """ Returns dictionary of commodity in/outflux from agents
 
     Parameters
@@ -288,6 +288,8 @@ def facility_commodity_flux(cur, agent_ids, commod_list, is_outflux):
         list of commodities
     is_outflux: bool
         gets outflux if True, influx if False
+    is_cum: bool
+        gets cumulative if True, non-cumulative if False
 
     Returns
     -------
@@ -307,8 +309,10 @@ def facility_commodity_flux(cur, agent_ids, commod_list, is_outflux):
             query = query.replace('receiverid', 'senderid')
 
         res = cur.execute(query).fetchall()
-
-        timeseries = get_timeseries_cum(res, duration, True)
+        if is_cum:
+            timeseries = get_timeseries_cum(res, duration, True)
+        else:
+            timeseries = get_timeseries(res, duration, True)
         commodity_dict[comm] = timeseries
 
     return commodity_dict
@@ -539,7 +543,7 @@ def get_deployment_dict(cur):
     return reactor_deployments(governments, timestep, entry, exit_step)
 
 
-def fuel_usage_timeseries(cur, fuel_list):
+def fuel_usage_timeseries(cur, fuel_list, is_cum=True):
     """ Calculates total fuel usage over time
 
     Parameters
@@ -549,6 +553,8 @@ def fuel_usage_timeseries(cur, fuel_list):
     fuel_list: list
         list of fuel commodity names (eg. uox, mox) as string
         to consider in fuel usage.
+    is_cum: bool
+        cumulative timeseries if True, non-cumulative if False.
 
     Returns
     -------
@@ -565,8 +571,12 @@ def fuel_usage_timeseries(cur, fuel_list):
                                     ' GROUP BY time').fetchall()
         quantity_timeseries = []
         try:
-            quantity_timeseries = get_timeseries_cum(
-                fuel_quantity, duration, True)
+            if is_cum:
+                quantity_timeseries = get_timeseries_cum(
+                    fuel_quantity, duration, True)
+            else:
+                quantity_timeseries = get_timeseries(
+                    fuel_quantity, duration, True)
             fuel_dict[fuel] = quantity_timeseries
         except:
             print(str(fuel) + ' has not been used.')
@@ -599,7 +609,7 @@ def nat_u_timeseries(cur):
     return get_timeseries_cum(feed, duration, True)
 
 
-def get_trade_dict(cur, sender, receiver, is_prototype, do_isotopic):
+def get_trade_dict(cur, sender, receiver, is_prototype, do_isotopic, is_cum=True):
     """ Returns trade timeseries between two prototypes' or facilities
     with or without isotopics
 
@@ -616,6 +626,8 @@ def get_trade_dict(cur, sender, receiver, is_prototype, do_isotopic):
         if False, as facility type from spec.
     do_isotopic: bool
         if True, perform isotopics (takes significantly longer)
+    is_cum: bool
+        if True, cumulative timeseries, if False, non-cumulative
 
     Returns:
     --------
@@ -667,11 +679,17 @@ def get_trade_dict(cur, sender, receiver, is_prototype, do_isotopic):
         for time, amount, nucid in trade:
             iso_dict[nucname.name(nucid)].append((time, amount))
         for key in iso_dict:
-            iso_dict[key] = get_timeseries_cum(iso_dict[key], duration, True)
+            if is_cum:
+                iso_dict[key] = get_timeseries_cum(iso_dict[key], duration, True)
+            else:
+                iso_dict[key] = get_timeseries(iso_dict[key], duration, True)
         return iso_dict
     else:
         key_name = str(sender)[:5] + ' to ' + str(receiver)[:5]
-        return_dict[key_name] = get_timeseries_cum(trade, duration, True)
+        if is_cum:
+            return_dict[key_name] = get_timeseries_cum(trade, duration, True)
+        else:
+            return_dict[key_name] = get_timeseries(trade, duration, True)
         return return_dict
 
 
@@ -728,13 +746,15 @@ def final_stockpile(cur, facility):
     return outstring
 
 
-def fuel_into_reactors(cur):
+def fuel_into_reactors(cur, is_cum=True):
     """ Finds timeseries of mass of fuel received by reactors
 
     Parameters
     ----------
     cur: sqlite cursor
         sqlite cursor
+    is_cum: bool
+        Cumulative timeseries if True, non-cumulative if False
 
     Returns
     -------
@@ -748,9 +768,10 @@ def fuel_into_reactors(cur):
                        'transactions.receiverid = agententry.agentid '
                        'WHERE spec LIKE "%Reactor%" '
                        'GROUP BY time').fetchall()
-
-    return get_timeseries_cum(fuel, duration, True)
-
+    if is_cum:
+        return get_timeseries_cum(fuel, duration, True)
+    else:
+        return get_timeseries(fuel, duration, True)
 
 def u_util_calc(cur):
     """ Returns fuel utilization factor of fuel cycle
@@ -770,7 +791,7 @@ def u_util_calc(cur):
     u_supply_timeseries = np.array(nat_u_timeseries(cur))
 
     # timeseries of fuel into reactors
-    fuel_timeseries = np.array(fuel_into_reactors(cur))
+    fuel_timeseries = np.array(fuel_into_reactors(cur, True))
 
     # timeseries of Uranium utilization
     u_util_timeseries = np.nan_to_num(fuel_timeseries / u_supply_timeseries)
@@ -780,7 +801,7 @@ def u_util_calc(cur):
     return u_util_timeseries
 
 
-def where_comm(cur, commodity, prototypes):
+def where_comm(cur, commodity, prototypes, is_cum):
     """ Returns dict of where a commodity is from
 
     Parameters
@@ -791,6 +812,8 @@ def where_comm(cur, commodity, prototypes):
         name of commodity
     prototypes: list
         list of prototypes that provide the commodity
+    is_cum: bool
+        Cumulative timeseries if True, non-cumulative if False
 
     Returns
     -------
@@ -809,8 +832,10 @@ def where_comm(cur, commodity, prototypes):
         agent_id = get_prototype_id(cur, agent)
         from_agent = cur.execute(query.replace(
             '9999', ' OR senderid = '.join(agent_id))).fetchall()
-        trade_dict[agent] = get_timeseries_cum(from_agent, duration, True)
-
+        if is_cum:
+            trade_dict[agent] = get_timeseries_cum(from_agent, duration, True)
+        else:
+            trade_dict[agent] = get_timseries(from_agent, duration, True)
     return trade_dict
 
 
@@ -892,6 +917,30 @@ def capacity_calc(governments, timestep, entry, exit_step):
 
     return power_dict
 
+
+def entered_power(cur):
+    """ Returns dictionary of power entered into simulation.
+
+    Parameters
+    ---------
+    cur: sqlite cursor
+        sqlite cursor
+
+    Returns
+    -------
+    power_dict: dictionary
+        key: 'power'
+        value: timeseries of power entered (non-cumulative)
+    """
+    power_dict = {}
+    entered = cur.execute('SELECT entertime, max(value) FROM '
+                          'agententry INNER JOIN timeseriespower '
+                          'ON agententry.agentid = timeseriespower.agentid '
+                          'WHERE spec LIKE "%reactor%" '
+                          'GROUP BY agententry.agentid').fetchall()
+    init_year, init_month, duration, timestep = get_timesteps(cur)
+    power_dict['power'] = get_timeseries(entered, duration, False)
+    return power_dict
 
 def reactor_deployments(governments, timestep, entry, exit_step):
     """Adds and subtracts number of reactors deployed over time
@@ -987,6 +1036,65 @@ def multi_line_plot(dictionary, timestep,
                     format='png',
                     bbox_inches='tight')
         plt.close()
+
+
+def combined_line_plot(dictionary, timestep,
+                       xlabel, ylabel, title,
+                       outputname, init_year):
+    """ Creates a combined multi-line plot of timestep vs dictionary
+
+    Parameters
+    ----------
+    dictionary: dictionary
+        dictionary with "key=description of timestep, and
+        value=list of timestep progressions"
+    timestep: numpy linspace
+        timestep of simulation
+    xlabel: str
+        xlabel of plot
+    ylabel: str
+        ylabel of plot
+    title: str
+        title of plot
+    init_year: int
+        initial year of simulation
+
+    Returns
+    -------
+    """
+    # set different colors for each bar
+    color_index = 0
+    # for every country, create bar chart with different color
+    for key in dictionary:
+        # label is the name of the nuclide (converted from ZZAAA0000 format)
+        if isinstance(key, str) is True:
+            label = key.replace('_government', '')
+        else:
+            label = str(key)
+
+        if sum(dictionary[key]) == 0:
+            print(label + ' has no values')
+
+        plt.plot(timestep_to_years(init_year, timestep),
+                 dictionary[key],
+                 label=label,
+                 color=cm.viridis(float(color_index) / len(dictionary)))
+        color_index += 1
+
+    if sum(sum(dictionary[k]) for k in dictionary) > 1000:
+        ax = plt.gca()
+        ax.get_yaxis().set_major_formatter(
+            plt.FuncFormatter(lambda x, loc: "{:,}".format(int(x))))
+    plt.ylabel(ylabel)
+    plt.title(title)
+    plt.xlabel(xlabel)
+    if len(dictionary) > 1:
+        plt.legend(loc=(1.0, 0), prop={'size': 10})
+    plt.grid(True)
+    plt.savefig(label + '_' + outputname + '.png',
+                format='png',
+                bbox_inches='tight')
+    plt.close()
 
 
 def stacked_bar_chart(dictionary, timestep,
@@ -1170,7 +1278,7 @@ def source_throughput(cur, duration, frac_prod, frac_tail):
     throughput: float
         appropriate nat_u throughput for source
     """
-    avg_fuel_used = fuel_into_reactors(cur)[-1] * 1000 / duration
+    avg_fuel_used = fuel_into_reactors(cur, True)[-1] * 1000 / duration
     feed_factor = (frac_prod - frac_tail) / (0.00711 - frac_tail)
     print('Throughput should be at least: ' +
           str(feed_factor * avg_fuel_used) + ' [kg]')
