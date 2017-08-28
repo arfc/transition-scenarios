@@ -207,23 +207,9 @@
     </institution>
     
     <institution>
-      <name>Sweden</name>
+      <name>Russia</name>
       <config>
-        <xi:include href="europe/buildtimes/Sweden/deployinst.xml"/>
-      </config>
-    </institution>
-    
-    <institution>
-      <name>Switzerland</name>
-      <config>
-        <xi:include href="europe/buildtimes/Switzerland/deployinst.xml"/>
-      </config>
-    </institution>
-    
-    <institution>
-      <name>Finland</name>
-      <config>
-        <xi:include href="europe/buildtimes/Finland/deployinst.xml"/>
+        <xi:include href="europe/buildtimes/Russia/deployinst.xml"/>
       </config>
     </institution>
     
@@ -242,41 +228,6 @@
     </institution>
     
     <institution>
-      <name>Soviet_Union</name>
-      <config>
-        <xi:include href="europe/buildtimes/Soviet_Union/deployinst.xml"/>
-      </config>
-    </institution>
-    
-    <institution>
-      <name>Czechoslovakia</name>
-      <config>
-        <xi:include href="europe/buildtimes/Czechoslovakia/deployinst.xml"/>
-      </config>
-    </institution>
-    
-    <institution>
-      <name>Spain</name>
-      <config>
-        <xi:include href="europe/buildtimes/Spain/deployinst.xml"/>
-      </config>
-    </institution>
-    
-    <institution>
-      <name>Russia</name>
-      <config>
-        <xi:include href="europe/buildtimes/Russia/deployinst.xml"/>
-      </config>
-    </institution>
-    
-    <institution>
-      <name>Romania</name>
-      <config>
-        <xi:include href="europe/buildtimes/Romania/deployinst.xml"/>
-      </config>
-    </institution>
-    
-    <institution>
       <name>Slovenia</name>
       <config>
         <xi:include href="europe/buildtimes/Slovenia/deployinst.xml"/>
@@ -291,9 +242,44 @@
     </institution>
     
     <institution>
+      <name>Netherlands</name>
+      <config>
+        <xi:include href="europe/buildtimes/Netherlands/deployinst.xml"/>
+      </config>
+    </institution>
+    
+    <institution>
       <name>France</name>
       <config>
         <xi:include href="europe/buildtimes/France/deployinst.xml"/>
+      </config>
+    </institution>
+    
+    <institution>
+      <name>Finland</name>
+      <config>
+        <xi:include href="europe/buildtimes/Finland/deployinst.xml"/>
+      </config>
+    </institution>
+    
+    <institution>
+      <name>Sweden</name>
+      <config>
+        <xi:include href="europe/buildtimes/Sweden/deployinst.xml"/>
+      </config>
+    </institution>
+    
+    <institution>
+      <name>Romania</name>
+      <config>
+        <xi:include href="europe/buildtimes/Romania/deployinst.xml"/>
+      </config>
+    </institution>
+    
+    <institution>
+      <name>Switzerland</name>
+      <config>
+        <xi:include href="europe/buildtimes/Switzerland/deployinst.xml"/>
       </config>
     </institution>
     
@@ -305,16 +291,30 @@
     </institution>
     
     <institution>
-      <name>Netherlands</name>
+      <name>Italy</name>
       <config>
-        <xi:include href="europe/buildtimes/Netherlands/deployinst.xml"/>
+        <xi:include href="europe/buildtimes/Italy/deployinst.xml"/>
       </config>
     </institution>
     
     <institution>
-      <name>Italy</name>
+      <name>Czechoslovakia</name>
       <config>
-        <xi:include href="europe/buildtimes/Italy/deployinst.xml"/>
+        <xi:include href="europe/buildtimes/Czechoslovakia/deployinst.xml"/>
+      </config>
+    </institution>
+    
+    <institution>
+      <name>Soviet_Union</name>
+      <config>
+        <xi:include href="europe/buildtimes/Soviet_Union/deployinst.xml"/>
+      </config>
+    </institution>
+    
+    <institution>
+      <name>Spain</name>
+      <config>
+        <xi:include href="europe/buildtimes/Spain/deployinst.xml"/>
       </config>
     </institution>
     
