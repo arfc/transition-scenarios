@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import sqlite3 as lite
 import sys
+from itertools import cycle
 from matplotlib import cm
 from pyne import nucname
 
@@ -275,7 +276,9 @@ def get_isotope_transactions(resources, compositions):
     return transactions
 
 
-def facility_commodity_flux(cur, agent_ids, commod_list, is_outflux):
+def facility_commodity_flux(cur, agent_ids,
+                            commod_list, is_outflux,
+                            is_cum=True):
     """ Returns dictionary of commodity in/outflux from agents
 
     Parameters
@@ -288,6 +291,8 @@ def facility_commodity_flux(cur, agent_ids, commod_list, is_outflux):
         list of commodities
     is_outflux: bool
         gets outflux if True, influx if False
+    is_cum: bool
+        gets cumulative timeseris if True, monthly value if False
 
     Returns
     -------
@@ -307,14 +312,16 @@ def facility_commodity_flux(cur, agent_ids, commod_list, is_outflux):
             query = query.replace('receiverid', 'senderid')
 
         res = cur.execute(query).fetchall()
-
-        timeseries = get_timeseries_cum(res, duration, True)
-        commodity_dict[comm] = timeseries
+        if is_cum:
+            commodity_dict[comm] = get_timeseries_cum(res, duration, True)
+        else:
+            commodity_dict[comm] = get_timeseries(res, duration, True)
 
     return commodity_dict
 
 
-def commodity_flux_region(cur, agent_ids, commodity_list, is_outflux):
+def commodity_flux_region(cur, agent_ids, commodity_list,
+                          is_outflux, is_cum=True):
     """ Returns dictionary of timeseries of all the commodity outflux,
         that is either coming in/out of the agent
         separated by region
@@ -330,6 +337,8 @@ def commodity_flux_region(cur, agent_ids, commodity_list, is_outflux):
     is_outflux: bool
         gets outflux from agent if True
         gets influx to agent if False
+    is_cum: bool
+        gets cumulative timeseris if True, monthly value if False
 
     Returns
     -------
@@ -361,14 +370,17 @@ def commodity_flux_region(cur, agent_ids, commodity_list, is_outflux):
     for gov in govs:
         from_gov = [(x['time'], x['sum(quantity)'])
                     for x in resources if x['parentid'] == gov['agentid']]
-        commodity_dict[gov['prototype']] = get_timeseries_cum(
-            from_gov, duration, True)
-
+        if is_cum:
+            commodity_dict[gov['prototype']] = get_timeseries_cum(
+                from_gov, duration, True)
+        else:
+            commodity_dict[gov['prototype']] = get_timeseries(
+                from_gov, duration, True)
     return commodity_dict
 
 
 def facility_commodity_flux_isotopics(cur, agent_ids,
-                                      commod_list, is_outflux):
+                                      commod_list, is_outflux, is_cum=True):
     """ Returns timeseries isotoptics of commodity in/outflux
     from agents
 
@@ -382,6 +394,8 @@ def facility_commodity_flux_isotopics(cur, agent_ids,
         list of commodities
     is_outflux: bool
         gets outflux if True, influx if False
+    is_cum: bool
+        gets cumulative timeseris if True, monthly value if False
 
     Returns
     -------
@@ -409,12 +423,14 @@ def facility_commodity_flux_isotopics(cur, agent_ids,
         for time, amount, nucid in res:
             iso_dict[nucname.name(nucid)].append((time, amount))
     for key in iso_dict:
-        iso_dict[key] = get_timeseries_cum(iso_dict[key], duration, True)
-
+        if is_cum:
+            iso_dict[key] = get_timeseries_cum(iso_dict[key], duration, True)
+        else:
+            iso_dict[key] = get_timeseries(iso_dict[key], duration, True)
     return iso_dict
 
 
-def get_stockpile(cur, facility):
+def get_stockpile(cur, facility, is_cum=True):
     """ gets inventory timeseries in a fuel facility
 
     Parameters
@@ -423,6 +439,8 @@ def get_stockpile(cur, facility):
         sqlite cursor
     facility: str
         name of facility
+    is_cum: bool
+        gets cumulative timeseris if True, monthly value if False
 
     Returns
     -------
@@ -436,19 +454,24 @@ def get_stockpile(cur, facility):
     query = query.replace('transactions', 'agentstateinventories')
     stockpile = cur.execute(query).fetchall()
     init_year, init_month, duration, timestep = get_timesteps(cur)
-    stock_timeseries = get_timeseries_cum(stockpile, duration, True)
+    if is_cum:
+        stock_timeseries = get_timeseries_cum(stockpile, duration, True)
+    else:
+        stock_timeseries = get_timeseries(stockpile, duration, True)
     pile_dict[facility] = stock_timeseries
 
     return pile_dict
 
 
-def get_swu_dict(cur):
+def get_swu_dict(cur, is_cum=True):
     """ returns dictionary of swu timeseries for each enrichment plant
 
     Parameters
     ----------
     cur: sqlite cursor
         sqlite cursor
+    is_cum: bool
+        gets cumulative timeseris if True, monthly value if False
 
     Returns
     -------
@@ -463,7 +486,11 @@ def get_swu_dict(cur):
         swu_data = cur.execute('SELECT time, value '
                                'FROM timeseriesenrichmentswu '
                                'WHERE agentid = ' + str(num)).fetchall()
-        swu_timeseries = get_timeseries_cum(swu_data, duration, False)
+        if is_cum:
+            swu_timeseries = get_timeseries_cum(swu_data, duration, False)
+        else:
+            swu_timeseries = get_timeseries(swu_data, duration, False)
+
         swu_dict['Enrichment_' + str(num)] = swu_timeseries
 
     return swu_dict
@@ -539,7 +566,7 @@ def get_deployment_dict(cur):
     return reactor_deployments(governments, timestep, entry, exit_step)
 
 
-def fuel_usage_timeseries(cur, fuel_list):
+def fuel_usage_timeseries(cur, fuel_list, is_cum=True):
     """ Calculates total fuel usage over time
 
     Parameters
@@ -549,6 +576,8 @@ def fuel_usage_timeseries(cur, fuel_list):
     fuel_list: list
         list of fuel commodity names (eg. uox, mox) as string
         to consider in fuel usage.
+    is_cum: bool
+        gets cumulative timeseris if True, monthly value if False
 
     Returns
     -------
@@ -565,8 +594,12 @@ def fuel_usage_timeseries(cur, fuel_list):
                                     ' GROUP BY time').fetchall()
         quantity_timeseries = []
         try:
-            quantity_timeseries = get_timeseries_cum(
-                fuel_quantity, duration, True)
+            if is_cum:
+                quantity_timeseries = get_timeseries_cum(
+                    fuel_quantity, duration, True)
+            else:
+                quantity_timeseries = get_timeseries(
+                    fuel_quantity, duration, True)
             fuel_dict[fuel] = quantity_timeseries
         except:
             print(str(fuel) + ' has not been used.')
@@ -574,7 +607,7 @@ def fuel_usage_timeseries(cur, fuel_list):
     return fuel_dict
 
 
-def nat_u_timeseries(cur):
+def nat_u_timeseries(cur, is_cum=True):
     """ Finds natural uranium supply from source
         Since currently the source supplies all its capacity,
         the timeseriesenrichmentfeed is used.
@@ -583,6 +616,8 @@ def nat_u_timeseries(cur):
     ----------
     cur: sqlite cursor
         sqlite cursor
+    is_cum: bool
+        gets cumulative timeseris if True, monthly value if False
 
     Returns
     -------
@@ -596,10 +631,15 @@ def nat_u_timeseries(cur):
     feed = cur.execute('SELECT time, sum(value) '
                        'FROM timeseriesenrichmentfeed '
                        'GROUP BY time').fetchall()
-    return get_timeseries_cum(feed, duration, True)
+    if is_cum:
+        return get_timeseries_cum(feed, duration, True)
+    else:
+        return get_timeseries(feed, duration, True)
 
 
-def get_trade_dict(cur, sender, receiver, is_prototype, do_isotopic):
+def get_trade_dict(cur, sender, receiver,
+                   is_prototype, do_isotopic,
+                   is_cum=True):
     """ Returns trade timeseries between two prototypes' or facilities
     with or without isotopics
 
@@ -616,6 +656,8 @@ def get_trade_dict(cur, sender, receiver, is_prototype, do_isotopic):
         if False, as facility type from spec.
     do_isotopic: bool
         if True, perform isotopics (takes significantly longer)
+    is_cum: bool
+        gets cumulative timeseris if True, monthly value if False
 
     Returns:
     --------
@@ -667,11 +709,18 @@ def get_trade_dict(cur, sender, receiver, is_prototype, do_isotopic):
         for time, amount, nucid in trade:
             iso_dict[nucname.name(nucid)].append((time, amount))
         for key in iso_dict:
-            iso_dict[key] = get_timeseries_cum(iso_dict[key], duration, True)
+            if is_cum:
+                iso_dict[key] = get_timeseries_cum(
+                    iso_dict[key], duration, True)
+            else:
+                iso_dict[key] = get_timeseries(iso_dict[key], duration, True)
         return iso_dict
     else:
         key_name = str(sender)[:5] + ' to ' + str(receiver)[:5]
-        return_dict[key_name] = get_timeseries_cum(trade, duration, True)
+        if is_cum:
+            return_dict[key_name] = get_timeseries_cum(trade, duration, True)
+        else:
+            return_dict[key_name] = get_timeseries(trade, duration, True)
         return return_dict
 
 
@@ -728,13 +777,15 @@ def final_stockpile(cur, facility):
     return outstring
 
 
-def fuel_into_reactors(cur):
+def fuel_into_reactors(cur, is_cum=True):
     """ Finds timeseries of mass of fuel received by reactors
 
     Parameters
     ----------
     cur: sqlite cursor
         sqlite cursor
+    is_cum: bool
+        gets cumulative timeseris if True, monthly value if False
 
     Returns
     -------
@@ -749,7 +800,10 @@ def fuel_into_reactors(cur):
                        'WHERE spec LIKE "%Reactor%" '
                        'GROUP BY time').fetchall()
 
-    return get_timeseries_cum(fuel, duration, True)
+    if is_cum:
+        return get_timeseries_cum(fuel, duration, True)
+    else:
+        return get_timeseries(fuel, duration, True)
 
 
 def u_util_calc(cur):
@@ -780,7 +834,7 @@ def u_util_calc(cur):
     return u_util_timeseries
 
 
-def where_comm(cur, commodity, prototypes):
+def where_comm(cur, commodity, prototypes, is_cum=True):
     """ Returns dict of where a commodity is from
 
     Parameters
@@ -809,8 +863,10 @@ def where_comm(cur, commodity, prototypes):
         agent_id = get_prototype_id(cur, agent)
         from_agent = cur.execute(query.replace(
             '9999', ' OR senderid = '.join(agent_id))).fetchall()
-        trade_dict[agent] = get_timeseries_cum(from_agent, duration, True)
-
+        if is_cum:
+            trade_dict[agent] = get_timeseries_cum(from_agent, duration, True)
+        else:
+            trade_dict[agent] = get_timeseries(from_agent, duration, True)
     return trade_dict
 
 
@@ -936,10 +992,10 @@ def reactor_deployments(governments, timestep, entry, exit_step):
     return deployment
 
 
-def multi_line_plot(dictionary, timestep,
-                    xlabel, ylabel, title,
-                    outputname, init_year):
-    """ Creates a multi-line plot of timestep vs dictionary
+def multiple_line_plots(dictionary, timestep,
+                        xlabel, ylabel, title,
+                        outputname, init_year):
+    """ Creates multiple line plots of timestep vs dictionary
 
     Parameters
     ----------
@@ -987,6 +1043,247 @@ def multi_line_plot(dictionary, timestep,
                     format='png',
                     bbox_inches='tight')
         plt.close()
+
+
+def combined_line_plot(dictionary, timestep,
+                       xlabel, ylabel, title,
+                       outputname, init_year):
+    """ Creates a combined line plot of timestep vs dictionary
+
+    Parameters
+    ----------
+    dictionary: dictionary
+        dictionary with "key=description of timestep, and
+        value=list of timestep progressions"
+    timestep: numpy linspace
+        timestep of simulation
+    xlabel: str
+        xlabel of plot
+    ylabel: str
+        ylabel of plot
+    title: str
+        title of plot
+    init_year: int
+        initial year of simulation
+
+    Returns
+    -------
+    """
+    # set different colors for each bar
+    color_index = 0
+    plt.figure()
+    # for every country, create bar chart with different color
+    for key in dictionary:
+        # label is the name of the nuclide (converted from ZZAAA0000 format)
+        if isinstance(key, str) is True:
+            label = key.replace('_government', '')
+        else:
+            label = str(key)
+
+        plt.plot(timestep_to_years(init_year, timestep),
+                 dictionary[key],
+                 label=label,
+                 color=cm.viridis(float(color_index) / len(dictionary)))
+        color_index += 1
+
+    if sum(sum(dictionary[k]) for k in dictionary) > 1000:
+        ax = plt.gca()
+        ax.get_yaxis().set_major_formatter(
+            plt.FuncFormatter(lambda x, loc: "{:,}".format(int(x))))
+    plt.ylabel(ylabel)
+    plt.title(title)
+    plt.xlabel(xlabel)
+    plt.legend(loc=(1.0, 0), prop={'size': 10})
+    plt.grid(True)
+    plt.savefig(label + '_' + outputname + '.png',
+                format='png',
+                bbox_inches='tight')
+    plt.close()
+
+
+def double_axis_bar_line_plot(dictionary1, dictionary2, timestep,
+                              xlabel, ylabel1, ylabel2,
+                              title, outputname, init_year):
+    """ Creates a double-axis plot of timestep vs dictionary
+
+    It is recommended that a non-cumulative timeseries is on dictionary1.
+
+    Parameters
+    ----------
+    dictionary1: dictionary
+        dictionary with "key=description of timestep, and
+        value=list of timestep progressions"
+    dictionary2: dictionary
+        dictionary with "key=description of timestep, and
+        value=list of timestep progressions"
+    timestep: numpy linspace
+        timestep of simulation
+    xlabel: str
+        xlabel of plot
+    ylabel: str
+        ylabel of plot
+    title: str
+        title of plot
+    init_year: int
+        initial year of simulation
+
+    Returns
+    -------
+    """
+    # set different colors for each bar
+
+    fig, ax1 = plt.subplots()
+    # for every country, create bar chart with different color
+    color1 = 'r'
+    color2 = 'b'
+    for key in dictionary1:
+        # label is the name of the nuclide (converted from ZZAAA0000 format)
+        if isinstance(key, str) is True:
+            label = key.replace('_government', '')
+        else:
+            label = str(key)
+        if sum(dictionary1[key]) == 0:
+            print(label + ' has no values')
+        else:
+            ax1.bar(timestep_to_years(init_year, timestep),
+                    dictionary1[key],
+                    label=label,
+                    color=color1)
+    ax1.set_xlabel(xlabel)
+    ax1.set_ylabel(ylabel1, color=color1)
+    ax1.tick_params('y', colors=color1)
+    if sum(sum(dictionary1[k]) for k in dictionary1) > 1000:
+        ax1 = plt.gca()
+        ax1.get_yaxis().set_major_formatter(
+            plt.FuncFormatter(lambda x, loc: "{:,}".format(int(x))))
+    ax2 = ax1.twinx()
+
+    lines = ['-', '--', '-.', ':']
+    linecycler = cycle(lines)
+    for key in dictionary2:
+        # label is the name of the nuclide (converted from ZZAAA0000 format)
+        if isinstance(key, str) is True:
+            label = key.replace('_government', '')
+        else:
+            label = str(key)
+
+        if sum(dictionary2[key]) == 0:
+            print(label + ' has no values')
+        else:
+            ax2.plot(timestep_to_years(init_year, timestep),
+                     dictionary2[key],
+                     label=label,
+                     color=color2,
+                     linestyle=next(linecycler))
+    ax2.set_ylabel(ylabel2, color=color2)
+    ax2.tick_params('y', colors=color2)
+
+    if sum(sum(dictionary2[k]) for k in dictionary2) > 1000:
+        ax2 = plt.gca()
+        ax2.get_yaxis().set_major_formatter(
+            plt.FuncFormatter(lambda x, loc: "{:,}".format(int(x))))
+
+    plt.title(title)
+    plt.grid(True)
+    plt.savefig(label + '_' + outputname + '.png',
+                format='png',
+                bbox_inches='tight')
+    plt.close()
+
+
+def double_axis_line_line_plot(dictionary1, dictionary2, timestep,
+                               xlabel, ylabel1, ylabel2,
+                               title, outputname, init_year):
+    """ Creates a double-axis plot of timestep vs dictionary
+
+    Parameters
+    ----------
+    dictionary1: dictionary
+        dictionary with "key=description of timestep, and
+        value=list of timestep progressions"
+    dictionary2: dictionary
+        dictionary with "key=description of timestep, and
+        value=list of timestep progressions"
+    timestep: numpy linspace
+        timestep of simulation
+    xlabel: str
+        xlabel of plot
+    ylabel: str
+        ylabel of plot
+    title: str
+        title of plot
+    init_year: int
+        initial year of simulation
+
+    Returns
+    -------
+    """
+    # set different colors for each bar
+    lines = ['-', '--', '-.', ':']
+    linecycler = cycle(lines)
+    fig, ax1 = plt.subplots()
+    top = True
+    color1 = 'r'
+    color2 = 'b'
+    # for every country, create bar chart with different color
+    for key in dictionary1:
+        # label is the name of the nuclide (converted from ZZAAA0000 format)
+        if isinstance(key, str) is True:
+            label = key.replace('_government', '')
+        else:
+            label = str(key)
+        if top:
+            lns = ax1.plot(timestep_to_years(init_year, timestep),
+                           dictionary1[key],
+                           label=label,
+                           color=color1,
+                           linestyle=next(linecycler))
+            top = False
+        else:
+            lns += ax1.plot(timestep_to_years(init_year, timestep),
+                            dictionary1[key],
+                            label=label,
+                            color=color1,
+                            linestyle=next(linecycler))
+    ax1.set_xlabel(xlabel)
+    ax1.set_ylabel(ylabel1, color=color1)
+    ax1.tick_params('y', colors=color1)
+    if sum(sum(dictionary1[k]) for k in dictionary1) > 1000:
+        ax1 = plt.gca()
+        ax1.get_yaxis().set_major_formatter(
+            plt.FuncFormatter(lambda x, loc: "{:,}".format(int(x))))
+    ax2 = ax1.twinx()
+
+    linecycler = cycle(lines)
+
+    for key in dictionary2:
+        # label is the name of the nuclide (converted from ZZAAA0000 format)
+        if isinstance(key, str) is True:
+            label = key.replace('_government', '')
+        else:
+            label = str(key)
+
+        lns += ax2.plot(timestep_to_years(init_year, timestep),
+                        dictionary2[key],
+                        label=label,
+                        color=color2,
+                        linestyle=next(linecycler))
+    ax2.set_ylabel(ylabel2, color=color2)
+    ax2.tick_params('y', colors=color2)
+
+    if sum(sum(dictionary2[k]) for k in dictionary2) > 1000:
+        ax2 = plt.gca()
+        ax2.get_yaxis().set_major_formatter(
+            plt.FuncFormatter(lambda x, loc: "{:,}".format(int(x))))
+
+    plt.title(title)
+    labs = [l.get_label() for l in lns]
+    plt.legend(lns, labs, loc=0, prop={'size': 10})
+    plt.grid(True)
+    plt.savefig(label + '_' + outputname + '.png',
+                format='png',
+                bbox_inches='tight')
+    plt.close()
 
 
 def stacked_bar_chart(dictionary, timestep,
@@ -1062,6 +1359,7 @@ def stacked_bar_chart(dictionary, timestep,
     plt.ylabel(ylabel)
     plt.title(title)
     plt.xlabel(xlabel)
+    axes = plt.gca()
     if len(dictionary) > 1:
         plt.legend(loc=(1.0, 0))
     plt.grid(True)
@@ -1147,6 +1445,31 @@ def plot_in_out_flux(cur, facility, influx_bool, title, outputname):
         multi_line_plot(waste_dict, timestep,
                         'Years', 'Mass [kg]',
                         title, outputname, init_year)
+
+
+def entered_power(cur):
+    """ Returns dictionary of power entered into simulation.
+
+    Parameters
+    ---------
+    cur: sqlite cursor
+        sqlite cursor
+
+    Returns
+    -------
+    power_dict: dictionary
+        key: 'power'
+        value: timeseries of power entered (non-cumulative)
+    """
+    power_dict = {}
+    entered = cur.execute('SELECT entertime, max(value) FROM '
+                          'agententry INNER JOIN timeseriespower '
+                          'ON agententry.agentid = timeseriespower.agentid '
+                          'WHERE spec LIKE "%reactor%" '
+                          'GROUP BY agententry.agentid').fetchall()
+    init_year, init_month, duration, timestep = get_timesteps(cur)
+    power_dict['power'] = get_timeseries(entered, duration, False)
+    return power_dict
 
 
 def source_throughput(cur, duration, frac_prod, frac_tail):
