@@ -4,6 +4,7 @@
     <duration>960</duration>
     <startmonth>1</startmonth>
     <startyear>1970</startyear>
+    <decay>lazy</decay>
   </control>
 
 
