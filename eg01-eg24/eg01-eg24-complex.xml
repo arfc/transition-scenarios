@@ -1,11 +1,4 @@
 <!--
-THIS IS A SIMPLE VERSION WHERE:
-ALL U -> U238
-ALL PU -> PU239
-ALL MA -> AM241
-ALL FP -> CS137
-FOR SPENT SFR AND MOX RECIPE.
-****************************************
 COMMODITY (RECIPE)
 
 sfr_fuel(sfr_fuel_recipe)
@@ -567,6 +560,62 @@ CF: 14.08 /(13.9*.998) = 1.014
             <val>1308</val>
             <val>1320</val>
 
+             <val>1116</val>
+            <val>1140</val>
+            <val>1188</val>
+            <val>1212</val>
+            <val>1260</val>
+            <val>1284</val>
+            <val>1308</val>
+            <val>1360</val>
+            <val>1388</val>
+            <val>1416</val>
+            <val>1428</val>
+            <val>1440</val>
+            <val>1452</val>
+            <val>1464</val>
+            <val>1476</val>
+            <val>1488</val>
+            <val>1500</val>
+            <val>1512</val>
+            <val>1524</val>
+            <val>1536</val>
+            <val>1548</val>
+            <val>1560</val>
+            <val>1572</val>
+            <val>1584</val>
+            <val>1596</val>
+            <val>1608</val>
+            <val>1620</val>
+            <val>1632</val>
+            <val>1644</val>
+            <val>1656</val>
+            <val>1668</val>
+            <val>1680</val>
+            <val>1692</val>
+            <val>1704</val>
+            <val>1716</val>
+            <val>1728</val>
+            <val>1740</val>
+            <val>1752</val>
+            <val>1764</val>
+            <val>1776</val>
+            <val>1780</val>
+            <val>1800</val>
+            <val>1809</val>
+            <val>1818</val>
+            <val>1827</val>
+
+            <val>1848</val>
+            <val>1860</val>
+            <val>1872</val>
+            <val>1884</val>
+            <val>1896</val>
+
+            <val>1908</val>
+            <val>1920</val>
+            <val>1932</val>
+
           </build_times>
           <n_build>
             <val>2</val>
@@ -674,6 +723,62 @@ CF: 14.08 /(13.9*.998) = 1.014
             <val>3</val>
             <val>5</val>
             <val>2</val>
+
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>1</val>
+            <val>2</val>
+            <val>2</val>
+            <val>2</val>
+            <val>3</val>
+            <val>2</val>
+            <val>2</val>
+            <val>2</val>
+            <val>2</val>
+            <val>2</val>
+            <val>2</val>
+            <val>2</val>
+            <val>2</val>
+            <val>3</val>
+            <val>3</val>
+            <val>2</val>
+            <val>2</val>
+            <val>3</val>
+            <val>3</val>
+            <val>3</val>
+            <val>3</val>
+            <val>3</val>
+            <val>3</val>
+            <val>3</val>
+            <val>3</val>
+            <val>4</val>
+            <val>4</val>
+            <val>4</val>
+            <val>4</val>
+            <val>3</val>
+            <val>3</val>
+            <val>3</val>
+            <val>4</val>
+            <val>5</val>
+            <val>5</val>
+            <val>6</val>
+            <val>4</val>
+            <val>4</val>
+            <val>4</val>
+            <val>4</val>
+
+            <val>7</val>
+            <val>6</val>
+            <val>6</val>
+            <val>6</val>
+            <val>6</val>
+
+            <val>7</val>
+            <val>7</val>
+            <val>6</val>
 
           </n_build>
           <prototypes>
@@ -783,6 +888,62 @@ CF: 14.08 /(13.9*.998) = 1.014
             <val>lwr</val>
             <val>lwr</val>
 
+             <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+
+            <val>lwr</val>
+            <val>lwr</val>
+            <val>lwr</val>
+
           </prototypes>
         </DeployInst>
       </config>
@@ -793,14 +954,7 @@ CF: 14.08 /(13.9*.998) = 1.014
       <config>
         <DeployInst>
           <prototypes>
-              <val>fr</val>
-              <val>fr</val>
-              <val>fr</val>
-              <val>fr</val>
-              <val>fr</val>
-              <val>fr</val>
-              <val>fr</val>
-              <val>fr</val>
+             
               <val>fr</val>
               <val>fr</val>
               <val>fr</val>
@@ -893,14 +1047,7 @@ CF: 14.08 /(13.9*.998) = 1.014
               <val>fr</val>
             </prototypes>
             <n_build>
-              <val>15</val>
-              <val>16</val>
-              <val>13</val>
-              <val>17</val>
-              <val>17</val>
-              <val>17</val>
-              <val>15</val>
-              <val>18</val>
+             
               <val>15</val>
               <val>17</val>
               <val>15</val>
@@ -993,14 +1140,7 @@ CF: 14.08 /(13.9*.998) = 1.014
               <val>39</val>
             </n_build>
             <build_times>
-              <val>1848</val>
-              <val>1860</val>
-              <val>1872</val>
-              <val>1884</val>
-              <val>1896</val>
-              <val>1908</val>
-              <val>1920</val>
-              <val>1932</val>
+             
               <val>1944</val>
               <val>1956</val>
               <val>1968</val>
@@ -1096,155 +1236,6 @@ CF: 14.08 /(13.9*.998) = 1.014
         </config>
     </institution>
 
-    <institution>
-      <name>lwr_new_inst</name>
-      <config>
-        <DeployInst>
-          <build_times>
-            <val>1116</val>
-            <val>1140</val>
-            <val>1188</val>
-            <val>1212</val>
-            <val>1260</val>
-            <val>1284</val>
-            <val>1308</val>
-            <val>1360</val>
-            <val>1388</val>
-            <val>1416</val>
-            <val>1428</val>
-            <val>1440</val>
-            <val>1452</val>
-            <val>1464</val>
-            <val>1476</val>
-            <val>1488</val>
-            <val>1500</val>
-            <val>1512</val>
-            <val>1524</val>
-            <val>1536</val>
-            <val>1548</val>
-            <val>1560</val>
-            <val>1572</val>
-            <val>1584</val>
-            <val>1596</val>
-            <val>1608</val>
-            <val>1620</val>
-            <val>1632</val>
-            <val>1644</val>
-            <val>1656</val>
-            <val>1668</val>
-            <val>1680</val>
-            <val>1692</val>
-            <val>1704</val>
-            <val>1716</val>
-            <val>1728</val>
-            <val>1740</val>
-            <val>1752</val>
-            <val>1764</val>
-            <val>1776</val>
-            <val>1780</val>
-            <val>1800</val>
-            <val>1809</val>
-            <val>1818</val>
-            <val>1827</val>
-          </build_times>
-          <n_build>
-            <val>1</val>
-            <val>1</val>
-            <val>1</val>
-            <val>1</val>
-            <val>1</val>
-              <val>1</val>
-              <val>2</val>
-              <val>2</val>
-              <val>2</val>
-              <val>3</val>
-              <val>2</val>
-              <val>2</val>
-              <val>2</val>
-              <val>2</val>
-              <val>2</val>
-              <val>2</val>
-              <val>2</val>
-              <val>2</val>
-              <val>3</val>
-              <val>3</val>
-              <val>2</val>
-              <val>2</val>
-              <val>3</val>
-              <val>3</val>
-              <val>3</val>
-              <val>3</val>
-              <val>3</val>
-              <val>3</val>
-              <val>3</val>
-              <val>3</val>
-              <val>4</val>
-              <val>4</val>
-              <val>4</val>
-              <val>4</val>
-              <val>3</val>
-              <val>3</val>
-              <val>3</val>
-              <val>4</val>
-              <val>5</val>
-              <val>5</val>
-              <val>6</val>
-              <val>4</val>
-              <val>4</val>
-              <val>4</val>
-              <val>4</val>
-          </n_build>
-          <prototypes>
-            <val>lwr</val>
-            <val>lwr</val>
-            <val>lwr</val>
-            <val>lwr</val>
-            <val>lwr</val>
-            <val>lwr</val>
-            <val>lwr</val>
-            <val>lwr</val>
-            <val>lwr</val>
-            <val>lwr</val>
-            <val>lwr</val>
-            <val>lwr</val>
-            <val>lwr</val>
-            <val>lwr</val>
-            <val>lwr</val>
-            <val>lwr</val>
-            <val>lwr</val>
-            <val>lwr</val>
-            <val>lwr</val>
-            <val>lwr</val>
-            <val>lwr</val>
-            <val>lwr</val>
-            <val>lwr</val>
-            <val>lwr</val>
-            <val>lwr</val>
-            <val>lwr</val>
-            <val>lwr</val>
-            <val>lwr</val>
-            <val>lwr</val>
-            <val>lwr</val>
-            <val>lwr</val>
-            <val>lwr</val>
-            <val>lwr</val>
-            <val>lwr</val>
-            <val>lwr</val>
-            <val>lwr</val>
-            <val>lwr</val>
-            <val>lwr</val>
-            <val>lwr</val>
-            <val>lwr</val>
-            <val>lwr</val>
-            <val>lwr</val>
-            <val>lwr</val>
-            <val>lwr</val>
-            <val>lwr</val>
-          </prototypes>
-        </DeployInst>
-      </config>
-    </institution>
-
     <name>USA</name>
   </region>
 
@@ -1295,8 +1286,8 @@ CF: 14.08 /(13.9*.998) = 1.014
     <recipe>
     <name>sfr_fuel_recipe</name>
     <basis>mass</basis>
-     <nuclide> <id>He4</id>  <comp>8.12E-E-11</comp> </nuclide> 
-   <nuclide> <id>U232</id>  <comp>4.71E-E-09</comp> </nuclide> 
+     <nuclide> <id>He4</id>  <comp>8.12E-11</comp> </nuclide> 
+   <nuclide> <id>U232</id>  <comp>4.71E-09</comp> </nuclide> 
    <nuclide> <id>U234</id>  <comp>0.0003</comp> </nuclide> 
    <nuclide> <id>U235</id>  <comp>0.0004</comp> </nuclide> 
    <nuclide> <id>U236</id>  <comp>0.0003</comp> </nuclide> 
@@ -1315,7 +1306,6 @@ CF: 14.08 /(13.9*.998) = 1.014
    <nuclide> <id>Cm244</id>  <comp>0.0011</comp> </nuclide> 
    <nuclide> <id>Cm245</id>  <comp>0.0003</comp> </nuclide> 
    <nuclide> <id>Cm246</id>  <comp>0.0001</comp> </nuclide> 
-
   </recipe> 
   
   <recipe>
@@ -1376,14 +1366,82 @@ CF: 14.08 /(13.9*.998) = 1.014
    <nuclide> <id>H1</id>  <comp>0.0477938151</comp> </nuclide> 
   </recipe> 
 
-
-   <recipe>
+  <recipe>
     <name>sfr_waste_recipe</name>
     <basis>mass</basis>
-     <nuclide> <id>U238</id>  <comp>78.122</comp> </nuclide> 
-     <nuclide> <id>Pu239</id>  <comp>13.809</comp> </nuclide> 
-     <nuclide> <id>Am241</id> <comp>0.15</comp> </nuclide>
-     <nuclide> <id>Cs137</id>  <comp>7.919</comp> </nuclide> 
-  </recipe> 
+      <nuclide> <id>H1</id>  <comp>2.2488058046007715e-06</comp> </nuclide> 
+      <nuclide> <id>H1</id>  <comp>2.2488058046007715e-06</comp> </nuclide> 
+      <nuclide> <id>H2</id>  <comp>6.889405066117969e-07</comp> </nuclide> 
+      <nuclide> <id>H3</id>  <comp>9.22920301310143e-06</comp> </nuclide> 
+      <nuclide> <id>He3</id>  <comp>9.22920301310143e-06</comp> </nuclide> 
+      <nuclide> <id>He4</id>  <comp>0.00014233770844149392</comp> </nuclide> 
+      <nuclide> <id>Br85</id>  <comp>0.0004010153703579988</comp> </nuclide> 
+      <nuclide> <id>Kr82</id>  <comp>3.5746913078914e-07</comp> </nuclide> 
+      <nuclide> <id>Kr85</id>  <comp>8.969225463436604e-05</comp> </nuclide> 
+      <nuclide> <id>Kr85m</id>  <comp>0.0004010153703579988</comp> </nuclide> 
+      <nuclide> <id>Sr90</id>  <comp>0.0013200360084231696</comp> </nuclide> 
+      <nuclide> <id>Zr95</id>  <comp>0.003043037218826824</comp> </nuclide> 
+      <nuclide> <id>Nb94</id>  <comp>1.6573568791132852e-09</comp> </nuclide> 
+      <nuclide> <id>Nb95</id>  <comp>0.0030417373310784998</comp> </nuclide> 
+      <nuclide> <id>Nb95m</id>  <comp>3.288716003260088e-05</comp> </nuclide> 
+      <nuclide> <id>Mo94</id>  <comp>3.1197305959779486e-12</comp> </nuclide> 
+      <nuclide> <id>Mo96</id>  <comp>1.1049045860755233e-06</comp> </nuclide> 
+      <nuclide> <id>Mo99</id>  <comp>0.0037826733476232634</comp> </nuclide> 
+      <nuclide> <id>Tc99</id>  <comp>0.0037826733476232634</comp> </nuclide> 
+      <nuclide> <id>Ru103</id>  <comp>0.004283130130728059</comp> </nuclide> 
+      <nuclide> <id>Ru106</id>  <comp>0.00268426820028936</comp> </nuclide> 
+      <nuclide> <id>Rh106</id>  <comp>0.00268426820028936</comp> </nuclide> 
+      <nuclide> <id>Sn121m</id>  <comp>3.444702533058985e-06</comp> </nuclide> 
+      <nuclide> <id>Sb122</id>  <comp>9.94414127467971e-09</comp> </nuclide> 
+      <nuclide> <id>Sb124</id>  <comp>1.0009135662095918e-06</comp> </nuclide> 
+      <nuclide> <id>Sb125</id>  <comp>8.969225463436604e-05</comp> </nuclide> 
+      <nuclide> <id>Te132</id>  <comp>0.003197723860877397</comp> </nuclide> 
+      <nuclide> <id>I129</id>  <comp>0.0008514264751523151</comp> </nuclide> 
+      <nuclide> <id>I131</id>  <comp>0.0026582704453228774</comp> </nuclide> 
+      <nuclide> <id>I133</id>  <comp>0.004543107680392888</comp> </nuclide> 
+      <nuclide> <id>I135</id>  <comp>0.004055649774771334</comp> </nuclide> 
+      <nuclide> <id>Xe128</id>  <comp>1.6248596854051817e-09</comp> </nuclide> 
+      <nuclide> <id>Xe130</id>  <comp>1.5013703493143878e-06</comp> </nuclide> 
+      <nuclide> <id>Xe131m</id>  <comp>2.8857508012796026e-05</comp> </nuclide> 
+      <nuclide> <id>Xe133</id>  <comp>0.0045691054353593705</comp> </nuclide> 
+      <nuclide> <id>Xe133m</id>  <comp>0.0001449374839381422</comp> </nuclide> 
+      <nuclide> <id>Xe135</id>  <comp>0.004874579056215545</comp> </nuclide> 
+      <nuclide> <id>Xe135m</id>  <comp>0.001280389432099283</comp> </nuclide> 
+      <nuclide> <id>Cs134</id>  <comp>7.474354552863835e-07</comp> </nuclide> 
+      <nuclide> <id>Cs137</id>  <comp>0.004127143600929161</comp> </nuclide> 
+      <nuclide> <id>Ba140</id>  <comp>0.0034466523646814714</comp> </nuclide> 
+      <nuclide> <id>La140</id>  <comp>0.0034603011860388747</comp> </nuclide> 
+      <nuclide> <id>Ce141</id>  <comp>0.003256218809551984</comp> </nuclide> 
+      <nuclide> <id>Ce144</id>  <comp>0.0022774033350639027</comp> </nuclide> 
+      <nuclide> <id>Pr144</id>  <comp>0.0022780532789380644</comp> </nuclide> 
+      <nuclide> <id>Nd142</id>  <comp>1.6313591241468025e-09</comp> </nuclide> 
+      <nuclide> <id>Nd144</id>  <comp>0.0022780532789380644</comp> </nuclide> 
+      <nuclide> <id>Nd147</id>  <comp>0.0012537417332586383</comp> </nuclide> 
+      <nuclide> <id>Pm147</id>  <comp>0.0012537417332586383</comp> </nuclide> 
+      <nuclide> <id>Pm148</id>  <comp>7.799326489944873e-09</comp> </nuclide> 
+      <nuclide> <id>Pm148m</id>  <comp>1.8848372350700106e-08</comp> </nuclide> 
+      <nuclide> <id>Pm149</id>  <comp>0.0008286784395566425</comp> </nuclide> 
+      <nuclide> <id>Pm151</id>  <comp>0.0005173553238330098</comp> </nuclide> 
+      <nuclide> <id>Sm148</id>  <comp>2.5347811092320833e-08</comp> </nuclide> 
+      <nuclide> <id>Sm150</id>  <comp>3.3147137582265707e-06</comp> </nuclide> 
+      <nuclide> <id>Sm151</id>  <comp>0.000518005267707172</comp> </nuclide> 
+      <nuclide> <id>Sm153</id>  <comp>0.00025997754966482906</comp> </nuclide> 
+      <nuclide> <id>Eu151</id>  <comp>0.000518005267707172</comp> </nuclide> 
+      <nuclide> <id>Eu152</id>  <comp>3.119730595977948e-10</comp> </nuclide> 
+      <nuclide> <id>Eu154</id>  <comp>8.254287201858323e-08</comp> </nuclide> 
+      <nuclide> <id>Eu155</id>  <comp>0.00011114040248171444</comp> </nuclide> 
+      <nuclide> <id>Pu238</id>  <comp>0.001164798127359022</comp> </nuclide> 
+      <nuclide> <id>Pu239</id>  <comp>0.09908368059417465</comp> </nuclide> 
+      <nuclide> <id>Pu240</id>  <comp>0.03249349929635785</comp> </nuclide> 
+      <nuclide> <id>Pu241</id>  <comp>0.0036243096344423897</comp> </nuclide> 
+      <nuclide> <id>Pu242</id>  <comp>0.0018210459910484378</comp> </nuclide> 
+      <nuclide> <id>Pu244</id>  <comp>6.35661764e-09</comp> </nuclide> 
+      <nuclide> <id>U232</id>  <comp>7.648700297471588e-09</comp> </nuclide> 
+      <nuclide> <id>U233</id>  <comp>5.285846459910117e-09</comp> </nuclide> 
+      <nuclide> <id>U234</id>  <comp>0.000155564910542954</comp> </nuclide> 
+      <nuclide> <id>U235</id>  <comp>0.00019082224532527</comp> </nuclide> 
+      <nuclide> <id>U236</id>  <comp>0.000300080729799828</comp> </nuclide> 
+      <nuclide> <id>U238</id>  <comp>0.7726661792000105</comp> </nuclide> 
 
+  </recipe> 
 </simulation>

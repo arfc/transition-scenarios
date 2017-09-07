@@ -2,8 +2,8 @@
 <simulation>
   <control>
     <duration>{{duration}}</duration>
-    <startmonth>{{ startmonth}} </startmonth>
-    <startyear>{{ startyear}} </startyear>
+    <startmonth>{{ startmonth}}</startmonth>
+    <startyear>{{ startyear}}</startyear>
     <decay>lazy</decay>
   </control>
 
