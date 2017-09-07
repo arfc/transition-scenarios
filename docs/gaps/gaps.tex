@@ -29,9 +29,8 @@
 \usetikzlibrary{positioning, arrows, decorations, shapes }
 \usepackage{cleveref}
 
-
 \usepackage[acronym,toc]{glossaries}
-\include{acros.tex}
+\include{acros}
 	
 \makeglossaries
 
@@ -45,13 +44,14 @@
 %%%%%%%%%%%%%%actual words%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
 
 
-\begin{document}
 
+\begin{document}
+\maketitle
 \section{Introduction}
 As part of NEUP-FY16-10512 (PI: Dr. Kathryn Huff), a test-run of fuel cycle
 transition scenarios was done using \Cyclus. The purpose of this study
 is to identify the non-algorithmic capability gaps necessary for a complete simulation.
-The fuel cycle models are from the Idaho National Laboratory Nuclear Fuel Cycle Evaluation and Screening Report
+The scenarios are from the Idaho National Laboratory Nuclear Fuel Cycle Evaluation and Screening Report
 (Hereby E\&S Report) \cite{wigeland_nuclear_2014}. The transition scenarios begin with EG01 and transitions to EG23, EG24, EG29, EG30,
 separately. The descriptions of each fuel cycle is in \cref{tab:es}.
 
@@ -76,18 +76,18 @@ separately. The descriptions of each fuel cycle is in \cref{tab:es}.
 
 
 \section{Simulation Specifics}
-The transition scenarios in this study follows a common set of base-case parameters and assumptions,
-adapted by the Fuel Cycle Options Campaign \cite{djokic_application_2015}.
+The transition scenarios in this study follow a common set of base-case parameters and assumptions,
+adopted by the Fuel Cycle Options Campaign \cite{djokic_application_2015}.
 % Need to list them?
 
-The reactor specifications (mass of core, batch, refueling cycle) follows
-the specifications given by the E\&S report appendix B \cite{wigeland_nuclear_2014}.
+The reactor specifications (mass of core, batch, refueling cycle) follow
+those given by the E\&S report appendix B \cite{wigeland_nuclear_2014}.
 
 For the compositions of the fresh and spent fuels, various models give different answers.
-As it will be discussed later, the recipe (more specifically the Breeding Ratio of the \gls{SFR}),
+As will be discussed later, the recipe (more specifically the Breeding Ratio of the \gls{SFR}),
 plays an extremely crucial role in the rapidity and success of the transition. 
 
-With that being said,the swiftness of the transition greatly depends on the 
+The swiftness of the transition greatly depends on the 
 breeding ratio of the \gls{SFR} since new \glspl{SFR} cannot be deployed 
 without a sufficient fissile inventory. 
 
@@ -152,10 +152,6 @@ that compete for the fissile materials (ie. \gls{MOX} fuel fab competes with \gl
 In this case, if both fabrication plants have infinite buffer/throughput, one fabrication takes all the
 separated fissile material, leaving the other plant idle.
 
-\Cref{fig:mox} and \cref{fig:sfr} plot the fuel demand of \gls{MOX} \glspl{LWR} and \glspl{SFR},
-respectively, in an EG29 scenario.
-
-
 \begin{figure}[htbp!]
 	\begin{center}
 		\includegraphics[scale=0.6]{./images/mox_fuel.png}
@@ -171,6 +167,12 @@ respectively, in an EG29 scenario.
 	\label{fig:sfr}
 \end{figure}
 \FloatBarrier
+
+\Cref{fig:mox} and \cref{fig:sfr} plot the fuel demand of \gls{MOX} \glspl{LWR} and \glspl{SFR},
+respectively, in an EG29 scenario.
+
+
+
 
 
 \subsection{Static Parameters}
@@ -209,11 +211,11 @@ minimum height=2em]
 		\begin{tikzpicture}[align=center, node distance = 3cm and 3cm, auto]
 		% Place nodes
 		\node [block] (rea) {\texttt{Reactor}};
-		\node [cloud, below of=rea] (d1) {1. Demand: \mathbf{Fuel}};
-		\node [cloud, below of=d1] (s1) {2. Change throughput to \mathbf{Fuel}};
+		\node [cloud, below of=rea] (d1) {1. Demand: \textbf{Fuel}};
+		\node [cloud, below of=d1] (s1) {2. Change throughput to \textbf{Fuel}};
 		\node [block, below of=s1] (ff) {\texttt{FuelFab}};
-		\node [cloud, below of=ff] (d2) {3. Demand: Fissile Material ($\propto \mathbf{Fuel}$)};		
-		\node [cloud, below of=d2] (s2) {4. Change capacity to ($\propto \mathbf{Fuel}$)};
+		\node [cloud, below of=ff] (d2) {3. Demand: Fissile Material ($\propto \textbf{Fuel}$)};		
+		\node [cloud, below of=d2] (s2) {4. Change capacity to ($\propto \textbf{Fuel}$)};
 		\node [block, below of=s2] (rep) {\texttt{Separations}};
 		
 		
@@ -280,7 +282,7 @@ be to have recipes for each stage (ie. for four batch, there would be three spen
 
 
 \bibliographystyle{abbrv}
-\bibliography{./bibliography.bib}
+\bibliography{bibliography}
 
 
 \end{document}
