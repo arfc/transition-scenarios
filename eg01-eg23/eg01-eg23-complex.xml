@@ -1,11 +1,4 @@
 <!--
-THIS IS A SIMPLE VERSION WHERE:
-ALL U -> U238
-ALL PU -> PU239
-ALL MA -> AM241
-ALL FP -> CS137
-FOR SPENT SFR AND MOX RECIPE.
-****************************************
 COMMODITY (RECIPE)
 
 sfr_fuel(sfr_fuel_recipe)
@@ -32,21 +25,10 @@ Fast Reactors (After 2050)
 80 year lifetime
 
 if out of Dep U use Nat U
-****************************************
-For 250 SFRs for 1 year:
-
-Driver:
-1060.13 t / yr
--> 897.93 t U / yr
--> 162.2 t Pu /yr
-
-Blanket:
-197.07 t / yr
--> 197.07 t U / yr
 
 ****************************************
 SFR input fuel (Driver + Blanket)
-Mass = 5867 kg (14/1/3 batch)
+Mass = 9263.48 kg (14/1/3 batch)
 "sfr_fuel"
 ****************************************
 SFR:
@@ -75,9 +57,7 @@ UOX to 100 FR mtl fresh 1
 SFR output fuel recipe:
 UOX_to_100_FR_mtl_sf_5 (13.64 % Pu)
 
-BR = (12.97121*.998)/(12.8996341) = 1.00353 
--> The E&S Study does not take into account 
-   new deployment of SFRs, so the BR is slightly over break-even.
+CF = 12.9*.998/12.9 = .998
 ****************************************
 
 -->
@@ -168,6 +148,7 @@ BR = (12.97121*.998)/(12.8996341) = 1.00353
     </config>
   </facility>
 
+
   <facility>
     <name>sfr_mixer</name>
     <config>
@@ -175,7 +156,7 @@ BR = (12.97121*.998)/(12.8996341) = 1.00353
             <in_streams>
                 <stream>
                     <info>
-                        <mixing_ratio>0.128996341</mixing_ratio>
+                        <mixing_ratio>0.129</mixing_ratio>
                         <buf_size>1e100</buf_size>
                     </info>
                     <commodities>
@@ -191,7 +172,7 @@ BR = (12.97121*.998)/(12.8996341) = 1.00353
                 </stream>
                 <stream>
                     <info>
-                        <mixing_ratio>0.714003659</mixing_ratio>
+                        <mixing_ratio>0.714</mixing_ratio>
                         <buf_size>1e100</buf_size>
                     </info>
                     <commodities>
@@ -591,18 +572,16 @@ BR = (12.97121*.998)/(12.8996341) = 1.00353
                          <val>1716</val>
                          <val>1728</val>
                          <val>1740</val>
-                         <val>1752</val>
+
+                          <val>1752</val>
                          <val>1764</val>
                          <val>1776</val>
-
                          <val>1788</val>
                          <val>1800</val>
+                        
                          <val>1812</val>
                          <val>1824</val>
                          <val>1836</val>
-                         <val>1848</val>
-                         <val>1860</val>
-                         <val>1872</val>
                     </build_times>
                     <n_build>
                          <val>2</val>
@@ -733,23 +712,23 @@ BR = (12.97121*.998)/(12.8996341) = 1.00353
                          <val>3</val>
                          <val>3</val>
 
-                         <val>4</val>
-                         <val>4</val>
-                         <val>4</val>
-                         <val>4</val>
                          <val>3</val>
-                         <val>3</val>
-                         <val>3</val>
+                         <val>4</val>
+                         <val>4</val>
+                         <val>4</val>
+                         <val>4</val>
+
+                         <val>4</val>
+                         <val>4</val>
+                         <val>4</val>
+                         <val>4</val>
                          <val>3</val>
 
-                         <val>5</val>
-                         <val>5</val>
-                         <val>5</val>
-                         <val>5</val>
+                         <val>7</val>
                          <val>6</val>
                          <val>6</val>
-                         <val>6</val>
-                         <val>6</val>
+
+
                     </n_build>
                     <prototypes>
                          <val>lwr</val>
@@ -885,6 +864,9 @@ BR = (12.97121*.998)/(12.8996341) = 1.00353
                          <val>lwr</val>
                          <val>lwr</val>
                          <val>lwr</val>
+
+                         <val>lwr</val>
+                         <val>lwr</val>
                          <val>lwr</val>
                          <val>lwr</val>
                          <val>lwr</val>
@@ -892,12 +874,6 @@ BR = (12.97121*.998)/(12.8996341) = 1.00353
                          <val>lwr</val>
                          <val>lwr</val>
                          <val>lwr</val>
-                         <val>lwr</val>
-                         <val>lwr</val>
-                         <val>lwr</val>
-                         <val>lwr</val>
-                         <val>lwr</val>
-
                     </prototypes>
                </DeployInst>
           </config>
@@ -908,7 +884,9 @@ BR = (12.97121*.998)/(12.8996341) = 1.00353
                <DeployInst>
                     <prototypes>
                          
-                         
+                         <val>fr</val>
+                         <val>fr</val>
+                         <val>fr</val>
                          <val>fr</val>
                          <val>fr</val>
                          <val>fr</val>
@@ -1008,8 +986,11 @@ BR = (12.97121*.998)/(12.8996341) = 1.00353
                     <n_build>
                         
                         
-                         
-                         
+                        
+                        
+                         <val>15</val>
+                         <val>16</val>
+                         <val>13</val>
                          <val>17</val>
                          <val>17</val>
                          <val>17</val>
@@ -1108,9 +1089,9 @@ BR = (12.97121*.998)/(12.8996341) = 1.00353
                     </n_build>
                     <build_times>
                          
-                         
-                        
-                         
+                         <val>1848</val>
+                         <val>1860</val>
+                         <val>1872</val>
                          <val>1884</val>
                          <val>1896</val>
                          <val>1908</val>
@@ -1321,15 +1302,98 @@ BR = (12.97121*.998)/(12.8996341) = 1.00353
      <nuclide> <id>Cm245</id>  <comp>5.48431266087054E-05</comp> </nuclide> 
      <nuclide> <id>H1</id>  <comp>0</comp> </nuclide> 
   </recipe> 
-
-   <recipe>
+  <recipe>
     <name>sfr_waste_recipe</name>
     <basis>mass</basis>
-     <nuclide> <id>U238</id>  <comp>79.29</comp> </nuclide> 
-     <nuclide> <id>Pu239</id>  <comp>13.102</comp> </nuclide> 
-     <nuclide> <id>Am241</id>  <comp>0.1205</comp> </nuclide> 
-     <nuclide> <id>Cs137</id>  <comp>7.4791</comp> </nuclide> 
-
-  </recipe> 
-
+      <nuclide> <id>H1</id>  <comp>2.1237926533769418e-06</comp> </nuclide> 
+      <nuclide> <id>H1</id>  <comp>2.1237926533769418e-06</comp> </nuclide> 
+      <nuclide> <id>H2</id>  <comp>6.506416799362884e-07</comp> </nuclide> 
+      <nuclide> <id>H3</id>  <comp>8.716143259523863e-06</comp> </nuclide> 
+      <nuclide> <id>He3</id>  <comp>8.716143259523863e-06</comp> </nuclide> 
+      <nuclide> <id>He4</id>  <comp>0.0001344250263264596</comp> </nuclide> 
+      <nuclide> <id>Br85</id>  <comp>0.00037872256275536787</comp> </nuclide> 
+      <nuclide> <id>Kr82</id>  <comp>3.375970980801497e-07</comp> </nuclide> 
+      <nuclide> <id>Kr85</id>  <comp>8.470618097283756e-05</comp> </nuclide> 
+      <nuclide> <id>Kr85m</id>  <comp>0.00037872256275536787</comp> </nuclide> 
+      <nuclide> <id>Sr90</id>  <comp>0.0012466540112741529</comp> </nuclide> 
+      <nuclide> <id>Zr95</id>  <comp>0.002873872024020474</comp> </nuclide> 
+      <nuclide> <id>Nb94</id>  <comp>1.565222909280694e-09</comp> </nuclide> 
+      <nuclide> <id>Nb95</id>  <comp>0.0028726443982092734</comp> </nuclide> 
+      <nuclide> <id>Nb95m</id>  <comp>3.105893302337377e-05</comp> </nuclide> 
+      <nuclide> <id>Mo94</id>  <comp>2.946301946881306e-12</comp> </nuclide> 
+      <nuclide> <id>Mo96</id>  <comp>1.0434819395204624e-06</comp> </nuclide> 
+      <nuclide> <id>Mo99</id>  <comp>0.003572391110593584</comp> </nuclide> 
+      <nuclide> <id>Tc99</id>  <comp>0.003572391110593584</comp> </nuclide> 
+      <nuclide> <id>Ru103</id>  <comp>0.0040450270479057936</comp> </nuclide> 
+      <nuclide> <id>Ru106</id>  <comp>0.0025350473001291237</comp> </nuclide> 
+      <nuclide> <id>Rh106</id>  <comp>0.0025350473001291237</comp> </nuclide> 
+      <nuclide> <id>Sn121m</id>  <comp>3.2532083996814424e-06</comp> </nuclide> 
+      <nuclide> <id>Sb122</id>  <comp>9.391337455684162e-09</comp> </nuclide> 
+      <nuclide> <id>Sb124</id>  <comp>9.45271874624419e-07</comp> </nuclide> 
+      <nuclide> <id>Sb125</id>  <comp>8.470618097283756e-05</comp> </nuclide> 
+      <nuclide> <id>Te132</id>  <comp>0.003019959495553339</comp> </nuclide> 
+      <nuclide> <id>I129</id>  <comp>0.0008040949063363564</comp> </nuclide> 
+      <nuclide> <id>I131</id>  <comp>0.002510494783905113</comp> </nuclide> 
+      <nuclide> <id>I133</id>  <comp>0.004290552210145902</comp> </nuclide> 
+      <nuclide> <id>I135</id>  <comp>0.003830192530945698</comp> </nuclide> 
+      <nuclide> <id>Xe128</id>  <comp>1.5345322640006803e-09</comp> </nuclide> 
+      <nuclide> <id>Xe130</id>  <comp>1.4179078119366286e-06</comp> </nuclide> 
+      <nuclide> <id>Xe131m</id>  <comp>2.7253293008652085e-05</comp> </nuclide> 
+      <nuclide> <id>Xe133</id>  <comp>0.004315104726369913</comp> </nuclide> 
+      <nuclide> <id>Xe133m</id>  <comp>0.00013688027794886068</comp> </nuclide> 
+      <nuclide> <id>Xe135</id>  <comp>0.004603596792002041</comp> </nuclide> 
+      <nuclide> <id>Xe135m</id>  <comp>0.001209211424032536</comp> </nuclide> 
+      <nuclide> <id>Cs134</id>  <comp>7.05884841440313e-07</comp> </nuclide> 
+      <nuclide> <id>Cs137</id>  <comp>0.003897711950561728</comp> </nuclide> 
+      <nuclide> <id>Ba140</id>  <comp>0.003255049838398243</comp> </nuclide> 
+      <nuclide> <id>La140</id>  <comp>0.0032679399094158487</comp> </nuclide> 
+      <nuclide> <id>Ce141</id>  <comp>0.0030752026570573633</comp> </nuclide> 
+      <nuclide> <id>Ce144</id>  <comp>0.0021508004212233535</comp> </nuclide> 
+      <nuclide> <id>Pr144</id>  <comp>0.002151414234128954</comp> </nuclide> 
+      <nuclide> <id>Nd142</id>  <comp>1.540670393056683e-09</comp> </nuclide> 
+      <nuclide> <id>Nd144</id>  <comp>0.002151414234128954</comp> </nuclide> 
+      <nuclide> <id>Nd147</id>  <comp>0.001184045094902925</comp> </nuclide> 
+      <nuclide> <id>Pm147</id>  <comp>0.001184045094902925</comp> </nuclide> 
+      <nuclide> <id>Pm148</id>  <comp>7.365754867203266e-09</comp> </nuclide> 
+      <nuclide> <id>Pm148m</id>  <comp>1.780057426240789e-08</comp> </nuclide> 
+      <nuclide> <id>Pm149</id>  <comp>0.0007826114546403469</comp> </nuclide> 
+      <nuclide> <id>Pm151</id>  <comp>0.0004885950728578165</comp> </nuclide> 
+      <nuclide> <id>Sm148</id>  <comp>2.3938703318410615e-08</comp> </nuclide> 
+      <nuclide> <id>Sm150</id>  <comp>3.130445818561388e-06</comp> </nuclide> 
+      <nuclide> <id>Sm151</id>  <comp>0.0004892088857634169</comp> </nuclide> 
+      <nuclide> <id>Sm153</id>  <comp>0.00024552516224010884</comp> </nuclide> 
+      <nuclide> <id>Eu151</id>  <comp>0.0004892088857634169</comp> </nuclide> 
+      <nuclide> <id>Eu152</id>  <comp>2.9463019468813056e-10</comp> </nuclide> 
+      <nuclide> <id>Eu154</id>  <comp>7.795423901123456e-08</comp> </nuclide> 
+      <nuclide> <id>Eu155</id>  <comp>0.00010496200685764655</comp> </nuclide> 
+      <nuclide> <id>Pu238</id>  <comp>0.00109335928440193</comp> </nuclide> 
+      <nuclide> <id>Pu239</id>  <comp>0.0930067275743179</comp> </nuclide> 
+      <nuclide> <id>Pu240</id>  <comp>0.030500623501972753</comp> </nuclide> 
+      <nuclide> <id>Pu241</id>  <comp>0.0034020252053028497</comp> </nuclide> 
+      <nuclide> <id>Pu242</id>  <comp>0.00170935846724797</comp> </nuclide> 
+      <nuclide> <id>Pu244</id>  <comp>5.9667566e-09</comp> </nuclide> 
+      <nuclide> <id>U232</id>  <comp>7.764620174645652e-09</comp> </nuclide> 
+      <nuclide> <id>U233</id>  <comp>5.365956105805943e-09</comp> </nuclide> 
+      <nuclide> <id>U234</id>  <comp>0.00015792257454093998</comp> </nuclide> 
+      <nuclide> <id>U235</id>  <comp>0.00019371425185969997</comp> </nuclide> 
+      <nuclide> <id>U236</id>  <comp>0.00030462860329308</comp> </nuclide> 
+      <nuclide> <id>U238</id>  <comp>0.7843763214602618</comp> </nuclide> 
+      <nuclide> <id>Am241</id>  <comp>0.0051501477520177</comp> </nuclide> 
+      <nuclide> <id>Am242m</id>  <comp>0.000335357136931</comp> </nuclide> 
+      <nuclide> <id>Am243</id>  <comp>0.0015164335378926998</comp> </nuclide> 
+      <nuclide> <id>Cm242</id>  <comp>0.00022459089899389998</comp> </nuclide> 
+      <nuclide> <id>Cm243</id>  <comp>1.3657049394099997e-05</comp> </nuclide> 
+      <nuclide> <id>Cm244</id>  <comp>0.0007493459387043999</comp> </nuclide> 
+      <nuclide> <id>Cm245</id>  <comp>0.00016582831469939997</comp> </nuclide> 
+      <nuclide> <id>Cm246</id>  <comp>6.0434845141199995e-05</comp> </nuclide> 
+      <nuclide> <id>Cm247</id>  <comp>2.2397642322999996e-06</comp> </nuclide> 
+      <nuclide> <id>Cm248</id>  <comp>1.6006247130135967e-07</comp> </nuclide> 
+      <nuclide> <id>Cm250</id>  <comp>2.6991508458592675e-14</comp> </nuclide> 
+      <nuclide> <id>Cf249</id>  <comp>2.7154845877404104e-09</comp> </nuclide> 
+      <nuclide> <id>Cf250</id>  <comp>2.823695627703007e-10</comp> </nuclide> 
+      <nuclide> <id>Cf251</id>  <comp>8.017825545907209e-12</comp> </nuclide> 
+      <nuclide> <id>Cf252</id>  <comp>1.691154800019082e-13</comp> </nuclide> 
+      <nuclide> <id>Np237</id>  <comp>0.0029948016924556</comp> </nuclide> 
+    </recipe>
+    
 </simulation>
