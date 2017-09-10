@@ -51,6 +51,8 @@
 As part of NEUP-FY16-10512 (PI: Dr. Kathryn Huff), a test-run of fuel cycle
 transition scenarios was done using \Cyclus. The purpose of this study
 is to identify the non-algorithmic capability gaps necessary for a complete simulation.
+The gaps that are identified mainly pertains to the greedy exchange model,
+and the manual, static parameter of fuel cycle facilities. 
 The scenarios are from the Idaho National Laboratory Nuclear Fuel Cycle Evaluation and Screening Report
 (Hereby E\&S Report) \cite{wigeland_nuclear_2014}. The transition scenarios begin with EG01 and transitions to EG23, EG24, EG29, EG30,
 separately. The descriptions of each fuel cycle is in \cref{tab:es}.
@@ -86,10 +88,6 @@ those given by the E\&S report appendix B \cite{wigeland_nuclear_2014}.
 For the compositions of the fresh and spent fuels, various models give different answers.
 As will be discussed later, the recipe (more specifically the Breeding Ratio of the \gls{SFR}),
 plays an extremely crucial role in the rapidity and success of the transition. 
-
-The swiftness of the transition greatly depends on the 
-breeding ratio of the \gls{SFR} since new \glspl{SFR} cannot be deployed 
-without a sufficient fissile inventory. 
 
 \subsection{Important Parameters}
 For a successful transition, there must be enough fissile materials in store prior to transition
@@ -152,6 +150,18 @@ that compete for the fissile materials (ie. \gls{MOX} fuel fab competes with \gl
 In this case, if both fabrication plants have infinite buffer/throughput, one fabrication takes all the
 separated fissile material, leaving the other plant idle.
 
+
+\subsection{Static Parameters}
+Various parameters, most notably throughput and capacity values of fuel cycle support facilities,
+need to adjust according to demand. With transition scenarios with increasing power demand, the 
+demand for fuel and fissile material generally increases over time. The current workaround is to either
+have a facility with infinite capacity, or to set the capacity to a manually-calculated (look-back method)
+maximum fuel demand. The infinite capacity method fails for EG29 and EG30, due to the greedy exchange
+model. The look-back method allows a complete simulation, but inefficiencies occur with the distribution
+of fissile material, since the facility with the higher demand has to fill up first in order for the facility
+with the lower demand to receive fissile material. 
+
+
 \begin{figure}[htbp!]
 	\begin{center}
 		\includegraphics[scale=0.6]{./images/mox_fuel.png}
@@ -169,25 +179,18 @@ separated fissile material, leaving the other plant idle.
 \FloatBarrier
 
 \Cref{fig:mox} and \cref{fig:sfr} plot the fuel demand of \gls{MOX} \glspl{LWR} and \glspl{SFR},
-respectively, in an EG29 scenario.
+respectively, in an EG29 scenario. This is an example of the look-back method, where, initially, an infinite source
+of fuel (both \gls{MOX} and \gls{SFR} fuel) was deployed to estimate how much the fuel fabrication
+throughput should be, for a successful simulation. A second simulation then would have a 
+fuel fabrication plant with throughputs that correspond to the maximum value of fuel demand in a timestep
+(2,000 for \gls{MOX}, 1900 for \gls{SFR} fuel).
 
-
-
-
-
-\subsection{Static Parameters}
-Various parameters, most notably throughput and capacity values of fuel cycle support facilities,
-need to adjust according to demand. With transition scenarios with increasing power demand, the 
-demand for fuel and fissile material generally increases over time. The current workaround is to either
-have a facility with infinite capacity, or to set the capacity to a manually-calculated (look-back method)
-maximum fuel demand. The infinite capacity method fails for EG29 and EG30, due to the greedy exchange
-model. The look-back method allows a complete simulation, but inefficiencies occur with the distribution
-of fissile material, since the facility with the higher demand has to fill up first in order for the facility
-with the lower demand to receive fissile material. 
 
 A fix for this is to have a dynamic throughput that adjusts according
 to predicted fuel demand, or, more realistically, have an archetype with fixed, reasonable, throughput/buffer
 that is deployed when there is fuel demand beyond its predicted throughput.
+
+
 
 \subsection{Individual Demand Estimation}
 Currently, the \Cyclus framework's market is completely agent-based. At every timestep, each agent `submits' its
@@ -247,8 +250,8 @@ the demand of fuel/fissile material proportional to power demand (`power' is a m
 Inter-agent feedback means that agents can communicate with each other and change its parameters accordingly. 
 For example, an increase in fabrication capacity, should cause an increase in reprocessing capacity. Also,
 if a reactor is shutdown due to lack of fuel, this should cause a flag to increase fabrication capacity,
-or `investigate'
-This would be problematic in parallel to the market-peeking capability, since there would be more than one algorithm
+or `investigate'.
+This may conflict with the market-peeking capability, since there would be more than one algorithm
 that changes the throughput of an agent. 
 
 \subsection{Irresponsible deployment}
@@ -266,8 +269,8 @@ the accuracy of simulations.
 
 \subsection{Blanket capability for \textsc{Reactor}\xspace}
 For \glspl{SFR}, the blanket and the driver have different effective fuel residence times, meaning that
-they should (ideally) be discharged and loaded separately. However, with current capabilities, the option is the average
-the mass and composition of driver and blanket to treat is as one commodity.
+they should (ideally) be discharged and loaded separately. However, with current capabilities, the option is to average
+the mass and composition of driver and blanket to treat it as one commodity.
 
 \subsection{Depletion Calculations}
 Depletion calculations are done outside of the simulation. However, if advanced reactor models like \textsc{Cyborg}\xspace
