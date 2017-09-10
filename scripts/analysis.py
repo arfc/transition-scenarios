@@ -1382,7 +1382,7 @@ def plot_power(cur):
     init_year, init_month, duration, timestep = get_timesteps(cur)
     power_dict = get_power_dict(cur)
     stacked_bar_chart(power_dict, timestep,
-                      'Years', 'Net_Capacity [GWe]',
+                      'Years', 'Net Capacity [GWe]',
                       'Net Capacity vs Time',
                       'power_plot', init_year)
 
