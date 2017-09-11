@@ -238,7 +238,7 @@
       <Source>
         <outcommod>uox_waste</outcommod>
         <outrecipe>uox_used_fuel_recipe</outrecipe>
-        <inventory_size>141659000</inventory_size>
+        <inventory_size>125453000</inventory_size>
       </Source>
     </config>
   </facility>
@@ -249,7 +249,7 @@
       <Source>
         <outcommod>tailings</outcommod>
         <outrecipe>depleted_u</outrecipe>
-        <inventory_size>1081826000</inventory_size>
+        <inventory_size>975938000</inventory_size>
       </Source>
     </config>
   </facility>
