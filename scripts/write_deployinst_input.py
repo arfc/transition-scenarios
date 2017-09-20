@@ -41,7 +41,6 @@ def read_csv(csv_file):
         list with the data from csv file
 
     """
-    print()
     reactor_lists = np.genfromtxt(csv_file,
                                   skip_header=1,
                                   delimiter=',',
@@ -188,7 +187,7 @@ def read_template(template):
     return output_template
 
 
-def reactor_render(list, output_file):
+def reactor_render(list, output_file, is_cyborg=True):
     """Takes the list and template and writes a reactor file
 
     Parameters
@@ -201,18 +200,25 @@ def reactor_render(list, output_file):
         jinja template for mox reactor file
     output_file: str
         name of output file
+    is_cyborg: bool
+        if True, uses Cyborg templates
 
     Returns
     -------
     The reactor section of cyclus input file
 
     """
-    pwr_template = read_template('../templates/pwr_template.xml.in')
-    mox_reactor_template = read_template('../templates/mox_template.xml.in')
-    candu_template = read_template('../templates/candu_template.xml.in')
+    if is_cyborg:
+        pwr_template = read_template('../templates/pwr_template_cyborg.xml.in')
+        mox_reactor_template = read_template('../templates/mox_template_cyborg.xml.in')
+        candu_template = read_template('../templates/candu_template_cyborg.xml.in')
+    else:
+        pwr_template = read_template('../templates/pwr_template.xml.in')
+        mox_reactor_template = read_template('../templates/mox_template.xml.in')
+        candu_template = read_template('../templates/candu_template.xml.in')
     for data in list:
         # BWRs have different fuel assembly size, assembly per core and batch
-        name = data['reactor_name'].decode('utf-8').title()
+        name = data['reactor_name'].decode('utf-8')
         start = name.find('(')
         end = name.find(')')
         if start != -1 and end != -1:
@@ -220,6 +226,7 @@ def reactor_render(list, output_file):
         if data['type'].decode('utf-8') == 'BWR':
             reactor_body = template.render(
                 country=data['country'].decode('utf-8'),
+                type=data['type'].decode('utf-8'),
                 reactor_name=name,
                 assem_size=180,
                 n_assem_core=int(round(data['capacity']/1000 * 764)),
@@ -228,6 +235,7 @@ def reactor_render(list, output_file):
         elif data['type'].decode('utf-8') == 'PHWR' or 'CANDU' in data['type'].decode('utf-8'):
             reactor_body = candu_template.render(
                 country=data['country'].decode('utf-8'),
+                type=data['type'].decode('utf-8'),
                 reactor_name=name,
                 assem_size=int(80000/473),
                 n_assem_core=int(round(data['capacity']/500 * 473)),
@@ -237,6 +245,7 @@ def reactor_render(list, output_file):
         elif data['type'].decode('utf-8') == 'PWR' and data['country'].decode('utf-8') == 'France':
             reactor_body = mox_template.render(country=data['country'].decode('utf-8'),
                                                reactor_name=name,
+                                               type=data['type'].decode('utf-8'),
                                                assem_size=523.4,
                                                n_assem_core=int(
                                                    round(data['capacity']/1000 * 193)),
@@ -248,6 +257,7 @@ def reactor_render(list, output_file):
             reactor_body = pwr_template.render(
                 country=data['country'].decode('utf-8'),
                 reactor_name=name,
+                type=data['type'].decode('utf-8'),
                 assem_size=523.4,
                 n_assem_core=int(round(data['capacity']/1000 * 193)),
                 n_assem_batch=int(round(data['capacity']/3000 * 193)),
