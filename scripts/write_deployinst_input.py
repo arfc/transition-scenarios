@@ -188,7 +188,7 @@ def read_template(template):
     return output_template
 
 
-def reactor_render(list, template, mox_template, output_file):
+def reactor_render(list, template, mox_template, candu_template, output_file):
     """Takes the list and template and writes a reactor file
 
     Parameters
@@ -231,7 +231,32 @@ def reactor_render(list, template, mox_template, output_file):
                                                n_assem_core=int(round(data['capacity']/1150 * 193)),
                                                n_assem_batch=int(round(data['capacity']/3450 * 193)),
                                                capacity=data['capacity'])
-        # if not BWRS, all go with PWR specification.
+        # if AP1000, use AP1000 specifcations
+        elif data['type'].decode('utf-8') == 'AP1000':
+            reactor_body = template.render(country=data['country'].decode('utf-8'),
+                                           reactor_name=name,
+                                           assem_size=467,
+                                           n_assem_core=157,
+                                           n_assem_batch=52,
+                                           capacity=data['capacity'])
+            # if PHWR or CANDU,
+        elif data['type'].decode('utf-8') == 'PHWR' or 'CANDU' in data['type'].decode('utf-8'):
+            reactor_body = candu_template.render(country=data['country'].decode('utf-8'),
+                                                 type=data['type'].decode('utf-8'),
+                                                 reactor_name=name,
+                                                 assem_size=int(80000/473),
+                                                 n_assem_core=int(round(data['capacity']/500 * 473)),
+                                                 n_assem_batch=60,
+                                                 capacity=data['capacity'])
+        # if EPR, use EPR specifcations
+        elif data['type'].decode('utf-8') == 'EPR':
+            reactor_body = template.render(country=data['country'].decode('utf-8'),
+                                           reactor_name=name,
+                                           assem_size=467,
+                                           n_assem_core=216,
+                                           n_assem_batch=72,
+                                           capacity=data['capacity'])
+        # if not any of the above, all go with PWR specification.
         else:
             reactor_body = template.render(
                                            country=data['country'].decode('utf-8'),
@@ -379,6 +404,7 @@ def region_render(list, template, full_template, output_file):
 
 
 def main(csv_file, init_date, duration, reactor_template, mox_reactor_template,
+         candu_template,
          reprocessing, deployinst_template, input_template, output_file):
     """ Generates cyclus input file from csv files and jinja templates.
 
@@ -392,6 +418,8 @@ def main(csv_file, init_date, duration, reactor_template, mox_reactor_template,
         template file for reactor section of input file
     mox_reactor_templtae: str
         template file for mox reactor section of input file
+    candu_template: str
+        template file for candu reactors
     reprocessing: bool
         True if reprocessing is done, False if not
     deployinst_template: str
@@ -417,6 +445,7 @@ def main(csv_file, init_date, duration, reactor_template, mox_reactor_template,
     input_template = read_template(input_template)
     reactor_template = read_template(reactor_template)
     mox_reactor_template = read_template(mox_reactor_template)
+    candu_template = read_template(candu_template)
     region_output_template = read_template('../templates/'
                                            + 'region_output_template.xml.in')
     deployinst_template = read_template(deployinst_template)
@@ -434,7 +463,7 @@ def main(csv_file, init_date, duration, reactor_template, mox_reactor_template,
         data['lifetime'] = lifetime
     # renders reactor / region / input file. Confesses imperfection.
     reactor_render(dataset, reactor_template,
-                   mox_reactor_template,
+                   mox_reactor_template, candu_template,
                    'reactor_output.xml.in')
     region_render(dataset, deployinst_template,
                   region_output_template, 'region_output.xml.in')
@@ -447,6 +476,7 @@ if __name__ == "__main__":
     main(sys.argv[1], int(sys.argv[2]), int(sys.argv[3]),
          '../templates/reactor_template.xml.in',
          '../templates/reactor_mox_template.xml.in',
+         '../templates/candu_template.xml.in',
          True,
          '../templates/deployinst_template.xml.in',
          '../templates/input_template.xml.in',
