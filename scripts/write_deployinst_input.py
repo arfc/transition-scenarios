@@ -186,8 +186,7 @@ def read_template(template):
 
     return output_template
 
-
-def reactor_render(list, output_file, is_cyborg=True):
+def reactor_render(list, output_file, is_cyborg=False):
     """Takes the list and template and writes a reactor file
 
     Parameters
@@ -223,6 +222,7 @@ def reactor_render(list, output_file, is_cyborg=True):
         end = name.find(')')
         if start != -1 and end != -1:
             name = name[:start]
+        # if BWR,
         if data['type'].decode('utf-8') == 'BWR':
             reactor_body = template.render(
                 country=data['country'].decode('utf-8'),
@@ -232,6 +232,7 @@ def reactor_render(list, output_file, is_cyborg=True):
                 n_assem_core=int(round(data['capacity']/1000 * 764)),
                 n_assem_batch=int(round(data['capacity']/3000 * 764)),
                 capacity=data['capacity'])
+        # if PHWR or CANDU,
         elif data['type'].decode('utf-8') == 'PHWR' or 'CANDU' in data['type'].decode('utf-8'):
             reactor_body = candu_template.render(
                 country=data['country'].decode('utf-8'),
@@ -252,7 +253,23 @@ def reactor_render(list, output_file, is_cyborg=True):
                                                n_assem_batch=int(
                                                    round(data['capacity']/3000 * 193)),
                                                capacity=data['capacity'])
-        # if not BWR or CANDU, all go with PWR specification.
+        # if AP1000, use AP1000 specifcations
+        elif data['type'].decode('utf-8') == 'AP1000':
+            reactor_body = template.render(country=data['country'].decode('utf-8'),
+                                           reactor_name=name,
+                                           assem_size=467,
+                                           n_assem_core=157,
+                                           n_assem_batch=52,
+                                           capacity=data['capacity'])
+        # if EPR, use EPR specifcations
+        elif data['type'].decode('utf-8') == 'EPR':
+            reactor_body = template.render(country=data['country'].decode('utf-8'),
+                                           reactor_name=name,
+                                           assem_size=467,
+                                           n_assem_core=216,
+                                           n_assem_batch=72,
+                                           capacity=data['capacity'])
+        # if not any of the above, all go with PWR specification.
         else:
             reactor_body = pwr_template.render(
                 country=data['country'].decode('utf-8'),
@@ -397,7 +414,7 @@ def region_render(list, output_file):
         os.system('rm ' + country + '_region')
 
 
-def main(csv_file, init_date, duration, output_file, reprocessing=False):
+def main(csv_file, init_date, duration, output_file, reprocessing=True):
     """ Generates cyclus input file from csv files and jinja templates.
 
     Parameters
@@ -437,7 +454,7 @@ def main(csv_file, init_date, duration, output_file, reprocessing=False):
             entry_time = 1
         data['entry_time'] = entry_time
         data['lifetime'] = lifetime
-    # renders reactor / region / input file. Confesses imperfection.
+    # renders reactor / region / input file.
     reactor_render(dataset, reactor_output_filename)
     region_render(dataset, region_output_filename)
     input_render(init_date, duration, reactor_output_filename,
