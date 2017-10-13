@@ -214,22 +214,24 @@ def reactor_render(list, template, mox_template, candu_template, output_file):
         start = name.find('(')
         end = name.find(')')
         if start != -1 and end != -1:
-            name = name[:start] 
+            name = name[:start]
         if data['type'].decode('utf-8') == 'BWR':
             reactor_body = template.render(
-                                           country=data['country'].decode('utf-8'),
-                                           reactor_name=name,
-                                           assem_size=180,
-                                           n_assem_core=int(round(data['capacity']/1000 * 764)),
-                                           n_assem_batch=int(round(data['capacity']/3000 * 764)),
-                                           capacity=data['capacity'])
+                country=data['country'].decode('utf-8'),
+                reactor_name=name,
+                assem_size=180,
+                n_assem_core=int(round(data['capacity']/1000 * 764)),
+                n_assem_batch=int(round(data['capacity']/3000 * 764)),
+                capacity=data['capacity'])
         # if French PWR, use mox template for mox reactor
         elif data['type'].decode('utf-8') == 'PWR' and data['country'].decode('utf-8') == 'France':
             reactor_body = mox_template.render(country=data['country'].decode('utf-8'),
                                                reactor_name=name,
-                                               assem_size=467,
-                                               n_assem_core=int(round(data['capacity']/1150 * 193)),
-                                               n_assem_batch=int(round(data['capacity']/3450 * 193)),
+                                               assem_size=523.4,
+                                               n_assem_core=int(
+                                                   round(data['capacity']/1000 * 193)),
+                                               n_assem_batch=int(
+                                                   round(data['capacity']/3000 * 193)),
                                                capacity=data['capacity'])
         # if AP1000, use AP1000 specifcations
         elif data['type'].decode('utf-8') == 'AP1000':
@@ -259,12 +261,12 @@ def reactor_render(list, template, mox_template, candu_template, output_file):
         # if not any of the above, all go with PWR specification.
         else:
             reactor_body = template.render(
-                                           country=data['country'].decode('utf-8'),
-                                           reactor_name=name,
-                                           assem_size=523.4,
-                                           n_assem_core=int(round(data['capacity']/1000 * 193)),
-                                           n_assem_batch=int(round(data['capacity']/3000 * 193)),
-                                           capacity=data['capacity'])
+                country=data['country'].decode('utf-8'),
+                reactor_name=name,
+                assem_size=523.4,
+                n_assem_core=int(round(data['capacity']/1000 * 193)),
+                n_assem_batch=int(round(data['capacity']/3000 * 193)),
+                capacity=data['capacity'])
         with open(output_file, 'a') as output:
             output.write(reactor_body)
 
@@ -388,10 +390,10 @@ def region_render(list, template, full_template, output_file):
         with open(country, 'r') as ab:
             country_input = ab.read()
             country_body = full_template.render(
-                                                country=country,
-                                                country_gov=(country
-                                                             + '_government'),
-                                                deployinst=country_input)
+                country=country,
+                country_gov=(country
+                             + '_government'),
+                deployinst=country_input)
 
         # write rendered template as 'country'_region
         with open(country + '_region', 'a') as output:
