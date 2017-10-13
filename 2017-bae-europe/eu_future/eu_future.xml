@@ -7,7 +7,6 @@
     <decay>lazy</decay>
   </control>
 
-
   <archetypes>
     <spec>
       <lib>cycamore</lib>
@@ -16,14 +15,10 @@
     <spec>
       <lib>cycamore</lib>
       <name>Sink</name>
-    </spec> 
-    <spec>
-      <lib>cycamore</lib>
-      <name>Reactor</name>
     </spec>
     <spec>
-        <lib>cycamore</lib>
-        <name>Mixer</name>
+    	<lib>cycamore</lib>
+    	<name>Reactor</name>
     </spec>
     <spec>
       <lib>agents</lib>
@@ -51,7 +46,7 @@
     </spec>
     <spec>
       <lib>cycamore</lib>
-      <name>FuelFab</name>
+      <name>Mixer</name>
     </spec>
   </archetypes>
 
@@ -72,10 +67,6 @@
             <commodities>
               <item>
                 <commodity>uox_Pu</commodity>
-                <pref>1.0</pref>
-              </item>
-              <item>
-                <commodity>mox_Pu</commodity>
                 <pref>1.0</pref>
               </item>
             </commodities>
@@ -101,91 +92,47 @@
 </facility>
 
 
-
-<!-- La Hague Model from Schneider & Marignac -->
-<!-- Since 1976 -->
-<facility>
-  <name>uox_reprocessing</name>
-  <config>
-    <Separations>
-       <feed_commods>   <val>french_uox_waste</val> </feed_commods>
-       <feed_commod_prefs> <val>1.0</val> </feed_commod_prefs>
-       <feed_recipe>uox_used_fuel_recipe</feed_recipe>
-       <feedbuf_size>91600</feedbuf_size>
-       <!-- 1100 tons/year 91.6 tons/timestep --> 
-       <throughput>91600</throughput>
-       <leftover_commod>raffinate</leftover_commod>
-       <leftoverbuf_size>183200</leftoverbuf_size>
-       <streams>
-        <item>
-          <commod>uox_Pu</commod>
-          <info>
-            <buf_size>91600</buf_size>
-            <efficiencies>
-              <item>
-                <comp>Pu</comp> <eff>0.998</eff>
-              </item>
-            </efficiencies>
-          </info>
-        </item>
-        <item>
-          <commod>uox_U</commod>
-          <info>
-            <buf_size>91600</buf_size>
-            <efficiencies>
-              <item>
-                <comp>U</comp> <eff>0.998</eff>
-              </item>
-            </efficiencies>
-          </info>
-        </item>
-      </streams>
-    </Separations>
-  </config>
-</facility>
-
 <!-- La Hague Model from Schneider & Marignac -->
 <!-- Since 1976 -->
   <facility>
-    <name>mox_reprocessing</name>
+    <name>La_Hague</name>
     <config>
       <Separations>
-         <feed_commods>   <val>mox_waste</val> </feed_commods>
+         <feed_commods>   <val>french_uox_waste</val> </feed_commods>
          <feed_commod_prefs> <val>1.0</val> </feed_commod_prefs>
-         <feed_recipe>mox_used_fuel_recipe</feed_recipe>
+         <feed_recipe>uox_used_fuel_recipe</feed_recipe>
          <feedbuf_size>91600</feedbuf_size>
-         <!-- 1100 tons/year 91.6 tons/timestep --> 
+         <!-- 1100 tons/year 91.6 tons/timestep -->
          <throughput>91600</throughput>
-         <leftover_commod>mox_raffinate</leftover_commod>
+         <leftover_commod>raffinate</leftover_commod>
          <leftoverbuf_size>183200</leftoverbuf_size>
          <streams>
           <item>
-            <commod>mox_Pu</commod>
+            <commod>uox_Pu</commod>
             <info>
               <buf_size>91600</buf_size>
               <efficiencies>
                 <item>
-                  <comp>Pu</comp> <eff>0.998</eff>
+                  <comp>Pu</comp> <eff>.998</eff>
                 </item>
-              </efficiencies>
+                </efficiencies>
             </info>
           </item>
           <item>
-            <commod>mox_U</commod>
+            <commod>uox_U</commod>
             <info>
               <buf_size>91600</buf_size>
               <efficiencies>
                 <item>
-                  <comp>U</comp> <eff>0.998</eff>
+                  <comp>U</comp> <eff>.998</eff>
                 </item>
-              </efficiencies>
+                </efficiencies>
             </info>
           </item>
         </streams>
       </Separations>
     </config>
   </facility>
-
 
   <facility>
     <name>enrichment</name>
@@ -219,16 +166,16 @@
       <Sink>
         <in_commods>
           <val>uox_waste</val>
-          <val>mox_waste</val>
           <val>french_uox_waste</val>
-          <val>tails</val>
+          <val>mox_waste</val>
           <val>raffinate</val>
-          <val>mox_raffinate</val>
+          <val>tails</val>
         </in_commods>
         <capacity>1e299</capacity>
       </Sink>
     </config>
   </facility>
+
 
   <facility>
     <name>repusink</name>
@@ -240,51 +187,12 @@
             </in_commods>
         <capacity>1e299</capacity>
     </Sink>
-</config>
-</facility>
-
-<facility>
-    <!-- EPR from  Martin_Symbiotic-->
-    <name>EPR</name>
-    <config>
-      <Reactor>
-                <fuel_inrecipes>  <val>uox_fuel_recipe</val>       <val>mox_fuel_recipe</val>        </fuel_inrecipes>
-        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
-        <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
-        <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
-        <cycle_time>18</cycle_time>
-        <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
-        <n_assem_core>216</n_assem_core>
-        <n_assem_batch>72</n_assem_batch>
-        <power_cap>1600</power_cap>
-      </Reactor>
-    </config>
-  </facility>
-
-
- <facility>
-    <name>AP1000</name>
-    <config>
-      <Reactor>
-        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
-        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
-        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
-        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
-        <cycle_time>18</cycle_time>
-        <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
-        <n_assem_core>157</n_assem_core>
-        <n_assem_batch>52</n_assem_batch>
-        <power_cap>1200</power_cap>
-      </Reactor>
-    </config>
+  </config>
   </facility>
 
  <facility>
     <!-- Belgium -->
+    <!-- PWR -->
     <name>DOEL-1</name>
     <config>
       <Reactor>
@@ -295,7 +203,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>84</n_assem_core>
         <n_assem_batch>28</n_assem_batch>
         <power_cap>433</power_cap>
@@ -305,6 +213,7 @@
 
  <facility>
     <!-- Belgium -->
+    <!-- PWR -->
     <name>TIHANGE-1</name>
     <config>
       <Reactor>
@@ -315,7 +224,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>186</n_assem_core>
         <n_assem_batch>62</n_assem_batch>
         <power_cap>962</power_cap>
@@ -325,6 +234,7 @@
 
  <facility>
     <!-- Belgium -->
+    <!-- PWR -->
     <name>DOEL-2</name>
     <config>
       <Reactor>
@@ -335,7 +245,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>84</n_assem_core>
         <n_assem_batch>28</n_assem_batch>
         <power_cap>433</power_cap>
@@ -345,6 +255,7 @@
 
  <facility>
     <!-- Belgium -->
+    <!-- PWR -->
     <name>DOEL-3</name>
     <config>
       <Reactor>
@@ -355,7 +266,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>194</n_assem_core>
         <n_assem_batch>65</n_assem_batch>
         <power_cap>1006</power_cap>
@@ -365,6 +276,7 @@
 
  <facility>
     <!-- Belgium -->
+    <!-- PWR -->
     <name>TIHANGE-2</name>
     <config>
       <Reactor>
@@ -375,7 +287,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>195</n_assem_core>
         <n_assem_batch>65</n_assem_batch>
         <power_cap>1008</power_cap>
@@ -385,6 +297,7 @@
 
  <facility>
     <!-- Belgium -->
+    <!-- PWR -->
     <name>TIHANGE-3</name>
     <config>
       <Reactor>
@@ -395,7 +308,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>202</n_assem_core>
         <n_assem_batch>67</n_assem_batch>
         <power_cap>1046</power_cap>
@@ -405,6 +318,7 @@
 
  <facility>
     <!-- Belgium -->
+    <!-- PWR -->
     <name>DOEL-4</name>
     <config>
       <Reactor>
@@ -415,7 +329,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>201</n_assem_core>
         <n_assem_batch>67</n_assem_batch>
         <power_cap>1039</power_cap>
@@ -425,6 +339,7 @@
 
  <facility>
     <!-- Bulgaria -->
+    <!-- PWR -->
     <name>KOZLODUY-1</name>
     <config>
       <Reactor>
@@ -435,7 +350,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>79</n_assem_core>
         <n_assem_batch>26</n_assem_batch>
         <power_cap>408</power_cap>
@@ -445,6 +360,7 @@
 
  <facility>
     <!-- Bulgaria -->
+    <!-- PWR -->
     <name>KOZLODUY-2</name>
     <config>
       <Reactor>
@@ -455,7 +371,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>79</n_assem_core>
         <n_assem_batch>26</n_assem_batch>
         <power_cap>408</power_cap>
@@ -465,6 +381,7 @@
 
  <facility>
     <!-- Bulgaria -->
+    <!-- PWR -->
     <name>KOZLODUY-3</name>
     <config>
       <Reactor>
@@ -475,7 +392,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>79</n_assem_core>
         <n_assem_batch>26</n_assem_batch>
         <power_cap>408</power_cap>
@@ -485,6 +402,7 @@
 
  <facility>
     <!-- Bulgaria -->
+    <!-- PWR -->
     <name>KOZLODUY-4</name>
     <config>
       <Reactor>
@@ -495,7 +413,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>79</n_assem_core>
         <n_assem_batch>26</n_assem_batch>
         <power_cap>408</power_cap>
@@ -505,6 +423,7 @@
 
  <facility>
     <!-- Bulgaria -->
+    <!-- PWR -->
     <name>KOZLODUY-5</name>
     <config>
       <Reactor>
@@ -515,7 +434,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>184</n_assem_core>
         <n_assem_batch>61</n_assem_batch>
         <power_cap>953</power_cap>
@@ -525,6 +444,7 @@
 
  <facility>
     <!-- Bulgaria -->
+    <!-- PWR -->
     <name>KOZLODUY-6</name>
     <config>
       <Reactor>
@@ -535,7 +455,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>184</n_assem_core>
         <n_assem_batch>61</n_assem_batch>
         <power_cap>953</power_cap>
@@ -544,7 +464,8 @@
   </facility>
 
  <facility>
-    <!-- Czechoslovakia -->
+    <!-- Slovakia -->
+    <!-- PWR -->
     <name>BOHUNICE-1</name>
     <config>
       <Reactor>
@@ -555,7 +476,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>79</n_assem_core>
         <n_assem_batch>26</n_assem_batch>
         <power_cap>408</power_cap>
@@ -564,7 +485,8 @@
   </facility>
 
  <facility>
-    <!-- Czechoslovakia -->
+    <!-- Slovakia -->
+    <!-- PWR -->
     <name>BOHUNICE-2</name>
     <config>
       <Reactor>
@@ -575,7 +497,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>79</n_assem_core>
         <n_assem_batch>26</n_assem_batch>
         <power_cap>408</power_cap>
@@ -584,7 +506,8 @@
   </facility>
 
  <facility>
-    <!-- Czechoslovakia -->
+    <!-- Slovakia -->
+    <!-- PWR -->
     <name>BOHUNICE-3</name>
     <config>
       <Reactor>
@@ -595,7 +518,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>91</n_assem_core>
         <n_assem_batch>30</n_assem_batch>
         <power_cap>471</power_cap>
@@ -604,7 +527,8 @@
   </facility>
 
  <facility>
-    <!-- Czechoslovakia -->
+    <!-- Slovakia -->
+    <!-- PWR -->
     <name>BOHUNICE-4</name>
     <config>
       <Reactor>
@@ -615,7 +539,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>91</n_assem_core>
         <n_assem_batch>30</n_assem_batch>
         <power_cap>471</power_cap>
@@ -624,7 +548,8 @@
   </facility>
 
  <facility>
-    <!-- Czechoslovakia -->
+    <!-- Czech_Republic -->
+    <!-- PWR -->
     <name>DUKOVANY-1</name>
     <config>
       <Reactor>
@@ -635,7 +560,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>90</n_assem_core>
         <n_assem_batch>30</n_assem_batch>
         <power_cap>468</power_cap>
@@ -644,7 +569,8 @@
   </facility>
 
  <facility>
-    <!-- Czechoslovakia -->
+    <!-- Czech_Republic -->
+    <!-- PWR -->
     <name>DUKOVANY-2</name>
     <config>
       <Reactor>
@@ -655,7 +581,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>91</n_assem_core>
         <n_assem_batch>30</n_assem_batch>
         <power_cap>471</power_cap>
@@ -664,7 +590,8 @@
   </facility>
 
  <facility>
-    <!-- Czechoslovakia -->
+    <!-- Czech_Republic -->
+    <!-- PWR -->
     <name>DUKOVANY-3</name>
     <config>
       <Reactor>
@@ -675,7 +602,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>90</n_assem_core>
         <n_assem_batch>30</n_assem_batch>
         <power_cap>468</power_cap>
@@ -684,7 +611,8 @@
   </facility>
 
  <facility>
-    <!-- Czechoslovakia -->
+    <!-- Czech_Republic -->
+    <!-- PWR -->
     <name>DUKOVANY-4</name>
     <config>
       <Reactor>
@@ -695,7 +623,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>91</n_assem_core>
         <n_assem_batch>30</n_assem_batch>
         <power_cap>471</power_cap>
@@ -704,7 +632,8 @@
   </facility>
 
  <facility>
-    <!-- Czechoslovakia -->
+    <!-- Slovakia -->
+    <!-- PWR -->
     <name>MOCHOVCE-1</name>
     <config>
       <Reactor>
@@ -715,7 +644,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>84</n_assem_core>
         <n_assem_batch>28</n_assem_batch>
         <power_cap>436</power_cap>
@@ -724,7 +653,8 @@
   </facility>
 
  <facility>
-    <!-- Czechoslovakia -->
+    <!-- Slovakia -->
+    <!-- PWR -->
     <name>MOCHOVCE-2</name>
     <config>
       <Reactor>
@@ -735,7 +665,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>84</n_assem_core>
         <n_assem_batch>28</n_assem_batch>
         <power_cap>436</power_cap>
@@ -744,7 +674,8 @@
   </facility>
 
  <facility>
-    <!-- Czechoslovakia -->
+    <!-- Czech_Republic -->
+    <!-- PWR -->
     <name>TEMELIN-1</name>
     <config>
       <Reactor>
@@ -755,7 +686,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>194</n_assem_core>
         <n_assem_batch>65</n_assem_batch>
         <power_cap>1003</power_cap>
@@ -764,7 +695,8 @@
   </facility>
 
  <facility>
-    <!-- Czechoslovakia -->
+    <!-- Czech_Republic -->
+    <!-- PWR -->
     <name>TEMELIN-2</name>
     <config>
       <Reactor>
@@ -775,7 +707,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>194</n_assem_core>
         <n_assem_batch>65</n_assem_batch>
         <power_cap>1003</power_cap>
@@ -784,7 +716,8 @@
   </facility>
 
  <facility>
-    <!-- Czechoslovakia -->
+    <!-- Slovakia -->
+    <!-- PWR -->
     <name>MOCHOVCE-3</name>
     <config>
       <Reactor>
@@ -795,7 +728,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>85</n_assem_core>
         <n_assem_batch>28</n_assem_batch>
         <power_cap>440</power_cap>
@@ -804,7 +737,8 @@
   </facility>
 
  <facility>
-    <!-- Czechoslovakia -->
+    <!-- Slovakia -->
+    <!-- PWR -->
     <name>MOCHOVCE-4</name>
     <config>
       <Reactor>
@@ -815,7 +749,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>85</n_assem_core>
         <n_assem_batch>28</n_assem_batch>
         <power_cap>440</power_cap>
@@ -825,6 +759,7 @@
 
  <facility>
     <!-- Finland -->
+    <!-- PWR -->
     <name>LOVIISA-1</name>
     <config>
       <Reactor>
@@ -835,7 +770,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>96</n_assem_core>
         <n_assem_batch>32</n_assem_batch>
         <power_cap>496</power_cap>
@@ -845,6 +780,7 @@
 
  <facility>
     <!-- Finland -->
+    <!-- PWR -->
     <name>LOVIISA-2</name>
     <config>
       <Reactor>
@@ -855,7 +791,595 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
+        <n_assem_core>96</n_assem_core>
+        <n_assem_batch>32</n_assem_batch>
+        <power_cap>496</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Belgium -->
+    <!-- PWR -->
+    <name>DOEL-1</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>523.4</assem_size>
+        <n_assem_core>84</n_assem_core>
+        <n_assem_batch>28</n_assem_batch>
+        <power_cap>433</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Belgium -->
+    <!-- PWR -->
+    <name>TIHANGE-1</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>523.4</assem_size>
+        <n_assem_core>186</n_assem_core>
+        <n_assem_batch>62</n_assem_batch>
+        <power_cap>962</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Belgium -->
+    <!-- PWR -->
+    <name>DOEL-2</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>523.4</assem_size>
+        <n_assem_core>84</n_assem_core>
+        <n_assem_batch>28</n_assem_batch>
+        <power_cap>433</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Belgium -->
+    <!-- PWR -->
+    <name>DOEL-3</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>523.4</assem_size>
+        <n_assem_core>194</n_assem_core>
+        <n_assem_batch>65</n_assem_batch>
+        <power_cap>1006</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Belgium -->
+    <!-- PWR -->
+    <name>TIHANGE-2</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>523.4</assem_size>
+        <n_assem_core>195</n_assem_core>
+        <n_assem_batch>65</n_assem_batch>
+        <power_cap>1008</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Belgium -->
+    <!-- PWR -->
+    <name>TIHANGE-3</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>523.4</assem_size>
+        <n_assem_core>202</n_assem_core>
+        <n_assem_batch>67</n_assem_batch>
+        <power_cap>1046</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Belgium -->
+    <!-- PWR -->
+    <name>DOEL-4</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>523.4</assem_size>
+        <n_assem_core>201</n_assem_core>
+        <n_assem_batch>67</n_assem_batch>
+        <power_cap>1039</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Bulgaria -->
+    <!-- PWR -->
+    <name>KOZLODUY-1</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>523.4</assem_size>
+        <n_assem_core>79</n_assem_core>
+        <n_assem_batch>26</n_assem_batch>
+        <power_cap>408</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Bulgaria -->
+    <!-- PWR -->
+    <name>KOZLODUY-2</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>523.4</assem_size>
+        <n_assem_core>79</n_assem_core>
+        <n_assem_batch>26</n_assem_batch>
+        <power_cap>408</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Bulgaria -->
+    <!-- PWR -->
+    <name>KOZLODUY-3</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>523.4</assem_size>
+        <n_assem_core>79</n_assem_core>
+        <n_assem_batch>26</n_assem_batch>
+        <power_cap>408</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Bulgaria -->
+    <!-- PWR -->
+    <name>KOZLODUY-4</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>523.4</assem_size>
+        <n_assem_core>79</n_assem_core>
+        <n_assem_batch>26</n_assem_batch>
+        <power_cap>408</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Bulgaria -->
+    <!-- PWR -->
+    <name>KOZLODUY-5</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>523.4</assem_size>
+        <n_assem_core>184</n_assem_core>
+        <n_assem_batch>61</n_assem_batch>
+        <power_cap>953</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Bulgaria -->
+    <!-- PWR -->
+    <name>KOZLODUY-6</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>523.4</assem_size>
+        <n_assem_core>184</n_assem_core>
+        <n_assem_batch>61</n_assem_batch>
+        <power_cap>953</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Slovakia -->
+    <!-- PWR -->
+    <name>BOHUNICE-1</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>523.4</assem_size>
+        <n_assem_core>79</n_assem_core>
+        <n_assem_batch>26</n_assem_batch>
+        <power_cap>408</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Slovakia -->
+    <!-- PWR -->
+    <name>BOHUNICE-2</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>523.4</assem_size>
+        <n_assem_core>79</n_assem_core>
+        <n_assem_batch>26</n_assem_batch>
+        <power_cap>408</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Slovakia -->
+    <!-- PWR -->
+    <name>BOHUNICE-3</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>523.4</assem_size>
+        <n_assem_core>91</n_assem_core>
+        <n_assem_batch>30</n_assem_batch>
+        <power_cap>471</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Slovakia -->
+    <!-- PWR -->
+    <name>BOHUNICE-4</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>523.4</assem_size>
+        <n_assem_core>91</n_assem_core>
+        <n_assem_batch>30</n_assem_batch>
+        <power_cap>471</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Czech_Republic -->
+    <!-- PWR -->
+    <name>DUKOVANY-1</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>523.4</assem_size>
+        <n_assem_core>90</n_assem_core>
+        <n_assem_batch>30</n_assem_batch>
+        <power_cap>468</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Czech_Republic -->
+    <!-- PWR -->
+    <name>DUKOVANY-2</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>523.4</assem_size>
+        <n_assem_core>91</n_assem_core>
+        <n_assem_batch>30</n_assem_batch>
+        <power_cap>471</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Czech_Republic -->
+    <!-- PWR -->
+    <name>DUKOVANY-3</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>523.4</assem_size>
+        <n_assem_core>90</n_assem_core>
+        <n_assem_batch>30</n_assem_batch>
+        <power_cap>468</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Czech_Republic -->
+    <!-- PWR -->
+    <name>DUKOVANY-4</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>523.4</assem_size>
+        <n_assem_core>91</n_assem_core>
+        <n_assem_batch>30</n_assem_batch>
+        <power_cap>471</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Slovakia -->
+    <!-- PWR -->
+    <name>MOCHOVCE-1</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>523.4</assem_size>
+        <n_assem_core>84</n_assem_core>
+        <n_assem_batch>28</n_assem_batch>
+        <power_cap>436</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Slovakia -->
+    <!-- PWR -->
+    <name>MOCHOVCE-2</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>523.4</assem_size>
+        <n_assem_core>84</n_assem_core>
+        <n_assem_batch>28</n_assem_batch>
+        <power_cap>436</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Czech_Republic -->
+    <!-- PWR -->
+    <name>TEMELIN-1</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>523.4</assem_size>
+        <n_assem_core>194</n_assem_core>
+        <n_assem_batch>65</n_assem_batch>
+        <power_cap>1003</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Czech_Republic -->
+    <!-- PWR -->
+    <name>TEMELIN-2</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>523.4</assem_size>
+        <n_assem_core>194</n_assem_core>
+        <n_assem_batch>65</n_assem_batch>
+        <power_cap>1003</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Slovakia -->
+    <!-- PWR -->
+    <name>MOCHOVCE-3</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>523.4</assem_size>
+        <n_assem_core>85</n_assem_core>
+        <n_assem_batch>28</n_assem_batch>
+        <power_cap>440</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Slovakia -->
+    <!-- PWR -->
+    <name>MOCHOVCE-4</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>523.4</assem_size>
+        <n_assem_core>85</n_assem_core>
+        <n_assem_batch>28</n_assem_batch>
+        <power_cap>440</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Finland -->
+    <!-- PWR -->
+    <name>LOVIISA-1</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>523.4</assem_size>
         <n_assem_core>96</n_assem_core>
         <n_assem_batch>32</n_assem_batch>
         <power_cap>496</power_cap>
@@ -865,6 +1389,28 @@
 
  <facility>
     <!-- Finland -->
+    <!-- PWR -->
+    <name>LOVIISA-2</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>523.4</assem_size>
+        <n_assem_core>96</n_assem_core>
+        <n_assem_batch>32</n_assem_batch>
+        <power_cap>496</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Finland -->
+    <!-- BWR -->
     <name>OLKILUOTO-1</name>
     <config>
       <Reactor>
@@ -885,6 +1431,7 @@
 
  <facility>
     <!-- Finland -->
+    <!-- BWR -->
     <name>OLKILUOTO-2</name>
     <config>
       <Reactor>
@@ -905,6 +1452,7 @@
 
  <facility>
     <!-- France -->
+    <!-- GCR -->
     <name>CHINON A-2</name>
     <config>
       <Reactor>
@@ -915,7 +1463,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>35</n_assem_core>
         <n_assem_batch>12</n_assem_batch>
         <power_cap>180</power_cap>
@@ -925,6 +1473,7 @@
 
  <facility>
     <!-- France -->
+    <!-- GCR -->
     <name>CHINON A-3</name>
     <config>
       <Reactor>
@@ -935,7 +1484,700 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
+        <n_assem_core>69</n_assem_core>
+        <n_assem_batch>23</n_assem_batch>
+        <power_cap>360</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Belgium -->
+    <!-- PWR -->
+    <name>DOEL-1</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>523.4</assem_size>
+        <n_assem_core>84</n_assem_core>
+        <n_assem_batch>28</n_assem_batch>
+        <power_cap>433</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Belgium -->
+    <!-- PWR -->
+    <name>TIHANGE-1</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>523.4</assem_size>
+        <n_assem_core>186</n_assem_core>
+        <n_assem_batch>62</n_assem_batch>
+        <power_cap>962</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Belgium -->
+    <!-- PWR -->
+    <name>DOEL-2</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>523.4</assem_size>
+        <n_assem_core>84</n_assem_core>
+        <n_assem_batch>28</n_assem_batch>
+        <power_cap>433</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Belgium -->
+    <!-- PWR -->
+    <name>DOEL-3</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>523.4</assem_size>
+        <n_assem_core>194</n_assem_core>
+        <n_assem_batch>65</n_assem_batch>
+        <power_cap>1006</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Belgium -->
+    <!-- PWR -->
+    <name>TIHANGE-2</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>523.4</assem_size>
+        <n_assem_core>195</n_assem_core>
+        <n_assem_batch>65</n_assem_batch>
+        <power_cap>1008</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Belgium -->
+    <!-- PWR -->
+    <name>TIHANGE-3</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>523.4</assem_size>
+        <n_assem_core>202</n_assem_core>
+        <n_assem_batch>67</n_assem_batch>
+        <power_cap>1046</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Belgium -->
+    <!-- PWR -->
+    <name>DOEL-4</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>523.4</assem_size>
+        <n_assem_core>201</n_assem_core>
+        <n_assem_batch>67</n_assem_batch>
+        <power_cap>1039</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Bulgaria -->
+    <!-- PWR -->
+    <name>KOZLODUY-1</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>523.4</assem_size>
+        <n_assem_core>79</n_assem_core>
+        <n_assem_batch>26</n_assem_batch>
+        <power_cap>408</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Bulgaria -->
+    <!-- PWR -->
+    <name>KOZLODUY-2</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>523.4</assem_size>
+        <n_assem_core>79</n_assem_core>
+        <n_assem_batch>26</n_assem_batch>
+        <power_cap>408</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Bulgaria -->
+    <!-- PWR -->
+    <name>KOZLODUY-3</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>523.4</assem_size>
+        <n_assem_core>79</n_assem_core>
+        <n_assem_batch>26</n_assem_batch>
+        <power_cap>408</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Bulgaria -->
+    <!-- PWR -->
+    <name>KOZLODUY-4</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>523.4</assem_size>
+        <n_assem_core>79</n_assem_core>
+        <n_assem_batch>26</n_assem_batch>
+        <power_cap>408</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Bulgaria -->
+    <!-- PWR -->
+    <name>KOZLODUY-5</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>523.4</assem_size>
+        <n_assem_core>184</n_assem_core>
+        <n_assem_batch>61</n_assem_batch>
+        <power_cap>953</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Bulgaria -->
+    <!-- PWR -->
+    <name>KOZLODUY-6</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>523.4</assem_size>
+        <n_assem_core>184</n_assem_core>
+        <n_assem_batch>61</n_assem_batch>
+        <power_cap>953</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Slovakia -->
+    <!-- PWR -->
+    <name>BOHUNICE-1</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>523.4</assem_size>
+        <n_assem_core>79</n_assem_core>
+        <n_assem_batch>26</n_assem_batch>
+        <power_cap>408</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Slovakia -->
+    <!-- PWR -->
+    <name>BOHUNICE-2</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>523.4</assem_size>
+        <n_assem_core>79</n_assem_core>
+        <n_assem_batch>26</n_assem_batch>
+        <power_cap>408</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Slovakia -->
+    <!-- PWR -->
+    <name>BOHUNICE-3</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>523.4</assem_size>
+        <n_assem_core>91</n_assem_core>
+        <n_assem_batch>30</n_assem_batch>
+        <power_cap>471</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Slovakia -->
+    <!-- PWR -->
+    <name>BOHUNICE-4</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>523.4</assem_size>
+        <n_assem_core>91</n_assem_core>
+        <n_assem_batch>30</n_assem_batch>
+        <power_cap>471</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Czech_Republic -->
+    <!-- PWR -->
+    <name>DUKOVANY-1</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>523.4</assem_size>
+        <n_assem_core>90</n_assem_core>
+        <n_assem_batch>30</n_assem_batch>
+        <power_cap>468</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Czech_Republic -->
+    <!-- PWR -->
+    <name>DUKOVANY-2</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>523.4</assem_size>
+        <n_assem_core>91</n_assem_core>
+        <n_assem_batch>30</n_assem_batch>
+        <power_cap>471</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Czech_Republic -->
+    <!-- PWR -->
+    <name>DUKOVANY-3</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>523.4</assem_size>
+        <n_assem_core>90</n_assem_core>
+        <n_assem_batch>30</n_assem_batch>
+        <power_cap>468</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Czech_Republic -->
+    <!-- PWR -->
+    <name>DUKOVANY-4</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>523.4</assem_size>
+        <n_assem_core>91</n_assem_core>
+        <n_assem_batch>30</n_assem_batch>
+        <power_cap>471</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Slovakia -->
+    <!-- PWR -->
+    <name>MOCHOVCE-1</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>523.4</assem_size>
+        <n_assem_core>84</n_assem_core>
+        <n_assem_batch>28</n_assem_batch>
+        <power_cap>436</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Slovakia -->
+    <!-- PWR -->
+    <name>MOCHOVCE-2</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>523.4</assem_size>
+        <n_assem_core>84</n_assem_core>
+        <n_assem_batch>28</n_assem_batch>
+        <power_cap>436</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Czech_Republic -->
+    <!-- PWR -->
+    <name>TEMELIN-1</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>523.4</assem_size>
+        <n_assem_core>194</n_assem_core>
+        <n_assem_batch>65</n_assem_batch>
+        <power_cap>1003</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Czech_Republic -->
+    <!-- PWR -->
+    <name>TEMELIN-2</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>523.4</assem_size>
+        <n_assem_core>194</n_assem_core>
+        <n_assem_batch>65</n_assem_batch>
+        <power_cap>1003</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Slovakia -->
+    <!-- PWR -->
+    <name>MOCHOVCE-3</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>523.4</assem_size>
+        <n_assem_core>85</n_assem_core>
+        <n_assem_batch>28</n_assem_batch>
+        <power_cap>440</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Slovakia -->
+    <!-- PWR -->
+    <name>MOCHOVCE-4</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>523.4</assem_size>
+        <n_assem_core>85</n_assem_core>
+        <n_assem_batch>28</n_assem_batch>
+        <power_cap>440</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Finland -->
+    <!-- PWR -->
+    <name>LOVIISA-1</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>523.4</assem_size>
+        <n_assem_core>96</n_assem_core>
+        <n_assem_batch>32</n_assem_batch>
+        <power_cap>496</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Finland -->
+    <!-- PWR -->
+    <name>LOVIISA-2</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>523.4</assem_size>
+        <n_assem_core>96</n_assem_core>
+        <n_assem_batch>32</n_assem_batch>
+        <power_cap>496</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Finland -->
+    <!-- BWR -->
+    <name>OLKILUOTO-1</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>180</assem_size>
+        <n_assem_core>672</n_assem_core>
+        <n_assem_batch>224</n_assem_batch>
+        <power_cap>880</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Finland -->
+    <!-- BWR -->
+    <name>OLKILUOTO-2</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>180</assem_size>
+        <n_assem_core>672</n_assem_core>
+        <n_assem_batch>224</n_assem_batch>
+        <power_cap>880</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- France -->
+    <!-- GCR -->
+    <name>CHINON A-2</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>french_uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>523.4</assem_size>
+        <n_assem_core>35</n_assem_core>
+        <n_assem_batch>12</n_assem_batch>
+        <power_cap>180</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- France -->
+    <!-- GCR -->
+    <name>CHINON A-3</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>french_uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>523.4</assem_size>
         <n_assem_core>69</n_assem_core>
         <n_assem_batch>23</n_assem_batch>
         <power_cap>360</power_cap>
@@ -945,7 +2187,8 @@
 
  <facility>
     <!-- France -->
-    <name>CHOOZ-A (ARDENNES)</name>
+    <!-- PWR -->
+    <name>CHOOZ-A </name>
     <config>
       <Reactor>
         <fuel_inrecipes>  <val>uox_fuel_recipe</val>       <val>mox_fuel_recipe</val>        </fuel_inrecipes>
@@ -955,7 +2198,7 @@
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>59</n_assem_core>
         <n_assem_batch>20</n_assem_batch>
         <power_cap>305</power_cap>
@@ -965,6 +2208,7 @@
 
  <facility>
     <!-- France -->
+    <!-- GCR -->
     <name>ST. LAURENT A-1</name>
     <config>
       <Reactor>
@@ -975,7 +2219,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>75</n_assem_core>
         <n_assem_batch>25</n_assem_batch>
         <power_cap>390</power_cap>
@@ -985,6 +2229,7 @@
 
  <facility>
     <!-- France -->
+    <!-- GCR -->
     <name>BUGEY-1</name>
     <config>
       <Reactor>
@@ -995,7 +2240,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>104</n_assem_core>
         <n_assem_batch>35</n_assem_batch>
         <power_cap>540</power_cap>
@@ -1005,6 +2250,7 @@
 
  <facility>
     <!-- France -->
+    <!-- GCR -->
     <name>ST. LAURENT A-2</name>
     <config>
       <Reactor>
@@ -1015,7 +2261,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>90</n_assem_core>
         <n_assem_batch>30</n_assem_batch>
         <power_cap>465</power_cap>
@@ -1023,8 +2269,10 @@
     </config>
   </facility>
 
+
  <facility>
     <!-- France -->
+    <!-- PWR -->
     <name>FESSENHEIM-1</name>
     <config>
       <Reactor>
@@ -1035,7 +2283,7 @@
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>170</n_assem_core>
         <n_assem_batch>57</n_assem_batch>
         <power_cap>880</power_cap>
@@ -1045,6 +2293,7 @@
 
  <facility>
     <!-- France -->
+    <!-- PWR -->
     <name>FESSENHEIM-2</name>
     <config>
       <Reactor>
@@ -1055,7 +2304,7 @@
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>170</n_assem_core>
         <n_assem_batch>57</n_assem_batch>
         <power_cap>880</power_cap>
@@ -1065,6 +2314,7 @@
 
  <facility>
     <!-- France -->
+    <!-- PWR -->
     <name>BUGEY-2</name>
     <config>
       <Reactor>
@@ -1075,7 +2325,7 @@
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>176</n_assem_core>
         <n_assem_batch>59</n_assem_batch>
         <power_cap>910</power_cap>
@@ -1085,6 +2335,7 @@
 
  <facility>
     <!-- France -->
+    <!-- PWR -->
     <name>BUGEY-3</name>
     <config>
       <Reactor>
@@ -1095,7 +2346,7 @@
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>176</n_assem_core>
         <n_assem_batch>59</n_assem_batch>
         <power_cap>910</power_cap>
@@ -1105,6 +2356,7 @@
 
  <facility>
     <!-- France -->
+    <!-- PWR -->
     <name>BUGEY-4</name>
     <config>
       <Reactor>
@@ -1115,7 +2367,7 @@
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>170</n_assem_core>
         <n_assem_batch>57</n_assem_batch>
         <power_cap>880</power_cap>
@@ -1125,6 +2377,7 @@
 
  <facility>
     <!-- France -->
+    <!-- PWR -->
     <name>BUGEY-5</name>
     <config>
       <Reactor>
@@ -1135,7 +2388,7 @@
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>170</n_assem_core>
         <n_assem_batch>57</n_assem_batch>
         <power_cap>880</power_cap>
@@ -1145,6 +2398,7 @@
 
  <facility>
     <!-- France -->
+    <!-- PWR -->
     <name>TRICASTIN-1</name>
     <config>
       <Reactor>
@@ -1155,7 +2409,7 @@
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>177</n_assem_core>
         <n_assem_batch>59</n_assem_batch>
         <power_cap>915</power_cap>
@@ -1165,6 +2419,7 @@
 
  <facility>
     <!-- France -->
+    <!-- PWR -->
     <name>TRICASTIN-2</name>
     <config>
       <Reactor>
@@ -1175,7 +2430,7 @@
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>177</n_assem_core>
         <n_assem_batch>59</n_assem_batch>
         <power_cap>915</power_cap>
@@ -1185,6 +2440,7 @@
 
  <facility>
     <!-- France -->
+    <!-- PWR -->
     <name>DAMPIERRE-1</name>
     <config>
       <Reactor>
@@ -1195,7 +2451,7 @@
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>172</n_assem_core>
         <n_assem_batch>57</n_assem_batch>
         <power_cap>890</power_cap>
@@ -1205,6 +2461,7 @@
 
  <facility>
     <!-- France -->
+    <!-- PWR -->
     <name>GRAVELINES-1</name>
     <config>
       <Reactor>
@@ -1215,7 +2472,7 @@
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>176</n_assem_core>
         <n_assem_batch>59</n_assem_batch>
         <power_cap>910</power_cap>
@@ -1225,6 +2482,7 @@
 
  <facility>
     <!-- France -->
+    <!-- PWR -->
     <name>GRAVELINES-2</name>
     <config>
       <Reactor>
@@ -1235,7 +2493,7 @@
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>176</n_assem_core>
         <n_assem_batch>59</n_assem_batch>
         <power_cap>910</power_cap>
@@ -1245,6 +2503,7 @@
 
  <facility>
     <!-- France -->
+    <!-- PWR -->
     <name>DAMPIERRE-2</name>
     <config>
       <Reactor>
@@ -1255,7 +2514,7 @@
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>172</n_assem_core>
         <n_assem_batch>57</n_assem_batch>
         <power_cap>890</power_cap>
@@ -1265,6 +2524,7 @@
 
  <facility>
     <!-- France -->
+    <!-- PWR -->
     <name>TRICASTIN-3</name>
     <config>
       <Reactor>
@@ -1275,7 +2535,7 @@
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>177</n_assem_core>
         <n_assem_batch>59</n_assem_batch>
         <power_cap>915</power_cap>
@@ -1285,6 +2545,7 @@
 
  <facility>
     <!-- France -->
+    <!-- PWR -->
     <name>TRICASTIN-4</name>
     <config>
       <Reactor>
@@ -1295,7 +2556,7 @@
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>177</n_assem_core>
         <n_assem_batch>59</n_assem_batch>
         <power_cap>915</power_cap>
@@ -1305,6 +2566,7 @@
 
  <facility>
     <!-- France -->
+    <!-- PWR -->
     <name>DAMPIERRE-3</name>
     <config>
       <Reactor>
@@ -1315,7 +2577,7 @@
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>172</n_assem_core>
         <n_assem_batch>57</n_assem_batch>
         <power_cap>890</power_cap>
@@ -1325,6 +2587,7 @@
 
  <facility>
     <!-- France -->
+    <!-- PWR -->
     <name>DAMPIERRE-4</name>
     <config>
       <Reactor>
@@ -1335,7 +2598,7 @@
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>172</n_assem_core>
         <n_assem_batch>57</n_assem_batch>
         <power_cap>890</power_cap>
@@ -1345,6 +2608,7 @@
 
  <facility>
     <!-- France -->
+    <!-- PWR -->
     <name>GRAVELINES-3</name>
     <config>
       <Reactor>
@@ -1355,7 +2619,7 @@
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>176</n_assem_core>
         <n_assem_batch>59</n_assem_batch>
         <power_cap>910</power_cap>
@@ -1365,6 +2629,7 @@
 
  <facility>
     <!-- France -->
+    <!-- PWR -->
     <name>GRAVELINES-4</name>
     <config>
       <Reactor>
@@ -1375,7 +2640,7 @@
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>176</n_assem_core>
         <n_assem_batch>59</n_assem_batch>
         <power_cap>910</power_cap>
@@ -1385,6 +2650,7 @@
 
  <facility>
     <!-- France -->
+    <!-- PWR -->
     <name>ST. LAURENT B-1</name>
     <config>
       <Reactor>
@@ -1395,7 +2661,7 @@
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>177</n_assem_core>
         <n_assem_batch>59</n_assem_batch>
         <power_cap>915</power_cap>
@@ -1405,6 +2671,7 @@
 
  <facility>
     <!-- France -->
+    <!-- PWR -->
     <name>ST. LAURENT B-2</name>
     <config>
       <Reactor>
@@ -1415,7 +2682,7 @@
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>177</n_assem_core>
         <n_assem_batch>59</n_assem_batch>
         <power_cap>915</power_cap>
@@ -1425,6 +2692,7 @@
 
  <facility>
     <!-- France -->
+    <!-- PWR -->
     <name>BLAYAIS-1</name>
     <config>
       <Reactor>
@@ -1435,7 +2703,7 @@
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>176</n_assem_core>
         <n_assem_batch>59</n_assem_batch>
         <power_cap>910</power_cap>
@@ -1445,6 +2713,7 @@
 
  <facility>
     <!-- France -->
+    <!-- PWR -->
     <name>BLAYAIS-2</name>
     <config>
       <Reactor>
@@ -1455,7 +2724,7 @@
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>176</n_assem_core>
         <n_assem_batch>59</n_assem_batch>
         <power_cap>910</power_cap>
@@ -1465,6 +2734,7 @@
 
  <facility>
     <!-- France -->
+    <!-- PWR -->
     <name>CHINON B-1</name>
     <config>
       <Reactor>
@@ -1475,7 +2745,7 @@
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>175</n_assem_core>
         <n_assem_batch>58</n_assem_batch>
         <power_cap>905</power_cap>
@@ -1485,6 +2755,7 @@
 
  <facility>
     <!-- France -->
+    <!-- PWR -->
     <name>CHINON B-2</name>
     <config>
       <Reactor>
@@ -1495,7 +2766,7 @@
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>175</n_assem_core>
         <n_assem_batch>58</n_assem_batch>
         <power_cap>905</power_cap>
@@ -1505,6 +2776,7 @@
 
  <facility>
     <!-- France -->
+    <!-- PWR -->
     <name>PALUEL-1</name>
     <config>
       <Reactor>
@@ -1515,7 +2787,7 @@
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>257</n_assem_core>
         <n_assem_batch>86</n_assem_batch>
         <power_cap>1330</power_cap>
@@ -1525,6 +2797,7 @@
 
  <facility>
     <!-- France -->
+    <!-- PWR -->
     <name>PALUEL-2</name>
     <config>
       <Reactor>
@@ -1535,7 +2808,7 @@
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>257</n_assem_core>
         <n_assem_batch>86</n_assem_batch>
         <power_cap>1330</power_cap>
@@ -1545,6 +2818,7 @@
 
  <facility>
     <!-- France -->
+    <!-- PWR -->
     <name>BLAYAIS-3</name>
     <config>
       <Reactor>
@@ -1555,7 +2829,7 @@
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>176</n_assem_core>
         <n_assem_batch>59</n_assem_batch>
         <power_cap>910</power_cap>
@@ -1565,6 +2839,7 @@
 
  <facility>
     <!-- France -->
+    <!-- PWR -->
     <name>BLAYAIS-4</name>
     <config>
       <Reactor>
@@ -1575,7 +2850,7 @@
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>176</n_assem_core>
         <n_assem_batch>59</n_assem_batch>
         <power_cap>910</power_cap>
@@ -1585,6 +2860,7 @@
 
  <facility>
     <!-- France -->
+    <!-- PWR -->
     <name>CRUAS-1</name>
     <config>
       <Reactor>
@@ -1595,7 +2871,7 @@
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>177</n_assem_core>
         <n_assem_batch>59</n_assem_batch>
         <power_cap>915</power_cap>
@@ -1605,6 +2881,7 @@
 
  <facility>
     <!-- France -->
+    <!-- PWR -->
     <name>CRUAS-2</name>
     <config>
       <Reactor>
@@ -1615,7 +2892,7 @@
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>177</n_assem_core>
         <n_assem_batch>59</n_assem_batch>
         <power_cap>915</power_cap>
@@ -1625,6 +2902,7 @@
 
  <facility>
     <!-- France -->
+    <!-- PWR -->
     <name>ST. ALBAN-1</name>
     <config>
       <Reactor>
@@ -1635,7 +2913,7 @@
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>258</n_assem_core>
         <n_assem_batch>86</n_assem_batch>
         <power_cap>1335</power_cap>
@@ -1645,6 +2923,7 @@
 
  <facility>
     <!-- France -->
+    <!-- PWR -->
     <name>PALUEL-3</name>
     <config>
       <Reactor>
@@ -1655,7 +2934,7 @@
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>257</n_assem_core>
         <n_assem_batch>86</n_assem_batch>
         <power_cap>1330</power_cap>
@@ -1665,6 +2944,7 @@
 
  <facility>
     <!-- France -->
+    <!-- PWR -->
     <name>CRUAS-3</name>
     <config>
       <Reactor>
@@ -1675,7 +2955,7 @@
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>177</n_assem_core>
         <n_assem_batch>59</n_assem_batch>
         <power_cap>915</power_cap>
@@ -1685,6 +2965,7 @@
 
  <facility>
     <!-- France -->
+    <!-- PWR -->
     <name>ST. ALBAN-2</name>
     <config>
       <Reactor>
@@ -1695,7 +2976,7 @@
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>258</n_assem_core>
         <n_assem_batch>86</n_assem_batch>
         <power_cap>1335</power_cap>
@@ -1705,6 +2986,7 @@
 
  <facility>
     <!-- France -->
+    <!-- PWR -->
     <name>CRUAS-4</name>
     <config>
       <Reactor>
@@ -1715,7 +2997,7 @@
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>177</n_assem_core>
         <n_assem_batch>59</n_assem_batch>
         <power_cap>915</power_cap>
@@ -1725,6 +3007,7 @@
 
  <facility>
     <!-- France -->
+    <!-- PWR -->
     <name>GRAVELINES-5</name>
     <config>
       <Reactor>
@@ -1735,7 +3018,7 @@
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>176</n_assem_core>
         <n_assem_batch>59</n_assem_batch>
         <power_cap>910</power_cap>
@@ -1745,6 +3028,7 @@
 
  <facility>
     <!-- France -->
+    <!-- PWR -->
     <name>GRAVELINES-6</name>
     <config>
       <Reactor>
@@ -1755,7 +3039,7 @@
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>176</n_assem_core>
         <n_assem_batch>59</n_assem_batch>
         <power_cap>910</power_cap>
@@ -1765,6 +3049,7 @@
 
  <facility>
     <!-- France -->
+    <!-- PWR -->
     <name>CATTENOM-1</name>
     <config>
       <Reactor>
@@ -1775,7 +3060,7 @@
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>251</n_assem_core>
         <n_assem_batch>84</n_assem_batch>
         <power_cap>1300</power_cap>
@@ -1785,6 +3070,7 @@
 
  <facility>
     <!-- France -->
+    <!-- PWR -->
     <name>FLAMANVILLE-1</name>
     <config>
       <Reactor>
@@ -1795,7 +3081,7 @@
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>257</n_assem_core>
         <n_assem_batch>86</n_assem_batch>
         <power_cap>1330</power_cap>
@@ -1805,6 +3091,7 @@
 
  <facility>
     <!-- France -->
+    <!-- PWR -->
     <name>PALUEL-4</name>
     <config>
       <Reactor>
@@ -1815,7 +3102,7 @@
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>257</n_assem_core>
         <n_assem_batch>86</n_assem_batch>
         <power_cap>1330</power_cap>
@@ -1823,8 +3110,9 @@
     </config>
   </facility>
 
- <facility> 
+ <facility>
     <!-- France -->
+    <!-- PWR -->
     <name>BELLEVILLE-1</name>
     <config>
       <Reactor>
@@ -1835,7 +3123,7 @@
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>253</n_assem_core>
         <n_assem_batch>84</n_assem_batch>
         <power_cap>1310</power_cap>
@@ -1845,6 +3133,7 @@
 
  <facility>
     <!-- France -->
+    <!-- PWR -->
     <name>FLAMANVILLE-2</name>
     <config>
       <Reactor>
@@ -1855,7 +3144,7 @@
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>257</n_assem_core>
         <n_assem_batch>86</n_assem_batch>
         <power_cap>1330</power_cap>
@@ -1865,6 +3154,7 @@
 
  <facility>
     <!-- France -->
+    <!-- PWR -->
     <name>CATTENOM-2</name>
     <config>
       <Reactor>
@@ -1875,7 +3165,7 @@
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>251</n_assem_core>
         <n_assem_batch>84</n_assem_batch>
         <power_cap>1300</power_cap>
@@ -1885,6 +3175,7 @@
 
  <facility>
     <!-- France -->
+    <!-- PWR -->
     <name>BELLEVILLE-2</name>
     <config>
       <Reactor>
@@ -1895,7 +3186,7 @@
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>253</n_assem_core>
         <n_assem_batch>84</n_assem_batch>
         <power_cap>1310</power_cap>
@@ -1905,6 +3196,7 @@
 
  <facility>
     <!-- France -->
+    <!-- PWR -->
     <name>CHINON B-3</name>
     <config>
       <Reactor>
@@ -1915,7 +3207,7 @@
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>175</n_assem_core>
         <n_assem_batch>58</n_assem_batch>
         <power_cap>905</power_cap>
@@ -1925,6 +3217,7 @@
 
  <facility>
     <!-- France -->
+    <!-- PWR -->
     <name>CHINON B-4</name>
     <config>
       <Reactor>
@@ -1935,7 +3228,7 @@
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>175</n_assem_core>
         <n_assem_batch>58</n_assem_batch>
         <power_cap>905</power_cap>
@@ -1945,6 +3238,7 @@
 
  <facility>
     <!-- France -->
+    <!-- PWR -->
     <name>NOGENT-1</name>
     <config>
       <Reactor>
@@ -1955,7 +3249,7 @@
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>253</n_assem_core>
         <n_assem_batch>84</n_assem_batch>
         <power_cap>1310</power_cap>
@@ -1965,6 +3259,7 @@
 
  <facility>
     <!-- France -->
+    <!-- PWR -->
     <name>NOGENT-2</name>
     <config>
       <Reactor>
@@ -1975,7 +3270,7 @@
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>253</n_assem_core>
         <n_assem_batch>84</n_assem_batch>
         <power_cap>1310</power_cap>
@@ -1985,6 +3280,7 @@
 
  <facility>
     <!-- France -->
+    <!-- PWR -->
     <name>CATTENOM-3</name>
     <config>
       <Reactor>
@@ -1995,7 +3291,7 @@
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>251</n_assem_core>
         <n_assem_batch>84</n_assem_batch>
         <power_cap>1300</power_cap>
@@ -2005,6 +3301,7 @@
 
  <facility>
     <!-- France -->
+    <!-- PWR -->
     <name>PENLY-1</name>
     <config>
       <Reactor>
@@ -2015,7 +3312,7 @@
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>257</n_assem_core>
         <n_assem_batch>86</n_assem_batch>
         <power_cap>1330</power_cap>
@@ -2025,6 +3322,7 @@
 
  <facility>
     <!-- France -->
+    <!-- PWR -->
     <name>GOLFECH-1</name>
     <config>
       <Reactor>
@@ -2035,7 +3333,7 @@
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>253</n_assem_core>
         <n_assem_batch>84</n_assem_batch>
         <power_cap>1310</power_cap>
@@ -2045,6 +3343,7 @@
 
  <facility>
     <!-- France -->
+    <!-- PWR -->
     <name>CATTENOM-4</name>
     <config>
       <Reactor>
@@ -2055,7 +3354,7 @@
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>251</n_assem_core>
         <n_assem_batch>84</n_assem_batch>
         <power_cap>1300</power_cap>
@@ -2065,6 +3364,7 @@
 
  <facility>
     <!-- France -->
+    <!-- PWR -->
     <name>CHOOZ B-1</name>
     <config>
       <Reactor>
@@ -2075,7 +3375,7 @@
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>290</n_assem_core>
         <n_assem_batch>96</n_assem_batch>
         <power_cap>1500</power_cap>
@@ -2085,6 +3385,7 @@
 
  <facility>
     <!-- France -->
+    <!-- PWR -->
     <name>PENLY-2</name>
     <config>
       <Reactor>
@@ -2095,7 +3396,7 @@
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>257</n_assem_core>
         <n_assem_batch>86</n_assem_batch>
         <power_cap>1330</power_cap>
@@ -2105,6 +3406,7 @@
 
  <facility>
     <!-- France -->
+    <!-- PWR -->
     <name>GOLFECH-2</name>
     <config>
       <Reactor>
@@ -2115,7 +3417,7 @@
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>253</n_assem_core>
         <n_assem_batch>84</n_assem_batch>
         <power_cap>1310</power_cap>
@@ -2125,6 +3427,7 @@
 
  <facility>
     <!-- France -->
+    <!-- PWR -->
     <name>CHOOZ B-2</name>
     <config>
       <Reactor>
@@ -2135,7 +3438,7 @@
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>290</n_assem_core>
         <n_assem_batch>96</n_assem_batch>
         <power_cap>1500</power_cap>
@@ -2145,6 +3448,7 @@
 
  <facility>
     <!-- France -->
+    <!-- PWR -->
     <name>CIVAUX-1</name>
     <config>
       <Reactor>
@@ -2155,7 +3459,7 @@
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>289</n_assem_core>
         <n_assem_batch>96</n_assem_batch>
         <power_cap>1495</power_cap>
@@ -2165,6 +3469,7 @@
 
  <facility>
     <!-- France -->
+    <!-- PWR -->
     <name>CIVAUX-2</name>
     <config>
       <Reactor>
@@ -2175,7 +3480,7 @@
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>289</n_assem_core>
         <n_assem_batch>96</n_assem_batch>
         <power_cap>1495</power_cap>
@@ -2185,6 +3490,7 @@
 
  <facility>
     <!-- France -->
+    <!-- PWR -->
     <name>FLAMANVILLE-3</name>
     <config>
       <Reactor>
@@ -2195,7 +3501,7 @@
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>309</n_assem_core>
         <n_assem_batch>103</n_assem_batch>
         <power_cap>1600</power_cap>
@@ -2205,6 +3511,7 @@
 
  <facility>
     <!-- Germany -->
+    <!-- BWR -->
     <name>GUNDREMMINGEN-A</name>
     <config>
       <Reactor>
@@ -2225,6 +3532,7 @@
 
  <facility>
     <!-- Germany -->
+    <!-- BWR -->
     <name>LINGEN</name>
     <config>
       <Reactor>
@@ -2245,6 +3553,7 @@
 
  <facility>
     <!-- Germany -->
+    <!-- PWR -->
     <name>OBRIGHEIM</name>
     <config>
       <Reactor>
@@ -2255,7 +3564,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>66</n_assem_core>
         <n_assem_batch>22</n_assem_batch>
         <power_cap>340</power_cap>
@@ -2265,6 +3574,7 @@
 
  <facility>
     <!-- Germany -->
+    <!-- HWGCR -->
     <name>NIEDERAICHBACH</name>
     <config>
       <Reactor>
@@ -2275,7 +3585,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>19</n_assem_core>
         <n_assem_batch>6</n_assem_batch>
         <power_cap>100</power_cap>
@@ -2285,6 +3595,7 @@
 
  <facility>
     <!-- Germany -->
+    <!-- PWR -->
     <name>STADE</name>
     <config>
       <Reactor>
@@ -2295,7 +3606,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>124</n_assem_core>
         <n_assem_batch>41</n_assem_batch>
         <power_cap>640</power_cap>
@@ -2305,6 +3616,7 @@
 
  <facility>
     <!-- Germany -->
+    <!-- BWR -->
     <name>WUERGASSEN</name>
     <config>
       <Reactor>
@@ -2325,6 +3637,7 @@
 
  <facility>
     <!-- Germany -->
+    <!-- PWR -->
     <name>BIBLIS-A</name>
     <config>
       <Reactor>
@@ -2335,7 +3648,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>225</n_assem_core>
         <n_assem_batch>75</n_assem_batch>
         <power_cap>1167</power_cap>
@@ -2345,6 +3658,7 @@
 
  <facility>
     <!-- Germany -->
+    <!-- PWR -->
     <name>GREIFSWALD-1</name>
     <config>
       <Reactor>
@@ -2355,7 +3669,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>79</n_assem_core>
         <n_assem_batch>26</n_assem_batch>
         <power_cap>408</power_cap>
@@ -2365,6 +3679,7 @@
 
  <facility>
     <!-- Germany -->
+    <!-- PWR -->
     <name>GREIFSWALD-2</name>
     <config>
       <Reactor>
@@ -2375,7 +3690,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>79</n_assem_core>
         <n_assem_batch>26</n_assem_batch>
         <power_cap>408</power_cap>
@@ -2385,6 +3700,7 @@
 
  <facility>
     <!-- Germany -->
+    <!-- BWR -->
     <name>BRUNSBUETTEL</name>
     <config>
       <Reactor>
@@ -2405,6 +3721,7 @@
 
  <facility>
     <!-- Germany -->
+    <!-- BWR -->
     <name>PHILIPPSBURG-1</name>
     <config>
       <Reactor>
@@ -2425,6 +3742,7 @@
 
  <facility>
     <!-- Germany -->
+    <!-- HTGR -->
     <name>THTR-300</name>
     <config>
       <Reactor>
@@ -2435,7 +3753,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>57</n_assem_core>
         <n_assem_batch>19</n_assem_batch>
         <power_cap>296</power_cap>
@@ -2445,6 +3763,7 @@
 
  <facility>
     <!-- Germany -->
+    <!-- PWR -->
     <name>BIBLIS-B</name>
     <config>
       <Reactor>
@@ -2455,7 +3774,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>239</n_assem_core>
         <n_assem_batch>80</n_assem_batch>
         <power_cap>1240</power_cap>
@@ -2465,6 +3784,7 @@
 
  <facility>
     <!-- Germany -->
+    <!-- PWR -->
     <name>NECKARWESTHEIM-1</name>
     <config>
       <Reactor>
@@ -2475,7 +3795,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>152</n_assem_core>
         <n_assem_batch>51</n_assem_batch>
         <power_cap>785</power_cap>
@@ -2485,6 +3805,7 @@
 
  <facility>
     <!-- Germany -->
+    <!-- PWR -->
     <name>GREIFSWALD-3</name>
     <config>
       <Reactor>
@@ -2495,7 +3816,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>79</n_assem_core>
         <n_assem_batch>26</n_assem_batch>
         <power_cap>408</power_cap>
@@ -2505,6 +3826,7 @@
 
  <facility>
     <!-- Germany -->
+    <!-- PWR -->
     <name>GREIFSWALD-4</name>
     <config>
       <Reactor>
@@ -2515,7 +3837,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>79</n_assem_core>
         <n_assem_batch>26</n_assem_batch>
         <power_cap>408</power_cap>
@@ -2525,6 +3847,7 @@
 
  <facility>
     <!-- Germany -->
+    <!-- BWR -->
     <name>ISAR-1</name>
     <config>
       <Reactor>
@@ -2545,6 +3868,7 @@
 
  <facility>
     <!-- Germany -->
+    <!-- PWR -->
     <name>UNTERWESER</name>
     <config>
       <Reactor>
@@ -2555,7 +3879,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>260</n_assem_core>
         <n_assem_batch>87</n_assem_batch>
         <power_cap>1345</power_cap>
@@ -2565,6 +3889,7 @@
 
  <facility>
     <!-- Germany -->
+    <!-- BWR -->
     <name>KRUEMMEL</name>
     <config>
       <Reactor>
@@ -2585,6 +3910,7 @@
 
  <facility>
     <!-- Germany -->
+    <!-- PWR -->
     <name>GRAFENRHEINFELD</name>
     <config>
       <Reactor>
@@ -2595,7 +3921,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>246</n_assem_core>
         <n_assem_batch>82</n_assem_batch>
         <power_cap>1275</power_cap>
@@ -2605,6 +3931,7 @@
 
  <facility>
     <!-- Germany -->
+    <!-- PWR -->
     <name>MUELHEIM-KAERLICH</name>
     <config>
       <Reactor>
@@ -2615,7 +3942,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>235</n_assem_core>
         <n_assem_batch>78</n_assem_batch>
         <power_cap>1219</power_cap>
@@ -2625,6 +3952,7 @@
 
  <facility>
     <!-- Germany -->
+    <!-- PWR -->
     <name>BROKDORF</name>
     <config>
       <Reactor>
@@ -2635,7 +3963,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>272</n_assem_core>
         <n_assem_batch>91</n_assem_batch>
         <power_cap>1410</power_cap>
@@ -2645,6 +3973,7 @@
 
  <facility>
     <!-- Germany -->
+    <!-- PWR -->
     <name>GROHNDE</name>
     <config>
       <Reactor>
@@ -2655,7 +3984,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>262</n_assem_core>
         <n_assem_batch>87</n_assem_batch>
         <power_cap>1360</power_cap>
@@ -2665,6 +3994,7 @@
 
  <facility>
     <!-- Germany -->
+    <!-- BWR -->
     <name>GUNDREMMINGEN-B</name>
     <config>
       <Reactor>
@@ -2685,6 +4015,7 @@
 
  <facility>
     <!-- Germany -->
+    <!-- BWR -->
     <name>GUNDREMMINGEN-C</name>
     <config>
       <Reactor>
@@ -2705,6 +4036,7 @@
 
  <facility>
     <!-- Germany -->
+    <!-- PWR -->
     <name>GREIFSWALD-5</name>
     <config>
       <Reactor>
@@ -2715,7 +4047,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>79</n_assem_core>
         <n_assem_batch>26</n_assem_batch>
         <power_cap>408</power_cap>
@@ -2725,6 +4057,7 @@
 
  <facility>
     <!-- Germany -->
+    <!-- PWR -->
     <name>PHILIPPSBURG-2</name>
     <config>
       <Reactor>
@@ -2735,7 +4068,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>271</n_assem_core>
         <n_assem_batch>90</n_assem_batch>
         <power_cap>1402</power_cap>
@@ -2745,6 +4078,7 @@
 
  <facility>
     <!-- Germany -->
+    <!-- PWR -->
     <name>EMSLAND</name>
     <config>
       <Reactor>
@@ -2755,7 +4089,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>256</n_assem_core>
         <n_assem_batch>85</n_assem_batch>
         <power_cap>1329</power_cap>
@@ -2765,6 +4099,7 @@
 
  <facility>
     <!-- Germany -->
+    <!-- PWR -->
     <name>ISAR-2</name>
     <config>
       <Reactor>
@@ -2775,7 +4110,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>272</n_assem_core>
         <n_assem_batch>91</n_assem_batch>
         <power_cap>1410</power_cap>
@@ -2785,6 +4120,7 @@
 
  <facility>
     <!-- Germany -->
+    <!-- PWR -->
     <name>NECKARWESTHEIM-2</name>
     <config>
       <Reactor>
@@ -2795,7 +4131,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>253</n_assem_core>
         <n_assem_batch>84</n_assem_batch>
         <power_cap>1310</power_cap>
@@ -2805,6 +4141,7 @@
 
  <facility>
     <!-- Hungary -->
+    <!-- PWR -->
     <name>PAKS-1</name>
     <config>
       <Reactor>
@@ -2815,7 +4152,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>91</n_assem_core>
         <n_assem_batch>30</n_assem_batch>
         <power_cap>470</power_cap>
@@ -2825,6 +4162,7 @@
 
  <facility>
     <!-- Hungary -->
+    <!-- PWR -->
     <name>PAKS-2</name>
     <config>
       <Reactor>
@@ -2835,7 +4173,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>91</n_assem_core>
         <n_assem_batch>30</n_assem_batch>
         <power_cap>473</power_cap>
@@ -2845,6 +4183,7 @@
 
  <facility>
     <!-- Hungary -->
+    <!-- PWR -->
     <name>PAKS-3</name>
     <config>
       <Reactor>
@@ -2855,7 +4194,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>91</n_assem_core>
         <n_assem_batch>30</n_assem_batch>
         <power_cap>473</power_cap>
@@ -2865,6 +4204,7 @@
 
  <facility>
     <!-- Hungary -->
+    <!-- PWR -->
     <name>PAKS-4</name>
     <config>
       <Reactor>
@@ -2875,7 +4215,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>91</n_assem_core>
         <n_assem_batch>30</n_assem_batch>
         <power_cap>473</power_cap>
@@ -2885,6 +4225,7 @@
 
  <facility>
     <!-- Italy -->
+    <!-- GCR -->
     <name>LATINA</name>
     <config>
       <Reactor>
@@ -2895,7 +4236,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>30</n_assem_core>
         <n_assem_batch>10</n_assem_batch>
         <power_cap>153</power_cap>
@@ -2905,6 +4246,7 @@
 
  <facility>
     <!-- Italy -->
+    <!-- BWR -->
     <name>GARIGLIANO</name>
     <config>
       <Reactor>
@@ -2925,6 +4267,7 @@
 
  <facility>
     <!-- Italy -->
+    <!-- PWR -->
     <name>ENRICO FERMI</name>
     <config>
       <Reactor>
@@ -2935,7 +4278,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>50</n_assem_core>
         <n_assem_batch>17</n_assem_batch>
         <power_cap>260</power_cap>
@@ -2945,6 +4288,7 @@
 
  <facility>
     <!-- Italy -->
+    <!-- BWR -->
     <name>CAORSO</name>
     <config>
       <Reactor>
@@ -2965,6 +4309,7 @@
 
  <facility>
     <!-- Netherlands -->
+    <!-- PWR -->
     <name>BORSSELE</name>
     <config>
       <Reactor>
@@ -2975,7 +4320,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>93</n_assem_core>
         <n_assem_batch>31</n_assem_batch>
         <power_cap>482</power_cap>
@@ -2985,19 +4330,20 @@
 
  <facility>
     <!-- Romania -->
+    <!-- PHWR -->
     <name>CERNAVODA-1</name>
     <config>
       <Reactor>
-        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
-        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
-        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_inrecipes>  <val>natl_u_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>used_candu_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>natl_u</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>used_candu</val>             </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
-        <cycle_time>18</cycle_time>
-        <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
-        <n_assem_core>125</n_assem_core>
-        <n_assem_batch>42</n_assem_batch>
+        <cycle_time>1</cycle_time>
+        <refuel_time>0</refuel_time>
+        <assem_size>169</assem_size>
+        <n_assem_core>615</n_assem_core>
+        <n_assem_batch>60</n_assem_batch>
         <power_cap>650</power_cap>
       </Reactor>
     </config>
@@ -3005,19 +4351,20 @@
 
  <facility>
     <!-- Romania -->
+    <!-- PHWR -->
     <name>CERNAVODA-2</name>
     <config>
       <Reactor>
-        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
-        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
-        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_inrecipes>  <val>natl_u_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>used_candu_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>natl_u</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>used_candu</val>             </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
-        <cycle_time>18</cycle_time>
-        <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
-        <n_assem_core>125</n_assem_core>
-        <n_assem_batch>42</n_assem_batch>
+        <cycle_time>1</cycle_time>
+        <refuel_time>0</refuel_time>
+        <assem_size>169</assem_size>
+        <n_assem_core>615</n_assem_core>
+        <n_assem_batch>60</n_assem_batch>
         <power_cap>650</power_cap>
       </Reactor>
     </config>
@@ -3025,6 +4372,7 @@
 
  <facility>
     <!-- Slovenia -->
+    <!-- PWR -->
     <name>KRSKO</name>
     <config>
       <Reactor>
@@ -3035,7 +4383,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>133</n_assem_core>
         <n_assem_batch>44</n_assem_batch>
         <power_cap>688</power_cap>
@@ -3045,6 +4393,7 @@
 
  <facility>
     <!-- Spain -->
+    <!-- PWR -->
     <name>JOSE CABRERA-1</name>
     <config>
       <Reactor>
@@ -3055,7 +4404,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>27</n_assem_core>
         <n_assem_batch>9</n_assem_batch>
         <power_cap>141</power_cap>
@@ -3065,6 +4414,7 @@
 
  <facility>
     <!-- Spain -->
+    <!-- BWR -->
     <name>SANTA MARIA DE GARONA</name>
     <config>
       <Reactor>
@@ -3085,6 +4435,7 @@
 
  <facility>
     <!-- Spain -->
+    <!-- GCR -->
     <name>VANDELLOS-1</name>
     <config>
       <Reactor>
@@ -3095,7 +4446,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>93</n_assem_core>
         <n_assem_batch>31</n_assem_batch>
         <power_cap>480</power_cap>
@@ -3105,6 +4456,7 @@
 
  <facility>
     <!-- Spain -->
+    <!-- PWR -->
     <name>ALMARAZ-1</name>
     <config>
       <Reactor>
@@ -3115,7 +4467,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>195</n_assem_core>
         <n_assem_batch>65</n_assem_batch>
         <power_cap>1011</power_cap>
@@ -3125,6 +4477,7 @@
 
  <facility>
     <!-- Spain -->
+    <!-- PWR -->
     <name>ALMARAZ-2</name>
     <config>
       <Reactor>
@@ -3135,7 +4488,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>194</n_assem_core>
         <n_assem_batch>65</n_assem_batch>
         <power_cap>1006</power_cap>
@@ -3145,6 +4498,7 @@
 
  <facility>
     <!-- Spain -->
+    <!-- PWR -->
     <name>ASCO-1</name>
     <config>
       <Reactor>
@@ -3155,7 +4509,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>192</n_assem_core>
         <n_assem_batch>64</n_assem_batch>
         <power_cap>995</power_cap>
@@ -3165,6 +4519,7 @@
 
  <facility>
     <!-- Spain -->
+    <!-- PWR -->
     <name>ASCO-2</name>
     <config>
       <Reactor>
@@ -3175,7 +4530,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>192</n_assem_core>
         <n_assem_batch>64</n_assem_batch>
         <power_cap>997</power_cap>
@@ -3185,6 +4540,7 @@
 
  <facility>
     <!-- Spain -->
+    <!-- BWR -->
     <name>COFRENTES</name>
     <config>
       <Reactor>
@@ -3205,6 +4561,7 @@
 
  <facility>
     <!-- Spain -->
+    <!-- PWR -->
     <name>TRILLO-1</name>
     <config>
       <Reactor>
@@ -3215,7 +4572,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>194</n_assem_core>
         <n_assem_batch>65</n_assem_batch>
         <power_cap>1003</power_cap>
@@ -3225,6 +4582,7 @@
 
  <facility>
     <!-- Spain -->
+    <!-- PWR -->
     <name>VANDELLOS-2</name>
     <config>
       <Reactor>
@@ -3235,7 +4593,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>202</n_assem_core>
         <n_assem_batch>67</n_assem_batch>
         <power_cap>1045</power_cap>
@@ -3245,6 +4603,7 @@
 
  <facility>
     <!-- Sweden -->
+    <!-- BWR -->
     <name>OSKARSHAMN-1</name>
     <config>
       <Reactor>
@@ -3265,6 +4624,7 @@
 
  <facility>
     <!-- Sweden -->
+    <!-- BWR -->
     <name>RINGHALS-1</name>
     <config>
       <Reactor>
@@ -3285,6 +4645,7 @@
 
  <facility>
     <!-- Sweden -->
+    <!-- BWR -->
     <name>OSKARSHAMN-2</name>
     <config>
       <Reactor>
@@ -3305,6 +4666,7 @@
 
  <facility>
     <!-- Sweden -->
+    <!-- PWR -->
     <name>RINGHALS-2</name>
     <config>
       <Reactor>
@@ -3315,7 +4677,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>156</n_assem_core>
         <n_assem_batch>52</n_assem_batch>
         <power_cap>807</power_cap>
@@ -3325,6 +4687,7 @@
 
  <facility>
     <!-- Sweden -->
+    <!-- BWR -->
     <name>BARSEBACK-1</name>
     <config>
       <Reactor>
@@ -3345,6 +4708,7 @@
 
  <facility>
     <!-- Sweden -->
+    <!-- PWR -->
     <name>RINGHALS-3</name>
     <config>
       <Reactor>
@@ -3355,7 +4719,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>205</n_assem_core>
         <n_assem_batch>68</n_assem_batch>
         <power_cap>1062</power_cap>
@@ -3365,6 +4729,7 @@
 
  <facility>
     <!-- Sweden -->
+    <!-- BWR -->
     <name>BARSEBACK-2</name>
     <config>
       <Reactor>
@@ -3385,6 +4750,7 @@
 
  <facility>
     <!-- Sweden -->
+    <!-- BWR -->
     <name>FORSMARK-1</name>
     <config>
       <Reactor>
@@ -3405,6 +4771,7 @@
 
  <facility>
     <!-- Sweden -->
+    <!-- PWR -->
     <name>RINGHALS-4</name>
     <config>
       <Reactor>
@@ -3415,7 +4782,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>181</n_assem_core>
         <n_assem_batch>60</n_assem_batch>
         <power_cap>938</power_cap>
@@ -3425,6 +4792,7 @@
 
  <facility>
     <!-- Sweden -->
+    <!-- BWR -->
     <name>FORSMARK-2</name>
     <config>
       <Reactor>
@@ -3445,6 +4813,7 @@
 
  <facility>
     <!-- Sweden -->
+    <!-- BWR -->
     <name>FORSMARK-3</name>
     <config>
       <Reactor>
@@ -3465,6 +4834,7 @@
 
  <facility>
     <!-- Sweden -->
+    <!-- BWR -->
     <name>OSKARSHAMN-3</name>
     <config>
       <Reactor>
@@ -3484,107 +4854,8 @@
   </facility>
 
  <facility>
-    <!-- Switzerland -->
-    <name>BEZNAU-1</name>
-    <config>
-      <Reactor>
-        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
-        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
-        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
-        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
-        <cycle_time>18</cycle_time>
-        <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
-        <n_assem_core>70</n_assem_core>
-        <n_assem_batch>23</n_assem_batch>
-        <power_cap>365</power_cap>
-      </Reactor>
-    </config>
-  </facility>
-
- <facility>
-    <!-- Switzerland -->
-    <name>MUEHLEBERG</name>
-    <config>
-      <Reactor>
-        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
-        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
-        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
-        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
-        <cycle_time>18</cycle_time>
-        <refuel_time>2</refuel_time>
-        <assem_size>180</assem_size>
-        <n_assem_core>285</n_assem_core>
-        <n_assem_batch>95</n_assem_batch>
-        <power_cap>373</power_cap>
-      </Reactor>
-    </config>
-  </facility>
-
- <facility>
-    <!-- Switzerland -->
-    <name>BEZNAU-2</name>
-    <config>
-      <Reactor>
-        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
-        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
-        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
-        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
-        <cycle_time>18</cycle_time>
-        <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
-        <n_assem_core>70</n_assem_core>
-        <n_assem_batch>23</n_assem_batch>
-        <power_cap>365</power_cap>
-      </Reactor>
-    </config>
-  </facility>
-
- <facility>
-    <!-- Switzerland -->
-    <name>GOESGEN</name>
-    <config>
-      <Reactor>
-        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
-        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
-        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
-        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
-        <cycle_time>18</cycle_time>
-        <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
-        <n_assem_core>190</n_assem_core>
-        <n_assem_batch>63</n_assem_batch>
-        <power_cap>985</power_cap>
-      </Reactor>
-    </config>
-  </facility>
-
- <facility>
-    <!-- Switzerland -->
-    <name>LEIBSTADT</name>
-    <config>
-      <Reactor>
-        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
-        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
-        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
-        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
-        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
-        <cycle_time>18</cycle_time>
-        <refuel_time>2</refuel_time>
-        <assem_size>180</assem_size>
-        <n_assem_core>932</n_assem_core>
-        <n_assem_batch>311</n_assem_batch>
-        <power_cap>1220</power_cap>
-      </Reactor>
-    </config>
-  </facility>
-
- <facility>
     <!-- UK -->
+    <!-- GCR -->
     <name>BERKELEY-1</name>
     <config>
       <Reactor>
@@ -3595,7 +4866,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>27</n_assem_core>
         <n_assem_batch>9</n_assem_batch>
         <power_cap>138</power_cap>
@@ -3605,6 +4876,7 @@
 
  <facility>
     <!-- UK -->
+    <!-- GCR -->
     <name>BERKELEY-2</name>
     <config>
       <Reactor>
@@ -3615,7 +4887,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>27</n_assem_core>
         <n_assem_batch>9</n_assem_batch>
         <power_cap>138</power_cap>
@@ -3625,6 +4897,7 @@
 
  <facility>
     <!-- UK -->
+    <!-- GCR -->
     <name>BRADWELL-1</name>
     <config>
       <Reactor>
@@ -3635,7 +4908,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>24</n_assem_core>
         <n_assem_batch>8</n_assem_batch>
         <power_cap>123</power_cap>
@@ -3645,6 +4918,7 @@
 
  <facility>
     <!-- UK -->
+    <!-- GCR -->
     <name>BRADWELL-2</name>
     <config>
       <Reactor>
@@ -3655,7 +4929,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>24</n_assem_core>
         <n_assem_batch>8</n_assem_batch>
         <power_cap>123</power_cap>
@@ -3665,6 +4939,7 @@
 
  <facility>
     <!-- UK -->
+    <!-- GCR -->
     <name>HUNTERSTON A-1</name>
     <config>
       <Reactor>
@@ -3675,7 +4950,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>29</n_assem_core>
         <n_assem_batch>10</n_assem_batch>
         <power_cap>150</power_cap>
@@ -3685,6 +4960,7 @@
 
  <facility>
     <!-- UK -->
+    <!-- GCR -->
     <name>HUNTERSTON A-2</name>
     <config>
       <Reactor>
@@ -3695,7 +4971,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>29</n_assem_core>
         <n_assem_batch>10</n_assem_batch>
         <power_cap>150</power_cap>
@@ -3705,6 +4981,7 @@
 
  <facility>
     <!-- UK -->
+    <!-- GCR -->
     <name>HINKLEY POINT A-1</name>
     <config>
       <Reactor>
@@ -3715,7 +4992,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>45</n_assem_core>
         <n_assem_batch>15</n_assem_batch>
         <power_cap>235</power_cap>
@@ -3725,6 +5002,7 @@
 
  <facility>
     <!-- UK -->
+    <!-- GCR -->
     <name>HINKLEY POINT A-2</name>
     <config>
       <Reactor>
@@ -3735,7 +5013,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>45</n_assem_core>
         <n_assem_batch>15</n_assem_batch>
         <power_cap>235</power_cap>
@@ -3745,6 +5023,7 @@
 
  <facility>
     <!-- UK -->
+    <!-- GCR -->
     <name>TRAWSFYNYDD-1</name>
     <config>
       <Reactor>
@@ -3755,7 +5034,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>38</n_assem_core>
         <n_assem_batch>13</n_assem_batch>
         <power_cap>195</power_cap>
@@ -3765,6 +5044,7 @@
 
  <facility>
     <!-- UK -->
+    <!-- GCR -->
     <name>TRAWSFYNYDD-2</name>
     <config>
       <Reactor>
@@ -3775,7 +5055,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>38</n_assem_core>
         <n_assem_batch>13</n_assem_batch>
         <power_cap>195</power_cap>
@@ -3785,6 +5065,7 @@
 
  <facility>
     <!-- UK -->
+    <!-- GCR -->
     <name>DUNGENESS A-1</name>
     <config>
       <Reactor>
@@ -3795,7 +5076,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>43</n_assem_core>
         <n_assem_batch>14</n_assem_batch>
         <power_cap>225</power_cap>
@@ -3805,6 +5086,7 @@
 
  <facility>
     <!-- UK -->
+    <!-- GCR -->
     <name>DUNGENESS A-2</name>
     <config>
       <Reactor>
@@ -3815,7 +5097,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>43</n_assem_core>
         <n_assem_batch>14</n_assem_batch>
         <power_cap>225</power_cap>
@@ -3825,6 +5107,7 @@
 
  <facility>
     <!-- UK -->
+    <!-- GCR -->
     <name>SIZEWELL A-1</name>
     <config>
       <Reactor>
@@ -3835,7 +5118,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>41</n_assem_core>
         <n_assem_batch>14</n_assem_batch>
         <power_cap>210</power_cap>
@@ -3845,6 +5128,7 @@
 
  <facility>
     <!-- UK -->
+    <!-- GCR -->
     <name>SIZEWELL A-2</name>
     <config>
       <Reactor>
@@ -3855,7 +5139,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>41</n_assem_core>
         <n_assem_batch>14</n_assem_batch>
         <power_cap>210</power_cap>
@@ -3865,6 +5149,7 @@
 
  <facility>
     <!-- UK -->
+    <!-- GCR -->
     <name>OLDBURY A-1</name>
     <config>
       <Reactor>
@@ -3875,7 +5160,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>42</n_assem_core>
         <n_assem_batch>14</n_assem_batch>
         <power_cap>217</power_cap>
@@ -3885,6 +5170,7 @@
 
  <facility>
     <!-- UK -->
+    <!-- GCR -->
     <name>OLDBURY A-2</name>
     <config>
       <Reactor>
@@ -3895,7 +5181,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>42</n_assem_core>
         <n_assem_batch>14</n_assem_batch>
         <power_cap>217</power_cap>
@@ -3905,6 +5191,7 @@
 
  <facility>
     <!-- UK -->
+    <!-- GCR -->
     <name>WYLFA-1</name>
     <config>
       <Reactor>
@@ -3915,7 +5202,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>95</n_assem_core>
         <n_assem_batch>32</n_assem_batch>
         <power_cap>490</power_cap>
@@ -3925,6 +5212,7 @@
 
  <facility>
     <!-- UK -->
+    <!-- GCR -->
     <name>WYLFA-2</name>
     <config>
       <Reactor>
@@ -3935,7 +5223,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>95</n_assem_core>
         <n_assem_batch>32</n_assem_batch>
         <power_cap>490</power_cap>
@@ -3945,6 +5233,7 @@
 
  <facility>
     <!-- UK -->
+    <!-- GCR -->
     <name>DUNGENESS B-1</name>
     <config>
       <Reactor>
@@ -3955,7 +5244,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>100</n_assem_core>
         <n_assem_batch>33</n_assem_batch>
         <power_cap>520</power_cap>
@@ -3965,6 +5254,7 @@
 
  <facility>
     <!-- UK -->
+    <!-- GCR -->
     <name>DUNGENESS B-2</name>
     <config>
       <Reactor>
@@ -3975,7 +5265,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>100</n_assem_core>
         <n_assem_batch>33</n_assem_batch>
         <power_cap>520</power_cap>
@@ -3985,6 +5275,7 @@
 
  <facility>
     <!-- UK -->
+    <!-- FBR -->
     <name>DOUNREAY PFR</name>
     <config>
       <Reactor>
@@ -3995,7 +5286,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>45</n_assem_core>
         <n_assem_batch>15</n_assem_batch>
         <power_cap>234</power_cap>
@@ -4005,6 +5296,7 @@
 
  <facility>
     <!-- UK -->
+    <!-- GCR -->
     <name>HINKLEY POINT B-1</name>
     <config>
       <Reactor>
@@ -4015,7 +5307,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>84</n_assem_core>
         <n_assem_batch>28</n_assem_batch>
         <power_cap>435</power_cap>
@@ -4025,6 +5317,7 @@
 
  <facility>
     <!-- UK -->
+    <!-- GCR -->
     <name>HINKLEY POINT B-2</name>
     <config>
       <Reactor>
@@ -4035,7 +5328,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>84</n_assem_core>
         <n_assem_batch>28</n_assem_batch>
         <power_cap>435</power_cap>
@@ -4045,6 +5338,7 @@
 
  <facility>
     <!-- UK -->
+    <!-- GCR -->
     <name>HUNTERSTON B-1</name>
     <config>
       <Reactor>
@@ -4055,7 +5349,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>89</n_assem_core>
         <n_assem_batch>30</n_assem_batch>
         <power_cap>460</power_cap>
@@ -4065,6 +5359,7 @@
 
  <facility>
     <!-- UK -->
+    <!-- GCR -->
     <name>HUNTERSTON B-2</name>
     <config>
       <Reactor>
@@ -4075,7 +5370,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>83</n_assem_core>
         <n_assem_batch>28</n_assem_batch>
         <power_cap>430</power_cap>
@@ -4085,6 +5380,7 @@
 
  <facility>
     <!-- UK -->
+    <!-- GCR -->
     <name>HARTLEPOOL A-1</name>
     <config>
       <Reactor>
@@ -4095,7 +5391,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>115</n_assem_core>
         <n_assem_batch>38</n_assem_batch>
         <power_cap>595</power_cap>
@@ -4105,6 +5401,7 @@
 
  <facility>
     <!-- UK -->
+    <!-- GCR -->
     <name>HARTLEPOOL A-2</name>
     <config>
       <Reactor>
@@ -4115,7 +5412,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>113</n_assem_core>
         <n_assem_batch>38</n_assem_batch>
         <power_cap>585</power_cap>
@@ -4125,6 +5422,7 @@
 
  <facility>
     <!-- UK -->
+    <!-- GCR -->
     <name>HEYSHAM A-1</name>
     <config>
       <Reactor>
@@ -4135,7 +5433,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>113</n_assem_core>
         <n_assem_batch>38</n_assem_batch>
         <power_cap>585</power_cap>
@@ -4145,6 +5443,7 @@
 
  <facility>
     <!-- UK -->
+    <!-- GCR -->
     <name>HEYSHAM A-2</name>
     <config>
       <Reactor>
@@ -4155,7 +5454,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>111</n_assem_core>
         <n_assem_batch>37</n_assem_batch>
         <power_cap>575</power_cap>
@@ -4165,6 +5464,7 @@
 
  <facility>
     <!-- UK -->
+    <!-- GCR -->
     <name>HEYSHAM B-1</name>
     <config>
       <Reactor>
@@ -4175,7 +5475,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>118</n_assem_core>
         <n_assem_batch>39</n_assem_batch>
         <power_cap>610</power_cap>
@@ -4185,6 +5485,7 @@
 
  <facility>
     <!-- UK -->
+    <!-- GCR -->
     <name>HEYSHAM B-2</name>
     <config>
       <Reactor>
@@ -4195,7 +5496,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>118</n_assem_core>
         <n_assem_batch>39</n_assem_batch>
         <power_cap>610</power_cap>
@@ -4205,6 +5506,7 @@
 
  <facility>
     <!-- UK -->
+    <!-- GCR -->
     <name>TORNESS-1</name>
     <config>
       <Reactor>
@@ -4215,7 +5517,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>115</n_assem_core>
         <n_assem_batch>38</n_assem_batch>
         <power_cap>595</power_cap>
@@ -4225,6 +5527,7 @@
 
  <facility>
     <!-- UK -->
+    <!-- GCR -->
     <name>TORNESS-2</name>
     <config>
       <Reactor>
@@ -4235,7 +5538,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>115</n_assem_core>
         <n_assem_batch>38</n_assem_batch>
         <power_cap>595</power_cap>
@@ -4245,6 +5548,7 @@
 
  <facility>
     <!-- UK -->
+    <!-- PWR -->
     <name>SIZEWELL B</name>
     <config>
       <Reactor>
@@ -4255,7 +5559,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>230</n_assem_core>
         <n_assem_batch>77</n_assem_batch>
         <power_cap>1191</power_cap>
@@ -4265,6 +5569,7 @@
 
  <facility>
     <!-- Lithuania -->
+    <!-- RBMK -->
     <name>Ignalina-1</name>
     <config>
       <Reactor>
@@ -4275,7 +5580,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>229</n_assem_core>
         <n_assem_batch>76</n_assem_batch>
         <power_cap>1185</power_cap>
@@ -4285,6 +5590,7 @@
 
  <facility>
     <!-- Lithuania -->
+    <!-- RBMK -->
     <name>Ignalina-2</name>
     <config>
       <Reactor>
@@ -4295,10 +5601,304 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>467</assem_size>
+        <assem_size>523.4</assem_size>
         <n_assem_core>229</n_assem_core>
         <n_assem_batch>76</n_assem_batch>
         <power_cap>1185</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Finland -->
+    <!-- PWR -->
+    <name>OLKILUOTO-3</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>523.4</assem_size>
+        <n_assem_core>332</n_assem_core>
+        <n_assem_batch>111</n_assem_batch>
+        <power_cap>1720</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Romania -->
+    <!-- PHWR -->
+    <name>CERNAVODA-3</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>natl_u_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>used_candu_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>natl_u</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>used_candu</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>1</cycle_time>
+        <refuel_time>0</refuel_time>
+        <assem_size>169</assem_size>
+        <n_assem_core>681</n_assem_core>
+        <n_assem_batch>60</n_assem_batch>
+        <power_cap>720</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Romania -->
+    <!-- PHWR -->
+    <name>CERNAVODA-4</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>natl_u_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>used_candu_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>natl_u</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>used_candu</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>1</cycle_time>
+        <refuel_time>0</refuel_time>
+        <assem_size>169</assem_size>
+        <n_assem_core>681</n_assem_core>
+        <n_assem_batch>60</n_assem_batch>
+        <power_cap>720</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Finland -->
+    <!-- VVER1200 -->
+    <name>HANHIKIVI</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>523.4</assem_size>
+        <n_assem_core>232</n_assem_core>
+        <n_assem_batch>77</n_assem_batch>
+        <power_cap>1200</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Hungary -->
+    <!-- VVER1200 -->
+    <name>Paks-5</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>523.4</assem_size>
+        <n_assem_core>232</n_assem_core>
+        <n_assem_batch>77</n_assem_batch>
+        <power_cap>1200</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Hungary -->
+    <!-- VVER1200 -->
+    <name>Paks-6</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>523.4</assem_size>
+        <n_assem_core>232</n_assem_core>
+        <n_assem_batch>77</n_assem_batch>
+        <power_cap>1200</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Bulgaria -->
+    <!--  -->
+    <name>KOZLODUY-7</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>467</assem_size>
+        <n_assem_core>157</n_assem_core>
+        <n_assem_batch>52</n_assem_batch>
+        <power_cap>950</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- UK -->
+    <!--  -->
+    <name>HINKLEY POINT C-1</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>467</assem_size>
+        <n_assem_core>216</n_assem_core>
+        <n_assem_batch>72</n_assem_batch>
+        <power_cap>1670</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- UK -->
+    <!--  -->
+    <name>HINKLEY POINT C-2</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>467</assem_size>
+        <n_assem_core>216</n_assem_core>
+        <n_assem_batch>72</n_assem_batch>
+        <power_cap>1670</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Poland -->
+    <!-- NA -->
+    <name>CHOCZEWO</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>523.4</assem_size>
+        <n_assem_core>579</n_assem_core>
+        <n_assem_batch>193</n_assem_batch>
+        <power_cap>3000</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Poland -->
+    <!-- NA -->
+    <name>NONAME</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>523.4</assem_size>
+        <n_assem_core>579</n_assem_core>
+        <n_assem_batch>193</n_assem_batch>
+        <power_cap>3000</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Czech_Republic -->
+    <!-- NA -->
+    <name>DUKOVANY-5</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>523.4</assem_size>
+        <n_assem_core>232</n_assem_core>
+        <n_assem_batch>77</n_assem_batch>
+        <power_cap>1200</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Czech_Republic -->
+    <!--  -->
+    <name>TEMELIN-3</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>467</assem_size>
+        <n_assem_core>157</n_assem_core>
+        <n_assem_batch>52</n_assem_batch>
+        <power_cap>1200</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- Czech_Republic -->
+    <!--  -->
+    <name>TEMELIN-4</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>467</assem_size>
+        <n_assem_core>157</n_assem_core>
+        <n_assem_batch>52</n_assem_batch>
+        <power_cap>1200</power_cap>
       </Reactor>
     </config>
   </facility>
@@ -4307,55 +5907,41 @@
 
   
   <region>
-    <name>Czechoslovakia</name>
+    <name>Spain</name>
     <config><NullRegion/></config>
     <institution>
-      <name>Czechoslovakia_government</name>
+      <name>Spain_government</name>
       <config>
         <DeployInst>
 
           <prototypes>
-  <val>BOHUNICE-1</val>
-<val>BOHUNICE-2</val>
-<val>BOHUNICE-3</val>
-<val>BOHUNICE-4</val>
-<val>DUKOVANY-1</val>
-<val>DUKOVANY-2</val>
-<val>DUKOVANY-3</val>
-<val>DUKOVANY-4</val>
-<val>MOCHOVCE-1</val>
-<val>MOCHOVCE-2</val>
-<val>TEMELIN-1</val>
-<val>TEMELIN-2</val>
-<val>MOCHOVCE-3</val>
-<val>MOCHOVCE-4</val>
-
-<val>AP1000</val>
-<val>AP1000</val>
+	<val>JOSE CABRERA-1</val>
+<val>SANTA MARIA DE GARONA</val>
+<val>VANDELLOS-1</val>
+<val>ALMARAZ-1</val>
+<val>ALMARAZ-2</val>
+<val>ASCO-1</val>
+<val>ASCO-2</val>
+<val>COFRENTES</val>
+<val>TRILLO-1</val>
+<val>VANDELLOS-2</val>
 
 </prototypes>
 <build_times>
-  <val>107</val>
-<val>122</val>
-<val>175</val>
-<val>187</val>
-<val>181</val>
-<val>193</val>
-<val>202</val>
-<val>209</val>
-<val>341</val>
-<val>359</val>
-<val>369</val>
-<val>389</val>
-<val>560</val>
-<val>572</val>
-
-<val>780</val>
-<val>780</val>
+	<val>1</val>
+<val>10</val>
+<val>25</val>
+<val>135</val>
+<val>165</val>
+<val>161</val>
+<val>188</val>
+<val>176</val>
+<val>220</val>
+<val>214</val>
 
 </build_times>
 <n_build>
-  <val>1</val>
+	<val>1</val>
 <val>1</val>
 <val>1</val>
 <val>1</val>
@@ -4363,20 +5949,14 @@
 <val>1</val>
 <val>1</val>
 <val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-
 <val>1</val>
 <val>1</val>
 
 </n_build>
 <lifetimes>
-  <val>337</val>
-<val>346</val>
+	<val>412</val>
+<val>720</val>
+<val>222</val>
 <val>720</val>
 <val>720</val>
 <val>720</val>
@@ -4384,14 +5964,6 @@
 <val>720</val>
 <val>720</val>
 <val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-
-<val>711</val>
-<val>710</val>
 
 </lifetimes>
           
@@ -4409,19 +5981,49 @@
         <DeployInst>
 
           <prototypes>
-  <val>BORSSELE</val>
+	<val>BORSSELE</val>
 
 </prototypes>
 <build_times>
-  <val>42</val>
+	<val>42</val>
 
 </build_times>
 <n_build>
-  <val>1</val>
+	<val>1</val>
 
 </n_build>
 <lifetimes>
-  <val>720</val>
+	<val>720</val>
+
+</lifetimes>
+          
+        </DeployInst>
+      </config>
+    </institution>
+  </region>
+  
+  <region>
+    <name>Slovenia</name>
+    <config><NullRegion/></config>
+    <institution>
+      <name>Slovenia_government</name>
+      <config>
+        <DeployInst>
+
+          <prototypes>
+	<val>KRSKO</val>
+
+</prototypes>
+<build_times>
+	<val>140</val>
+
+</build_times>
+<n_build>
+	<val>1</val>
+
+</n_build>
+<lifetimes>
+	<val>720</val>
 
 </lifetimes>
           
@@ -4439,7 +6041,7 @@
         <DeployInst>
 
           <prototypes>
-  <val>OSKARSHAMN-1</val>
+	<val>OSKARSHAMN-1</val>
 <val>RINGHALS-1</val>
 <val>OSKARSHAMN-2</val>
 <val>RINGHALS-2</val>
@@ -4454,7 +6056,7 @@
 
 </prototypes>
 <build_times>
-  <val>11</val>
+	<val>11</val>
 <val>44</val>
 <val>50</val>
 <val>54</val>
@@ -4469,7 +6071,7 @@
 
 </build_times>
 <n_build>
-  <val>1</val>
+	<val>1</val>
 <val>1</val>
 <val>1</val>
 <val>1</val>
@@ -4484,7 +6086,7 @@
 
 </n_build>
 <lifetimes>
-  <val>720</val>
+	<val>720</val>
 <val>720</val>
 <val>720</val>
 <val>720</val>
@@ -4505,51 +6107,85 @@
   </region>
   
   <region>
-    <name>Hungary</name>
+    <name>Bulgaria</name>
     <config><NullRegion/></config>
     <institution>
-      <name>Hungary_government</name>
+      <name>Bulgaria_government</name>
       <config>
         <DeployInst>
 
           <prototypes>
-  <val>PAKS-1</val>
-<val>PAKS-2</val>
-<val>PAKS-3</val>
-<val>PAKS-4</val>
-
-<val>AP1000</val>
-<val>AP1000</val>
+	<val>KOZLODUY-1</val>
+<val>KOZLODUY-2</val>
+<val>KOZLODUY-3</val>
+<val>KOZLODUY-4</val>
+<val>KOZLODUY-5</val>
+<val>KOZLODUY-6</val>
+<val>KOZLODUY-7</val>
 
 </prototypes>
 <build_times>
-  <val>155</val>
-<val>176</val>
-<val>200</val>
+	<val>54</val>
+<val>68</val>
+<val>131</val>
+<val>148</val>
+<val>214</val>
+<val>257</val>
+<val>1</val>
+
+</build_times>
+<n_build>
+	<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+
+</n_build>
+<lifetimes>
+	<val>342</val>
+<val>328</val>
+<val>313</val>
+<val>296</val>
+<val>720</val>
+<val>720</val>
+<val>0</val>
+
+</lifetimes>
+          
+        </DeployInst>
+      </config>
+    </institution>
+  </region>
+  
+  <region>
+    <name>Lithuania</name>
+    <config><NullRegion/></config>
+    <institution>
+      <name>Lithuania_government</name>
+      <config>
+        <DeployInst>
+
+          <prototypes>
+	<val>Ignalina-1</val>
+<val>Ignalina-2</val>
+
+</prototypes>
+<build_times>
+	<val>167</val>
 <val>211</val>
 
-<val>660</val>
-<val>660</val>
-
 </build_times>
 <n_build>
-  <val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-
-<val>1</val>
+	<val>1</val>
 <val>1</val>
 
 </n_build>
 <lifetimes>
-  <val>720</val>
+	<val>720</val>
 <val>720</val>
-<val>720</val>
-<val>720</val>
-
-<val>731</val>
-<val>709</val>
 
 </lifetimes>
           
@@ -4559,27 +6195,31 @@
   </region>
   
   <region>
-    <name>Slovenia</name>
+    <name>Poland</name>
     <config><NullRegion/></config>
     <institution>
-      <name>Slovenia_government</name>
+      <name>Poland_government</name>
       <config>
         <DeployInst>
 
           <prototypes>
-  <val>KRSKO</val>
+	<val>CHOCZEWO</val>
+<val>NONAME</val>
 
 </prototypes>
 <build_times>
-  <val>140</val>
+	<val>1</val>
+<val>1</val>
 
 </build_times>
 <n_build>
-  <val>1</val>
+	<val>1</val>
+<val>1</val>
 
 </n_build>
 <lifetimes>
-  <val>720</val>
+	<val>0</val>
+<val>0</val>
 
 </lifetimes>
           
@@ -4589,54 +6229,146 @@
   </region>
   
   <region>
-    <name>Finland</name>
+    <name>Italy</name>
     <config><NullRegion/></config>
     <institution>
-      <name>Finland_government</name>
+      <name>Italy_government</name>
       <config>
         <DeployInst>
 
           <prototypes>
-  <val>LOVIISA-1</val>
-<val>LOVIISA-2</val>
-<val>OLKILUOTO-1</val>
-<val>OLKILUOTO-2</val>
-
-<val>EPR</val>
-<val>AP1000</val>
+	<val>LATINA</val>
+<val>GARIGLIANO</val>
+<val>ENRICO FERMI</val>
+<val>CAORSO</val>
 
 </prototypes>
 <build_times>
-  <val>85</val>
-<val>130</val>
-<val>103</val>
-<val>117</val>
-
-<val>576</val>
-<val>648</val>
+	<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>96</val>
 
 </build_times>
 <n_build>
-  <val>1</val>
+	<val>1</val>
 <val>1</val>
-<val>1</val>
-<val>1</val>
-
 <val>1</val>
 <val>1</val>
 
 </n_build>
 <lifetimes>
-  <val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-
-<val>721</val>
-<val>722</val>
+	<val>191</val>
+<val>122</val>
+<val>246</val>
+<val>126</val>
 
 </lifetimes>
+          
+        </DeployInst>
+      </config>
+    </institution>
+  </region>
+  
+  <region>
+    <name>Romania</name>
+    <config><NullRegion/></config>
+    <institution>
+      <name>Romania_government</name>
+      <config>
+        <DeployInst>
 
+          <prototypes>
+	<val>CERNAVODA-1</val>
+<val>CERNAVODA-2</val>
+<val>CERNAVODA-3</val>
+<val>CERNAVODA-4</val>
+
+</prototypes>
+<build_times>
+	<val>315</val>
+<val>448</val>
+<val>1</val>
+<val>1</val>
+
+</build_times>
+<n_build>
+	<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+
+</n_build>
+<lifetimes>
+	<val>720</val>
+<val>720</val>
+<val>0</val>
+<val>0</val>
+
+</lifetimes>
+          
+        </DeployInst>
+      </config>
+    </institution>
+  </region>
+  
+  <region>
+    <name>Czech_Republic</name>
+    <config><NullRegion/></config>
+    <institution>
+      <name>Czech_Republic_government</name>
+      <config>
+        <DeployInst>
+
+          <prototypes>
+	<val>DUKOVANY-1</val>
+<val>DUKOVANY-2</val>
+<val>DUKOVANY-3</val>
+<val>DUKOVANY-4</val>
+<val>TEMELIN-1</val>
+<val>TEMELIN-2</val>
+<val>DUKOVANY-5</val>
+<val>TEMELIN-3</val>
+<val>TEMELIN-4</val>
+
+</prototypes>
+<build_times>
+	<val>181</val>
+<val>193</val>
+<val>202</val>
+<val>209</val>
+<val>369</val>
+<val>389</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+
+</build_times>
+<n_build>
+	<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+
+</n_build>
+<lifetimes>
+	<val>720</val>
+<val>720</val>
+<val>720</val>
+<val>720</val>
+<val>720</val>
+<val>720</val>
+<val>0</val>
+<val>0</val>
+<val>0</val>
+
+</lifetimes>
+          
         </DeployInst>
       </config>
     </institution>
@@ -4651,15 +6383,18 @@
         <DeployInst>
 
           <prototypes>
+
 <val>MELOX</val>
 <val>uox_reprocessing</val>
-<val>mox_reprocessing</val>
-  <val>CHINON A-2</val>
+
+
+	<val>CHINON A-2</val>
 <val>CHINON A-3</val>
 <val>CHOOZ-A (ARDENNES)</val>
 <val>ST. LAURENT A-1</val>
 <val>BUGEY-1</val>
 <val>ST. LAURENT A-2</val>
+
 <val>FESSENHEIM-1</val>
 <val>FESSENHEIM-2</val>
 <val>BUGEY-2</val>
@@ -4680,6 +6415,7 @@
 <val>GRAVELINES-4</val>
 <val>ST. LAURENT B-1</val>
 <val>ST. LAURENT B-2</val>
+
 <val>BLAYAIS-1</val>
 <val>BLAYAIS-2</val>
 <val>CHINON B-1</val>
@@ -4722,15 +6458,18 @@
 
 </prototypes>
 <build_times>
+
 <val>300</val>
 <val>72</val>
 <val>72</val>
-  <val>1</val>
+
+	<val>1</val>
 <val>1</val>
 <val>1</val>
 <val>1</val>
 <val>27</val>
 <val>18</val>
+
 <val>86</val>
 <val>90</val>
 <val>100</val>
@@ -4751,6 +6490,7 @@
 <val>137</val>
 <val>132</val>
 <val>136</val>
+
 <val>137</val>
 <val>150</val>
 <val>154</val>
@@ -4793,9 +6533,18 @@
 
 </build_times>
 <n_build>
+
   <val>1</val>
 <val>1</val>
 <val>1</val>
+
+	<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+
 <val>1</val>
 <val>1</val>
 <val>1</val>
@@ -4816,12 +6565,7 @@
 <val>1</val>
 <val>1</val>
 <val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
+
 <val>1</val>
 <val>1</val>
 <val>1</val>
@@ -4864,54 +6608,18 @@
 
 </n_build>
 <lifetimes>
-  <val>9999</val>
+
 <val>9999</val>
 <val>9999</val>
-  <val>161</val>
+<val>9999</val>
+
+<val>161</val>
 <val>245</val>
 <val>262</val>
 <val>244</val>
 <val>266</val>
 <val>227</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
+
 <val>720</val>
 <val>720</val>
 <val>720</val>
@@ -4933,106 +6641,6 @@
 <val>720</val>
 <val>720</val>
 
-</lifetimes>
-          
-        </DeployInst>
-      </config>
-    </institution>
-  </region>
-  
-  <region>
-    <name>Romania</name>
-    <config><NullRegion/></config>
-    <institution>
-      <name>Romania_government</name>
-      <config>
-        <DeployInst>
-
-          <prototypes>
-  <val>CERNAVODA-1</val>
-<val>CERNAVODA-2</val>
-
-<val>AP1000</val>
-
-</prototypes>
-<build_times>
-  <val>315</val>
-<val>448</val>
-
-<val>600</val>
-
-</build_times>
-<n_build>
-  <val>1</val>
-<val>1</val>
-
-<val>1</val>
-
-</n_build>
-<lifetimes>
-  <val>720</val>
-<val>720</val>
-
-<val>719</val>
-
-</lifetimes>
-          
-        </DeployInst>
-      </config>
-    </institution>
-  </region>
-  
-  <region>
-    <name>Spain</name>
-    <config><NullRegion/></config>
-    <institution>
-      <name>Spain_government</name>
-      <config>
-        <DeployInst>
-
-          <prototypes>
-  <val>JOSE CABRERA-1</val>
-<val>SANTA MARIA DE GARONA</val>
-<val>VANDELLOS-1</val>
-<val>ALMARAZ-1</val>
-<val>ALMARAZ-2</val>
-<val>ASCO-1</val>
-<val>ASCO-2</val>
-<val>COFRENTES</val>
-<val>TRILLO-1</val>
-<val>VANDELLOS-2</val>
-
-</prototypes>
-<build_times>
-  <val>1</val>
-<val>10</val>
-<val>25</val>
-<val>135</val>
-<val>165</val>
-<val>161</val>
-<val>188</val>
-<val>176</val>
-<val>220</val>
-<val>214</val>
-
-</build_times>
-<n_build>
-  <val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-
-</n_build>
-<lifetimes>
-  <val>412</val>
-<val>720</val>
-<val>222</val>
 <val>720</val>
 <val>720</val>
 <val>720</val>
@@ -5040,48 +6648,38 @@
 <val>720</val>
 <val>720</val>
 <val>720</val>
-
-</lifetimes>
-          
-        </DeployInst>
-      </config>
-    </institution>
-  </region>
-  
-  <region>
-    <name>Italy</name>
-    <config><NullRegion/></config>
-    <institution>
-      <name>Italy_government</name>
-      <config>
-        <DeployInst>
-
-          <prototypes>
-  <val>LATINA</val>
-<val>GARIGLIANO</val>
-<val>ENRICO FERMI</val>
-<val>CAORSO</val>
-
-</prototypes>
-<build_times>
-  <val>1</val>
-<val>1</val>
-<val>1</val>
-<val>96</val>
-
-</build_times>
-<n_build>
-  <val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-
-</n_build>
-<lifetimes>
-  <val>191</val>
-<val>122</val>
-<val>246</val>
-<val>126</val>
+<val>720</val>
+<val>720</val>
+<val>720</val>
+<val>720</val>
+<val>720</val>
+<val>720</val>
+<val>720</val>
+<val>720</val>
+<val>720</val>
+<val>720</val>
+<val>720</val>
+<val>720</val>
+<val>720</val>
+<val>720</val>
+<val>720</val>
+<val>720</val>
+<val>720</val>
+<val>720</val>
+<val>720</val>
+<val>720</val>
+<val>720</val>
+<val>720</val>
+<val>720</val>
+<val>720</val>
+<val>720</val>
+<val>720</val>
+<val>720</val>
+<val>720</val>
+<val>720</val>
+<val>720</val>
+<val>720</val>
+<val>720</val>
 
 </lifetimes>
           
@@ -5099,7 +6697,7 @@
         <DeployInst>
 
           <prototypes>
-  <val>BERKELEY-1</val>
+	<val>BERKELEY-1</val>
 <val>BERKELEY-2</val>
 <val>BRADWELL-1</val>
 <val>BRADWELL-2</val>
@@ -5133,25 +6731,12 @@
 <val>TORNESS-1</val>
 <val>TORNESS-2</val>
 <val>SIZEWELL B</val>
-
-<val>EPR</val>
-<val>EPR</val>
-<val>EPR</val>
-<val>EPR</val>
-<val>EPR</val>
-<val>AP1000</val>
-<val>AP1000</val>
-<val>AP1000</val>
-<val>AP1000</val>
-<val>AP1000</val>
-<val>AP1000</val>
-<val>AP1000</val>
-<val>AP1000</val>
-
+<val>HINKLEY POINT C-1</val>
+<val>HINKLEY POINT C-2</val>
 
 </prototypes>
 <build_times>
-  <val>1</val>
+	<val>1</val>
 <val>1</val>
 <val>1</val>
 <val>1</val>
@@ -5185,24 +6770,12 @@
 <val>219</val>
 <val>228</val>
 <val>301</val>
-
-<val>672</val>
-<val>684</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>660</val>
-<val>660</val>
-<val>660</val>
-<val>660</val>
-<val>660</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
+<val>1</val>
+<val>1</val>
 
 </build_times>
 <n_build>
-  <val>1</val>
+	<val>1</val>
 <val>1</val>
 <val>1</val>
 <val>1</val>
@@ -5225,18 +6798,6 @@
 <val>1</val>
 <val>1</val>
 <val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-
 <val>1</val>
 <val>1</val>
 <val>1</val>
@@ -5253,7 +6814,7 @@
 
 </n_build>
 <lifetimes>
-  <val>207</val>
+	<val>207</val>
 <val>226</val>
 <val>363</val>
 <val>387</val>
@@ -5287,20 +6848,8 @@
 <val>720</val>
 <val>720</val>
 <val>720</val>
-
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>714</val>
-<val>726</val>
-<val>725</val>
-<val>715</val>
-<val>716</val>
-<val>724</val>
-<val>723</val>
-<val>717</val>
-<val>718</val>
+<val>0</val>
+<val>0</val>
 
 </lifetimes>
           
@@ -5318,7 +6867,7 @@
         <DeployInst>
 
           <prototypes>
-  <val>DOEL-1</val>
+	<val>DOEL-1</val>
 <val>TIHANGE-1</val>
 <val>DOEL-2</val>
 <val>DOEL-3</val>
@@ -5328,7 +6877,7 @@
 
 </prototypes>
 <build_times>
-  <val>55</val>
+	<val>55</val>
 <val>62</val>
 <val>67</val>
 <val>149</val>
@@ -5338,7 +6887,7 @@
 
 </build_times>
 <n_build>
-  <val>1</val>
+	<val>1</val>
 <val>1</val>
 <val>1</val>
 <val>1</val>
@@ -5348,13 +6897,63 @@
 
 </n_build>
 <lifetimes>
-  <val>605</val>
-<val>598</val>
-<val>593</val>
-<val>511</val>
-<val>507</val>
-<val>475</val>
-<val>477</val>
+	<val>720</val>
+<val>720</val>
+<val>720</val>
+<val>720</val>
+<val>720</val>
+<val>720</val>
+<val>720</val>
+
+</lifetimes>
+          
+        </DeployInst>
+      </config>
+    </institution>
+  </region>
+  
+  <region>
+    <name>Hungary</name>
+    <config><NullRegion/></config>
+    <institution>
+      <name>Hungary_government</name>
+      <config>
+        <DeployInst>
+
+          <prototypes>
+	<val>PAKS-1</val>
+<val>PAKS-2</val>
+<val>PAKS-3</val>
+<val>PAKS-4</val>
+<val>Paks-5</val>
+<val>Paks-6</val>
+
+</prototypes>
+<build_times>
+	<val>155</val>
+<val>176</val>
+<val>200</val>
+<val>211</val>
+<val>1</val>
+<val>1</val>
+
+</build_times>
+<n_build>
+	<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+
+</n_build>
+<lifetimes>
+	<val>720</val>
+<val>720</val>
+<val>720</val>
+<val>720</val>
+<val>0</val>
+<val>0</val>
 
 </lifetimes>
           
@@ -5372,7 +6971,7 @@
         <DeployInst>
 
           <prototypes>
-  <val>GUNDREMMINGEN-A</val>
+	<val>GUNDREMMINGEN-A</val>
 <val>LINGEN</val>
 <val>OBRIGHEIM</val>
 <val>NIEDERAICHBACH</val>
@@ -5405,7 +7004,7 @@
 
 </prototypes>
 <build_times>
-  <val>1</val>
+	<val>1</val>
 <val>1</val>
 <val>1</val>
 <val>36</val>
@@ -5438,7 +7037,7 @@
 
 </build_times>
 <n_build>
-  <val>1</val>
+	<val>1</val>
 <val>1</val>
 <val>1</val>
 <val>1</val>
@@ -5471,7 +7070,7 @@
 
 </n_build>
 <lifetimes>
-  <val>60</val>
+	<val>60</val>
 <val>60</val>
 <val>400</val>
 <val>-5</val>
@@ -5490,74 +7089,16 @@
 <val>380</val>
 <val>371</val>
 <val>311</val>
-<val>481</val>
+<val>720</val>
 <val>30</val>
-<val>423</val>
-<val>448</val>
-<val>454</val>
-<val>446</val>
+<val>720</val>
+<val>720</val>
+<val>720</val>
+<val>720</val>
 <val>8</val>
-<val>445</val>
-<val>405</val>
-<val>408</val>
-<val>396</val>
-
-</lifetimes>
-          
-        </DeployInst>
-      </config>
-    </institution>
-  </region>
-  
-  <region>
-    <name>Bulgaria</name>
-    <config><NullRegion/></config>
-    <institution>
-      <name>Bulgaria_government</name>
-      <config>
-        <DeployInst>
-
-          <prototypes>
-  <val>KOZLODUY-1</val>
-<val>KOZLODUY-2</val>
-<val>KOZLODUY-3</val>
-<val>KOZLODUY-4</val>
-<val>KOZLODUY-5</val>
-<val>KOZLODUY-6</val>
-
-<val>AP1000</val>
-
-</prototypes>
-<build_times>
-  <val>54</val>
-<val>68</val>
-<val>131</val>
-<val>148</val>
-<val>214</val>
-<val>257</val>
-
-<val>600</val>
-
-</build_times>
-<n_build>
-  <val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-<val>1</val>
-
-<val>1</val>
-
-</n_build>
-<lifetimes>
-  <val>342</val>
-<val>328</val>
-<val>313</val>
-<val>296</val>
 <val>720</val>
 <val>720</val>
-
+<val>720</val>
 <val>720</val>
 
 </lifetimes>
@@ -5568,31 +7109,105 @@
   </region>
   
   <region>
-    <name>Lithuania</name>
+    <name>Slovakia</name>
     <config><NullRegion/></config>
     <institution>
-      <name>Lithuania_government</name>
+      <name>Slovakia_government</name>
       <config>
         <DeployInst>
 
           <prototypes>
-  <val>Ignalina-1</val>
-<val>Ignalina-2</val>
+	<val>BOHUNICE-1</val>
+<val>BOHUNICE-2</val>
+<val>BOHUNICE-3</val>
+<val>BOHUNICE-4</val>
+<val>MOCHOVCE-1</val>
+<val>MOCHOVCE-2</val>
+<val>MOCHOVCE-3</val>
+<val>MOCHOVCE-4</val>
 
 </prototypes>
 <build_times>
-  <val>167</val>
-<val>211</val>
+	<val>107</val>
+<val>122</val>
+<val>175</val>
+<val>187</val>
+<val>341</val>
+<val>359</val>
+<val>560</val>
+<val>572</val>
 
 </build_times>
 <n_build>
-  <val>1</val>
+	<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
 <val>1</val>
 
 </n_build>
 <lifetimes>
-  <val>720</val>
+	<val>337</val>
+<val>346</val>
 <val>720</val>
+<val>720</val>
+<val>720</val>
+<val>720</val>
+<val>720</val>
+<val>720</val>
+
+</lifetimes>
+          
+        </DeployInst>
+      </config>
+    </institution>
+  </region>
+  
+  <region>
+    <name>Finland</name>
+    <config><NullRegion/></config>
+    <institution>
+      <name>Finland_government</name>
+      <config>
+        <DeployInst>
+
+          <prototypes>
+	<val>LOVIISA-1</val>
+<val>LOVIISA-2</val>
+<val>OLKILUOTO-1</val>
+<val>OLKILUOTO-2</val>
+<val>OLKILUOTO-3</val>
+<val>HANHIKIVI</val>
+
+</prototypes>
+<build_times>
+	<val>85</val>
+<val>130</val>
+<val>103</val>
+<val>117</val>
+<val>1</val>
+<val>1</val>
+
+</build_times>
+<n_build>
+	<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+
+</n_build>
+<lifetimes>
+	<val>720</val>
+<val>720</val>
+<val>720</val>
+<val>720</val>
+<val>0</val>
+<val>0</val>
 
 </lifetimes>
           
@@ -5605,7 +7220,7 @@
 <region>
     <name>Sink_Source</name>
     <config><NullRegion/></config>
-            <institution>  
+        <institution>  
          <name>Sink_Source_Inst</name>
          <config><NullInst/></config>
         <initialfacilitylist>
@@ -5623,10 +7238,14 @@
           </entry>
           <entry>
             <number>1</number>
-            <prototype>repusink</prototype>
+            <prototype>mixer</prototype>
           </entry>
+          <entry>
+  <number>1</number>
+  <prototype>reprocessing</prototype>
+</entry>
         </initialfacilitylist>
-    </institution>
+        </institution>
 </region>  
 
   <recipe>
@@ -5651,18 +7270,27 @@
     <nuclide><id>U238</id><comp>0.997</comp></nuclide>
   </recipe>
 
+
   <recipe>
     <name>mox_fuel_recipe</name>
     <basis>mass</basis>
-     <nuclide> <id>U235</id>  <comp>.0026936</comp> </nuclide> 
-     <nuclide> <id>U238</id>  <comp>.90729</comp> </nuclide>
-     <nuclide> <id>Pu238</id>  <comp>0.00108</comp> </nuclide> 
-     <nuclide> <id>Pu239</id>  <comp>0.0498373</comp> </nuclide> 
-     <nuclide> <id>Pu240</id>  <comp>0.0223277</comp> </nuclide> 
-     <nuclide> <id>Pu241</id>  <comp>0.012071</comp> </nuclide> 
-     <nuclide> <id>Pu242</id>  <comp>0.004683</comp> </nuclide>
+     <nuclide> <id>U232</id>  <comp>1.2872E-10</comp> </nuclide> 
+     <nuclide> <id>U233</id>  <comp>1.38E-09</comp> </nuclide> 
+     <nuclide> <id>U234</id>  <comp>.000143528</comp> </nuclide> 
+     <nuclide> <id>U235</id>  <comp>.007420728</comp> </nuclide> 
+     <nuclide> <id>U236</id>  <comp>.003556698</comp> </nuclide>
+     <nuclide> <id>U237</id>  <comp>3.34366E-11</comp> </nuclide>  
+     <nuclide> <id>U238</id>  <comp>0.868879045</comp> </nuclide>
+     <nuclide> <id>U239</id>  <comp>2.26477E-19</comp> </nuclide> 
+     <nuclide> <id>Pu238</id>  <comp>0.001440424</comp> </nuclide> 
+     <nuclide> <id>Pu239</id>  <comp>0.066449749</comp> </nuclide> 
+     <nuclide> <id>Pu240</id>  <comp>0.029770312</comp> </nuclide> 
+     <nuclide> <id>Pu241</id>  <comp>0.016094726</comp> </nuclide> 
+     <nuclide> <id>Pu242</id>  <comp>0.006244625</comp> </nuclide>
+     <nuclide> <id>Pu243</id>  <comp>3.95537E-19</comp> </nuclide> 
+     <nuclide> <id>Pu244</id>  <comp>1.64638E-07</comp> </nuclide> 
+     <nuclide> <id>Pu245</id>  <comp>1.43248E-24</comp> </nuclide> 
   </recipe> 
-
 
    <recipe>
     <name>mox_used_fuel_recipe</name>
@@ -5721,108 +7349,63 @@
      <nuclide> <id>Cs137</id>  <comp>0.0018309056</comp> </nuclide> 
   </recipe> 
 
-    <recipe>
+  <recipe>
     <name>uox_used_fuel_recipe</name>
     <basis>mass</basis>
-    <nuclide> <id>He4</id>  <comp>9.47457840128509E-07</comp> </nuclide> 
-   <nuclide> <id>Ra226</id>  <comp>9.78856442957042E-14</comp> </nuclide> 
-   <nuclide> <id>Ra228</id>  <comp>2.75087759176098E-20</comp> </nuclide> 
-   <nuclide> <id>Pb206</id>  <comp>5.57475193532078E-18</comp> </nuclide> 
-   <nuclide> <id>Pb207</id>  <comp>1.68592497990149E-15</comp> </nuclide> 
-   <nuclide> <id>Pb208</id>  <comp>3.6888358546006E-12</comp> </nuclide> 
-   <nuclide> <id>Pb210</id>  <comp>3.02386544437848E-19</comp> </nuclide> 
-   <nuclide> <id>Th228</id>  <comp>8.47562285269577E-12</comp> </nuclide> 
-   <nuclide> <id>Th229</id>  <comp>2.72787861516683E-12</comp> </nuclide> 
-   <nuclide> <id>Th230</id>  <comp>2.6258831537493E-09</comp> </nuclide> 
-   <nuclide> <id>Th232</id>  <comp>4.17481422959E-10</comp> </nuclide> 
-   <nuclide> <id>Bi209</id>  <comp>6.60770597104927E-16</comp> </nuclide> 
-   <nuclide> <id>Ac227</id>  <comp>3.0968621961773E-14</comp> </nuclide> 
-   <nuclide> <id>Pa231</id>  <comp>9.24658854635179E-10</comp> </nuclide> 
-   <nuclide> <id>U232</id>  <comp>0.000000001</comp> </nuclide> 
-   <nuclide> <id>U233</id>  <comp>2.21390148606282E-09</comp> </nuclide> 
-   <nuclide> <id>U234</id>  <comp>0.0001718924</comp> </nuclide> 
-   <nuclide> <id>U235</id>  <comp>0.0076486597</comp> </nuclide> 
-   <nuclide> <id>U236</id>  <comp>0.0057057461</comp> </nuclide> 
-   <nuclide> <id>U238</id>  <comp>0.9208590237</comp> </nuclide> 
-   <nuclide> <id>Np237</id>  <comp>0.0006091729</comp> </nuclide> 
-   <nuclide> <id>Pu238</id>  <comp>0.000291487</comp> </nuclide> 
-   <nuclide> <id>Pu239</id>  <comp>0.0060657301</comp> </nuclide> 
-   <nuclide> <id>Pu240</id>  <comp>0.0029058707</comp> </nuclide> 
-   <nuclide> <id>Pu241</id>  <comp>0.0017579218</comp> </nuclide> 
-   <nuclide> <id>Pu242</id>  <comp>0.0008638616</comp> </nuclide> 
-   <nuclide> <id>Pu244</id>  <comp>2.86487251922763E-08</comp> </nuclide> 
-   <nuclide> <id>Am241</id>  <comp>6.44271331287386E-05</comp> </nuclide> 
-   <nuclide> <id>Am242m</id>  <comp>8.53362027193319E-07</comp> </nuclide> 
-   <nuclide> <id>Am243</id>  <comp>0.0001983912</comp> </nuclide> 
-   <nuclide> <id>Cm242</id>  <comp>2.58988475560194E-05</comp> </nuclide> 
-   <nuclide> <id>Cm243</id>  <comp>0.000000771</comp> </nuclide> 
-   <nuclide> <id>Cm244</id>  <comp>8.5616190260478E-05</comp> </nuclide> 
-   <nuclide> <id>Cm245</id>  <comp>5.72174539442251E-06</comp> </nuclide> 
-   <nuclide> <id>Cm246</id>  <comp>7.29567535786554E-07</comp> </nuclide> 
-   <nuclide> <id>Cm247</id>  <comp>0.00000001</comp> </nuclide> 
-   <nuclide> <id>Cm248</id>  <comp>7.69165773748653E-10</comp> </nuclide> 
-   <nuclide> <id>Cm250</id>  <comp>4.2808095130239E-18</comp> </nuclide> 
-   <nuclide> <id>Cf249</id>  <comp>1.64992658175413E-12</comp> </nuclide> 
-   <nuclide> <id>Cf250</id>  <comp>2.04190913935875E-12</comp> </nuclide> 
-   <nuclide> <id>Cf251</id>  <comp>9.86556100338561E-13</comp> </nuclide> 
-   <nuclide> <id>Cf252</id>  <comp>6.57970721693466E-13</comp> </nuclide> 
-   <nuclide> <id>H3</id>  <comp>8.58461800264195E-08</comp> </nuclide> 
-   <nuclide> <id>C14</id>  <comp>4.05781943561107E-11</comp> </nuclide> 
-   <nuclide> <id>Kr81</id>  <comp>4.21681236076192E-11</comp> </nuclide> 
-   <nuclide> <id>Kr85</id>  <comp>3.44484671160181E-05</comp> </nuclide> 
-   <nuclide> <id>Sr90</id>  <comp>0.0007880649</comp> </nuclide> 
-   <nuclide> <id>Tc99</id>  <comp>0.0011409492</comp> </nuclide> 
-   <nuclide> <id>I129</id>  <comp>0.0002731878</comp> </nuclide> 
-   <nuclide> <id>Cs134</id>  <comp>0.0002300898</comp> </nuclide> 
-   <nuclide> <id>Cs135</id>  <comp>0.0006596706</comp> </nuclide> 
-   <nuclide> <id>Cs137</id>  <comp>0.0018169192</comp> </nuclide> 
-   <nuclide> <id>H1</id>  <comp>0.0477938151</comp> </nuclide> 
+     <nuclide> <id>He4</id>  <comp>2.09687731425456E-07</comp> </nuclide> 
+     <nuclide> <id>Ra226</id>  <comp>1.18893043712383E-14</comp> </nuclide> 
+     <nuclide> <id>Ra228</id>  <comp>6.05164592554536E-21</comp> </nuclide> 
+     <nuclide> <id>Pb206</id>  <comp>7.66855132237399E-20</comp> </nuclide> 
+     <nuclide> <id>Pb207</id>  <comp>6.51861860354101E-17</comp> </nuclide> 
+     <nuclide> <id>Pb208</id>  <comp>1.2309279798986E-13</comp> </nuclide> 
+     <nuclide> <id>Pb210</id>  <comp>2.49685391210951E-20</comp> </nuclide> 
+     <nuclide> <id>Th228</id>  <comp>6.56361597079969E-13</comp> </nuclide> 
+     <nuclide> <id>Th229</id>  <comp>1.70690013134599E-13</comp> </nuclide> 
+     <nuclide> <id>Th230</id>  <comp>0.000000001</comp> </nuclide> 
+     <nuclide> <id>Th232</id>  <comp>1.56490843910748E-10</comp> </nuclide> 
+     <nuclide> <id>Bi209</id>  <comp>2.5848487636376E-17</comp> </nuclide> 
+     <nuclide> <id>Ac227</id>  <comp>3.45679774696139E-15</comp> </nuclide> 
+     <nuclide> <id>Pa231</id>  <comp>2.25186824592336E-10</comp> </nuclide> 
+     <nuclide> <id>U232</id>  <comp>1.39991809249232E-10</comp> </nuclide> 
+     <nuclide> <id>U233</id>  <comp>1.31692294843742E-09</comp> </nuclide> 
+     <nuclide> <id>U234</id>  <comp>0.0001558909</comp> </nuclide> 
+     <nuclide> <id>U235</id>  <comp>0.0080635282</comp> </nuclide> 
+     <nuclide> <id>U236</id>  <comp>0.0038647739</comp> </nuclide> 
+     <nuclide> <id>U238</id>  <comp>0.9441447592</comp> </nuclide> 
+     <nuclide> <id>Np237</id>  <comp>0.0003316806</comp> </nuclide> 
+     <nuclide> <id>Pu238</id>  <comp>0.0001076937</comp> </nuclide> 
+     <nuclide> <id>Pu239</id>  <comp>0.0050287058</comp> </nuclide> 
+     <nuclide> <id>Pu240</id>  <comp>0.0022528682</comp> </nuclide> 
+     <nuclide> <id>Pu241</id>  <comp>0.0012229284</comp> </nuclide> 
+     <nuclide> <id>Pu242</id>  <comp>0.0004725724</comp> </nuclide> 
+     <nuclide> <id>Pu244</id>  <comp>1.24592710231816E-08</comp> </nuclide> 
+     <nuclide> <id>Am241</id>  <comp>2.97982565401936E-05</comp> </nuclide> 
+     <nuclide> <id>Am242m</id>  <comp>3.55779183791976E-07</comp> </nuclide> 
+     <nuclide> <id>Am243</id>  <comp>7.89053833418348E-05</comp> </nuclide> 
+     <nuclide> <id>Cm242</id>  <comp>1.15793225079007E-05</comp> </nuclide> 
+     <nuclide> <id>Cm243</id>  <comp>0.00000024</comp> </nuclide> 
+     <nuclide> <id>Cm244</id>  <comp>2.20987070314859E-05</comp> </nuclide> 
+     <nuclide> <id>Cm245</id>  <comp>1.02693991499258E-06</comp> </nuclide> 
+     <nuclide> <id>Cm246</id>  <comp>9.56844016218499E-08</comp> </nuclide> 
+     <nuclide> <id>Cm247</id>  <comp>8.39550878897535E-10</comp> </nuclide> 
+     <nuclide> <id>Cm248</id>  <comp>4.3267468472959E-11</comp> </nuclide> 
+     <nuclide> <id>Cm250</id>  <comp>1.99688316479083E-19</comp> </nuclide> 
+     <nuclide> <id>Cf249</id>  <comp>4.3937429274366E-14</comp> </nuclide> 
+     <nuclide> <id>Cf250</id>  <comp>8.11752505346616E-14</comp> </nuclide> 
+     <nuclide> <id>Cf251</id>  <comp>3.16081506454872E-14</comp> </nuclide> 
+     <nuclide> <id>Cf252</id>  <comp>1.66790241305513E-14</comp> </nuclide> 
+     <nuclide> <id>H3</id>  <comp>5.74866365267024E-08</comp> </nuclide> 
+     <nuclide> <id>C14</id>  <comp>2.63084607239092E-11</comp> </nuclide> 
+     <nuclide> <id>Kr81</id>  <comp>2.16087356991135E-11</comp> </nuclide> 
+     <nuclide> <id>Kr85</id>  <comp>2.41685859253852E-05</comp> </nuclide> 
+     <nuclide> <id>Sr90</id>  <comp>0.0005372686</comp> </nuclide> 
+     <nuclide> <id>Tc99</id>  <comp>0.0007822542</comp> </nuclide> 
+     <nuclide> <id>I129</id>  <comp>0.0001810894</comp> </nuclide> 
+     <nuclide> <id>Cs134</id>  <comp>0.0001230928</comp> </nuclide> 
+     <nuclide> <id>Cs135</id>  <comp>0.0003052821</comp> </nuclide> 
+     <nuclide> <id>Cs137</id>  <comp>0.0012009297</comp> </nuclide> 
 
   </recipe> 
 
-  <recipe>
-    <name>fr_fuel_recipe</name>
-    <basis>mass</basis>
-    <nuclide> <id>U234</id>  <comp>0.000538</comp> </nuclide>
-    <nuclide> <id>U235</id>  <comp>0.188200</comp> </nuclide>
-    <nuclide> <id>U238</id>  <comp>75.091897</comp> </nuclide>
-    <nuclide> <id>Pu238</id> <comp>0.875900</comp> </nuclide>
-    <nuclide> <id>Pu239</id> <comp>12.670000</comp> </nuclide>
-    <nuclide> <id>Pu240</id> <comp>6.889000</comp> </nuclide>
-    <nuclide> <id>Pu241</id> <comp>0.702600</comp> </nuclide>
-    <nuclide> <id>Pu242</id> <comp>1.074000</comp> </nuclide>
-    <nuclide> <id>Am241</id> <comp>0.858200</comp> </nuclide>
-    <nuclide> <id>Am242</id> <comp>0.048340</comp> </nuclide>
-    <nuclide> <id>Am243</id> <comp>0.511400</comp> </nuclide>
-    <nuclide> <id>Np237</id> <comp>0.500000</comp> </nuclide>
-    <nuclide> <id>Cm242</id> <comp>0.002424</comp> </nuclide>
-    <nuclide> <id>Cm243</id> <comp>0.006541</comp> </nuclide>
-    <nuclide> <id>Cm244</id> <comp>0.469900</comp> </nuclide>
-    <nuclide> <id>Cm245</id> <comp>0.083910</comp> </nuclide>
-    <nuclide> <id>Cm246</id> <comp>0.027150</comp> </nuclide>
-  </recipe> 
-
-  <recipe>
-    <name>fr_used_fuel_recipe</name>
-    <basis>mass</basis>
-    <nuclide> <id>U234</id>  <comp>5.408E02</comp> </nuclide>
-    <nuclide> <id>U235</id>  <comp>6.769E02</comp> </nuclide>
-    <nuclide> <id>U236</id>  <comp>3.108E02</comp> </nuclide>
-    <nuclide> <id>U238</id>  <comp>6.461E05</comp> </nuclide>
-    <nuclide> <id>Pu238</id> <comp>7.374E03</comp> </nuclide>
-    <nuclide> <id>Pu239</id> <comp>1.014E05</comp> </nuclide>
-    <nuclide> <id>Pu240</id> <comp>6.807E04</comp> </nuclide>
-    <nuclide> <id>Pu241</id> <comp>8.083E03</comp> </nuclide>
-    <nuclide> <id>Pu242</id> <comp>9.930E03</comp> </nuclide>
-    <nuclide> <id>Am241</id> <comp>6.897E03</comp> </nuclide>
-    <nuclide> <id>Am242m</id> <comp>5.325E02</comp> </nuclide>
-    <nuclide> <id>Am243</id> <comp>3.969E03</comp> </nuclide>
-    <nuclide> <id>Np237</id> <comp>2.372E03</comp> </nuclide>
-    <nuclide> <id>Cm242</id> <comp>1.542</comp> </nuclide>
-    <nuclide> <id>Cm243</id> <comp>5.184E01</comp> </nuclide>
-    <nuclide> <id>Cm244</id> <comp>3.836E03</comp> </nuclide>
-    <nuclide> <id>Cm245</id> <comp>1.036E03</comp> </nuclide>
-    <nuclide> <id>Cm246</id> <comp>3.374E02</comp> </nuclide>
-  </recipe>
 
 </simulation>
