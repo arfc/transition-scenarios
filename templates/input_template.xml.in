@@ -48,6 +48,11 @@
       <lib>cycamore</lib>
       <name>Mixer</name>
     </spec>
+    <spec>
+      <lib>cyborg</lib>
+      <name>Reactor</name>
+      <alias>Cyborg</alias>
+    </spec>
   </archetypes>
 
 
@@ -162,6 +167,7 @@
       <Sink>
         <in_commods>
           <val>uox_waste</val>
+          <val>used_candu</val>
           <val>mox_waste</val>
           <val>used_candu</val>
           <val>tailings</val>
