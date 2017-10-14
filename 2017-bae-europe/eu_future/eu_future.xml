@@ -85,7 +85,7 @@
           </stream>
         </in_streams>
         <out_commod>mox</out_commod>
-        <out_buf_size>16250</out_buf_size>
+        <out_buf_size>32500</out_buf_size>
         <throughput>16250</throughput>
       </Mixer>
     </config>
@@ -101,7 +101,7 @@
          <feed_commods>   <val>french_uox_waste</val> </feed_commods>
          <feed_commod_prefs> <val>1.0</val> </feed_commod_prefs>
          <feed_recipe>uox_used_fuel_recipe</feed_recipe>
-         <feedbuf_size>91600</feedbuf_size>
+         <feedbuf_size>183200</feedbuf_size>
          <!-- 1100 tons/year 91.6 tons/timestep -->
          <throughput>91600</throughput>
          <leftover_commod>raffinate</leftover_commod>
