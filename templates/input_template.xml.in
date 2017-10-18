@@ -48,11 +48,6 @@
       <lib>cycamore</lib>
       <name>Mixer</name>
     </spec>
-    <spec>
-      <lib>cyborg</lib>
-      <name>Reactor</name>
-      <alias>Cyborg</alias>
-    </spec>
   </archetypes>
 
 
