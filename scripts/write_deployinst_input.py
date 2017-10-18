@@ -247,7 +247,7 @@ def reactor_render(list, output_file, is_cyborg=False):
             reactor_body = mox_reactor_template.render(country=data['country'].decode('utf-8'),
                                                reactor_name=name,
                                                type=data['type'].decode('utf-8'),
-                                               assem_size=523.4,
+                                               assem_size=446,
                                                n_assem_core=int(
                                                    round(data['capacity']/1000 * 193)),
                                                n_assem_batch=int(
