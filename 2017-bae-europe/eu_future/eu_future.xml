@@ -166,8 +166,8 @@
       <Sink>
         <in_commods>
           <val>uox_waste</val>
-          <val>french_uox_waste</val>
           <val>mox_waste</val>
+          <val>french_uox_waste</val>
           <val>raffinate</val>
           <val>tails</val>
         </in_commods>
@@ -203,7 +203,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>84</n_assem_core>
         <n_assem_batch>28</n_assem_batch>
         <power_cap>433</power_cap>
@@ -224,7 +224,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>186</n_assem_core>
         <n_assem_batch>62</n_assem_batch>
         <power_cap>962</power_cap>
@@ -245,7 +245,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>84</n_assem_core>
         <n_assem_batch>28</n_assem_batch>
         <power_cap>433</power_cap>
@@ -266,7 +266,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>194</n_assem_core>
         <n_assem_batch>65</n_assem_batch>
         <power_cap>1006</power_cap>
@@ -287,7 +287,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>195</n_assem_core>
         <n_assem_batch>65</n_assem_batch>
         <power_cap>1008</power_cap>
@@ -308,7 +308,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>202</n_assem_core>
         <n_assem_batch>67</n_assem_batch>
         <power_cap>1046</power_cap>
@@ -329,7 +329,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>201</n_assem_core>
         <n_assem_batch>67</n_assem_batch>
         <power_cap>1039</power_cap>
@@ -350,7 +350,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>79</n_assem_core>
         <n_assem_batch>26</n_assem_batch>
         <power_cap>408</power_cap>
@@ -371,7 +371,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>79</n_assem_core>
         <n_assem_batch>26</n_assem_batch>
         <power_cap>408</power_cap>
@@ -392,7 +392,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>79</n_assem_core>
         <n_assem_batch>26</n_assem_batch>
         <power_cap>408</power_cap>
@@ -413,7 +413,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>79</n_assem_core>
         <n_assem_batch>26</n_assem_batch>
         <power_cap>408</power_cap>
@@ -434,7 +434,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>184</n_assem_core>
         <n_assem_batch>61</n_assem_batch>
         <power_cap>953</power_cap>
@@ -455,7 +455,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>184</n_assem_core>
         <n_assem_batch>61</n_assem_batch>
         <power_cap>953</power_cap>
@@ -476,7 +476,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>79</n_assem_core>
         <n_assem_batch>26</n_assem_batch>
         <power_cap>408</power_cap>
@@ -497,7 +497,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>79</n_assem_core>
         <n_assem_batch>26</n_assem_batch>
         <power_cap>408</power_cap>
@@ -518,7 +518,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>91</n_assem_core>
         <n_assem_batch>30</n_assem_batch>
         <power_cap>471</power_cap>
@@ -539,7 +539,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>91</n_assem_core>
         <n_assem_batch>30</n_assem_batch>
         <power_cap>471</power_cap>
@@ -560,7 +560,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>90</n_assem_core>
         <n_assem_batch>30</n_assem_batch>
         <power_cap>468</power_cap>
@@ -581,7 +581,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>91</n_assem_core>
         <n_assem_batch>30</n_assem_batch>
         <power_cap>471</power_cap>
@@ -602,7 +602,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>90</n_assem_core>
         <n_assem_batch>30</n_assem_batch>
         <power_cap>468</power_cap>
@@ -623,7 +623,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>91</n_assem_core>
         <n_assem_batch>30</n_assem_batch>
         <power_cap>471</power_cap>
@@ -644,7 +644,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>84</n_assem_core>
         <n_assem_batch>28</n_assem_batch>
         <power_cap>436</power_cap>
@@ -665,7 +665,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>84</n_assem_core>
         <n_assem_batch>28</n_assem_batch>
         <power_cap>436</power_cap>
@@ -686,7 +686,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>194</n_assem_core>
         <n_assem_batch>65</n_assem_batch>
         <power_cap>1003</power_cap>
@@ -707,7 +707,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>194</n_assem_core>
         <n_assem_batch>65</n_assem_batch>
         <power_cap>1003</power_cap>
@@ -728,7 +728,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>85</n_assem_core>
         <n_assem_batch>28</n_assem_batch>
         <power_cap>440</power_cap>
@@ -749,7 +749,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>85</n_assem_core>
         <n_assem_batch>28</n_assem_batch>
         <power_cap>440</power_cap>
@@ -770,7 +770,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>96</n_assem_core>
         <n_assem_batch>32</n_assem_batch>
         <power_cap>496</power_cap>
@@ -791,7 +791,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>96</n_assem_core>
         <n_assem_batch>32</n_assem_batch>
         <power_cap>496</power_cap>
@@ -854,7 +854,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>35</n_assem_core>
         <n_assem_batch>12</n_assem_batch>
         <power_cap>180</power_cap>
@@ -875,7 +875,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>69</n_assem_core>
         <n_assem_batch>23</n_assem_batch>
         <power_cap>360</power_cap>
@@ -893,10 +893,10 @@
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
         <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
-        <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
+        <fuel_prefs>      <val>1.0</val>                   <val>3.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>59</n_assem_core>
         <n_assem_batch>20</n_assem_batch>
         <power_cap>305</power_cap>
@@ -917,7 +917,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>75</n_assem_core>
         <n_assem_batch>25</n_assem_batch>
         <power_cap>390</power_cap>
@@ -938,7 +938,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>104</n_assem_core>
         <n_assem_batch>35</n_assem_batch>
         <power_cap>540</power_cap>
@@ -959,7 +959,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>90</n_assem_core>
         <n_assem_batch>30</n_assem_batch>
         <power_cap>465</power_cap>
@@ -978,10 +978,10 @@
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
         <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
-        <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
+        <fuel_prefs>      <val>1.0</val>                   <val>3.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>170</n_assem_core>
         <n_assem_batch>57</n_assem_batch>
         <power_cap>880</power_cap>
@@ -999,10 +999,10 @@
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
         <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
-        <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
+        <fuel_prefs>      <val>1.0</val>                   <val>3.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>170</n_assem_core>
         <n_assem_batch>57</n_assem_batch>
         <power_cap>880</power_cap>
@@ -1020,10 +1020,10 @@
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
         <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
-        <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
+        <fuel_prefs>      <val>1.0</val>                   <val>3.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>176</n_assem_core>
         <n_assem_batch>59</n_assem_batch>
         <power_cap>910</power_cap>
@@ -1041,10 +1041,10 @@
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
         <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
-        <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
+        <fuel_prefs>      <val>1.0</val>                   <val>3.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>176</n_assem_core>
         <n_assem_batch>59</n_assem_batch>
         <power_cap>910</power_cap>
@@ -1062,10 +1062,10 @@
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
         <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
-        <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
+        <fuel_prefs>      <val>1.0</val>                   <val>3.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>170</n_assem_core>
         <n_assem_batch>57</n_assem_batch>
         <power_cap>880</power_cap>
@@ -1083,10 +1083,10 @@
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
         <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
-        <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
+        <fuel_prefs>      <val>1.0</val>                   <val>3.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>170</n_assem_core>
         <n_assem_batch>57</n_assem_batch>
         <power_cap>880</power_cap>
@@ -1104,10 +1104,10 @@
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
         <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
-        <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
+        <fuel_prefs>      <val>1.0</val>                   <val>3.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>177</n_assem_core>
         <n_assem_batch>59</n_assem_batch>
         <power_cap>915</power_cap>
@@ -1125,10 +1125,10 @@
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
         <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
-        <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
+        <fuel_prefs>      <val>1.0</val>                   <val>3.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>177</n_assem_core>
         <n_assem_batch>59</n_assem_batch>
         <power_cap>915</power_cap>
@@ -1146,10 +1146,10 @@
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
         <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
-        <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
+        <fuel_prefs>      <val>1.0</val>                   <val>3.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>172</n_assem_core>
         <n_assem_batch>57</n_assem_batch>
         <power_cap>890</power_cap>
@@ -1167,10 +1167,10 @@
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
         <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
-        <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
+        <fuel_prefs>      <val>1.0</val>                   <val>3.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>176</n_assem_core>
         <n_assem_batch>59</n_assem_batch>
         <power_cap>910</power_cap>
@@ -1188,10 +1188,10 @@
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
         <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
-        <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
+        <fuel_prefs>      <val>1.0</val>                   <val>3.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>176</n_assem_core>
         <n_assem_batch>59</n_assem_batch>
         <power_cap>910</power_cap>
@@ -1209,10 +1209,10 @@
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
         <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
-        <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
+        <fuel_prefs>      <val>1.0</val>                   <val>3.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>172</n_assem_core>
         <n_assem_batch>57</n_assem_batch>
         <power_cap>890</power_cap>
@@ -1230,10 +1230,10 @@
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
         <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
-        <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
+        <fuel_prefs>      <val>1.0</val>                   <val>3.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>177</n_assem_core>
         <n_assem_batch>59</n_assem_batch>
         <power_cap>915</power_cap>
@@ -1251,10 +1251,10 @@
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
         <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
-        <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
+        <fuel_prefs>      <val>1.0</val>                   <val>3.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>177</n_assem_core>
         <n_assem_batch>59</n_assem_batch>
         <power_cap>915</power_cap>
@@ -1272,10 +1272,10 @@
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
         <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
-        <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
+        <fuel_prefs>      <val>1.0</val>                   <val>3.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>172</n_assem_core>
         <n_assem_batch>57</n_assem_batch>
         <power_cap>890</power_cap>
@@ -1293,10 +1293,10 @@
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
         <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
-        <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
+        <fuel_prefs>      <val>1.0</val>                   <val>3.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>172</n_assem_core>
         <n_assem_batch>57</n_assem_batch>
         <power_cap>890</power_cap>
@@ -1314,10 +1314,10 @@
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
         <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
-        <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
+        <fuel_prefs>      <val>1.0</val>                   <val>3.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>176</n_assem_core>
         <n_assem_batch>59</n_assem_batch>
         <power_cap>910</power_cap>
@@ -1335,10 +1335,10 @@
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
         <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
-        <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
+        <fuel_prefs>      <val>1.0</val>                   <val>3.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>176</n_assem_core>
         <n_assem_batch>59</n_assem_batch>
         <power_cap>910</power_cap>
@@ -1356,10 +1356,10 @@
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
         <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
-        <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
+        <fuel_prefs>      <val>1.0</val>                   <val>3.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>177</n_assem_core>
         <n_assem_batch>59</n_assem_batch>
         <power_cap>915</power_cap>
@@ -1377,10 +1377,10 @@
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
         <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
-        <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
+        <fuel_prefs>      <val>1.0</val>                   <val>3.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>177</n_assem_core>
         <n_assem_batch>59</n_assem_batch>
         <power_cap>915</power_cap>
@@ -1398,10 +1398,10 @@
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
         <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
-        <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
+        <fuel_prefs>      <val>1.0</val>                   <val>3.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>176</n_assem_core>
         <n_assem_batch>59</n_assem_batch>
         <power_cap>910</power_cap>
@@ -1419,10 +1419,10 @@
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
         <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
-        <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
+        <fuel_prefs>      <val>1.0</val>                   <val>3.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>176</n_assem_core>
         <n_assem_batch>59</n_assem_batch>
         <power_cap>910</power_cap>
@@ -1440,10 +1440,10 @@
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
         <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
-        <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
+        <fuel_prefs>      <val>1.0</val>                   <val>3.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>175</n_assem_core>
         <n_assem_batch>58</n_assem_batch>
         <power_cap>905</power_cap>
@@ -1461,10 +1461,10 @@
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
         <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
-        <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
+        <fuel_prefs>      <val>1.0</val>                   <val>3.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>175</n_assem_core>
         <n_assem_batch>58</n_assem_batch>
         <power_cap>905</power_cap>
@@ -1482,10 +1482,10 @@
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
         <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
-        <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
+        <fuel_prefs>      <val>1.0</val>                   <val>3.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>257</n_assem_core>
         <n_assem_batch>86</n_assem_batch>
         <power_cap>1330</power_cap>
@@ -1503,10 +1503,10 @@
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
         <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
-        <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
+        <fuel_prefs>      <val>1.0</val>                   <val>3.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>257</n_assem_core>
         <n_assem_batch>86</n_assem_batch>
         <power_cap>1330</power_cap>
@@ -1524,10 +1524,10 @@
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
         <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
-        <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
+        <fuel_prefs>      <val>1.0</val>                   <val>3.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>176</n_assem_core>
         <n_assem_batch>59</n_assem_batch>
         <power_cap>910</power_cap>
@@ -1545,10 +1545,10 @@
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
         <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
-        <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
+        <fuel_prefs>      <val>1.0</val>                   <val>3.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>176</n_assem_core>
         <n_assem_batch>59</n_assem_batch>
         <power_cap>910</power_cap>
@@ -1566,10 +1566,10 @@
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
         <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
-        <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
+        <fuel_prefs>      <val>1.0</val>                   <val>3.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>177</n_assem_core>
         <n_assem_batch>59</n_assem_batch>
         <power_cap>915</power_cap>
@@ -1587,10 +1587,10 @@
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
         <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
-        <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
+        <fuel_prefs>      <val>1.0</val>                   <val>3.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>177</n_assem_core>
         <n_assem_batch>59</n_assem_batch>
         <power_cap>915</power_cap>
@@ -1608,10 +1608,10 @@
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
         <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
-        <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
+        <fuel_prefs>      <val>1.0</val>                   <val>3.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>258</n_assem_core>
         <n_assem_batch>86</n_assem_batch>
         <power_cap>1335</power_cap>
@@ -1629,10 +1629,10 @@
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
         <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
-        <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
+        <fuel_prefs>      <val>1.0</val>                   <val>3.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>257</n_assem_core>
         <n_assem_batch>86</n_assem_batch>
         <power_cap>1330</power_cap>
@@ -1650,10 +1650,10 @@
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
         <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
-        <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
+        <fuel_prefs>      <val>1.0</val>                   <val>3.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>177</n_assem_core>
         <n_assem_batch>59</n_assem_batch>
         <power_cap>915</power_cap>
@@ -1671,10 +1671,10 @@
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
         <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
-        <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
+        <fuel_prefs>      <val>1.0</val>                   <val>3.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>258</n_assem_core>
         <n_assem_batch>86</n_assem_batch>
         <power_cap>1335</power_cap>
@@ -1692,10 +1692,10 @@
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
         <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
-        <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
+        <fuel_prefs>      <val>1.0</val>                   <val>3.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>177</n_assem_core>
         <n_assem_batch>59</n_assem_batch>
         <power_cap>915</power_cap>
@@ -1713,10 +1713,10 @@
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
         <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
-        <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
+        <fuel_prefs>      <val>1.0</val>                   <val>3.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>176</n_assem_core>
         <n_assem_batch>59</n_assem_batch>
         <power_cap>910</power_cap>
@@ -1734,10 +1734,10 @@
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
         <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
-        <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
+        <fuel_prefs>      <val>1.0</val>                   <val>3.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>176</n_assem_core>
         <n_assem_batch>59</n_assem_batch>
         <power_cap>910</power_cap>
@@ -1755,10 +1755,10 @@
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
         <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
-        <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
+        <fuel_prefs>      <val>1.0</val>                   <val>3.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>251</n_assem_core>
         <n_assem_batch>84</n_assem_batch>
         <power_cap>1300</power_cap>
@@ -1776,10 +1776,10 @@
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
         <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
-        <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
+        <fuel_prefs>      <val>1.0</val>                   <val>3.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>257</n_assem_core>
         <n_assem_batch>86</n_assem_batch>
         <power_cap>1330</power_cap>
@@ -1797,10 +1797,10 @@
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
         <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
-        <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
+        <fuel_prefs>      <val>1.0</val>                   <val>3.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>257</n_assem_core>
         <n_assem_batch>86</n_assem_batch>
         <power_cap>1330</power_cap>
@@ -1818,10 +1818,10 @@
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
         <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
-        <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
+        <fuel_prefs>      <val>1.0</val>                   <val>3.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>253</n_assem_core>
         <n_assem_batch>84</n_assem_batch>
         <power_cap>1310</power_cap>
@@ -1839,10 +1839,10 @@
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
         <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
-        <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
+        <fuel_prefs>      <val>1.0</val>                   <val>3.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>257</n_assem_core>
         <n_assem_batch>86</n_assem_batch>
         <power_cap>1330</power_cap>
@@ -1860,10 +1860,10 @@
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
         <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
-        <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
+        <fuel_prefs>      <val>1.0</val>                   <val>3.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>251</n_assem_core>
         <n_assem_batch>84</n_assem_batch>
         <power_cap>1300</power_cap>
@@ -1881,10 +1881,10 @@
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
         <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
-        <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
+        <fuel_prefs>      <val>1.0</val>                   <val>3.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>253</n_assem_core>
         <n_assem_batch>84</n_assem_batch>
         <power_cap>1310</power_cap>
@@ -1902,10 +1902,10 @@
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
         <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
-        <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
+        <fuel_prefs>      <val>1.0</val>                   <val>3.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>175</n_assem_core>
         <n_assem_batch>58</n_assem_batch>
         <power_cap>905</power_cap>
@@ -1923,10 +1923,10 @@
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
         <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
-        <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
+        <fuel_prefs>      <val>1.0</val>                   <val>3.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>175</n_assem_core>
         <n_assem_batch>58</n_assem_batch>
         <power_cap>905</power_cap>
@@ -1944,10 +1944,10 @@
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
         <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
-        <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
+        <fuel_prefs>      <val>1.0</val>                   <val>3.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>253</n_assem_core>
         <n_assem_batch>84</n_assem_batch>
         <power_cap>1310</power_cap>
@@ -1965,10 +1965,10 @@
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
         <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
-        <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
+        <fuel_prefs>      <val>1.0</val>                   <val>3.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>253</n_assem_core>
         <n_assem_batch>84</n_assem_batch>
         <power_cap>1310</power_cap>
@@ -1986,10 +1986,10 @@
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
         <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
-        <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
+        <fuel_prefs>      <val>1.0</val>                   <val>3.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>251</n_assem_core>
         <n_assem_batch>84</n_assem_batch>
         <power_cap>1300</power_cap>
@@ -2007,10 +2007,10 @@
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
         <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
-        <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
+        <fuel_prefs>      <val>1.0</val>                   <val>3.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>257</n_assem_core>
         <n_assem_batch>86</n_assem_batch>
         <power_cap>1330</power_cap>
@@ -2028,10 +2028,10 @@
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
         <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
-        <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
+        <fuel_prefs>      <val>1.0</val>                   <val>3.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>253</n_assem_core>
         <n_assem_batch>84</n_assem_batch>
         <power_cap>1310</power_cap>
@@ -2049,10 +2049,10 @@
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
         <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
-        <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
+        <fuel_prefs>      <val>1.0</val>                   <val>3.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>251</n_assem_core>
         <n_assem_batch>84</n_assem_batch>
         <power_cap>1300</power_cap>
@@ -2070,10 +2070,10 @@
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
         <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
-        <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
+        <fuel_prefs>      <val>1.0</val>                   <val>3.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>290</n_assem_core>
         <n_assem_batch>96</n_assem_batch>
         <power_cap>1500</power_cap>
@@ -2091,10 +2091,10 @@
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
         <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
-        <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
+        <fuel_prefs>      <val>1.0</val>                   <val>3.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>257</n_assem_core>
         <n_assem_batch>86</n_assem_batch>
         <power_cap>1330</power_cap>
@@ -2112,10 +2112,10 @@
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
         <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
-        <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
+        <fuel_prefs>      <val>1.0</val>                   <val>3.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>253</n_assem_core>
         <n_assem_batch>84</n_assem_batch>
         <power_cap>1310</power_cap>
@@ -2133,10 +2133,10 @@
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
         <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
-        <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
+        <fuel_prefs>      <val>1.0</val>                   <val>3.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>290</n_assem_core>
         <n_assem_batch>96</n_assem_batch>
         <power_cap>1500</power_cap>
@@ -2154,10 +2154,10 @@
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
         <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
-        <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
+        <fuel_prefs>      <val>1.0</val>                   <val>3.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>289</n_assem_core>
         <n_assem_batch>96</n_assem_batch>
         <power_cap>1495</power_cap>
@@ -2175,10 +2175,10 @@
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  <val>mox_used_fuel_recipe</val>   </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   <val>mox</val>                    </fuel_incommods>
         <fuel_outcommods> <val>french_uox_waste</val>             <val>mox_waste</val>              </fuel_outcommods>
-        <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
+        <fuel_prefs>      <val>1.0</val>                   <val>3.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>289</n_assem_core>
         <n_assem_batch>96</n_assem_batch>
         <power_cap>1495</power_cap>
@@ -2199,7 +2199,7 @@
         <fuel_prefs>      <val>1.0</val>                   <val>2.0</val>                    </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>309</n_assem_core>
         <n_assem_batch>103</n_assem_batch>
         <power_cap>1600</power_cap>
@@ -2262,7 +2262,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>66</n_assem_core>
         <n_assem_batch>22</n_assem_batch>
         <power_cap>340</power_cap>
@@ -2283,7 +2283,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>19</n_assem_core>
         <n_assem_batch>6</n_assem_batch>
         <power_cap>100</power_cap>
@@ -2304,7 +2304,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>124</n_assem_core>
         <n_assem_batch>41</n_assem_batch>
         <power_cap>640</power_cap>
@@ -2346,7 +2346,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>225</n_assem_core>
         <n_assem_batch>75</n_assem_batch>
         <power_cap>1167</power_cap>
@@ -2367,7 +2367,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>79</n_assem_core>
         <n_assem_batch>26</n_assem_batch>
         <power_cap>408</power_cap>
@@ -2388,7 +2388,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>79</n_assem_core>
         <n_assem_batch>26</n_assem_batch>
         <power_cap>408</power_cap>
@@ -2451,7 +2451,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>57</n_assem_core>
         <n_assem_batch>19</n_assem_batch>
         <power_cap>296</power_cap>
@@ -2472,7 +2472,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>239</n_assem_core>
         <n_assem_batch>80</n_assem_batch>
         <power_cap>1240</power_cap>
@@ -2493,7 +2493,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>152</n_assem_core>
         <n_assem_batch>51</n_assem_batch>
         <power_cap>785</power_cap>
@@ -2514,7 +2514,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>79</n_assem_core>
         <n_assem_batch>26</n_assem_batch>
         <power_cap>408</power_cap>
@@ -2535,7 +2535,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>79</n_assem_core>
         <n_assem_batch>26</n_assem_batch>
         <power_cap>408</power_cap>
@@ -2577,7 +2577,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>260</n_assem_core>
         <n_assem_batch>87</n_assem_batch>
         <power_cap>1345</power_cap>
@@ -2619,7 +2619,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>246</n_assem_core>
         <n_assem_batch>82</n_assem_batch>
         <power_cap>1275</power_cap>
@@ -2640,7 +2640,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>235</n_assem_core>
         <n_assem_batch>78</n_assem_batch>
         <power_cap>1219</power_cap>
@@ -2661,7 +2661,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>272</n_assem_core>
         <n_assem_batch>91</n_assem_batch>
         <power_cap>1410</power_cap>
@@ -2682,7 +2682,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>262</n_assem_core>
         <n_assem_batch>87</n_assem_batch>
         <power_cap>1360</power_cap>
@@ -2745,7 +2745,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>79</n_assem_core>
         <n_assem_batch>26</n_assem_batch>
         <power_cap>408</power_cap>
@@ -2766,7 +2766,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>271</n_assem_core>
         <n_assem_batch>90</n_assem_batch>
         <power_cap>1402</power_cap>
@@ -2787,7 +2787,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>256</n_assem_core>
         <n_assem_batch>85</n_assem_batch>
         <power_cap>1329</power_cap>
@@ -2808,7 +2808,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>272</n_assem_core>
         <n_assem_batch>91</n_assem_batch>
         <power_cap>1410</power_cap>
@@ -2829,7 +2829,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>253</n_assem_core>
         <n_assem_batch>84</n_assem_batch>
         <power_cap>1310</power_cap>
@@ -2850,7 +2850,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>91</n_assem_core>
         <n_assem_batch>30</n_assem_batch>
         <power_cap>470</power_cap>
@@ -2871,7 +2871,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>91</n_assem_core>
         <n_assem_batch>30</n_assem_batch>
         <power_cap>473</power_cap>
@@ -2892,7 +2892,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>91</n_assem_core>
         <n_assem_batch>30</n_assem_batch>
         <power_cap>473</power_cap>
@@ -2913,7 +2913,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>91</n_assem_core>
         <n_assem_batch>30</n_assem_batch>
         <power_cap>473</power_cap>
@@ -2934,7 +2934,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>30</n_assem_core>
         <n_assem_batch>10</n_assem_batch>
         <power_cap>153</power_cap>
@@ -2976,7 +2976,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>50</n_assem_core>
         <n_assem_batch>17</n_assem_batch>
         <power_cap>260</power_cap>
@@ -3018,7 +3018,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>93</n_assem_core>
         <n_assem_batch>31</n_assem_batch>
         <power_cap>482</power_cap>
@@ -3081,7 +3081,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>133</n_assem_core>
         <n_assem_batch>44</n_assem_batch>
         <power_cap>688</power_cap>
@@ -3102,7 +3102,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>27</n_assem_core>
         <n_assem_batch>9</n_assem_batch>
         <power_cap>141</power_cap>
@@ -3144,7 +3144,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>93</n_assem_core>
         <n_assem_batch>31</n_assem_batch>
         <power_cap>480</power_cap>
@@ -3165,7 +3165,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>195</n_assem_core>
         <n_assem_batch>65</n_assem_batch>
         <power_cap>1011</power_cap>
@@ -3186,7 +3186,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>194</n_assem_core>
         <n_assem_batch>65</n_assem_batch>
         <power_cap>1006</power_cap>
@@ -3207,7 +3207,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>192</n_assem_core>
         <n_assem_batch>64</n_assem_batch>
         <power_cap>995</power_cap>
@@ -3228,7 +3228,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>192</n_assem_core>
         <n_assem_batch>64</n_assem_batch>
         <power_cap>997</power_cap>
@@ -3270,7 +3270,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>194</n_assem_core>
         <n_assem_batch>65</n_assem_batch>
         <power_cap>1003</power_cap>
@@ -3291,7 +3291,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>202</n_assem_core>
         <n_assem_batch>67</n_assem_batch>
         <power_cap>1045</power_cap>
@@ -3375,7 +3375,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>156</n_assem_core>
         <n_assem_batch>52</n_assem_batch>
         <power_cap>807</power_cap>
@@ -3417,7 +3417,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>205</n_assem_core>
         <n_assem_batch>68</n_assem_batch>
         <power_cap>1062</power_cap>
@@ -3480,7 +3480,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>181</n_assem_core>
         <n_assem_batch>60</n_assem_batch>
         <power_cap>938</power_cap>
@@ -3564,7 +3564,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>27</n_assem_core>
         <n_assem_batch>9</n_assem_batch>
         <power_cap>138</power_cap>
@@ -3585,7 +3585,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>27</n_assem_core>
         <n_assem_batch>9</n_assem_batch>
         <power_cap>138</power_cap>
@@ -3606,7 +3606,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>24</n_assem_core>
         <n_assem_batch>8</n_assem_batch>
         <power_cap>123</power_cap>
@@ -3627,7 +3627,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>24</n_assem_core>
         <n_assem_batch>8</n_assem_batch>
         <power_cap>123</power_cap>
@@ -3648,7 +3648,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>29</n_assem_core>
         <n_assem_batch>10</n_assem_batch>
         <power_cap>150</power_cap>
@@ -3669,7 +3669,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>29</n_assem_core>
         <n_assem_batch>10</n_assem_batch>
         <power_cap>150</power_cap>
@@ -3690,7 +3690,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>45</n_assem_core>
         <n_assem_batch>15</n_assem_batch>
         <power_cap>235</power_cap>
@@ -3711,7 +3711,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>45</n_assem_core>
         <n_assem_batch>15</n_assem_batch>
         <power_cap>235</power_cap>
@@ -3732,7 +3732,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>38</n_assem_core>
         <n_assem_batch>13</n_assem_batch>
         <power_cap>195</power_cap>
@@ -3753,7 +3753,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>38</n_assem_core>
         <n_assem_batch>13</n_assem_batch>
         <power_cap>195</power_cap>
@@ -3774,7 +3774,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>43</n_assem_core>
         <n_assem_batch>14</n_assem_batch>
         <power_cap>225</power_cap>
@@ -3795,7 +3795,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>43</n_assem_core>
         <n_assem_batch>14</n_assem_batch>
         <power_cap>225</power_cap>
@@ -3816,7 +3816,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>41</n_assem_core>
         <n_assem_batch>14</n_assem_batch>
         <power_cap>210</power_cap>
@@ -3837,7 +3837,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>41</n_assem_core>
         <n_assem_batch>14</n_assem_batch>
         <power_cap>210</power_cap>
@@ -3858,7 +3858,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>42</n_assem_core>
         <n_assem_batch>14</n_assem_batch>
         <power_cap>217</power_cap>
@@ -3879,7 +3879,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>42</n_assem_core>
         <n_assem_batch>14</n_assem_batch>
         <power_cap>217</power_cap>
@@ -3900,7 +3900,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>95</n_assem_core>
         <n_assem_batch>32</n_assem_batch>
         <power_cap>490</power_cap>
@@ -3921,7 +3921,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>95</n_assem_core>
         <n_assem_batch>32</n_assem_batch>
         <power_cap>490</power_cap>
@@ -3942,7 +3942,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>100</n_assem_core>
         <n_assem_batch>33</n_assem_batch>
         <power_cap>520</power_cap>
@@ -3963,7 +3963,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>100</n_assem_core>
         <n_assem_batch>33</n_assem_batch>
         <power_cap>520</power_cap>
@@ -3984,7 +3984,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>45</n_assem_core>
         <n_assem_batch>15</n_assem_batch>
         <power_cap>234</power_cap>
@@ -4005,7 +4005,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>84</n_assem_core>
         <n_assem_batch>28</n_assem_batch>
         <power_cap>435</power_cap>
@@ -4026,7 +4026,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>84</n_assem_core>
         <n_assem_batch>28</n_assem_batch>
         <power_cap>435</power_cap>
@@ -4047,7 +4047,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>89</n_assem_core>
         <n_assem_batch>30</n_assem_batch>
         <power_cap>460</power_cap>
@@ -4068,7 +4068,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>83</n_assem_core>
         <n_assem_batch>28</n_assem_batch>
         <power_cap>430</power_cap>
@@ -4089,7 +4089,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>115</n_assem_core>
         <n_assem_batch>38</n_assem_batch>
         <power_cap>595</power_cap>
@@ -4110,7 +4110,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>113</n_assem_core>
         <n_assem_batch>38</n_assem_batch>
         <power_cap>585</power_cap>
@@ -4131,7 +4131,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>113</n_assem_core>
         <n_assem_batch>38</n_assem_batch>
         <power_cap>585</power_cap>
@@ -4152,7 +4152,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>111</n_assem_core>
         <n_assem_batch>37</n_assem_batch>
         <power_cap>575</power_cap>
@@ -4173,7 +4173,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>118</n_assem_core>
         <n_assem_batch>39</n_assem_batch>
         <power_cap>610</power_cap>
@@ -4194,7 +4194,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>118</n_assem_core>
         <n_assem_batch>39</n_assem_batch>
         <power_cap>610</power_cap>
@@ -4215,7 +4215,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>115</n_assem_core>
         <n_assem_batch>38</n_assem_batch>
         <power_cap>595</power_cap>
@@ -4236,7 +4236,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>115</n_assem_core>
         <n_assem_batch>38</n_assem_batch>
         <power_cap>595</power_cap>
@@ -4257,7 +4257,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>230</n_assem_core>
         <n_assem_batch>77</n_assem_batch>
         <power_cap>1191</power_cap>
@@ -4278,7 +4278,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>229</n_assem_core>
         <n_assem_batch>76</n_assem_batch>
         <power_cap>1185</power_cap>
@@ -4299,7 +4299,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>229</n_assem_core>
         <n_assem_batch>76</n_assem_batch>
         <power_cap>1185</power_cap>
@@ -4320,7 +4320,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>332</n_assem_core>
         <n_assem_batch>111</n_assem_batch>
         <power_cap>1720</power_cap>
@@ -4383,7 +4383,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>232</n_assem_core>
         <n_assem_batch>77</n_assem_batch>
         <power_cap>1200</power_cap>
@@ -4404,7 +4404,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>232</n_assem_core>
         <n_assem_batch>77</n_assem_batch>
         <power_cap>1200</power_cap>
@@ -4425,7 +4425,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>232</n_assem_core>
         <n_assem_batch>77</n_assem_batch>
         <power_cap>1200</power_cap>
@@ -4509,7 +4509,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>579</n_assem_core>
         <n_assem_batch>193</n_assem_batch>
         <power_cap>3000</power_cap>
@@ -4530,7 +4530,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>579</n_assem_core>
         <n_assem_batch>193</n_assem_batch>
         <power_cap>3000</power_cap>
@@ -4551,7 +4551,7 @@
         <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assem_size>523.4</assem_size>
+        <assem_size>446</assem_size>
         <n_assem_core>232</n_assem_core>
         <n_assem_batch>77</n_assem_batch>
         <power_cap>1200</power_cap>
@@ -5965,22 +5965,13 @@
   <recipe>
     <name>mox_fuel_recipe</name>
     <basis>mass</basis>
-     <nuclide> <id>U232</id>  <comp>1.2872E-10</comp> </nuclide> 
-     <nuclide> <id>U233</id>  <comp>1.38E-09</comp> </nuclide> 
-     <nuclide> <id>U234</id>  <comp>.000143528</comp> </nuclide> 
-     <nuclide> <id>U235</id>  <comp>.007420728</comp> </nuclide> 
-     <nuclide> <id>U236</id>  <comp>.003556698</comp> </nuclide>
-     <nuclide> <id>U237</id>  <comp>3.34366E-11</comp> </nuclide>  
-     <nuclide> <id>U238</id>  <comp>0.868879045</comp> </nuclide>
-     <nuclide> <id>U239</id>  <comp>2.26477E-19</comp> </nuclide> 
-     <nuclide> <id>Pu238</id>  <comp>0.001440424</comp> </nuclide> 
-     <nuclide> <id>Pu239</id>  <comp>0.066449749</comp> </nuclide> 
-     <nuclide> <id>Pu240</id>  <comp>0.029770312</comp> </nuclide> 
-     <nuclide> <id>Pu241</id>  <comp>0.016094726</comp> </nuclide> 
-     <nuclide> <id>Pu242</id>  <comp>0.006244625</comp> </nuclide>
-     <nuclide> <id>Pu243</id>  <comp>3.95537E-19</comp> </nuclide> 
-     <nuclide> <id>Pu244</id>  <comp>1.64638E-07</comp> </nuclide> 
-     <nuclide> <id>Pu245</id>  <comp>1.43248E-24</comp> </nuclide> 
+     <nuclide> <id>U235</id>  <comp>.0026936</comp> </nuclide> 
+     <nuclide> <id>U238</id>  <comp>.90729</comp> </nuclide>
+     <nuclide> <id>Pu238</id>  <comp>0.00108</comp> </nuclide> 
+     <nuclide> <id>Pu239</id>  <comp>0.0498373</comp> </nuclide> 
+     <nuclide> <id>Pu240</id>  <comp>0.0223277</comp> </nuclide> 
+     <nuclide> <id>Pu241</id>  <comp>0.012071</comp> </nuclide> 
+     <nuclide> <id>Pu242</id>  <comp>0.004683</comp> </nuclide>
   </recipe> 
 
    <recipe>
@@ -6040,61 +6031,62 @@
      <nuclide> <id>Cs137</id>  <comp>0.0018309056</comp> </nuclide> 
   </recipe> 
 
-  <recipe>
+    <recipe>
     <name>uox_used_fuel_recipe</name>
     <basis>mass</basis>
-     <nuclide> <id>He4</id>  <comp>2.09687731425456E-07</comp> </nuclide> 
-     <nuclide> <id>Ra226</id>  <comp>1.18893043712383E-14</comp> </nuclide> 
-     <nuclide> <id>Ra228</id>  <comp>6.05164592554536E-21</comp> </nuclide> 
-     <nuclide> <id>Pb206</id>  <comp>7.66855132237399E-20</comp> </nuclide> 
-     <nuclide> <id>Pb207</id>  <comp>6.51861860354101E-17</comp> </nuclide> 
-     <nuclide> <id>Pb208</id>  <comp>1.2309279798986E-13</comp> </nuclide> 
-     <nuclide> <id>Pb210</id>  <comp>2.49685391210951E-20</comp> </nuclide> 
-     <nuclide> <id>Th228</id>  <comp>6.56361597079969E-13</comp> </nuclide> 
-     <nuclide> <id>Th229</id>  <comp>1.70690013134599E-13</comp> </nuclide> 
-     <nuclide> <id>Th230</id>  <comp>0.000000001</comp> </nuclide> 
-     <nuclide> <id>Th232</id>  <comp>1.56490843910748E-10</comp> </nuclide> 
-     <nuclide> <id>Bi209</id>  <comp>2.5848487636376E-17</comp> </nuclide> 
-     <nuclide> <id>Ac227</id>  <comp>3.45679774696139E-15</comp> </nuclide> 
-     <nuclide> <id>Pa231</id>  <comp>2.25186824592336E-10</comp> </nuclide> 
-     <nuclide> <id>U232</id>  <comp>1.39991809249232E-10</comp> </nuclide> 
-     <nuclide> <id>U233</id>  <comp>1.31692294843742E-09</comp> </nuclide> 
-     <nuclide> <id>U234</id>  <comp>0.0001558909</comp> </nuclide> 
-     <nuclide> <id>U235</id>  <comp>0.0080635282</comp> </nuclide> 
-     <nuclide> <id>U236</id>  <comp>0.0038647739</comp> </nuclide> 
-     <nuclide> <id>U238</id>  <comp>0.9441447592</comp> </nuclide> 
-     <nuclide> <id>Np237</id>  <comp>0.0003316806</comp> </nuclide> 
-     <nuclide> <id>Pu238</id>  <comp>0.0001076937</comp> </nuclide> 
-     <nuclide> <id>Pu239</id>  <comp>0.0050287058</comp> </nuclide> 
-     <nuclide> <id>Pu240</id>  <comp>0.0022528682</comp> </nuclide> 
-     <nuclide> <id>Pu241</id>  <comp>0.0012229284</comp> </nuclide> 
-     <nuclide> <id>Pu242</id>  <comp>0.0004725724</comp> </nuclide> 
-     <nuclide> <id>Pu244</id>  <comp>1.24592710231816E-08</comp> </nuclide> 
-     <nuclide> <id>Am241</id>  <comp>2.97982565401936E-05</comp> </nuclide> 
-     <nuclide> <id>Am242m</id>  <comp>3.55779183791976E-07</comp> </nuclide> 
-     <nuclide> <id>Am243</id>  <comp>7.89053833418348E-05</comp> </nuclide> 
-     <nuclide> <id>Cm242</id>  <comp>1.15793225079007E-05</comp> </nuclide> 
-     <nuclide> <id>Cm243</id>  <comp>0.00000024</comp> </nuclide> 
-     <nuclide> <id>Cm244</id>  <comp>2.20987070314859E-05</comp> </nuclide> 
-     <nuclide> <id>Cm245</id>  <comp>1.02693991499258E-06</comp> </nuclide> 
-     <nuclide> <id>Cm246</id>  <comp>9.56844016218499E-08</comp> </nuclide> 
-     <nuclide> <id>Cm247</id>  <comp>8.39550878897535E-10</comp> </nuclide> 
-     <nuclide> <id>Cm248</id>  <comp>4.3267468472959E-11</comp> </nuclide> 
-     <nuclide> <id>Cm250</id>  <comp>1.99688316479083E-19</comp> </nuclide> 
-     <nuclide> <id>Cf249</id>  <comp>4.3937429274366E-14</comp> </nuclide> 
-     <nuclide> <id>Cf250</id>  <comp>8.11752505346616E-14</comp> </nuclide> 
-     <nuclide> <id>Cf251</id>  <comp>3.16081506454872E-14</comp> </nuclide> 
-     <nuclide> <id>Cf252</id>  <comp>1.66790241305513E-14</comp> </nuclide> 
-     <nuclide> <id>H3</id>  <comp>5.74866365267024E-08</comp> </nuclide> 
-     <nuclide> <id>C14</id>  <comp>2.63084607239092E-11</comp> </nuclide> 
-     <nuclide> <id>Kr81</id>  <comp>2.16087356991135E-11</comp> </nuclide> 
-     <nuclide> <id>Kr85</id>  <comp>2.41685859253852E-05</comp> </nuclide> 
-     <nuclide> <id>Sr90</id>  <comp>0.0005372686</comp> </nuclide> 
-     <nuclide> <id>Tc99</id>  <comp>0.0007822542</comp> </nuclide> 
-     <nuclide> <id>I129</id>  <comp>0.0001810894</comp> </nuclide> 
-     <nuclide> <id>Cs134</id>  <comp>0.0001230928</comp> </nuclide> 
-     <nuclide> <id>Cs135</id>  <comp>0.0003052821</comp> </nuclide> 
-     <nuclide> <id>Cs137</id>  <comp>0.0012009297</comp> </nuclide> 
+    <nuclide> <id>He4</id>  <comp>9.47457840128509E-07</comp> </nuclide> 
+   <nuclide> <id>Ra226</id>  <comp>9.78856442957042E-14</comp> </nuclide> 
+   <nuclide> <id>Ra228</id>  <comp>2.75087759176098E-20</comp> </nuclide> 
+   <nuclide> <id>Pb206</id>  <comp>5.57475193532078E-18</comp> </nuclide> 
+   <nuclide> <id>Pb207</id>  <comp>1.68592497990149E-15</comp> </nuclide> 
+   <nuclide> <id>Pb208</id>  <comp>3.6888358546006E-12</comp> </nuclide> 
+   <nuclide> <id>Pb210</id>  <comp>3.02386544437848E-19</comp> </nuclide> 
+   <nuclide> <id>Th228</id>  <comp>8.47562285269577E-12</comp> </nuclide> 
+   <nuclide> <id>Th229</id>  <comp>2.72787861516683E-12</comp> </nuclide> 
+   <nuclide> <id>Th230</id>  <comp>2.6258831537493E-09</comp> </nuclide> 
+   <nuclide> <id>Th232</id>  <comp>4.17481422959E-10</comp> </nuclide> 
+   <nuclide> <id>Bi209</id>  <comp>6.60770597104927E-16</comp> </nuclide> 
+   <nuclide> <id>Ac227</id>  <comp>3.0968621961773E-14</comp> </nuclide> 
+   <nuclide> <id>Pa231</id>  <comp>9.24658854635179E-10</comp> </nuclide> 
+   <nuclide> <id>U232</id>  <comp>0.000000001</comp> </nuclide> 
+   <nuclide> <id>U233</id>  <comp>2.21390148606282E-09</comp> </nuclide> 
+   <nuclide> <id>U234</id>  <comp>0.0001718924</comp> </nuclide> 
+   <nuclide> <id>U235</id>  <comp>0.0076486597</comp> </nuclide> 
+   <nuclide> <id>U236</id>  <comp>0.0057057461</comp> </nuclide> 
+   <nuclide> <id>U238</id>  <comp>0.9208590237</comp> </nuclide> 
+   <nuclide> <id>Np237</id>  <comp>0.0006091729</comp> </nuclide> 
+   <nuclide> <id>Pu238</id>  <comp>0.000291487</comp> </nuclide> 
+   <nuclide> <id>Pu239</id>  <comp>0.0060657301</comp> </nuclide> 
+   <nuclide> <id>Pu240</id>  <comp>0.0029058707</comp> </nuclide> 
+   <nuclide> <id>Pu241</id>  <comp>0.0017579218</comp> </nuclide> 
+   <nuclide> <id>Pu242</id>  <comp>0.0008638616</comp> </nuclide> 
+   <nuclide> <id>Pu244</id>  <comp>2.86487251922763E-08</comp> </nuclide> 
+   <nuclide> <id>Am241</id>  <comp>6.44271331287386E-05</comp> </nuclide> 
+   <nuclide> <id>Am242m</id>  <comp>8.53362027193319E-07</comp> </nuclide> 
+   <nuclide> <id>Am243</id>  <comp>0.0001983912</comp> </nuclide> 
+   <nuclide> <id>Cm242</id>  <comp>2.58988475560194E-05</comp> </nuclide> 
+   <nuclide> <id>Cm243</id>  <comp>0.000000771</comp> </nuclide> 
+   <nuclide> <id>Cm244</id>  <comp>8.5616190260478E-05</comp> </nuclide> 
+   <nuclide> <id>Cm245</id>  <comp>5.72174539442251E-06</comp> </nuclide> 
+   <nuclide> <id>Cm246</id>  <comp>7.29567535786554E-07</comp> </nuclide> 
+   <nuclide> <id>Cm247</id>  <comp>0.00000001</comp> </nuclide> 
+   <nuclide> <id>Cm248</id>  <comp>7.69165773748653E-10</comp> </nuclide> 
+   <nuclide> <id>Cm250</id>  <comp>4.2808095130239E-18</comp> </nuclide> 
+   <nuclide> <id>Cf249</id>  <comp>1.64992658175413E-12</comp> </nuclide> 
+   <nuclide> <id>Cf250</id>  <comp>2.04190913935875E-12</comp> </nuclide> 
+   <nuclide> <id>Cf251</id>  <comp>9.86556100338561E-13</comp> </nuclide> 
+   <nuclide> <id>Cf252</id>  <comp>6.57970721693466E-13</comp> </nuclide> 
+   <nuclide> <id>H3</id>  <comp>8.58461800264195E-08</comp> </nuclide> 
+   <nuclide> <id>C14</id>  <comp>4.05781943561107E-11</comp> </nuclide> 
+   <nuclide> <id>Kr81</id>  <comp>4.21681236076192E-11</comp> </nuclide> 
+   <nuclide> <id>Kr85</id>  <comp>3.44484671160181E-05</comp> </nuclide> 
+   <nuclide> <id>Sr90</id>  <comp>0.0007880649</comp> </nuclide> 
+   <nuclide> <id>Tc99</id>  <comp>0.0011409492</comp> </nuclide> 
+   <nuclide> <id>I129</id>  <comp>0.0002731878</comp> </nuclide> 
+   <nuclide> <id>Cs134</id>  <comp>0.0002300898</comp> </nuclide> 
+   <nuclide> <id>Cs135</id>  <comp>0.0006596706</comp> </nuclide> 
+   <nuclide> <id>Cs137</id>  <comp>0.0018169192</comp> </nuclide> 
+   <nuclide> <id>H1</id>  <comp>0.0477938151</comp> </nuclide> 
 
   </recipe> 
 
