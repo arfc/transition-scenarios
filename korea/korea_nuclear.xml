@@ -1,9 +1,9 @@
 
 <simulation>
   <control>
-    <duration>840</duration>
+    <duration>646</duration>
     <startmonth>1</startmonth>
-    <startyear>1960</startyear>
+    <startyear>1965</startyear>
     <decay>lazy</decay>
   </control>
 
@@ -48,11 +48,6 @@
       <lib>cycamore</lib>
       <name>Mixer</name>
     </spec>
-    <spec>
-      <lib>cyborg</lib>
-      <name>Reactor</name>
-      <alias>Cyborg</alias>
-    </spec>
   </archetypes>
 
 
@@ -82,6 +77,17 @@
     </config>
   </facility>
 
+    <facility>
+    <name>candu_source</name>
+    <config>
+      <Source>
+        <outcommod>candu_fuel</outcommod>
+        <outrecipe>natl_u_recipe</outrecipe>
+        <throughput>1e100</throughput>
+      </Source>
+    </config>
+  </facility>
+
   <facility>
     <name>SomeSink</name>
     <config>
@@ -90,6 +96,7 @@
           <val>uox_waste</val>
           <val>used_candu</val>
           <val>mox_waste</val>
+          <val>used_candu</val>
           <val>tailings</val>
           <val>reprocess_waste</val>
         </in_commods>
@@ -98,510 +105,531 @@
     </config>
   </facility>
 
-<facility>
+ <facility>
     <!-- Korea -->
-    <!-- PWR    -->
+    <!-- PWR -->
     <name>KORI-1</name>
     <config>
-      <Cyborg>
-        <power_cap>576</power_cap>
-        <assem_size>523.4</assem_size>
-        <fuel_recipes>    <val>uox_fuel_recipe</val>      </fuel_recipes>
-        <fuel_incommods>  <val>uox</val>           </fuel_incommods>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assembly_type>ce16x16</assembly_type>
-        <fuel_type>UOX</fuel_type>
+        <assem_size>523.4</assem_size>
         <n_assem_core>111</n_assem_core>
         <n_assem_batch>37</n_assem_batch>
-        <spent_fuel>uox_waste</spent_fuel>
-      </Cyborg>
+        <power_cap>576</power_cap>
+      </Reactor>
     </config>
-</facility>
-<facility>
+  </facility>
+
+ <facility>
     <!-- Korea -->
-    <!-- PHWR    -->
+    <!-- PHWR -->
     <name>WOLSONG-1</name>
     <config>
-      <Cyborg>
-        <power_cap>657</power_cap>
-        <assem_size>169</assem_size>
-        <fuel_recipes>    <val>natl_u_recipe</val>      </fuel_recipes>
-        <fuel_incommods>  <val>natl_u</val>           </fuel_incommods>
+      <Reactor>
+        <fuel_inrecipes>  <val>natl_u_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>used_candu_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>candu_fuel</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>used_candu</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>1</cycle_time>
         <refuel_time>0</refuel_time>
-        <assembly_type>candu19</assembly_type>
-        <fuel_type>UOX</fuel_type>
+        <assem_size>169</assem_size>
         <n_assem_core>622</n_assem_core>
         <n_assem_batch>60</n_assem_batch>
-        <spent_fuel>used_candu</spent_fuel>
-      </Cyborg>
+        <power_cap>657</power_cap>
+      </Reactor>
     </config>
-</facility>
+  </facility>
 
-<facility>
+ <facility>
     <!-- Korea -->
-    <!-- PWR    -->
+    <!-- PWR -->
     <name>KORI-2</name>
     <config>
-      <Cyborg>
-        <power_cap>639</power_cap>
-        <assem_size>523.4</assem_size>
-        <fuel_recipes>    <val>uox_fuel_recipe</val>      </fuel_recipes>
-        <fuel_incommods>  <val>uox</val>           </fuel_incommods>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assembly_type>ce16x16</assembly_type>
-        <fuel_type>UOX</fuel_type>
+        <assem_size>523.4</assem_size>
         <n_assem_core>123</n_assem_core>
         <n_assem_batch>41</n_assem_batch>
-        <spent_fuel>uox_waste</spent_fuel>
-      </Cyborg>
+        <power_cap>639</power_cap>
+      </Reactor>
     </config>
-</facility>
-<facility>
+  </facility>
+
+ <facility>
     <!-- Korea -->
-    <!-- PWR    -->
+    <!-- PWR -->
     <name>KORI-3</name>
     <config>
-      <Cyborg>
-        <power_cap>1011</power_cap>
-        <assem_size>523.4</assem_size>
-        <fuel_recipes>    <val>uox_fuel_recipe</val>      </fuel_recipes>
-        <fuel_incommods>  <val>uox</val>           </fuel_incommods>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assembly_type>ce16x16</assembly_type>
-        <fuel_type>UOX</fuel_type>
+        <assem_size>523.4</assem_size>
         <n_assem_core>195</n_assem_core>
         <n_assem_batch>65</n_assem_batch>
-        <spent_fuel>uox_waste</spent_fuel>
-      </Cyborg>
+        <power_cap>1011</power_cap>
+      </Reactor>
     </config>
-</facility>
-<facility>
+  </facility>
+
+ <facility>
     <!-- Korea -->
-    <!-- PWR    -->
+    <!-- PWR -->
     <name>KORI-4</name>
     <config>
-      <Cyborg>
-        <power_cap>1010</power_cap>
-        <assem_size>523.4</assem_size>
-        <fuel_recipes>    <val>uox_fuel_recipe</val>      </fuel_recipes>
-        <fuel_incommods>  <val>uox</val>           </fuel_incommods>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assembly_type>ce16x16</assembly_type>
-        <fuel_type>UOX</fuel_type>
+        <assem_size>523.4</assem_size>
         <n_assem_core>195</n_assem_core>
         <n_assem_batch>65</n_assem_batch>
-        <spent_fuel>uox_waste</spent_fuel>
-      </Cyborg>
+        <power_cap>1010</power_cap>
+      </Reactor>
     </config>
-</facility>
-<facility>
+  </facility>
+
+ <facility>
     <!-- Korea -->
-    <!-- PWR    -->
+    <!-- PWR -->
     <name>HANBIT-1</name>
     <config>
-      <Cyborg>
-        <power_cap>960</power_cap>
-        <assem_size>523.4</assem_size>
-        <fuel_recipes>    <val>uox_fuel_recipe</val>      </fuel_recipes>
-        <fuel_incommods>  <val>uox</val>           </fuel_incommods>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assembly_type>ce16x16</assembly_type>
-        <fuel_type>UOX</fuel_type>
+        <assem_size>523.4</assem_size>
         <n_assem_core>185</n_assem_core>
         <n_assem_batch>62</n_assem_batch>
-        <spent_fuel>uox_waste</spent_fuel>
-      </Cyborg>
+        <power_cap>960</power_cap>
+      </Reactor>
     </config>
-</facility>
-<facility>
+  </facility>
+
+ <facility>
     <!-- Korea -->
-    <!-- PWR    -->
+    <!-- PWR -->
     <name>HANBIT-2</name>
     <config>
-      <Cyborg>
-        <power_cap>958</power_cap>
-        <assem_size>523.4</assem_size>
-        <fuel_recipes>    <val>uox_fuel_recipe</val>      </fuel_recipes>
-        <fuel_incommods>  <val>uox</val>           </fuel_incommods>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assembly_type>ce16x16</assembly_type>
-        <fuel_type>UOX</fuel_type>
+        <assem_size>523.4</assem_size>
         <n_assem_core>185</n_assem_core>
         <n_assem_batch>62</n_assem_batch>
-        <spent_fuel>uox_waste</spent_fuel>
-      </Cyborg>
+        <power_cap>958</power_cap>
+      </Reactor>
     </config>
-</facility>
-<facility>
+  </facility>
+
+ <facility>
     <!-- Korea -->
-    <!-- PWR    -->
+    <!-- PWR -->
     <name>HANUL-1</name>
     <config>
-      <Cyborg>
-        <power_cap>960</power_cap>
-        <assem_size>523.4</assem_size>
-        <fuel_recipes>    <val>uox_fuel_recipe</val>      </fuel_recipes>
-        <fuel_incommods>  <val>uox</val>           </fuel_incommods>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assembly_type>ce16x16</assembly_type>
-        <fuel_type>UOX</fuel_type>
+        <assem_size>523.4</assem_size>
         <n_assem_core>185</n_assem_core>
         <n_assem_batch>62</n_assem_batch>
-        <spent_fuel>uox_waste</spent_fuel>
-      </Cyborg>
+        <power_cap>960</power_cap>
+      </Reactor>
     </config>
-</facility>
-<facility>
+  </facility>
+
+ <facility>
     <!-- Korea -->
-    <!-- PWR    -->
+    <!-- PWR -->
     <name>HANUL-2</name>
     <config>
-      <Cyborg>
-        <power_cap>962</power_cap>
-        <assem_size>523.4</assem_size>
-        <fuel_recipes>    <val>uox_fuel_recipe</val>      </fuel_recipes>
-        <fuel_incommods>  <val>uox</val>           </fuel_incommods>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assembly_type>ce16x16</assembly_type>
-        <fuel_type>UOX</fuel_type>
+        <assem_size>523.4</assem_size>
         <n_assem_core>186</n_assem_core>
         <n_assem_batch>62</n_assem_batch>
-        <spent_fuel>uox_waste</spent_fuel>
-      </Cyborg>
+        <power_cap>962</power_cap>
+      </Reactor>
     </config>
-</facility>
-<facility>
+  </facility>
+
+ <facility>
     <!-- Korea -->
-    <!-- PWR    -->
+    <!-- PWR -->
     <name>HANBIT-3</name>
     <config>
-      <Cyborg>
-        <power_cap>997</power_cap>
-        <assem_size>523.4</assem_size>
-        <fuel_recipes>    <val>uox_fuel_recipe</val>      </fuel_recipes>
-        <fuel_incommods>  <val>uox</val>           </fuel_incommods>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assembly_type>ce16x16</assembly_type>
-        <fuel_type>UOX</fuel_type>
+        <assem_size>523.4</assem_size>
         <n_assem_core>192</n_assem_core>
         <n_assem_batch>64</n_assem_batch>
-        <spent_fuel>uox_waste</spent_fuel>
-      </Cyborg>
+        <power_cap>997</power_cap>
+      </Reactor>
     </config>
-</facility>
-<facility>
+  </facility>
+
+ <facility>
     <!-- Korea -->
-    <!-- PWR    -->
+    <!-- PWR -->
     <name>HANBIT-4</name>
     <config>
-      <Cyborg>
-        <power_cap>997</power_cap>
-        <assem_size>523.4</assem_size>
-        <fuel_recipes>    <val>uox_fuel_recipe</val>      </fuel_recipes>
-        <fuel_incommods>  <val>uox</val>           </fuel_incommods>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assembly_type>ce16x16</assembly_type>
-        <fuel_type>UOX</fuel_type>
+        <assem_size>523.4</assem_size>
         <n_assem_core>192</n_assem_core>
         <n_assem_batch>64</n_assem_batch>
-        <spent_fuel>uox_waste</spent_fuel>
-      </Cyborg>
+        <power_cap>997</power_cap>
+      </Reactor>
     </config>
-</facility>
-<facility>
+  </facility>
+
+ <facility>
     <!-- Korea -->
-    <!-- PHWR    -->
+    <!-- PHWR -->
     <name>WOLSONG-2</name>
     <config>
-      <Cyborg>
-        <power_cap>655</power_cap>
-        <assem_size>169</assem_size>
-        <fuel_recipes>    <val>natl_u_recipe</val>      </fuel_recipes>
-        <fuel_incommods>  <val>natl_u</val>           </fuel_incommods>
+      <Reactor>
+        <fuel_inrecipes>  <val>natl_u_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>used_candu_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>candu_fuel</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>used_candu</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>1</cycle_time>
         <refuel_time>0</refuel_time>
-        <assembly_type>candu19</assembly_type>
-        <fuel_type>UOX</fuel_type>
+        <assem_size>169</assem_size>
         <n_assem_core>620</n_assem_core>
         <n_assem_batch>60</n_assem_batch>
-        <spent_fuel>used_candu</spent_fuel>
-      </Cyborg>
+        <power_cap>655</power_cap>
+      </Reactor>
     </config>
-</facility>
+  </facility>
 
-<facility>
+ <facility>
     <!-- Korea -->
-    <!-- PWR    -->
+    <!-- PWR -->
     <name>HANUL-3</name>
     <config>
-      <Cyborg>
-        <power_cap>994</power_cap>
-        <assem_size>523.4</assem_size>
-        <fuel_recipes>    <val>uox_fuel_recipe</val>      </fuel_recipes>
-        <fuel_incommods>  <val>uox</val>           </fuel_incommods>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assembly_type>ce16x16</assembly_type>
-        <fuel_type>UOX</fuel_type>
+        <assem_size>523.4</assem_size>
         <n_assem_core>192</n_assem_core>
         <n_assem_batch>64</n_assem_batch>
-        <spent_fuel>uox_waste</spent_fuel>
-      </Cyborg>
+        <power_cap>994</power_cap>
+      </Reactor>
     </config>
-</facility>
-<facility>
+  </facility>
+
+ <facility>
     <!-- Korea -->
-    <!-- PWR    -->
+    <!-- PWR -->
     <name>HANUL-4</name>
     <config>
-      <Cyborg>
-        <power_cap>998</power_cap>
-        <assem_size>523.4</assem_size>
-        <fuel_recipes>    <val>uox_fuel_recipe</val>      </fuel_recipes>
-        <fuel_incommods>  <val>uox</val>           </fuel_incommods>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assembly_type>ce16x16</assembly_type>
-        <fuel_type>UOX</fuel_type>
+        <assem_size>523.4</assem_size>
         <n_assem_core>193</n_assem_core>
         <n_assem_batch>64</n_assem_batch>
-        <spent_fuel>uox_waste</spent_fuel>
-      </Cyborg>
+        <power_cap>998</power_cap>
+      </Reactor>
     </config>
-</facility>
-<facility>
+  </facility>
+
+ <facility>
     <!-- Korea -->
-    <!-- PHWR    -->
+    <!-- PHWR -->
     <name>WOLSONG-3</name>
     <config>
-      <Cyborg>
-        <power_cap>684</power_cap>
-        <assem_size>169</assem_size>
-        <fuel_recipes>    <val>natl_u_recipe</val>      </fuel_recipes>
-        <fuel_incommods>  <val>natl_u</val>           </fuel_incommods>
+      <Reactor>
+        <fuel_inrecipes>  <val>natl_u_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>used_candu_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>candu_fuel</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>used_candu</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>1</cycle_time>
         <refuel_time>0</refuel_time>
-        <assembly_type>candu19</assembly_type>
-        <fuel_type>UOX</fuel_type>
+        <assem_size>169</assem_size>
         <n_assem_core>647</n_assem_core>
         <n_assem_batch>60</n_assem_batch>
-        <spent_fuel>used_candu</spent_fuel>
-      </Cyborg>
+        <power_cap>684</power_cap>
+      </Reactor>
     </config>
-</facility>
+  </facility>
 
-<facility>
+ <facility>
     <!-- Korea -->
-    <!-- PHWR    -->
+    <!-- PHWR -->
     <name>WOLSONG-4</name>
     <config>
-      <Cyborg>
-        <power_cap>688</power_cap>
-        <assem_size>169</assem_size>
-        <fuel_recipes>    <val>natl_u_recipe</val>      </fuel_recipes>
-        <fuel_incommods>  <val>natl_u</val>           </fuel_incommods>
+      <Reactor>
+        <fuel_inrecipes>  <val>natl_u_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>used_candu_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>candu_fuel</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>used_candu</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>1</cycle_time>
         <refuel_time>0</refuel_time>
-        <assembly_type>candu19</assembly_type>
-        <fuel_type>UOX</fuel_type>
+        <assem_size>169</assem_size>
         <n_assem_core>651</n_assem_core>
         <n_assem_batch>60</n_assem_batch>
-        <spent_fuel>used_candu</spent_fuel>
-      </Cyborg>
+        <power_cap>688</power_cap>
+      </Reactor>
     </config>
-</facility>
+  </facility>
 
-<facility>
+ <facility>
     <!-- Korea -->
-    <!-- PWR    -->
+    <!-- PWR -->
     <name>HANBIT-5</name>
     <config>
-      <Cyborg>
-        <power_cap>997</power_cap>
-        <assem_size>523.4</assem_size>
-        <fuel_recipes>    <val>uox_fuel_recipe</val>      </fuel_recipes>
-        <fuel_incommods>  <val>uox</val>           </fuel_incommods>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assembly_type>ce16x16</assembly_type>
-        <fuel_type>UOX</fuel_type>
+        <assem_size>523.4</assem_size>
         <n_assem_core>192</n_assem_core>
         <n_assem_batch>64</n_assem_batch>
-        <spent_fuel>uox_waste</spent_fuel>
-      </Cyborg>
+        <power_cap>997</power_cap>
+      </Reactor>
     </config>
-</facility>
-<facility>
+  </facility>
+
+ <facility>
     <!-- Korea -->
-    <!-- PWR    -->
+    <!-- PWR -->
     <name>HANBIT-6</name>
     <config>
-      <Cyborg>
-        <power_cap>995</power_cap>
-        <assem_size>523.4</assem_size>
-        <fuel_recipes>    <val>uox_fuel_recipe</val>      </fuel_recipes>
-        <fuel_incommods>  <val>uox</val>           </fuel_incommods>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assembly_type>ce16x16</assembly_type>
-        <fuel_type>UOX</fuel_type>
+        <assem_size>523.4</assem_size>
         <n_assem_core>192</n_assem_core>
         <n_assem_batch>64</n_assem_batch>
-        <spent_fuel>uox_waste</spent_fuel>
-      </Cyborg>
+        <power_cap>995</power_cap>
+      </Reactor>
     </config>
-</facility>
-<facility>
+  </facility>
+
+ <facility>
     <!-- Korea -->
-    <!-- PWR    -->
+    <!-- PWR -->
     <name>HANUL-5</name>
     <config>
-      <Cyborg>
-        <power_cap>996</power_cap>
-        <assem_size>523.4</assem_size>
-        <fuel_recipes>    <val>uox_fuel_recipe</val>      </fuel_recipes>
-        <fuel_incommods>  <val>uox</val>           </fuel_incommods>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assembly_type>ce16x16</assembly_type>
-        <fuel_type>UOX</fuel_type>
+        <assem_size>523.4</assem_size>
         <n_assem_core>192</n_assem_core>
         <n_assem_batch>64</n_assem_batch>
-        <spent_fuel>uox_waste</spent_fuel>
-      </Cyborg>
+        <power_cap>996</power_cap>
+      </Reactor>
     </config>
-</facility>
-<facility>
+  </facility>
+
+ <facility>
     <!-- Korea -->
-    <!-- PWR    -->
+    <!-- PWR -->
     <name>HANUL-6</name>
     <config>
-      <Cyborg>
-        <power_cap>996</power_cap>
-        <assem_size>523.4</assem_size>
-        <fuel_recipes>    <val>uox_fuel_recipe</val>      </fuel_recipes>
-        <fuel_incommods>  <val>uox</val>           </fuel_incommods>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assembly_type>ce16x16</assembly_type>
-        <fuel_type>UOX</fuel_type>
+        <assem_size>523.4</assem_size>
         <n_assem_core>192</n_assem_core>
         <n_assem_batch>64</n_assem_batch>
-        <spent_fuel>uox_waste</spent_fuel>
-      </Cyborg>
+        <power_cap>996</power_cap>
+      </Reactor>
     </config>
-</facility>
-<facility>
+  </facility>
+
+ <facility>
     <!-- Korea -->
-    <!-- PWR    -->
+    <!-- PWR -->
     <name>SHIN-KORI-1</name>
     <config>
-      <Cyborg>
-        <power_cap>1000</power_cap>
-        <assem_size>523.4</assem_size>
-        <fuel_recipes>    <val>uox_fuel_recipe</val>      </fuel_recipes>
-        <fuel_incommods>  <val>uox</val>           </fuel_incommods>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assembly_type>ce16x16</assembly_type>
-        <fuel_type>UOX</fuel_type>
+        <assem_size>523.4</assem_size>
         <n_assem_core>193</n_assem_core>
         <n_assem_batch>64</n_assem_batch>
-        <spent_fuel>uox_waste</spent_fuel>
-      </Cyborg>
+        <power_cap>1000</power_cap>
+      </Reactor>
     </config>
-</facility>
-<facility>
+  </facility>
+
+ <facility>
     <!-- Korea -->
-    <!-- PWR    -->
+    <!-- PWR -->
     <name>SHIN-KORI-2</name>
     <config>
-      <Cyborg>
-        <power_cap>1000</power_cap>
-        <assem_size>523.4</assem_size>
-        <fuel_recipes>    <val>uox_fuel_recipe</val>      </fuel_recipes>
-        <fuel_incommods>  <val>uox</val>           </fuel_incommods>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assembly_type>ce16x16</assembly_type>
-        <fuel_type>UOX</fuel_type>
+        <assem_size>523.4</assem_size>
         <n_assem_core>193</n_assem_core>
         <n_assem_batch>64</n_assem_batch>
-        <spent_fuel>uox_waste</spent_fuel>
-      </Cyborg>
+        <power_cap>1000</power_cap>
+      </Reactor>
     </config>
-</facility>
-<facility>
+  </facility>
+
+ <facility>
     <!-- Korea -->
-    <!-- PWR    -->
+    <!-- PWR -->
     <name>SHIN-WOLSONG-1</name>
     <config>
-      <Cyborg>
-        <power_cap>1000</power_cap>
-        <assem_size>523.4</assem_size>
-        <fuel_recipes>    <val>uox_fuel_recipe</val>      </fuel_recipes>
-        <fuel_incommods>  <val>uox</val>           </fuel_incommods>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assembly_type>ce16x16</assembly_type>
-        <fuel_type>UOX</fuel_type>
+        <assem_size>523.4</assem_size>
         <n_assem_core>193</n_assem_core>
         <n_assem_batch>64</n_assem_batch>
-        <spent_fuel>uox_waste</spent_fuel>
-      </Cyborg>
+        <power_cap>1000</power_cap>
+      </Reactor>
     </config>
-</facility>
-<facility>
+  </facility>
+
+ <facility>
     <!-- Korea -->
-    <!-- PWR    -->
+    <!-- PWR -->
     <name>SHIN-WOLSONG-2</name>
     <config>
-      <Cyborg>
-        <power_cap>1000</power_cap>
-        <assem_size>523.4</assem_size>
-        <fuel_recipes>    <val>uox_fuel_recipe</val>      </fuel_recipes>
-        <fuel_incommods>  <val>uox</val>           </fuel_incommods>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assembly_type>ce16x16</assembly_type>
-        <fuel_type>UOX</fuel_type>
+        <assem_size>523.4</assem_size>
         <n_assem_core>193</n_assem_core>
         <n_assem_batch>64</n_assem_batch>
-        <spent_fuel>uox_waste</spent_fuel>
-      </Cyborg>
+        <power_cap>1000</power_cap>
+      </Reactor>
     </config>
-</facility>
-<facility>
+  </facility>
+
+ <facility>
     <!-- Korea -->
-    <!-- PWR    -->
+    <!-- PWR -->
     <name>SHIN-KORI-3</name>
     <config>
-      <Cyborg>
-        <power_cap>1400</power_cap>
-        <assem_size>523.4</assem_size>
-        <fuel_recipes>    <val>uox_fuel_recipe</val>      </fuel_recipes>
-        <fuel_incommods>  <val>uox</val>           </fuel_incommods>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>2</refuel_time>
-        <assembly_type>ce16x16</assembly_type>
-        <fuel_type>UOX</fuel_type>
+        <assem_size>523.4</assem_size>
         <n_assem_core>270</n_assem_core>
         <n_assem_batch>90</n_assem_batch>
-        <spent_fuel>uox_waste</spent_fuel>
-      </Cyborg>
+        <power_cap>1400</power_cap>
+      </Reactor>
     </config>
-</facility>
+  </facility>
+
 
 
   
@@ -642,31 +670,31 @@
 
 </prototypes>
 <build_times>
-	<val>210</val>
-<val>275</val>
-<val>279</val>
-<val>300</val>
-<val>310</val>
-<val>313</val>
-<val>321</val>
-<val>338</val>
-<val>350</val>
-<val>417</val>
-<val>426</val>
-<val>445</val>
-<val>456</val>
+	<val>150</val>
+<val>215</val>
+<val>219</val>
+<val>240</val>
+<val>250</val>
+<val>253</val>
+<val>261</val>
+<val>278</val>
+<val>290</val>
+<val>357</val>
+<val>366</val>
+<val>385</val>
+<val>396</val>
+<val>407</val>
+<val>398</val>
+<val>411</val>
+<val>443</val>
+<val>452</val>
 <val>467</val>
-<val>458</val>
-<val>471</val>
-<val>503</val>
-<val>512</val>
-<val>527</val>
-<val>539</val>
-<val>606</val>
-<val>624</val>
-<val>624</val>
-<val>667</val>
-<val>683</val>
+<val>479</val>
+<val>546</val>
+<val>564</val>
+<val>564</val>
+<val>607</val>
+<val>623</val>
 
 </build_times>
 <n_build>
@@ -751,7 +779,6 @@
             <number>1</number>
             <prototype>SomeSink</prototype>
           </entry>
-          
         </initialfacilitylist>
         </institution>
 </region>  
@@ -913,6 +940,28 @@
      <nuclide> <id>Cs135</id>  <comp>0.0003052821</comp> </nuclide> 
      <nuclide> <id>Cs137</id>  <comp>0.0012009297</comp> </nuclide> 
 
+  </recipe> 
+
+  <recipe>
+    <name>na_fr_fuel</name>
+    <basis>mass</basis>
+    <nuclide> <id>U234</id>  <comp>0.000538</comp> </nuclide>
+    <nuclide> <id>U235</id>  <comp>0.188200</comp> </nuclide>
+    <nuclide> <id>U238</id>  <comp>75.091897</comp> </nuclide>
+    <nuclide> <id>Pu238</id> <comp>0.875900</comp> </nuclide>
+    <nuclide> <id>Pu239</id> <comp>12.670000</comp> </nuclide>
+    <nuclide> <id>Pu240</id> <comp>6.889000</comp> </nuclide>
+    <nuclide> <id>Pu241</id> <comp>0.702600</comp> </nuclide>
+    <nuclide> <id>Pu242</id> <comp>1.074000</comp> </nuclide>
+    <nuclide> <id>Am241</id> <comp>0.858200</comp> </nuclide>
+    <nuclide> <id>Am242</id> <comp>0.048340</comp> </nuclide>
+    <nuclide> <id>Am243</id> <comp>0.511400</comp> </nuclide>
+    <nuclide> <id>Np237</id> <comp>0.500000</comp> </nuclide>
+    <nuclide> <id>Cm242</id> <comp>0.002424</comp> </nuclide>
+    <nuclide> <id>Cm243</id> <comp>0.006541</comp> </nuclide>
+    <nuclide> <id>Cm244</id> <comp>0.469900</comp> </nuclide>
+    <nuclide> <id>Cm245</id> <comp>0.083910</comp> </nuclide>
+    <nuclide> <id>Cm246</id> <comp>0.027150</comp> </nuclide>
   </recipe> 
 
 </simulation>
