@@ -1,8 +1,0 @@
-Generation vs Time
-https://www.nei.org/Knowledge-Center/Nuclear-Statistics/US-Nuclear-Power-Plants/US-Nuclear-Generating-Statistics
-
-Capacity Factor vs Time
-https://www.statista.com/statistics/191201/capacity-factor-of-nuclear-power-plants-in-the-us-since-1975/
-
-Refueling Days vs Time
-https://www.nei.org/Knowledge-Center/Nuclear-Statistics/US-Nuclear-Power-Plants/US-Nuclear-Refueling-Outage-Days

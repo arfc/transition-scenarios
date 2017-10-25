@@ -10,6 +10,12 @@ Illinois at Urbana-Champaign in the Advanced Reactors and Fuel Cycles group.
 This work benefits enormously from previous work by Robert Flanagan in the
 fleetcomp repository.
 
+REPORT
+======
+
+To view the the report which includes the procedure, results and their
+explanations, please view `US.ipynb`.
+
 Not Ready For Reuse
 ====================
 

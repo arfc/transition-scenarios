@@ -1,0 +1,16 @@
+<recipes>
+  <recipe>
+    <name>fresh_uox</name>
+    <basis>mass</basis>
+    {% for key, value in fresh.items() -%}
+    <nuclide>  <id>{{ key }}</id>  <comp>{{ value }}</comp>  </nuclide>
+    {% endfor -%}
+  </recipe>
+  <recipe>
+    <name>spent_uox</name>
+    <basis>mass</basis>
+    {% for key, value in spent.items() -%}
+    <nuclide>  <id>{{ key }}</id>  <comp>{{ value }}</comp>  </nuclide>
+    {% endfor -%}
+  </recipe>
+</recipes>

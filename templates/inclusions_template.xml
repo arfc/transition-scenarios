@@ -1,5 +1,5 @@
 <inclusions xmlns:xi="http://www.w3.org/2001/XInclude">
-    {%- for reactor in reactors %}
-    <xi:include href="../reactors/{{reactor}}.xml" />
+    {%- for key, value in reactors.items() %}
+    <xi:include href="../reactors/{{key}}.xml" />
     {% endfor %}
 </inclusions>
