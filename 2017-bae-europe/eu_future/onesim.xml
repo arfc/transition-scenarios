@@ -1,4 +1,3 @@
-
 <simulation>
   <control>
     <duration>2280</duration>
@@ -66,8 +65,8 @@
             </info>
             <commodities>
               <item>
-                <commodity>uox_Pu</commodity>
-                <pref>1.0</pref>
+                <commodity>french_uox_Pu</commodity>
+                <pref>2.0</pref>
               </item>
             </commodities>
           </stream>
@@ -79,7 +78,7 @@
             <commodities>
               <item>
                 <commodity>dep_u</commodity>
-                <pref>1.0</pref>
+                <pref>2.0</pref>
               </item>
             </commodities>
           </stream>
@@ -107,7 +106,7 @@
          <leftoverbuf_size>91600</leftoverbuf_size>
          <streams>
           <item>
-            <commod>uox_Pu</commod>
+            <commod>french_uox_Pu</commod>
             <info>
               <buf_size>91600</buf_size>
               <efficiencies>
@@ -143,7 +142,7 @@
           <stream>
             <info>
               <mixing_ratio>.22</mixing_ratio>
-              <buf_size>2e6</buf_size>
+              <buf_size>2e8</buf_size>
             </info>
             <commodities>
               <item>
@@ -155,19 +154,19 @@
           <stream>
             <info>
               <mixing_ratio>.78</mixing_ratio>
-              <buf_size>2e6</buf_size>
+              <buf_size>2e8</buf_size>
             </info>
             <commodities>
               <item>
                 <commodity>dep_u</commodity>
-                <pref>1.0</pref>
+                <pref>2.0</pref>
               </item>
             </commodities>
           </stream>
         </in_streams>
         <out_commod>astrid_fuel</out_commod>
-        <out_buf_size>2e7</out_buf_size>
-        <throughput>2e7</throughput>
+        <out_buf_size>2e8</out_buf_size>
+        <throughput>2e8</throughput>
       </Mixer>
     </config>
 </facility>
@@ -5387,8 +5386,8 @@
 <val>9999</val>
 <val>9999</val>
 
-<val>540</val>
-<val>768</val>
+<val>660</val>
+<val>888</val>
 
 <val>9999</val>
 <val>9999</val>
