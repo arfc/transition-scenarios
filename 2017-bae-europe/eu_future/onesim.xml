@@ -99,12 +99,12 @@
     <config>
       <Separations>
          <feed_commods>   <val>cooled_french_uox_waste</val> </feed_commods>
-         <feed_commod_prefs> <val>10.0</val> </feed_commod_prefs>
-         <feedbuf_size>183200</feedbuf_size>
+         <feed_commod_prefs> <val>20.0</val> </feed_commod_prefs>
+         <feedbuf_size>91600</feedbuf_size>
          <!-- 1100 tons/year 91.6 tons/timestep -->
          <throughput>91600</throughput>
-         <leftover_commod>raffinate</leftover_commod>
-         <leftoverbuf_size>183200</leftoverbuf_size>
+         <leftover_commod>lahague_raffinate</leftover_commod>
+         <leftoverbuf_size>91600</leftoverbuf_size>
          <streams>
           <item>
             <commod>uox_Pu</commod>
@@ -143,19 +143,19 @@
           <stream>
             <info>
               <mixing_ratio>.22</mixing_ratio>
-              <buf_size>2e5</buf_size>
+              <buf_size>2e6</buf_size>
             </info>
             <commodities>
               <item>
                 <commodity>uox_Pu</commodity>
-                <pref>1.0</pref>
+                <pref>2.0</pref>
               </item>
             </commodities>
           </stream>
           <stream>
             <info>
               <mixing_ratio>.78</mixing_ratio>
-              <buf_size>2e5</buf_size>
+              <buf_size>2e6</buf_size>
             </info>
             <commodities>
               <item>
@@ -166,8 +166,8 @@
           </stream>
         </in_streams>
         <out_commod>astrid_fuel</out_commod>
-        <out_buf_size>2e6</out_buf_size>
-        <throughput>2e6</throughput>
+        <out_buf_size>2e7</out_buf_size>
+        <throughput>2e7</throughput>
       </Mixer>
     </config>
 </facility>
@@ -216,9 +216,9 @@
       <Separations>
          <feed_commods>   <val>cooled_uox_waste</val>  <val>cooled_french_uox_waste</val> </feed_commods>
          <feed_commod_prefs> <val>10.0</val> <val>14.0</val> </feed_commod_prefs>
-         <feedbuf_size>1.2e5</feedbuf_size>
+         <feedbuf_size>1.2e6</feedbuf_size>
          <!-- 1100 tons/year 91.6 tons/timestep --> 
-         <throughput>1.2e5</throughput>
+         <throughput>1.2e6</throughput>
          <leftover_commod>uox_raffinate</leftover_commod>
          <leftoverbuf_size>1e100</leftoverbuf_size>
          <streams>
@@ -313,7 +313,7 @@
     </config>
   </facility>
 
-    <facility>
+  <facility>
     <name>candu_fuel_source</name>
     <config>
       <Source>
@@ -329,6 +329,7 @@
     <config>
       <Sink>
         <in_commods>
+          <val>lahague_raffinate</val>
           <val>uox_raffinate</val>
           <val>astrid_raffinate</val>
           </in_commods>
@@ -346,6 +347,7 @@
           <val>french_uox_waste</val>
         </in_commods>
         <residence_time>36</residence_time>
+        <max_inv_size>1e299</max_inv_size>
         <out_commods>
           <val>cooled_french_uox_waste</val>
         </out_commods>
@@ -358,8 +360,9 @@
     <config>
       <Sink>
         <in_commods>
-          <val>cooled_french_uox_waste</val>
           <val>cooled_astrid_unf</val>
+          <val>mox_waste</val>
+          <val>used_candu</val>
           </in_commods>
         <capacity>1e299</capacity>
       </Sink>
@@ -5337,6 +5340,8 @@
         <DeployInst>
 
           <prototypes>
+<val>unused_unf_sink</val>
+<val>french_unf_storage</val>
 <val>sfr_unf_storage</val>
 
 <val>MELOX</val>
@@ -5350,6 +5355,8 @@
 
 </prototypes>
 <build_times>
+<val>1</val>
+<val>1</val>
 <val>600</val>
 
 <val>300</val>
@@ -5363,6 +5370,8 @@
 </build_times>
 <n_build>
 <val>1</val>
+<val>1</val>
+<val>1</val>
 
 <val>1</val>
 <val>1</val>
@@ -5375,9 +5384,11 @@
 </n_build>
 <lifetimes>
 <val>9999</val>
+<val>9999</val>
+<val>9999</val>
 
-<val>300</val>
-<val>528</val>
+<val>540</val>
+<val>768</val>
 
 <val>9999</val>
 <val>9999</val>
@@ -6753,7 +6764,7 @@
 
   </recipe> 
 
-  <recipe>
+    <recipe>
     <name>used_candu_recipe</name>
     <basis>mass</basis>
     <nuclide> <id>He4</id>  <comp>9.47457840128509E-07</comp> </nuclide> 
@@ -6811,6 +6822,8 @@
    <nuclide> <id>H1</id>  <comp>0.0477938151</comp> </nuclide> 
 
   </recipe> 
+
+
 
 
    <recipe>
