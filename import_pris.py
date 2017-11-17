@@ -27,6 +27,7 @@ def select_region(in_list, region):
     reactor_list: list
             list of reactors from PRIS
     """
+    USA = {'United States'}
     SOUTH_AMERICA = {'ARGENTINA', 'BRAZIL'}
     NORTH_AMERICA = {'CANADA', 'MEXICO', 'UNITED STATES'}
     EUROPE = {'BELARUS', 'BELGIUM', 'BULGARIA',
