@@ -151,14 +151,35 @@ def write_reactors(in_list, out_path, reactor_template):
             assem_no = 0
             assem_size = 0
             reactor_type = row[2]
-            if reactor_type == 'BWR':
+            if reactor_type in ['BWR', 'ESBWR']:
                 assem_no = 732
                 assem_per_batch = assem_no / 3
-                assem_size = 150
-            else:
-                assem_no = 240
+                assem_size = 138000 / assem_no
+            elif reactor_type in ['GCR', 'HWGCR']:
+            	assem_no = 324
                 assem_per_batch = assem_no / 3
-                assem_size = 417
+                assem_size = 114000 / assem_no
+            elif reactor_type == 'HTGR':
+            	assem_no = 3944
+                assem_per_batch = assem_no / 3
+                assem_size = 39000 / assem_no
+            elif reactor_type == 'PHWR':
+            	assem_no = 473
+                assem_per_batch = assem_no / 60
+                assem_size = 80000 / assem_no
+            elif reactor_type == 'VVER':
+            	assem_no = 312
+                assem_per_batch = assem_no / 3
+                assem_size = 41500 / assem_no
+            elif reactor_type == 'VVER-1200':
+            	assem_no = 163
+                assem_per_batch = assem_no / 3
+                assem_size = 80000 / assem_no
+            else:
+                assem_no = 241
+                assem_per_batch = assem_no / 3
+                assem_size = 103000 / assem_no
+
             rendered = reactor_template.render(name=name,
                                                lifetime=get_lifetime(row),
                                                assem_size=assem_size,
