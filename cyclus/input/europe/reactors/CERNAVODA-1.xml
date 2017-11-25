@@ -9,9 +9,9 @@
       <fuel_outrecipes> <val>spent_uox</val> </fuel_outrecipes>
       <cycle_time>18</cycle_time>
       <refuel_time>1</refuel_time>
-      <assem_size>417</assem_size>
-      <n_assem_core>240</n_assem_core>
-      <n_assem_batch>80</n_assem_batch>
+      <assem_size>205.12820512820514</assem_size>
+      <n_assem_core>390</n_assem_core>
+      <n_assem_batch>8</n_assem_batch>
       <power_cap>650</power_cap>
     </Reactor>
   </config>
