@@ -1,0 +1,14 @@
+<DeployInst>
+    <prototypes>
+        <val>GOESGEN</val>
+        <val>LEIBSTADT</val>
+    </prototypes>
+    <build_times>
+        <val>170</val>
+        <val>234</val>
+    </build_times>
+    <n_build>
+        <val>1</val>
+        <val>1</val>
+    </n_build>
+</DeployInst>
