@@ -156,24 +156,24 @@ def write_reactors(in_list, out_path, reactor_template):
                 assem_no = 732
                 assem_per_batch = assem_no / 3
                 assem_size = 138000 / assem_no
-            elif reactor_type in ['GCR', 'HWGCR']: # Need batch number
-            	assem_no = 324
+            elif reactor_type in ['GCR', 'HWGCR']:  # Need batch number
+                assem_no = 324
                 assem_per_batch = assem_no / 3
                 assem_size = 114000 / assem_no
-            elif reactor_type == 'HTGR': # Need batch number
-            	assem_no = 3944
+            elif reactor_type == 'HTGR':  # Need batch number
+                assem_no = 3944
                 assem_per_batch = assem_no / 3
                 assem_size = 39000 / assem_no
             elif reactor_type == 'PHWR':
-            	assem_no = 390
+                assem_no = 390
                 assem_per_batch = assem_no / 45
                 assem_size = 80000 / assem_no
-            elif reactor_type == 'VVER': # Need batch number
-            	assem_no = 312
+            elif reactor_type == 'VVER':  # Need batch number
+                assem_no = 312
                 assem_per_batch = assem_no / 3
                 assem_size = 41500 / assem_no
-            elif reactor_type == 'VVER-1200': # Need batch number
-            	assem_no = 163
+            elif reactor_type == 'VVER-1200':  # Need batch number
+                assem_no = 163
                 assem_per_batch = assem_no / 3
                 assem_size = 80000 / assem_no
             else:
