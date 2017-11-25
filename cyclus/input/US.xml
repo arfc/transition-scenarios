@@ -1,4 +1,4 @@
-﻿<simulation xml:base="/home/gyutae/predicting-the-past/cyclus/input/"
+﻿<simulation xml:base="/home/gyutae/predict/cyclus/input/"
   xmlns:xi="http://www.w3.org/2001/XInclude">
   <control>
     <duration>1020</duration>
