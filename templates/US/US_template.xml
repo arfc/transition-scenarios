@@ -1,19 +1,42 @@
-﻿<simulation xml:base="{{base_dir}}"
-  xmlns:xi="http://www.w3.org/2001/XInclude">
+﻿<simulation xml:base="{{base_dir}}" xmlns:xi="http://www.w3.org/2001/XInclude">
   <control>
     <duration>1020</duration>
     <startmonth>1</startmonth>
     <startyear>1965</startyear>
   </control>
   <archetypes>
-    <spec><lib>cycamore</lib> <name>Enrichment</name> </spec>
-    <spec><lib>cycamore</lib> <name>Reactor</name>    </spec>
-    <spec><lib>cycamore</lib> <name>Sink</name>       </spec>
-    <spec><lib>cycamore</lib> <name>Source</name>     </spec>
-    <spec><lib>cycamore</lib> <name>Storage</name>    </spec>
-    <spec><lib>cycamore</lib> <name>DeployInst</name> </spec>
-    <spec><lib>cycamore</lib> <name>ManagerInst</name></spec>
-    <spec><lib>agents</lib>   <name>NullRegion</name> </spec>
+    <spec>
+      <lib>cycamore</lib>
+      <name>Enrichment</name>
+    </spec>
+    <spec>
+      <lib>cycamore</lib>
+      <name>Reactor</name>
+    </spec>
+    <spec>
+      <lib>cycamore</lib>
+      <name>Sink</name>
+    </spec>
+    <spec>
+      <lib>cycamore</lib>
+      <name>Source</name>
+    </spec>
+    <spec>
+      <lib>cycamore</lib>
+      <name>Storage</name>
+    </spec>
+    <spec>
+      <lib>cycamore</lib>
+      <name>DeployInst</name>
+    </spec>
+    <spec>
+      <lib>cycamore</lib>
+      <name>ManagerInst</name>
+    </spec>
+    <spec>
+      <lib>agents</lib>
+      <name>NullRegion</name>
+    </spec>
   </archetypes>
   <xi:include href="US/buildtimes/inclusions.xml#xpointer(/inclusions/child::*)"/>
   <facility>
@@ -27,14 +50,14 @@
     </config>
   </facility>
   <facility>
-  	<name>Sink_LLW</name>
-  	<config>
-  		<Sink>
-  			<in_commods>
-  				<val>tails</val>
-  			</in_commods>
-  		</Sink>
-  	</config>
+    <name>Sink_LLW</name>
+    <config>
+      <Sink>
+        <in_commods>
+          <val>tails</val>
+        </in_commods>
+      </Sink>
+    </config>
   </facility>
   <facility>
     <name>Mine</name>
@@ -86,7 +109,6 @@
         <tails_commod>tails</tails_commod>
         <tails_assay>0.002</tails_assay>
         <max_enrich>0.045</max_enrich>
-        
       </Enrichment>
     </config>
   </facility>
@@ -178,7 +200,7 @@
       <config>
         <ManagerInst>
           <prototypes>
-          	<val>Sink_LLW</val>
+            <val>Sink_LLW</val>
             <val>Mine</val>
             <val>Mill</val>
             <val>Conversion</val>
@@ -189,15 +211,12 @@
           </prototypes>
         </ManagerInst>
       </config>
-    </institution>
-    {% for country in countries %}
+    </institution>{% for country in countries %}
+    
     <institution>
       <name>{{country}}</name>
       <config>
-        <xi:include href="US/buildtimes/{{country}}/deployinst.xml"/>
-      </config>
-    </institution>
-    {% endfor %}
-  </region>
+        <xi:include href="US/buildtimes/{{country}}/deployinst.xml"/></config>
+    </institution>{% endfor %}</region>
   <xi:include href="US/recipes/uox_51.xml#xpointer(/recipes/child::*)"/>
 </simulation>
