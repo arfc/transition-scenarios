@@ -200,5 +200,4 @@
     
   </region>
   <xi:include href="US/recipes/uox_51.xml#xpointer(/recipes/child::*)"/>
-  <xi:include href="US/recipes/facility.xml#xpointer(/recipes/child::*)"/>
 </simulation>
