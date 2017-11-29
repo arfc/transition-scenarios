@@ -135,7 +135,7 @@
     </config>
   </facility>
   <region>
-    <name>US</name>
+    <name>United States</name>
     <config>
       <NullRegion/>
     </config>
@@ -190,12 +190,14 @@
         </ManagerInst>
       </config>
     </institution>
+    {% for country in countries %}
     <institution>
-      <name>Power</name>
+      <name>{{country}}</name>
       <config>
-        <xi:include href="US/buildtimes/deployinst.xml"/>
+        <xi:include href="US/buildtimes/{{country}}/deployinst.xml"/>
       </config>
     </institution>
+    {% endfor %}
   </region>
   <xi:include href="US/recipes/uox_51.xml#xpointer(/recipes/child::*)"/>
   <xi:include href="US/recipes/facility.xml#xpointer(/recipes/child::*)"/>
