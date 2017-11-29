@@ -1,6 +1,5 @@
 <recipes>
   <recipe>
-    <recipe>
     <name>fresh_uox</name>
     <basis>atom</basis>
     {% for key, value in fresh.items() -%}
