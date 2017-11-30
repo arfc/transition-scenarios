@@ -48,20 +48,21 @@
 \begin{document}
 \maketitle
 \section{Introduction}
-As part of NEUP-FY16-10512 (PI: Dr. Kathryn Huff), a test-run of fuel cycle
-transition scenarios was done using \Cyclus. The purpose of this study
-is to identify the non-algorithmic capability gaps necessary for a complete simulation.
-The gaps that are identified mainly pertains to the greedy exchange model,
+As part of NEUP-FY16-10512, fuel cycle
+transition scenarios were simulated using \Cyclus and existing \Cycamore archetypes.
+The purpose of this study
+is to identify current non-algorithmic gaps in the capabilities necessary for key transition scenarios.
+The gaps identified through this exercise mainly pertain to the greedy exchange model,
 and the manual, static parameter of fuel cycle facilities. 
 The scenarios are from the Idaho National Laboratory Nuclear Fuel Cycle Evaluation and Screening Report
-(Hereby E\&S Report) \cite{wigeland_nuclear_2014}. The transition scenarios begin with EG01 and transitions to EG23, EG24, EG29, EG30,
-separately. The descriptions of each fuel cycle is in \cref{tab:es}.
+(Hereby E\&S Report) \cite{wigeland_nuclear_2014}. The transition scenarios begin with EG01 and transition to EG23, EG24, EG29, EG30,
+separately. The descriptions of each fuel cycle appear in \cref{tab:es}.
 
 
 \begin{table}[h]
 	\centering
 	\resizebox{\textwidth}{!}{
-		\begin{tabular}{|c|c|}
+		\begin{tabular}{|l|l|}
 			\hline
 			Fuel Cycle & Description \\ \hline
 			EG01 & Once-through using \gls{UOX} fuel in \glspl{LWR} \\ \hline
@@ -87,73 +88,99 @@ those given by the E\&S report appendix B \cite{wigeland_nuclear_2014}.
 
 For the compositions of the fresh and spent fuels, various models give different answers.
 As will be discussed later, the recipe (more specifically the Breeding Ratio of the \gls{SFR}),
-plays an extremely crucial role in the rapidity and success of the transition. 
+plays a crucial role in the rapidity and success of the transition. 
 
 \subsection{Important Parameters}
 For a successful transition, there must be enough fissile materials in store prior to transition
 to start new advanced reactors. Also, enough surplus fissile materials have to be produced
 during the transition to support the start of new reactors.
 
-To satisfy such conditions, the important simulation parameters identified are:
-\begin{enumerate}
-	\item Breeding Ratio of \gls{SFR}
-	\item Deployment Scheme (Transition initiating time, Transition sharpness)
-	\item Reprocessing and Fabrication Throughput and Buffer
-\end{enumerate}
+To satisfy such conditions, the important simulation parameters identified are listed in table
+\ref{tab:param}.
 
+\begin{table}[h]
+	\centering
+	\resizebox{\textwidth}{!}{
+		\begin{tabular}{lllllll}
+			\hline
+			Parameter & EG23 & EG24 & \multicolumn{2}{c}{EG29} & \multicolumn{2}{c}{EG30} \\ \hline
+			Breeding Ratio & 1.059 & 1.014 & 1.26 & 0.70 & 1.56 & 0.70 \\
+			Transition Initiating Time [Month] & 1596 & 1848 & \multicolumn{2}{c}{2101} & \multicolumn{2}{c}{1178} \\
+			Reprocessing Capacity [MTHM/month] & \multicolumn{6}{c}{$1E100$ for all EGs}\\ 
+			Reprocessing Buffer [MTHM] & \multicolumn{6}{c}{$1E100$ for all EGs} \\
+			Fabrication Throughput [MTHM/month] & $1E100$ & $1E100$ & 2,000 & 3E6 & 4,000 & 900 \\
+ 			Fabrication Buffer [MTHM] & $1E100$ & $1E100$ & 1 & 100 & 9,000 & 1,000 \\
+			\hline
+		\end{tabular}
+		}
+		\caption{Parameters for different Evaluation Groups. The left column of EG29 and EG30
+				 are FR values, and the right MOX LWR values.}
+		\label{tab:param}
+\end {table} 
 
 This is assuming that the following parameters are fixed:
 \begin{enumerate}
-	\item Reactor Specifics (core size, refueling cycle, power)
-	\item Separation Efficiency
-	\item Increase Rate of Power Demand
+	\item Reactor Specifics (listed in tabel \ref{tab:react}).
+	\item Separation Efficiency (99.8\%)
+	\item Increase Rate of Power Demand (1\% annual growth in energy demand)
 \end{enumerate}
 
+\begin{table}[h]
+    \centering
+    \begin{tabular}{cccc}
+        \hline
+        \textbf{Specification} & LWR & MOX LWR & FR\\
+        \hline
+                Lifetime [y] & 60 & 80 & 80 \\
+                Cycle Time [mos.]& 18 & 18 & 14\\ 
+                Refueling Outage [mos.]& 1 & 1  & 1\\
+                Rated Power [MWe] & 1000 & 1000 & 400\\
+                Batch mass [kg] & 30,106 & 33,115 & 6,519 \\
+                Batches per core & 3 & 3 & 3\\
+                Initial Fissile Composition & 4\% $^{235}U$ & 9\% Pu & Varies by EG \\
+        \hline
+    \end{tabular}
+        \caption {Important reactor specifications are listed. The initial fissile composition
+        		 for FRs vary by evaluation group, as it did for the original evaluation and screening
+        		  study \cite{wigeland_nuclear_2014}. The compositions can be found in appendix B of the
+        		  original report.}
+    \label{tab:react}
+
+    \end{table}
+
 \subsection{Recipes}
-The \textsc{Reactor}\xspace archetype in \Cycamore uses recipes to do depletion calculations,
+The \textsc{Reactor}\xspace archetype in \Cycamore uses recipes to approximate
+transmutation in the Reactor facility,
 where the spent fuel composition is user-defined and constant. 
 
 The recipe from appendix B of the E\&S report does not take into account
-additional deployment of reactors from increased power demand ( The Breeding Ratio
+additional deployment of reactors from increased power demand ( the breeding ratio
 of \glspl{SFR} in the appendix are low), which means that there is no (or very little)
-extra fissile material (Pu or TRU) produced. For EG23 and EG24, the Breeding Ratios are
+extra fissile material (Pu or TRU) produced. For EG23 and EG24, the breeding ratios are
 a little over breakeven (~1.01), which makes deployment of additional reactors solely 
 dependent on fissile material inventory from legacy LWR \gls{UNF}. For EG29 and EG30,
 the Breeding Ratios are big higher (~1.29 and 1.05, respectively) to feed the
 \gls{MOX} \glspl{LWR}, but still does not accumulate fissile material inventory for
 additional reactor deployment.
 
-To solve this problem, an ORIGEN-generated depletion recipe is used. This recipe
+To solve this problem, we used an ORIGEN-generated depletion recipe. This recipe
 has a fresh fuel plutonium composition of 12.9\%, and a BR of $1.16$. This breeding
-ratio allows complete SFR transition in 2170 for EG23 and EG24. For the EG29 and EG30,
+ratio allows complete SFR transition in 2170 for EG23 and EG24. For EG29 and EG30,
 the BRs have to be higher to feed the \gls{MOX} \glspl{LWR}. 
 
 
 \section{Gaps}
-The test-runs with \Cyclus and \Cycamore allowed identifications of various non-algorithmic gaps
-of the current \Cycamore archetypes as well as the \Cyclus framework itself. 
+The test-runs with \Cyclus and \Cycamore revealed various non-algorithmic gaps
+of the current \Cycamore archetypes as well as minor gaps in the \Cyclus framework itself. 
 
+\subsection{Gap: Static Facility Parameters}
 The most fundamental issue is that the capacity and deployment (thus the supply) is not
 demand-driven, but static. All of the parameters for fuel support facilities (\textsc{FuelFab}\xspace,
 \textsc{Mixer}\xspace, \textsc{Separations}\xspace) remain static throughout the simulation.
 This is not desirable, especially given the dynamic nature of transition scenarios. 
 
-\subsection{Greedy Exchange Model}
-The \Cyclus greedy exchange,
-dictates that if there isn't enough supply for all demands, the bigger demand gets filled first.
-This was an attempt to model real market situation, where a higher demand would mean higher price. 
-In EG23 and EG24,
-there is one archetype that receives separated fissile materials. In this case, a reprocessing
-plant or a fuel fab plant can have infinite buffer/throughput because it is the only
-archetype with the demand for that commodity. However, EG29 and EG30 has two archetypes
-that compete for the fissile materials (ie. \gls{MOX} fuel fab competes with \gls{SFR} fuel fab for separated plutonium).
-In this case, if both fabrication plants have infinite buffer/throughput, one fabrication takes all the
-separated fissile material, leaving the other plant idle.
-
-
-\subsection{Static Parameters}
-Various parameters, most notably throughput and capacity values of fuel cycle support facilities,
-need to adjust according to demand. With transition scenarios with increasing power demand, the 
+Various parameters, most notably throughput and capacity values of the fuel cycle support fleet,
+need to adjust according to demand. In transition scenarios with increasing power demand, the 
 demand for fuel and fissile material generally increases over time. The current workaround is to either
 have a facility with infinite capacity, or to set the capacity to a manually-calculated (look-back method)
 maximum fuel demand. The infinite capacity method fails for EG29 and EG30, due to the greedy exchange
@@ -161,6 +188,14 @@ model. The look-back method allows a complete simulation, but inefficiencies occ
 of fissile material, since the facility with the higher demand has to fill up first in order for the facility
 with the lower demand to receive fissile material. 
 
+
+
+\Cref{fig:mox} and \cref{fig:sfr} plot the fuel demand of \gls{MOX} \glspl{LWR} and \glspl{SFR},
+respectively, in an EG29 scenario. This is an example of the look-back method, where, initially, an infinite source
+of fuel (both \gls{MOX} and \gls{SFR} fuel) was deployed to estimate how much the fuel fabrication
+throughput should be, for a successful simulation. A second simulation then would have a 
+fuel fabrication plant with throughputs that correspond to the maximum value of fuel demand in a timestep
+(2,000 for \gls{MOX}, 1900 for \gls{SFR} fuel).
 
 \begin{figure}[htbp!]
 	\begin{center}
@@ -178,18 +213,22 @@ with the lower demand to receive fissile material.
 \end{figure}
 \FloatBarrier
 
-\Cref{fig:mox} and \cref{fig:sfr} plot the fuel demand of \gls{MOX} \glspl{LWR} and \glspl{SFR},
-respectively, in an EG29 scenario. This is an example of the look-back method, where, initially, an infinite source
-of fuel (both \gls{MOX} and \gls{SFR} fuel) was deployed to estimate how much the fuel fabrication
-throughput should be, for a successful simulation. A second simulation then would have a 
-fuel fabrication plant with throughputs that correspond to the maximum value of fuel demand in a timestep
-(2,000 for \gls{MOX}, 1900 for \gls{SFR} fuel).
-
-
 A fix for this is to have a dynamic throughput that adjusts according
-to predicted fuel demand, or, more realistically, have an archetype with fixed, reasonable, throughput/buffer
-that is deployed when there is fuel demand beyond its predicted throughput.
+to predicted fuel demand, or, more realistically, deploy an archetype with fixed, reasonable, throughput/buffer when fuel demand outpaces existing throughput.
 
+
+\subsection{Greedy Exchange Model}
+The \Cyclus Dynamic Resource Exchange, is ``greedy''. That is,  if there isn't
+enough supply for all demands, the bigger demand gets filled first.
+This ``greedy'' modeling decision sought to mimic real markets in which large capacity
+buyer receive preferential treatment. 
+In EG23 and EG24,
+there is one archetype that receives separated fissile materials. That archetype
+can have infinite buffer/throughput because it is the only
+archetype with the demand for that commodity. However, EG29 and EG30 has two archetypes
+that compete for the fissile materials (ie. \gls{MOX} fuel fab competes with \gls{SFR} fuel fab for separated plutonium).
+In this case, if both fabrication plants have infinite buffer/throughput, one fabrication takes all the
+separated fissile material, leaving the other plant idle.
 
 
 \subsection{Individual Demand Estimation}
@@ -239,31 +278,24 @@ minimum height=2em]
 \subsection{A Need For Market-Peeking}
 The \Cyclus framework can benefit greatly from a market-peeking capability,
 where each agent can query the market (previous transactions or demand) to adjust its parameters. For example, fuel fabrication
-agents can query the previous (or, eventually, expected) demand of fuel and adjust their throughputs to meet the demand. 
+agents could query the previous (or, eventually, expected) demand of fuel and adjust their throughputs to meet the demand. 
 The market-peeking capability is essential for demand-prediction models.
 
-Moreover, with the market-peeking capability, support facilities can estimate adjust their
+Moreover, with the market-peeking capability, support facilities could estimate adjust their
 capacities by estimating
 the demand of fuel/fissile material proportional to power demand (`power' is a market commodity in \Cyclus).
 
-\subsection{A Need For Inter-Agent Feedback}
-Inter-agent feedback means that agents can communicate with each other and change its parameters accordingly. 
-For example, an increase in fabrication capacity, should cause an increase in reprocessing capacity. Also,
-if a reactor is shutdown due to lack of fuel, this should cause a flag to increase fabrication capacity,
-or `investigate'.
-This may conflict with the market-peeking capability, since there would be more than one algorithm
-that changes the throughput of an agent. 
-
 \subsection{Irresponsible deployment}
-The \textsc{DeployInst}\xspace model deploys prototypes in a user-defined time period, even though there is not 
-enough fuel to operate the reactor. The deployed reactor is remains idle if the fuel supply is short. Deploying new reactors
-without sufficient fissile material to support it can cause other already-deployed reactors without fuel, causing
-a cascade of shutdowns. Using the market-peeking or feedback capability, new reactors should be deployed only
+The \textsc{DeployInst}\xspace model deploys prototypes in a user-defined time period.
+With infeasible input specs, it still deploys reactors without checking fuel availability.
+The deployed reactor is remains idle if the fuel supply is short. Deploying new reactors
+without sufficient fissile material to support them can cause other already-deployed reactors without fuel, causing
+a cascade of shutdowns. Using the market-peeking or feedback capability, new reactors could be deployed only
 if there is sufficient fuel to support the startup of the reactor as well as currently deployed reactors. 
 
 
 \section{Additional Possible Improvements}
-Though not critical to the current goal, having the following capabilities can increase
+Though not critical to the current goal, having the following capabilities may increase
 the accuracy of simulations.
 
 
@@ -276,13 +308,6 @@ the mass and composition of driver and blanket to treat it as one commodity.
 Depletion calculations are done outside of the simulation. However, if advanced reactor models like \textsc{Cyborg}\xspace
 or \textsc{Bright-Lite}\xspace are utilized, there could be more accurate depletion calculations and 
 perhaps dynamic Breeding Ratio modeling.
-
-\subsection{\textsc{Reactor}\xspace Decommissioning Behavior}
-The \Cycamore \textsc{Reactor}\xspace, when decommissioned mid-cycle, transmutes half of
-its current assemblies, and discharges all its core as waste commodity. This is in order to model the average
-composition of discharged assemblies in different stages. An alternative would
-be to have recipes for each stage (ie. for four batch, there would be three spent fuel recipes).
-
 
 \bibliographystyle{abbrv}
 \bibliography{bibliography}
