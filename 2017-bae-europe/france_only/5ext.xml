@@ -2321,30 +2321,62 @@
 
   <region>
     <name>France</name>
-    <config>
-      <GrowthRegion>
-        <growth>
-          <item>
-            <commod>power</commod>
-            <piecewise_function>
-              <piece>
-                <start>840</start>
-                <function>
-                  <type>linear</type>
-                  <params>0 66000</params>
-                </function>
-              </piece>
-            </piecewise_function>
-          </item>
-        </growth>
-      </GrowthRegion>
-    </config>
 
+    <config><NullRegion/></config>
     <institution>
       <name>FR</name>
       <config>
         <DeployInst>
           <prototypes>
+                <val>astrid</val>
+    <val>astrid</val>
+    <val>astrid</val>
+    <val>astrid</val>
+    <val>astrid</val>
+    <val>astrid</val>
+    <val>astrid</val>
+    <val>astrid</val>
+    <val>astrid</val>
+    <val>astrid</val>
+    <val>astrid</val>
+    <val>astrid</val>
+    <val>astrid</val>
+    <val>astrid</val>
+    <val>astrid</val>
+    <val>astrid</val>
+    <val>astrid</val>
+    <val>astrid</val>
+    <val>astrid</val>
+    <val>astrid</val>
+    <val>astrid</val>
+    <val>astrid</val>
+    <val>astrid</val>
+    <val>astrid</val>
+    <val>astrid</val>
+    <val>astrid</val>
+    <val>astrid</val>
+    <val>astrid</val>
+    <val>astrid</val>
+    <val>astrid</val>
+    <val>astrid</val>
+    <val>astrid</val>
+    <val>astrid</val>
+    <val>astrid</val>
+    <val>astrid</val>
+    <val>astrid</val>
+    <val>astrid</val>
+    <val>astrid</val>
+    <val>astrid</val>
+    <val>astrid</val>
+    <val>astrid</val>
+    <val>astrid</val>
+    <val>astrid</val>
+    <val>astrid</val>
+    <val>astrid</val>
+    <val>astrid</val>
+    <val>astrid</val>
+
+
                 <val>astrid</val>
     <val>astrid</val>
     <val>astrid</val>
@@ -2442,6 +2474,55 @@
     <val>1115</val>
     <val>1139</val>
     <val>1344</val>
+
+<val>  1800  </val>
+   <val>  1826  </val>
+<val> 1830  </val>
+<val> 1840  </val>
+<val> 1844  </val>
+<val> 1850  </val>
+<val> 1854  </val>
+<val> 1862  </val>
+<val> 1867  </val>
+<val> 1871  </val>
+<val> 1872  </val>
+<val> 1873  </val>
+<val> 1876  </val>
+<val> 1877  </val>
+<val> 1879  </val>
+<val> 1890  </val>
+<val> 1894  </val>
+<val> 1899  </val>
+<val> 1900  </val>
+<val> 1903  </val>
+<val> 1905  </val>
+<val> 1911  </val>
+<val> 1912  </val>
+<val> 1915  </val>
+<val> 1917  </val>
+<val> 1927  </val>
+<val> 1929  </val>
+<val> 1935  </val>
+<val> 1937  </val>
+<val> 1941  </val>
+<val> 1942  </val>
+<val> 1951  </val>
+<val> 1952  </val>
+<val> 1953  </val>
+<val> 1961  </val>
+<val> 1965  </val>
+<val> 1981  </val>
+<val> 1983  </val>
+<val> 1984  </val>
+<val> 1996  </val>
+<val> 2004  </val>
+<val> 2021  </val>
+<val> 2059  </val>
+<val> 2066  </val>
+<val> 2075  </val>
+<val> 2099  </val>
+<val> 2304  </val>
+
   </build_times>
   <n_build>
 
@@ -2493,10 +2574,106 @@
     <val>3</val>
     <val>3</val>
 
+    <val>2</val>
+    <val>1</val>
+    <val>2</val>
+    <val>1</val>
+    <val>2</val>
+    <val>1</val>
+    <val>2</val>
+    <val>4</val>
+    <val>3</val>
+    <val>5</val>
+    <val>1</val>
+    <val>2</val>
+    <val>1</val>
+    <val>5</val>
+    <val>1</val>
+    <val>2</val>
+    <val>1</val>
+    <val>2</val>
+    <val>1</val>
+    <val>2</val>
+    <val>1</val>
+    <val>2</val>
+    <val>2</val>
+    <val>5</val>
+    <val>2</val>
+    <val>6</val>
+    <val>2</val>
+    <val>2</val>
+    <val>5</val>
+    <val>1</val>
+    <val>2</val>
+    <val>3</val>
+    <val>5</val>
+    <val>1</val>
+    <val>2</val>
+    <val>2</val>
+    <val>2</val>
+    <val>2</val>
+    <val>3</val>
+    <val>2</val>
+    <val>2</val>
+    <val>2</val>
+    <val>3</val>
+    <val>2</val>
+    <val>2</val>
+    <val>3</val>
+    <val>3</val>
+
 </n_build>
 <lifetimes>
 
 <val>960</val>
+    <val>960</val>
+    <val>960</val>
+    <val>960</val>
+    <val>960</val>
+    <val>960</val>
+    <val>960</val>
+    <val>960</val>
+    <val>960</val>
+    <val>960</val>
+    <val>960</val>
+    <val>960</val>
+    <val>960</val>
+    <val>960</val>
+    <val>960</val>
+    <val>960</val>
+    <val>960</val>
+    <val>960</val>
+    <val>960</val>
+    <val>960</val>
+    <val>960</val>
+    <val>960</val>
+    <val>960</val>
+    <val>960</val>
+    <val>960</val>
+    <val>960</val>
+    <val>960</val>
+    <val>960</val>
+    <val>960</val>
+    <val>960</val>
+    <val>960</val>
+    <val>960</val>
+    <val>960</val>
+    <val>960</val>
+    <val>960</val>
+    <val>960</val>
+    <val>960</val>
+    <val>960</val>
+    <val>960</val>
+    <val>960</val>
+    <val>960</val>
+    <val>960</val>
+    <val>960</val>
+    <val>960</val>
+    <val>960</val>
+    <val>960</val>
+    <val>960</val>
+
+    <val>960</val>
     <val>960</val>
     <val>960</val>
     <val>960</val>
