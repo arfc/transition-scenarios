@@ -513,23 +513,16 @@ def get_power_dict(cur):
     """
     init_year, init_month, duration, timestep = get_timesteps(cur)
     governments = get_inst(cur)
+    governments = get_inst(cur)
 
     # get power cap values
-    entry = cur.execute('SELECT max(value), timeseriespower.agentid, '
-                        'parentid, entertime FROM agententry '
+    entry_exit = cur.execute('SELECT max(value), timeseriespower.agentid, '
+                        'parentid, entertime, entertime + lifetime FROM agententry '
                         'INNER JOIN timeseriespower '
                         'ON agententry.agentid = timeseriespower.agentid '
                         'GROUP BY timeseriespower.agentid').fetchall()
-
-    exit_step = cur.execute('SELECT max(value), timeseriespower.agentid, '
-                            'parentid, exittime FROM agentexit '
-                            'INNER JOIN timeseriespower '
-                            'ON agentexit.agentid = timeseriespower.agentid'
-                            ' INNER JOIN agententry '
-                            'ON agentexit.agentid = agententry.agentid '
-                            'GROUP BY timeseriespower.agentid').fetchall()
-
-    return capacity_calc(governments, timestep, entry, exit_step)
+    
+    return capacity_calc(governments, timestep, entry_exit)
 
 
 def get_deployment_dict(cur):
@@ -871,8 +864,9 @@ def where_comm(cur, commodity, prototypes, is_cum=True):
     return trade_dict
 
 
-def commod_per_inst(cur, commodity):
+def commod_per_inst(cur, commodity, timestep):
     """ Outputs outflux of commodity per institution
+        before timestep 
 
     Parameters
     ----------
@@ -899,7 +893,7 @@ def commod_per_inst(cur, commodity):
         for fac in facilities:
             facilities_list.append(fac[0])
         query = exec_string(facilities_list, 'senderid', 'sum(quantity)')
-        query += ' AND commodity = "' + commodity +'"'
+        query += ' AND commodity = "' + commodity +'" and time < ' + str(timestep)
         inst_output_dict[inst_name] = cur.execute(query).fetchone()[0]
 
     return inst_output_dict
@@ -945,7 +939,7 @@ def get_waste_dict(isotope_list, mass_list, time_list, duration):
     return waste_dict
 
 
-def capacity_calc(governments, timestep, entry, exit_step):
+def capacity_calc(governments, timestep, entry_exit):
     """Adds and subtracts capacity over time for plotting
 
     Parameters
@@ -954,12 +948,9 @@ def capacity_calc(governments, timestep, entry, exit_step):
         list of governments (countries)
     timestep: np.linspace
         list of timestep from 0 to simulation time
-    entry: list
-        power_cap, agentid, parentid, entertime
+    entry_exit: list
+        power_cap, agentid, parentid, entertime, exittime
         of all entered reactors
-    exit_step: list
-        power_cap, agentid, parenitd, exittime
-        of all decommissioned reactors
 
     Returns
     -------
@@ -967,19 +958,19 @@ def capacity_calc(governments, timestep, entry, exit_step):
         "dictionary with key=government, and
         value=timeseries list capacity"
     """
+
     power_dict = collections.OrderedDict()
     for gov in governments:
         capacity = []
         cap = 0
         for t in timestep:
-            for enter in entry:
-                if (enter['entertime'] == t and
-                        enter['parentid'] == gov['agentid']):
-                    cap += enter['max(value)'] * 0.001
-            for dec in exit_step:
-                if (dec['exittime'] == t and
-                        dec['parentid'] == gov['agentid']):
-                    cap -= dec['max(value)'] * 0.001
+            for agent in entry_exit:
+                if (agent['entertime'] == t and
+                        agent['parentid'] == gov['agentid']):
+                    cap += agent['max(value)'] * 0.001
+                if (agent['entertime + lifetime'] == t and
+                        agent['parentid'] == gov['agentid']):
+                    cap -= agent['max(value)'] * 0.001
             capacity.append(cap)
         power_dict[gov['prototype']] = np.asarray(capacity)
 
@@ -1118,7 +1109,7 @@ def combined_line_plot(dictionary, timestep,
             label = str(key)
 
         plt.plot(timestep_to_years(init_year, timestep),
-                 dictionary[key],
+                 dictionary[key], 
                  label=label,
                  color=cm.viridis(float(color_index) / len(dictionary)))
         color_index += 1
