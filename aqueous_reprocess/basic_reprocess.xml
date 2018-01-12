@@ -14,14 +14,17 @@ purex process.
     <startyear>2000</startyear>
   </control>
 
-<!-- Defining archetypes -->
+  <!-- Defining archetypes -->
   <archetypes>
+    <spec> <lib>agents</lib> <name>NullInst</name></spec>
+    <spec> <lib>agents</lib> <name>NullRegion</name></spec>
     <spec> <lib>cycamore</lib> <name>Source</name> </spec>
     <spec> <lib>cycamore</lib> <name>Sink</name> </spec>
     <spec> <lib>cycamore</lib> <name>Separations</name> </spec>
+    <spec> <lib>cycamore</lib> <name>DeployInst</name> </spec>
   </archetypes>
 
-<!-- Defining facilities -->
+  <!-- Defining facilities -->
   <facility>
    <name>uox_waste_source</name>
      <config>
@@ -86,7 +89,45 @@ purex process.
     </config>
   </facility>
 
-<!-- Defining recipes -->
+  <!-- Defining regions -->
+  <region>
+      <name>region</name>
+      <config><NullRegion/></config>
+      <institution>
+        <name>nullinst</name>
+        <config>
+          <DeployInst>
+
+            <prototypes>
+              <val>source</val>
+              <val>uox_reprocessing</val>
+              <val>sink</val>
+            </prototypes>
+
+            <build_times>
+              <val>1</val>
+              <val>2</val>
+              <val>2</val>
+            </build_times>
+
+            <n_build>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+            </n_build>
+
+            <lifetimes>
+              <val>9</val>
+              <val>9</val>
+              <val>9</val>
+            </lifetimes>
+
+          </DeployInst>
+        </config>
+      </institution>
+    </region>
+
+  <!-- Defining recipes -->
   <recipe>
     <name>uox_waste_recipe</name>
     <basis>mass</basis>
