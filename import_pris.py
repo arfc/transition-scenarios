@@ -1,6 +1,5 @@
 import csv
 import dateutil.parser as date
-from fuzzywuzzy import fuzz
 import import_fleetcomp as idata
 import jinja2
 import numpy as np
