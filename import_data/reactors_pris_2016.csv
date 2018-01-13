@@ -4,9 +4,9 @@ Argentina,EMBALSE,PHWR,600,Operational,NASA,4/1/1974,1974,3/13/1983,4/25/1983,1/
 Argentina,ATUCHA-2,PHWR,692,Operational,NASA,7/14/1981,1981,6/3/2014,6/27/2014,,,0
 Argentina,CAREM25,PWR,25,Under Construction,CNEA,2/8/2014,2014,,,,,
 Bangladesh,Rooppur Nuclear Power Plant (Unit-I),VVER,1000-1250,Planned,,2016,,,,2021,,
+Bangladesh,Rooppur Nuclear Power Plant (Unit-II),VVER,1000-1250,One year after 1st unit,,,,,,,,
 Belarus,BELARUSIAN-1,PWR,1109,Under Construction,BelNPP,11/6/2013,2013,,,,,
 Belarus,BELARUSIAN-2,PWR,1109,Under Construction,BelNPP,4/26/2014,2014,,,,,
-Bangladesh,Rooppur Nuclear Power Plant (Unit-II),VVER,1000-1250,One year after 1st unit,,,,,,,,
 Belarus,,WWPR,1200,Under Construction,,2011,,,,2016,,
 Belarus,,WWPR,1200,Under Construction,,2013,,,,2018,,
 Belgium,BR-3,PWR,10,Permanent Shutdown,CEN/SCK,11/1/1957,1957,8/29/1962,10/10/1962,10/10/1962,6/30/1987,
@@ -342,6 +342,7 @@ Japan,OHMA,BWR,1325,Under Construction,EPDC,5/7/2010,2010,,,,,
 Kazakhstan,AKTAU,FBR,52,Permanent Shutdown,MAEC-KAZ,10/1/1964,1964,11/1/1972,7/16/1973,7/16/1973,4/22/1999,
 Mexico,LAGUNA VERDE-1,BWR,665,Operational,CFE,10/1/1976,1976,11/8/1988,4/13/1989,7/29/1990,,97.5
 Mexico,LAGUNA VERDE-2,BWR,665,Operational,CFE,6/1/1977,1977,9/6/1994,11/11/1994,4/10/1995,,97.8
+Morocco,Sidi Boulbra Nuclear Power Plant,Not known yet,2 x 1000 MWe,Planned,,N/A,,,,2025-2030,,
 Netherlands,DODEWAARD,BWR,55,Permanent Shutdown,BV GKN,5/1/1965,1965,6/24/1968,10/18/1968,3/26/1969,3/26/1997,
 Netherlands,BORSSELE,PWR,482,Operational,EPZ,7/1/1969,1969,6/20/1973,7/4/1973,10/26/1973,,64.8
 Pakistan,KANUPP,PHWR,90,Operational,PAEC,8/1/1966,1966,8/1/1971,10/18/1971,12/7/1972,,62.6
@@ -366,7 +367,6 @@ Russia,NOVOVORONEZH-3,PWR,385,Operational,REA,7/1/1967,1967,12/22/1971,12/27/197
 Russia,NOVOVORONEZH-4,PWR,385,Operational,REA,7/1/1967,1967,12/25/1972,12/28/1972,3/24/1973,,90.4
 Russia,BELOYARSK-3,FBR,560,Operational,REA,1/1/1969,1969,2/26/1980,4/8/1980,11/1/1981,,77.8
 Russia,BILIBINO-1,LWGR,11,Operational,REA,1/1/1970,1970,12/11/1973,1/12/1974,4/1/1974,,79.1
-Morocco,Sidi Boulbra Nuclear Power Plant,Not known yet,2 x 1000 MWe,Planned,,N/A,,,,2025-2030,,
 Russia,BILIBINO-2,LWGR,11,Operational,REA,1/1/1970,1970,12/7/1974,12/30/1974,2/1/1975,,85.8
 Russia,BILIBINO-3,LWGR,11,Operational,REA,1/1/1970,1970,12/6/1975,12/22/1975,2/1/1976,,85.6
 Russia,BILIBINO-4,LWGR,11,Operational,REA,1/1/1970,1970,12/12/1976,12/27/1976,1/1/1977,,87.4
