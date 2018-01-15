@@ -5,7 +5,14 @@ This is a basic simulation to get familiar with the separations cycamore
 archetype. It will only contain a source, separations and sink facility.
 
 The input variables of the separations facilities are representative of the
-purex process.
+purex process. According to the OECD report (OECD_Homoegenous_2012), the
+recovery of U and Pu in the standard PUREX process is 99.87% recovery of
+Uranium and 99.36 - 99.51% recovery of Pu (99.4% was used).
+
+Assumptions:
+All the uox_waste is output as reprocess_waste, uox_U and uox_Pu. (In OECD
+report, it says that a small portion of elements, ,1% per element, adheres to
+fuel cladding following dissolution)
 -->
 <simulation>
   <control>
@@ -57,15 +64,15 @@ purex process.
          <feed_commods>   <val>uox_waste</val> </feed_commods>
          <feed_commod_prefs> <val>1.0</val> </feed_commod_prefs>
          <feed_recipe>uox_waste_recipe</feed_recipe>
-         <feedbuf_size>1E100</feedbuf_size>
-         <throughput>1E100</throughput>
+         <feedbuf_size>1000</feedbuf_size>
+         <throughput>1000</throughput>
          <leftover_commod>reprocess_waste</leftover_commod>
-         <leftoverbuf_size>1E100</leftoverbuf_size>
+         <leftoverbuf_size>1000</leftoverbuf_size>
          <streams>
           <item>
             <commod>uox_Pu</commod>
             <info>
-              <buf_size>1E100</buf_size>
+              <buf_size>1000</buf_size>
               <efficiencies>
                 <item>
                   <comp>Pu</comp> <eff>.994</eff>
@@ -76,7 +83,7 @@ purex process.
           <item>
             <commod>uox_U</commod>
             <info>
-              <buf_size>1E100</buf_size>
+              <buf_size>1000</buf_size>
               <efficiencies>
                 <item>
                   <comp>U</comp> <eff>.998</eff>
@@ -95,35 +102,24 @@ purex process.
       <config><NullRegion/></config>
       <institution>
         <name>nullinst</name>
-        <config>
-          <DeployInst>
+        <config><NullInst/></config>
+        <initialfacilitylist>
 
-            <prototypes>
-              <val>source</val>
-              <val>uox_reprocessing</val>
-              <val>sink</val>
-            </prototypes>
+          <entry>
+            <number>1</number>
+            <prototype>uox_waste_source</prototype>
+          </entry>
+          <entry>
+            <number>1</number>
+            <prototype>uox_reprocessing</prototype>
+          </entry>
+          <entry>
+            <number>1</number>
+            <prototype>sink</prototype>
+          </entry>
 
-            <build_times>
-              <val>1</val>
-              <val>2</val>
-              <val>2</val>
-            </build_times>
+        </initialfacilitylist>
 
-            <n_build>
-              <val>1</val>
-              <val>1</val>
-              <val>1</val>
-            </n_build>
-
-            <lifetimes>
-              <val>9</val>
-              <val>9</val>
-              <val>9</val>
-            </lifetimes>
-
-          </DeployInst>
-        </config>
       </institution>
     </region>
 
