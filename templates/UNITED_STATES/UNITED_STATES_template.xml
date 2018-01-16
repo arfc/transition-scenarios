@@ -38,7 +38,7 @@
       <name>NullRegion</name>
     </spec>
   </archetypes>
-  <xi:include href="US/buildtimes/inclusions.xml#xpointer(/inclusions/child::*)"/>
+  <xi:include href="UNITED_STATES/buildtimes/inclusions.xml#xpointer(/inclusions/child::*)"/>
   <facility>
     <name>Sink_HLW</name>
     <config>
@@ -216,7 +216,7 @@
     <institution>
       <name>{{country}}</name>
       <config>
-        <xi:include href="US/buildtimes/{{country}}/deployinst.xml"/></config>
+        <xi:include href="UNITED_STATES/buildtimes/{{country}}/deployinst.xml"/></config>
     </institution>{% endfor %}</region>
-  <xi:include href="US/recipes/uox_51.xml#xpointer(/recipes/child::*)"/>
+  <xi:include href="UNITED_STATES/recipes/uox_51.xml#xpointer(/recipes/child::*)"/>
 </simulation>
