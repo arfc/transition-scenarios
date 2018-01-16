@@ -22,5 +22,7 @@ def merge_coordinates(pris, scrape):
             coords = cur.execute(
                 "SELECT name, long, lat FROM reactors_coordinates "
                 "WHERE country = " + cnt + " COLLATE NOCASE")
-
+            for reactor in coords:
+                if fuzz.partial_ratio(reactor['name'].lower(),
+                                      row[0].lower()) > 80:
     return reader
