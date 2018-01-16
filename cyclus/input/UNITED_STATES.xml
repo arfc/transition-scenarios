@@ -1,4 +1,4 @@
-﻿<simulation xml:base="/home/user/predict/cyclus/input/" xmlns:xi="http://www.w3.org/2001/XInclude">
+﻿<simulation xml:base="/home/gyutae/predicting-the-past/cyclus/input/" xmlns:xi="http://www.w3.org/2001/XInclude">
   <control>
     <duration>1020</duration>
     <startmonth>1</startmonth>
@@ -214,9 +214,9 @@
     </institution>
     
     <institution>
-      <name>US</name>
+      <name>United_States</name>
       <config>
-        <xi:include href="US/buildtimes/US/deployinst.xml"/></config>
+        <xi:include href="US/buildtimes/United_States/deployinst.xml"/></config>
     </institution></region>
   <xi:include href="US/recipes/uox_51.xml#xpointer(/recipes/child::*)"/>
 </simulation>
