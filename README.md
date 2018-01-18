@@ -10,15 +10,13 @@ University of Illinois at Urbana-Champaign in the Advanced Reactors and Fuel
 Cycles group.This work benefits enormously from previous work by Robert Flanagan 
 in the fleetcomp repository.
 
-To view the work, open [region_name].ipynb
-To run a simulation for a particular continent, first run:
-> python import_pris.py [region] [sim_start_year]
+To view the work or run a simulation for a particular region, open [region_name].ipynb
 
 REPORT
 ======
 
 To view the the report which includes the procedure, results and their
-explanations, please view `US.ipynb`.
+explanations, please view `UNITED_STATES.ipynb` or `europe.ipynb`.
 
 Not Ready For Reuse
 ====================
