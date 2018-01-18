@@ -43,9 +43,10 @@ def select_region(in_list, region):
             'PAKISTAN', 'PHILIPPINES', 'SOUTH KOREA',
             'UNITED ARAB EMIRATES', 'VIETNAM'}
     AFRICA = {'EGYPT', 'MOROCCO', 'SOUTH AFRICA', 'TUNISIA'}
-    ALL = SOUTH_AMERICA | NORTH_AMERICA | EUROPE | ASIA | AFRICA | UNITED_STATES
+    ALL = (SOUTH_AMERICA | NORTH_AMERICA |
+           EUROPE | ASIA | AFRICA | UNITED_STATES)
     regions = {'SOUTH_AMERICA': SOUTH_AMERICA, 'NORTH_AMERICA': NORTH_AMERICA,
-               'ASIA': ASIA, 'AFRICA': AFRICA, 'EUROPE': EUROPE, 
+               'ASIA': ASIA, 'AFRICA': AFRICA, 'EUROPE': EUROPE,
                'UNITED_STATES': UNITED_STATES, 'ALL': ALL}
 
     if region.upper() not in regions.keys():
