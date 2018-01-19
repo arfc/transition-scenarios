@@ -10,19 +10,19 @@ import sqlite3 as sql
 
 
 def merge_coordinates(pris, scrape):
+	pris = []
     with open(pris, encoding='utf-8') as src:
         reader = csv.reader(src, delimiter=',')
-        countries = sorted({row[0] for row in reader})
-        country_list = [w.replace('US', 'United States of America')
-                        for w in countries]
-        country_list = [w.replace('China', "People's Republic of China")
-                        for w in countries]
-        for cnt in countries:
-            cur = an.get_cursor(pris)
-            coords = cur.execute(
-                "SELECT name, long, lat FROM reactors_coordinates "
-                "WHERE country = " + cnt + " COLLATE NOCASE")
-            for reactor in coords:
-                if fuzz.partial_ratio(reactor['name'].lower(),
-                                      row[0].lower()) > 80:
+        pris.extend(reader)
+        cur = an.get_cursor(pris)
+        coords = cur.execute("SELECT name, long, lat FROM reactors_coordinates")
+        for web, prs in zip(coords, pris):
+            if fuzz.partial_ratio(web['name'].lower(),prs[1].lower()) > 80:
+            	prs[13] = double(web['long'])
+            	prs[14] = double(web['lat'])
+                	
+                
     return reader
+
+
+# [13]: Long [14]: Lat
