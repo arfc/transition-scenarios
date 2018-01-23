@@ -1,6 +1,7 @@
 import csv
 from fuzzywuzzy import fuzz
 import sqlite3 as sql
+import sys
 
 
 def get_cursor(file_name):
@@ -22,6 +23,20 @@ def get_cursor(file_name):
 
 def merge_coordinates(pris_link, scrape):
     pris = []
+    others = {'HADDAM NECK': 'Connecticut Yankee',
+              'ANO-': 'Arkansas One',
+              'HATCH-': 'Edwin I. Hatch',
+              'COOK-': 'Donald C. Cook',
+              'FARLEY-': 'Joseph M. Farley',
+              'FERMI-': 'Enrico Fermi',
+              'SUMMER-': 'Virgil C. Summer',
+              'LASALLE-': 'LaSalle County',
+              'HARRIS-': 'Shearon Harris'
+              }
+    blacklist = ['nuclear', 'power',
+                 'plant', 'generating',
+                 'station', 'reactor',
+                 'energy', 'center', 'electric']
     with open(pris_link, encoding='utf-8') as src:
         reader = csv.reader(src, delimiter=',')
         pris.extend(reader)
@@ -30,10 +45,27 @@ def merge_coordinates(pris_link, scrape):
             "SELECT name, long, lat FROM reactors_coordinates")
         for web in coords:
             for prs in pris[1:]:
-                if fuzz.partial_ratio(web['name'].lower(),
-                                      prs[1].lower()) > 70:
+                name_web = web['name'].lower()
+                for blacklisted in blacklist:
+                    name_web = name_web.replace(blacklisted, '')
+                if fuzz.ratio(name_web.rstrip(), prs[1].lower()) > 64:
+                    # print(name_web.rstrip(), ' and ', prs[1].lower())
                     prs[13] = web['lat']
                     prs[14] = web['long']
+                else:
+                    for other in others.keys():
+                        if fuzz.ratio(prs[1], other) > 80:
+                            if fuzz.ratio(others[other], name_web.rstrip()) > 75:
+                                # print(prs[1], ' and ', name_web.rstrip())
+                                prs[13] = web['lat']
+                                prs[14] = web['long']
     with open('pris_coordinates.csv', 'w') as output:
         writer = csv.writer(output, delimiter=',')
         writer.writerows(pris)
+
+
+def main(pris, scrape):
+    merge_coordinates(pris, scrape)
+
+if __name__ == "__main__":
+    main(sys.argv[1], sys.argv[2])
