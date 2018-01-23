@@ -27,7 +27,7 @@ def select_region(in_list, region):
     reactor_list: list
             list of reactors from PRIS
     """
-    USA = {'United States'}
+    UNITED_STATES = {'United States'}
     SOUTH_AMERICA = {'ARGENTINA', 'BRAZIL'}
     NORTH_AMERICA = {'CANADA', 'MEXICO', 'UNITED STATES'}
     EUROPE = {'BELARUS', 'BELGIUM', 'BULGARIA',
@@ -43,9 +43,11 @@ def select_region(in_list, region):
             'PAKISTAN', 'PHILIPPINES', 'SOUTH KOREA',
             'UNITED ARAB EMIRATES', 'VIETNAM'}
     AFRICA = {'EGYPT', 'MOROCCO', 'SOUTH AFRICA', 'TUNISIA'}
-    ALL = SOUTH_AMERICA | NORTH_AMERICA | EUROPE | ASIA | AFRICA
+    ALL = (SOUTH_AMERICA | NORTH_AMERICA |
+           EUROPE | ASIA | AFRICA | UNITED_STATES)
     regions = {'SOUTH_AMERICA': SOUTH_AMERICA, 'NORTH_AMERICA': NORTH_AMERICA,
-               'ASIA': ASIA, 'AFRICA': AFRICA, 'EUROPE': EUROPE, 'ALL': ALL}
+               'ASIA': ASIA, 'AFRICA': AFRICA, 'EUROPE': EUROPE,
+               'UNITED_STATES': UNITED_STATES, 'ALL': ALL}
 
     if region.upper() not in regions.keys():
         raise ValueError(region + 'is not a valid region')

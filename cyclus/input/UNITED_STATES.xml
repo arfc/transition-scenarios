@@ -1,4 +1,4 @@
-﻿<simulation xml:base="/home/user/predict/cyclus/input/" xmlns:xi="http://www.w3.org/2001/XInclude">
+﻿<simulation xml:base="/home/gyutae/predicting-the-past/cyclus/input/" xmlns:xi="http://www.w3.org/2001/XInclude">
   <control>
     <duration>1020</duration>
     <startmonth>1</startmonth>
@@ -38,7 +38,7 @@
       <name>NullRegion</name>
     </spec>
   </archetypes>
-  <xi:include href="US/buildtimes/inclusions.xml#xpointer(/inclusions/child::*)"/>
+  <xi:include href="UNITED_STATES/buildtimes/inclusions.xml#xpointer(/inclusions/child::*)"/>
   <facility>
     <name>Sink_HLW</name>
     <config>
@@ -214,9 +214,9 @@
     </institution>
     
     <institution>
-      <name>US</name>
+      <name>United_States</name>
       <config>
-        <xi:include href="US/buildtimes/US/deployinst.xml"/></config>
+        <xi:include href="UNITED_STATES/buildtimes/United_States/deployinst.xml"/></config>
     </institution></region>
-  <xi:include href="US/recipes/uox_51.xml#xpointer(/recipes/child::*)"/>
+  <xi:include href="UNITED_STATES/recipes/uox_51.xml#xpointer(/recipes/child::*)"/>
 </simulation>
