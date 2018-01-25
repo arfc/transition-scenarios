@@ -70,7 +70,7 @@ def merge_coordinates(pris_link, scrape):
                                 # print(prs[1], ' and ', name_web.rstrip())
                                 prs[13] = web['lat']
                                 prs[14] = web['long']
-    with open('pris_coordinates.csv', 'w') as output:
+    with open('reactors_pris_2016.csv', 'w') as output:
         writer = csv.writer(output, delimiter=',')
         writer.writerows(pris)
 
