@@ -23,19 +23,29 @@ def get_cursor(file_name):
 
 def merge_coordinates(pris_link, scrape):
     pris = []
-    others = {'HADDAM NECK': 'Connecticut Yankee',
+    others = {'OHI-': 'Ōi',
+              'ASCO-': 'Ascó',
+              'ROVNO-': 'Rivne',
+              'SHIN-KORI-': 'Kori',
               'ANO-': 'Arkansas One',
-              'HATCH-': 'Edwin I. Hatch',
-              'COOK-': 'Donald C. Cook',
-              'FARLEY-': 'Joseph M. Farley',
+              'HANBIT-': 'Yeonggwang',
               'FERMI-': 'Enrico Fermi',
-              'SUMMER-': 'Virgil C. Summer',
+              'BALTIC-': 'Kaliningrad',
+              'COOK-': 'Donald C. Cook',
+              'HATCH-': 'Edwin I. Hatch',
+              'HARRIS-': 'Shearon Harris',
+              'SHIN-WOLSONG-': 'Wolseong',
+              'ST. ALBAN-': 'Saint-Alban',
               'LASALLE-': 'LaSalle County',
-              'HARRIS-': 'Shearon Harris'
+              'SUMMER-': 'Virgil C. Summer',
+              'FARLEY-': 'Joseph M. Farley',
+              'ST. LAURENT ': 'Saint-Laurent',
+              'HADDAM NECK': 'Connecticut1 Yankee',
+              'HIGASHI DORI-1 (TOHOKU)': 'Higashidōri',
               }
     blacklist = ['nuclear', 'power',
                  'plant', 'generating',
-                 'station', 'reactor',
+                 'station', 'reactor', 'atomic',
                  'energy', 'center', 'electric']
     with open(pris_link, encoding='utf-8') as src:
         reader = csv.reader(src, delimiter=',')
@@ -54,8 +64,9 @@ def merge_coordinates(pris_link, scrape):
                     prs[14] = web['long']
                 else:
                     for other in others.keys():
-                        if fuzz.ratio(prs[1], other) > 80:
-                            if fuzz.ratio(others[other], name_web.rstrip()) > 75:
+                        if fuzz.ratio(prs[1].lower(), other.lower()) > 80:
+                            if fuzz.ratio(others[other].lower(),
+                                          name_web.rstrip().lower()) > 75:
                                 # print(prs[1], ' and ', name_web.rstrip())
                                 prs[13] = web['lat']
                                 prs[14] = web['long']
