@@ -11,6 +11,17 @@ if len(sys.argv) < 4:
     print('Usage: python import_pris.py [region] [sim_start_yr]')
 
 
+def confirm_deployment(date_str):
+    if len(date_str) < 5 and len(date_str) > 0:
+        try:
+            date.parse(date_str)
+        except:
+            return False
+        return True
+    else:
+        return False
+
+
 def select_region(in_list, region):
     """ Returns a list of reactors that have a start_date
     and are note experimental
@@ -59,13 +70,13 @@ def select_region(in_list, region):
     for row in in_list:
         country = row[0]
         if country.upper() in regions[region.upper()]:
-            start_date = row[9]
-            if start_date.strip():
+            start_date = row[10]
+            if confirm_deployment(start_date):
                 reactor_list.append(row)
     return reactor_list
 
 
-def get_lifetime(in_list):
+def get_lifetime(in_row):
     """ Calculates the lifetime of a reactor using first
     grid data and shutdown date. Defaults to 720 if these
     data are not available
@@ -81,8 +92,8 @@ def get_lifetime(in_list):
     lifetime: int
         lifetime of reactor
     """
-    grid_date = in_list[9]
-    shutdown_date = in_list[11]
+    comm_date = in_row[10]
+    shutdown_date = in_row[11]
     if not shutdown_date.strip():
         return 720
     else:
@@ -113,8 +124,8 @@ def get_buildtime(in_list, start_year, path_list):
     """
     buildtime_dict = {}
     for row in in_list:
-        grid_date = date.parse(row[9])
-        start_date = [grid_date.year, grid_date.month, grid_date.day]
+        comm_date = row[10].parse()
+        start_date = [comm_date.year, comm_date.month, comm_date.day]
         delta = ((start_date[0] - int(start_year)) * 12 +
                  (start_date[1]) +
                  round(start_date[2] / (365.0 / 12)))
