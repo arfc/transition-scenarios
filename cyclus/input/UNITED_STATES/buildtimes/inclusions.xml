@@ -147,10 +147,6 @@
     
     <xi:include href="../reactors/FERMI-2.xml" />
     
-    <xi:include href="../reactors/SHOREHAM.xml" />
-    
-    <xi:include href="../reactors/WATTS_BAR-2.xml" />
-    
     <xi:include href="../reactors/WATTS_BAR-1.xml" />
     
     <xi:include href="../reactors/SUMMER-1.xml" />

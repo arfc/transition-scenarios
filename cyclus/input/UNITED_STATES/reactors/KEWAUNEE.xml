@@ -1,6 +1,6 @@
 <facility>
   <name>KEWAUNEE</name>
-  <lifetime>469</lifetime>
+  <lifetime>467</lifetime>
   <config>
     <Reactor>
       <fuel_incommods>  <val>fresh_uox</val> </fuel_incommods>
@@ -13,6 +13,9 @@
       <n_assem_core>241</n_assem_core>
       <n_assem_batch>80</n_assem_batch>
       <power_cap>566</power_cap>
+      <longitude>-87.5361</longitude>
+      <latitude>44.3422</latitude>
     </Reactor>
+    
   </config>
 </facility>

@@ -1,6 +1,6 @@
 <facility>
   <name>RANCHO_SECO-1</name>
-  <lifetime>175</lifetime>
+  <lifetime>169</lifetime>
   <config>
     <Reactor>
       <fuel_incommods>  <val>fresh_uox</val> </fuel_incommods>
@@ -13,6 +13,9 @@
       <n_assem_core>241</n_assem_core>
       <n_assem_batch>80</n_assem_batch>
       <power_cap>873</power_cap>
+      <longitude>-121.122</longitude>
+      <latitude>38.3453</latitude>
     </Reactor>
+    
   </config>
 </facility>

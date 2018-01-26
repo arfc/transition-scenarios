@@ -1,6 +1,6 @@
 <facility>
   <name>ZION-2</name>
-  <lifetime>289</lifetime>
+  <lifetime>281</lifetime>
   <config>
     <Reactor>
       <fuel_incommods>  <val>fresh_uox</val> </fuel_incommods>
@@ -13,6 +13,9 @@
       <n_assem_core>241</n_assem_core>
       <n_assem_batch>80</n_assem_batch>
       <power_cap>1040</power_cap>
+      <longitude>-87.803</longitude>
+      <latitude>42.4464</latitude>
     </Reactor>
+    
   </config>
 </facility>

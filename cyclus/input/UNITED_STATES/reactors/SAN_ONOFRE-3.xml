@@ -1,6 +1,6 @@
 <facility>
   <name>SAN_ONOFRE-3</name>
-  <lifetime>356</lifetime>
+  <lifetime>350</lifetime>
   <config>
     <Reactor>
       <fuel_incommods>  <val>fresh_uox</val> </fuel_incommods>
@@ -13,6 +13,9 @@
       <n_assem_core>241</n_assem_core>
       <n_assem_batch>80</n_assem_batch>
       <power_cap>1080</power_cap>
+      <longitude>-117.555</longitude>
+      <latitude>33.3689</latitude>
     </Reactor>
+    
   </config>
 </facility>

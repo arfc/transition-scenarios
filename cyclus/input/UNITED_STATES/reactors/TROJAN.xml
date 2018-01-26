@@ -1,6 +1,6 @@
 <facility>
   <name>TROJAN</name>
-  <lifetime>202</lifetime>
+  <lifetime>197</lifetime>
   <config>
     <Reactor>
       <fuel_incommods>  <val>fresh_uox</val> </fuel_incommods>
@@ -13,6 +13,9 @@
       <n_assem_core>241</n_assem_core>
       <n_assem_batch>80</n_assem_batch>
       <power_cap>1095</power_cap>
+      <longitude>-122.885</longitude>
+      <latitude>46.0383</latitude>
     </Reactor>
+    
   </config>
 </facility>

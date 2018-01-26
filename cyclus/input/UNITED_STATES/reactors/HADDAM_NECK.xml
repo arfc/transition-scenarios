@@ -1,6 +1,6 @@
 <facility>
   <name>HADDAM_NECK</name>
-  <lifetime>352</lifetime>
+  <lifetime>347</lifetime>
   <config>
     <Reactor>
       <fuel_incommods>  <val>fresh_uox</val> </fuel_incommods>
@@ -13,6 +13,9 @@
       <n_assem_core>241</n_assem_core>
       <n_assem_batch>80</n_assem_batch>
       <power_cap>560</power_cap>
+      <longitude>-72.4992</longitude>
+      <latitude>41.4819</latitude>
     </Reactor>
+    
   </config>
 </facility>

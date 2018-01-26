@@ -13,6 +13,9 @@
       <n_assem_core>241</n_assem_core>
       <n_assem_batch>80</n_assem_batch>
       <power_cap>1164</power_cap>
+      <longitude>-89.2819</longitude>
+      <latitude>42.0742</latitude>
     </Reactor>
+    
   </config>
 </facility>
