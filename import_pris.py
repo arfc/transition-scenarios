@@ -31,6 +31,21 @@ def get_cursor(file_name):
 
 
 def merge_coordinates(pris_link, scrape):
+	""" Obtains coordinates from webscrape.sqlite and
+	writes them to matching reactors in PRIS reactor file.
+
+    Parameters
+    ----------
+    pris_link: str
+        path and name of pris reactor text file
+    scrape: str
+		path and name of webscrape sqlite file
+
+    Returns
+    -------
+    null
+    	Writes pris text file with coordinates
+    """
     pris = []
     others = {'OHI-': 'Ōi',
               'ASCO-': 'Ascó',
