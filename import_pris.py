@@ -1,14 +1,171 @@
 import csv
 import dateutil.parser as date
-import import_fleetcomp as idata
 import jinja2
 import numpy as np
 import os
 import pathlib
 import sys
+from pyne import nucname as nn
 
 if len(sys.argv) < 4:
     print('Usage: python import_pris.py [region] [sim_start_yr]')
+
+
+def import_csv(in_csv, delimit):
+    """ Imports contents of a csv text file to a list of
+    lists.
+
+    Parameters
+    ---------
+    in_csv: str
+        path and name of input csv file
+    delimit: str
+        delimiter of the csv file
+
+    Returns
+    -------
+    data_list: list
+        list of lists containing the csv data
+    """
+    with open(in_csv, encoding='utf-8') as source:
+        sourcereader = csv.reader(source, delimiter=delimit)
+        data_list = []
+        for row in sourcereader:
+            data_list.append(row)
+    return data_list
+
+
+def load_template(in_template):
+    """ Returns a jinja2 template from file.
+
+    Parameters
+    ---------
+    in_template: str
+        path and name of jinja2 template
+
+    Returns
+    -------
+    output_template: jinja template object
+    """
+    with open(in_template, 'r') as default:
+        output_template = jinja2.Template(default.read())
+    return output_template
+
+
+def get_composition_fresh(in_list, burnup):
+    """ Returns a dictionary of isotope and composition (in mass fraction)
+    using vision_recipes for fresh UOX fuel.
+
+    Parameters
+    ---------
+    in_list: list
+        list containing vision_recipes
+    burnup: int
+        burnup
+
+    Returns
+    -------
+    data_dict: dict
+        dictionary with key=[isotope],
+        and value=[composition]
+    """
+    data_dict = {}
+    for i in range(len(in_list)):
+        if i > 1:
+            if burnup == 33:
+                data_dict.update({nn.id(in_list[i][0]):
+                                  float(in_list[i][1])})
+            elif burnup == 51:
+                data_dict.update({nn.id(in_list[i][0]):
+                                  float(in_list[i][3])})
+            else:
+                data_dict.update({nn.id(in_list[i][0]):
+                                  float(in_list[i][5])})
+    return data_dict
+
+
+def get_composition_spent(in_list, burnup):
+    """ Returns a dictionary of isotope and composition (in mass fraction)
+    using vision_recipes for spent nuclear fuel
+
+    Parameters
+    ---------
+    in_list: list
+        list containing vision_recipes data
+    burnup: int
+        burnup
+
+    Returns
+    -------
+    data_dict: dict
+        dictionary with key=[isotope],
+        and value=[composition]
+    """
+    data_dict = {}
+    for i in range(len(in_list)):
+        if i > 1:
+            if burnup == 33:
+                data_dict.update({nn.id(in_list[i][0]):
+                                  float(in_list[i][2])})
+            elif burnup == 51:
+                data_dict.update({nn.id(in_list[i][0]):
+                                  float(in_list[i][4])})
+            else:
+                data_dict.update({nn.id(in_list[i][0]):
+                                  float(in_list[i][6])})
+    return data_dict
+
+
+def write_recipes(fresh_dict, spent_dict, in_template, burnup, region):
+    """ Renders jinja template using fresh and spent fuel composition.
+
+    Parameters
+    ---------
+    fresh_dict: dict
+        dictionary with key=[isotope], and
+        value=[composition] for fresh UOX
+    spent_dict: dict
+        dictionary with key=[isotope], and
+        value=[composition] for spent fuel
+    in_template: jinja template object
+        jinja template object to be rendered
+    burnup: int
+        amount of burnup
+
+    Returns
+    -------
+    null
+        generates recipe files for cyclus.
+    """
+    out_path = 'cyclus/input/' + region + '/recipes/'
+    pathlib.Path(out_path).mkdir(parents=True, exist_ok=True)
+    rendered = in_template.render(fresh=fresh_dict,
+                                  spent=spent_dict)
+    with open(out_path + '/uox_' + str(burnup) + '.xml', 'w') as output:
+        output.write(rendered)
+
+
+def obtain_recipes(in_csv, recipe_template, burnup):
+    """ Generates commodity composition xml input for cyclus.
+
+    Parameters
+    ---------
+    in_csv: str
+        path and name of recipe file
+    recipe_template: str
+        path and name of recipe template
+    burnup: int
+        amount of burnup
+
+    Returns
+    -------
+    null
+        Generates commodity composition xml input for cyclus.
+    """
+    recipe = import_csv(in_csv, ',')
+    write_recipes(get_composition_fresh(recipe, burnup),
+                  get_composition_spent(recipe, burnup),
+                  load_template(recipe_template), burnup)
 
 
 def confirm_deployment(date_str, capacity):
@@ -176,7 +333,7 @@ def write_reactors(in_list, out_path, reactor_template):
     if out_path[-1] != '/':
         out_path += '/'
     pathlib.Path(out_path).mkdir(parents=True, exist_ok=True)
-    reactor_template = idata.load_template(reactor_template)
+    reactor_template = load_template(reactor_template)
     for row in in_list:
         capacity = float(row[3])
         if capacity >= 400:
@@ -251,8 +408,8 @@ def write_deployment(in_dict, out_path, deployinst_template,
     if out_path[-1] != '/':
         out_path += '/'
     pathlib.Path(out_path).mkdir(parents=True, exist_ok=True)
-    deployinst_template = idata.load_template(deployinst_template)
-    inclusions_template = idata.load_template(inclusions_template)
+    deployinst_template = load_template(deployinst_template)
+    inclusions_template = load_template(inclusions_template)
     country_list = {value[0] for value in in_dict.values()}
     for nation in country_list:
         temp_dict = {}
@@ -288,7 +445,7 @@ def obtain_reactors(in_csv, region, reactor_template):
     null
         Writes xml files for individual reactors in region.
     """
-    in_data = idata.import_csv(in_csv, ',')
+    in_data = import_csv(in_csv, ',')
     reactor_list = select_region(in_data, region)
     out_path = 'cyclus/input/' + region + '/reactors'
     write_reactors(reactor_list, out_path, reactor_template)
@@ -327,7 +484,7 @@ def deploy_reactors(in_csv, region, start_year, deployinst_template,
         reactors_path += '/'
     for files in os.listdir(reactors_path):
         lists.append(reactors_path + files)
-    in_data = idata.import_csv(in_csv, ',')
+    in_data = import_csv(in_csv, ',')
     reactor_list = select_region(in_data, region)
     buildtime = get_buildtime(reactor_list, start_year, lists)
     write_deployment(buildtime, deployment_path, deployinst_template,
@@ -358,7 +515,7 @@ def render_cyclus(cyclus_template, region, in_dict, out_path):
     """
     if out_path[-1] != '/':
         out_path += '/'
-    cyclus_template = idata.load_template(cyclus_template)
+    cyclus_template = load_template(cyclus_template)
     country_list = {value[0].replace(' ', '_') for value in in_dict.values()}
     rendered = cyclus_template.render(countries=country_list,
                                       base_dir=os.path.abspath(out_path) + '/')
