@@ -521,23 +521,3 @@ def render_cyclus(cyclus_template, region, in_dict, out_path):
                                       base_dir=os.path.abspath(out_path) + '/')
     with open(out_path + region + '.xml', 'w') as output:
         output.write(rendered)
-
-
-if __name__ == '__main__':
-	region = sys.argv[1]
-	sim_start_yr = sys.argv[2]
-	recipe_tmpl = 'templates/recipes_template.xml'
-    pris_file = 'import_data/reactors_pris_2016.csv'
-    reactors_tmpl = 'templates/reactors_template.xml'
-    recipe_file = 'import_data/vision_recipes/uox.csv'
-    reactor_path = 'cyclus/input/' + region + '/reactors'
-    inclusions_tmpl = 'templates/inclusions_template.xml'
-	deployment_path = 'cyclus/input/' + region + '/buildtimes'
-    cyclus_tmpl = 'templates/' + region + '/' + region + '_template.xml'
-    deployinst_tmpl = 'templates/' + region + '/deployinst_template.xml'
-    produce_recipes(recipe_file, recipe_tmpl, 51)
-    obtain_reactors(pris_file, region, reactors_tmpl)
-    buildtime = deploy_reactors(pris_file,
-                                region, sim_start_yr, deployinst_tmpl,
-                                inclusions_tmpl, reactor_path, dployment_path)
-    render_cyclus(cyclus_tmpl, region, buildtime, 'cyclus/input/')
