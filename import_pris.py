@@ -145,7 +145,7 @@ def write_recipes(fresh_dict, spent_dict, in_template, burnup, region):
         output.write(rendered)
 
 
-def obtain_recipes(in_csv, recipe_template, burnup):
+def produce_recipes(in_csv, recipe_template, burnup):
     """ Generates commodity composition xml input for cyclus.
 
     Parameters
@@ -277,42 +277,6 @@ def get_lifetime(in_row):
         return int(delta / n_days_month)
 
 
-def get_buildtime(in_list, start_year, path_list):
-    """ Calculates the buildtime required for reactor
-    deployment in months.
-
-    Parameters
-    ----------
-    in_list: list
-        list of reactors
-    start_year: int
-        starting year of simulation
-    path_list: list
-        list of paths to reactor files
-
-    Returns
-    -------
-    buildtime_dict: dict
-        dictionary with key=[name of reactor], and
-        value=[set of country and buildtime]
-    """
-    buildtime_dict = {}
-    for row in in_list:
-        comm_date = date.parse(row[10])
-        start_date = [comm_date.year, comm_date.month, comm_date.day]
-        delta = ((start_date[0] - int(start_year)) * 12 +
-                 (start_date[1]) +
-                 round(start_date[2] / (365.0 / 12)))
-        for index, reactor in enumerate(path_list):
-            name = row[1].replace(' ', '_')
-            country = row[0]
-            file_name = (reactor.replace(
-                os.path.dirname(path_list[index]), '')).replace('/', '')
-            if (name + '.xml' == file_name):
-                buildtime_dict.update({name: (country, delta)})
-    return buildtime_dict
-
-
 def write_reactors(in_list, out_path, reactor_template):
     """ Renders CYCAMORE::reactor specifications using jinja2.
 
@@ -383,6 +347,30 @@ def write_reactors(in_list, out_path, reactor_template):
                 output.write(config)
 
 
+def obtain_reactors(in_csv, region, reactor_template):
+    """ Writes xml files for individual reactors in a given
+    region.
+
+    Parameters
+    ----------
+    in_csv: str
+        csv file name
+    region: str
+        region name
+    reactor_template: str
+        path to CYCAMORE::reactor config template file
+
+    Returns
+    -------
+    null
+        Writes xml files for individual reactors in region.
+    """
+    in_data = import_csv(in_csv, ',')
+    reactor_list = select_region(in_data, region)
+    out_path = 'cyclus/input/' + region + '/reactors'
+    write_reactors(reactor_list, out_path, reactor_template)
+
+
 def write_deployment(in_dict, out_path, deployinst_template,
                      inclusions_template):
     """ Renders jinja template using dictionary of reactor name and buildtime.
@@ -427,28 +415,40 @@ def write_deployment(in_dict, out_path, deployinst_template,
         output2.write(inclusions)
 
 
-def obtain_reactors(in_csv, region, reactor_template):
-    """ Writes xml files for individual reactors in a given
-    region.
+def get_buildtime(in_list, start_year, path_list):
+    """ Calculates the buildtime required for reactor
+    deployment in months.
 
     Parameters
     ----------
-    in_csv: str
-        csv file name
-    region: str
-        region name
-    reactor_template: str
-        path to CYCAMORE::reactor config template file
+    in_list: list
+        list of reactors
+    start_year: int
+        starting year of simulation
+    path_list: list
+        list of paths to reactor files
 
     Returns
     -------
-    null
-        Writes xml files for individual reactors in region.
+    buildtime_dict: dict
+        dictionary with key=[name of reactor], and
+        value=[set of country and buildtime]
     """
-    in_data = import_csv(in_csv, ',')
-    reactor_list = select_region(in_data, region)
-    out_path = 'cyclus/input/' + region + '/reactors'
-    write_reactors(reactor_list, out_path, reactor_template)
+    buildtime_dict = {}
+    for row in in_list:
+        comm_date = date.parse(row[10])
+        start_date = [comm_date.year, comm_date.month, comm_date.day]
+        delta = ((start_date[0] - int(start_year)) * 12 +
+                 (start_date[1]) +
+                 round(start_date[2] / (365.0 / 12)))
+        for index, reactor in enumerate(path_list):
+            name = row[1].replace(' ', '_')
+            country = row[0]
+            file_name = (reactor.replace(
+                os.path.dirname(path_list[index]), '')).replace('/', '')
+            if (name + '.xml' == file_name):
+                buildtime_dict.update({name: (country, delta)})
+    return buildtime_dict
 
 
 def deploy_reactors(in_csv, region, start_year, deployinst_template,
@@ -524,16 +524,20 @@ def render_cyclus(cyclus_template, region, in_dict, out_path):
 
 
 if __name__ == '__main__':
+	region = sys.argv[1]
+	sim_start_yr = sys.argv[2]
+	recipe_tmpl = 'templates/recipes_template.xml'
     pris_file = 'import_data/reactors_pris_2016.csv'
     reactors_tmpl = 'templates/reactors_template.xml'
-    deployinst_tmpl = 'templates/' + sys.argv[1] + '/deployinst_template.xml'
+    recipe_file = 'import_data/vision_recipes/uox.csv'
+    reactor_path = 'cyclus/input/' + region + '/reactors'
     inclusions_tmpl = 'templates/inclusions_template.xml'
-    cyclus_tmpl = (
-        'templates/' + sys.argv[1] + '/' + sys.argv[1] + '_template.xml')
-    reactor_path = 'cyclus/input/' + sys.argv[1] + '/reactors'
-    dployment_path = 'cyclus/input/' + sys.argv[1] + '/buildtimes'
-    obtain_reactors(pris_file, sys.argv[1], reactors_tmpl)
+	deployment_path = 'cyclus/input/' + region + '/buildtimes'
+    cyclus_tmpl = 'templates/' + region + '/' + region + '_template.xml'
+    deployinst_tmpl = 'templates/' + region + '/deployinst_template.xml'
+    produce_recipes(recipe_file, recipe_tmpl, 51)
+    obtain_reactors(pris_file, region, reactors_tmpl)
     buildtime = deploy_reactors(pris_file,
-                                sys.argv[1], sys.argv[2], deployinst_tmpl,
+                                region, sim_start_yr, deployinst_tmpl,
                                 inclusions_tmpl, reactor_path, dployment_path)
-    render_cyclus(cyclus_tmpl, sys.argv[1], buildtime, 'cyclus/input/')
+    render_cyclus(cyclus_tmpl, region, buildtime, 'cyclus/input/')
