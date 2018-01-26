@@ -11,20 +11,37 @@ if len(sys.argv) < 4:
     print('Usage: python import_pris.py [region] [sim_start_yr]')
 
 
-def confirm_deployment(date_str):
-    if len(date_str) < 5 and len(date_str) > 0:
+def confirm_deployment(date_str, capacity):
+	""" Confirms if reactor is to be deployed for CYCLUS by
+	checking if the capacity > 400 and if the commercial date
+	is a proper date format.
+
+    Parameters
+    ----------
+    date_str: str
+            the commercial date string from PRIS data file
+    capacity: str
+            capacity in MWe from RPIS data file
+
+    Returns
+    -------
+    is_deployed: bool
+            determines whether the reactor will be deployed
+            in CYCLUS
+    """
+    is_deployed = False
+    if len(date_str) > 4 and capacity > 400:
         try:
             date.parse(date_str)
         except:
-            return False
-        return True
-    else:
-        return False
+            is_deployed = False
+        is_deployed = True
+    return is_deployed
 
 
 def select_region(in_list, region):
-    """ Returns a list of reactors that have a start_date
-    and are note experimental
+    """ Returns a list of reactors that will be deployed for
+    CYCLUS by checking the capacity and commercial date
 
     Parameters
     ----------
@@ -43,7 +60,7 @@ def select_region(in_list, region):
             'UNITED ARAB EMIRATES', 'VIETNAM',
             'PAKISTAN', 'PHILIPPINES', 'SOUTH KOREA'
             }
-    UNITED_STATES = {'United States'}
+    UNITED_STATES = {'UNITED STATES'}
     SOUTH_AMERICA = {'ARGENTINA', 'BRAZIL'}
     NORTH_AMERICA = {'CANADA', 'MEXICO', 'UNITED STATES'}
     EUROPE = {'UKRAINE', 'UNITED KINGDOM',
@@ -70,20 +87,21 @@ def select_region(in_list, region):
     for row in in_list:
         country = row[0]
         if country.upper() in regions[region.upper()]:
+            capacity = row[3]
             start_date = row[10]
-            if confirm_deployment(start_date):
+            if confirm_deployment(start_date, capacity):
                 reactor_list.append(row)
     return reactor_list
 
 
 def get_lifetime(in_row):
     """ Calculates the lifetime of a reactor using first
-    grid data and shutdown date. Defaults to 720 if these
-    data are not available
+    commercial date and shutdown date. Defaults to 720 months
+    if shutdown date is not available.
 
     Parameters
     ----------
-    in_list: list
+    in_row: list
         single row from PRIS data that contains reactor
         information
 
@@ -98,14 +116,13 @@ def get_lifetime(in_row):
         return 720
     else:
         n_days_month = 365.0 / 12
-        delta = (date.parse(shutdown_date) - date.parse(grid_date)).days
+        delta = (date.parse(shutdown_date) - date.parse(comm_date)).days
         return int(delta / n_days_month)
 
 
 def get_buildtime(in_list, start_year, path_list):
-    """ Obtains infroation regarding reactors that need to
-    be deployed and renders the information into a jinja
-    template
+    """ Calculates the buildtime required for reactor
+    deployment in months.
 
     Parameters
     ----------
@@ -124,7 +141,7 @@ def get_buildtime(in_list, start_year, path_list):
     """
     buildtime_dict = {}
     for row in in_list:
-        comm_date = row[10].parse()
+        comm_date = date.parse(row[10])
         start_date = [comm_date.year, comm_date.month, comm_date.day]
         delta = ((start_date[0] - int(start_year)) * 12 +
                  (start_date[1]) +
@@ -140,8 +157,7 @@ def get_buildtime(in_list, start_year, path_list):
 
 
 def write_reactors(in_list, out_path, reactor_template):
-    """ Obtains information regarding reactors
-    and renders the information into a jinja template
+    """ Renders CYCAMORE::reactor specifications using jinja2.
 
     Parameters
     ----------
@@ -155,7 +171,7 @@ def write_reactors(in_list, out_path, reactor_template):
     Returns
     -------
     null
-        writes xml files containing information about a reactor
+        writes xml files with CYCAMORE::reactor config
     """
     if out_path[-1] != '/':
         out_path += '/'
@@ -171,56 +187,55 @@ def write_reactors(in_list, out_path, reactor_template):
             reactor_type = row[2]
             if reactor_type in ['BWR', 'ESBWR']:
                 assem_no = 732
-                assem_per_batch = assem_no / 3
+                assem_per_batch = int(assem_no / 3)
                 assem_size = 138000 / assem_no
             elif reactor_type in ['GCR', 'HWGCR']:  # Need batch number
                 assem_no = 324
-                assem_per_batch = assem_no / 3
+                assem_per_batch = int(assem_no / 3)
                 assem_size = 114000 / assem_no
             elif reactor_type == 'HTGR':  # Need batch number
                 assem_no = 3944
-                assem_per_batch = assem_no / 3
+                assem_per_batch = int(assem_no / 3)
                 assem_size = 39000 / assem_no
             elif reactor_type == 'PHWR':
                 assem_no = 390
-                assem_per_batch = assem_no / 45
+                assem_per_batch = int(assem_no / 45)
                 assem_size = 80000 / assem_no
             elif reactor_type == 'VVER':  # Need batch number
                 assem_no = 312
-                assem_per_batch = assem_no / 3
+                assem_per_batch = int(assem_no / 3)
                 assem_size = 41500 / assem_no
             elif reactor_type == 'VVER-1200':  # Need batch number
                 assem_no = 163
-                assem_per_batch = assem_no / 3
+                assem_per_batch = int(assem_no / 3)
                 assem_size = 80000 / assem_no
             else:
                 assem_no = 241
-                assem_per_batch = assem_no / 3
+                assem_per_batch = int(assem_no / 3)
                 assem_size = 103000 / assem_no
-            rendered = reactor_template.render(name=name,
-                                               lifetime=get_lifetime(row),
-                                               assem_size=assem_size,
-                                               n_assem_core=assem_no,
-                                               n_assem_batch=int(
-                                                   assem_per_batch),
-                                               power_cap=row[3],
-                                               lon=row[14],
-                                               lat=row[13])
+            config = reactor_template.render(name=name,
+                                             lifetime=get_lifetime(row),
+                                             assem_size=assem_size,
+                                             n_assem_core=assem_no,
+                                             n_assem_batch=assem_per_batch,
+                                             power_cap=row[3],
+                                             lon=row[14],
+                                             lat=row[13])
             with open(out_path + name.replace(' ', '_') + '.xml',
                       'w') as output:
-                output.write(rendered)
+                output.write(config)
 
 
 def write_deployment(in_dict, out_path, deployinst_template,
                      inclusions_template):
-    """ Renders jinja template using dictionary of reactor name and buildtime
-    and outputs an xml file that uses xinclude to include the reactors located
-    in cyclus_input/reactors.
+    """ Renders jinja template using dictionary of reactor name and buildtime.
+    Outputs an xml file that uses xinclude to include the reactor xml files
+    located in cyclus_input/reactors.
 
     Parameters
     ---------
     in_dict: dictionary
-        dictionary with key: reactor name, and value: buildtime.
+        dictionary with key=[reactor name], and value=[buildtime]
     out_path: str
         output path for files
     deployinst_template: str
@@ -256,21 +271,22 @@ def write_deployment(in_dict, out_path, deployinst_template,
 
 
 def obtain_reactors(in_csv, region, reactor_template):
-    """ Writes xml files for individual reactors in US fleet.
+    """ Writes xml files for individual reactors in a given
+    region.
 
     Parameters
     ----------
     in_csv: str
-        csv file name.
+        csv file name
     region: str
         region name
     reactor_template: str
-        template file name.
+        path to CYCAMORE::reactor config template file
 
     Returns
     -------
     null
-        Writes xml files for individual reactors in US fleet.
+        Writes xml files for individual reactors in region.
     """
     in_data = idata.import_csv(in_csv, ',')
     reactor_list = select_region(in_data, region)
@@ -280,13 +296,13 @@ def obtain_reactors(in_csv, region, reactor_template):
 
 def deploy_reactors(in_csv, region, start_year, deployinst_template,
                     inclusions_template, reactors_path, deployment_path):
-    """ Generates xml files that specifies the reactors that will be included
-    in a cyclus simulation.
+    """ Generates xml files that specify the reactors that will be included
+    in a CYCLUS simulation.
 
     Parameters
     ---------
     in_csv: str
-        csv file name.
+        path to pris reactor database
     region: str
         region name
     start_year: int
@@ -320,25 +336,25 @@ def deploy_reactors(in_csv, region, start_year, deployinst_template,
 
 
 def render_cyclus(cyclus_template, region, in_dict, out_path):
-    """ Renders final cyclus output file with xml base, and institutions
+    """ Renders final CYCLUS input file with xml base, and institutions
     for each country
 
     Parameters
     ----------
     cyclus_template: str
-        path to cyclus_tempalte
+        path to CYCLUS input file template
     region: str
-        region chosen for cyclus simulation
+        region chosen for CYCLUS simulation
     in_dict: dictionary
         in_dict should be buildtime_dict from get_buildtime function
     out_path: str
-        output path for cyclus input file
+        output path for CYCLUS input file
     output_name:
 
     Returns
     -------
     null
-        writes cyclus input file in out_path
+        writes CYCLUS input file in out_path
     """
     if out_path[-1] != '/':
         out_path += '/'
