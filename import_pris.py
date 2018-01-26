@@ -27,28 +27,32 @@ def select_region(in_list, region):
     reactor_list: list
             list of reactors from PRIS
     """
+    ASIA = {'IRAN', 'JAPAN', 'KAZAKHSTAN',
+            'BANGLADESH', 'CHINA', 'INDIA',
+            'UNITED ARAB EMIRATES', 'VIETNAM',
+            'PAKISTAN', 'PHILIPPINES', 'SOUTH KOREA'
+            }
     UNITED_STATES = {'United States'}
     SOUTH_AMERICA = {'ARGENTINA', 'BRAZIL'}
     NORTH_AMERICA = {'CANADA', 'MEXICO', 'UNITED STATES'}
-    EUROPE = {'BELARUS', 'BELGIUM', 'BULGARIA',
-              'CZECHOSLOVAKIA', 'FINLAND', 'FRANCE',
-              'GERMANY', 'ITALY', 'NETHERLANDS',
+    EUROPE = {'UKRAINE', 'UNITED KINGDOM',
               'POLAND', 'ROMANIA', 'RUSSIA',
-              'SLOVENIA', 'SOVIET UNION', 'SPAIN',
+              'BELARUS', 'BELGIUM', 'BULGARIA',
+              'GERMANY', 'ITALY', 'NETHERLANDS',
               'SWEDEN', 'SWITZERLAND', 'TURKEY',
-              'UKRAINE', 'UNITED KINGDOM'
+              'SLOVENIA', 'SOVIET UNION', 'SPAIN',
+              'CZECHOSLOVAKIA', 'FINLAND', 'FRANCE'
               }
-    ASIA = {'BANGLADESH', 'CHINA', 'INDIA',
-            'IRAN', 'JAPAN', 'KAZAKHSTAN',
-            'PAKISTAN', 'PHILIPPINES', 'SOUTH KOREA',
-            'UNITED ARAB EMIRATES', 'VIETNAM'}
     AFRICA = {'EGYPT', 'MOROCCO', 'SOUTH AFRICA', 'TUNISIA'}
     ALL = (SOUTH_AMERICA | NORTH_AMERICA |
            EUROPE | ASIA | AFRICA | UNITED_STATES)
-    regions = {'SOUTH_AMERICA': SOUTH_AMERICA, 'NORTH_AMERICA': NORTH_AMERICA,
-               'ASIA': ASIA, 'AFRICA': AFRICA, 'EUROPE': EUROPE,
-               'UNITED_STATES': UNITED_STATES, 'ALL': ALL}
-
+    regions = {'ASIA': ASIA,
+               'AFRICA': AFRICA,
+               'EUROPE': EUROPE,
+               'SOUTH_AMERICA': SOUTH_AMERICA,
+               'NORTH_AMERICA': NORTH_AMERICA,
+               'UNITED_STATES': UNITED_STATES,
+               'ALL': ALL}
     if region.upper() not in regions.keys():
         raise ValueError(region + 'is not a valid region')
     reactor_list = []
@@ -182,7 +186,6 @@ def write_reactors(in_list, out_path, reactor_template):
                 assem_no = 241
                 assem_per_batch = assem_no / 3
                 assem_size = 103000 / assem_no
-
             rendered = reactor_template.render(name=name,
                                                lifetime=get_lifetime(row),
                                                assem_size=assem_size,
