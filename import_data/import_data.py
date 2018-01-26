@@ -31,20 +31,20 @@ def get_cursor(file_name):
 
 
 def merge_coordinates(pris_link, scrape):
-	""" Obtains coordinates from webscrape.sqlite and
-	writes them to matching reactors in PRIS reactor file.
+    """ Obtains coordinates from webscrape.sqlite and
+    writes them to matching reactors in PRIS reactor file.
 
     Parameters
     ----------
     pris_link: str
         path and name of pris reactor text file
     scrape: str
-		path and name of webscrape sqlite file
+        path and name of webscrape sqlite file
 
     Returns
     -------
     null
-    	Writes pris text file with coordinates
+        Writes pris text file with coordinates
     """
     pris = []
     others = {'OHI-': 'Ōi',
@@ -257,9 +257,9 @@ def produce_recipes(in_csv, recipe_template, burnup):
 
 
 def confirm_deployment(date_str, capacity):
-	""" Confirms if reactor is to be deployed for CYCLUS by
-	checking if the capacity > 400 and if the commercial date
-	is a proper date format.
+    """ Confirms if reactor is to be deployed for CYCLUS by
+    checking if the capacity > 400 and if the commercial date
+    is a proper date format.
 
     Parameters
     ----------
