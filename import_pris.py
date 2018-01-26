@@ -192,7 +192,9 @@ def write_reactors(in_list, out_path, reactor_template):
                                                n_assem_core=assem_no,
                                                n_assem_batch=int(
                                                    assem_per_batch),
-                                               power_cap=row[3])
+                                               power_cap=row[3],
+                                               lon=row[14],
+                                               lat=row[13])
             with open(out_path + name.replace(' ', '_') + '.xml',
                       'w') as output:
                 output.write(rendered)
