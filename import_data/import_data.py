@@ -9,9 +9,6 @@ import sys
 from fuzzywuzzy import fuzz
 from pyne import nucname as nn
 
-if len(sys.argv) < 4:
-    print('Usage: python import_pris.py [region] [sim_start_yr]')
-
 
 def get_cursor(file_name):
     """ Connects and returns a cursor to an sqlite output file
@@ -28,6 +25,29 @@ def get_cursor(file_name):
     con = sql.connect(file_name)
     con.row_factory = sql.Row
     return con.cursor()
+
+
+def is_int(str):
+    """ Checks if input string is a number rather than a letter
+
+    Parameters
+    ----------
+    str: str
+        string to test
+
+    Returns
+    -------
+    answer: bool
+        returns True if string is a number; False if string is not
+    """
+    answer = False
+    try:
+        a = int(str)
+    except ValueError:
+        answer = False
+        return answer
+    answer = True
+    return answer
 
 
 def merge_coordinates(pris_link, scrape):
@@ -61,10 +81,13 @@ def merge_coordinates(pris_link, scrape):
               'SHIN-WOLSONG-': 'Wolseong',
               'ST. ALBAN-': 'Saint-Alban',
               'LASALLE-': 'LaSalle County',
+              'ZAPOROZHYE-': 'Zaporizhzhya',
+              'ROBINSON-': 'H. B. Robinson',
               'SUMMER-': 'Virgil C. Summer',
               'FARLEY-': 'Joseph M. Farley',
               'ST. LAURENT ': 'Saint-Laurent',
               'HADDAM NECK': 'Connecticut1 Yankee',
+              'FITZPATRICK': 'James A. FitzPatrick',
               'HIGASHI DORI-1 (TOHOKU)': 'Higashidōri',
               }
     blacklist = ['nuclear', 'power',
@@ -80,9 +103,17 @@ def merge_coordinates(pris_link, scrape):
         for web in coords:
             for prs in pris[1:]:
                 name_web = web['name'].lower()
+                name_prs = prs[1]
                 for blacklisted in blacklist:
                     name_web = name_web.replace(blacklisted, '')
-                if fuzz.ratio(name_web.rstrip(), prs[1].lower()) > 64:
+                if prs[1].find('-') != -1 and is_int(prs[1][-1]):
+                    if prs[1][prs[1].find('-') + 1:].find('-') != -1:
+                        idx = prs[1].find('-')
+                        idx += prs[1][prs[1].find('-') + 1:].find('-')
+                        name_prs = prs[1][:idx]
+                    else:
+                        name_prs = prs[1][:prs[1].find('-')]
+                if fuzz.ratio(name_web.rstrip(), name_prs.lower()) > 75:
                     # print(name_web.rstrip(), ' and ', prs[1].lower())
                     prs[13] = web['lat']
                     prs[14] = web['long']
