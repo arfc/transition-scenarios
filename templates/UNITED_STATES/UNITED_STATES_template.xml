@@ -58,6 +58,8 @@
         <in_commods>
           <val>tails</val>
         </in_commods>
+        <latitude>37.6</latitude>
+        <longitude>-95.665</longitude>
       </Sink>
     </config>
   </facility>
