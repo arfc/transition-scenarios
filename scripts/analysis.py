@@ -517,11 +517,12 @@ def get_power_dict(cur):
 
     # get power cap values
     entry_exit = cur.execute('SELECT max(value), timeseriespower.agentid, '
-                        'parentid, entertime, entertime + lifetime FROM agententry '
-                        'INNER JOIN timeseriespower '
-                        'ON agententry.agentid = timeseriespower.agentid '
-                        'GROUP BY timeseriespower.agentid').fetchall()
-    
+                             'parentid, entertime, entertime + lifetime'
+                             ' FROM agententry '
+                             'INNER JOIN timeseriespower '
+                             'ON agententry.agentid = timeseriespower.agentid '
+                             'GROUP BY timeseriespower.agentid').fetchall()
+
     return capacity_calc(governments, timestep, entry_exit)
 
 
@@ -893,12 +894,11 @@ def commod_per_inst(cur, commodity, timestep):
         for fac in facilities:
             facilities_list.append(fac[0])
         query = exec_string(facilities_list, 'senderid', 'sum(quantity)')
-        query += ' AND commodity = "' + commodity +'" and time < ' + str(timestep)
+        query += ' AND commodity = "' + commodity + \
+            '" and time < ' + str(timestep)
         inst_output_dict[inst_name] = cur.execute(query).fetchone()[0]
 
     return inst_output_dict
-
-
 
 
 def get_waste_dict(isotope_list, mass_list, time_list, duration):
@@ -1109,7 +1109,7 @@ def combined_line_plot(dictionary, timestep,
             label = str(key)
 
         plt.plot(timestep_to_years(init_year, timestep),
-                 dictionary[key], 
+                 dictionary[key],
                  label=label,
                  color=cm.viridis(float(color_index) / len(dictionary)))
         color_index += 1

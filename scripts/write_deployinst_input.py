@@ -186,6 +186,7 @@ def read_template(template):
 
     return output_template
 
+
 def reactor_render(list, output_file, is_cyborg=False):
     """Takes the list and template and writes a reactor file
 
@@ -209,11 +210,14 @@ def reactor_render(list, output_file, is_cyborg=False):
     """
     if is_cyborg:
         pwr_template = read_template('../templates/pwr_template_cyborg.xml.in')
-        mox_reactor_template = read_template('../templates/mox_template_cyborg.xml.in')
-        candu_template = read_template('../templates/candu_template_cyborg.xml.in')
+        mox_reactor_template = read_template(
+            '../templates/mox_template_cyborg.xml.in')
+        candu_template = read_template(
+            '../templates/candu_template_cyborg.xml.in')
     else:
         pwr_template = read_template('../templates/pwr_template.xml.in')
-        mox_reactor_template = read_template('../templates/mox_template.xml.in')
+        mox_reactor_template = read_template(
+            '../templates/mox_template.xml.in')
         candu_template = read_template('../templates/candu_template.xml.in')
     for data in list:
         # BWRs have different fuel assembly size, assembly per core and batch
@@ -245,30 +249,31 @@ def reactor_render(list, output_file, is_cyborg=False):
         # if French PWR, use mox template for mox reactor
         elif data['type'].decode('utf-8') == 'PWR' and data['country'].decode('utf-8') == 'France':
             reactor_body = mox_reactor_template.render(country=data['country'].decode('utf-8'),
-                                               reactor_name=name,
-                                               type=data['type'].decode('utf-8'),
-                                               assem_size=446,
-                                               n_assem_core=int(
-                                                   round(data['capacity']/1000 * 193)),
-                                               n_assem_batch=int(
-                                                   round(data['capacity']/3000 * 193)),
-                                               capacity=data['capacity'])
+                                                       reactor_name=name,
+                                                       type=data['type'].decode(
+                                                           'utf-8'),
+                                                       assem_size=446,
+                                                       n_assem_core=int(
+                round(data['capacity']/1000 * 193)),
+                n_assem_batch=int(
+                round(data['capacity']/3000 * 193)),
+                capacity=data['capacity'])
         # if AP1000, use AP1000 specifcations
         elif data['type'].decode('utf-8') == 'AP1000':
             reactor_body = pwr_template.render(country=data['country'].decode('utf-8'),
-                                           reactor_name=name,
-                                           assem_size=467,
-                                           n_assem_core=157,
-                                           n_assem_batch=52,
-                                           capacity=data['capacity'])
+                                               reactor_name=name,
+                                               assem_size=467,
+                                               n_assem_core=157,
+                                               n_assem_batch=52,
+                                               capacity=data['capacity'])
         # if EPR, use EPR specifcations
         elif data['type'].decode('utf-8') == 'EPR':
             reactor_body = pwr_template.render(country=data['country'].decode('utf-8'),
-                                           reactor_name=name,
-                                           assem_size=467,
-                                           n_assem_core=216,
-                                           n_assem_batch=72,
-                                           capacity=data['capacity'])
+                                               reactor_name=name,
+                                               assem_size=467,
+                                               n_assem_core=216,
+                                               n_assem_batch=72,
+                                               capacity=data['capacity'])
         # if not any of the above, all go with PWR specification.
         else:
             reactor_body = pwr_template.render(
