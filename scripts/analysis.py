@@ -867,7 +867,7 @@ def where_comm(cur, commodity, prototypes, is_cum=True):
 
 def commod_per_inst(cur, commodity, timestep):
     """ Outputs outflux of commodity per institution
-        before timestep 
+        before timestep
 
     Parameters
     ----------
@@ -879,7 +879,7 @@ def commod_per_inst(cur, commodity, timestep):
     Returns
     -------
     inst_output_dict: dictionary
-        key = institution 
+        key = institution
         value = timeseries list of outflux of commodity
     """
 

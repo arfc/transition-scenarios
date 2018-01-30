@@ -427,7 +427,7 @@ def main(csv_file, init_date, duration, output_file, reprocessing=True):
     csv_file : str
         csv file containing reactor data (country, name, capacity)
     init_date: int
-        yyyymmdd format of initial date of simulation    
+        yyyymmdd format of initial date of simulation
     input_template: str
         template file for entire complete cyclus input file
     output_file: str
