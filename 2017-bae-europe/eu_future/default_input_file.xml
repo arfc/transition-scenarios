@@ -1,3 +1,10 @@
+<!--
+This input file simulates
+the scenario used in the Synergistic
+Spent Fuel Dynamics in the European Union
+by Jin Whan Bae, Clifford Singer, and Kathryn Huff.
+-->
+
 <simulation>
   <control>
     <duration>2280</duration>
