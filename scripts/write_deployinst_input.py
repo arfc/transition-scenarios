@@ -191,7 +191,7 @@ def reactor_render(list, output_file, is_cyborg=False):
     """Takes the list and template and writes a reactor file
 
     Parameters
-    ---------
+    ----------
     list: list
         list of data on reactors
     template: jinja.template
@@ -208,17 +208,15 @@ def reactor_render(list, output_file, is_cyborg=False):
     The reactor section of cyclus input file
 
     """
-    if is_cyborg:
-        pwr_template = read_template('../templates/pwr_template_cyborg.xml.in')
-        mox_reactor_template = read_template(
-            '../templates/mox_template_cyborg.xml.in')
-        candu_template = read_template(
-            '../templates/candu_template_cyborg.xml.in')
-    else:
-        pwr_template = read_template('../templates/pwr_template.xml.in')
-        mox_reactor_template = read_template(
-            '../templates/mox_template.xml.in')
-        candu_template = read_template('../templates/candu_template.xml.in')
+
+    template_path = '../templates/[reactor]_template_cyborg.xml.in'
+
+    if not is_cyborg:
+        template_path = template_path.replace('_cyborg', '')
+
+    pwr_template = read_template(template_path.replace('[reactor]', 'pwr'))
+    mox_reactor_template = read_template(template_path.replace('[reactor]', 'mox'))
+    candu_template = read_template(template_path.replace('[reactor]', 'candu'))
     for data in list:
         # BWRs have different fuel assembly size, assembly per core and batch
         name = data['reactor_name'].decode('utf-8')
