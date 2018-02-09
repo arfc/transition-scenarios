@@ -275,7 +275,7 @@ def reactor_render(data_list, output_file, is_cyborg=False):
         # refine name string
         name = refine_name(data['reactor_name'])
 
-        if data['type'].decode('utf-8') == reactor_specs.keys():
+        if data['type'].decode('utf-8') in reactor_specs.keys():
             # if the reactor type matches with the pre-defined dictionary,
             # use the specifications in the dictionary.
             reactor_str = data['type'].decode('utf-8')
@@ -285,7 +285,7 @@ def reactor_render(data_list, output_file, is_cyborg=False):
                 type=reactor_str,
                 reactor_name=name,
                 assem_size=spec_dict['assem_size'],
-                n_assem_core=int(round(spec_dict['n_assme_core'] * data['capacity'])),
+                n_assem_core=int(round(spec_dict['n_assem_core'] * data['capacity'])),
                 n_assem_batch=int(round(spec_dict['n_assem_batch'] * data['capacity'])),
                 capacity=data['capacity'])
         else:
