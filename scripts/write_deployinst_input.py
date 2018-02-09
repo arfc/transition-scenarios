@@ -239,32 +239,55 @@ def reactor_render(data_list, output_file, is_cyborg=False):
     mox_reactor_template = read_template(template_path.replace('[reactor]', 'mox'))
     candu_template = read_template(template_path.replace('[reactor]', 'candu'))
 
-    spec_dict = {}
-    # spec_dict[ 'reactor_type'] = [template, assem_size, n_assem_core(for model), n_assem_batch(for model)]
-    spec_dict['BWR'] = [pwr_template, 180, 764 / 1000, 764 / 3000]
-    spec_dict['PHWR'] = [candu_template, int(8000 / 473), 473 / 500, 60]
-    spec_dict['CANDU'] = [candu_template, int(8000 / 473), 473 / 500, 60]
-    spec_dict['PWR'] = [pwr_template, 446, 193 / 1000, 193 / 3000]
-    spec_dict['AP1000'] = [pwr_template, 467, 157, 52]
-    spec_dict['EPR'] = [candu_template, 467, 216, 72]
+    ap1000_spec = {'template' : pwr_template,
+                   'assem_size': 446.0,
+                   'n_assem_core': 157,
+                   'n_assem_batch': 52}
+    bwr_spec = {'template' : pwr_template,
+                   'assem_size': 180,
+                   'n_assem_core': 764 / 1000,
+                   'n_assem_batch': 764 / 3000}
+    phwr_spec = {'template' : candu_template,
+                   'assem_size': int(8000 / 473),
+                   'n_assem_core': 473 / 500,
+                   'n_assem_batch': 60}
+    candu_spec = {'template' : candu_template,
+                   'assem_size': int(8000 / 473),
+                   'n_assem_core': 473 / 500,
+                   'n_assem_batch': 60}
+    pwr_spec = {'template' : pwr_template,
+                   'assem_size': 446.0,
+                   'n_assem_core': 193 / 1000,
+                   'n_assem_batch': 193 / 3000}
+    epr_spec = {'template' : pwr_template,
+                   'assem_size': 467.0,
+                   'n_assem_core': 216,
+                   'n_assem_batch': 72}
+
+    reactor_specs = {'AP1000' : ap1000_spec,
+                    'PHWR': phwr_spec,
+                    'BWR': bwr_spec,
+                    'CANDU': candu_spec,
+                    'PWR': pwr_spec,
+                    'EPR': epr_spec}
 
     for data in data_list:
         # refine name string
         name = refine_name(data['reactor_name'])
 
-        if data['type'].decode('utf-8') == spec_dict.keys():
+        if data['type'].decode('utf-8') == reactor_specs.keys():
             # if the reactor type matches with the pre-defined dictionary,
             # use the specifications in the dictionary.
             reactor_str = data['type'].decode('utf-8')
-            reactor_body = spec_dict[reactor_str][0].render(
+            spec_dict = reactor_specs[reactor_str]
+            reactor_body = spec_dict['template'].render(
                 country=data['country'].decode('utf-8'),
                 type=reactor_str,
                 reactor_name=name,
-                assem_size=spec_dict[reactor_str][1],
-                n_assem_core=int(round(spec_dict[reactor_str][2] * data['capacity'])),
-                n_assem_batch=int(round(spec_dict[reactor_str][3] * data['capacity'])),
-                capacity=data['capactiy'])
-
+                assem_size=spec_dict['assem_size'],
+                n_assem_core=int(round(spec_dict['n_assme_core'] * data['capacity'])),
+                n_assem_batch=int(round(spec_dict['n_assem_batch'] * data['capacity'])),
+                capacity=data['capacity'])
         else:
             # assume 1000MWe pwr linear core size model if no match
             reactor_body = pwr_template.render(
