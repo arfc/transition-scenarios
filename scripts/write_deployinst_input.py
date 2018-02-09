@@ -187,6 +187,27 @@ def read_template(template):
     return output_template
 
 
+def refine_name(name_data):
+    """ Takes the name data and decodes and refines it.
+
+    Parameters
+    ----------
+    name_data: str
+        reactor name data from csv file
+
+    Returns
+    -------
+    name: str
+        refined and decoded name of reactor
+    """
+
+    name = name_data.decode('utf-8')
+    start = name.find('(')
+    end = name.find(')')
+    if start != -1 and end != -1:
+        name = name[:start]
+    return name
+
 def reactor_render(list, output_file, is_cyborg=False):
     """Takes the list and template and writes a reactor file
 
@@ -219,7 +240,7 @@ def reactor_render(list, output_file, is_cyborg=False):
     candu_template = read_template(template_path.replace('[reactor]', 'candu'))
 
     spec_dict = {}
-    # spec_dict[ 'reactor_type'] = [template, assem_size, n_assme_core(for model), n_assem_batch(for model)]
+    # spec_dict[ 'reactor_type'] = [template, assem_size, n_assem_core(for model), n_assem_batch(for model)]
     spec_dict['BWR'] = [pwr_template, 180, 764 / 1000, 764 / 3000]
     spec_dict['PHWR'] = [candu_template, int(8000 / 473), 473 / 500, 60]
     spec_dict['CANDU'] = [candu_template, int(8000 / 473), 473 / 500, 60]
@@ -229,11 +250,7 @@ def reactor_render(list, output_file, is_cyborg=False):
 
     for data in list:
         # refine name string
-        name = data['reactor_name'].decode('utf-8')
-        start = name.find('(')
-        end = name.find(')')
-        if start != -1 and end != -1:
-            name = name[:start]
+        name = refine_name(data['reactor_name'])
 
         if data['type'].decode('utf-8') == spec_dict.keys():
             # if the reactor type matches with the pre-defined dictionary,
