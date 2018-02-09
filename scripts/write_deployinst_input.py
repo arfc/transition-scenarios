@@ -208,12 +208,12 @@ def refine_name(name_data):
         name = name[:start]
     return name
 
-def reactor_render(list, output_file, is_cyborg=False):
+def reactor_render(data_list, output_file, is_cyborg=False):
     """Takes the list and template and writes a reactor file
 
     Parameters
     ----------
-    list: list
+    data_list: list
         list of data on reactors
     template: jinja.template
         jinja template for reactor file
@@ -248,7 +248,7 @@ def reactor_render(list, output_file, is_cyborg=False):
     spec_dict['AP1000'] = [pwr_template, 467, 157, 52]
     spec_dict['EPR'] = [candu_template, 467, 216, 72]
 
-    for data in list:
+    for data in data_list:
         # refine name string
         name = refine_name(data['reactor_name'])
 
@@ -332,12 +332,12 @@ def input_render(init_date, duration, reactor_file,
     os.system('rm reactor_output.xml.in region_output.xml.in')
 
 
-def region_render(list, output_file):
+def region_render(data_list, output_file):
     """Takes the list and template and writes a region file
 
     Parameters
     ---------
-    list: list
+    data_list: list
         list of data on reactors
     output_file: str
         name of output file
@@ -357,7 +357,7 @@ def region_render(list, output_file):
     valtail = '</val>'
 
     # creates list of countries and turns it into a set
-    for data in list:
+    for data in data_list:
         country_list.append(data['country'].decode('utf-8'))
     country_set = set(country_list)
 
@@ -367,7 +367,7 @@ def region_render(list, output_file):
         number = ''
         lifetime = ''
 
-        for data in list:
+        for data in data_list:
             if data['country'].decode('utf-8') == country:
 
                 prototype += (valhead
