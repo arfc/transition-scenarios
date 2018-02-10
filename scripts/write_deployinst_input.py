@@ -248,7 +248,7 @@ def reactor_render(data_list, output_file, is_cyborg=False):
                    'n_assem_core': 764 / 1000,
                    'n_assem_batch': 764 / 3000}
     phwr_spec = {'template' : candu_template,
-                   'assem_size': int(8000 / 473),
+                   'assem_size': int(8000 / 47g3),
                    'n_assem_core': 473 / 500,
                    'n_assem_batch': 60}
     candu_spec = {'template' : candu_template,
@@ -274,11 +274,11 @@ def reactor_render(data_list, output_file, is_cyborg=False):
     for data in data_list:
         # refine name string
         name = refine_name(data['reactor_name'])
-
-        if data['type'].decode('utf-8') in reactor_specs.keys():
+        reactor_type = data['type'].decode('utf-8')
+        if reactor_type in reactor_specs.keys():
             # if the reactor type matches with the pre-defined dictionary,
             # use the specifications in the dictionary.
-            reactor_str = data['type'].decode('utf-8')
+            reactor_str = reactor_type
             spec_dict = reactor_specs[reactor_str]
             reactor_body = spec_dict['template'].render(
                 country=data['country'].decode('utf-8'),
