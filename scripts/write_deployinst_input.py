@@ -32,8 +32,7 @@ def read_csv(csv_file):
     Parameters
     ---------
     csv_file: str
-        csv file that lists country, reactor name,
-        capacity, #assem per core, # assem per batch.
+        csv file that lists country, reactor name, net_elec_capacity
 
     Returns
     -------
@@ -52,7 +51,7 @@ def read_csv(csv_file):
                                          'int', 'int',
                                          'int', 'float'),
                                   names=('country', 'reactor_name',
-                                         'type', 'capacity',
+                                         'type', 'net_elec_capacity',
                                          'status', 'operator', 'const_date',
                                          'cons_year', 'first_crit',
                                          'entry_time', 'lifetime',
@@ -62,7 +61,7 @@ def read_csv(csv_file):
     hitlist = []
     count = 0
     for data in reactor_lists:
-        if data['capacity'] < 100:
+        if data['net_elect_capacity'] < 100:
             hitlist.append(count)
         count += 1
 
@@ -284,9 +283,9 @@ def reactor_render(reactor_data, output_file, is_cyborg=False):
                 type=reactor_str,
                 reactor_name=name,
                 assem_size=spec_dict['kg_per_assembly'],
-                n_assem_core=int(round(spec_dict['assemblies_per_core'] * data['capacity'])),
-                n_assem_batch=int(round(spec_dict['assemblies_per_batch'] * data['capacity'])),
-                capacity=data['capacity'])
+                n_assem_core=int(round(spec_dict['assemblies_per_core'] * data['net_elec_capacity'])),
+                n_assem_batch=int(round(spec_dict['assemblies_per_batch'] * data['net_elec_capacity'])),
+                capacity=data['net_elec_capacity'])
         else:
             # assume 1000MWe pwr linear core size model if no match
             reactor_body = pwr_template.render(
@@ -294,9 +293,9 @@ def reactor_render(reactor_data, output_file, is_cyborg=False):
                 reactor_name=name,
                 type=data['type'].decode('utf-8'),
                 assem_size=523.4,
-                n_assem_core=int(round(data['capacity']/1000 * 193)),
-                n_assem_batch=int(round(data['capacity']/3000 * 193)),
-                capacity=data['capacity'])
+                n_assem_core=int(round(data['net_elec_capacity']/1000 * 193)),
+                n_assem_batch=int(round(data['net_elec_capacity']/3000 * 193)),
+                capacity=data['net_elec_capacity'])
 
         with open(output_file, 'a') as output:
             output.write(reactor_body)
@@ -439,7 +438,7 @@ def main(csv_file, init_date, duration, output_file, reprocessing=True):
     Parameters
     ---------
     csv_file : str
-        csv file containing reactor data (country, name, capacity)
+        csv file containing reactor data (country, name, net_elec_capacity)
     init_date: int
         yyyymmdd format of initial date of simulation
     input_template: str
