@@ -276,11 +276,10 @@ def reactor_render(reactor_data, output_file, is_cyborg=False):
         if reactor_type in reactor_specs.keys():
             # if the reactor type matches with the pre-defined dictionary,
             # use the specifications in the dictionary.
-            reactor_str = reactor_type
-            spec_dict = reactor_specs[reactor_str]
+            spec_dict = reactor_specs[reactor_type]
             reactor_body = spec_dict['template'].render(
                 country=data['country'].decode('utf-8'),
-                type=reactor_str,
+                type=reactor_type,
                 reactor_name=name,
                 assem_size=spec_dict['kg_per_assembly'],
                 n_assem_core=int(round(spec_dict['assemblies_per_core'] * data['net_elec_capacity'])),
@@ -291,7 +290,7 @@ def reactor_render(reactor_data, output_file, is_cyborg=False):
             reactor_body = pwr_template.render(
                 country=data['country'].decode('utf-8'),
                 reactor_name=name,
-                type=data['type'].decode('utf-8'),
+                type=reactor_type,
                 assem_size=523.4,
                 n_assem_core=int(round(data['net_elec_capacity']/1000 * 193)),
                 n_assem_batch=int(round(data['net_elec_capacity']/3000 * 193)),
