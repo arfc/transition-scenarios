@@ -239,27 +239,27 @@ def reactor_render(reactor_data, output_file, is_cyborg=False):
     candu_template = read_template(template_path.replace('[reactor]', 'candu'))
 
     ap1000_spec = {'template' : pwr_template,
-                   'assem_size': 446.0,
+                   'kg_per_assembly': 446.0,
                    'n_assem_core': 157,
                    'n_assem_batch': 52}
     bwr_spec = {'template' : pwr_template,
-                   'assem_size': 180,
+                   'kg_per_assembly': 180,
                    'n_assem_core': int(764 / 1000),
                    'n_assem_batch': int(764 / 3000)}
     phwr_spec = {'template' : candu_template,
-                   'assem_size': 8000 / 473,
+                   'kg_per_assembly': 8000 / 473,
                    'n_assem_core': int(473 / 500),
                    'n_assem_batch': 60}
     candu_spec = {'template' : candu_template,
-                   'assem_size': 8000 / 473,
+                   'kg_per_assembly': 8000 / 473,
                    'n_assem_core': int(473 / 500),
                    'n_assem_batch': 60}
     pwr_spec = {'template' : pwr_template,
-                   'assem_size': 446.0,
+                   'kg_per_assembly': 446.0,
                    'n_assem_core': int(193 / 1000),
                    'n_assem_batch': int(193 / 3000)}
     epr_spec = {'template' : pwr_template,
-                   'assem_size': 467.0,
+                   'kg_per_assembly': 467.0,
                    'n_assem_core': 216,
                    'n_assem_batch': 72}
 
@@ -283,7 +283,7 @@ def reactor_render(reactor_data, output_file, is_cyborg=False):
                 country=data['country'].decode('utf-8'),
                 type=reactor_str,
                 reactor_name=name,
-                assem_size=spec_dict['assem_size'],
+                assem_size=spec_dict['kg_per_assembly'],
                 n_assem_core=int(round(spec_dict['n_assem_core'] * data['capacity'])),
                 n_assem_batch=int(round(spec_dict['n_assem_batch'] * data['capacity'])),
                 capacity=data['capacity'])
