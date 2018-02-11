@@ -200,7 +200,6 @@ def refine_name(name_data):
     name: str
         refined and decoded name of reactor
     """
-
     name = name_data.decode('utf-8')
     start = name.find('(')
     end = name.find(')')
@@ -208,12 +207,12 @@ def refine_name(name_data):
         name = name[:start]
     return name
 
-def reactor_render(data_list, output_file, is_cyborg=False):
+def reactor_render(reactor_data, output_file, is_cyborg=False):
     """Takes the list and template and writes a reactor file
 
     Parameters
     ----------
-    data_list: list
+    reactor_data: list
         list of data on reactors
     template: jinja.template
         jinja template for reactor file
@@ -271,7 +270,7 @@ def reactor_render(data_list, output_file, is_cyborg=False):
                     'PWR': pwr_spec,
                     'EPR': epr_spec}
 
-    for data in data_list:
+    for data in reactor_data:
         # refine name string
         name = refine_name(data['reactor_name'])
         reactor_type = data['type'].decode('utf-8')
@@ -355,12 +354,12 @@ def input_render(init_date, duration, reactor_file,
     os.system('rm reactor_output.xml.in region_output.xml.in')
 
 
-def region_render(data_list, output_file):
+def region_render(reactor_data, output_file):
     """Takes the list and template and writes a region file
 
     Parameters
     ---------
-    data_list: list
+    reactor_data: list
         list of data on reactors
     output_file: str
         name of output file
@@ -380,7 +379,7 @@ def region_render(data_list, output_file):
     valtail = '</val>'
 
     # creates list of countries and turns it into a set
-    for data in data_list:
+    for data in reactor_data:
         country_list.append(data['country'].decode('utf-8'))
     country_set = set(country_list)
 
@@ -390,7 +389,7 @@ def region_render(data_list, output_file):
         number = ''
         lifetime = ''
 
-        for data in data_list:
+        for data in reactor_data:
             if data['country'].decode('utf-8') == country:
 
                 prototype += (valhead
