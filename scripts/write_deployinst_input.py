@@ -244,20 +244,20 @@ def reactor_render(reactor_data, output_file, is_cyborg=False):
                    'n_assem_batch': 52}
     bwr_spec = {'template' : pwr_template,
                    'assem_size': 180,
-                   'n_assem_core': 764 / 1000,
-                   'n_assem_batch': 764 / 3000}
+                   'n_assem_core': int(764 / 1000),
+                   'n_assem_batch': int(764 / 3000)}
     phwr_spec = {'template' : candu_template,
-                   'assem_size': int(8000 / 47g3),
-                   'n_assem_core': 473 / 500,
+                   'assem_size': 8000 / 473,
+                   'n_assem_core': int(473 / 500),
                    'n_assem_batch': 60}
     candu_spec = {'template' : candu_template,
-                   'assem_size': int(8000 / 473),
-                   'n_assem_core': 473 / 500,
+                   'assem_size': 8000 / 473,
+                   'n_assem_core': int(473 / 500),
                    'n_assem_batch': 60}
     pwr_spec = {'template' : pwr_template,
                    'assem_size': 446.0,
-                   'n_assem_core': 193 / 1000,
-                   'n_assem_batch': 193 / 3000}
+                   'n_assem_core': int(193 / 1000),
+                   'n_assem_batch': int(193 / 3000)}
     epr_spec = {'template' : pwr_template,
                    'assem_size': 467.0,
                    'n_assem_core': 216,
