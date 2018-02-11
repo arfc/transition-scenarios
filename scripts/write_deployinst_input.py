@@ -240,28 +240,28 @@ def reactor_render(reactor_data, output_file, is_cyborg=False):
 
     ap1000_spec = {'template' : pwr_template,
                    'kg_per_assembly': 446.0,
-                   'n_assem_core': 157,
-                   'n_assem_batch': 52}
+                   'assemblies_per_core': 157,
+                   'assemblies_per_batch': 52}
     bwr_spec = {'template' : pwr_template,
                    'kg_per_assembly': 180,
-                   'n_assem_core': int(764 / 1000),
-                   'n_assem_batch': int(764 / 3000)}
+                   'assemblies_per_core': int(764 / 1000),
+                   'assemblies_per_batch': int(764 / 3000)}
     phwr_spec = {'template' : candu_template,
                    'kg_per_assembly': 8000 / 473,
-                   'n_assem_core': int(473 / 500),
-                   'n_assem_batch': 60}
+                   'assemblies_per_core': int(473 / 500),
+                   'assemblies_per_batch': 60}
     candu_spec = {'template' : candu_template,
                    'kg_per_assembly': 8000 / 473,
-                   'n_assem_core': int(473 / 500),
-                   'n_assem_batch': 60}
+                   'assemblies_per_core': int(473 / 500),
+                   'assemblies_per_batch': 60}
     pwr_spec = {'template' : pwr_template,
                    'kg_per_assembly': 446.0,
-                   'n_assem_core': int(193 / 1000),
-                   'n_assem_batch': int(193 / 3000)}
+                   'assemblies_per_core': int(193 / 1000),
+                   'assemblies_per_batch': int(193 / 3000)}
     epr_spec = {'template' : pwr_template,
                    'kg_per_assembly': 467.0,
-                   'n_assem_core': 216,
-                   'n_assem_batch': 72}
+                   'assemblies_per_core': 216,
+                   'assemblies_per_batch': 72}
 
     reactor_specs = {'AP1000' : ap1000_spec,
                     'PHWR': phwr_spec,
@@ -284,8 +284,8 @@ def reactor_render(reactor_data, output_file, is_cyborg=False):
                 type=reactor_str,
                 reactor_name=name,
                 assem_size=spec_dict['kg_per_assembly'],
-                n_assem_core=int(round(spec_dict['n_assem_core'] * data['capacity'])),
-                n_assem_batch=int(round(spec_dict['n_assem_batch'] * data['capacity'])),
+                n_assem_core=int(round(spec_dict['assemblies_per_core'] * data['capacity'])),
+                n_assem_batch=int(round(spec_dict['assemblies_per_batch'] * data['capacity'])),
                 capacity=data['capacity'])
         else:
             # assume 1000MWe pwr linear core size model if no match
