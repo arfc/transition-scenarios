@@ -351,7 +351,7 @@ def input_render(init_date, duration, reactor_file,
     else:
         reprocessing_chunk = ''
     # renders template
-    temp = template.render(duration=duration,
+    rendered_template = template.render(duration=duration,
                            startmonth=startmonth,
                            startyear=startyear,
                            reprocessing=reprocessing_chunk,
@@ -359,7 +359,7 @@ def input_render(init_date, duration, reactor_file,
                            region_input=region)
 
     with open(output_file, 'w') as output:
-        output.write(temp)
+        output.write(rendered_template)
 
     os.system('rm reactor_output.xml.in region_output.xml.in')
 
@@ -379,8 +379,9 @@ def region_render(reactor_data, output_file):
     The region section of cyclus input file
 
     """
-
+    # template only has prototype, buildtime, n_build and lifetime
     template = read_template('../templates/deployinst_template.xml.in')
+    # full template is the bigger template for the `region block'.
     full_template = read_template('../templates/region_output_template.xml.in')
     country_list = []
     empty_country = []
@@ -397,7 +398,7 @@ def region_render(reactor_data, output_file):
     for country in country_set:
         prototype = ''
         entry_time = ''
-        number = ''
+        n_build = ''
         lifetime = ''
 
         # for every reactor data corresponding to a country, create a
@@ -410,12 +411,12 @@ def region_render(reactor_data, output_file):
                               + valtail + '\n')
                 entry_time += (valhead
                                + str(data['entry_time']) + valtail + '\n')
-                number += valhead + '1' + valtail + '\n'
+                n_build += valhead + '1' + valtail + '\n'
                 lifetime += valhead + str(data['lifetime']) + valtail + '\n'
 
         render_temp = template.render(prototype=prototype,
                                       start_time=entry_time,
-                                      number=number,
+                                      number=n_build,
                                       lifetime=lifetime)
         # if nothing is rendered the length will be less than 100:
         if len(render_temp) > 100:
