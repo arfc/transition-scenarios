@@ -76,7 +76,7 @@ def filter_test_reactors(reactor_array):
     hitlist = []
     count = 0
     for data in reactor_array:
-        if data['net_elect_capacity'] < 100:
+        if data['net_elec_capacity'] < 100:
             hitlist.append(c)
         count += 1
     return np.delete(reactor_lists, hitlist)
