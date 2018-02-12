@@ -219,6 +219,12 @@ class AnalysisTest(unittest.TestCase):
         cur = get_sqlite()
         init_year, init_month, duration, timestep = an.get_timesteps(cur)
         governments = an.get_inst(cur)
+        entry_exit = cur.execute('SELECT max(value), timeseriespower.agentid, '
+                                 'parentid, entertime, entertime + lifetime '
+                                 'FROM agententry '
+                                 'INNER JOIN timeseriespower '
+                                 'ON agententry.agentid = timeseriespower.agentid '
+                                 'GROUP BY timeseriespower.agentid').fetchall()
         entry = cur.execute('SELECT max(value), timeseriespower.agentid, '
                             'parentid, entertime FROM agententry '
                             'INNER JOIN timeseriespower '
@@ -231,9 +237,9 @@ class AnalysisTest(unittest.TestCase):
                                 ' INNER JOIN agententry '
                                 'ON agentexit.agentid = agententry.agentid '
                                 'GROUP BY timeseriespower.agentid').fetchall()
-        power_dict = an.capacity_calc(governments, timestep, entry, exit_step)
+        power_dict = an.capacity_calc(governments, timestep, entry_exit)
         answer_power = collections.OrderedDict()
-        answer_power['lwr_inst'] = np.asarray([0, 1, 1, 2, 1, 1, 0, 0, 0, 0])
+        answer_power['lwr_inst'] = np.asarray([0, 1, 2, 2, 2, 1, 1, 0, 0, 0])
         answer_power['fr_inst'] = np.asarray([0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
         answer_power['sink_source_facilities'] = np.asarray(
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
