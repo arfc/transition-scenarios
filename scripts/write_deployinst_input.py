@@ -391,7 +391,7 @@ def region_render(reactor_data, output_file):
             if data['country'].decode('utf-8') == country:
 
                 prototype += (valhead
-                              + data['reactor_name'].decode('utf-8')
+                              + refine_name(data['reactor_name'])
                               + valtail + '\n')
                 entry_time += (valhead
                                + str(data['entry_time']) + valtail + '\n')
