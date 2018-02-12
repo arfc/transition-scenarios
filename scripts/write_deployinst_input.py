@@ -478,8 +478,8 @@ def main(csv_file, init_date, duration, output_file, reprocessing=True):
     reactor_output_filename = 'reactor_output.xml.in'
     region_output_filename = 'region_output.xml.in'
     # read csv and templates
-    dataset = read_csv(csv_file)
-    for data in dataset:
+    csv_database = read_csv(csv_file)
+    for data in csv_database:
         entry_time = get_entrytime(init_date, data['first_crit'])
         lifetime = get_lifetime(data['first_crit'], data['shutdown_date'])
         if entry_time <= 0:
@@ -490,8 +490,8 @@ def main(csv_file, init_date, duration, output_file, reprocessing=True):
         data['entry_time'] = entry_time
         data['lifetime'] = lifetime
     # renders reactor / region / input file.
-    reactor_render(dataset, reactor_output_filename)
-    region_render(dataset, region_output_filename)
+    reactor_render(csv_database, reactor_output_filename)
+    region_render(csv_database, region_output_filename)
     input_render(init_date, duration, reactor_output_filename,
                  region_output_filename, output_file, reprocessing)
 
