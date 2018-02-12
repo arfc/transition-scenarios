@@ -295,7 +295,7 @@ def reactor_render(reactor_data, output_file, is_cyborg=False):
                 country=data['country'].decode('utf-8'),
                 type=reactor_type,
                 reactor_name=name,
-                assem_size=spec_dict['kg_per_assembly'],
+                assem_size=round(spec_dict['kg_per_assembly'], 3),
                 n_assem_core=int(
                     round(spec_dict['assemblies_per_core'] * data['net_elec_capacity'])),
                 n_assem_batch=int(
