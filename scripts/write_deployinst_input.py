@@ -248,6 +248,7 @@ def reactor_render(reactor_data, output_file, is_cyborg=False):
     mox_reactor_template = read_template(template_path.replace('[reactor]', 'mox'))
     candu_template = read_template(template_path.replace('[reactor]', 'candu'))
 
+
     ap1000_spec = {'template' : pwr_template,
                    'kg_per_assembly': 446.0,
                    'assemblies_per_core': 157,
@@ -392,12 +393,15 @@ def region_render(reactor_data, output_file):
         country_list.append(data['country'].decode('utf-8'))
     country_set = set(country_list)
 
+
     for country in country_set:
         prototype = ''
         entry_time = ''
         number = ''
         lifetime = ''
 
+        # for every reactor data corresponding to a country, create a
+        # file with its `region block`
         for data in reactor_data:
             if data['country'].decode('utf-8') == country:
 
@@ -420,6 +424,7 @@ def region_render(reactor_data, output_file):
         else:
             empty_country.append(country)
 
+    # remove the countries with no values
     for country in empty_country:
         country_set.remove(country)
 
