@@ -32,15 +32,14 @@ def read_csv(csv_file):
     Parameters
     ---------
     csv_file: str
-        csv file that lists country, reactor name, net_elec_capacity
+        csv file that lists country, reactor name, net_elec_capacity etc.
 
     Returns
     -------
-    reactor_lists:  list
-        list with the data from csv file
-
+    reactor_array:  list
+        array with the data from csv file
     """
-    reactor_lists = np.genfromtxt(csv_file,
+    reactor_array = np.genfromtxt(csv_file,
                                   skip_header=1,
                                   delimiter=',',
                                   dtype=('S128', 'S128',
@@ -57,17 +56,29 @@ def read_csv(csv_file):
                                          'entry_time', 'lifetime',
                                          'first_grid', 'commercial',
                                          'shutdown_date', 'ucf'))
-    # deletes experimental reactors (reactors with capacity < 100 MWe)
+    return filter_test_reactors(reactor_array)
+
+def filter_test_reactors(reactor_array):
+    """This function filters experimental reactors that have a
+       net electricity capacity less than 100 MWe 
+
+    Parameters
+    ---------
+    reactor_array: list
+        array with reactor data.
+
+    Returns
+    -------
+    array
+        array with the filtered data
+    """
     hitlist = []
     count = 0
-    for data in reactor_lists:
-        if data['net_elect_capacity'] < 100:
-            hitlist.append(count)
-        count += 1
-
-    reactor_lists = np.delete(reactor_lists, hitlist)
-
-    return reactor_lists
+    for data in reactor_array:
+    	if data['net_elect_capacity'] < 100:
+    		hitlist.append(c)
+    	count += 1
+    return np.delete(reactor_lists, hitlist)
 
 
 def get_ymd(yyyymmdd):
@@ -402,6 +413,7 @@ def region_render(reactor_data, output_file):
                                       start_time=entry_time,
                                       number=number,
                                       lifetime=lifetime)
+        # if nothing is rendered the length will be less than 100:
         if len(render_temp) > 100:
             with open(country, 'a') as output:
                 output.write(render_temp)
@@ -456,7 +468,7 @@ def main(csv_file, init_date, duration, output_file, reprocessing=True):
     """
 
     # deletes previously existing files
-    delete_file('complete_input.xml')
+    delete_file(output_file)
     reactor_output_filename = 'reactor_output.xml.in'
     region_output_filename = 'region_output.xml.in'
     # read csv and templates
