@@ -58,6 +58,7 @@ def read_csv(csv_file):
                                          'shutdown_date', 'ucf'))
     return filter_test_reactors(reactor_array)
 
+
 def filter_test_reactors(reactor_array):
     """This function filters experimental reactors that have a
        net electricity capacity less than 100 MWe 
@@ -75,9 +76,9 @@ def filter_test_reactors(reactor_array):
     hitlist = []
     count = 0
     for data in reactor_array:
-    	if data['net_elect_capacity'] < 100:
-    		hitlist.append(c)
-    	count += 1
+        if data['net_elect_capacity'] < 100:
+            hitlist.append(c)
+        count += 1
     return np.delete(reactor_lists, hitlist)
 
 
@@ -217,6 +218,7 @@ def refine_name(name_data):
         name = name[:start]
     return name
 
+
 def reactor_render(reactor_data, output_file, is_cyborg=False):
     """Takes the list and template and writes a reactor file
 
@@ -245,41 +247,41 @@ def reactor_render(reactor_data, output_file, is_cyborg=False):
         template_path = template_path.replace('_cyborg', '')
 
     pwr_template = read_template(template_path.replace('[reactor]', 'pwr'))
-    mox_reactor_template = read_template(template_path.replace('[reactor]', 'mox'))
+    mox_reactor_template = read_template(
+        template_path.replace('[reactor]', 'mox'))
     candu_template = read_template(template_path.replace('[reactor]', 'candu'))
 
-
-    ap1000_spec = {'template' : pwr_template,
+    ap1000_spec = {'template': pwr_template,
                    'kg_per_assembly': 446.0,
                    'assemblies_per_core': 157,
                    'assemblies_per_batch': 52}
-    bwr_spec = {'template' : pwr_template,
-                   'kg_per_assembly': 180,
-                   'assemblies_per_core': int(764 / 1000),
-                   'assemblies_per_batch': int(764 / 3000)}
-    phwr_spec = {'template' : candu_template,
-                   'kg_per_assembly': 8000 / 473,
-                   'assemblies_per_core': int(473 / 500),
-                   'assemblies_per_batch': 60}
-    candu_spec = {'template' : candu_template,
-                   'kg_per_assembly': 8000 / 473,
-                   'assemblies_per_core': int(473 / 500),
-                   'assemblies_per_batch': 60}
-    pwr_spec = {'template' : pwr_template,
-                   'kg_per_assembly': 446.0,
-                   'assemblies_per_core': int(193 / 1000),
-                   'assemblies_per_batch': int(193 / 3000)}
-    epr_spec = {'template' : pwr_template,
-                   'kg_per_assembly': 467.0,
-                   'assemblies_per_core': 216,
-                   'assemblies_per_batch': 72}
+    bwr_spec = {'template': pwr_template,
+                'kg_per_assembly': 180,
+                'assemblies_per_core': int(764 / 1000),
+                'assemblies_per_batch': int(764 / 3000)}
+    phwr_spec = {'template': candu_template,
+                 'kg_per_assembly': 8000 / 473,
+                 'assemblies_per_core': int(473 / 500),
+                 'assemblies_per_batch': 60}
+    candu_spec = {'template': candu_template,
+                  'kg_per_assembly': 8000 / 473,
+                  'assemblies_per_core': int(473 / 500),
+                  'assemblies_per_batch': 60}
+    pwr_spec = {'template': pwr_template,
+                'kg_per_assembly': 446.0,
+                'assemblies_per_core': int(193 / 1000),
+                'assemblies_per_batch': int(193 / 3000)}
+    epr_spec = {'template': pwr_template,
+                'kg_per_assembly': 467.0,
+                'assemblies_per_core': 216,
+                'assemblies_per_batch': 72}
 
-    reactor_specs = {'AP1000' : ap1000_spec,
-                    'PHWR': phwr_spec,
-                    'BWR': bwr_spec,
-                    'CANDU': candu_spec,
-                    'PWR': pwr_spec,
-                    'EPR': epr_spec}
+    reactor_specs = {'AP1000': ap1000_spec,
+                     'PHWR': phwr_spec,
+                     'BWR': bwr_spec,
+                     'CANDU': candu_spec,
+                     'PWR': pwr_spec,
+                     'EPR': epr_spec}
 
     for data in reactor_data:
         # refine name string
@@ -294,8 +296,10 @@ def reactor_render(reactor_data, output_file, is_cyborg=False):
                 type=reactor_type,
                 reactor_name=name,
                 assem_size=spec_dict['kg_per_assembly'],
-                n_assem_core=int(round(spec_dict['assemblies_per_core'] * data['net_elec_capacity'])),
-                n_assem_batch=int(round(spec_dict['assemblies_per_batch'] * data['net_elec_capacity'])),
+                n_assem_core=int(
+                    round(spec_dict['assemblies_per_core'] * data['net_elec_capacity'])),
+                n_assem_batch=int(
+                    round(spec_dict['assemblies_per_batch'] * data['net_elec_capacity'])),
                 capacity=data['net_elec_capacity'])
         else:
             # assume 1000MWe pwr linear core size model if no match
@@ -352,11 +356,11 @@ def input_render(init_date, duration, reactor_file,
         reprocessing_chunk = ''
     # renders template
     rendered_template = template.render(duration=duration,
-                           startmonth=startmonth,
-                           startyear=startyear,
-                           reprocessing=reprocessing_chunk,
-                           reactor_input=reactor,
-                           region_input=region)
+                                        startmonth=startmonth,
+                                        startyear=startyear,
+                                        reprocessing=reprocessing_chunk,
+                                        reactor_input=reactor,
+                                        region_input=region)
 
     with open(output_file, 'w') as output:
         output.write(rendered_template)
@@ -393,7 +397,6 @@ def region_render(reactor_data, output_file):
     for data in reactor_data:
         country_list.append(data['country'].decode('utf-8'))
     country_set = set(country_list)
-
 
     for country in country_set:
         prototype = ''
