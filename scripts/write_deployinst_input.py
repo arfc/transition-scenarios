@@ -77,9 +77,9 @@ def filter_test_reactors(reactor_array):
     count = 0
     for data in reactor_array:
         if data['net_elec_capacity'] < 100:
-            hitlist.append(c)
+            hitlist.append(count)
         count += 1
-    return np.delete(reactor_lists, hitlist)
+    return np.delete(reactor_array, hitlist)
 
 
 def get_ymd(yyyymmdd):
