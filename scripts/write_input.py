@@ -4,9 +4,9 @@ import numpy as np
 import os
 
 # tells command format if input is invalid
-if len(sys.argv) < 3:
-    print('Usage: python write_reactors.py [csv]' +
-          '[init_date] [duration]')
+if len(sys.argv) < 4:
+    print('Usage: python write_input.py [csv]' +
+          '[init_date] [duration] [output_file_name]')
 
 
 def delete_file(file):
