@@ -2,9 +2,10 @@ import unittest
 import write_input as wi
 import numpy as np
 import collections
+import os
 
-
-test_database_path = './test_database.csv'
+dir = os.path.dirname(__file__)
+test_database_path = os.path.join(dir,'/test_database.csv')
 
 class WriteInputTest(unittest.TestCase):
     """ Tests for write_deployinst_input.py """

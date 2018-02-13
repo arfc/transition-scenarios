@@ -5,8 +5,13 @@ import collections
 import sqlite3 as lite
 
 
+
+dir = os.path.dirname(__file__)
+test_sqlite_path = os.path.join(dir,'/test.sqlite')
+
+
 def get_sqlite():
-    con = lite.connect('test.sqlite')
+    con = lite.connect(test_sqlite_path)
     con.row_factory = lite.Row
     with con:
         cur = con.cursor()
