@@ -7,6 +7,9 @@ python:
   - "3.5"
   - "3.5-dev"  # 3.5 development branch
   - "3.6"
+
+install:
+  - conda install --yes python=$TRAVIS_PYTHON_VERSION numpy scipy matplotlib jinja2 
 # command to run tests
 script:
   - python ./scripts/test_write_input.py
