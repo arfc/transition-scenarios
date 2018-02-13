@@ -5,7 +5,7 @@ import collections
 import os
 
 dir = os.path.dirname(__file__)
-test_database_path = os.path.join(dir,'/test_database.csv')
+test_database_path = os.path.join(dir,'test_database.csv')
 
 class WriteInputTest(unittest.TestCase):
     """ Tests for write_deployinst_input.py """
