@@ -9,4 +9,5 @@ python:
   - "3.6"
 # command to run tests
 script:
-  - pytest # or py.test for Python versions 3.5 and below
+  - python test_write_input.py
+  - python test_analysis.py
