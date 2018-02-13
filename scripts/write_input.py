@@ -82,6 +82,7 @@ def filter_test_reactors(reactor_array):
     return np.delete(reactor_array, hitlist)
 
 
+
 def get_ymd(yyyymmdd):
     """This function extracts year and month value from yyyymmdd format
 
