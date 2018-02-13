@@ -1,15 +1,14 @@
 language: python
 python:
-  - "2.7"
-  - "3.3"
-  - "3.6"
+  - 2.7
+  - 3.3
+  - 3.6
 
 # Setup anaconda
 install:
-  - "pip install matplotlib"
-  - "pip install numpy"
-  - "pip install jinja2"
-  - "pip install scipy"
+  - sudo apt-get install -y python-matplotlib
+  - sudo apt-get install -y python-jinja2
+  - sudo apt-get install -y python-numpy
 
 # command to run tests
 script:
