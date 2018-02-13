@@ -5,9 +5,8 @@ import collections
 import sqlite3 as lite
 
 
-
 dir = os.path.dirname(__file__)
-test_sqlite_path = os.path.join(dir,'test.sqlite')
+test_sqlite_path = os.path.join(dir, 'test.sqlite')
 
 
 def get_sqlite():
