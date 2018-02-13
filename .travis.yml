@@ -6,10 +6,7 @@ python:
 
 # Setup anaconda
 install:
-  - sudo apt-get install -y python-matplotlib
-  - sudo apt-get install -y python-jinja2
-  - sudo apt-get install -y python-numpy
-
+  - pip install -r .travis.requirements.txt
 # command to run tests
 script:
   - python ./scripts/test_write_input.py
