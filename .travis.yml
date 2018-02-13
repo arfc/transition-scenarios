@@ -4,7 +4,6 @@ python:
   - "3.3"
   - "3.6"
 
-
 # Setup anaconda
 install:
   - "pip install matplotlib"
@@ -12,19 +11,6 @@ install:
   - "pip install jinja2"
   - "pip install scipy"
 
-"""
-before_install:
-  - wget http://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh -O miniconda.sh
-  - chmod +x miniconda.sh
-  - ./miniconda.sh -b
-  - export PATH=/home/travis/miniconda/bin:$PATH
-  - conda update --yes conda
-  # The next couple lines fix a crash with multiprocessing on Travis and are not specific to using Miniconda
-  - sudo rm -rf /dev/shm
-  - sudo ln -s /run/shm /dev/shm
-install:
-  - conda install --yes python=$TRAVIS_PYTHON_VERSION numpy scipy matplotlib jinja2 
-"""
 # command to run tests
 script:
   - python ./scripts/test_write_input.py
