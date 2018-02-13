@@ -9,5 +9,5 @@ python:
   - "3.6"
 # command to run tests
 script:
-  - python test_write_input.py
-  - python test_analysis.py
+  - python ./scripts/test_write_input.py
+  - python ./scripts/test_analysis.py
