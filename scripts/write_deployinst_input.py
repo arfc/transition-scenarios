@@ -32,17 +32,14 @@ def read_csv(csv_file):
     Parameters
     ---------
     csv_file: str
-        csv file that lists country, reactor name,
-        capacity, #assem per core, # assem per batch.
+        csv file that lists country, reactor name, net_elec_capacity etc.
 
     Returns
     -------
-    reactor_lists:  list
-        list with the data from csv file
-
+    reactor_array:  list
+        array with the data from csv file
     """
-
-    reactor_lists = np.genfromtxt(csv_file,
+    reactor_array = np.genfromtxt(csv_file,
                                   skip_header=1,
                                   delimiter=',',
                                   dtype=('S128', 'S128',
@@ -53,23 +50,36 @@ def read_csv(csv_file):
                                          'int', 'int',
                                          'int', 'float'),
                                   names=('country', 'reactor_name',
-                                         'type', 'capacity',
+                                         'type', 'net_elec_capacity',
                                          'status', 'operator', 'const_date',
                                          'cons_year', 'first_crit',
                                          'entry_time', 'lifetime',
                                          'first_grid', 'commercial',
                                          'shutdown_date', 'ucf'))
-    # deletes experimental reactors (reactors with capacity < 100 MWe)
+    return filter_test_reactors(reactor_array)
+
+
+def filter_test_reactors(reactor_array):
+    """This function filters experimental reactors that have a
+       net electricity capacity less than 100 MWe 
+
+    Parameters
+    ---------
+    reactor_array: list
+        array with reactor data.
+
+    Returns
+    -------
+    array
+        array with the filtered data
+    """
     hitlist = []
     count = 0
-    for data in reactor_lists:
-        if data['capacity'] < 100:
+    for data in reactor_array:
+        if data['net_elec_capacity'] < 100:
             hitlist.append(count)
         count += 1
-
-    reactor_lists = np.delete(reactor_lists, hitlist)
-
-    return reactor_lists
+    return np.delete(reactor_array, hitlist)
 
 
 def get_ymd(yyyymmdd):
@@ -153,7 +163,7 @@ def get_entrytime(init_date, start_date):
     init_year, init_month = get_ymd(init_date)
     start_year, start_month = get_ymd(start_date)
 
-    dyear = start_year-init_year
+    dyear = start_year - init_year
     dmonth = start_month - init_month
     if dmonth < 0:
         dyear -= 1
@@ -188,12 +198,33 @@ def read_template(template):
     return output_template
 
 
-def reactor_render(list, template, mox_template, output_file):
+def refine_name(name_data):
+    """ Takes the name data and decodes and refines it.
+
+    Parameters
+    ----------
+    name_data: str
+        reactor name data from csv file
+
+    Returns
+    -------
+    name: str
+        refined and decoded name of reactor
+    """
+    name = name_data.decode('utf-8')
+    start = name.find('(')
+    end = name.find(')')
+    if start != -1 and end != -1:
+        name = name[:start]
+    return name
+
+
+def reactor_render(reactor_data, output_file, is_cyborg=False):
     """Takes the list and template and writes a reactor file
 
     Parameters
-    ---------
-    list: list
+    ----------
+    reactor_data: list
         list of data on reactors
     template: jinja.template
         jinja template for reactor file
@@ -201,6 +232,8 @@ def reactor_render(list, template, mox_template, output_file):
         jinja template for mox reactor file
     output_file: str
         name of output file
+    is_cyborg: bool
+        if True, uses Cyborg templates
 
     Returns
     -------
@@ -208,46 +241,85 @@ def reactor_render(list, template, mox_template, output_file):
 
     """
 
-    for data in list:
-        # BWRs have different fuel assembly size, assembly per core and batch
-        name = data['reactor_name'].decode('utf-8').title()
-        start = name.find('(')
-        end = name.find(')')
-        if start != -1 and end != -1:
-            name = name[:start]
-        if data['type'].decode('utf-8') == 'BWR':
-            reactor_body = template.render(
+    template_path = '../templates/[reactor]_template_cyborg.xml.in'
+
+    if not is_cyborg:
+        template_path = template_path.replace('_cyborg', '')
+
+    pwr_template = read_template(template_path.replace('[reactor]', 'pwr'))
+    mox_reactor_template = read_template(
+        template_path.replace('[reactor]', 'mox'))
+    candu_template = read_template(template_path.replace('[reactor]', 'candu'))
+
+    ap1000_spec = {'template': pwr_template,
+                   'kg_per_assembly': 446.0,
+                   'assemblies_per_core': 157,
+                   'assemblies_per_batch': 52}
+    bwr_spec = {'template': pwr_template,
+                'kg_per_assembly': 180,
+                'assemblies_per_core': int(764 / 1000),
+                'assemblies_per_batch': int(764 / 3000)}
+    phwr_spec = {'template': candu_template,
+                 'kg_per_assembly': 8000 / 473,
+                 'assemblies_per_core': int(473 / 500),
+                 'assemblies_per_batch': 60}
+    candu_spec = {'template': candu_template,
+                  'kg_per_assembly': 8000 / 473,
+                  'assemblies_per_core': int(473 / 500),
+                  'assemblies_per_batch': 60}
+    pwr_spec = {'template': pwr_template,
+                'kg_per_assembly': 446.0,
+                'assemblies_per_core': int(193 / 1000),
+                'assemblies_per_batch': int(193 / 3000)}
+    epr_spec = {'template': pwr_template,
+                'kg_per_assembly': 467.0,
+                'assemblies_per_core': 216,
+                'assemblies_per_batch': 72}
+
+    reactor_specs = {'AP1000': ap1000_spec,
+                     'PHWR': phwr_spec,
+                     'BWR': bwr_spec,
+                     'CANDU': candu_spec,
+                     'PWR': pwr_spec,
+                     'EPR': epr_spec}
+
+    for data in reactor_data:
+        # refine name string
+        name = refine_name(data['reactor_name'])
+        reactor_type = data['type'].decode('utf-8')
+        if reactor_type in reactor_specs.keys():
+            # if the reactor type matches with the pre-defined dictionary,
+            # use the specifications in the dictionary.
+            spec_dict = reactor_specs[reactor_type]
+            reactor_body = spec_dict['template'].render(
                 country=data['country'].decode('utf-8'),
+                type=reactor_type,
                 reactor_name=name,
-                assem_size=180,
-                n_assem_core=int(round(data['capacity']/1000 * 764)),
-                n_assem_batch=int(round(data['capacity']/3000 * 764)),
-                capacity=data['capacity'])
-        # if French PWR, use mox template for mox reactor
-        elif data['type'].decode('utf-8') == 'PWR' and data['country'].decode('utf-8') == 'France':
-            reactor_body = mox_template.render(country=data['country'].decode('utf-8'),
-                                               reactor_name=name,
-                                               assem_size=523.4,
-                                               n_assem_core=int(
-                                                   round(data['capacity']/1000 * 193)),
-                                               n_assem_batch=int(
-                                                   round(data['capacity']/3000 * 193)),
-                                               capacity=data['capacity'])
-        # if not BWRS, all go with PWR specification.
+                assem_size=round(spec_dict['kg_per_assembly'], 3),
+                n_assem_core=int(
+                    round(spec_dict['assemblies_per_core'] * data['net_elec_capacity'])),
+                n_assem_batch=int(
+                    round(spec_dict['assemblies_per_batch'] * data['net_elec_capacity'])),
+                capacity=data['net_elec_capacity'])
         else:
-            reactor_body = template.render(
+            # assume 1000MWe pwr linear core size model if no match
+            reactor_body = pwr_template.render(
                 country=data['country'].decode('utf-8'),
                 reactor_name=name,
+                type=reactor_type,
                 assem_size=523.4,
-                n_assem_core=int(round(data['capacity']/1000 * 193)),
-                n_assem_batch=int(round(data['capacity']/3000 * 193)),
-                capacity=data['capacity'])
+                n_assem_core=int(
+                    round(data['net_elec_capacity'] / 1000 * 193)),
+                n_assem_batch=int(
+                    round(data['net_elec_capacity'] / 3000 * 193)),
+                capacity=data['net_elec_capacity'])
+
         with open(output_file, 'a') as output:
             output.write(reactor_body)
 
 
 def input_render(init_date, duration, reactor_file,
-                 region_file, template, output_file, reprocessing):
+                 region_file, output_file, reprocessing):
     """Creates total input file from region and reactor file
 
     Parameters
@@ -258,8 +330,6 @@ def input_render(init_date, duration, reactor_file,
         jinja rendered reactor section of cyclus input file
     region_file: str
         jinja rendered region section of cylcus input file
-    template: str
-        jinja template for cyclus complete input file
     output_file: str
         name of output file
     reprocessing: bool
@@ -270,6 +340,7 @@ def input_render(init_date, duration, reactor_file,
     A complete cylus input file.
 
     """
+    template = read_template('../templates/input_template.xml.in')
     with open(reactor_file, 'r') as fp:
         reactor = fp.read()
     with open(region_file, 'r') as bae:
@@ -286,30 +357,26 @@ def input_render(init_date, duration, reactor_file,
     else:
         reprocessing_chunk = ''
     # renders template
-    temp = template.render(duration=duration,
-                           startmonth=startmonth,
-                           startyear=startyear,
-                           reprocessing=reprocessing_chunk,
-                           reactor_input=reactor,
-                           region_input=region)
+    rendered_template = template.render(duration=duration,
+                                        startmonth=startmonth,
+                                        startyear=startyear,
+                                        reprocessing=reprocessing_chunk,
+                                        reactor_input=reactor,
+                                        region_input=region)
 
     with open(output_file, 'w') as output:
-        output.write(temp)
+        output.write(rendered_template)
 
     os.system('rm reactor_output.xml.in region_output.xml.in')
 
 
-def region_render(list, template, full_template, output_file):
+def region_render(reactor_data, output_file):
     """Takes the list and template and writes a region file
 
     Parameters
     ---------
-    list: list
+    reactor_data: list
         list of data on reactors
-    template: jinja.template
-        jinja template for one region prototype declaration
-    full_template: jinja.template
-        jinja template for full region section file
     output_file: str
         name of output file
 
@@ -318,7 +385,10 @@ def region_render(list, template, full_template, output_file):
     The region section of cyclus input file
 
     """
-
+    # template only has prototype, buildtime, n_build and lifetime
+    template = read_template('../templates/deployinst_template.xml.in')
+    # full template is the bigger template for the `region block'.
+    full_template = read_template('../templates/region_output_template.xml.in')
     country_list = []
     empty_country = []
 
@@ -326,37 +396,41 @@ def region_render(list, template, full_template, output_file):
     valtail = '</val>'
 
     # creates list of countries and turns it into a set
-    for data in list:
+    for data in reactor_data:
         country_list.append(data['country'].decode('utf-8'))
     country_set = set(country_list)
 
     for country in country_set:
         prototype = ''
         entry_time = ''
-        number = ''
+        n_build = ''
         lifetime = ''
 
-        for data in list:
+        # for every reactor data corresponding to a country, create a
+        # file with its `region block`
+        for data in reactor_data:
             if data['country'].decode('utf-8') == country:
 
                 prototype += (valhead
-                              + data['reactor_name'].decode('utf-8')
+                              + refine_name(data['reactor_name'])
                               + valtail + '\n')
                 entry_time += (valhead
                                + str(data['entry_time']) + valtail + '\n')
-                number += valhead + '1' + valtail + '\n'
+                n_build += valhead + '1' + valtail + '\n'
                 lifetime += valhead + str(data['lifetime']) + valtail + '\n'
 
         render_temp = template.render(prototype=prototype,
                                       start_time=entry_time,
-                                      number=number,
+                                      number=n_build,
                                       lifetime=lifetime)
+        # if nothing is rendered the length will be less than 100:
         if len(render_temp) > 100:
             with open(country, 'a') as output:
                 output.write(render_temp)
         else:
             empty_country.append(country)
 
+    # remove the countries with no values
     for country in empty_country:
         country_set.remove(country)
 
@@ -380,28 +454,21 @@ def region_render(list, template, full_template, output_file):
         os.system('rm ' + country + '_region')
 
 
-def main(csv_file, init_date, duration, reactor_template, mox_reactor_template,
-         reprocessing, deployinst_template, input_template, output_file):
+def main(csv_file, init_date, duration, output_file, reprocessing=True):
     """ Generates cyclus input file from csv files and jinja templates.
 
     Parameters
     ---------
     csv_file : str
-        csv file containing reactor data (country, name, capacity)
+        csv file containing reactor data (country, name, net_elec_capacity)
     init_date: int
-        yyyymmdd format of inital date of simulation
-    reactor_template: str
-        template file for reactor section of input file
-    mox_reactor_templtae: str
-        template file for mox reactor section of input file
-    reprocessing: bool
-        True if reprocessing is done, False if not
-    deployinst_template: str
-        template file for deployinst section of input file
+        yyyymmdd format of initial date of simulation
     input_template: str
         template file for entire complete cyclus input file
     output_file: str
         directory and name of complete cyclus input file
+    reprocessing: bool
+        True if reprocessing is done, False if not
 
     Returns
     -------
@@ -412,18 +479,12 @@ def main(csv_file, init_date, duration, reactor_template, mox_reactor_template,
     """
 
     # deletes previously existing files
-    delete_file('complete_input.xml')
-
+    delete_file(output_file)
+    reactor_output_filename = 'reactor_output.xml.in'
+    region_output_filename = 'region_output.xml.in'
     # read csv and templates
-    dataset = read_csv(csv_file)
-    input_template = read_template(input_template)
-    reactor_template = read_template(reactor_template)
-    mox_reactor_template = read_template(mox_reactor_template)
-    region_output_template = read_template('../templates/'
-                                           + 'region_output_template.xml.in')
-    deployinst_template = read_template(deployinst_template)
-
-    for data in dataset:
+    csv_database = read_csv(csv_file)
+    for data in csv_database:
         entry_time = get_entrytime(init_date, data['first_crit'])
         lifetime = get_lifetime(data['first_crit'], data['shutdown_date'])
         if entry_time <= 0:
@@ -431,25 +492,14 @@ def main(csv_file, init_date, duration, reactor_template, mox_reactor_template,
             if lifetime < 0:
                 lifetime = 0
             entry_time = 1
-
         data['entry_time'] = entry_time
         data['lifetime'] = lifetime
-    # renders reactor / region / input file. Confesses imperfection.
-    reactor_render(dataset, reactor_template,
-                   mox_reactor_template,
-                   'reactor_output.xml.in')
-    region_render(dataset, deployinst_template,
-                  region_output_template, 'region_output.xml.in')
-    input_render(init_date, duration, 'reactor_output.xml.in',
-                 'region_output.xml.in',
-                 input_template, output_file, reprocessing)
+    # renders reactor / region / input file.
+    reactor_render(csv_database, reactor_output_filename)
+    region_render(csv_database, region_output_filename)
+    input_render(init_date, duration, reactor_output_filename,
+                 region_output_filename, output_file, reprocessing)
 
 
 if __name__ == "__main__":
-    main(sys.argv[1], int(sys.argv[2]), int(sys.argv[3]),
-         '../templates/reactor_template.xml.in',
-         '../templates/reactor_mox_template.xml.in',
-         True,
-         '../templates/deployinst_template.xml.in',
-         '../templates/input_template.xml.in',
-         sys.argv[4])
+    main(sys.argv[1], int(sys.argv[2]), int(sys.argv[3]), sys.argv[4])
