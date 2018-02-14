@@ -29,8 +29,7 @@ install:
   - conda update -q conda
 
   # Replace dep1 dep2 ... with your dependencies
-  - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION pyne
-  - source activate test-environment
+  - conda install pyne
 #  - python setup.py install
 #  - git clone https://github.com/pyne/pyne
 #  - cd pyne
