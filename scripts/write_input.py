@@ -61,7 +61,7 @@ def read_csv(csv_file):
 
 def filter_test_reactors(reactor_array):
     """This function filters experimental reactors that have a
-       net electricity capacity less than 100 MWe 
+       net electricity capacity less than 100 MWe
 
     Parameters
     ---------
@@ -297,9 +297,11 @@ def reactor_render(reactor_data, output_file, is_cyborg=False):
                 reactor_name=name,
                 assem_size=round(spec_dict['kg_per_assembly'], 3),
                 n_assem_core=int(
-                    round(spec_dict['assemblies_per_core'] * data['net_elec_capacity'])),
+                    round(spec_dict['assemblies_per_core'] 
+                          * data['net_elec_capacity'])),
                 n_assem_batch=int(
-                    round(spec_dict['assemblies_per_batch'] * data['net_elec_capacity'])),
+                    round(spec_dict['assemblies_per_batch'] 
+                           * data['net_elec_capacity'])),
                 capacity=data['net_elec_capacity'])
         else:
             # assume 1000MWe pwr linear core size model if no match
