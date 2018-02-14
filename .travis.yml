@@ -28,6 +28,7 @@ install:
   # Useful for debugging any issues with conda
   - conda info -a
   - conda install -c conda-forge pyne 
+  - conda install -c anaconda jinja2
 #  - mkdir github
 #  - cd github
 #  - git clone https://github.com/pyne/pyne
