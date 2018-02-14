@@ -29,7 +29,7 @@ install:
   - conda update -q conda
 
   # Replace dep1 dep2 ... with your dependencies
-  - conda install pyne
+  - conda install -c cyclus -c pyne
 #  - python setup.py install
 #  - git clone https://github.com/pyne/pyne
 #  - cd pyne
