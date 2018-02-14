@@ -108,7 +108,8 @@ class AnalysisTest(unittest.TestCase):
                                    3814.358, 3814.358, 3814.358, 3814.358]
         self.assertEqual(len(swu_dict['Enrichment_30']),
                          len(answer['Enrichment_30']))
-        for expected, actual in zip(swu_dict['Enrichment_30'], answer['Enrichment_30']):
+        for expected, actual in zip(swu_dict['Enrichment_30'],
+                                    answer['Enrichment_30']):
             self.assertAlmostEqual(expected, actual, delta=1e-3)
 
     def test_get_power_dict(self):
@@ -181,7 +182,8 @@ class AnalysisTest(unittest.TestCase):
         self.assertEqual(x, answer)
 
     def test_kg_to_tons_cum(self):
-        """Test if kg_to_tons boolean actually returns in tons for cumulative"""
+        """Test if kg_to_tons boolean actually
+           returns in tons for cumulative"""
         in_list = [[1, 245], [5, 375], [10, 411]]
         duration = 13
         x = an.get_timeseries_cum(in_list, duration, True)
@@ -195,9 +197,11 @@ class AnalysisTest(unittest.TestCase):
         """Test if get_isotope_transactions function
            If it returns the right dictionary"""
         cur = get_sqlite()
-        resources = cur.execute('SELECT sum(quantity), time, qualid FROM transactions '
+        resources = cur.execute('SELECT sum(quantity), time, '
+                                'qualid FROM transactions '
                                 'INNER JOIN resources '
-                                'ON resources.resourceid = transactions.resourceid '
+                                'ON resources.resourceid = '
+                                'transactions.resourceid '
                                 'WHERE commodity = "reprocess_waste" '
                                 'GROUP BY time').fetchall()
         compositions = cur.execute('SELECT * FROM compositions').fetchall()
@@ -227,7 +231,8 @@ class AnalysisTest(unittest.TestCase):
                                  'parentid, entertime, entertime + lifetime '
                                  'FROM agententry '
                                  'INNER JOIN timeseriespower '
-                                 'ON agententry.agentid = timeseriespower.agentid '
+                                 'ON agententry.agentid = '
+                                 'timeseriespower.agentid '
                                  'GROUP BY timeseriespower.agentid').fetchall()
         entry = cur.execute('SELECT max(value), timeseriespower.agentid, '
                             'parentid, entertime FROM agententry '
@@ -237,7 +242,8 @@ class AnalysisTest(unittest.TestCase):
         exit_step = cur.execute('SELECT max(value), timeseriespower.agentid, '
                                 'parentid, exittime FROM agentexit '
                                 'INNER JOIN timeseriespower '
-                                'ON agentexit.agentid = timeseriespower.agentid'
+                                'ON agentexit.agentid = '
+                                'timeseriespower.agentid'
                                 ' INNER JOIN agententry '
                                 'ON agentexit.agentid = agententry.agentid '
                                 'GROUP BY timeseriespower.agentid').fetchall()
