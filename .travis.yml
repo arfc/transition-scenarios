@@ -7,6 +7,10 @@ python:
 install:
   - pip install -r .travis.requirements.txt
   - sudo apt-get install libhdf5-serial-dev
+  - sudo apt-get install gfortran
+  - sudo apt-get install gcc
+  - sudo apt-get install build-essential
+  - sudo apt-get install cmake
   - sudo apt-get install git
   - git clone https://github.com/pyne/pyne
   - cd pyne
