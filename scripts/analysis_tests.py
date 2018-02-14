@@ -1,10 +1,12 @@
 import unittest
 
+
 class test_analysis(unittest.TestCase):
 
-	def test_get_cursor(self):
+    def test_get_cursor(self):
 
-		self.assertEqual
+        self.assertEqual
+
 
 if __name___ == '__main__':
-	unittest.main()
+    unittest.main()
