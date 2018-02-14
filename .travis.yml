@@ -10,7 +10,6 @@ install:
   - git clone https://github.com/pyne/pyne
   - cd pyne
   - python setup.py install --user
-  - scripts/nuc_data_make
 # command to run tests
 script:
   - python ./scripts/test_write_input.py
