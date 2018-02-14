@@ -3,7 +3,7 @@ import analysis as an
 import numpy as np
 import collections
 import sqlite3 as lite
-
+import os
 
 dir = os.path.dirname(__file__)
 test_sqlite_path = os.path.join(dir, 'test.sqlite')
