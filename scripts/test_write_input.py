@@ -8,7 +8,7 @@ dir = os.path.dirname(__file__)
 test_database_path = os.path.join(dir, 'test_database.csv')
 
 class WriteInputTest(unittest.TestCase):
-    """ Tests for write_deployinst_input.py """
+    """ Tests for write_input.py """
 
     def test_read_csv(self):
         """ Test if read_csv reads the csv correctly"""
