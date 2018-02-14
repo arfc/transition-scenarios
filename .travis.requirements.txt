@@ -4,5 +4,3 @@ matplotlib
 numpy
 scipy
 Cython
-lapack
-blas
