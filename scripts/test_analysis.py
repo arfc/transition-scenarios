@@ -25,14 +25,14 @@ class AnalysisTest(unittest.TestCase):
         cur = get_sqlite()
         ids = an.get_agent_ids(cur, 'reactor')
         answer = ['39', '40', '41', '42', '43', '44']
-        self.assertCountEqual(ids, answer)
+        self.assertEqual(sorted(ids), sorted(answer))
 
     def test_get_prototype_id(self):
         """ Test if get_prototype_id returns the right agentids"""
         cur = get_sqlite()
         ids = an.get_prototype_id(cur, 'lwr')
         answer = ['39', '40', '42']
-        self.assertCountEqual(ids, answer)
+        self.assertEqual(sorted(ids), sorted(answer))
 
     def test_get_timesteps(self):
         """ Tests if get_timesteps function outputs the right information"""
@@ -167,7 +167,7 @@ class AnalysisTest(unittest.TestCase):
         x = an.get_timeseries(in_list, duration, True)
         answer = [0, 245, 0, 0, 0, 375, 0,
                   0, 0, 0, 411, 0, 0]
-        answer = [x * 0.001 for x in answer]
+        answer = [float(y) * 0.001 for y in answer]
         self.assertEqual(x, answer)
 
     def test_get_timeseries_cum(self):
