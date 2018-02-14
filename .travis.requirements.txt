@@ -1,4 +1,3 @@
-h5py
 jinja2
 matplotlib
 numpy
