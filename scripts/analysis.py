@@ -513,7 +513,6 @@ def get_power_dict(cur):
     """
     init_year, init_month, duration, timestep = get_timesteps(cur)
     governments = get_inst(cur)
-    governments = get_inst(cur)
 
     # get power cap values
     entry_exit = cur.execute('SELECT max(value), timeseriespower.agentid, '
@@ -958,7 +957,6 @@ def capacity_calc(governments, timestep, entry_exit):
         "dictionary with key=government, and
         value=timeseries list capacity"
     """
-
     power_dict = collections.OrderedDict()
     for gov in governments:
         capacity = []
