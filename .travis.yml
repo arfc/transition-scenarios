@@ -19,7 +19,7 @@ install:
   - cd github
   - git clone https://github.com/pyne/pyne
   - cd pyne
-  - sudo python setup.py install --user
+  - python setup.py install --user
 # command to run tests
 script:
   - python ./scripts/test_write_input.py
