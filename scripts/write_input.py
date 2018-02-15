@@ -297,9 +297,9 @@ def reactor_render(reactor_data, output_file, is_cyborg=False):
                 type=reactor_type,
                 reactor_name=name,
                 assem_size=round(spec_dict['kg_per_assembly'], 3),
-                n_assem_core=int(round(spec_dict['assemblies_per_core'] 
+                n_assem_core=int(round(spec_dict['assemblies_per_core']
                                        * data['net_elec_capacity'])),
-                n_assem_batch=int(round(spec_dict['assemblies_per_batch'] 
+                n_assem_batch=int(round(spec_dict['assemblies_per_batch']
                                         * data['net_elec_capacity'])),
                 capacity=data['net_elec_capacity'])
         else:
