@@ -5,8 +5,12 @@ import collections
 import sqlite3 as lite
 
 
+dir = os.path.dirname(__file__)
+test_sqlite_path = os.path.join(dir, 'test.sqlite')
+
+
 def get_sqlite():
-    con = lite.connect('test.sqlite')
+    con = lite.connect(test_sqlite_path)
     con.row_factory = lite.Row
     with con:
         cur = con.cursor()
@@ -104,7 +108,8 @@ class AnalysisTest(unittest.TestCase):
                                    3814.358, 3814.358, 3814.358, 3814.358]
         self.assertEqual(len(swu_dict['Enrichment_30']),
                          len(answer['Enrichment_30']))
-        for expected, actual in zip(swu_dict['Enrichment_30'], answer['Enrichment_30']):
+        for expected, actual in zip(swu_dict['Enrichment_30'],
+                                    answer['Enrichment_30']):
             self.assertAlmostEqual(expected, actual, delta=1e-3)
 
     def test_get_power_dict(self):
@@ -177,7 +182,8 @@ class AnalysisTest(unittest.TestCase):
         self.assertEqual(x, answer)
 
     def test_kg_to_tons_cum(self):
-        """Test if kg_to_tons boolean actually returns in tons for cumulative"""
+        """Test if kg_to_tons boolean actually
+           returns in tons for cumulative"""
         in_list = [[1, 245], [5, 375], [10, 411]]
         duration = 13
         x = an.get_timeseries_cum(in_list, duration, True)
@@ -191,9 +197,11 @@ class AnalysisTest(unittest.TestCase):
         """Test if get_isotope_transactions function
            If it returns the right dictionary"""
         cur = get_sqlite()
-        resources = cur.execute('SELECT sum(quantity), time, qualid FROM transactions '
+        resources = cur.execute('SELECT sum(quantity), time, '
+                                'qualid FROM transactions '
                                 'INNER JOIN resources '
-                                'ON resources.resourceid = transactions.resourceid '
+                                'ON resources.resourceid = '
+                                'transactions.resourceid '
                                 'WHERE commodity = "reprocess_waste" '
                                 'GROUP BY time').fetchall()
         compositions = cur.execute('SELECT * FROM compositions').fetchall()
@@ -219,6 +227,13 @@ class AnalysisTest(unittest.TestCase):
         cur = get_sqlite()
         init_year, init_month, duration, timestep = an.get_timesteps(cur)
         governments = an.get_inst(cur)
+        entry_exit = cur.execute('SELECT max(value), timeseriespower.agentid, '
+                                 'parentid, entertime, entertime + lifetime '
+                                 'FROM agententry '
+                                 'INNER JOIN timeseriespower '
+                                 'ON agententry.agentid = '
+                                 'timeseriespower.agentid '
+                                 'GROUP BY timeseriespower.agentid').fetchall()
         entry = cur.execute('SELECT max(value), timeseriespower.agentid, '
                             'parentid, entertime FROM agententry '
                             'INNER JOIN timeseriespower '
@@ -227,13 +242,14 @@ class AnalysisTest(unittest.TestCase):
         exit_step = cur.execute('SELECT max(value), timeseriespower.agentid, '
                                 'parentid, exittime FROM agentexit '
                                 'INNER JOIN timeseriespower '
-                                'ON agentexit.agentid = timeseriespower.agentid'
+                                'ON agentexit.agentid = '
+                                'timeseriespower.agentid'
                                 ' INNER JOIN agententry '
                                 'ON agentexit.agentid = agententry.agentid '
                                 'GROUP BY timeseriespower.agentid').fetchall()
-        power_dict = an.capacity_calc(governments, timestep, entry, exit_step)
+        power_dict = an.capacity_calc(governments, timestep, entry_exit)
         answer_power = collections.OrderedDict()
-        answer_power['lwr_inst'] = np.asarray([0, 1, 1, 2, 1, 1, 0, 0, 0, 0])
+        answer_power['lwr_inst'] = np.asarray([0, 1, 2, 2, 2, 1, 1, 0, 0, 0])
         answer_power['fr_inst'] = np.asarray([0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
         answer_power['sink_source_facilities'] = np.asarray(
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0])

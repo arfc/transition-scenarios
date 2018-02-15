@@ -1,0 +1,16 @@
+language: python
+python:
+  - 2.7
+  - 3.6
+
+# Setup anaconda
+install:
+  - pip install -r .travis.requirements.txt
+  - sudo apt-get install git
+  - git clone https://github.com/pyne/pyne
+  - cd pyne
+  - python setup.py install --user
+# command to run tests
+script:
+  - python ./scripts/test_write_input.py
+  - python ./scripts/test_analysis.py
