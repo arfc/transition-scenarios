@@ -1,0 +1,186 @@
+<!--
+Gwendolyn Chee
+
+This is a basic simulation to get familiar with the separations cycamore
+archetype. It will only contain a source, separations and sink facility.
+
+The input variables of the separations facilities are representative of the
+purex process. According to the OECD report (OECD_Homoegenous_2012), the
+recovery of U and Pu in the standard PUREX process is 99.87% recovery of
+Uranium and 99.36 - 99.51% recovery of Pu (99.4% was used).
+
+Assumptions:
+All the uox_waste is output as reprocess_waste, uox_U and uox_Pu. (In OECD
+report, it says that a small portion of elements, ,1% per element, adheres to
+fuel cladding following dissolution)
+-->
+<simulation>
+  <control>
+    <duration>10</duration>
+    <startmonth>1</startmonth>
+    <startyear>2000</startyear>
+  </control>
+
+  <!-- Defining archetypes -->
+  <archetypes>
+    <spec> <lib>agents</lib> <name>NullInst</name></spec>
+    <spec> <lib>agents</lib> <name>NullRegion</name></spec>
+    <spec> <lib>cycamore</lib> <name>Source</name> </spec>
+    <spec> <lib>cycamore</lib> <name>Sink</name> </spec>
+    <spec> <lib>cycamore</lib> <name>Separations</name> </spec>
+    <spec> <lib>cycamore</lib> <name>DeployInst</name> </spec>
+  </archetypes>
+
+  <!-- Defining facilities -->
+  <facility>
+   <name>uox_waste_source</name>
+     <config>
+       <Source>
+         <outcommod>uox_waste</outcommod>
+         <throughput>1e299</throughput>
+         <outrecipe>uox_waste_recipe</outrecipe>
+       </Source>
+     </config>
+  </facility>
+
+  <facility>
+    <name>sink</name>
+    <config>
+      <Sink>
+        <in_commods>
+          <val>reprocess_waste</val>
+          <val>uox_Pu</val>
+          <val>uox_U</val>
+        </in_commods>
+        <capacity>1e299</capacity>
+      </Sink>
+    </config>
+  </facility>
+
+  <facility>
+    <name>uox_reprocessing</name>
+    <config>
+      <Separations>
+         <feed_commods>   <val>uox_waste</val> </feed_commods>
+         <feed_commod_prefs> <val>1.0</val> </feed_commod_prefs>
+         <feed_recipe>uox_waste_recipe</feed_recipe>
+         <feedbuf_size>1000</feedbuf_size>
+         <throughput>1000</throughput>
+         <leftover_commod>reprocess_waste</leftover_commod>
+         <leftoverbuf_size>1000</leftoverbuf_size>
+         <streams>
+          <item>
+            <commod>uox_Pu</commod>
+            <info>
+              <buf_size>1000</buf_size>
+              <efficiencies>
+                <item>
+                  <comp>Pu</comp> <eff>.994</eff>
+                </item>
+              </efficiencies>
+            </info>
+          </item>
+          <item>
+            <commod>uox_U</commod>
+            <info>
+              <buf_size>1000</buf_size>
+              <efficiencies>
+                <item>
+                  <comp>U</comp> <eff>.998</eff>
+                </item>
+              </efficiencies>
+            </info>
+          </item>
+        </streams>
+      </Separations>
+    </config>
+  </facility>
+
+  <!-- Defining regions -->
+  <region>
+      <name>region</name>
+      <config><NullRegion/></config>
+      <institution>
+        <name>nullinst</name>
+        <config><NullInst/></config>
+        <initialfacilitylist>
+
+          <entry>
+            <number>1</number>
+            <prototype>uox_waste_source</prototype>
+          </entry>
+          <entry>
+            <number>1</number>
+            <prototype>uox_reprocessing</prototype>
+          </entry>
+          <entry>
+            <number>1</number>
+            <prototype>sink</prototype>
+          </entry>
+
+        </initialfacilitylist>
+
+      </institution>
+    </region>
+
+  <!-- Defining recipes -->
+  <recipe>
+    <name>uox_waste_recipe</name>
+    <basis>mass</basis>
+    <nuclide> <id>He4</id>  <comp>9.47457840128509E-07</comp> </nuclide>
+     <nuclide> <id>Ra226</id>  <comp>9.78856442957042E-14</comp> </nuclide>
+     <nuclide> <id>Ra228</id>  <comp>2.75087759176098E-20</comp> </nuclide>
+     <nuclide> <id>Pb206</id>  <comp>5.57475193532078E-18</comp> </nuclide>
+     <nuclide> <id>Pb207</id>  <comp>1.68592497990149E-15</comp> </nuclide>
+     <nuclide> <id>Pb208</id>  <comp>3.6888358546006E-12</comp> </nuclide>
+     <nuclide> <id>Pb210</id>  <comp>3.02386544437848E-19</comp> </nuclide>
+     <nuclide> <id>Th228</id>  <comp>8.47562285269577E-12</comp> </nuclide>
+     <nuclide> <id>Th229</id>  <comp>2.72787861516683E-12</comp> </nuclide>
+     <nuclide> <id>Th230</id>  <comp>2.6258831537493E-09</comp> </nuclide>
+     <nuclide> <id>Th232</id>  <comp>4.17481422959E-10</comp> </nuclide>
+     <nuclide> <id>Bi209</id>  <comp>6.60770597104927E-16</comp> </nuclide>
+     <nuclide> <id>Ac227</id>  <comp>3.0968621961773E-14</comp> </nuclide>
+     <nuclide> <id>Pa231</id>  <comp>9.24658854635179E-10</comp> </nuclide>
+     <nuclide> <id>U232</id>  <comp>0.000000001</comp> </nuclide>
+     <nuclide> <id>U233</id>  <comp>2.21390148606282E-09</comp> </nuclide>
+     <nuclide> <id>U234</id>  <comp>0.0001718924</comp> </nuclide>
+     <nuclide> <id>U235</id>  <comp>0.0076486597</comp> </nuclide>
+     <nuclide> <id>U236</id>  <comp>0.0057057461</comp> </nuclide>
+     <nuclide> <id>U238</id>  <comp>0.9208590237</comp> </nuclide>
+     <nuclide> <id>Np237</id>  <comp>0.0006091729</comp> </nuclide>
+     <nuclide> <id>Pu238</id>  <comp>0.000291487</comp> </nuclide>
+     <nuclide> <id>Pu239</id>  <comp>0.0060657301</comp> </nuclide>
+     <nuclide> <id>Pu240</id>  <comp>0.0029058707</comp> </nuclide>
+     <nuclide> <id>Pu241</id>  <comp>0.0017579218</comp> </nuclide>
+     <nuclide> <id>Pu242</id>  <comp>0.0008638616</comp> </nuclide>
+     <nuclide> <id>Pu244</id>  <comp>2.86487251922763E-08</comp> </nuclide>
+     <nuclide> <id>Am241</id>  <comp>6.44271331287386E-05</comp> </nuclide>
+     <nuclide> <id>Am242m</id>  <comp>8.53362027193319E-07</comp> </nuclide>
+     <nuclide> <id>Am243</id>  <comp>0.0001983912</comp> </nuclide>
+     <nuclide> <id>Cm242</id>  <comp>2.58988475560194E-05</comp> </nuclide>
+     <nuclide> <id>Cm243</id>  <comp>0.000000771</comp> </nuclide>
+     <nuclide> <id>Cm244</id>  <comp>8.5616190260478E-05</comp> </nuclide>
+     <nuclide> <id>Cm245</id>  <comp>5.72174539442251E-06</comp> </nuclide>
+     <nuclide> <id>Cm246</id>  <comp>7.29567535786554E-07</comp> </nuclide>
+     <nuclide> <id>Cm247</id>  <comp>0.00000001</comp> </nuclide>
+     <nuclide> <id>Cm248</id>  <comp>7.69165773748653E-10</comp> </nuclide>
+     <nuclide> <id>Cm250</id>  <comp>4.2808095130239E-18</comp> </nuclide>
+     <nuclide> <id>Cf249</id>  <comp>1.64992658175413E-12</comp> </nuclide>
+     <nuclide> <id>Cf250</id>  <comp>2.04190913935875E-12</comp> </nuclide>
+     <nuclide> <id>Cf251</id>  <comp>9.86556100338561E-13</comp> </nuclide>
+     <nuclide> <id>Cf252</id>  <comp>6.57970721693466E-13</comp> </nuclide>
+     <nuclide> <id>H3</id>  <comp>8.58461800264195E-08</comp> </nuclide>
+     <nuclide> <id>C14</id>  <comp>4.05781943561107E-11</comp> </nuclide>
+     <nuclide> <id>Kr81</id>  <comp>4.21681236076192E-11</comp> </nuclide>
+     <nuclide> <id>Kr85</id>  <comp>3.44484671160181E-05</comp> </nuclide>
+     <nuclide> <id>Sr90</id>  <comp>0.0007880649</comp> </nuclide>
+     <nuclide> <id>Tc99</id>  <comp>0.0011409492</comp> </nuclide>
+     <nuclide> <id>I129</id>  <comp>0.0002731878</comp> </nuclide>
+     <nuclide> <id>Cs134</id>  <comp>0.0002300898</comp> </nuclide>
+     <nuclide> <id>Cs135</id>  <comp>0.0006596706</comp> </nuclide>
+     <nuclide> <id>Cs137</id>  <comp>0.0018169192</comp> </nuclide>
+     <nuclide> <id>H1</id>  <comp>0.0477938151</comp> </nuclide>
+
+  </recipe>
+
+</simulation>
