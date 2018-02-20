@@ -1,0 +1,29 @@
+<DeployInst>
+    <prototypes>
+        <val>doel-1</val>
+        <val>tihange-1</val>
+        <val>doel-2</val>
+        <val>doel-3</val>
+        <val>tihange-2</val>
+        <val>tihange-3</val>
+        <val>doel-4</val>
+    </prototypes>
+    <build_times>
+        <val>117</val>
+        <val>123</val>
+        <val>129</val>
+        <val>211</val>
+        <val>214</val>
+        <val>246</val>
+        <val>244</val>
+    </build_times>
+    <n_build>
+        <val>1</val>
+        <val>1</val>
+        <val>1</val>
+        <val>1</val>
+        <val>1</val>
+        <val>1</val>
+        <val>1</val>
+    </n_build>
+</DeployInst>

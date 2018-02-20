@@ -1,4 +1,4 @@
-﻿<simulation xml:base="/home/park/predicting-the-past/cyclus/input/" xmlns:xi="http://www.w3.org/2001/XInclude">
+﻿<simulation xml:base="/home/gyutae/predict_old/cyclus/input/" xmlns:xi="http://www.w3.org/2001/XInclude">
   <control>
     <duration>1020</duration>
     <startmonth>1</startmonth>

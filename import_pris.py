@@ -116,7 +116,7 @@ def get_buildtime(in_list, start_year, path_list):
                  round(start_date[2] / (365.0 / 12)))
         for index, reactor in enumerate(path_list):
             name = row[1].replace(' ', '_').lower()
-            country = row[0]
+            country = row[0].lower()
             file_name = (reactor.replace(
                 os.path.dirname(path_list[index]), '')).replace('/', '')
             if (name + '.xml' == file_name):

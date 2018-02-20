@@ -1,0 +1,20 @@
+<DeployInst>
+    <prototypes>
+        <val>loviisa-1</val>
+        <val>loviisa-2</val>
+        <val>olkiluoto-1</val>
+        <val>olkiluoto-2</val>
+    </prototypes>
+    <build_times>
+        <val>146</val>
+        <val>191</val>
+        <val>165</val>
+        <val>183</val>
+    </build_times>
+    <n_build>
+        <val>1</val>
+        <val>1</val>
+        <val>1</val>
+        <val>1</val>
+    </n_build>
+</DeployInst>

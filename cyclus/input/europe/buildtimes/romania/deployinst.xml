@@ -1,0 +1,14 @@
+<DeployInst>
+    <prototypes>
+        <val>cernavoda-1</val>
+        <val>cernavoda-2</val>
+    </prototypes>
+    <build_times>
+        <val>379</val>
+        <val>512</val>
+    </build_times>
+    <n_build>
+        <val>1</val>
+        <val>1</val>
+    </n_build>
+</DeployInst>

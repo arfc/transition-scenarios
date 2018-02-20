@@ -1,0 +1,26 @@
+<DeployInst>
+    <prototypes>
+        <val>kozloduy-1</val>
+        <val>kozloduy-2</val>
+        <val>kozloduy-3</val>
+        <val>kozloduy-4</val>
+        <val>kozloduy-5</val>
+        <val>kozloduy-6</val>
+    </prototypes>
+    <build_times>
+        <val>116</val>
+        <val>129</val>
+        <val>193</val>
+        <val>210</val>
+        <val>276</val>
+        <val>320</val>
+    </build_times>
+    <n_build>
+        <val>1</val>
+        <val>1</val>
+        <val>1</val>
+        <val>1</val>
+        <val>1</val>
+        <val>1</val>
+    </n_build>
+</DeployInst>
