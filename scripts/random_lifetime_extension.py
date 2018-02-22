@@ -25,7 +25,7 @@ def generate_input(input_path, output_path, orig_lifetime, country):
     default_file = open(input_path, 'r')
 
     for line in default_file:
-        if country in line:
+        if country in line and 'government' in line:
             trig = True
         if trig and 'lifetime' in line:
             trig2 = True
@@ -37,7 +37,6 @@ def generate_input(input_path, output_path, orig_lifetime, country):
                 if ('<val>%i</val>' %orig_lifetime in line):
                     # this is where we add the random
                     lifetime_extension = abs(int(np.random.normal(10, 3)))
-                    print(lifetime_extension)
                     lifetime = 720 + lifetime_extension * 12
                     new_file.write('<val>%i</val>\n' % lifetime)
                     continue
