@@ -1,9 +1,14 @@
 import numpy as np
 import random
 
+""" This script takes a full CYCUS input xml file,
+    finds the DeployInst block for `France_government`,
+    and extends the lifetime of LWR reactors (with original lifetime 720)
+    according to a Gaussian distribution (mean 10, sd 3 [years])"""
 trig = False
 trig2= False
-new_file = open('./random_lifetime_extension.xml', 'w')
+# these values are hard-coded for ease of use
+new_file = open('./randomly_extended_french_lwrs.xml', 'w')
 default_file = open('./default_input_file.xml', 'r')
 
 for line in default_file:
@@ -24,3 +29,6 @@ for line in default_file:
                 new_file.write('<val>%i</val>\n' %lifetime)
                 continue
     new_file.write(line)
+
+new_file.close()
+default_file.close()
