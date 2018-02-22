@@ -8,8 +8,8 @@ import random
 trig = False
 trig2= False
 # these values are hard-coded for ease of use
-new_file = open('./randomly_extended_french_lwrs.xml', 'w')
-default_file = open('./default_input_file.xml', 'r')
+new_file = open('../2017-bae-europe/randomly_extended_french_lwrs.xml', 'w')
+default_file = open('../2017-bae-europe/default_input_file.xml', 'r')
 
 for line in default_file:
     if 'France_government' in line:
