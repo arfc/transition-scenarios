@@ -1,10 +1,6 @@
 import numpy as np
 import random
 
-""" This script takes a full CYCUS input xml file,
-    finds the DeployInst block for `France_government`,
-    and extends the lifetime of LWR reactors (with original lifetime 720)
-    according to a Gaussian distribution (mean 10, sd 3 [years])"""
 def generate_input(input_path, output_path, orig_lifetime, country):
     """ This function takes a full CYCLUS input xml file,
         finds the DeployInst block for country,
