@@ -1,5 +1,6 @@
 import numpy as np
 import random
+import sys
 
 def generate_input(input_path, output_path, orig_lifetime, country):
     """ This function takes a full CYCLUS input xml file,
@@ -36,7 +37,7 @@ def generate_input(input_path, output_path, orig_lifetime, country):
             else:
                 if ('<val>%i</val>' %orig_lifetime in line):
                     # this is where we add the random
-                    lifetime_extension = abs(int(np.random.normal(10, 3)))
+                    lifetime_extension = abs(int(np.random.normal(10, 6)))
                     lifetime = 720 + lifetime_extension * 12
                     new_file.write('<val>%i</val>\n' % lifetime)
                     continue
@@ -44,3 +45,6 @@ def generate_input(input_path, output_path, orig_lifetime, country):
 
     new_file.close()
     default_file.close()
+
+generate_input('../2017-bae-europe/eu_future/default_input_file.xml',
+              sys.argv[1], 720, 'France')
