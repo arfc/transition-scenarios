@@ -113,7 +113,7 @@ def merge_coordinates(pris_link, scrape):
                         name_prs = prs[1][:idx]
                     else:
                         name_prs = prs[1][:prs[1].find('-')]
-                if fuzz.ratio(name_web.rstrip(), name_prs.lower()) > 75:
+                if fuzz.ratio(name_web.rstrip(), name_prs.lower()) > 78:
                     # print(name_web.rstrip(), ' and ', prs[1].lower())
                     prs[13] = web['lat']
                     prs[14] = web['long']
