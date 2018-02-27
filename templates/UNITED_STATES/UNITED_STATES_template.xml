@@ -46,8 +46,8 @@
         <in_commods>
           <val>casked_spent_uox</val>
         </in_commods>
-        <latitude>37.6</latitude>
-        <longitude>-95.665</longitude>
+        <latitude>36.828595</latitude>
+        <longitude>-116.436380</longitude>
       </Sink>
     </config>
   </facility>
@@ -58,8 +58,8 @@
         <in_commods>
           <val>tails</val>
         </in_commods>
-        <latitude>37.6</latitude>
-        <longitude>-95.665</longitude>
+        <latitude>36.828595</latitude>
+        <longitude>-116.436380</longitude>
       </Sink>
     </config>
   </facility>
@@ -87,8 +87,8 @@
           <val>u3o8</val>
         </out_commods>
         <residence_time>1</residence_time>
-        <latitude>37.6</latitude>
-        <longitude>-95.665</longitude>
+        <latitude>43.075968</latitude>
+        <longitude>-107.290284</longitude>
       </Storage>
     </config>
   </facility>
@@ -104,8 +104,8 @@
           <val>uf6</val>
         </out_commods>
         <residence_time>1</residence_time>
-        <latitude>37.6</latitude>
-        <longitude>-95.665</longitude>
+        <latitude>37.146365</latitude>
+        <longitude>-88.724174</longitude>
       </Storage>
     </config>
   </facility>
@@ -136,8 +136,8 @@
           <val>fresh_uox</val>
         </out_commods>
         <residence_time>1</residence_time>
-        <latitude>37.6</latitude>
-        <longitude>-95.665</longitude>
+        <latitude>32.437343</latitude>
+        <longitude>-103.159080</longitude>
       </Storage>
     </config>
   </facility>
@@ -153,8 +153,8 @@
           <val>cool_spent_uox</val>
         </out_commods>
         <residence_time>72</residence_time>
-        <latitude>37.6</latitude>
-        <longitude>-95.665</longitude>
+        <latitude>36.828595</latitude>
+        <longitude>-116.436380</longitude>
       </Storage>
     </config>
   </facility>
@@ -169,8 +169,8 @@
         <out_commods>
           <val>casked_spent_uox</val>
         </out_commods>
-        <latitude>37.6</latitude>
-        <longitude>-95.665</longitude>
+        <latitude>36.828595</latitude>
+        <longitude>-116.436380</longitude>
       </Storage>
     </config>
   </facility>
