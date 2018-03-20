@@ -172,8 +172,8 @@ by Jin Whan Bae, Clifford Singer, and Kathryn Huff.
           </stream>
         </in_streams>
         <out_commod>astrid_fuel_legacy</out_commod>
-        <out_buf_size>2e6</out_buf_size>
-        <throughput>2e6</throughput>
+        <out_buf_size>4e6</out_buf_size>
+        <throughput>4e6</throughput>
       </Mixer>
     </config>
 </facility>
@@ -5815,10 +5815,10 @@ by Jin Whan Bae, Clifford Singer, and Kathryn Huff.
 <val>2</val>
 <val>1</val>
 <val>2</val>
-<val>6</val>
-<val>1</val>
-<val>6</val>
+<val>5</val>
 <val>2</val>
+<val>5</val>
+<val>3</val>
 <val>2</val>
 <val>5</val>
 <val>1</val>
@@ -5858,10 +5858,10 @@ by Jin Whan Bae, Clifford Singer, and Kathryn Huff.
 <val>2</val>
 <val>1</val>
 <val>2</val>
-<val>6</val>
-<val>1</val>
-<val>6</val>
+<val>5</val>
 <val>2</val>
+<val>5</val>
+<val>3</val>
 <val>2</val>
 <val>5</val>
 <val>1</val>

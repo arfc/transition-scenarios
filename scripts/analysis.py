@@ -525,6 +525,33 @@ def get_power_dict(cur):
     return capacity_calc(governments, timestep, entry_exit)
 
 
+def get_power_dict_of_region(cur, region_name):
+    """ Gets dictionary of power capacity of a specific region
+
+    Parameters
+    ----------
+    cur: sqlite cursor
+    region_name: str
+        name of region to serach for
+
+    Returns
+    -------
+    power_dict: dictionary
+        "dictionary with key=government and
+        value=timeseries list of installed capacity"
+    """
+    parentid = cur.exectue('SELECT agentid FROM agententry WHERE '
+                           'Prototype LIKE "%' + region_name + '%" '
+                           'AND Kind = "Inst"').fetchone()
+
+    entry_exit = cur.execute('SELECT max(value), timeseriespower.agentid, '
+                             'parentid, entrytime, entertime + lifetime'
+                             ' FROM agententry '
+                             'INNER JOIN timeseriespower '
+                             'ON agententry.agentid = timeseriespower.agentid '
+                             'GROUP BY timeseriespower.agentid '
+                             'WHERE parentid = %i' %parentid[0]).fetchall()
+
 def get_deployment_dict(cur):
     """ Gets dictionary of reactors deployed over time
     by calling reactor_deployments
@@ -864,7 +891,7 @@ def where_comm(cur, commodity, prototypes, is_cum=True):
     return trade_dict
 
 
-def commod_per_inst(cur, commodity, timestep):
+def commod_per_inst(cur, commodity, timestep=10000):
     """ Outputs outflux of commodity per institution
         before timestep
 
@@ -1350,9 +1377,9 @@ def stacked_bar_chart(dictionary, timestep,
         if sum(dictionary[key]) == 0:
             print(label + ' has no values')
         elif top_index is True:
-            plot = plt.bar(left=timestep_to_years(init_year, timestep),
+            plot = plt.bar(x=timestep_to_years(init_year, timestep),
                            height=dictionary[key],
-                           width=0.1,
+                           width=0.5,
                            color=cm.viridis(
                 float(color_index) / len(dictionary)),
                 edgecolor='none',
@@ -1364,9 +1391,9 @@ def stacked_bar_chart(dictionary, timestep,
         # All curves except the first have a 'bottom'
         # defined by the previous curve
         else:
-            plot = plt.bar(left=timestep_to_years(init_year, timestep),
+            plot = plt.bar(x=timestep_to_years(init_year, timestep),
                            height=dictionary[key],
-                           width=0.1,
+                           width=0.5,
                            color=cm.viridis(
                 float(color_index) / len(dictionary)),
                 edgecolor='none',
