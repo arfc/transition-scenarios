@@ -66,3 +66,4 @@ target/
 cyclus_output/
 cyclus_output/*
 cyclus/
+analysis/results/
