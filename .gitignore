@@ -65,4 +65,4 @@ target/
 .sqlite
 cyclus_output/
 cyclus_output/*
-cyclus/input/UNITED_STATES.xml
+cyclus/
