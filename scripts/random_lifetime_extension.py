@@ -3,8 +3,8 @@ import random
 import sys
 
 def generate_input(input_path, output_path, orig_lifetime, country):
-    """ This function takes a full CYCLUS input xml file,
-        finds the DeployInst block for country,
+    """This function takes a full Cyclus input xml file,
+        finds the DeployInst block for the country,
         and extends the lifetime of LWR reactors 
         according to a Gaussian distribution (mean 10, sd 3 [years])
 
@@ -21,7 +21,6 @@ def generate_input(input_path, output_path, orig_lifetime, country):
         """
     trig = False
     trig2 = False
-    # these values are hard-coded for ease of use
     new_file = open(output_path, 'w')
     default_file = open(input_path, 'r')
 
@@ -45,6 +44,3 @@ def generate_input(input_path, output_path, orig_lifetime, country):
 
     new_file.close()
     default_file.close()
-
-generate_input('../2017-bae-europe/eu_future/default_input_file.xml',
-              sys.argv[1], 720, 'France')
