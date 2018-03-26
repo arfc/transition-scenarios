@@ -53,5 +53,3 @@ def generate_input(input_path, output_path, orig_lifetime, country):
 
     new_file.close()
     default_file.close()
-
-generate_input('./output.xml', './poop.xml', 720, 'France')
