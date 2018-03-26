@@ -24,23 +24,34 @@ def generate_input(input_path, output_path, orig_lifetime, country):
     new_file = open(output_path, 'w')
     default_file = open(input_path, 'r')
 
-    for line in default_file:
-        if country in line and 'government' in line:
+    file_lines = default_file.readlines()
+    new_lines = file_lines[:]
+
+    # find line number with the start of  lifetime definition
+    for linenum, lines in enumerate(file_lines):
+        if country in lines and 'government' in lines:
             trig = True
-        if trig and 'lifetime' in line:
-            trig2 = True
-        if trig2:
-            if '</lifetimes>' in line:
-                trig2 = False
-                trig = False
-            else:
-                if ('<val>%i</val>' %orig_lifetime in line):
-                    # this is where we add the random
-                    lifetime_extension = abs(int(np.random.normal(10, 6)))
-                    lifetime = 720 + lifetime_extension * 12
-                    new_file.write('<val>%i</val>\n' % lifetime)
-                    continue
+            print(lines)
+        if trig and '<lifetimes>' in lines:
+            start = linenum
+            break
+
+    # go through the lines and change lifetime until
+    # it hits the end of lifetime definition
+    for linenum, lines in enumerate(file_lines[start+1:]):
+        if '</lifetimes>' in lines:
+            break
+        elif ('<val>%i</val>' %orig_lifetime in lines):
+            # this is where we add the random
+            lifetime_extension = abs(int(np.random.normal(10, 6)))
+            lifetime = orig_lifetime + lifetime_extension * 12
+            new_lines[start + linenum] = '<val>%i</val>\n' %lifetime
+
+    # write the modified lines into new file
+    for line in new_lines:
         new_file.write(line)
 
     new_file.close()
     default_file.close()
+
+generate_input('./output.xml', './poop.xml', 720, 'France')
