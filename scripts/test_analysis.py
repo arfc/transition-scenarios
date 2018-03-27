@@ -3,6 +3,7 @@ import numpy as np
 import pytest
 import collections
 import sqlite3 as lite
+import os
 
 
 dir = os.path.dirname(__file__)
