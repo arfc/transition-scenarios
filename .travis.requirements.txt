@@ -1,8 +1,0 @@
-h5py
-jinja2
-matplotlib
-numpy
-scipy
-Cython
-lapack
-blas
