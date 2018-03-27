@@ -164,7 +164,8 @@ def test_kg_to_tons_no_cum():
     answer = [0, 245, 0, 0, 0, 375, 0,
               0, 0, 0, 411, 0, 0]
     answer = [x * 0.001 for x in answer]
-    assert x == answer
+    for i in range(len(answer)):
+        assert answer[i] == x[i]
 
 def test_get_timeseries_cum():
     """Test if get_timeseries_cum returns the right timeseries list
