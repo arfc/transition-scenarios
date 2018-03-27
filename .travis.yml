@@ -33,6 +33,7 @@ install:
   - conda install -c anaconda scipy
   - conda install -c anaconda numpy
   - conda install -c anaconda cython
+  - conda install -c anaconda pytest
 #  - mkdir github
 #  - cd github
 #  - git clone https://github.com/pyne/pyne
