@@ -79,9 +79,9 @@ def test_facility_commodity_flux_isotopics():
     assert len(x['U235']) == len(answer_x['U235'])
     assert len(y['U235']) == len(answer_y['U235'])
     for expected, actual in zip(x['U235'], answer_x['U235']):
-        assert expected == pytest.approx(actual, 1e-7)
+        assert expected == pytest.approx(actual, 1e-5)
     for expected, actual in zip(y['U235'], answer_y['U235']):
-        assert expected == pytest.approx(actual, delta=1e-5)
+        assert expected == pytest.approx(actual, 1e-5)
 
 def test_get_stockpile():
     """Tests if get_stockpile function works properly """
@@ -216,7 +216,7 @@ def test_get_isotope_transactions():
         assert len(x[key]) == len(answer[key])
         for expected, actual in zip(x[key], answer[key]):
             for i in range(0, 1):
-                assert expected[i] == pytest.approx(actual[i], delta=1e-3)
+                assert expected[i] == pytest.approx(actual[i], 1e-3)
 
 def test_capacity_calc():
     """Test capacity_calc function"""
