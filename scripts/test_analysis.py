@@ -16,24 +16,22 @@ def get_sqlite():
         cur = con.cursor()
         return cur
 
-
-
 def test_get_agent_ids():
-    """ Test if get_agent_ids returns the right agentids"""
+    """Test if get_agent_ids returns the right agentids"""
     cur = get_sqlite()
     ids = an.get_agent_ids(cur, 'reactor')
     answer = ['39', '40', '41', '42', '43', '44']
     assert ids == answer
 
 def test_get_prototype_id():
-    """ Test if get_prototype_id returns the right agentids"""
+    """Test if get_prototype_id returns the right agentids"""
     cur = get_sqlite()
     ids = an.get_prototype_id(cur, 'lwr')
     answer = ['39', '40', '42']
     assert ids == answer
 
 def test_get_timesteps():
-    """ Tests if get_timesteps function outputs the right information"""
+    """Tests if get_timesteps function outputs the right information"""
     cur = get_sqlite()
     init_year, init_month, duration, timestep = an.get_timesteps(cur)
     assert init_year == 2000
@@ -42,7 +40,7 @@ def test_get_timesteps():
     assert timestep.all() == np.linspace(0, 9, num=10).all()
 
 def test_facility_commodity_flux():
-    """ Tests if facility_commodity_flux works properly"""
+    """Tests if facility_commodity_flux works properly"""
     cur = get_sqlite()
     agent_ids = ['39', '40', '42']
     commod_list_send = ['uox_waste']
@@ -62,7 +60,7 @@ def test_facility_commodity_flux():
         assert expected == pytest.approx(actual, 1e-5)
 
 def test_facility_commodity_flux_isotopics():
-    """ Tests if facility_commodity_flux_isotopics works properly"""
+    """Tests if facility_commodity_flux_isotopics works properly"""
     cur = get_sqlite()
     agent_ids = ['27']
     commod_list_send = ['reprocess_waste', 'uox_Pu']
@@ -85,7 +83,7 @@ def test_facility_commodity_flux_isotopics():
         assert expected == pytest.approx(actual, delta=1e-5)
 
 def test_get_stockpile():
-    """ Tests if get_stockpile function works properly """
+    """Tests if get_stockpile function works properly """
     cur = get_sqlite()
     facility = 'separations'
     pile_dict = an.get_stockpile(cur, facility)
@@ -97,7 +95,7 @@ def test_get_stockpile():
         assert expected == pytest.approx(actual, 1e-4)
 
 def test_get_swu_dict():
-    """ Tests if get_swu_dict function works properly """
+    """Tests if get_swu_dict function works properly """
     cur = get_sqlite()
     swu_dict = an.get_swu_dict(cur)
     answer = collections.OrderedDict()
@@ -110,7 +108,7 @@ def test_get_swu_dict():
         assert expected == pytest.approx(actual, 1e-3)
 
 def test_get_power_dict():
-    """ Tests if get_power_dict function works properly """
+    """Tests if get_power_dict function works properly """
     cur = get_sqlite()
     power_dict = an.get_power_dict(cur)
     lwr_inst = np.array([0, 1, 1, 2, 1, 1, 0, 0, 0, 0])
