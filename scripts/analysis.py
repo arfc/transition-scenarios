@@ -6,7 +6,7 @@ import sys
 from itertools import cycle
 import matplotlib
 from matplotlib import cm
-from pyne import nucname
+#from pyne import nucname
 
 
 if len(sys.argv) < 2:

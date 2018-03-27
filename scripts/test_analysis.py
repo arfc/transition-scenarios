@@ -79,9 +79,9 @@ def test_facility_commodity_flux_isotopics():
     assert len(x['U235']) == len(answer_x['U235'])
     assert len(y['U235']) == len(answer_y['U235'])
     for expected, actual in zip(x['U235'], answer_x['U235']):
-        assert expected == pytest.approx(actual, 1e-5)
+        assert expected == pytest.approx(actual, abs=1e-5)
     for expected, actual in zip(y['U235'], answer_y['U235']):
-        assert expected == pytest.approx(actual, 1e-5)
+        assert expected == pytest.approx(actual, abs=1e-5)
 
 def test_get_stockpile():
     """Tests if get_stockpile function works properly """
@@ -93,7 +93,7 @@ def test_get_stockpile():
                         0.6487, 0.6487, 0.9281, .9281, 0.9281]
     assert len(pile_dict[facility]) == len(answer[facility])
     for expected, actual in zip(pile_dict[facility], answer[facility]):
-        assert expected == pytest.approx(actual, 1e-4)
+        assert expected == pytest.approx(actual, abs=1e-4)
 
 def test_get_swu_dict():
     """Tests if get_swu_dict function works properly """
