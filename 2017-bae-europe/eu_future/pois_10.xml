@@ -18,6 +18,15 @@ by Jin Whan Bae, Clifford Singer, and Kathryn Huff.
       <lib>cycamore</lib>
       <name>Source</name>
     </spec>
+    
+    <spec>
+      <lib>cycamore</lib>
+      <name>ManagerInst</name>
+    </spec>
+    <spec>
+      <lib>cycamore</lib>
+      <name>GrowthRegion</name>
+    </spec>
     <spec>
       <lib>cycamore</lib>
       <name>Sink</name>
@@ -172,8 +181,8 @@ by Jin Whan Bae, Clifford Singer, and Kathryn Huff.
           </stream>
         </in_streams>
         <out_commod>astrid_fuel_legacy</out_commod>
-        <out_buf_size>4e6</out_buf_size>
-        <throughput>4e6</throughput>
+        <out_buf_size>2e6</out_buf_size>
+        <throughput>2e6</throughput>
       </Mixer>
     </config>
 </facility>
@@ -437,6 +446,7 @@ by Jin Whan Bae, Clifford Singer, and Kathryn Huff.
 <facility>
     <!-- astrid cfv specification from  varaine_pre-conceptual-->
     <name>astrid</name>
+    <lifetime>960</lifetime>
     <config>
       <Reactor>
         <fuel_inrecipes>  <val>mox_fuel_recipe</val>      <val>mox_fuel_recipe</val>  </fuel_inrecipes>
@@ -5337,7 +5347,7 @@ by Jin Whan Bae, Clifford Singer, and Kathryn Huff.
     </institution>
   </region>
   
-  <region>
+<region>
     <name>France</name>
     <config><NullRegion/></config>
         <institution>
@@ -5523,8 +5533,6 @@ by Jin Whan Bae, Clifford Singer, and Kathryn Huff.
 <val>astrid</val>
 <val>astrid</val>
 <val>astrid</val>
-
-
 <val>astrid</val>
 <val>astrid</val>
 <val>astrid</val>
@@ -5567,7 +5575,142 @@ by Jin Whan Bae, Clifford Singer, and Kathryn Huff.
 <val>astrid</val>
 <val>astrid</val>
 <val>astrid</val>
-
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
+<val>astrid</val>
 
 </prototypes>
 <build_times>
@@ -5639,91 +5782,226 @@ by Jin Whan Bae, Clifford Singer, and Kathryn Huff.
 <val>359</val>
 <val>564</val>
 
-<val>840</val>
-<val>841</val>
-<val>842</val>
-<val>847</val>
-<val>851</val>
-<val>852</val>
-<val>853</val>
-<val>856</val>
-<val>857</val>
-<val>859</val>
-<val>870</val>
-<val>874</val>
-<val>879</val>
-<val>880</val>
-<val>883</val>
-<val>885</val>
-<val>891</val>
-<val>892</val>
-<val>895</val>
-<val>897</val>
-<val>907</val>
-<val>909</val>
-<val>915</val>
-<val>917</val>
-<val>921</val>
-<val>922</val>
-<val>931</val>
-<val>932</val>
-<val>933</val>
-<val>941</val>
-<val>945</val>
-<val>961</val>
-<val>963</val>
-<val>964</val>
-<val>976</val>
-<val>984</val>
-<val>1001</val>
-<val>1039</val>
-<val>1046</val>
-<val>1055</val>
-<val>1079</val>
-<val>1284</val>
-
-<val> 1800  </val>
-<val> 1801  </val>
-<val> 1802  </val>
-<val> 1807  </val>
-<val> 1811  </val>
-<val> 1812  </val>
-<val> 1813  </val>
-<val> 1816  </val>
-<val> 1817  </val>
-<val> 1819  </val>
-<val> 1830  </val>
-<val> 1834  </val>
-<val> 1839  </val>
-<val> 1840  </val>
-<val> 1843  </val>
-<val> 1845  </val>
-<val> 1851  </val>
-<val> 1852  </val>
-<val> 1855  </val>
-<val> 1857  </val>
-<val> 1867  </val>
-<val> 1869  </val>
-<val> 1875  </val>
-<val> 1877  </val>
-<val> 1881  </val>
-<val> 1882  </val>
-<val> 1891  </val>
-<val> 1892  </val>
-<val> 1893  </val>
-<val> 1901  </val>
-<val> 1905  </val>
-<val> 1921  </val>
-<val> 1923  </val>
-<val> 1924  </val>
-<val> 1936  </val>
-<val> 1944  </val>
-<val> 1961  </val>
-<val> 1999  </val>
-<val> 2006  </val>
-<val> 2015  </val>
-<val> 2039  </val>
-<val> 2244  </val>
+<val>   842 </val>
+<val>   842 </val>
+<val>   842 </val>
+<val>   919 </val>
+<val>   921 </val>
+<val>   921 </val>
+<val>   927 </val>
+<val>   929 </val>
+<val>   929 </val>
+<val>   932 </val>
+<val>   938 </val>
+<val>   938 </val>
+<val>   940 </val>
+<val>   944 </val>
+<val>   944 </val>
+<val>   951 </val>
+<val>   951 </val>
+<val>   951 </val>
+<val>   954 </val>
+<val>   956 </val>
+<val>   956 </val>
+<val>   961 </val>
+<val>   964 </val>
+<val>   964 </val>
+<val>   968 </val>
+<val>   968 </val>
+<val>   970 </val>
+<val>   971 </val>
+<val>   971 </val>
+<val>   972 </val>
+<val>   980 </val>
+<val>   980 </val>
+<val>   984 </val>
+<val>   989 </val>
+<val>   989 </val>
+<val>   990 </val>
+<val>   990 </val>
+<val>   992 </val>
+<val>   992 </val>
+<val>   992 </val>
+<val>   992 </val>
+<val>   992 </val>
+<val>   992 </val>
+<val>   992 </val>
+<val>   994 </val>
+<val>   994 </val>
+<val>   994 </val>
+<val>   996 </val>
+<val>   999 </val>
+<val>   999 </val>
+<val>   1001    </val>
+<val>   1003    </val>
+<val>   1003    </val>
+<val>   1004    </val>
+<val>   1006    </val>
+<val>   1006    </val>
+<val>   1006    </val>
+<val>   1013    </val>
+<val>   1013    </val>
+<val>   1016    </val>
+<val>   1016    </val>
+<val>   1023    </val>
+<val>   1025    </val>
+<val>   1025    </val>
+<val>   1025    </val>
+<val>   1026    </val>
+<val>   1029    </val>
+<val>   1029    </val>
+<val>   1030    </val>
+<val>   1030    </val>
+<val>   1030    </val>
+<val>   1031    </val>
+<val>   1031    </val>
+<val>   1038    </val>
+<val>   1038    </val>
+<val>   1040    </val>
+<val>   1053    </val>
+<val>   1053    </val>
+<val>   1053    </val>
+<val>   1062    </val>
+<val>   1066    </val>
+<val>   1066    </val>
+<val>   1075    </val>
+<val>   1086    </val>
+<val>   1086    </val>
+<val>   1096    </val>
+<val>   1096    </val>
+<val>   1097    </val>
+<val>   1097    </val>
+<val>   1118    </val>
+<val>   1118    </val>
+<val>   1120    </val>
+<val>   1120    </val>
+<val>   1134    </val>
+<val>   1134    </val>
+<val>   1134    </val>
+<val>   1148    </val>
+<val>   1148    </val>
+<val>   1164    </val>
+<val>   1164    </val>
+<val>   1164    </val>
+<val>   1165    </val>
+<val>   1165    </val>
+<val>   1179    </val>
+<val>   1179    </val>
+<val>   1188    </val>
+<val>   1188    </val>
+<val>   1188    </val>
+<val>   1381    </val>
+<val>   1381    </val>
+<val>   1802    </val>
+<val>   1802    </val>
+<val>   1802    </val>
+<val>   1879    </val>
+<val>   1881    </val>
+<val>   1881    </val>
+<val>   1887    </val>
+<val>   1889    </val>
+<val>   1889    </val>
+<val>   1892    </val>
+<val>   1898    </val>
+<val>   1898    </val>
+<val>   1900    </val>
+<val>   1904    </val>
+<val>   1904    </val>
+<val>   1911    </val>
+<val>   1911    </val>
+<val>   1911    </val>
+<val>   1914    </val>
+<val>   1916    </val>
+<val>   1916    </val>
+<val>   1921    </val>
+<val>   1924    </val>
+<val>   1924    </val>
+<val>   1928    </val>
+<val>   1928    </val>
+<val>   1930    </val>
+<val>   1931    </val>
+<val>   1931    </val>
+<val>   1932    </val>
+<val>   1940    </val>
+<val>   1940    </val>
+<val>   1944    </val>
+<val>   1949    </val>
+<val>   1949    </val>
+<val>   1950    </val>
+<val>   1950    </val>
+<val>   1952    </val>
+<val>   1952    </val>
+<val>   1952    </val>
+<val>   1952    </val>
+<val>   1952    </val>
+<val>   1952    </val>
+<val>   1952    </val>
+<val>   1954    </val>
+<val>   1954    </val>
+<val>   1954    </val>
+<val>   1956    </val>
+<val>   1959    </val>
+<val>   1959    </val>
+<val>   1961    </val>
+<val>   1963    </val>
+<val>   1963    </val>
+<val>   1964    </val>
+<val>   1966    </val>
+<val>   1966    </val>
+<val>   1966    </val>
+<val>   1973    </val>
+<val>   1973    </val>
+<val>   1976    </val>
+<val>   1976    </val>
+<val>   1983    </val>
+<val>   1985    </val>
+<val>   1985    </val>
+<val>   1985    </val>
+<val>   1986    </val>
+<val>   1989    </val>
+<val>   1989    </val>
+<val>   1990    </val>
+<val>   1990    </val>
+<val>   1990    </val>
+<val>   1991    </val>
+<val>   1991    </val>
+<val>   1998    </val>
+<val>   1998    </val>
+<val>   2000    </val>
+<val>   2013    </val>
+<val>   2013    </val>
+<val>   2013    </val>
+<val>   2022    </val>
+<val>   2026    </val>
+<val>   2026    </val>
+<val>   2035    </val>
+<val>   2046    </val>
+<val>   2046    </val>
+<val>   2056    </val>
+<val>   2056    </val>
+<val>   2057    </val>
+<val>   2057    </val>
+<val>   2078    </val>
+<val>   2078    </val>
+<val>   2080    </val>
+<val>   2080    </val>
+<val>   2094    </val>
+<val>   2094    </val>
+<val>   2094    </val>
+<val>   2108    </val>
+<val>   2108    </val>
+<val>   2124    </val>
+<val>   2124    </val>
+<val>   2124    </val>
+<val>   2125    </val>
+<val>   2125    </val>
+<val>   2139    </val>
+<val>   2139    </val>
+<val>   2148    </val>
+<val>   2148    </val>
+<val>   2148    </val>
+<val>   2341    </val>
+<val>   2341    </val>
 
 
 </build_times>
@@ -5797,91 +6075,227 @@ by Jin Whan Bae, Clifford Singer, and Kathryn Huff.
 <val>1</val>
 <val>1</val>
 
-<val>5</val>
-<val>5</val>
-<val>5</val>
-<val>3</val>
-<val>5</val>
-<val>1</val>
-<val>2</val>
-<val>1</val>
-<val>5</val>
-<val>1</val>
-<val>2</val>
-<val>1</val>
-<val>2</val>
-<val>2</val>
-<val>1</val>
-<val>2</val>
-<val>1</val>
-<val>2</val>
-<val>5</val>
-<val>2</val>
-<val>5</val>
-<val>3</val>
-<val>2</val>
-<val>5</val>
-<val>1</val>
-<val>3</val>
-<val>2</val>
-<val>4</val>
-<val>2</val>
-<val>2</val>
-<val>2</val>
-<val>2</val>
-<val>2</val>
-<val>3</val>
-<val>2</val>
-<val>2</val>
-<val>2</val>
-<val>3</val>
-<val>2</val>
-<val>3</val>
-<val>2</val>
-<val>3</val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
+<val>   1   </val>
 
-<val>5</val>
-<val>5</val>
-<val>5</val>
-<val>3</val>
-<val>5</val>
-<val>1</val>
-<val>2</val>
-<val>1</val>
-<val>5</val>
-<val>1</val>
-<val>2</val>
-<val>1</val>
-<val>2</val>
-<val>2</val>
-<val>1</val>
-<val>2</val>
-<val>1</val>
-<val>2</val>
-<val>5</val>
-<val>2</val>
-<val>5</val>
-<val>3</val>
-<val>2</val>
-<val>5</val>
-<val>1</val>
-<val>3</val>
-<val>2</val>
-<val>4</val>
-<val>2</val>
-<val>2</val>
-<val>2</val>
-<val>2</val>
-<val>2</val>
-<val>3</val>
-<val>2</val>
-<val>2</val>
-<val>2</val>
-<val>3</val>
-<val>2</val>
-<val>3</val>
-<val>2</val>
-<val>3</val>
 </n_build>
 <lifetimes>
 
@@ -5892,152 +6306,287 @@ by Jin Whan Bae, Clifford Singer, and Kathryn Huff.
 <val>266</val>
 <val>227</val>
 
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
+<val>840</val>
+<val>828</val>
+<val>888</val>
+<val>816</val>
+<val>912</val>
+<val>888</val>
+<val>876</val>
+<val>828</val>
+<val>828</val>
+<val>828</val>
+<val>876</val>
+<val>852</val>
+<val>864</val>
+<val>816</val>
+<val>804</val>
+<val>840</val>
+<val>840</val>
+<val>888</val>
+<val>828</val>
+<val>864</val>
 
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
-<val>720</val>
+<val>924</val>
+<val>924</val>
+<val>816</val>
+<val>828</val>
+<val>852</val>
+<val>816</val>
+<val>768</val>
+<val>768</val>
+<val>780</val>
+<val>792</val>
+<val>804</val>
+<val>804</val>
+<val>924</val>
+<val>792</val>
+<val>816</val>
+<val>768</val>
+<val>852</val>
+<val>828</val>
+<val>840</val>
+<val>768</val>
+<val>816</val>
+<val>840</val>
+<val>804</val>
+<val>864</val>
+<val>768</val>
+<val>852</val>
+<val>840</val>
+<val>780</val>
+<val>876</val>
+<val>876</val>
+<val>768</val>
+<val>840</val>
+<val>828</val>
+<val>900</val>
+<val>852</val>
+<val>852</val>
+<val>852</val>
+<val>804</val>
+<val>816</val>
 
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
-<val>960</val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
+<val>   960 </val>
 
 
 </lifetimes>
@@ -6045,7 +6594,6 @@ by Jin Whan Bae, Clifford Singer, and Kathryn Huff.
         </DeployInst>
       </config>
     </institution>
-
   </region>
   
   <region>
