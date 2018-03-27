@@ -4,6 +4,7 @@ import numpy as np
 import os
 
 # tells command format if input is invalid
+
 if len(sys.argv) < 4:
     print('Usage: python write_input.py [csv]' +
           '[init_date] [duration] [output_file_name]')
@@ -163,7 +164,7 @@ def get_entrytime(init_date, start_date):
     init_year, init_month = get_ymd(init_date)
     start_year, start_month = get_ymd(start_date)
 
-    dyear = start_year-init_year
+    dyear = start_year - init_year
     dmonth = start_month - init_month
     if dmonth < 0:
         dyear -= 1
@@ -296,12 +297,10 @@ def reactor_render(reactor_data, output_file, is_cyborg=False):
                 type=reactor_type,
                 reactor_name=name,
                 assem_size=round(spec_dict['kg_per_assembly'], 3),
-                n_assem_core=int(
-                    round(spec_dict['assemblies_per_core'] 
-                          * data['net_elec_capacity'])),
-                n_assem_batch=int(
-                    round(spec_dict['assemblies_per_batch'] 
-                           * data['net_elec_capacity'])),
+                n_assem_core=int(round(spec_dict['assemblies_per_core']
+                                       * data['net_elec_capacity'])),
+                n_assem_batch=int(round(spec_dict['assemblies_per_batch']
+                                        * data['net_elec_capacity'])),
                 capacity=data['net_elec_capacity'])
         else:
             # assume 1000MWe pwr linear core size model if no match
@@ -310,8 +309,10 @@ def reactor_render(reactor_data, output_file, is_cyborg=False):
                 reactor_name=name,
                 type=reactor_type,
                 assem_size=523.4,
-                n_assem_core=int(round(data['net_elec_capacity']/1000 * 193)),
-                n_assem_batch=int(round(data['net_elec_capacity']/3000 * 193)),
+                n_assem_core=int(
+                    round(data['net_elec_capacity'] / 1000 * 193)),
+                n_assem_batch=int(
+                    round(data['net_elec_capacity'] / 3000 * 193)),
                 capacity=data['net_elec_capacity'])
 
         with open(output_file, 'a') as output:
