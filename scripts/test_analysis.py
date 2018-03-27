@@ -17,6 +17,7 @@ def get_sqlite():
         cur = con.cursor()
         return cur
 
+
 def test_get_agent_ids():
     """Test if get_agent_ids returns the right agentids"""
     cur = get_sqlite()
@@ -24,12 +25,14 @@ def test_get_agent_ids():
     answer = ['39', '40', '41', '42', '43', '44']
     assert ids == answer
 
+
 def test_get_prototype_id():
     """Test if get_prototype_id returns the right agentids"""
     cur = get_sqlite()
     ids = an.get_prototype_id(cur, 'lwr')
     answer = ['39', '40', '42']
     assert ids == answer
+
 
 def test_get_timesteps():
     """Tests if get_timesteps function outputs the right information"""
@@ -39,6 +42,7 @@ def test_get_timesteps():
     assert init_month == 1
     assert duration == 10
     assert timestep.all() == np.linspace(0, 9, num=10).all()
+
 
 def test_facility_commodity_flux():
     """Tests if facility_commodity_flux works properly"""
@@ -59,6 +63,7 @@ def test_facility_commodity_flux():
         assert expected == pytest.approx(actual, 1e-7)
     for expected, actual in zip(y['uox'], answer_y['uox']):
         assert expected == pytest.approx(actual, 1e-5)
+
 
 def test_facility_commodity_flux_isotopics():
     """Tests if facility_commodity_flux_isotopics works properly"""
@@ -83,6 +88,7 @@ def test_facility_commodity_flux_isotopics():
     for expected, actual in zip(y['U235'], answer_y['U235']):
         assert expected == pytest.approx(actual, abs=1e-5)
 
+
 def test_get_stockpile():
     """Tests if get_stockpile function works properly """
     cur = get_sqlite()
@@ -94,6 +100,7 @@ def test_get_stockpile():
     assert len(pile_dict[facility]) == len(answer[facility])
     for expected, actual in zip(pile_dict[facility], answer[facility]):
         assert expected == pytest.approx(actual, abs=1e-4)
+
 
 def test_get_swu_dict():
     """Tests if get_swu_dict function works properly """
@@ -108,6 +115,7 @@ def test_get_swu_dict():
                                 answer['Enrichment_30']):
         assert expected == pytest.approx(actual, 1e-3)
 
+
 def test_get_power_dict():
     """Tests if get_power_dict function works properly """
     cur = get_sqlite()
@@ -117,6 +125,7 @@ def test_get_power_dict():
     assert power_dict['lwr_inst'].all() == lwr_inst.all()
     assert power_dict['fr_inst'].all() == fr_inst.all()
 
+
 def test_u_util_calc():
     """ Tests if u_util_calc function works properly """
     cur = get_sqlite()
@@ -124,6 +133,7 @@ def test_u_util_calc():
     answer = np.array([0, 0.142, 0.142, 0.142, 0.142,
                        0.142, 0.142, 0.142, 0.142, 0.142])
     assert x.all() == answer.all()
+
 
 def test_exec_string_receiverid():
     """Test if exec_string function prints the right thing
@@ -135,6 +145,7 @@ def test_exec_string_receiverid():
               'WHERE (receiverid = 12 OR receiverid = 35)')
     assert string == answer
 
+
 def test_exec_string_commodity():
     """Test if exec_string function prints the right thing
        When the query wants to find commodity """
@@ -145,6 +156,7 @@ def test_exec_string_commodity():
               'WHERE (commodity = "uox" OR commodity = "mox")')
     assert string == answer
 
+
 def test_get_timeseries():
     """Test if get_timeseries returns the right timeseries list
        Given an in_list"""
@@ -154,6 +166,7 @@ def test_get_timeseries():
     answer = [0, 245, 0, 0, 0, 375, 0,
               0, 0, 0, 411, 0, 0]
     assert x == answer
+
 
 def test_kg_to_tons_no_cum():
     """Test if kg_to_tons boolean actually returns in tons
@@ -166,6 +179,7 @@ def test_kg_to_tons_no_cum():
     answer = [y * 0.001 for y in answer]
     assert x == answer
 
+
 def test_get_timeseries_cum():
     """Test if get_timeseries_cum returns the right timeseries list
        Given an in_list"""
@@ -176,6 +190,7 @@ def test_get_timeseries_cum():
               245 + 375, 245 + 375, 245 + 375, 245 + 375 + 411,
               245 + 375 + 411, 245 + 375 + 411]
     assert x == answer
+
 
 def test_kg_to_tons_cum():
     """Test if kg_to_tons boolean actually
@@ -188,6 +203,7 @@ def test_kg_to_tons_cum():
               245 + 375 + 411, 245 + 375 + 411]
     answer = [y * 0.001 for y in answer]
     assert x == answer
+
 
 def test_get_isotope_transactions():
     """Test if get_isotope_transactions function
@@ -217,6 +233,7 @@ def test_get_isotope_transactions():
         for expected, actual in zip(x[key], answer[key]):
             for i in range(0, 1):
                 assert expected[i] == pytest.approx(actual[i], 1e-3)
+
 
 def test_capacity_calc():
     """Test capacity_calc function"""
@@ -252,4 +269,3 @@ def test_capacity_calc():
     for key in power_dict:
         assert np.array_equal(
             power_dict[key], answer_power[key]) == True
-
