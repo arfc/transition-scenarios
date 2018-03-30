@@ -149,7 +149,7 @@ by Jin Whan Bae, Clifford Singer, and Kathryn Huff.
           <stream>
             <info>
               <mixing_ratio>.22</mixing_ratio>
-              <buf_size>2e8</buf_size>
+              <buf_size>2e4</buf_size>
             </info>
             <commodities>
               <item>
@@ -5398,7 +5398,7 @@ by Jin Whan Bae, Clifford Singer, and Kathryn Huff.
 
 <val>9999</val>
 <val>9999</val>
-<val>9999</val>
+<val>444</val>
 <val>9999</val>
 
 
