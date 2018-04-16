@@ -1,23 +1,44 @@
-﻿<simulation xml:base="{{base_dir}}"
-  xmlns:xi="http://www.w3.org/2001/XInclude">
+﻿<simulation xml:base="{{base_dir}}" xmlns:xi="http://www.w3.org/2001/XInclude">
   <control>
-    <duration>1400</duration>
+    <duration>1020</duration>
     <startmonth>1</startmonth>
     <startyear>1965</startyear>
   </control>
   <archetypes>
-    <spec><lib>cycamore</lib> <name>Enrichment</name> </spec>
-    <spec><lib>cycamore</lib> <name>Reactor</name>    </spec>
-    <spec><lib>cycamore</lib> <name>Sink</name>       </spec>
-    <spec><lib>cycamore</lib> <name>Source</name>     </spec>
-    <spec><lib>cycamore</lib> <name>Storage</name>    </spec>
-    <spec><lib>cycamore</lib> <name>DeployInst</name> </spec>
-    <spec><lib>cycamore</lib> <name>ManagerInst</name></spec>
-    <spec><lib>agents</lib>   <name>NullRegion</name> </spec>
+    <spec>
+      <lib>cycamore</lib>
+      <name>Enrichment</name>
+    </spec>
+    <spec>
+      <lib>cycamore</lib>
+      <name>Reactor</name>
+    </spec>
+    <spec>
+      <lib>cycamore</lib>
+      <name>Sink</name>
+    </spec>
+    <spec>
+      <lib>cycamore</lib>
+      <name>Source</name>
+    </spec>
+    <spec>
+      <lib>cycamore</lib>
+      <name>Storage</name>
+    </spec>
+    <spec>
+      <lib>cycamore</lib>
+      <name>DeployInst</name>
+    </spec>
+    <spec>
+      <lib>cycamore</lib>
+      <name>ManagerInst</name>
+    </spec>
+    <spec>
+      <lib>agents</lib>
+      <name>NullRegion</name>
+    </spec>
   </archetypes>
-
-  <xi:include href="europe/buildtimes/inclusions.xml#xpointer(/inclusions/child::*)"/>
-  
+  <xi:include href="united_states/buildtimes/inclusions.xml#xpointer(/inclusions/child::*)"/>
   <facility>
     <name>Sink_HLW</name>
     <config>
@@ -28,18 +49,16 @@
       </Sink>
     </config>
   </facility>
-
   <facility>
-  	<name>Sink_LLW</name>
-  	<config>
-  		<Sink>
-  			<in_commods>
-  				<val>tails</val>
-  			</in_commods>
-  		</Sink>
-  	</config>
+    <name>Sink_LLW</name>
+    <config>
+      <Sink>
+        <in_commods>
+          <val>tails</val>
+        </in_commods>
+      </Sink>
+    </config>
   </facility>
-
   <facility>
     <name>Mine</name>
     <config>
@@ -50,7 +69,6 @@
       </Source>
     </config>
   </facility>
-
   <facility>
     <name>Mill</name>
     <config>
@@ -66,7 +84,6 @@
       </Storage>
     </config>
   </facility>
-
   <facility>
     <name>Conversion</name>
     <config>
@@ -82,7 +99,6 @@
       </Storage>
     </config>
   </facility>
-
   <facility>
     <name>Enrichment</name>
     <config>
@@ -96,7 +112,6 @@
       </Enrichment>
     </config>
   </facility>
-
   <facility>
     <name>FuelFab</name>
     <config>
@@ -112,7 +127,6 @@
       </Storage>
     </config>
   </facility>
-
   <facility>
     <name>WetStorage</name>
     <config>
@@ -128,7 +142,6 @@
       </Storage>
     </config>
   </facility>
-
   <facility>
     <name>DryStorage</name>
     <config>
@@ -143,19 +156,14 @@
       </Storage>
     </config>
   </facility>
-
   <region>
-    <name>Europe</name>
+    <name>United States</name>
     <config>
       <NullRegion/>
     </config>
     <institution>
       <name>FuelCycle</name>
       <initialfacilitylist>
-        <entry>
-          <prototype>Sink_HLW</prototype>
-          <number>1</number>
-        </entry>
         <entry>
           <prototype>Sink_LLW</prototype>
           <number>1</number>
@@ -192,8 +200,7 @@
       <config>
         <ManagerInst>
           <prototypes>
-            <val>Sink_HLW</val>
-          	<val>Sink_LLW</val>
+            <val>Sink_LLW</val>
             <val>Mine</val>
             <val>Mill</val>
             <val>Conversion</val>
@@ -204,16 +211,12 @@
           </prototypes>
         </ManagerInst>
       </config>
-    </institution>
-    {% for country in countries %}
+    </institution>{% for country in countries %}
+    
     <institution>
       <name>{{country}}</name>
       <config>
-        <xi:include href="europe/buildtimes/{{country}}/deployinst.xml"/>
-      </config>
-    </institution>
-    {% endfor %}
-  </region>
-
-  <xi:include href="europe/recipes/uox_51.xml#xpointer(/recipes/child::*)"/>
+        <xi:include href="united_states/buildtimes/{{country}}/deployinst.xml"/></config>
+    </institution>{% endfor %}</region>
+  <xi:include href="united_states/recipes/uox_51.xml#xpointer(/recipes/child::*)"/>
 </simulation>

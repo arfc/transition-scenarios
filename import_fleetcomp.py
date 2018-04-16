@@ -5,6 +5,7 @@ from pyne import nucname as nn
 import csv
 import jinja2
 import os
+import pathlib
 import sys
 
 
@@ -129,6 +130,8 @@ def write_recipes(fresh_dict, spent_dict, in_template, burnup):
     null
         generates reactor files for cyclus.
     """
+    out_path = 'cyclus/input/' + region + '/recipes/'
+    pathlib.Path(out_path).mkdir(parents=True, exist_ok=True)
     rendered = in_template.render(fresh=fresh_dict,
                                   spent=spent_dict)
     with open('cyclus/input/US/recipes/uox_' + str(burnup) +
