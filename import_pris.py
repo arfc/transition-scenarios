@@ -115,8 +115,8 @@ def get_buildtime(in_list, start_year, path_list):
                  (start_date[1]) +
                  round(start_date[2] / (365.0 / 12)))
         for index, reactor in enumerate(path_list):
-            name = row[1].replace(' ', '_')
-            country = row[0]
+            name = row[1].replace(' ', '_').lower()
+            country = row[0].lower()
             file_name = (reactor.replace(
                 os.path.dirname(path_list[index]), '')).replace('/', '')
             if (name + '.xml' == file_name):
@@ -149,7 +149,7 @@ def write_reactors(in_list, out_path, reactor_template):
     for row in in_list:
         capacity = float(row[3])
         if capacity >= 400:
-            name = row[1].replace(' ', '_')
+            name = row[1].replace(' ', '_').lower()
             assem_per_batch = 0
             assem_no = 0
             assem_size = 0
@@ -190,8 +190,8 @@ def write_reactors(in_list, out_path, reactor_template):
                                                n_assem_batch=int(
                                                    assem_per_batch),
                                                power_cap=row[3])
-            with open(out_path + name.replace(' ', '_') + '.xml',
-                      'w') as output:
+            name = out_path + name.replace(' ', '_') + '.xml'
+            with open(name.lower(), 'w') as output:
                 output.write(rendered)
 
 
@@ -234,6 +234,7 @@ def write_deployment(in_dict, out_path, deployinst_template,
         with open(out_path + nation.replace(' ', '_') +
                   '/deployinst.xml', 'w') as output1:
             output1.write(deployinst)
+    in_dict = {k.lower(): v for k, v in in_dict.items()}
     inclusions = inclusions_template.render(reactors=in_dict)
     with open(out_path + 'inclusions.xml', 'w') as output2:
         output2.write(inclusions)
