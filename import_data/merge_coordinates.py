@@ -18,7 +18,7 @@ def get_cursor(file_name):
 
     Returns
     -------
-    sqlite cursor3
+    sqlite cursor
     """
     con = sql.connect(file_name)
     con.row_factory = sql.Row
@@ -26,6 +26,19 @@ def get_cursor(file_name):
 
 
 def import_pris(pris_link):
+    """ Opens pris_csv using Pandas. Adds Latitude and Longitude
+    columns
+
+    Parameters
+    ----------
+    pris_link: str
+        path to reactors_pris_2016.original.csv file
+
+    Returns
+    -------
+    pris: pd.Dataframe
+        pris database
+    """
     pris = pd.read_csv(pris_link,
                        delimiter=',',
                        encoding='iso-8859-1'
@@ -37,12 +50,39 @@ def import_pris(pris_link):
 
 
 def import_webscrape_data(scrape_link):
+    """ Returns sqlite content of webscrape by performing an
+    sqlite query
+
+    Parameters
+    ----------
+    scrape_link: str
+        path to webscrape.sqlite file
+
+    Returns
+    -------
+    coords: sqlite cursor
+        sqlite cursor containing webscrape data
+    """
     cur = get_cursor(scrape_link)
     coords = cur.execute("SELECT name, long, lat FROM reactors_coordinates")
     return coords
 
 
 def get_edge_cases():
+    """ Returns a dictionary of edge cases that fuzzywuzzy is
+    unable to catch. This could be because PRIS database stores
+    reactor names and Webscrape database fetches power plant names,
+    or because PRIS reactor names are abbreviated.
+
+    Parameters
+    ----------
+
+    Returns
+    -------
+    others: dict
+        dictionary of edge cases with "key=pris_reactor_name, and
+        value=webscrape_plant_name"
+    """
     others = {'OHI-': 'Ōi',
               'ASCO-': 'Ascó',
               'ROVNO-': 'Rivne',
@@ -67,6 +107,20 @@ def get_edge_cases():
 
 
 def sanitize_webscrape_name(name):
+    """ Sanitizes webscrape powerplant names by removing unwanted
+    strings (listed in blacklist), applying lower case, and deleting
+    trailing whitespace.
+
+    Parameters
+    ----------
+    name: str
+        webscrape plant name
+
+    Returns
+    -------
+    name: str
+        sanitized name for use with fuzzywuzzy
+    """
     blacklist = ['nuclear', 'power',
                  'plant', 'generating',
                  'station', 'reactor', 'atomic',
@@ -80,6 +134,22 @@ def sanitize_webscrape_name(name):
 
 
 def merge_coordinates(pris_link, scrape_link):
+    """ Merges webscrape data with pris data performed by string
+    comparison of reactor names from pris and webscrape. Returns
+    updated pris database with coordinates.
+
+    Parameters
+    ----------
+    pris_link: str
+        path to reactors_pris_2016.original.csv file
+    scrape_link: str
+        path to webscrape.sqlite file
+
+    Returns
+    -------
+    pris: pd.DataFrame
+        updated PRIS database with latitude and longitude info
+    """
     others = get_edge_cases()
     pris = import_pris(pris_link)
     coords = import_webscrape_data(scrape_link)
@@ -102,6 +172,17 @@ def merge_coordinates(pris_link, scrape_link):
 
 
 def save_output(pris):
+    """ Saves updated PRIS database as 'reactors_pris_2016.csv'
+
+    Parameters
+    ----------
+    pris: pd.DataFrame
+        updated PRIS database with latitude and longitude info
+
+    Returns
+    -------
+
+    """
     pris.to_csv('reactors_pris_2016.csv',
                 index=False,
                 sep=',',
@@ -109,10 +190,22 @@ def save_output(pris):
 
 
 def main(pris_link, scrape_link):
+    """ Calls all required functions to merge PRIS and webscrape
+
+    Parameters
+    ----------
+    pris_link: str
+        path to reactors_pris_2016.original.csv file
+    scrape_link: str
+        path to webscrape.sqlite file
+
+    Returns
+    -------
+
+    """
     pris = merge_coordinates(pris_link, scrape_link)
     save_output(pris)
 
 
 if __name__ == "__main__":
-    # print(import_pris(sys.argv[1]))
     main(sys.argv[1], sys.argv[2])
