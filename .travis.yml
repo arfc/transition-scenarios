@@ -28,11 +28,12 @@ install:
   - conda info -a
   - conda install -c conda-forge pyne 
   - conda install -c anaconda jinja2
-  - conda install -c conda-forge matplotlib
+  - conda install -c anaconda matplotlib
   - conda install -c anaconda numpy
   - conda install -c anaconda scipy
   - conda install -c anaconda numpy
   - conda install -c anaconda cython
+  - conda install -c anaconda pytest
 #  - mkdir github
 #  - cd github
 #  - git clone https://github.com/pyne/pyne
