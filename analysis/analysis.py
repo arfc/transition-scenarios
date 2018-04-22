@@ -8,10 +8,6 @@ from matplotlib import cm
 from pyne import nucname
 
 
-if len(sys.argv) < 2:
-    print('Usage: python analysis.py [cylus_output_file]')
-
-
 def get_cursor(file_name):
     """ Connects and returns a cursor to an sqlite output file
 
