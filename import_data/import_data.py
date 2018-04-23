@@ -386,12 +386,12 @@ def confirm_deployment(date_str, capacity):
             in CYCLUS
     """
     is_deployed = False
-    if len(date_str) > 4 and capacity > 400:
+    if len(date_str) > 4 and float(capacity) > 400:
         try:
             date.parse(date_str)
+            is_deployed = True
         except:
-            is_deployed = False
-        is_deployed = True
+            pass
     return is_deployed
 
 
