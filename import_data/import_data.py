@@ -6,7 +6,6 @@ import os
 import pathlib
 import pandas as pd
 import sqlite3 as sql
-import sys
 from fuzzywuzzy import fuzz
 from pyne import nucname as nn
 
@@ -505,6 +504,8 @@ def write_reactors(in_list, out_path, reactor_template):
             assem_no = 0
             assem_size = 0
             reactor_type = row[2]
+            latitude = row[13] if row[13] != '' else 0
+            longitude = row[14] if row[14] != '' else 0
             if reactor_type in ['BWR', 'ESBWR']:
                 assem_no = 732
                 assem_per_batch = int(assem_no / 3)
@@ -539,8 +540,8 @@ def write_reactors(in_list, out_path, reactor_template):
                                              n_assem_core=assem_no,
                                              n_assem_batch=assem_per_batch,
                                              power_cap=row[3],
-                                             lon=row[14],
-                                             lat=row[13])
+                                             lon=longitude,
+                                             lat=latitude)
             with open(out_path + name.replace(' ', '_') + '.xml',
                       'w') as output:
                 output.write(config)
