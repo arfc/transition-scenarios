@@ -13,6 +13,9 @@
       <n_assem_core>{{n_assem_core}}</n_assem_core>
       <n_assem_batch>{{n_assem_batch}}</n_assem_batch>
       <power_cap>{{power_cap}}</power_cap>
+      <longitude>{{lon}}</longitude>
+      <latitude>{{lat}}</latitude>
     </Reactor>
+    
   </config>
 </facility>
