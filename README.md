@@ -16,7 +16,7 @@ REPORT
 ======
 
 To view the the report which includes the procedure, results and their
-explanations, please view `UNITED_STATES.ipynb` or `europe.ipynb`.
+explanations, please view `united_states.ipynb` or `europe.ipynb`.
 
 Not Ready For Reuse
 ====================
