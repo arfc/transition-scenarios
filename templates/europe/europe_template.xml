@@ -1,6 +1,7 @@
 ﻿<simulation xml:base="{{base_dir}}"
   xmlns:xi="http://www.w3.org/2001/XInclude">
   <control>
+  	<decay>lazy</decay>
     <duration>1400</duration>
     <startmonth>1</startmonth>
     <startyear>1965</startyear>
@@ -58,7 +59,6 @@
         <in_commods>
           <val>nat_u</val>
         </in_commods>
-        <in_recipe>nat_u</in_recipe>
         <out_commods>
           <val>u3o8</val>
         </out_commods>
@@ -74,7 +74,6 @@
         <in_commods>
           <val>u3o8</val>
         </in_commods>
-        <in_recipe>u3o8</in_recipe>
         <out_commods>
           <val>uf6</val>
         </out_commods>
@@ -104,7 +103,6 @@
         <in_commods>
           <val>enr_u</val>
         </in_commods>
-        <in_recipe>enr_u</in_recipe>
         <out_commods>
           <val>fresh_uox</val>
         </out_commods>
@@ -120,7 +118,6 @@
         <in_commods>
           <val>spent_uox</val>
         </in_commods>
-        <in_recipe>spent_uox</in_recipe>
         <out_commods>
           <val>cool_spent_uox</val>
         </out_commods>
@@ -136,7 +133,6 @@
         <in_commods>
           <val>cool_spent_uox</val>
         </in_commods>
-        <in_recipe>cool_spent_uox</in_recipe>
         <out_commods>
           <val>casked_spent_uox</val>
         </out_commods>
