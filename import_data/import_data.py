@@ -4,6 +4,7 @@ import jinja2
 import numpy as np
 import os
 import pathlib
+import pandas as pd
 import sqlite3 as sql
 import sys
 from fuzzywuzzy import fuzz
@@ -27,46 +28,64 @@ def get_cursor(file_name):
     return con.cursor()
 
 
-def is_int(str):
-    """ Checks if input string is a number rather than a letter
-
-    Parameters
-    ----------
-    str: str
-        string to test
-
-    Returns
-    -------
-    answer: bool
-        returns True if string is a number; False if string is not
-    """
-    answer = False
-    try:
-        a = int(str)
-    except ValueError:
-        answer = False
-        return answer
-    answer = True
-    return answer
-
-
-def merge_coordinates(pris_link, scrape):
-    """ Obtains coordinates from webscrape.sqlite and
-    writes them to matching reactors in PRIS reactor file.
+def import_pris(pris_link):
+    """ Opens pris_csv using Pandas. Adds Latitude and Longitude
+    columns
 
     Parameters
     ----------
     pris_link: str
-        path and name of pris reactor text file
-    scrape: str
-        path and name of webscrape sqlite file
+        path to reactors_pris_2016.original.csv file
 
     Returns
     -------
-    null
-        Writes pris text file with coordinates
+    pris: pd.Dataframe
+        pris database
     """
-    pris = []
+    pris = pd.read_csv(pris_link,
+                       delimiter=',',
+                       encoding='iso-8859-1'
+                       )
+    pris.insert(13, 'Latitude', np.nan)
+    pris.insert(14, 'Longitude', np.nan)
+    pris = pris.replace(np.nan, '')
+    return pris
+
+
+def import_webscrape_data(scrape_link):
+    """ Returns sqlite content of webscrape by performing an
+    sqlite query
+
+    Parameters
+    ----------
+    scrape_link: str
+        path to webscrape.sqlite file
+
+    Returns
+    -------
+    coords: sqlite cursor
+        sqlite cursor containing webscrape data
+    """
+    cur = get_cursor(scrape_link)
+    coords = cur.execute("SELECT name, long, lat FROM reactors_coordinates")
+    return coords
+
+
+def get_edge_cases():
+    """ Returns a dictionary of edge cases that fuzzywuzzy is
+    unable to catch. This could be because PRIS database stores
+    reactor names and Webscrape database fetches power plant names,
+    or because PRIS reactor names are abbreviated.
+
+    Parameters
+    ----------
+
+    Returns
+    -------
+    others: dict
+        dictionary of edge cases with "key=pris_reactor_name, and
+        value=webscrape_plant_name"
+    """
     others = {'OHI-': 'Ōi',
               'ASCO-': 'Ascó',
               'ROVNO-': 'Rivne',
@@ -90,44 +109,105 @@ def merge_coordinates(pris_link, scrape):
               'FITZPATRICK': 'James A. FitzPatrick',
               'HIGASHI DORI-1 (TOHOKU)': 'Higashidōri',
               }
+    return others
+
+
+def sanitize_webscrape_name(name):
+    """ Sanitizes webscrape powerplant names by removing unwanted
+    strings (listed in blacklist), applying lower case, and deleting
+    trailing whitespace.
+
+    Parameters
+    ----------
+    name: str
+        webscrape plant name
+
+    Returns
+    -------
+    name: str
+        sanitized name for use with fuzzywuzzy
+    """
     blacklist = ['nuclear', 'power',
                  'plant', 'generating',
                  'station', 'reactor', 'atomic',
                  'energy', 'center', 'electric']
-    with open(pris_link, encoding='utf-8') as src:
-        reader = csv.reader(src, delimiter=',')
-        pris.extend(reader)
-        cur = get_cursor(scrape)
-        coords = cur.execute(
-            "SELECT name, long, lat FROM reactors_coordinates")
-        for web in coords:
-            for prs in pris[1:]:
-                name_web = web['name'].lower()
-                name_prs = prs[1]
-                for blacklisted in blacklist:
-                    name_web = name_web.replace(blacklisted, '')
-                if prs[1].find('-') != -1 and is_int(prs[1][-1]):
-                    if prs[1][prs[1].find('-') + 1:].find('-') != -1:
-                        idx = prs[1].find('-')
-                        idx += prs[1][prs[1].find('-') + 1:].find('-')
-                        name_prs = prs[1][:idx]
-                    else:
-                        name_prs = prs[1][:prs[1].find('-')]
-                if fuzz.ratio(name_web.rstrip(), name_prs.lower()) > 78:
-                    # print(name_web.rstrip(), ' and ', prs[1].lower())
-                    prs[13] = web['lat']
-                    prs[14] = web['long']
-                else:
-                    for other in others.keys():
-                        if fuzz.ratio(prs[1].lower(), other.lower()) > 80:
-                            if fuzz.ratio(others[other].lower(),
-                                          name_web.rstrip().lower()) > 75:
-                                # print(prs[1], ' and ', name_web.rstrip())
-                                prs[13] = web['lat']
-                                prs[14] = web['long']
-    with open('reactors_pris_2016.csv', 'w') as output:
-        writer = csv.writer(output, delimiter=',')
-        writer.writerows(pris)
+    name = name.lower()
+    for blacklisted in blacklist:
+        name = name.replace(blacklisted, '')
+    name = name.strip()
+    name = ' '.join(name.split())
+    return name
+
+
+def sanitize_pris_name(name):
+    pris_name = name.lower()
+    if pris_name.find('-') != -1 and is_int(pris_name[-1]):
+        if pris_name[pris_name.find('-') + 1:].find('-') != -1:
+            idx = pris_name.find('-')
+            idx += pris_name[pris_name.find('-') + 1:].find('-')
+            pris_name = pris_name[:idx]
+        else:
+            pris_name = pris_name[:pris_name.find('-')]
+    return pris_name
+
+
+def is_int(str):
+    """ Checks if input string is a number rather than a letter
+
+    Parameters
+    ----------
+    str: str
+        string to test
+
+    Returns
+    -------
+    answer: bool
+        returns True if string is a number; False if string is not
+    """
+    answer = False
+    try:
+        int(str)
+    except ValueError:
+        return answer
+    answer = True
+    return answer
+
+
+def merge_coordinates(pris_link, scrape_link):
+    """ Obtains coordinates from webscrape.sqlite and
+    writes them to matching reactors in PRIS reactor file.
+
+    Parameters
+    ----------
+    pris_link: str
+        path and name of pris reactor text file
+    scrape: str
+        path and name of webscrape sqlite file
+
+    Returns
+    -------
+    null
+        Writes pris text file with coordinates
+    """
+    others = get_edge_cases()
+    pris = import_pris(pris_link)
+    coords = import_webscrape_data(scrape_link)
+    for web in coords:
+        for i, prs in pris.iterrows():
+            webscrape_name = sanitize_webscrape_name(web['name'])
+            pris_name = sanitize_pris_name(prs[1])
+            if fuzz.ratio(webscrape_name, pris_name) > 78:
+                prs[13] = web['lat']
+                prs[14] = web['long']
+            else:
+                for other in others.keys():
+                    edge_case_key = other.lower()
+                    edge_case_value = others[other].lower()
+                    if fuzz.ratio(pris_name, edge_case_key) > 80:
+                        if fuzz.ratio(webscrape_name, edge_case_value) > 75:
+                            prs[13] = web['lat']
+                            prs[14] = web['long']
+    pris.to_csv('reactors_pris_2016.csv', index=False, sep=',')
 
 
 def import_csv(in_csv, delimit):
