@@ -1,13 +1,12 @@
-import analysis as an
 import numpy as np
 import pytest
 import collections
 import sqlite3 as lite
 import os
-
-
-dir = os.path.dirname(__file__)
-test_sqlite_path = os.path.join(dir, 'test.sqlite')
+import sys
+path = os.path.realpath(__file__)
+sys.path.append(os.path.dirname(os.path.dirname(path)))
+import analysis as an
 
 
 def get_sqlite():
