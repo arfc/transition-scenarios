@@ -8,6 +8,8 @@ path = os.path.realpath(__file__)
 sys.path.append(os.path.dirname(os.path.dirname(path)))
 import analysis as an
 
+dir = os.path.dirname(__file__)
+test_sqlite_path = os.path.join(dir, 'test.sqlite')
 
 def get_sqlite():
     con = lite.connect(test_sqlite_path)
