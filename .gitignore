@@ -74,8 +74,5 @@ target/
 .ipynb_checkpoints
 
 *.sqlite
-.sqlite
-cyclus_output/
-cyclus_output/*
-cyclus/
-analysis/results/
+input/predicting-the-past/cyclus/*
+input/predicting-the-past/analysis/results/*
