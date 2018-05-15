@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import sqlite3 as lite
 import sys
 from itertools import cycle
+import matplotlib
 from matplotlib import cm
 from pyne import nucname
 
@@ -13,7 +14,7 @@ if len(sys.argv) < 2:
 
 
 def get_cursor(file_name):
-    """ Connects and returns a cursor to an sqlite output file
+    """Connects and returns a cursor to an sqlite output file
 
     Parameters
     ----------
@@ -30,7 +31,7 @@ def get_cursor(file_name):
 
 
 def get_agent_ids(cur, archetype):
-    """ Gets all agentIds from Agententry table for wanted archetype
+    """Gets all agentIds from Agententry table for wanted archetype
 
         agententry table has the following format:
             SimId / AgentId / Kind / Spec /
@@ -56,7 +57,7 @@ def get_agent_ids(cur, archetype):
 
 
 def get_prototype_id(cur, prototype):
-    """ Returns agentid of a prototype
+    """Returns agentid of a prototype
 
     Parameters
     ----------
@@ -78,7 +79,7 @@ def get_prototype_id(cur, prototype):
 
 
 def get_inst(cur):
-    """ Returns prototype and agentids of institutions
+    """Returns prototype and agentids of institutions
 
     Parameters
     ----------
@@ -94,7 +95,7 @@ def get_inst(cur):
 
 
 def timestep_to_years(init_year, timestep):
-    """ Returns list of years in simulation
+    """Returns list of years in simulation
 
     Parameters
     ----------
@@ -112,7 +113,7 @@ def timestep_to_years(init_year, timestep):
 
 
 def exec_string(in_list, search, request_colmn):
-    """ Generates sqlite query command to select things and
+    """Generates sqlite query command to select things and
         inner join resources and transactions.
 
     Parameters
@@ -153,7 +154,7 @@ def exec_string(in_list, search, request_colmn):
 
 
 def get_timesteps(cur):
-    """ Returns simulation start year, month, duration and
+    """Returns simulation start year, month, duration and
     timesteps (in numpy linspace).
 
     Parameters
@@ -183,7 +184,7 @@ def get_timesteps(cur):
 
 
 def get_timeseries(in_list, duration, kg_to_tons):
-    """ returns a timeseries list from in_list data.
+    """returns a timeseries list from in_list data.
 
     Parameters
     ----------
@@ -215,7 +216,7 @@ def get_timeseries(in_list, duration, kg_to_tons):
 
 
 def get_timeseries_cum(in_list, duration, kg_to_tons):
-    """ returns a timeseries list from in_list data.
+    """returns a timeseries list from in_list data.
 
     Parameters
     ----------
@@ -279,7 +280,7 @@ def get_isotope_transactions(resources, compositions):
 def facility_commodity_flux(cur, agent_ids,
                             commod_list, is_outflux,
                             is_cum=True):
-    """ Returns dictionary of commodity in/outflux from agents
+    """Returns dictionary of commodity in/outflux from agents
 
     Parameters
     ----------
@@ -322,7 +323,7 @@ def facility_commodity_flux(cur, agent_ids,
 
 def commodity_flux_region(cur, agent_ids, commodity_list,
                           is_outflux, is_cum=True):
-    """ Returns dictionary of timeseries of all the commodity outflux,
+    """Returns dictionary of timeseries of all the commodity outflux,
         that is either coming in/out of the agent
         separated by region
 
@@ -381,7 +382,7 @@ def commodity_flux_region(cur, agent_ids, commodity_list,
 
 def facility_commodity_flux_isotopics(cur, agent_ids,
                                       commod_list, is_outflux, is_cum=True):
-    """ Returns timeseries isotoptics of commodity in/outflux
+    """Returns timeseries isotoptics of commodity in/outflux
     from agents
 
     Parameters
@@ -431,7 +432,7 @@ def facility_commodity_flux_isotopics(cur, agent_ids,
 
 
 def get_stockpile(cur, facility, is_cum=True):
-    """ gets inventory timeseries in a fuel facility
+    """gets inventory timeseries in a fuel facility
 
     Parameters
     ----------
@@ -464,7 +465,7 @@ def get_stockpile(cur, facility, is_cum=True):
 
 
 def get_swu_dict(cur, is_cum=True):
-    """ returns dictionary of swu timeseries for each enrichment plant
+    """returns dictionary of swu timeseries for each enrichment plant
 
     Parameters
     ----------
@@ -497,7 +498,7 @@ def get_swu_dict(cur, is_cum=True):
 
 
 def get_power_dict(cur):
-    """ Gets dictionary of power capacity by calling capacity_calc
+    """Gets dictionary of power capacity by calling capacity_calc
 
     Parameters
     ----------
@@ -514,25 +515,45 @@ def get_power_dict(cur):
     governments = get_inst(cur)
 
     # get power cap values
-    entry = cur.execute('SELECT max(value), timeseriespower.agentid, '
-                        'parentid, entertime FROM agententry '
-                        'INNER JOIN timeseriespower '
-                        'ON agententry.agentid = timeseriespower.agentid '
-                        'GROUP BY timeseriespower.agentid').fetchall()
+    entry_exit = cur.execute('SELECT max(value), timeseriespower.agentid, '
+                             'parentid, entertime, entertime + lifetime'
+                             ' FROM agententry '
+                             'INNER JOIN timeseriespower '
+                             'ON agententry.agentid = timeseriespower.agentid '
+                             'GROUP BY timeseriespower.agentid').fetchall()
 
-    exit_step = cur.execute('SELECT max(value), timeseriespower.agentid, '
-                            'parentid, exittime FROM agentexit '
-                            'INNER JOIN timeseriespower '
-                            'ON agentexit.agentid = timeseriespower.agentid'
-                            ' INNER JOIN agententry '
-                            'ON agentexit.agentid = agententry.agentid '
-                            'GROUP BY timeseriespower.agentid').fetchall()
+    return capacity_calc(governments, timestep, entry_exit)
 
-    return capacity_calc(governments, timestep, entry, exit_step)
 
+def get_power_dict_of_region(cur, region_name):
+    """Gets dictionary of power capacity of a specific region
+
+    Parameters
+    ----------
+    cur: sqlite cursor
+    region_name: str
+        name of region to serach for
+
+    Returns
+    -------
+    power_dict: dictionary
+        "dictionary with key=government and
+        value=timeseries list of installed capacity"
+    """
+    parentid = cur.exectue('SELECT agentid FROM agententry WHERE '
+                           'Prototype LIKE "%' + region_name + '%" '
+                           'AND Kind = "Inst"').fetchone()
+
+    entry_exit = cur.execute('SELECT max(value), timeseriespower.agentid, '
+                             'parentid, entrytime, entertime + lifetime'
+                             ' FROM agententry '
+                             'INNER JOIN timeseriespower '
+                             'ON agententry.agentid = timeseriespower.agentid '
+                             'GROUP BY timeseriespower.agentid '
+                             'WHERE parentid = %i' %parentid[0]).fetchall()
 
 def get_deployment_dict(cur):
-    """ Gets dictionary of reactors deployed over time
+    """Gets dictionary of reactors deployed over time
     by calling reactor_deployments
 
     Parameters
@@ -567,7 +588,7 @@ def get_deployment_dict(cur):
 
 
 def fuel_usage_timeseries(cur, fuel_list, is_cum=True):
-    """ Calculates total fuel usage over time
+    """Calculates total fuel usage over time
 
     Parameters
     ----------
@@ -608,7 +629,7 @@ def fuel_usage_timeseries(cur, fuel_list, is_cum=True):
 
 
 def nat_u_timeseries(cur, is_cum=True):
-    """ Finds natural uranium supply from source
+    """Finds natural uranium supply from source
         Since currently the source supplies all its capacity,
         the timeseriesenrichmentfeed is used.
 
@@ -640,7 +661,7 @@ def nat_u_timeseries(cur, is_cum=True):
 def get_trade_dict(cur, sender, receiver,
                    is_prototype, do_isotopic,
                    is_cum=True):
-    """ Returns trade timeseries between two prototypes' or facilities
+    """Returns trade timeseries between two prototypes' or facilities
     with or without isotopics
 
     Parameters
@@ -725,7 +746,7 @@ def get_trade_dict(cur, sender, receiver,
 
 
 def final_stockpile(cur, facility):
-    """ get final stockpile in a fuel facility
+    """get final stockpile in a fuel facility
 
     Parameters
     ----------
@@ -778,7 +799,7 @@ def final_stockpile(cur, facility):
 
 
 def fuel_into_reactors(cur, is_cum=True):
-    """ Finds timeseries of mass of fuel received by reactors
+    """Finds timeseries of mass of fuel received by reactors
 
     Parameters
     ----------
@@ -807,7 +828,7 @@ def fuel_into_reactors(cur, is_cum=True):
 
 
 def u_util_calc(cur):
-    """ Returns fuel utilization factor of fuel cycle
+    """Returns fuel utilization factor of fuel cycle
 
     Parameters
     ----------
@@ -835,7 +856,7 @@ def u_util_calc(cur):
 
 
 def where_comm(cur, commodity, prototypes, is_cum=True):
-    """ Returns dict of where a commodity is from
+    """Returns dict of where a commodity is from
 
     Parameters
     ----------
@@ -868,6 +889,42 @@ def where_comm(cur, commodity, prototypes, is_cum=True):
         else:
             trade_dict[agent] = get_timeseries(from_agent, duration, True)
     return trade_dict
+
+
+def commod_per_inst(cur, commodity, timestep=10000):
+    """Outputs outflux of commodity per institution
+        before timestep
+
+    Parameters
+    ----------
+    cur: sqlite cursor
+        sqlite cursor
+    commodity: str
+        commodity to search for
+
+    Returns
+    -------
+    inst_output_dict: dictionary
+        key = institution
+        value = timeseries list of outflux of commodity
+    """
+
+    institutions = get_inst(cur)
+    inst_output_dict = collections.OrderedDict()
+    for inst in institutions:
+        inst_id = inst[1]
+        inst_name = inst[0]
+        facilities = cur.execute('SELECT agentid FROM agententry '
+                                 'WHERE parentid = ' + str(inst_id)).fetchall()
+        facilities_list = []
+        for fac in facilities:
+            facilities_list.append(fac[0])
+        query = exec_string(facilities_list, 'senderid', 'sum(quantity)')
+        query += ' AND commodity = "' + commodity + \
+            '" and time < ' + str(timestep)
+        inst_output_dict[inst_name] = cur.execute(query).fetchone()[0]
+
+    return inst_output_dict
 
 
 def get_waste_dict(isotope_list, mass_list, time_list, duration):
@@ -908,7 +965,7 @@ def get_waste_dict(isotope_list, mass_list, time_list, duration):
     return waste_dict
 
 
-def capacity_calc(governments, timestep, entry, exit_step):
+def capacity_calc(governments, timestep, entry_exit):
     """Adds and subtracts capacity over time for plotting
 
     Parameters
@@ -917,12 +974,9 @@ def capacity_calc(governments, timestep, entry, exit_step):
         list of governments (countries)
     timestep: np.linspace
         list of timestep from 0 to simulation time
-    entry: list
-        power_cap, agentid, parentid, entertime
+    entry_exit: list
+        power_cap, agentid, parentid, entertime, exittime
         of all entered reactors
-    exit_step: list
-        power_cap, agentid, parenitd, exittime
-        of all decommissioned reactors
 
     Returns
     -------
@@ -935,14 +989,13 @@ def capacity_calc(governments, timestep, entry, exit_step):
         capacity = []
         cap = 0
         for t in timestep:
-            for enter in entry:
-                if (enter['entertime'] == t and
-                        enter['parentid'] == gov['agentid']):
-                    cap += enter['max(value)'] * 0.001
-            for dec in exit_step:
-                if (dec['exittime'] == t and
-                        dec['parentid'] == gov['agentid']):
-                    cap -= dec['max(value)'] * 0.001
+            for agent in entry_exit:
+                if (agent['entertime'] == t and
+                        agent['parentid'] == gov['agentid']):
+                    cap += agent['max(value)'] * 0.001
+                if (agent['entertime + lifetime'] == t and
+                        agent['parentid'] == gov['agentid']):
+                    cap -= agent['max(value)'] * 0.001
             capacity.append(cap)
         power_dict[gov['prototype']] = np.asarray(capacity)
 
@@ -995,7 +1048,7 @@ def reactor_deployments(governments, timestep, entry, exit_step):
 def multiple_line_plots(dictionary, timestep,
                         xlabel, ylabel, title,
                         outputname, init_year):
-    """ Creates multiple line plots of timestep vs dictionary
+    """Creates multiple line plots of timestep vs dictionary
 
     Parameters
     ----------
@@ -1048,7 +1101,7 @@ def multiple_line_plots(dictionary, timestep,
 def combined_line_plot(dictionary, timestep,
                        xlabel, ylabel, title,
                        outputname, init_year):
-    """ Creates a combined line plot of timestep vs dictionary
+    """Creates a combined line plot of timestep vs dictionary
 
     Parameters
     ----------
@@ -1104,7 +1157,7 @@ def combined_line_plot(dictionary, timestep,
 def double_axis_bar_line_plot(dictionary1, dictionary2, timestep,
                               xlabel, ylabel1, ylabel2,
                               title, outputname, init_year):
-    """ Creates a double-axis plot of timestep vs dictionary
+    """Creates a double-axis plot of timestep vs dictionary
 
     It is recommended that a non-cumulative timeseries is on dictionary1.
 
@@ -1194,7 +1247,7 @@ def double_axis_bar_line_plot(dictionary1, dictionary2, timestep,
 def double_axis_line_line_plot(dictionary1, dictionary2, timestep,
                                xlabel, ylabel1, ylabel2,
                                title, outputname, init_year):
-    """ Creates a double-axis plot of timestep vs dictionary
+    """Creates a double-axis plot of timestep vs dictionary
 
     Parameters
     ----------
@@ -1289,7 +1342,7 @@ def double_axis_line_line_plot(dictionary1, dictionary2, timestep,
 def stacked_bar_chart(dictionary, timestep,
                       xlabel, ylabel, title,
                       outputname, init_year):
-    """ Creates stacked bar chart of timstep vs dictionary
+    """Creates stacked bar chart of timstep vs dictionary
 
     Parameters
     ----------
@@ -1324,9 +1377,9 @@ def stacked_bar_chart(dictionary, timestep,
         if sum(dictionary[key]) == 0:
             print(label + ' has no values')
         elif top_index is True:
-            plot = plt.bar(left=timestep_to_years(init_year, timestep),
+            plot = plt.bar(x=timestep_to_years(init_year, timestep),
                            height=dictionary[key],
-                           width=0.1,
+                           width=0.5,
                            color=cm.viridis(
                 float(color_index) / len(dictionary)),
                 edgecolor='none',
@@ -1338,9 +1391,9 @@ def stacked_bar_chart(dictionary, timestep,
         # All curves except the first have a 'bottom'
         # defined by the previous curve
         else:
-            plot = plt.bar(left=timestep_to_years(init_year, timestep),
+            plot = plt.bar(x=timestep_to_years(init_year, timestep),
                            height=dictionary[key],
-                           width=0.1,
+                           width=0.5,
                            color=cm.viridis(
                 float(color_index) / len(dictionary)),
                 edgecolor='none',
@@ -1368,7 +1421,7 @@ def stacked_bar_chart(dictionary, timestep,
 
 
 def plot_power(cur):
-    """ Gets capacity vs time for every country
+    """Gets capacity vs time for every country
         in stacked bar chart.
 
     Parameters
@@ -1448,7 +1501,7 @@ def plot_in_out_flux(cur, facility, influx_bool, title, outputname):
 
 
 def entered_power(cur):
-    """ Returns dictionary of power entered into simulation.
+    """Returns dictionary of power entered into simulation.
 
     Parameters
     ---------
@@ -1473,7 +1526,7 @@ def entered_power(cur):
 
 
 def source_throughput(cur, duration, frac_prod, frac_tail):
-    """ Calculates throughput required for nat_u source before enrichment
+    """Calculates throughput required for nat_u source before enrichment
     by calculating the average mass of fuel gone into reactors over
     simulation. Assuming natural uranium is put as feed
 
