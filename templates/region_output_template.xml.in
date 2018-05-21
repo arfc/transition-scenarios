@@ -1,0 +1,16 @@
+  
+  <region>
+    <name>{{country}}</name>
+    <config><NullRegion/></config>
+    <institution>
+      <name>{{country_gov}}</name>
+      <config>
+        <DeployInst>
+
+          {{ deployinst }}
+          
+        </DeployInst>
+      </config>
+    </institution>
+  </region>
+
