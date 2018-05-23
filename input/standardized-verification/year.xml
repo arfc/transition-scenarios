@@ -88,7 +88,7 @@ by Feng et al. (2016)
                     </stream>
                 </in_streams>
                 <out_commod>sfr_fuel_from_uox</out_commod>
-                <out_buf_size>2e100</out_buf_size>
+                <out_buf_size>2e3</out_buf_size>
                 <throughput>2e100</throughput>
             </Mixer>
         </config>
@@ -125,7 +125,7 @@ by Feng et al. (2016)
                     </stream>
                 </in_streams>
                 <out_commod>sfr_fuel_from_sfr</out_commod>
-                <out_buf_size>2e100</out_buf_size>
+                <out_buf_size>2e3</out_buf_size>
                 <throughput>2e100</throughput>
             </Mixer>
         </config>
