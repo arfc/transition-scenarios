@@ -1,0 +1,1074 @@
+<!--
+This input file simulates
+the paper Standards Verification of Fuel Cycle Modeling
+by Feng et al. (2016)
+-->
+<simulation>
+    <control>
+        <!-- 2015 to 2115 -->
+        <startmonth>6</startmonth>
+        <startyear>2014</startyear>
+        <!-- Timestep is half a year now -->
+        <dt>15768000</dt>
+        <duration>201</duration>
+        <decay>manual</decay>
+    </control>
+    <archetypes>
+        <spec>
+            <lib>cycamore</lib>
+            <name>Source</name>
+        </spec>
+        <spec>
+            <lib>cycamore</lib>
+            <name>Sink</name>
+        </spec>
+        <spec>
+            <lib>cycamore</lib>
+            <name>Reactor</name>
+        </spec>
+        <spec>
+            <lib>agents</lib>
+            <name>NullRegion</name>
+        </spec>
+        <spec>
+            <lib>agents</lib>
+            <name>NullInst</name>
+        </spec>
+        <spec>
+            <lib>cycamore</lib>
+            <name>DeployInst</name>
+        </spec>
+        <spec>
+            <lib>cycamore</lib>
+            <name>Separations</name>
+        </spec>
+        <spec>
+            <lib>cycamore</lib>
+            <name>Enrichment</name>
+        </spec>
+        <spec>
+            <lib>cycamore</lib>
+            <name>Mixer</name>
+        </spec>
+        <spec>
+            <lib>cycamore</lib>
+            <name>Storage</name>
+        </spec>
+    </archetypes>
+
+    <facility>
+        <name>sfr_mixer_sfr</name>
+        <config>
+            <Mixer>
+                <in_streams>
+                    <stream>
+                        <info>
+                            <mixing_ratio>0.1387</mixing_ratio>
+                            <buf_size>2e100</buf_size>
+                        </info>
+                        <commodities>
+                            <item>
+                                <commodity>pu</commodity>
+                                <pref>1.0</pref>
+                            </item>
+                        </commodities>
+                    </stream>
+                    <stream>
+                        <info>
+                            <mixing_ratio>0.8613</mixing_ratio>
+                            <buf_size>2e100</buf_size>
+                        </info>
+                        <commodities>
+                            <item>
+                                <commodity>u</commodity>
+                                <pref>1.0</pref>
+                            </item>
+                        </commodities>
+                    </stream>
+                </in_streams>
+                <out_commod>sfr_fuel</out_commod>
+                <out_buf_size>2e100</out_buf_size>
+                <throughput>2e100</throughput>
+            </Mixer>
+        </config>
+    </facility>
+
+    <!-- MIXER END-->
+
+    <!-- REPROCESSING: separates Pu and U from UNF -->
+    <facility>
+        <name>uox_reprocessing</name>
+        <config>
+            <Separations>
+                <feed_commods>
+                    <val>cooled_uox_unf</val>
+                </feed_commods>
+                <feedbuf_size>2e100</feedbuf_size>
+                <throughput>1e6</throughput>
+                <leftover_commod>uox_raffinate</leftover_commod>
+                <leftoverbuf_size>2e100</leftoverbuf_size>
+                <streams>
+                    <item>
+                        <commod>pu</commod>
+                        <info>
+                            <buf_size>2e100</buf_size>
+                            <efficiencies>
+                                <item>
+                                    <comp>Pu</comp>
+                                    <eff>1</eff>
+                                </item>
+                            </efficiencies>
+                        </info>
+                    </item>
+                    <item>
+                        <commod>u</commod>
+                        <info>
+                            <buf_size>2e100</buf_size>
+                            <efficiencies>
+                                <item>
+                                    <comp>U</comp>
+                                    <eff>1</eff>
+                                </item>
+                            </efficiencies>
+                        </info>
+                    </item>
+                </streams>
+            </Separations>
+        </config>
+    </facility>
+
+
+    <facility>
+        <name>sfr_reprocessing</name>
+        <config>
+            <Separations>
+                <feed_commods>
+                    <val>cooled_sfr_unf</val>
+                </feed_commods>
+                <feedbuf_size>2e100</feedbuf_size>
+                <throughput>2e100</throughput>
+                <leftover_commod>sfr_raffinate</leftover_commod>
+                <leftoverbuf_size>2e100</leftoverbuf_size>
+                <streams>
+                    <item>
+                        <commod>pu</commod>
+                        <info>
+                            <buf_size>2e100</buf_size>
+                            <efficiencies>
+                                <item>
+                                    <comp>Pu</comp>
+                                    <eff>1</eff>
+                                </item>
+                            </efficiencies>
+                        </info>
+                    </item>
+                    <item>
+                        <commod>u</commod>
+                        <info>
+                            <buf_size>2e100</buf_size>
+                            <efficiencies>
+                                <item>
+                                    <comp>U</comp>
+                                    <eff>1</eff>
+                                </item>
+                            </efficiencies>
+                        </info>
+                    </item>
+                </streams>
+            </Separations>
+        </config>
+    </facility>
+
+    <!-- REPROCESSING END -->
+
+    <!-- ENRICHMENT & SOURCE -->
+    <facility>
+        <name>enrichment</name>
+        <config>
+            <Enrichment>
+                <feed_commod>natl_u</feed_commod>
+                <feed_recipe>natl_u_recipe</feed_recipe>
+                <product_commod>uox</product_commod>
+                <tails_assay>0.0025</tails_assay>
+                <tails_commod>tails</tails_commod>
+                <swu_capacity>1e100</swu_capacity>
+                <initial_feed>1e100</initial_feed>
+            </Enrichment>
+        </config>
+    </facility>
+
+    <facility>
+        <name>natl_u_source</name>
+        <config>
+            <Source>
+                <outcommod>natl_u</outcommod>
+                <outrecipe>natl_u_recipe</outrecipe>
+                <throughput>1e100</throughput>
+            </Source>
+        </config>
+    </facility>
+
+    <facility>
+        <name>inf_sfr_fuel_source</name>
+        <config>
+            <Source>
+                <outcommod>sfr_fuel_from_uox</outcommod>
+                <outrecipe>sfr_fuel_recipe</outrecipe>
+                <throughput>1e100</throughput>
+            </Source>
+        </config>
+    </facility>
+
+    <!-- ENRICHMENT & SOURCE END-->
+
+    <!-- SINK AND STORAGE-->
+    <facility>
+        <name>raffinate_sink</name>
+        <config>
+            <Sink>
+                <in_commods>
+                    <val>uox_raffinate</val>
+                    <val>sfr_raffinate</val>
+                </in_commods>
+                <capacity>1e299</capacity>
+            </Sink>
+        </config>
+    </facility>
+
+
+    <facility>
+        <!-- Stores uox unf for 4years -->
+        <name>uox_unf_storage</name>
+        <config>
+            <Storage>
+                <in_commods>
+                    <val>uox_unf</val>
+                </in_commods>
+                <!-- this is 6 because there is already a delay-->
+                <!-- with moving fuel from reprocessing - mixer - reactor-->
+                <residence_time>6</residence_time>
+                <out_commods>
+                    <val>cooled_uox_unf</val>
+                </out_commods>
+            </Storage>
+        </config>
+    </facility>
+
+
+
+    <facility>
+        <!-- Stores sfr unf for 1year-->
+        <name>sfr_unf_storage</name>
+        <config>
+            <Storage>
+                <in_commods>
+                    <val>sfr_unf</val>
+                </in_commods>
+                <!-- this is 0 because there is already a delay-->
+                <!-- with moving fuel from reprocessing - mixer - reactor-->
+                <residence_time>0</residence_time>
+                <out_commods>
+                    <val>cooled_sfr_unf</val>
+                </out_commods>
+            </Storage>
+        </config>
+    </facility>
+
+
+    <facility>
+        <name>tails_storage</name>
+        <config>
+            <Storage>
+                <in_commods>
+                    <val>tails</val>
+                </in_commods>
+                <out_commods>
+                    <val>dep_u</val>
+                </out_commods>
+            </Storage>
+        </config>
+    </facility>
+
+    <!-- SINK AND STORAGE END-->
+
+
+    <facility>
+        <name>sfr_fuel_temp</name>
+        <config>
+            <Storage>
+                <in_commods>
+                    <val>sfr_fuel</val>
+                </in_commods>
+                <out_commods>
+                    <val>sfr_fuel_real</val>
+                </out_commods>
+            </Storage>
+        </config>
+    </facility>
+
+    <facility>
+        <name>sfr_fuel_from_sfr_temp</name>
+        <config>
+            <Storage>
+                <in_commods>
+                    <val>sfr_fuel_from_sfr</val>
+                </in_commods>
+                <out_commods>
+                    <val>sfr_fuel_from_sfr_real</val>
+                </out_commods>
+            </Storage>
+        </config>
+    </facility>
+
+
+    <!-- REACTORS -->
+    <facility>
+        <name>sfr</name>
+        <config>
+            <Reactor>
+                <fuel_inrecipes>
+                    <val>sfr_fuel_recipe</val>
+                </fuel_inrecipes>
+                <fuel_outrecipes>
+                    <val>sfr_used_fuel_recipe</val>
+                </fuel_outrecipes>
+                <fuel_incommods>
+                    <val>sfr_fuel</val>
+                </fuel_incommods>
+                <fuel_outcommods>
+                    <val>sfr_unf</val>
+                </fuel_outcommods>
+                <cycle_time>2</cycle_time>
+                <refuel_time>0</refuel_time>
+                <assem_size>3950</assem_size>
+                <n_assem_core>4</n_assem_core>
+                <n_assem_batch>1</n_assem_batch>
+                <power_cap>333.3</power_cap>
+            </Reactor>
+        </config>
+    </facility>
+
+    <facility>
+        <name>lwr</name>
+        <config>
+            <Reactor>
+                <fuel_inrecipes>
+                    <val>uox_fuel_recipe</val>
+                </fuel_inrecipes>
+                <fuel_outrecipes>
+                    <val>uox_used_fuel_recipe</val>
+                </fuel_outrecipes>
+                <fuel_incommods>
+                    <val>uox</val>
+                </fuel_incommods>
+                <fuel_outcommods>
+                    <val>uox_unf</val>
+                </fuel_outcommods>
+                <fuel_prefs>
+                    <val>1.0</val>
+                </fuel_prefs>
+                <cycle_time>2</cycle_time>
+                <refuel_time>0</refuel_time>
+                <assem_size>19910</assem_size>
+                <!-- Batches are 4.5??? -->
+                <n_assem_core>5</n_assem_core>
+                <n_assem_batch>1</n_assem_batch>
+                <power_cap>1000</power_cap>
+            </Reactor>
+        </config>
+    </facility>
+
+    <!-- REACTORS END -->
+
+    <!-- Region Definition-->
+    <region>
+        <name>reg</name>
+        <config>
+            <NullRegion/>
+        </config>
+
+                <institution>
+            <name>fac</name>
+            <config>
+                <DeployInst>
+                    <prototypes>
+                        <val>sfr_mixer_sfr</val>
+                        <val>uox_reprocessing</val>
+                        <val>sfr_reprocessing</val>
+                        <val>enrichment</val>
+                        <val>natl_u_source</val>
+                        <val>raffinate_sink</val>
+                        <val>uox_unf_storage</val>
+                        <val>sfr_unf_storage</val>
+                        <val>tails_storage</val>
+
+                    </prototypes>
+                    <build_times>
+                        <val>1</val>
+                        <val>20</val>
+                        <val>1</val>
+                        <val>1</val>
+                        <val>1</val>
+                        <val>1</val>
+                        <val>1</val>
+                        <val>1</val>
+                        <val>1</val>
+
+                    </build_times>
+                    <n_build>
+                        <val>1</val>
+                        <val>1</val>
+                        <val>1</val>
+                        <val>1</val>
+                        <val>1</val>
+                        <val>1</val>
+                        <val>1</val>
+                        <val>1</val>
+                        <val>1</val>
+
+                   </n_build>
+                    <lifetimes>
+                        <val>9999</val>
+                        <val>9999</val>
+                        <val>9999</val>
+                        <val>9999</val>
+                        <val>9999</val>
+                        <val>9999</val>
+                        <val>9999</val>
+                        <val>9999</val>
+                        <val>9999</val>
+
+                    </lifetimes>
+                </DeployInst>
+            </config>
+        </institution>
+
+        <institution>
+            <name>lwr_inst</name>
+            <config>
+                <DeployInst>
+                    <prototypes>
+                        <val>lwr</val>
+                        <val>lwr</val>
+                        <val>lwr</val>
+                        <val>lwr</val>
+                        <val>lwr</val>
+                        <val>lwr</val>
+                        <val>lwr</val>
+                        <val>lwr</val>
+                        <val>lwr</val>
+                        <val>lwr</val>
+                        <val>lwr</val>
+                        <val>lwr</val>
+                        <val>lwr</val>
+                        <val>lwr</val>
+                        <val>lwr</val>
+                        <val>lwr</val>
+                        <val>lwr</val>
+                        <val>lwr</val>
+                        <val>lwr</val>
+                        <val>lwr</val>
+                        <val>lwr</val>
+                        <val>lwr</val>
+                        <val>lwr</val>
+                        <val>lwr</val>
+                        <val>lwr</val>
+                        <val>lwr</val>
+                        <val>lwr</val>
+                        <val>lwr</val>
+                        <val>lwr</val>
+                        <val>lwr</val>
+
+                        <val>lwr</val>
+                        <val>lwr</val>
+                        <val>lwr</val>
+                        <val>lwr</val>
+                        <val>lwr</val>
+                        <val>lwr</val>
+                        <val>lwr</val>
+                        <val>lwr</val>
+                        <val>lwr</val>
+                        <val>lwr</val>
+                        <val>lwr</val>
+                        <val>lwr</val>
+                        <val>lwr</val>
+                        <val>lwr</val>
+                        <val>lwr</val>
+                        <val>lwr</val>
+                    </prototypes>
+                    <build_times>
+                        <val>1</val>
+                        <val>1</val>
+                        <val>1</val>
+                        <val>1</val>
+                        <val>1</val>
+                        <val>1</val>
+                        <val>1</val>
+                        <val>1</val>
+                        <val>1</val>
+                        <val>1</val>
+                        <val>1</val>
+                        <val>1</val>
+                        <val>1</val>
+                        <val>1</val>
+                        <val>1</val>
+                        <val>1</val>
+                        <val>1</val>
+                        <val>1</val>
+                        <val>1</val>
+                        <val>1</val>
+                        <val>1</val>
+                        <val>1</val>
+                        <val>1</val>
+                        <val>1</val>
+                        <val>1</val>
+                        <val>1</val>
+                        <val>1</val>
+                        <val>1</val>
+                        <val>1</val>
+                        <val>1</val>
+
+                        <val>1</val>
+                        <val>1</val>
+                        <val>1</val>
+                        <val>1</val>
+                        <val>1</val>
+                        <val>1</val>
+                        <val>1</val>
+                        <val>1</val>
+                        <val>1</val>
+                        <val>1</val>
+                        <val>1</val>
+                        <val>1</val>
+                        <val>1</val>
+                        <val>1</val>
+                        <val>1</val>
+                        <val>1</val>
+                      
+                    </build_times>
+                    <n_build>
+                        <val>3</val>
+                        <val>4</val>
+                        <val>2</val>
+                        <val>2</val>
+                        <val>3</val>
+                        <val>3</val>
+                        <val>3</val>
+                        <val>2</val>
+                        <val>3</val>
+                        <val>3</val>
+                        <val>2</val>
+                        <val>3</val>
+                        <val>3</val>
+                        <val>3</val>
+                        <val>2</val>
+                        <val>3</val>
+                        <val>3</val>
+                        <val>2</val>
+                        <val>3</val>
+                        <val>3</val>
+                        <val>3</val>
+                        <val>3</val>
+                        <val>2</val>
+                        <val>3</val>
+                        <val>3</val>
+                        <val>3</val>
+                        <val>2</val>
+                        <val>3</val>
+                        <val>3</val>
+                        <val>3</val>
+
+                        <val>1</val>
+                        <val>2</val>
+                        <val>1</val>
+                        <val>1</val>
+                        <val>1</val>
+                        <val>1</val>
+                        <val>1</val>
+                        <val>1</val>
+                        <val>1</val>
+                        <val>1</val>
+                        <val>1</val>
+                        <val>1</val>
+                        <val>1</val>
+                        <val>1</val>
+                        <val>1</val>
+                        <val>1</val>
+                   </n_build>
+                    <lifetimes>
+                        <val>   22  </val>
+                        <val>   24  </val>
+                        <val>   26  </val>
+                        <val>   28  </val>
+                        <val>   30  </val>
+                        <val>   32  </val>
+                        <val>   34  </val>
+                        <val>   36  </val>
+                        <val>   38  </val>
+                        <val>   40  </val>
+                        <val>   42  </val>
+                        <val>   44  </val>
+                        <val>   46  </val>
+                        <val>   48  </val>
+                        <val>   50  </val>
+                        <val>   52  </val>
+                        <val>   54  </val>
+                        <val>   56  </val>
+                        <val>   58  </val>
+                        <val>   60  </val>
+                        <val>   62  </val>
+                        <val>   64  </val>
+                        <val>   66  </val>
+                        <val>   68  </val>
+                        <val>   72  </val>
+                        <val>   74  </val>
+                        <val>   76  </val>
+                        <val>   78  </val>
+                        <val>   80  </val>
+                        <val>   82  </val>
+
+                        <val>   84  </val>
+                        <val>   86  </val>
+                        <val>   90  </val>
+                        <val>   92  </val>
+                        <val>   94  </val>
+                        <val>   98  </val>
+                        <val>   100 </val>
+                        <val>   104 </val>
+                        <val>   108 </val>
+                        <val>   112 </val>
+                        <val>   116 </val>
+                        <val>   122 </val>
+                        <val>   146 </val>
+                        <val>   148 </val>
+                        <val>   156 </val>
+                        <val>   162 </val>
+
+                    </lifetimes>
+                </DeployInst>
+            </config>
+        </institution>
+
+
+        <institution>
+            <name>sfr_inst</name>
+            <config>
+                <DeployInst>
+                    <prototypes>
+                         <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+
+                        <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+
+                         <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+                        <val>sfr</val>
+
+
+                    </prototypes>
+                    <build_times>
+                        <val>   23  </val>
+                        <val>   25  </val>
+                        <val>   27  </val>
+                        <val>   29  </val>
+                        <val>   31  </val>
+                        <val>   33  </val>
+                        <val>   35  </val>
+                        <val>   37  </val>
+                        <val>   39  </val>
+                        <val>   41  </val>
+                        <val>   43  </val>
+                        <val>   45  </val>
+                        <val>   47  </val>
+                        <val>   49  </val>
+                        <val>   51  </val>
+                        <val>   53  </val>
+                        <val>   55  </val>
+                        <val>   57  </val>
+                        <val>   59  </val>
+                        <val>   61  </val>
+                        <val>   63  </val>
+                        <val>   65  </val>
+                        <val>   67  </val>
+                        <val>   69  </val>
+                        <val>   73  </val>
+                        <val>   75  </val>
+                        <val>   77  </val>
+                        <val>   79  </val>
+                        <val>   81  </val>
+                        <val>   83  </val>
+
+                        <val>   85  </val>
+                        <val>   87  </val>
+                        <val>   91  </val>
+                        <val>   93  </val>
+                        <val>   95  </val>
+                        <val>   99  </val>
+                        <val>   101 </val>
+                        <val>   105 </val>
+                        <val>   109 </val>
+                        <val>   113 </val>
+                        <val>   117 </val>
+                        <val>   123 </val>
+                        <val>   147 </val>
+                        <val>   149 </val>
+                        <val>   157 </val>
+                        <val>   163 </val>
+
+                        <val>   143 </val>
+                        <val>   145 </val>
+                        <val>   147 </val>
+                        <val>   149 </val>
+                        <val>   151 </val>
+                        <val>   153 </val>
+                        <val>   155 </val>
+                        <val>   157 </val>
+                        <val>   159 </val>
+                        <val>   161 </val>
+                        <val>   163 </val>
+                        <val>   165 </val>
+                        <val>   167 </val>
+                        <val>   169 </val>
+                        <val>   171 </val>
+                        <val>   173 </val>
+                        <val>   175 </val>
+                        <val>   177 </val>
+                        <val>   179 </val>
+                        <val>   181 </val>
+                        <val>   183 </val>
+                        <val>   185 </val>
+                        <val>   187 </val>
+                        <val>   189 </val>
+                        <val>   193 </val>
+                        <val>   195 </val>
+                        <val>   197 </val>
+                        <val>   199 </val>
+                        <val>   201 </val>
+                        <val>   203 </val>
+
+
+
+                    </build_times>
+                    <n_build>
+                        <val>9</val>
+                        <val>12</val>
+                        <val>6</val>
+                        <val>6</val>
+                        <val>9   </val>
+                        <val>9   </val>
+                        <val>9   </val>
+                        <val>6   </val>
+                        <val>9   </val>
+                        <val>9   </val>
+                        <val>6   </val>
+                        <val>9   </val>
+                        <val>9   </val>
+                        <val>9   </val>
+                        <val>6   </val>
+                        <val>9   </val>
+                        <val>9   </val>
+                        <val>6   </val>
+                        <val>9   </val>
+                        <val>9   </val>
+                        <val>9   </val>
+                        <val>9   </val>
+                        <val>6   </val>
+                        <val>9   </val>
+                        <val>9   </val>
+                        <val>9   </val>
+                        <val>6   </val>
+                        <val>9   </val>
+                        <val>9   </val>
+                        <val>9   </val>
+                                
+                        <val>3   </val>
+                        <val>6   </val>
+                        <val>3   </val>
+                        <val>3   </val>
+                        <val>3   </val>
+                        <val>3   </val>
+                        <val>3   </val>
+                        <val>3   </val>
+                        <val>3   </val>
+                        <val>3   </val>
+                        <val>3   </val>
+                        <val>3   </val>
+                        <val>3   </val>
+                        <val>3   </val>
+                        <val>3   </val>
+                        <val>3   </val>
+
+                        <val>9</val>
+                        <val>12</val>
+                        <val>6</val>
+                        <val>6</val>
+                        <val>9   </val>
+                        <val>9   </val>
+                        <val>9   </val>
+                        <val>6   </val>
+                        <val>9   </val>
+                        <val>9   </val>
+                        <val>6   </val>
+                        <val>9   </val>
+                        <val>9   </val>
+                        <val>9   </val>
+                        <val>6   </val>
+                        <val>9   </val>
+                        <val>9   </val>
+                        <val>6   </val>
+                        <val>9   </val>
+                        <val>9   </val>
+                        <val>9   </val>
+                        <val>9   </val>
+                        <val>6   </val>
+                        <val>9   </val>
+                        <val>9   </val>
+                        <val>9   </val>
+                        <val>6   </val>
+                        <val>9   </val>
+                        <val>9   </val>
+                        <val>9   </val>
+
+                   </n_build>
+                    <lifetimes>
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+                                
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+                        <val>120</val>
+
+                    </lifetimes>
+                </DeployInst>
+            </config>
+        </institution>
+    </region>
+
+
+    <!-- FUEL CYCLE FACILITIES -->
+
+
+    <recipe>
+        <name>natl_u_recipe</name>
+        <basis>mass</basis>
+        <nuclide>
+            <id>U235</id>
+            <comp>0.711</comp>
+        </nuclide>
+        <nuclide>
+            <id>U238</id>
+            <comp>99.289</comp>
+        </nuclide>
+    </recipe>
+
+    <recipe>
+        <name>uox_fuel_recipe</name>
+        <basis>mass</basis>
+        <nuclide>
+            <id>U235</id>
+            <comp>4.3</comp>
+        </nuclide>
+        <nuclide>
+            <id>U238</id>
+            <comp>95.7</comp>
+        </nuclide>
+    </recipe>
+
+    <recipe>
+        <name>uox_used_fuel_recipe</name>
+        <basis>mass</basis>
+        <!-- U is generalized to u238-->
+        <nuclide>
+            <id>U238</id>
+            <comp>93.44</comp>
+        </nuclide>
+        <!-- TRU is generalized to pu239-->
+        <nuclide>
+            <id>Pu239</id>
+            <comp>1.30</comp>
+        </nuclide>
+        <!-- FP is generalized to cs137-->
+        <nuclide>
+            <id>Cs137</id>
+            <comp>5.26</comp>
+        </nuclide>
+    </recipe>
+
+    <recipe>
+        <name>sfr_used_fuel_recipe</name>
+        <basis>mass</basis>
+        <!-- U is generalized to u238-->
+        <nuclide>
+            <id>U238</id>
+            <comp>78.30</comp>
+        </nuclide>
+        <!-- TRU is generalized to pu239-->
+        <nuclide>
+            <id>Pu239</id>
+            <comp>14.04</comp>
+        </nuclide>
+        <!-- FP is generalized to cs137-->
+        <nuclide>
+            <id>Cs137</id>
+            <comp>7.66</comp>
+        </nuclide>
+    </recipe>
+
+    <recipe>
+        <name>sfr_fuel_recipe</name>
+        <basis>mass</basis>
+        <!-- U is generalized to u238-->
+        <nuclide>
+            <id>U238</id>
+            <comp>86.13</comp>
+        </nuclide>
+        <!-- TRU is generalized to pu239-->
+        <nuclide>
+            <id>Pu239</id>
+            <comp>13.87</comp>
+        </nuclide>
+    </recipe>
+
+</simulation>
