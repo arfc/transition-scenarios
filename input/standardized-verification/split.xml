@@ -246,7 +246,7 @@ by Feng et al. (2016)
                 </in_commods>
                 <!-- this is 6 because there is already a delay-->
                 <!-- with moving fuel from reprocessing - mixer - reactor-->
-                <residence_time>6</residence_time>
+                <residence_time>8</residence_time>
                 <out_commods>
                     <val>cooled_uox_unf</val>
                 </out_commods>
@@ -901,7 +901,7 @@ by Feng et al. (2016)
 
                    </n_build>
                     <lifetimes>
-                        <val>120</val>
+                         <val>120</val>
                         <val>120</val>
                         <val>120</val>
                         <val>120</val>
