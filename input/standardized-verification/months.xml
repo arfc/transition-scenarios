@@ -68,7 +68,7 @@ by Feng et al. (2016)
                         <commodities>
                             <item>
                                 <commodity>sfr_pu</commodity>
-                                <pref>2.0</pref>
+                                <pref>3.0</pref>
                             </item>
                             <item>
                                 <commodity>uox_pu</commodity>
@@ -84,7 +84,7 @@ by Feng et al. (2016)
                         <commodities>
                             <item>
                                 <commodity>sfr_u</commodity>
-                                <pref>2.0</pref>
+                                <pref>3.0</pref>
                             </item>
                             <item>
                                 <commodity>uox_u</commodity>
