@@ -7,6 +7,7 @@ from itertools import cycle
 import matplotlib
 from matplotlib import cm
 from pyne import nucname
+import parser
 
 
 if len(sys.argv) < 2:
@@ -246,6 +247,55 @@ def get_timeseries_cum(in_list, duration, kg_to_tons):
             else:
                 value_timeseries.append(value)
     return value_timeseries
+
+def get_new_deployment(power_dict, inst_list, demand_eq, new_reactor_power,
+                       new_reactor_lifetime):
+    """ Calculates the new deployment scheme to maintain power demand
+
+    Parameters:
+    -----------
+    power_dict: dictionary
+        key: institution
+        value: capacity timeseries
+    inst_list: list
+        list of institution names
+    demand_eq: str
+        demand equation w.r.t time(t)
+    new_reactor_power: int
+        new reactor power capacity
+    new_reactor_lifetime: int
+        lifetime of new reactor
+
+    Returns:
+    --------
+    deploy_array: array
+        timeseries for deploying new reactor
+    """
+    # get total power generated
+    total_steps = len(power_dict[inst_list[0]])
+    total_power = np.zeros(total_steps)
+    for key, val in power_dict:
+        if key in inst_list:
+            total_power += np.array(key)
+
+    # get lacking from power demand
+    eq = parser.expr(demand_eq).compile()
+    demand_timeseries = np.zeros(total_steps)
+    for indx, value in enumerate(demand_timeseries):
+        t = indx
+        demand_timeseries[indx] = eval(eq)
+
+    total_lack = demand_timeseries - total_power
+    deploy_array = np.zeros(total_steps)
+    for indx, value in enumerate(total_lack):
+        if value > new_reactor_power:
+            num = value // new_reactor_power
+            deploy_array[indx] = num
+            for i in range(indx, indx + new_reactor_lifetime):
+                if i > total_steps:
+                    break
+                total_lack[i] -= num * new_reactor_power
+    return deploy_array
 
 
 def get_isotope_transactions(resources, compositions):
