@@ -299,7 +299,7 @@ def get_new_deployment(power_dict, inst_list, demand_eq, new_reactor_power,
                 total_lack[i] -= num * new_reactor_power
     return deploy_array
 
-def write_deployinst(deploy_array, inst_name, reactor_name,
+def write_deployinst(deploy_array, reactor_name,
                      filename, lifetime):
     """ Writes the deployinst block of cyclus input file with
         the deploy array
@@ -308,8 +308,6 @@ def write_deployinst(deploy_array, inst_name, reactor_name,
     -----------
     deploy_array: array
         deployment timeseries
-    inst_name: str
-        name of institution
     reactor_name: str
         name of reactor to be deployed
     filename: str
