@@ -274,9 +274,9 @@ def get_new_deployment(power_dict, inst_list, demand_eq, new_reactor_power,
     # get total power generated
     total_steps = len(power_dict[inst_list[0]])
     total_power = np.zeros(total_steps)
-    for key, val in power_dict:
+    for key, val in power_dict.items():
         if key in inst_list:
-            total_power += np.array(key)
+            total_power += np.array(val)
 
     # get lacking from power demand
     eq = parser.expr(demand_eq).compile()
@@ -288,15 +288,64 @@ def get_new_deployment(power_dict, inst_list, demand_eq, new_reactor_power,
     total_lack = demand_timeseries - total_power
     deploy_array = np.zeros(total_steps)
     for indx, value in enumerate(total_lack):
+        # skip index 0
+        if indx == 0:
+            continue
         if value > new_reactor_power:
             num = value // new_reactor_power
             deploy_array[indx] = num
-            for i in range(indx, indx + new_reactor_lifetime):
-                if i > total_steps:
-                    break
+            high_end = min([indx + new_reactor_lifetime, total_steps])
+            for i in range(indx, high_end):
                 total_lack[i] -= num * new_reactor_power
     return deploy_array
 
+def write_deployinst(deploy_array, inst_name, reactor_name,
+                     filename, lifetime):
+    """ Writes the deployinst block of cyclus input file with
+        the deploy array
+
+    Parameters:
+    -----------
+    deploy_array: array
+        deployment timeseries
+    inst_name: str
+        name of institution
+    reactor_name: str
+        name of reactor to be deployed
+    filename: str
+        name of output file
+    lifetime: int
+        lifetime of reactor
+
+    Returns:
+    --------
+    null. creates xml file.
+    """
+    outstring = "<institution>\n"
+    outstring += '  <name>%s</name>\n' %inst_name
+    outstring += '  <config>\n'
+    outstring += '    <DeployInst>\n'
+    prototypes = '<prototypes>\n'
+    build_times = '<build_times>\n'
+    n_build = '<n_build>\n'
+    lifetimes = '<lifetimes>\n'
+    for time, build_num in enumerate(deploy_array):
+        if build_num != 0:
+            prototypes += '\t\t<val>%s</val>\n' %reactor_name
+            build_times += '\t\t<val>%i</val>\n' %time
+            n_build += '\t\t<val>%i</val>\n' %build_num
+            lifetimes += '\t\t<val>%i</val>\n' %lifetime
+    prototypes += '</prototypes>\n'
+    build_times += '</build_times>\n'
+    n_build += '</n_build>\n'
+    lifetimes += '</lifetimes>\n'
+
+    outstring += prototypes + build_times + n_build + lifetimes
+    outstring += '    </DeployInst>\n'
+    outstring += '  </config>\n'
+    outstring += '</institution>\n'
+    with open(filename, 'w') as f:
+        f.write(outstring)
 
 def get_isotope_transactions(resources, compositions):
     """Creates a dictionary with isotope name, mass, and time
