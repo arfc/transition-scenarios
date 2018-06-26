@@ -321,10 +321,6 @@ def write_deployinst(deploy_array, inst_name, reactor_name,
     --------
     null. creates xml file.
     """
-    outstring = "<institution>\n"
-    outstring += '  <name>%s</name>\n' %inst_name
-    outstring += '  <config>\n'
-    outstring += '    <DeployInst>\n'
     prototypes = '<prototypes>\n'
     build_times = '<build_times>\n'
     n_build = '<n_build>\n'
@@ -340,10 +336,7 @@ def write_deployinst(deploy_array, inst_name, reactor_name,
     n_build += '</n_build>\n'
     lifetimes += '</lifetimes>\n'
 
-    outstring += prototypes + build_times + n_build + lifetimes
-    outstring += '    </DeployInst>\n'
-    outstring += '  </config>\n'
-    outstring += '</institution>\n'
+    outstring = prototypes + build_times + n_build + lifetimes
     with open(filename, 'w') as f:
         f.write(outstring)
 
