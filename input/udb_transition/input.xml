@@ -1,7 +1,7 @@
 
 <simulation xmlns:xi="http://www.w3.org/2001/XInclude">
   <control>
-    <duration>360</duration>
+    <duration>700</duration>
     <startmonth>5</startmonth>
     <startyear>2013</startyear>
     <decay>lazy</decay>
@@ -48,45 +48,13 @@
       <lib>cycamore</lib>
       <name>Mixer</name>
     </spec>
+    <spec>
+      <lib>cycamore</lib>
+      <name>Storage</name>
+    </spec>
   </archetypes>
 
 
-<facility>
-    <name>mixer</name>
-    <config>
-      <Mixer>
-        <in_streams>
-          <stream>
-            <info>
-              <mixing_ratio>.09</mixing_ratio>
-              <buf_size>1e+299</buf_size>
-            </info>
-            <commodities>
-              <item>
-                <commodity>Pu</commodity>
-                <pref>1.0</pref>
-              </item>
-            </commodities>
-          </stream>
-          <stream>
-            <info>
-              <mixing_ratio>.91</mixing_ratio>
-              <buf_size>1e+299</buf_size>
-            </info>
-            <commodities>
-              <item>
-                <commodity>tailings</commodity>
-                <pref>1.0</pref>
-              </item>
-            </commodities>
-          </stream>
-        </in_streams>
-        <out_commod>mox</out_commod>
-        <out_buf_size>1e+299</out_buf_size>
-        <throughput>1e+299</throughput>
-      </Mixer>
-    </config>
-</facility>
 
 
 <!-- La Hague Model from Schneider & Marignac -->
@@ -94,17 +62,57 @@
     <name>reprocessing</name>
     <config>
       <Separations>
-         <feed_commods>   <val>uox_waste</val> <val>pre_2013_unf</val> </feed_commods>
+         <feed_commods>   <val>cooled_uox</val> <val>pre_2013_unf</val> </feed_commods>
          <feed_commod_prefs> <val>1.0</val> <val>1.0</val> </feed_commod_prefs>
          <feed_recipe>uox_used_fuel_recipe</feed_recipe>
-         <feedbuf_size>2e6</feedbuf_size>
+         <feedbuf_size>1e15</feedbuf_size>
          <!-- 1100 tons/year 91.6 tons/timestep -->
-         <throughput>91600</throughput>
+         <throughput>1e15</throughput>
          <leftover_commod>reprocess_waste</leftover_commod>
          <leftoverbuf_size>1e100</leftoverbuf_size>
          <streams>
           <item>
-            <commod>Pu</commod>
+            <commod>lwr_pu</commod>
+            <info>
+              <buf_size>2e10</buf_size>
+              <efficiencies>
+                <item>
+                  <comp>Pu</comp> <eff>.99</eff>
+                </item>
+                </efficiencies>
+            </info>
+          </item>
+          <item>
+            <commod>lwr_u</commod>
+            <info>
+              <buf_size>2e10</buf_size>
+              <efficiencies>
+                <item>
+                  <comp>U</comp> <eff>.99</eff>
+                </item>
+                </efficiencies>
+            </info>
+          </item>
+        </streams>
+      </Separations>
+    </config>
+  </facility>
+
+  <facility>
+    <name>sfr_reprocessing</name>
+    <config>
+      <Separations>
+         <feed_commods>   <val>cooled_sfr</val> </feed_commods>
+         <feed_commod_prefs> <val>1.0</val>  </feed_commod_prefs>
+         <feed_recipe>sfr_spent_mox_recipe</feed_recipe>
+         <feedbuf_size>1e10</feedbuf_size>
+         <!-- 1100 tons/year 91.6 tons/timestep -->
+         <throughput>1e10</throughput>
+         <leftover_commod>reprocess_waste</leftover_commod>
+         <leftoverbuf_size>1e100</leftoverbuf_size>
+         <streams>
+          <item>
+            <commod>sfr_pu</commod>
             <info>
               <buf_size>2e4</buf_size>
               <efficiencies>
@@ -115,7 +123,7 @@
             </info>
           </item>
           <item>
-            <commod>Pu</commod>
+            <commod>sfr_u</commod>
             <info>
               <buf_size>2e4</buf_size>
               <efficiencies>
@@ -129,6 +137,137 @@
       </Separations>
     </config>
   </facility>
+
+
+<!-- Infinite UOX_Pu to MOX mixer -->
+<facility>
+    <name>sfr_mixer_lwr</name>
+    <config>
+      <Mixer>
+        <in_streams>
+          <stream>
+            <info>
+              <mixing_ratio>.22</mixing_ratio>
+              <buf_size>2e10</buf_size>
+            </info>
+            <commodities>
+              <item>
+                <commodity>lwr_pu</commodity>
+                <pref>2.0</pref>
+              </item>
+            </commodities>
+          </stream>
+          <stream>
+            <info>
+              <mixing_ratio>.78</mixing_ratio>
+              <buf_size>2e10</buf_size>
+            </info>
+            <commodities>
+              <item>
+                <commodity>lwr_u</commodity>
+                <pref>2.0</pref>
+              </item>
+            </commodities>
+          </stream>
+        </in_streams>
+        <out_commod>sfr_fuel_legacy</out_commod>
+        <out_buf_size>1e10</out_buf_size>
+        <throughput>1e10</throughput>
+      </Mixer>
+    </config>
+</facility>
+
+
+<!-- Infinite UOX_Pu to MOX mixer -->
+<facility>
+    <name>sfr_mixer_sfr</name>
+    <config>
+      <Mixer>
+        <in_streams>
+          <stream>
+            <info>
+              <mixing_ratio>.22</mixing_ratio>
+              <buf_size>2e10</buf_size>
+            </info>
+            <commodities>
+              <item>
+                <commodity>sfr_pu</commodity>
+                <pref>2.0</pref>
+              </item>
+            </commodities>
+          </stream>
+          <stream>
+            <info>
+              <mixing_ratio>.78</mixing_ratio>
+              <buf_size>2e10</buf_size>
+            </info>
+            <commodities>
+              <item>
+                <commodity>sfr_u</commodity>
+                <pref>2.0</pref>
+              </item>
+            </commodities>
+          </stream>
+        </in_streams>
+        <out_commod>sfr_fuel_new</out_commod>
+        <out_buf_size>1e10</out_buf_size>
+        <throughput>1e10</throughput>
+      </Mixer>
+    </config>
+</facility>
+
+<facility>
+    <name>sfr</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>mox_fuel_recipe</val>      <val>mox_fuel_recipe</val>  </fuel_inrecipes>
+        <fuel_outrecipes> <val>sfr_spent_mox_recipe</val> <val>sfr_spent_mox_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>sfr_fuel_legacy</val> <val>sfr_fuel_new</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>sfr_used</val> <val>sfr_used</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val> <val>3.0</val>                   </fuel_prefs>
+        <cycle_time>12</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>5568</assem_size>
+        <n_assem_core>4</n_assem_core>
+        <n_assem_batch>1</n_assem_batch>
+        <power_cap>600</power_cap>
+      </Reactor>
+    </config>
+</facility>
+
+<facility>
+        <!-- Stores uox unf for 48 months (4years) -->
+    <name>sfr_storage</name>
+    <config>
+        <Storage>
+            <in_commods>
+                <val>sfr_used</val>
+            </in_commods>
+            <residence_time>36</residence_time>
+            <out_commods>
+                <val>cooled_sfr</val>
+            </out_commods>
+        </Storage>
+    </config>
+</facility>
+
+<facility>
+        <!-- Stores uox unf for 48 months (4years) -->
+    <name>uox_storage</name>
+    <config>
+        <Storage>
+            <in_commods>
+                <val>uox_waste</val>
+            </in_commods>
+            <residence_time>36</residence_time>
+            <out_commods>
+                <val>cooled_uox</val>
+            </out_commods>
+        </Storage>
+    </config>
+</facility>
+
+
 
   <facility>
     <name>enrichment</name>
@@ -173,10 +312,6 @@
     <config>
       <Sink>
         <in_commods>
-          <val>uox_waste</val>
-          <val>used_candu</val>
-          <val>mox_waste</val>
-          <val>used_candu</val>
           <val>tailings</val>
           <val>reprocess_waste</val>
         </in_commods>
@@ -198,6 +333,18 @@
             <xi:include href='./depinst.xml' xpointer='xpointer(/root/build_times)'/>
             <xi:include href='./depinst.xml' xpointer='xpointer(/root/n_build)'/>
             <xi:include href='./depinst.xml' xpointer='xpointer(/root/lifetimes)'/>
+        </DeployInst>
+      </config>
+    </institution>
+
+    <institution>
+      <name>sfr_inst</name>
+      <config>
+        <DeployInst>
+            <xi:include href='./deployinst.xml' xpointer='xpointer(/root/prototypes)'/>
+            <xi:include href='./deployinst.xml' xpointer='xpointer(/root/build_times)'/>
+            <xi:include href='./deployinst.xml' xpointer='xpointer(/root/n_build)'/>
+            <xi:include href='./deployinst.xml' xpointer='xpointer(/root/lifetimes)'/>
         </DeployInst>
       </config>
     </institution>
@@ -225,11 +372,27 @@
           </entry>
           <entry>
             <number>1</number>
-            <prototype>mixer</prototype>
+            <prototype>reprocessing</prototype>
           </entry>
           <entry>
             <number>1</number>
-            <prototype>reprocessing</prototype>
+            <prototype>sfr_reprocessing</prototype>
+          </entry>
+          <entry>
+            <number>1</number>
+            <prototype>sfr_mixer_sfr</prototype>
+          </entry>
+          <entry>
+            <number>1</number>
+            <prototype>sfr_mixer_lwr</prototype>
+          </entry>
+          <entry>
+            <number>1</number>
+            <prototype>sfr_storage</prototype>
+          </entry>
+          <entry>
+            <number>1</number>
+            <prototype>uox_storage</prototype>
           </entry>
 
 
