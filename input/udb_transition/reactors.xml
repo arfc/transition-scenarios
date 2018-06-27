@@ -1,0 +1,2440 @@
+<root>
+
+<!-- Deleted Fort St. Vraine Becuase it is a natural gas now -->
+
+ <facility>
+    <!-- us -->
+    <!-- BWR -->
+    <name>DRESDEN-1</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>180</assem_size>
+        <n_assem_core>150</n_assem_core>
+        <n_assem_batch>50</n_assem_batch>
+        <power_cap>197</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>INDIAN POINT-1</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>49</n_assem_core>
+        <n_assem_batch>16</n_assem_batch>
+        <power_cap>257</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>YANKEE NPS</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>32</n_assem_core>
+        <n_assem_batch>10</n_assem_batch>
+        <power_cap>167</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>HADDAM NECK</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>108</n_assem_core>
+        <n_assem_batch>36</n_assem_batch>
+        <power_cap>560</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>SAN ONOFRE-1</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>84</n_assem_core>
+        <n_assem_batch>28</n_assem_batch>
+        <power_cap>436</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- BWR -->
+    <name>OYSTER CREEK</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>180</assem_size>
+        <n_assem_core>472</n_assem_core>
+        <n_assem_batch>157</n_assem_batch>
+        <power_cap>619</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- BWR -->
+    <name>NINE MILE POINT-1</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>180</assem_size>
+        <n_assem_core>474</n_assem_core>
+        <n_assem_batch>158</n_assem_batch>
+        <power_cap>621</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- BWR -->
+    <name>DRESDEN-2</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>180</assem_size>
+        <n_assem_core>674</n_assem_core>
+        <n_assem_batch>224</n_assem_batch>
+        <power_cap>883</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>GINNA</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>111</n_assem_core>
+        <n_assem_batch>37</n_assem_batch>
+        <power_cap>580</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- BWR -->
+    <name>MILLSTONE-1</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>180</assem_size>
+        <n_assem_core>489</n_assem_core>
+        <n_assem_batch>163</n_assem_batch>
+        <power_cap>641</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- BWR -->
+    <name>DRESDEN-3</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>180</assem_size>
+        <n_assem_core>662</n_assem_core>
+        <n_assem_batch>220</n_assem_batch>
+        <power_cap>867</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>INDIAN POINT-2</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>196</n_assem_core>
+        <n_assem_batch>65</n_assem_batch>
+        <power_cap>1020</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- BWR -->
+    <name>QUAD CITIES-1</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>180</assem_size>
+        <n_assem_core>693</n_assem_core>
+        <n_assem_batch>231</n_assem_batch>
+        <power_cap>908</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- BWR -->
+    <name>QUAD CITIES-2</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>180</assem_size>
+        <n_assem_core>696</n_assem_core>
+        <n_assem_batch>232</n_assem_batch>
+        <power_cap>911</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>PALISADES</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>153</n_assem_core>
+        <n_assem_batch>51</n_assem_batch>
+        <power_cap>793</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>ROBINSON-2</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>143</n_assem_core>
+        <n_assem_batch>47</n_assem_batch>
+        <power_cap>741</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>TURKEY POINT-3</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>154</n_assem_core>
+        <n_assem_batch>51</n_assem_batch>
+        <power_cap>802</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>TURKEY POINT-4</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>154</n_assem_core>
+        <n_assem_batch>51</n_assem_batch>
+        <power_cap>802</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- BWR -->
+    <name>BROWNS FERRY-1</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>180</assem_size>
+        <n_assem_core>841</n_assem_core>
+        <n_assem_batch>280</n_assem_batch>
+        <power_cap>1101</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- BWR -->
+    <name>BROWNS FERRY-2</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>180</assem_size>
+        <n_assem_core>843</n_assem_core>
+        <n_assem_batch>281</n_assem_batch>
+        <power_cap>1104</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- BWR -->
+    <name>MONTICELLO</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>180</assem_size>
+        <n_assem_core>441</n_assem_core>
+        <n_assem_batch>147</n_assem_batch>
+        <power_cap>578</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>POINT BEACH-1</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>114</n_assem_core>
+        <n_assem_batch>38</n_assem_batch>
+        <power_cap>591</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>OCONEE-1</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>163</n_assem_core>
+        <n_assem_batch>54</n_assem_batch>
+        <power_cap>846</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>OCONEE-2</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>163</n_assem_core>
+        <n_assem_batch>54</n_assem_batch>
+        <power_cap>846</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>OCONEE-3</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>163</n_assem_core>
+        <n_assem_batch>54</n_assem_batch>
+        <power_cap>846</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- BWR -->
+    <name>VERMONT YANKEE</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>180</assem_size>
+        <n_assem_core>462</n_assem_core>
+        <n_assem_batch>154</n_assem_batch>
+        <power_cap>605</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- BWR -->
+    <name>PEACH BOTTOM-2</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>180</assem_size>
+        <n_assem_core>859</n_assem_core>
+        <n_assem_batch>286</n_assem_batch>
+        <power_cap>1125</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- BWR -->
+    <name>PEACH BOTTOM-3</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>180</assem_size>
+        <n_assem_core>869</n_assem_core>
+        <n_assem_batch>289</n_assem_batch>
+        <power_cap>1138</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>DIABLO CANYON-1</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>216</n_assem_core>
+        <n_assem_batch>72</n_assem_batch>
+        <power_cap>1122</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>THREE MILE ISLAND-1</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>158</n_assem_core>
+        <n_assem_batch>52</n_assem_batch>
+        <power_cap>819</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>CALVERT CLIFFS-1</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>167</n_assem_core>
+        <n_assem_batch>55</n_assem_batch>
+        <power_cap>866</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>CALVERT CLIFFS-2</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>164</n_assem_core>
+        <n_assem_batch>54</n_assem_batch>
+        <power_cap>850</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- BWR -->
+    <name>COOPER</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>180</assem_size>
+        <n_assem_core>586</n_assem_core>
+        <n_assem_batch>195</n_assem_batch>
+        <power_cap>768</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>FORT CALHOUN-1</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>93</n_assem_core>
+        <n_assem_batch>31</n_assem_batch>
+        <power_cap>482</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>PRAIRIE ISLAND-1</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>100</n_assem_core>
+        <n_assem_batch>33</n_assem_batch>
+        <power_cap>522</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>SURRY-1</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>161</n_assem_core>
+        <n_assem_batch>53</n_assem_batch>
+        <power_cap>838</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>SURRY-2</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>161</n_assem_core>
+        <n_assem_batch>53</n_assem_batch>
+        <power_cap>838</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- BWR -->
+    <name>BROWNS FERRY-3</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>180</assem_size>
+        <n_assem_core>844</n_assem_core>
+        <n_assem_batch>281</n_assem_batch>
+        <power_cap>1105</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>POINT BEACH-2</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>114</n_assem_core>
+        <n_assem_batch>38</n_assem_batch>
+        <power_cap>591</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>KEWAUNEE</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>109</n_assem_core>
+        <n_assem_batch>36</n_assem_batch>
+        <power_cap>566</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- BWR -->
+    <name>PILGRIM-1</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>180</assem_size>
+        <n_assem_core>517</n_assem_core>
+        <n_assem_batch>172</n_assem_batch>
+        <power_cap>677</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- BWR -->
+    <name>FITZPATRICK</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>180</assem_size>
+        <n_assem_core>621</n_assem_core>
+        <n_assem_batch>207</n_assem_batch>
+        <power_cap>813</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>SALEM-1</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>225</n_assem_core>
+        <n_assem_batch>75</n_assem_batch>
+        <power_cap>1168</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>SALEM-2</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>223</n_assem_core>
+        <n_assem_batch>74</n_assem_batch>
+        <power_cap>1158</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>CRYSTAL RIVER-3</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>165</n_assem_core>
+        <n_assem_batch>55</n_assem_batch>
+        <power_cap>860</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- BWR -->
+    <name>HATCH-1</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>180</assem_size>
+        <n_assem_core>669</n_assem_core>
+        <n_assem_batch>223</n_assem_batch>
+        <power_cap>876</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>ANO-1</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>161</n_assem_core>
+        <n_assem_batch>53</n_assem_batch>
+        <power_cap>836</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>MAINE YANKEE</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>165</n_assem_core>
+        <n_assem_batch>55</n_assem_batch>
+        <power_cap>860</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>INDIAN POINT-3</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>200</n_assem_core>
+        <n_assem_batch>66</n_assem_batch>
+        <power_cap>1040</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>ZION-1</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>200</n_assem_core>
+        <n_assem_batch>66</n_assem_batch>
+        <power_cap>1040</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>ZION-2</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>200</n_assem_core>
+        <n_assem_batch>66</n_assem_batch>
+        <power_cap>1040</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>ANO-2</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>191</n_assem_core>
+        <n_assem_batch>63</n_assem_batch>
+        <power_cap>993</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>COOK-1</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>198</n_assem_core>
+        <n_assem_batch>66</n_assem_batch>
+        <power_cap>1030</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>COOK-2</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>207</n_assem_core>
+        <n_assem_batch>69</n_assem_batch>
+        <power_cap>1077</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>RANCHO SECO-1</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>168</n_assem_core>
+        <n_assem_batch>56</n_assem_batch>
+        <power_cap>873</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>PRAIRIE ISLAND-2</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>99</n_assem_core>
+        <n_assem_batch>33</n_assem_batch>
+        <power_cap>518</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>MILLSTONE-2</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>167</n_assem_core>
+        <n_assem_batch>55</n_assem_batch>
+        <power_cap>869</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>THREE MILE ISLAND-2</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>169</n_assem_core>
+        <n_assem_batch>56</n_assem_batch>
+        <power_cap>880</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>TROJAN</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>211</n_assem_core>
+        <n_assem_batch>70</n_assem_batch>
+        <power_cap>1095</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- BWR -->
+    <name>BRUNSWICK-1</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>180</assem_size>
+        <n_assem_core>716</n_assem_core>
+        <n_assem_batch>238</n_assem_batch>
+        <power_cap>938</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- BWR -->
+    <name>BRUNSWICK-2</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>180</assem_size>
+        <n_assem_core>702</n_assem_core>
+        <n_assem_batch>234</n_assem_batch>
+        <power_cap>920</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>SEQUOYAH-1</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>222</n_assem_core>
+        <n_assem_batch>74</n_assem_batch>
+        <power_cap>1152</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>SEQUOYAH-2</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>217</n_assem_core>
+        <n_assem_batch>72</n_assem_batch>
+        <power_cap>1125</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- BWR -->
+    <name>DUANE ARNOLD-1</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>180</assem_size>
+        <n_assem_core>459</n_assem_core>
+        <n_assem_batch>153</n_assem_batch>
+        <power_cap>601</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>BEAVER VALLEY-1</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>177</n_assem_core>
+        <n_assem_batch>59</n_assem_batch>
+        <power_cap>921</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>ST. LUCIE-1</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>189</n_assem_core>
+        <n_assem_batch>63</n_assem_batch>
+        <power_cap>982</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>DAVIS BESSE-1</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>172</n_assem_core>
+        <n_assem_batch>57</n_assem_batch>
+        <power_cap>894</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>FARLEY-1</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>168</n_assem_core>
+        <n_assem_batch>56</n_assem_batch>
+        <power_cap>874</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>FARLEY-2</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>170</n_assem_core>
+        <n_assem_batch>56</n_assem_batch>
+        <power_cap>883</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>DIABLO CANYON-2</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>215</n_assem_core>
+        <n_assem_batch>71</n_assem_batch>
+        <power_cap>1118</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>NORTH ANNA-1</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>181</n_assem_core>
+        <n_assem_batch>60</n_assem_batch>
+        <power_cap>943</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>NORTH ANNA-2</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>181</n_assem_core>
+        <n_assem_batch>60</n_assem_batch>
+        <power_cap>943</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>MCGUIRE-1</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>223</n_assem_core>
+        <n_assem_batch>74</n_assem_batch>
+        <power_cap>1158</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>MCGUIRE-2</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>223</n_assem_core>
+        <n_assem_batch>74</n_assem_batch>
+        <power_cap>1158</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- BWR -->
+    <name>HATCH-2</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>180</assem_size>
+        <n_assem_core>674</n_assem_core>
+        <n_assem_batch>224</n_assem_batch>
+        <power_cap>883</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- BWR -->
+    <name>COLUMBIA</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>180</assem_size>
+        <n_assem_core>845</n_assem_core>
+        <n_assem_batch>281</n_assem_batch>
+        <power_cap>1107</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- BWR -->
+    <name>FERMI-2</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>180</assem_size>
+        <n_assem_core>792</n_assem_core>
+        <n_assem_batch>264</n_assem_batch>
+        <power_cap>1037</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- BWR -->
+    <name>SHOREHAM</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>180</assem_size>
+        <n_assem_core>626</n_assem_core>
+        <n_assem_batch>208</n_assem_batch>
+        <power_cap>820</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>WATTS BAR-1</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>216</n_assem_core>
+        <n_assem_batch>72</n_assem_batch>
+        <power_cap>1123</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>SUMMER-1</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>187</n_assem_core>
+        <n_assem_batch>62</n_assem_batch>
+        <power_cap>971</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- BWR -->
+    <name>LASALLE-1</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>180</assem_size>
+        <n_assem_core>868</n_assem_core>
+        <n_assem_batch>289</n_assem_batch>
+        <power_cap>1137</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- BWR -->
+    <name>LASALLE-2</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>180</assem_size>
+        <n_assem_core>870</n_assem_core>
+        <n_assem_batch>290</n_assem_batch>
+        <power_cap>1140</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- BWR -->
+    <name>SUSQUEHANNA-1</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>180</assem_size>
+        <n_assem_core>960</n_assem_core>
+        <n_assem_batch>320</n_assem_batch>
+        <power_cap>1257</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- BWR -->
+    <name>SUSQUEHANNA-2</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>180</assem_size>
+        <n_assem_core>960</n_assem_core>
+        <n_assem_batch>320</n_assem_batch>
+        <power_cap>1257</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>SAN ONOFRE-2</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>206</n_assem_core>
+        <n_assem_batch>68</n_assem_batch>
+        <power_cap>1070</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>SAN ONOFRE-3</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>208</n_assem_core>
+        <n_assem_batch>69</n_assem_batch>
+        <power_cap>1080</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>CATAWBA-1</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>221</n_assem_core>
+        <n_assem_batch>73</n_assem_batch>
+        <power_cap>1146</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>CATAWBA-2</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>221</n_assem_core>
+        <n_assem_batch>73</n_assem_batch>
+        <power_cap>1146</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>BEAVER VALLEY-2</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>170</n_assem_core>
+        <n_assem_batch>56</n_assem_batch>
+        <power_cap>885</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- BWR -->
+    <name>GRAND GULF-1</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>180</assem_size>
+        <n_assem_core>1084</n_assem_core>
+        <n_assem_batch>361</n_assem_batch>
+        <power_cap>1419</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- BWR -->
+    <name>LIMERICK-1</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>180</assem_size>
+        <n_assem_core>863</n_assem_core>
+        <n_assem_batch>287</n_assem_batch>
+        <power_cap>1130</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- BWR -->
+    <name>LIMERICK-2</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>180</assem_size>
+        <n_assem_core>866</n_assem_core>
+        <n_assem_batch>288</n_assem_batch>
+        <power_cap>1134</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>MILLSTONE-3</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>235</n_assem_core>
+        <n_assem_batch>78</n_assem_batch>
+        <power_cap>1218</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- BWR -->
+    <name>PERRY-1</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>180</assem_size>
+        <n_assem_core>959</n_assem_core>
+        <n_assem_batch>319</n_assem_batch>
+        <power_cap>1256</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>WATERFORD-3</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>225</n_assem_core>
+        <n_assem_batch>75</n_assem_batch>
+        <power_cap>1168</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>COMANCHE PEAK-1</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>233</n_assem_core>
+        <n_assem_batch>77</n_assem_batch>
+        <power_cap>1209</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>COMANCHE PEAK-2</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>231</n_assem_core>
+        <n_assem_batch>77</n_assem_batch>
+        <power_cap>1197</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>BYRON-1</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>224</n_assem_core>
+        <n_assem_batch>74</n_assem_batch>
+        <power_cap>1164</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>BYRON-2</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>219</n_assem_core>
+        <n_assem_batch>73</n_assem_batch>
+        <power_cap>1136</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>BRAIDWOOD-1</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>227</n_assem_core>
+        <n_assem_batch>75</n_assem_batch>
+        <power_cap>1178</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>BRAIDWOOD-2</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>222</n_assem_core>
+        <n_assem_batch>74</n_assem_batch>
+        <power_cap>1152</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- BWR -->
+    <name>NINE MILE POINT-2</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>180</assem_size>
+        <n_assem_core>974</n_assem_core>
+        <n_assem_batch>324</n_assem_batch>
+        <power_cap>1276</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>CALLAWAY-1</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>234</n_assem_core>
+        <n_assem_batch>78</n_assem_batch>
+        <power_cap>1215</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- BWR -->
+    <name>CLINTON-1</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>180</assem_size>
+        <n_assem_core>813</n_assem_core>
+        <n_assem_batch>271</n_assem_batch>
+        <power_cap>1065</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>SOUTH TEXAS-1</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>247</n_assem_core>
+        <n_assem_batch>82</n_assem_batch>
+        <power_cap>1280</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>SOUTH TEXAS-2</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>247</n_assem_core>
+        <n_assem_batch>82</n_assem_batch>
+        <power_cap>1280</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- BWR -->
+    <name>HOPE CREEK-1</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>180</assem_size>
+        <n_assem_core>895</n_assem_core>
+        <n_assem_batch>298</n_assem_batch>
+        <power_cap>1172</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>PALO VERDE-1</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>253</n_assem_core>
+        <n_assem_batch>84</n_assem_batch>
+        <power_cap>1311</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>PALO VERDE-2</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>253</n_assem_core>
+        <n_assem_batch>84</n_assem_batch>
+        <power_cap>1314</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>PALO VERDE-3</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>253</n_assem_core>
+        <n_assem_batch>84</n_assem_batch>
+        <power_cap>1312</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>VOGTLE-1</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>221</n_assem_core>
+        <n_assem_batch>73</n_assem_batch>
+        <power_cap>1150</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>VOGTLE-2</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>222</n_assem_core>
+        <n_assem_batch>74</n_assem_batch>
+        <power_cap>1152</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- BWR -->
+    <name>RIVER BEND-1</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>180</assem_size>
+        <n_assem_core>738</n_assem_core>
+        <n_assem_batch>246</n_assem_batch>
+        <power_cap>967</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>WOLF CREEK</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>230</n_assem_core>
+        <n_assem_batch>76</n_assem_batch>
+        <power_cap>1195</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>ST. LUCIE-2</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>190</n_assem_core>
+        <n_assem_batch>63</n_assem_batch>
+        <power_cap>987</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>HARRIS-1</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>446.0</assem_size>
+        <n_assem_core>179</n_assem_core>
+        <n_assem_batch>59</n_assem_batch>
+        <power_cap>928</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+</root>

@@ -1,0 +1,478 @@
+<root>
+<prototypes>
+    <val>DRESDEN-1</val>
+<val>INDIAN POINT-1</val>
+<val>YANKEE NPS</val>
+<val>HADDAM NECK</val>
+<val>SAN ONOFRE-1</val>
+<val>OYSTER CREEK</val>
+<val>NINE MILE POINT-1</val>
+<val>DRESDEN-2</val>
+<val>GINNA</val>
+<val>MILLSTONE-1</val>
+<val>DRESDEN-3</val>
+<val>INDIAN POINT-2</val>
+<val>QUAD CITIES-1</val>
+<val>QUAD CITIES-2</val>
+<val>PALISADES</val>
+<val>ROBINSON-2</val>
+<val>TURKEY POINT-3</val>
+<val>TURKEY POINT-4</val>
+<val>BROWNS FERRY-1</val>
+<val>BROWNS FERRY-2</val>
+<val>MONTICELLO</val>
+<val>POINT BEACH-1</val>
+<val>OCONEE-1</val>
+<val>OCONEE-2</val>
+<val>OCONEE-3</val>
+<val>VERMONT YANKEE</val>
+<val>PEACH BOTTOM-2</val>
+<val>PEACH BOTTOM-3</val>
+<val>DIABLO CANYON-1</val>
+<val>THREE MILE ISLAND-1</val>
+<val>CALVERT CLIFFS-1</val>
+<val>CALVERT CLIFFS-2</val>
+<val>COOPER</val>
+<val>FORT CALHOUN-1</val>
+<val>PRAIRIE ISLAND-1</val>
+<val>SURRY-1</val>
+<val>SURRY-2</val>
+<val>BROWNS FERRY-3</val>
+<val>POINT BEACH-2</val>
+<val>KEWAUNEE</val>
+<val>PILGRIM-1</val>
+<val>FITZPATRICK</val>
+<val>SALEM-1</val>
+<val>SALEM-2</val>
+<val>CRYSTAL RIVER-3</val>
+<val>HATCH-1</val>
+<val>ANO-1</val>
+<val>MAINE YANKEE</val>
+<val>INDIAN POINT-3</val>
+<val>ZION-1</val>
+<val>ZION-2</val>
+<val>ANO-2</val>
+<val>COOK-1</val>
+<val>COOK-2</val>
+<val>RANCHO SECO-1</val>
+<val>PRAIRIE ISLAND-2</val>
+<val>MILLSTONE-2</val>
+<val>THREE MILE ISLAND-2</val>
+<val>TROJAN</val>
+<val>BRUNSWICK-1</val>
+<val>BRUNSWICK-2</val>
+<val>SEQUOYAH-1</val>
+<val>SEQUOYAH-2</val>
+<val>DUANE ARNOLD-1</val>
+<val>BEAVER VALLEY-1</val>
+<val>ST. LUCIE-1</val>
+<val>DAVIS BESSE-1</val>
+<val>FARLEY-1</val>
+<val>FARLEY-2</val>
+<val>DIABLO CANYON-2</val>
+<val>NORTH ANNA-1</val>
+<val>NORTH ANNA-2</val>
+<val>MCGUIRE-1</val>
+<val>MCGUIRE-2</val>
+<val>HATCH-2</val>
+<val>COLUMBIA</val>
+<val>FERMI-2</val>
+<val>SHOREHAM</val>
+<val>WATTS BAR-1</val>
+<val>SUMMER-1</val>
+<val>LASALLE-1</val>
+<val>LASALLE-2</val>
+<val>SUSQUEHANNA-1</val>
+<val>SUSQUEHANNA-2</val>
+<val>SAN ONOFRE-2</val>
+<val>SAN ONOFRE-3</val>
+<val>CATAWBA-1</val>
+<val>CATAWBA-2</val>
+<val>BEAVER VALLEY-2</val>
+<val>GRAND GULF-1</val>
+<val>LIMERICK-1</val>
+<val>LIMERICK-2</val>
+<val>MILLSTONE-3</val>
+<val>PERRY-1</val>
+<val>WATERFORD-3</val>
+<val>COMANCHE PEAK-1</val>
+<val>COMANCHE PEAK-2</val>
+<val>BYRON-1</val>
+<val>BYRON-2</val>
+<val>BRAIDWOOD-1</val>
+<val>BRAIDWOOD-2</val>
+<val>NINE MILE POINT-2</val>
+<val>CALLAWAY-1</val>
+<val>CLINTON-1</val>
+<val>SOUTH TEXAS-1</val>
+<val>SOUTH TEXAS-2</val>
+<val>HOPE CREEK-1</val>
+<val>PALO VERDE-1</val>
+<val>PALO VERDE-2</val>
+<val>PALO VERDE-3</val>
+<val>VOGTLE-1</val>
+<val>VOGTLE-2</val>
+<val>RIVER BEND-1</val>
+<val>WOLF CREEK</val>
+<val>ST. LUCIE-2</val>
+<val>HARRIS-1</val>
+
+</prototypes>
+<build_times>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+
+</build_times>
+<n_build>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+
+</n_build>
+<lifetimes>
+    <val>77</val>
+<val>111</val>
+<val>88</val>
+<val>171</val>
+<val>169</val>
+<val>192</val>
+<val>196</val>
+<val>200</val>
+<val>198</val>
+<val>210</val>
+<val>212</val>
+<val>241</val>
+<val>222</val>
+<val>228</val>
+<val>217</val>
+<val>209</val>
+<val>234</val>
+<val>241</val>
+<val>244</val>
+<val>255</val>
+<val>211</val>
+<val>210</val>
+<val>240</val>
+<val>246</val>
+<val>256</val>
+<val>227</val>
+<val>244</val>
+<val>255</val>
+<val>372</val>
+<val>253</val>
+<val>257</val>
+<val>283</val>
+<val>250</val>
+<val>243</val>
+<val>247</val>
+<val>230</val>
+<val>238</val>
+<val>279</val>
+<val>229</val>
+<val>250</val>
+<val>229</val>
+<val>259</val>
+<val>283</val>
+<val>327</val>
+<val>284</val>
+<val>256</val>
+<val>255</val>
+<val>234</val>
+<val>275</val>
+<val>242</val>
+<val>248</val>
+<val>307</val>
+<val>261</val>
+<val>298</val>
+<val>256</val>
+<val>260</val>
+<val>270</val>
+<val>299</val>
+<val>271</val>
+<val>281</val>
+<val>263</val>
+<val>326</val>
+<val>342</val>
+<val>251</val>
+<val>276</val>
+<val>276</val>
+<val>291</val>
+<val>291</val>
+<val>336</val>
+<val>388</val>
+<val>299</val>
+<val>325</val>
+<val>339</val>
+<val>360</val>
+<val>302</val>
+<val>369</val>
+<val>386</val>
+<val>381</val>
+<val>512</val>
+<val>354</val>
+<val>350</val>
+<val>370</val>
+<val>352</val>
+<val>372</val>
+<val>351</val>
+<val>364</val>
+<val>380</val>
+<val>396</val>
+<val>411</val>
+<val>352</val>
+<val>380</val>
+<val>435</val>
+<val>393</val>
+<val>397</val>
+<val>382</val>
+<val>443</val>
+<val>479</val>
+<val>381</val>
+<val>404</val>
+<val>409</val>
+<val>418</val>
+<val>409</val>
+<val>377</val>
+<val>406</val>
+<val>418</val>
+<val>430</val>
+<val>398</val>
+<val>385</val>
+<val>396</val>
+<val>414</val>
+<val>406</val>
+<val>431</val>
+<val>390</val>
+<val>385</val>
+<val>361</val>
+<val>404</val>
+
+</lifetimes>
+</root>
