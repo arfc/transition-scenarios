@@ -1,8 +1,5 @@
+<root>
 <prototypes>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
 		<val>sfr</val>
 		<val>sfr</val>
 		<val>sfr</val>
@@ -47,100 +44,92 @@
 		<val>sfr</val>
 </prototypes>
 <build_times>
-		<val>229</val>
-		<val>230</val>
-		<val>231</val>
-		<val>235</val>
-		<val>239</val>
-		<val>241</val>
-		<val>242</val>
-		<val>243</val>
-		<val>244</val>
-		<val>245</val>
-		<val>247</val>
-		<val>248</val>
-		<val>249</val>
-		<val>251</val>
-		<val>252</val>
-		<val>254</val>
-		<val>256</val>
-		<val>257</val>
-		<val>258</val>
-		<val>260</val>
-		<val>261</val>
-		<val>262</val>
-		<val>264</val>
-		<val>271</val>
-		<val>272</val>
-		<val>276</val>
-		<val>277</val>
-		<val>280</val>
-		<val>282</val>
-		<val>284</val>
-		<val>285</val>
-		<val>292</val>
-		<val>299</val>
-		<val>300</val>
-		<val>303</val>
-		<val>308</val>
-		<val>326</val>
-		<val>327</val>
-		<val>328</val>
-		<val>337</val>
-		<val>340</val>
-		<val>343</val>
-		<val>351</val>
-		<val>352</val>
-		<val>353</val>
-		<val>355</val>
+		<val>16</val>
+		<val>24</val>
+		<val>444</val>
+		<val>445</val>
+		<val>452</val>
+		<val>459</val>
+		<val>467</val>
+		<val>474</val>
+		<val>480</val>
+		<val>481</val>
+		<val>488</val>
+		<val>495</val>
+		<val>503</val>
+		<val>510</val>
+		<val>513</val>
+		<val>518</val>
+		<val>525</val>
+		<val>532</val>
+		<val>539</val>
+		<val>546</val>
+		<val>553</val>
+		<val>560</val>
+		<val>567</val>
+		<val>574</val>
+		<val>581</val>
+		<val>588</val>
+		<val>594</val>
+		<val>601</val>
+		<val>608</val>
+		<val>615</val>
+		<val>622</val>
+		<val>628</val>
+		<val>635</val>
+		<val>642</val>
+		<val>649</val>
+		<val>655</val>
+		<val>662</val>
+		<val>668</val>
+		<val>675</val>
+		<val>682</val>
+		<val>688</val>
+		<val>695</val>
 </build_times>
 <n_build>
 		<val>1</val>
+		<val>1</val>
 		<val>2</val>
+		<val>1</val>
+		<val>1</val>
+		<val>1</val>
+		<val>1</val>
 		<val>1</val>
 		<val>3</val>
 		<val>1</val>
-		<val>2</val>
+		<val>1</val>
+		<val>1</val>
+		<val>1</val>
+		<val>1</val>
 		<val>3</val>
 		<val>1</val>
 		<val>1</val>
-		<val>4</val>
 		<val>1</val>
 		<val>1</val>
-		<val>2</val>
-		<val>2</val>
-		<val>1</val>
-		<val>2</val>
-		<val>5</val>
-		<val>4</val>
-		<val>1</val>
-		<val>2</val>
 		<val>1</val>
 		<val>1</val>
-		<val>2</val>
 		<val>1</val>
-		<val>2</val>
-		<val>2</val>
-		<val>3</val>
-		<val>2</val>
-		<val>2</val>
-		<val>3</val>
 		<val>1</val>
-		<val>3</val>
-		<val>2</val>
-		<val>3</val>
-		<val>2</val>
 		<val>1</val>
-		<val>2</val>
-		<val>2</val>
-		<val>2</val>
 		<val>1</val>
-		<val>2</val>
-		<val>2</val>
-		<val>2</val>
-		<val>2</val>
-		<val>4</val>
-		<val>2</val>
+		<val>1</val>
+		<val>1</val>
+		<val>1</val>
+		<val>1</val>
+		<val>1</val>
+		<val>1</val>
+		<val>1</val>
+		<val>1</val>
+		<val>1</val>
+		<val>1</val>
+		<val>1</val>
+		<val>1</val>
+		<val>1</val>
+		<val>1</val>
+		<val>1</val>
+		<val>1</val>
+		<val>1</val>
 </n_build>
 <lifetimes>
 		<val>960</val>
@@ -185,8 +174,5 @@
 		<val>960</val>
 		<val>960</val>
 		<val>960</val>
-		<val>960</val>
-		<val>960</val>
-		<val>960</val>
-		<val>960</val>
 </lifetimes>
+</root>

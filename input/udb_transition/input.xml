@@ -147,7 +147,7 @@
         <in_streams>
           <stream>
             <info>
-              <mixing_ratio>.22</mixing_ratio>
+              <mixing_ratio>0.0869</mixing_ratio>
               <buf_size>2e10</buf_size>
             </info>
             <commodities>
@@ -159,7 +159,7 @@
           </stream>
           <stream>
             <info>
-              <mixing_ratio>.78</mixing_ratio>
+              <mixing_ratio>0.9131</mixing_ratio>
               <buf_size>2e10</buf_size>
             </info>
             <commodities>
@@ -186,7 +186,7 @@
         <in_streams>
           <stream>
             <info>
-              <mixing_ratio>.22</mixing_ratio>
+              <mixing_ratio>0.0869</mixing_ratio>
               <buf_size>2e10</buf_size>
             </info>
             <commodities>
@@ -198,7 +198,7 @@
           </stream>
           <stream>
             <info>
-              <mixing_ratio>.78</mixing_ratio>
+              <mixing_ratio>0.9131</mixing_ratio>
               <buf_size>2e10</buf_size>
             </info>
             <commodities>
@@ -226,14 +226,36 @@
         <fuel_outcommods> <val>sfr_used</val> <val>sfr_used</val>             </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val> <val>3.0</val>                   </fuel_prefs>
         <cycle_time>12</cycle_time>
-        <refuel_time>2</refuel_time>
-        <assem_size>5568</assem_size>
-        <n_assem_core>4</n_assem_core>
+        <refuel_time>1</refuel_time>
+        <assem_size>6240</assem_size>
+        <n_assem_core>6</n_assem_core>
         <n_assem_batch>1</n_assem_batch>
-        <power_cap>600</power_cap>
+        <power_cap>400</power_cap>
       </Reactor>
     </config>
 </facility>
+
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>lwr</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>1</refuel_time>
+        <assem_size>29565</assem_size>
+        <n_assem_core>3</n_assem_core>
+        <n_assem_batch>1</n_assem_batch>
+        <power_cap>1000</power_cap>
+      </Reactor>
+    </config>
+  </facility>
 
 <facility>
         <!-- Stores uox unf for 48 months (4years) -->
@@ -337,14 +359,27 @@
       </config>
     </institution>
 
+
+    <institution>
+      <name>lwr_inst</name>
+      <config>
+        <DeployInst>
+            <xi:include href='./lwr_dep.xml' xpointer='xpointer(/root/prototypes)'/>
+            <xi:include href='./lwr_dep.xml' xpointer='xpointer(/root/build_times)'/>
+            <xi:include href='./lwr_dep.xml' xpointer='xpointer(/root/n_build)'/>
+            <xi:include href='./lwr_dep.xml' xpointer='xpointer(/root/lifetimes)'/>
+        </DeployInst>
+      </config>
+    </institution>
+
     <institution>
       <name>sfr_inst</name>
       <config>
         <DeployInst>
-            <xi:include href='./deployinst.xml' xpointer='xpointer(/root/prototypes)'/>
-            <xi:include href='./deployinst.xml' xpointer='xpointer(/root/build_times)'/>
-            <xi:include href='./deployinst.xml' xpointer='xpointer(/root/n_build)'/>
-            <xi:include href='./deployinst.xml' xpointer='xpointer(/root/lifetimes)'/>
+            <xi:include href='./sfr_dep.xml' xpointer='xpointer(/root/prototypes)'/>
+            <xi:include href='./sfr_dep.xml' xpointer='xpointer(/root/build_times)'/>
+            <xi:include href='./sfr_dep.xml' xpointer='xpointer(/root/n_build)'/>
+            <xi:include href='./sfr_dep.xml' xpointer='xpointer(/root/lifetimes)'/>
         </DeployInst>
       </config>
     </institution>
