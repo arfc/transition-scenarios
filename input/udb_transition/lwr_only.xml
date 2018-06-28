@@ -1,7 +1,7 @@
 
 <simulation xmlns:xi="http://www.w3.org/2001/XInclude">
   <control>
-    <duration>700</duration>
+    <duration>1200</duration>
     <startmonth>5</startmonth>
     <startyear>2013</startyear>
     <decay>lazy</decay>
