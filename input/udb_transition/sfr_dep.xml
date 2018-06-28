@@ -1,3 +1,4 @@
+<root>
 <prototypes>
 		<val>sfr</val>
 		<val>sfr</val>
@@ -602,3 +603,4 @@
 		<val>960</val>
 		<val>960</val>
 </lifetimes>
+</root>
