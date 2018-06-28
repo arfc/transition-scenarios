@@ -276,4 +276,12 @@
    <nuclide> <id>Cs137</id>  <comp>0.059</comp> </nuclide> 
 </recipe>
 
+<recipe>
+    <name>sfr_recipe</name>
+    <basis>mass</basis>
+   <nuclide> <id>U238</id>  <comp>0.913</comp> </nuclide> 
+   <nuclide> <id>Pu239</id>  <comp>0.0869</comp> </nuclide>
+</recipe>
+
+
 </root>
