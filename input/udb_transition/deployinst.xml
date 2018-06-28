@@ -46,6 +46,36 @@
 		<val>sfr</val>
 		<val>sfr</val>
 		<val>sfr</val>
+		<val>sfr</val>
+		<val>sfr</val>
+		<val>sfr</val>
+		<val>sfr</val>
+		<val>sfr</val>
+		<val>sfr</val>
+		<val>sfr</val>
+		<val>sfr</val>
+		<val>sfr</val>
+		<val>sfr</val>
+		<val>sfr</val>
+		<val>sfr</val>
+		<val>sfr</val>
+		<val>sfr</val>
+		<val>sfr</val>
+		<val>sfr</val>
+		<val>sfr</val>
+		<val>sfr</val>
+		<val>sfr</val>
+		<val>sfr</val>
+		<val>sfr</val>
+		<val>sfr</val>
+		<val>sfr</val>
+		<val>sfr</val>
+		<val>sfr</val>
+		<val>sfr</val>
+		<val>sfr</val>
+		<val>sfr</val>
+		<val>sfr</val>
+		<val>sfr</val>
 </prototypes>
 <build_times>
 		<val>229</val>
@@ -94,6 +124,36 @@
 		<val>352</val>
 		<val>353</val>
 		<val>355</val>
+		<val>361</val>
+		<val>362</val>
+		<val>365</val>
+		<val>370</val>
+		<val>371</val>
+		<val>373</val>
+		<val>378</val>
+		<val>381</val>
+		<val>382</val>
+		<val>383</val>
+		<val>386</val>
+		<val>387</val>
+		<val>389</val>
+		<val>391</val>
+		<val>394</val>
+		<val>397</val>
+		<val>398</val>
+		<val>399</val>
+		<val>405</val>
+		<val>407</val>
+		<val>410</val>
+		<val>412</val>
+		<val>415</val>
+		<val>419</val>
+		<val>431</val>
+		<val>432</val>
+		<val>436</val>
+		<val>444</val>
+		<val>480</val>
+		<val>513</val>
 </build_times>
 <n_build>
 		<val>1</val>
@@ -142,8 +202,68 @@
 		<val>2</val>
 		<val>4</val>
 		<val>2</val>
+		<val>2</val>
+		<val>1</val>
+		<val>2</val>
+		<val>2</val>
+		<val>2</val>
+		<val>4</val>
+		<val>2</val>
+		<val>4</val>
+		<val>3</val>
+		<val>2</val>
+		<val>4</val>
+		<val>2</val>
+		<val>2</val>
+		<val>1</val>
+		<val>2</val>
+		<val>4</val>
+		<val>2</val>
+		<val>2</val>
+		<val>4</val>
+		<val>4</val>
+		<val>4</val>
+		<val>1</val>
+		<val>2</val>
+		<val>4</val>
+		<val>2</val>
+		<val>2</val>
+		<val>2</val>
+		<val>2</val>
+		<val>2</val>
+		<val>2</val>
 </n_build>
 <lifetimes>
+		<val>960</val>
+		<val>960</val>
+		<val>960</val>
+		<val>960</val>
+		<val>960</val>
+		<val>960</val>
+		<val>960</val>
+		<val>960</val>
+		<val>960</val>
+		<val>960</val>
+		<val>960</val>
+		<val>960</val>
+		<val>960</val>
+		<val>960</val>
+		<val>960</val>
+		<val>960</val>
+		<val>960</val>
+		<val>960</val>
+		<val>960</val>
+		<val>960</val>
+		<val>960</val>
+		<val>960</val>
+		<val>960</val>
+		<val>960</val>
+		<val>960</val>
+		<val>960</val>
+		<val>960</val>
+		<val>960</val>
+		<val>960</val>
+		<val>960</val>
 		<val>960</val>
 		<val>960</val>
 		<val>960</val>
