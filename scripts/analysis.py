@@ -262,7 +262,7 @@ def get_new_deployment(power_dict, inst_list, demand_eq, new_reactor_power,
     demand_eq: str
         demand equation w.r.t time(t)
     new_reactor_power: int
-        new reactor power capacity
+        new reactor power capacity [GWe]
     new_reactor_lifetime: int
         lifetime of new reactor
 
@@ -287,17 +287,26 @@ def get_new_deployment(power_dict, inst_list, demand_eq, new_reactor_power,
 
     total_lack = demand_timeseries - total_power
     deploy_array = np.zeros(total_steps)
-    for indx, value in enumerate(total_lack):
+    deployed_power = np.zeros(total_steps)
+    for indx in range(len(total_lack)):
         # skip index 0
         if indx == 0:
             continue
-        if value > new_reactor_power:
-            num = value // new_reactor_power
+        if total_lack[indx] > new_reactor_power:
+            num = total_lack[indx] // new_reactor_power
             deploy_array[indx] = num
             high_end = min([indx + new_reactor_lifetime, total_steps])
             for i in range(indx, high_end):
                 total_lack[i] -= num * new_reactor_power
-    return deploy_array
+                deployed_power[i] += num *new_reactor_power
+    # check if it's done properly:
+    final_power = deployed_power + total_power
+    for indx, p in enumerate(final_power):
+        if p < demand_timeseries[indx] - new_reactor_power:
+            print('timestep %i is not done correctly' %indx)
+            print('It has a powercap of %f when it should have %f' %(final_power[indx], demand_timeseries[indx]))
+
+    return deploy_array, deployed_power
 
 def write_deployinst(deploy_array, reactor_name,
                      filename, lifetime):
@@ -334,7 +343,9 @@ def write_deployinst(deploy_array, reactor_name,
     n_build += '</n_build>\n'
     lifetimes += '</lifetimes>\n'
 
-    outstring = prototypes + build_times + n_build + lifetimes
+    outstring = '<root>\n'
+    outstring += prototypes + build_times + n_build + lifetimes
+    outstring += '</root>\n'
     with open(filename, 'w') as f:
         f.write(outstring)
 
