@@ -1,0 +1,18 @@
+<root>
+<prototypes>
+		<val>lwr</val>
+		<val>lwr</val>
+</prototypes>
+<build_times>
+		<val>172</val>
+		<val>197</val>
+</build_times>
+<n_build>
+		<val>1</val>
+		<val>1</val>
+</n_build>
+<lifetimes>
+		<val>960</val>
+		<val>960</val>
+</lifetimes>
+</root>
