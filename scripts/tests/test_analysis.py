@@ -20,26 +20,26 @@ def get_sqlite():
         return cur
 
 
-def test_get_agent_ids():
-    """Test if get_agent_ids returns the right agentids"""
+def test_agent_ids():
+    """Test if get_agentids returns the right agentids"""
     cur = get_sqlite()
-    ids = an.get_agent_ids(cur, 'reactor')
+    ids = an.agent_ids(cur, 'reactor')
     answer = ['39', '40', '41', '42', '43', '44']
     assert ids == answer
 
 
-def test_get_prototype_id():
+def test_prototype_id():
     """Test if get_prototype_id returns the right agentids"""
     cur = get_sqlite()
-    ids = an.get_prototype_id(cur, 'lwr')
+    ids = an.prototype_id(cur, 'lwr')
     answer = ['39', '40', '42']
     assert ids == answer
 
 
-def test_get_timesteps():
-    """Tests if get_timesteps function outputs the right information"""
+def test_simulation_timesteps():
+    """Tests if simulation_timesteps function outputs the right information"""
     cur = get_sqlite()
-    init_year, init_month, duration, timestep = an.get_timesteps(cur)
+    init_year, init_month, duration, timestep = an.simulation_timesteps(cur)
     assert init_year == 2000
     assert init_month == 1
     assert duration == 10
@@ -49,11 +49,11 @@ def test_get_timesteps():
 def test_facility_commodity_flux():
     """Tests if facility_commodity_flux works properly"""
     cur = get_sqlite()
-    agent_ids = ['39', '40', '42']
+    agentids = ['39', '40', '42']
     commod_list_send = ['uox_waste']
     commod_list_rec = ['uox']
-    x = an.facility_commodity_flux(cur, agent_ids, commod_list_send, True)
-    y = an.facility_commodity_flux(cur, agent_ids, commod_list_rec, False)
+    x = an.facility_commodity_flux(cur, agentids, commod_list_send, True)
+    y = an.facility_commodity_flux(cur, agentids, commod_list_rec, False)
     answer_x = collections.OrderedDict()
     answer_y = collections.OrderedDict()
     answer_x['uox_waste'] = [0.0, 0.0, 0.3,
@@ -70,13 +70,13 @@ def test_facility_commodity_flux():
 def test_facility_commodity_flux_isotopics():
     """Tests if facility_commodity_flux_isotopics works properly"""
     cur = get_sqlite()
-    agent_ids = ['27']
+    agentids = ['27']
     commod_list_send = ['reprocess_waste', 'uox_Pu']
     commod_list_rec = ['uox_waste']
     x = an.facility_commodity_flux_isotopics(
-        cur, agent_ids, commod_list_send, True)
+        cur, agentids, commod_list_send, True)
     y = an.facility_commodity_flux_isotopics(
-        cur, agent_ids, commod_list_rec, False)
+        cur, agentids, commod_list_rec, False)
     answer_x = collections.OrderedDict()
     answer_y = collections.OrderedDict()
     answer_x['U235'] = [0, 0, 0, 2.639e-05, 2.639e-05, 6.279e-05,
@@ -91,11 +91,11 @@ def test_facility_commodity_flux_isotopics():
         assert expected == pytest.approx(actual, abs=1e-5)
 
 
-def test_get_stockpile():
-    """Tests if get_stockpile function works properly """
+def test_stockpiles():
+    """Tests if get_stockpiles function works properly """
     cur = get_sqlite()
     facility = 'separations'
-    pile_dict = an.get_stockpile(cur, facility)
+    pile_dict = an.stockpiles(cur, facility)
     answer = collections.OrderedDict()
     answer[facility] = [0, 0, 0, 0.2794, 0.2794,
                         0.6487, 0.6487, 0.9281, .9281, 0.9281]
@@ -104,24 +104,24 @@ def test_get_stockpile():
         assert expected == pytest.approx(actual, abs=1e-4)
 
 
-def test_get_swu_dict():
-    """Tests if get_swu_dict function works properly """
+def test_swu_timeseries():
+    """Tests if get_swu function works properly """
     cur = get_sqlite()
-    swu_dict = an.get_swu_dict(cur)
+    swu = an.swu_timeseries(cur)
     answer = collections.OrderedDict()
     answer['Enrichment_30'] = [0, 1144.307, 2288.615,
                                3432.922, 3814.358, 3814.358,
                                3814.358, 3814.358, 3814.358, 3814.358]
-    assert len(swu_dict['Enrichment_30']) == len(answer['Enrichment_30'])
-    for expected, actual in zip(swu_dict['Enrichment_30'],
+    assert len(swu['Enrichment_30']) == len(answer['Enrichment_30'])
+    for expected, actual in zip(swu['Enrichment_30'],
                                 answer['Enrichment_30']):
         assert expected == pytest.approx(actual, 1e-3)
 
 
-def test_get_power_dict():
+def test_power_capacity():
     """Tests if get_power_dict function works properly """
     cur = get_sqlite()
-    power_dict = an.get_power_dict(cur)
+    power_dict = an.power_capacity(cur)
     lwr_inst = np.array([0, 1, 1, 2, 1, 1, 0, 0, 0, 0])
     fr_inst = np.array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
     assert power_dict['lwr_inst'].all() == lwr_inst.all()
@@ -159,12 +159,12 @@ def test_exec_string_commodity():
     assert string == answer
 
 
-def test_get_timeseries():
+def test_timeseries():
     """Test if get_timeseries returns the right timeseries list
        Given an in_list"""
     in_list = [[1, 245], [5, 375], [10, 411]]
     duration = 13
-    x = an.get_timeseries(in_list, duration, False)
+    x = an.timeseries(in_list, duration, False)
     answer = [0, 245, 0, 0, 0, 375, 0,
               0, 0, 0, 411, 0, 0]
     assert x == answer
@@ -175,19 +175,19 @@ def test_kg_to_tons_no_cum():
        for non-cumulative timeseries search"""
     in_list = [[1, 245], [5, 375], [10, 411]]
     duration = 13
-    x = an.get_timeseries(in_list, duration, True)
+    x = an.timeseries(in_list, duration, True)
     answer = [0, 245, 0, 0, 0, 375, 0,
               0, 0, 0, 411, 0, 0]
     answer = [y * 0.001 for y in answer]
     assert x == answer
 
 
-def test_get_timeseries_cum():
+def test_timeseries_cum():
     """Test if get_timeseries_cum returns the right timeseries list
        Given an in_list"""
     in_list = [[1, 245], [5, 375], [10, 411]]
     duration = 13
-    x = an.get_timeseries_cum(in_list, duration, False)
+    x = an.timeseries_cum(in_list, duration, False)
     answer = [0, 245, 245, 245, 245, 245 + 375, 245 + 375,
               245 + 375, 245 + 375, 245 + 375, 245 + 375 + 411,
               245 + 375 + 411, 245 + 375 + 411]
@@ -199,7 +199,7 @@ def test_kg_to_tons_cum():
        returns in tons for cumulative"""
     in_list = [[1, 245], [5, 375], [10, 411]]
     duration = 13
-    x = an.get_timeseries_cum(in_list, duration, True)
+    x = an.timeseries_cum(in_list, duration, True)
     answer = [0, 245, 245, 245, 245, 245 + 375, 245 + 375,
               245 + 375, 245 + 375, 245 + 375, 245 + 375 + 411,
               245 + 375 + 411, 245 + 375 + 411]
@@ -207,7 +207,7 @@ def test_kg_to_tons_cum():
     assert x == answer
 
 
-def test_get_isotope_transactions():
+def test_isotope_transactions():
     """Test if get_isotope_transactions function
        If it returns the right dictionary"""
     cur = get_sqlite()
@@ -219,7 +219,7 @@ def test_get_isotope_transactions():
                             'WHERE commodity = "reprocess_waste" '
                             'GROUP BY time').fetchall()
     compositions = cur.execute('SELECT * FROM compositions').fetchall()
-    x = an.get_isotope_transactions(resources, compositions)
+    x = an.isotope_transactions(resources, compositions)
     answer = collections.defaultdict(list)
     answer[922350000].append((3, 0.02639))
     answer[922350000].append((5, 0.03639))
