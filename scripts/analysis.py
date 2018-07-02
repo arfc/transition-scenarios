@@ -380,8 +380,12 @@ def commodity_flux_region(cur, agentids, commodities,
     return commodity_region
 
 
-def facility_commodity_flux_isotopics(cur, agentids,
-                                      facility_commodities, is_outflux, is_cum=True):
+def facility_commodity_flux_isotopics(
+        cur,
+        agentids,
+        facility_commodities,
+        is_outflux,
+        is_cum=True):
     """Returns timeseries isotoptics of commodity in/outflux
     from agents
 
@@ -425,9 +429,11 @@ def facility_commodity_flux_isotopics(cur, agentids,
             isotope_timeseries[nucname.name(nucid)].append((time, amount))
     for key in isotope_timeseries:
         if is_cum:
-            isotope_timeseries[key] = timeseries_cum(isotope_timeseries[key], duration, True)
+            isotope_timeseries[key] = timeseries_cum(
+                isotope_timeseries[key], duration, True)
         else:
-            isotope_timeseries[key] = timeseries(isotope_timeseries[key], duration, True)
+            isotope_timeseries[key] = timeseries(
+                isotope_timeseries[key], duration, True)
     return isotope_timeseries
 
 
@@ -660,8 +666,8 @@ def nat_u_timeseries(cur, is_cum=True):
 
 
 def trade_timeseries(cur, sender, receiver,
-                   is_prototype, do_isotopic,
-                   is_cum=True):
+                     is_prototype, do_isotopic,
+                     is_cum=True):
     """Returns trade timeseries between two prototypes' or facilities
     with or without isotopics
 
@@ -735,7 +741,8 @@ def trade_timeseries(cur, sender, receiver,
                 isotope_timeseries[key] = timeseries_cum(
                     isotope_timeseries[key], duration, True)
             else:
-                isotope_timeseries[key] = timeseries(isotope_timeseries[key], duration, True)
+                isotope_timeseries[key] = timeseries(
+                    isotope_timeseries[key], duration, True)
         return isotope_timeseries
     else:
         key_name = str(sender)[:5] + ' to ' + str(receiver)[:5]
@@ -784,13 +791,13 @@ def final_stockpile(cur, facility):
                                  str(stream['qualid'])).fetchall()
 
             mthm_stockpile += ('Stream ' + str(count) +
-                          ' Total = ' + str(stream['sum(quantity)']) +
-                          ' kg \n')
+                               ' Total = ' + str(stream['sum(quantity)']) +
+                               ' kg \n')
             for isotope in masses:
                 mthm_stockpile += (str(isotope['nucid']) + ' = ' +
-                              str(isotope['massfrac'] *
-                                  stream['sum(quantity)']) +
-                              ' kg \n')
+                                   str(isotope['massfrac'] *
+                                       stream['sum(quantity)']) +
+                                   ' kg \n')
             mthm_stockpile += '\n'
             count += 1
         mthm_stockpile += '\n'
@@ -886,7 +893,8 @@ def commodity_origin(cur, commodity, prototypes, is_cum=True):
         from_agent = cur.execute(query.replace(
             '9999', ' OR senderid = '.join(agent_id))).fetchall()
         if is_cum:
-            prototype_trades[agent] = timeseries_cum(from_agent, duration, True)
+            prototype_trades[agent] = timeseries_cum(
+                from_agent, duration, True)
         else:
             prototype_trades[agent] = timeseries(from_agent, duration, True)
     return prototype_trades
@@ -931,7 +939,7 @@ def commodity_per_institution(cur, commodity, timestep=10000):
 def wastes(isotopes, mass_timeseries, duration):
     """Given an isotope, mass and time list, creates a dictionary
        With key as isotope and time series of the isotope mass.
-    
+
     Inputs:
     isotopes: list
         list with all the isotopes from resources table
@@ -940,19 +948,19 @@ def wastes(isotopes, mass_timeseries, duration):
         and contains tuples in the form (time,mass) for the isotope transaction.
     duration: integer
         simulation duration
-    
+
     Outputs:
     waste: dictionary
         dictionary with "key=isotope, and
         value=mass timeseries of each unique isotope"
     """
-    
+
     keys = []
     for key in isotopes:
         keys.append(key)
-    
+
     waste = {}
-        
+
     if len(mass_timeseries) == 1:
         times = []
         masses = []
@@ -961,19 +969,18 @@ def wastes(isotopes, mass_timeseries, duration):
             times.append((float(time.strip('('))))
             mass = str(i).split(',')[1]
             masses.append((float(mass.strip(')').strip('('))))
-    
-    
+
         time_developed = times
         masses1 = masses
         nums = np.arange(0, duration)
 
         for j in nums:
             if j not in time_developed:
-                time_developed.insert(j, j) 
-                masses1.insert(j,0)
-                
+                time_developed.insert(j, j)
+                masses1.insert(j, 0)
+
         waste[key] = masses1
-            
+
     else:
         for element in range(len(mass_timeseries)):
             times = []
@@ -983,21 +990,19 @@ def wastes(isotopes, mass_timeseries, duration):
                 times.append((float(time.strip('('))))
                 mass = str(i).split(',')[1]
                 masses.append((float(mass.strip(')').strip('('))))
-    
-    
+
             time_developed = times
             masses1 = masses
-            nums = np.arange(0,duration)
+            nums = np.arange(0, duration)
 
             for j in nums:
                 if j not in time_developed:
-                    time_developed.insert(j, j) 
-                    masses1.insert(j,0)
-                        
-            waste[keys[element]] = masses1
-    
-    return waste
+                    time_developed.insert(j, j)
+                    masses1.insert(j, 0)
 
+            waste[keys[element]] = masses1
+
+    return waste
 
 
 def capacity_calc(governments, timestep, entry_exit):
@@ -1521,18 +1526,18 @@ def plot_in_out_flux(cur, facility, influx_bool, title, outputname):
     init_year, init_month, duration, timestep = simulation_timesteps(cur)
     transactions = isotope_transactions(resources, compositions)
     waste = wastes(transactions.keys(),
-                                transactions.values()[0],
-                                transactions.values()[1],
-                                duration)
+                   transactions.values()[0],
+                   transactions.values()[1],
+                   duration)
 
     if influx_bool is False:
         stacked_bar_chart(waste, timestep,
                           'Years', 'Mass [kg]',
                           title, outputname, init_year)
     else:
-       multiple_line_plots(waste, timestep,
-                        'Years', 'Mass [kg]',
-                        title, outputname, init_year)
+        multiple_line_plots(waste, timestep,
+                            'Years', 'Mass [kg]',
+                            title, outputname, init_year)
 
 
 def entered_power(cur):
