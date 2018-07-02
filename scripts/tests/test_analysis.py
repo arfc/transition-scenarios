@@ -12,7 +12,7 @@ dir = os.path.dirname(__file__)
 test_sqlite_path = os.path.join(dir, 'test.sqlite')
 
 
-def get_sqlite():
+def sqlite_file_retrieve():
     con = lite.connect(test_sqlite_path)
     con.row_factory = lite.Row
     with con:
@@ -22,7 +22,7 @@ def get_sqlite():
 
 def test_agent_ids():
     """Test if get_agentids returns the right agentids"""
-    cur = get_sqlite()
+    cur = sqlite_file_retrieve()
     ids = an.agent_ids(cur, 'reactor')
     answer = ['39', '40', '41', '42', '43', '44']
     assert ids == answer
@@ -30,7 +30,7 @@ def test_agent_ids():
 
 def test_prototype_id():
     """Test if get_prototype_id returns the right agentids"""
-    cur = get_sqlite()
+    cur = sqlite_file_retrieve()
     ids = an.prototype_id(cur, 'lwr')
     answer = ['39', '40', '42']
     assert ids == answer
@@ -38,7 +38,7 @@ def test_prototype_id():
 
 def test_simulation_timesteps():
     """Tests if simulation_timesteps function outputs the right information"""
-    cur = get_sqlite()
+    cur = sqlite_file_retrieve()
     init_year, init_month, duration, timestep = an.simulation_timesteps(cur)
     assert init_year == 2000
     assert init_month == 1
@@ -48,7 +48,7 @@ def test_simulation_timesteps():
 
 def test_facility_commodity_flux():
     """Tests if facility_commodity_flux works properly"""
-    cur = get_sqlite()
+    cur = sqlite_file_retrieve()
     agentids = ['39', '40', '42']
     commod_list_send = ['uox_waste']
     commod_list_rec = ['uox']
@@ -69,7 +69,7 @@ def test_facility_commodity_flux():
 
 def test_facility_commodity_flux_isotopics():
     """Tests if facility_commodity_flux_isotopics works properly"""
-    cur = get_sqlite()
+    cur = sqlite_file_retrieve()
     agentids = ['27']
     commod_list_send = ['reprocess_waste', 'uox_Pu']
     commod_list_rec = ['uox_waste']
@@ -93,7 +93,7 @@ def test_facility_commodity_flux_isotopics():
 
 def test_stockpiles():
     """Tests if get_stockpiles function works properly """
-    cur = get_sqlite()
+    cur = sqlite_file_retrieve()
     facility = 'separations'
     pile_dict = an.stockpiles(cur, facility)
     answer = collections.OrderedDict()
@@ -106,7 +106,7 @@ def test_stockpiles():
 
 def test_swu_timeseries():
     """Tests if get_swu function works properly """
-    cur = get_sqlite()
+    cur = sqlite_file_retrieve()
     swu = an.swu_timeseries(cur)
     answer = collections.OrderedDict()
     answer['Enrichment_30'] = [0, 1144.307, 2288.615,
@@ -120,7 +120,7 @@ def test_swu_timeseries():
 
 def test_power_capacity():
     """Tests if get_power_dict function works properly """
-    cur = get_sqlite()
+    cur = sqlite_file_retrieve()
     power_dict = an.power_capacity(cur)
     lwr_inst = np.array([0, 1, 1, 2, 1, 1, 0, 0, 0, 0])
     fr_inst = np.array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
@@ -130,7 +130,7 @@ def test_power_capacity():
 
 def test_u_util_calc():
     """ Tests if u_util_calc function works properly """
-    cur = get_sqlite()
+    cur = sqlite_file_retrieve()
     x = an.u_util_calc(cur)
     answer = np.array([0, 0.142, 0.142, 0.142, 0.142,
                        0.142, 0.142, 0.142, 0.142, 0.142])
@@ -210,7 +210,7 @@ def test_kg_to_tons_cum():
 def test_isotope_transactions():
     """Test if get_isotope_transactions function
        If it returns the right dictionary"""
-    cur = get_sqlite()
+    cur = sqlite_file_retrieve()
     resources = cur.execute('SELECT sum(quantity), time, '
                             'qualid FROM transactions '
                             'INNER JOIN resources '
@@ -239,7 +239,7 @@ def test_isotope_transactions():
 
 def test_capacity_calc():
     """Test capacity_calc function"""
-    cur = get_sqlite()
+    cur = sqlite_file_retrieve()
     init_year, init_month, duration, timestep = an.get_timesteps(cur)
     governments = an.get_inst(cur)
     entry_exit = cur.execute('SELECT max(value), timeseriespower.agentid, '
