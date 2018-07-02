@@ -4,7 +4,7 @@ import os
 folders = [x[0] for x in os.walk('.')]
 folders = [x for x in folders if 'growth' in x]
 
-with open('log.txt') as f: 
+with open('log.txt', 'w') as f: 
     for directory in folders:
         print('RUNNING %s:' %directory[2:])
         if os.path.isfile('%s/output.sqlite' %directory):
