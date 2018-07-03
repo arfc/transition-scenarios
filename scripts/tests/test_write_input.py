@@ -39,21 +39,21 @@ def test_filter_test_reactors():
     assert wi.filter_test_reactors(test) == answer
 
 
-def test_get_ymd_ceil():
+def test_ymd_ceiling():
     """Test if get_ymd gets the correct year, month, and day"""
     ceil = wi.get_ymd(20180225)
     answer = (2018, 3)
     assert ceil == answer
 
 
-def test_get_ymd_floor():
+def test_ymd_floor():
     """Test if get_ymd gets the correct year, month, and day"""
     floor = wi.get_ymd(20180301)
     answer = (2018, 3)
     assert floor == answer
 
 
-def test_get_lifetime():
+def test_lifetime():
     """Test if get_lifetime calculates the right lifetime"""
     start_date = 19700101
     end_date = 20070225
@@ -61,13 +61,13 @@ def test_get_lifetime():
     assert wi.get_lifetime(start_date, end_date) == lifetime
 
 
-def test_get_lifetime_no_endtime():
+def test_lifetime_no_endtime():
     """Test if get_lifetime calculates the right lifetime
        given no endtime"""
     assert wi.get_lifetime(19700101, -1) == 720
 
 
-def test_get_entrytime():
+def test_entrytime():
     """Test if get_entrytime calculates the correct entrytime"""
     init_date = 19700101
     start_date = 20070225

@@ -83,7 +83,7 @@ def filter_test_reactors(reactor_array):
     return np.delete(reactor_array, hitlist)
 
 
-def get_ymd(yyyymmdd):
+def ymd(yyyymmdd):
     """This function extracts year and month value from yyyymmdd format
 
         The month value is rounded up if the day is above 16
@@ -109,7 +109,7 @@ def get_ymd(yyyymmdd):
     return (year, month)
 
 
-def get_lifetime(start_date, end_date):
+def protoype_lifetime(start_date, end_date):
     """This function gets the lifetime for a prototype given the
        start and end date.
 
@@ -128,16 +128,16 @@ def get_lifetime(start_date, end_date):
     """
 
     if end_date != -1:
-        end_year, end_month = get_ymd(end_date)
-        start_year, start_month = get_ymd(start_date)
-        dyear = end_year - start_year
-        dmonth = end_month - start_month
-        if dmonth < 0:
-            dyear -= 1
+        end_year, end_month = ymd(end_date)
+        start_year, start_month = ymd(start_date)
+        year_difference = end_year - start_year
+        month_difference = end_month - start_month
+        if month_difference < 0:
+            year_difference -= 1
             start_month += 12
-        dmonth = end_month - start_month
+        month_difference = end_month - start_month
 
-        return (12 * dyear + dmonth)
+        return (12 * year_difference + month_difference)
     else:
         return 720
 
@@ -161,17 +161,17 @@ def get_entrytime(init_date, start_date):
 
     """
 
-    init_year, init_month = get_ymd(init_date)
-    start_year, start_month = get_ymd(start_date)
+    init_year, init_month = ymd(init_date)
+    start_year, start_month = ymd(start_date)
 
-    dyear = start_year - init_year
-    dmonth = start_month - init_month
-    if dmonth < 0:
-        dyear -= 1
+    year_difference = start_year - init_year
+    month_difference = start_month - init_month
+    if month_difference < 0:
+        year_difference -= 1
         start_month += 12
-    dmonth = start_month - init_month
+    month_difference = start_month - init_month
 
-    entry_time = 12 * dyear + dmonth
+    entry_time = 12 * year_difference + month_difference
 
     return entry_time
 
@@ -347,7 +347,7 @@ def input_render(init_date, duration, reactor_file,
     with open(region_file, 'r') as bae:
         region = bae.read()
 
-    startyear, startmonth = get_ymd(init_date)
+    startyear, startmonth = ymd(init_date)
 
     # has reprocessing chunk if reprocessing boolean is true.
     if reprocessing is True:
@@ -487,7 +487,7 @@ def main(csv_file, init_date, duration, output_file, reprocessing=True):
     csv_database = read_csv(csv_file)
     for data in csv_database:
         entry_time = get_entrytime(init_date, data['first_crit'])
-        lifetime = get_lifetime(data['first_crit'], data['shutdown_date'])
+        lifetime = protoype_lifetime(data['first_crit'], data['shutdown_date'])
         if entry_time <= 0:
             lifetime = lifetime + entry_time
             if lifetime < 0:

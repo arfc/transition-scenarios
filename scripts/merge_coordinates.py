@@ -8,7 +8,7 @@ if len(sys.argv) < 3:
     print('Usage: python merge_coordinates.py [pris_link] [webscrape_link]')
 
 
-def get_cursor(file_name):
+def cursor(file_name):
     """ Connects and returns a cursor to an sqlite output file
 
     Parameters
@@ -63,12 +63,12 @@ def import_webscrape_data(scrape_link):
     coords: sqlite cursor
         sqlite cursor containing webscrape data
     """
-    cur = get_cursor(scrape_link)
+    cur = cursor(scrape_link)
     coords = cur.execute("SELECT name, long, lat FROM reactors_coordinates")
     return coords
 
 
-def get_edge_cases():
+def edge_cases():
     """ Returns a dictionary of edge cases that fuzzywuzzy is
     unable to catch. This could be because PRIS database stores
     reactor names and Webscrape database fetches power plant names,
@@ -83,7 +83,7 @@ def get_edge_cases():
         dictionary of edge cases with "key=pris_reactor_name, and
         value=webscrape_plant_name"
     """
-    others = {'OHI-': 'Ōi',
+    pris_edge_cases = {'OHI-': 'Ōi',
               'ASCO-': 'Ascó',
               'ROVNO-': 'Rivne',
               'SHIN-KORI-': 'Kori',
@@ -103,7 +103,7 @@ def get_edge_cases():
               'HADDAM NECK': 'Connecticut Yankee',
               'HIGASHI DORI-1 (TOHOKU)': 'Higashidōri',
               }
-    return others
+    return pris_edge_cases
 
 
 def sanitize_webscrape_name(name):
@@ -150,7 +150,7 @@ def merge_coordinates(pris_link, scrape_link):
     pris: pd.DataFrame
         updated PRIS database with latitude and longitude info
     """
-    others = get_edge_cases()
+    others = edge_cases()
     pris = import_pris(pris_link)
     coords = import_webscrape_data(scrape_link)
     for web in coords:

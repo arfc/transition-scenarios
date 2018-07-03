@@ -518,7 +518,7 @@ def power_capacity(cur):
         value=timeseries list of installed capacity"
     """
     init_year, init_month, duration, timestep = simulation_timesteps(cur)
-    governments = institutions(cur)
+    insts = institutions(cur)
 
     # get power cap values
     entry_exit = cur.execute('SELECT max(value), timeseriespower.agentid, '
@@ -528,7 +528,7 @@ def power_capacity(cur):
                              'ON agententry.agentid = timeseriespower.agentid '
                              'GROUP BY timeseriespower.agentid').fetchall()
 
-    return capacity_calc(governments, timestep, entry_exit)
+    return capacity_calc(insts, timestep, entry_exit)
 
 
 def power_capacity_of_region(cur, region_name):
@@ -575,7 +575,7 @@ def deployments(cur):
         value=timeseries list of number of reactors"
     """
     init_year, init_month, duration, timestep = simulation_timesteps(cur)
-    governments = institutions(cur)
+    insts = institutions(cur)
 
     # get power cap values
     entry = cur.execute('SELECT max(value), timeseriespower.agentid, '
@@ -591,7 +591,7 @@ def deployments(cur):
                             ' INNER JOIN agententry '
                             'ON agentexit.agentid = agententry.agentid '
                             'GROUP BY timeseriespower.agentid').fetchall()
-    return reactor_deployments(governments, timestep, entry, exit_step)
+    return reactor_deployments(insts, timestep, entry, exit_step)
 
 
 def fuel_usage_timeseries(cur, fuels, is_cum=True):
@@ -877,7 +877,7 @@ def commodity_origin(cur, commodity, prototypes, is_cum=True):
 
     Returns
     -------
-    prototype_trades: dictioary
+    prototype_trades: dictionary
         "dictionary with key=prototype name, and
         value=timeseries list of commodity sent from prototypes"
     """
@@ -918,9 +918,9 @@ def commodity_per_institution(cur, commodity, timestep=10000):
         value = timeseries list of outflux of commodity
     """
 
-    institutes = institutions(cur)
+    insts = institutions(cur)
     institution_output = collections.OrderedDict()
-    for inst in institutes:
+    for inst in insts:
         inst_id = inst[1]
         inst_name = inst[0]
         facilities = cur.execute('SELECT agentid FROM agententry '
@@ -936,11 +936,12 @@ def commodity_per_institution(cur, commodity, timestep=10000):
     return institution_output
 
 
-def wastes(isotopes, mass_timeseries, duration):
+def waste_mass_series(isotopes, mass_timeseries, duration):
     """Given an isotope, mass and time list, creates a dictionary
        With key as isotope and time series of the isotope mass.
 
-    Inputs:
+    Parameters
+    ----------
     isotopes: list
         list with all the isotopes from resources table
     mass_timeseries: list
@@ -949,69 +950,53 @@ def wastes(isotopes, mass_timeseries, duration):
     duration: integer
         simulation duration
 
-    Outputs:
-    waste: dictionary
+    Returns
+    -------
+    waste_mass: dictionary
         dictionary with "key=isotope, and
-        value=mass timeseries of each unique isotope"
-    """
-
-    keys = []
-    for key in isotopes:
-        keys.append(key)
-
-    waste = {}
-
-    if len(mass_timeseries) == 1:
-        times = []
-        masses = []
-        for i in list(mass_timeseries[0]):
-            time = str(i).split(',')[0]
-            times.append((float(time.strip('('))))
-            mass = str(i).split(',')[1]
-            masses.append((float(mass.strip(')').strip('('))))
-
-        time_developed = times
-        masses1 = masses
-        nums = np.arange(0, duration)
-
-        for j in nums:
-            if j not in time_developed:
-                time_developed.insert(j, j)
-                masses1.insert(j, 0)
-
-        waste[key] = masses1
-
-    else:
-        for element in range(len(mass_timeseries)):
-            times = []
-            masses = []
-            for i in list(mass_timeseries[element]):
-                time = str(i).split(',')[0]
-                times.append((float(time.strip('('))))
-                mass = str(i).split(',')[1]
-                masses.append((float(mass.strip(')').strip('('))))
-
-            time_developed = times
-            masses1 = masses
-            nums = np.arange(0, duration)
-
-            for j in nums:
-                if j not in time_developed:
-                    time_developed.insert(j, j)
-                    masses1.insert(j, 0)
-
-            waste[keys[element]] = masses1
-
-    return waste
+        value=mass timeseries of each unique isotope"   """
+    waste_mass = {}
+    for isotope in isotopes:
+        postion = [i for i, x in enumerate(isotopes) if x == isotope][0]
+        mass = [item[1] for item in mass_timeseries[postion]]
+        waste_mass[isotope] = mass
+    return waste_mass
 
 
-def capacity_calc(governments, timestep, entry_exit):
+def waste_timeseries(isotopes, mass_timeseries, duration):
+    """Given an isotope, mass and time list, creates a dictionary
+       With key as isotope and time series of the isotope mass.
+
+    Parameters
+    ----------
+    isotopes: list
+        list with all the isotopes from resources table
+    mass_timeseries: list
+        a list of lists.  each outer list corresponds to a different isotope
+        and contains tuples in the form (time,mass) for the isotope transaction.
+    duration: integer
+        simulation duration
+
+    Returns
+    -------
+    waste_time: dictionary
+        dictionary with "key=isotope, and
+        value=mass timeseries of each unique isotope"   """
+    waste_time = {}
+    for isotope in isotopes:
+        postion = [i for i, x in enumerate(isotopes) if x == isotope][0]
+        time = [item[0] for item in mass_timeseries[postion]]
+        waste_time[isotope] = time
+    return waste_time
+
+
+def capacity_calc(insts, timestep, entry_exit):
     """Adds and subtracts capacity over time for plotting
 
     Parameters
     ----------
-    governments: list
-        list of governments (countries)
+    insts: list
+        list of insts (countries)
     timestep: np.linspace
         list of timestep from 0 to simulation time
     entry_exit: list
@@ -1025,31 +1010,31 @@ def capacity_calc(governments, timestep, entry_exit):
         value=timeseries list capacity"
     """
     power = collections.OrderedDict()
-    for gov in governments:
+    for inst in insts:
         capacity = []
         cap = 0
         for t in timestep:
             for agent in entry_exit:
                 if (agent['entertime'] == t and
-                        agent['parentid'] == gov['agentid']):
+                        agent['parentid'] == inst['agentid']):
                     cap += agent['max(value)'] * 0.001
                 if (agent['entertime + lifetime'] == t and
-                        agent['parentid'] == gov['agentid']):
+                        agent['parentid'] == inst['agentid']):
                     cap -= agent['max(value)'] * 0.001
             capacity.append(cap)
-        power[gov['prototype']] = np.asarray(capacity)
+        power[inst['prototype']] = np.asarray(capacity)
 
     return power
 
 
-def reactor_deployments(governments, timestep, entry, exit_step):
+def reactor_deployments(insts, timestep, entry, exit_step):
     """Adds and subtracts number of reactors deployed over time
     for plotting
 
     Parameters
     ----------
-    governments: list
-        list of governments (countries)
+    insts: list
+        list of insts (countries)
     timestep: np.linspace
         list of timestep from 0 to simulation time
     entry: list
@@ -1067,20 +1052,20 @@ def reactor_deployments(governments, timestep, entry, exit_step):
         value=timeseries number of reactors"
     """
     deployment = collections.OrderedDict()
-    for gov in governments:
+    for inst in insts:
         num_reactors = []
         count = 0
         for t in timestep:
             for enter in entry:
                 if (enter['entertime'] == t and
-                        enter['parentid'] == gov['agentid']):
+                        enter['parentid'] == inst['agentid']):
                     count += 1
             for dec in exit_step:
                 if (dec['exittime'] == t and
-                        dec['parentid'] == gov['agentid']):
+                        dec['parentid'] == inst['agentid']):
                     count -= 1
             num_reactors.append(count)
-        deployment[gov['prototype']] = np.asarray(num_reactors)
+        deployment[inst['prototype']] = np.asarray(num_reactors)
 
     return deployment
 
@@ -1525,10 +1510,10 @@ def plot_in_out_flux(cur, facility, influx_bool, title, outputname):
 
     init_year, init_month, duration, timestep = simulation_timesteps(cur)
     transactions = isotope_transactions(resources, compositions)
-    waste = wastes(transactions.keys(),
-                   transactions.values()[0],
-                   transactions.values()[1],
-                   duration)
+    waste = waste_mass_series(transactions.keys(),
+                              transactions.values()[0],
+                              transactions.values()[1],
+                              duration)
 
     if influx_bool is False:
         stacked_bar_chart(waste, timestep,
