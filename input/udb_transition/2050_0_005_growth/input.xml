@@ -378,7 +378,7 @@
     </config>
   </facility>
 
-  <xi:include href='./reactor_with_coordinates.xml' xpointer='xpointer(/root/facility)'/>
+  <xi:include href='../reactor_with_coordinates.xml' xpointer='xpointer(/root/facility)'/>
 
   <region>
     <name>us</name>
@@ -387,10 +387,10 @@
       <name>us_government</name>
       <config>
         <DeployInst>
-            <xi:include href='./depinst.xml' xpointer='xpointer(/root/prototypes)'/>
-            <xi:include href='./depinst.xml' xpointer='xpointer(/root/build_times)'/>
-            <xi:include href='./depinst.xml' xpointer='xpointer(/root/n_build)'/>
-            <xi:include href='./depinst.xml' xpointer='xpointer(/root/lifetimes)'/>
+            <xi:include href='../depinst.xml' xpointer='xpointer(/root/prototypes)'/>
+            <xi:include href='../depinst.xml' xpointer='xpointer(/root/build_times)'/>
+            <xi:include href='../depinst.xml' xpointer='xpointer(/root/n_build)'/>
+            <xi:include href='../depinst.xml' xpointer='xpointer(/root/lifetimes)'/>
         </DeployInst>
       </config>
     </institution>
@@ -492,5 +492,5 @@
         </initialfacilitylist>
         </institution>
 </region>
-<xi:include href='./recipes.xml' xpointer='xpointer(/root/recipe)'/>
+<xi:include href='../recipes.xml' xpointer='xpointer(/root/recipe)'/>
 </simulation>
