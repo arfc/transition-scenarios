@@ -249,7 +249,7 @@ def get_timeseries_cum(in_list, duration, kg_to_tons):
     return value_timeseries
 
 def get_new_deployment(power_dict, inst_list, demand_eq, new_reactor_power,
-                       new_reactor_lifetime):
+                       new_reactor_lifetime, avail_timestep, new=False):
     """ Calculates the new deployment scheme to maintain power demand
 
     Parameters:
@@ -265,6 +265,10 @@ def get_new_deployment(power_dict, inst_list, demand_eq, new_reactor_power,
         new reactor power capacity [GWe]
     new_reactor_lifetime: int
         lifetime of new reactor
+    avail_timestep: int
+        timestep when new reactor type is available
+    new: bool
+        if the reactor is new reactor type or not
 
     Returns:
     --------
@@ -294,17 +298,18 @@ def get_new_deployment(power_dict, inst_list, demand_eq, new_reactor_power,
             continue
         if total_lack[indx] > new_reactor_power:
             num = total_lack[indx] // new_reactor_power
-            deploy_array[indx] = num
-            high_end = min([indx + new_reactor_lifetime, total_steps])
-            for i in range(indx, high_end):
-                total_lack[i] -= num * new_reactor_power
-                deployed_power[i] += num *new_reactor_power
-    # check if it's done properly:
-    final_power = deployed_power + total_power
-    for indx, p in enumerate(final_power):
-        if p < demand_timeseries[indx] - new_reactor_power:
-            print('timestep %i is not done correctly' %indx)
-            print('It has a powercap of %f when it should have %f' %(final_power[indx], demand_timeseries[indx]))
+            if new and indx >= avail_timestep:
+                deploy_array[indx] = num
+                high_end = min([indx + new_reactor_lifetime, total_steps])
+                for i in range(indx, high_end):
+                    total_lack[i] -= num * new_reactor_power
+                    deployed_power[i] += num *new_reactor_power
+            elif not new and indx < avail_timestep:
+                deploy_array[indx] = num
+                high_end = min([indx + new_reactor_lifetime, total_steps])
+                for i in range(indx, high_end):
+                    total_lack[i] -= num * new_reactor_power
+                    deployed_power[i] += num *new_reactor_power
 
     return deploy_array, deployed_power
 
