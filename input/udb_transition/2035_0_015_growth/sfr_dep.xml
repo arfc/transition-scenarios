@@ -789,8 +789,10 @@
 		<val>sfr</val>
 		<val>sfr</val>
 		<val>sfr</val>
+		<val>sfr</val>
 </prototypes>
 <build_times>
+		<val>259</val>
 		<val>260</val>
 		<val>261</val>
 		<val>262</val>
@@ -1582,7 +1584,8 @@
 		<val>1199</val>
 </build_times>
 <n_build>
-		<val>5</val>
+		<val>2</val>
+		<val>3</val>
 		<val>1</val>
 		<val>4</val>
 		<val>3</val>
@@ -2373,6 +2376,7 @@
 		<val>4</val>
 </n_build>
 <lifetimes>
+		<val>960</val>
 		<val>960</val>
 		<val>960</val>
 		<val>960</val>
