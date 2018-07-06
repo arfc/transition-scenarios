@@ -104,7 +104,7 @@
       <Separations>
          <feed_commods>   <val>cooled_driver</val> <val>cooled_blanket</val> </feed_commods>
          <feed_commod_prefs> <val>1.0</val> <val>1.0</val>  </feed_commod_prefs>
-         <feed_recipe>sfr_spent_mox_recipe</feed_recipe>
+         <feed_recipe>driver_used</feed_recipe>
          <feedbuf_size>1e100</feedbuf_size>
          <!-- 1100 tons/year 91.6 tons/timestep -->
          <throughput>1e100</throughput>
