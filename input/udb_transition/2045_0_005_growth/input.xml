@@ -242,7 +242,7 @@
       <Reactor>
         <fuel_inrecipes>  <val>natl_u_recipe</val>        </fuel_inrecipes>
         <fuel_outrecipes> <val>blanket_used</val>   </fuel_outrecipes>
-        <fuel_incommods>  <val>natl_u</val>                    </fuel_incommods>
+        <fuel_incommods>  <val>blanket</val>                    </fuel_incommods>
         <fuel_outcommods> <val>blanket_used</val>              </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                    </fuel_prefs>
         <cycle_time>14</cycle_time>
@@ -354,6 +354,17 @@
   </facility>
 
   <facility>
+    <name>blanket_source</name>
+    <config>
+      <Source>
+        <outcommod>blanket</outcommod>
+        <outrecipe>natl_u_recipe</outrecipe>
+        <throughput>1e100</throughput>
+      </Source>
+    </config>
+  </facility>
+
+  <facility>
     <name>unf_source</name>
     <config>
       <Source>
@@ -456,6 +467,11 @@
           <entry>
             <number>1</number>
             <prototype>SomeSink</prototype>
+          </entry>
+
+          <entry>
+            <number>1</number>
+            <prototype>blanket_source</prototype>
           </entry>
           <entry>
             <number>1</number>
