@@ -65,16 +65,16 @@
          <feed_commods>   <val>cooled_uox</val> <val>pre_2013_unf</val> </feed_commods>
          <feed_commod_prefs> <val>1.0</val> <val>1.0</val> </feed_commod_prefs>
          <feed_recipe>uox_used_fuel_recipe</feed_recipe>
-         <feedbuf_size>1e15</feedbuf_size>
+         <feedbuf_size>1e100</feedbuf_size>
          <!-- 1100 tons/year 91.6 tons/timestep -->
-         <throughput>1e15</throughput>
+         <throughput>1e100</throughput>
          <leftover_commod>reprocess_waste</leftover_commod>
          <leftoverbuf_size>1e100</leftoverbuf_size>
          <streams>
           <item>
             <commod>lwr_pu</commod>
             <info>
-              <buf_size>2e10</buf_size>
+              <buf_size>1e100</buf_size>
               <efficiencies>
                 <item>
                   <comp>Pu</comp> <eff>.99</eff>
@@ -85,7 +85,7 @@
           <item>
             <commod>lwr_u</commod>
             <info>
-              <buf_size>2e10</buf_size>
+              <buf_size>1e100</buf_size>
               <efficiencies>
                 <item>
                   <comp>U</comp> <eff>.99</eff>
@@ -102,19 +102,19 @@
     <name>sfr_reprocessing</name>
     <config>
       <Separations>
-         <feed_commods>   <val>cooled_sfr</val> <val>cooled_blanket</val> </feed_commods>
+         <feed_commods>   <val>cooled_driver</val> <val>cooled_blanket</val> </feed_commods>
          <feed_commod_prefs> <val>1.0</val> <val>1.0</val>  </feed_commod_prefs>
-         <feed_recipe>sfr_spent_mox_recipe</feed_recipe>
-         <feedbuf_size>1e10</feedbuf_size>
+         <feed_recipe>driver_used</feed_recipe>
+         <feedbuf_size>1e100</feedbuf_size>
          <!-- 1100 tons/year 91.6 tons/timestep -->
-         <throughput>1e10</throughput>
+         <throughput>1e100</throughput>
          <leftover_commod>reprocess_waste</leftover_commod>
          <leftoverbuf_size>1e100</leftoverbuf_size>
          <streams>
           <item>
             <commod>sfr_pu</commod>
             <info>
-              <buf_size>2e8</buf_size>
+              <buf_size>1e100</buf_size>
               <efficiencies>
                 <item>
                   <comp>Pu</comp> <eff>.99</eff>
@@ -125,7 +125,7 @@
           <item>
             <commod>sfr_u</commod>
             <info>
-              <buf_size>2e8</buf_size>
+              <buf_size>1e100</buf_size>
               <efficiencies>
                 <item>
                   <comp>U</comp> <eff>.99</eff>
@@ -147,8 +147,8 @@
         <in_streams>
           <stream>
             <info>
-              <mixing_ratio>0.0869</mixing_ratio>
-              <buf_size>2e10</buf_size>
+              <mixing_ratio>0.15</mixing_ratio>
+              <buf_size>1e100</buf_size>
             </info>
             <commodities>
               <item>
@@ -159,8 +159,8 @@
           </stream>
           <stream>
             <info>
-              <mixing_ratio>0.9131</mixing_ratio>
-              <buf_size>2e10</buf_size>
+              <mixing_ratio>0.85</mixing_ratio>
+              <buf_size>1e100</buf_size>
             </info>
             <commodities>
               <item>
@@ -171,8 +171,8 @@
           </stream>
         </in_streams>
         <out_commod>sfr_fuel_legacy</out_commod>
-        <out_buf_size>1e10</out_buf_size>
-        <throughput>1e10</throughput>
+        <out_buf_size>1e100</out_buf_size>
+        <throughput>1e100</throughput>
       </Mixer>
     </config>
 </facility>
@@ -186,8 +186,8 @@
         <in_streams>
           <stream>
             <info>
-              <mixing_ratio>0.0869</mixing_ratio>
-              <buf_size>2e10</buf_size>
+              <mixing_ratio>0.15</mixing_ratio>
+              <buf_size>1e100</buf_size>
             </info>
             <commodities>
               <item>
@@ -198,8 +198,8 @@
           </stream>
           <stream>
             <info>
-              <mixing_ratio>0.9131</mixing_ratio>
-              <buf_size>2e10</buf_size>
+              <mixing_ratio>0.85</mixing_ratio>
+              <buf_size>1e100</buf_size>
             </info>
             <commodities>
               <item>
@@ -210,8 +210,8 @@
           </stream>
         </in_streams>
         <out_commod>sfr_fuel_new</out_commod>
-        <out_buf_size>1e10</out_buf_size>
-        <throughput>1e10</throughput>
+        <out_buf_size>1e100</out_buf_size>
+        <throughput>1e100</throughput>
       </Mixer>
     </config>
 </facility>
@@ -221,21 +221,39 @@
     <name>sfr</name>
     <config>
       <Reactor>
-        <fuel_inrecipes>  <val>sfr_recipe</val>      <val>sfr_recipe</val>  </fuel_inrecipes>
-        <fuel_outrecipes> <val>sfr_spent_mox_recipe</val> <val>sfr_spent_mox_recipe</val>  </fuel_outrecipes>
+        <fuel_inrecipes>  <val>driver_fresh</val>      <val>driver_fresh</val>  </fuel_inrecipes>
+        <fuel_outrecipes> <val>driver_used</val> <val>driver_used</val>  </fuel_outrecipes>
         <fuel_incommods>  <val>sfr_fuel_legacy</val> <val>sfr_fuel_new</val>                   </fuel_incommods>
         <fuel_outcommods> <val>sfr_used</val> <val>sfr_used</val>             </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val> <val>3.0</val>                   </fuel_prefs>
-        <cycle_time>12</cycle_time>
+        <cycle_time>9</cycle_time>
         <refuel_time>1</refuel_time>
-        <assem_size>6240</assem_size>
-        <n_assem_core>6</n_assem_core>
+        <assem_size>3076</assem_size>
+        <n_assem_core>5</n_assem_core>
         <n_assem_batch>1</n_assem_batch>
         <power_cap>400</power_cap>
       </Reactor>
     </config>
 </facility>
 
+<facility>
+    <name>blanket</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>natl_u_recipe</val>        </fuel_inrecipes>
+        <fuel_outrecipes> <val>blanket_used</val>   </fuel_outrecipes>
+        <fuel_incommods>  <val>natl_u</val>                    </fuel_incommods>
+        <fuel_outcommods> <val>blanket_used</val>              </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                    </fuel_prefs>
+        <cycle_time>14</cycle_time>
+        <refuel_time>1</refuel_time>
+        <assem_size>768</assem_size>
+        <n_assem_core>5</n_assem_core>
+        <n_assem_batch>1</n_assem_batch>
+        <power_cap>0</power_cap>
+      </Reactor>
+    </config>
+</facility>
 
 
  <facility>
@@ -283,7 +301,7 @@
             <in_commods>
                 <val>blanket_used</val>
             </in_commods>
-            <residence_time>36</residence_time>
+            <residence_time>12</residence_time>
             <out_commods>
                 <val>cooled_blanket</val>
             </out_commods>
@@ -306,6 +324,8 @@
         </Storage>
     </config>
 </facility>
+
+
 
   <facility>
     <name>enrichment</name>
@@ -399,11 +419,23 @@
         </DeployInst>
       </config>
     </institution>
+
+  <institution>
+      <name>blanket_inst</name>
+      <config>
+        <DeployInst>
+            <xi:include href='./blanket_dep.xml' xpointer='xpointer(/root/prototypes)'/>
+            <xi:include href='./blanket_dep.xml' xpointer='xpointer(/root/build_times)'/>
+            <xi:include href='./blanket_dep.xml' xpointer='xpointer(/root/n_build)'/>
+            <xi:include href='./blanket_dep.xml' xpointer='xpointer(/root/lifetimes)'/>
+        </DeployInst>
+      </config>
+    </institution>
   </region>
 
   
 <region>
-    <name>Facilities</name>
+    <name>Sink_Source</name>
     <config><NullRegion/></config>
         <institution>
          <name>Sink_Source_Inst</name>
@@ -412,6 +444,10 @@
           <entry>
             <number>1</number>
             <prototype>nat_u_source</prototype>
+          </entry>
+          <entry>
+            <number>1</number>
+            <prototype>blanket_storage</prototype>
           </entry>
           <entry>
             <number>1</number>
@@ -445,14 +481,10 @@
             <number>1</number>
             <prototype>uox_storage</prototype>
           </entry>
-
-
           <entry>
             <number>1</number>
             <prototype>unf_source</prototype>
           </entry>
-
-
         </initialfacilitylist>
         </institution>
 </region>
