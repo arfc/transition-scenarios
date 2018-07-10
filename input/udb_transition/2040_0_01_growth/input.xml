@@ -369,7 +369,7 @@
     <config>
       <Source>
         <outcommod>pre_2013_unf</outcommod>
-        <outrecipe>precise</outrecipe>
+        <outrecipe>pre_2013_unf_recipe</outrecipe>
         <throughput>1e100</throughput>
         <inventory_size>68072030</inventory_size>
       </Source>

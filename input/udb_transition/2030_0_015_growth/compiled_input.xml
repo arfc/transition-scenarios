@@ -102,7 +102,7 @@
     <name>sfr_reprocessing</name>
     <config>
       <Separations>
-         <feed_commods>   <val>cooled_sfr</val> <val>cooled_blanket</val> </feed_commods>
+         <feed_commods>   <val>cooled_driver</val> <val>cooled_blanket</val> </feed_commods>
          <feed_commod_prefs> <val>1.0</val> <val>1.0</val>  </feed_commod_prefs>
          <feed_recipe>driver_used</feed_recipe>
          <feedbuf_size>1e100</feedbuf_size>
@@ -221,7 +221,7 @@
     <name>sfr</name>
     <config>
       <Reactor>
-        <fuel_inrecipes>  <val>driver_fresh</val>      <val>driver_fresh</val>  </fuel_inrecipes>
+        <fuel_inrecipes>  <val>sfr_recipe</val>      <val>sfr_recipe</val>  </fuel_inrecipes>
         <fuel_outrecipes> <val>driver_used</val> <val>driver_used</val>  </fuel_outrecipes>
         <fuel_incommods>  <val>sfr_fuel_legacy</val> <val>sfr_fuel_new</val>                   </fuel_incommods>
         <fuel_outcommods> <val>sfr_used</val> <val>sfr_used</val>             </fuel_outcommods>
@@ -242,7 +242,7 @@
       <Reactor>
         <fuel_inrecipes>  <val>natl_u_recipe</val>        </fuel_inrecipes>
         <fuel_outrecipes> <val>blanket_used</val>   </fuel_outrecipes>
-        <fuel_incommods>  <val>blanket</val>                    </fuel_incommods>
+        <fuel_incommods>  <val>natl_u</val>                    </fuel_incommods>
         <fuel_outcommods> <val>blanket_used</val>              </fuel_outcommods>
         <fuel_prefs>      <val>1.0</val>                    </fuel_prefs>
         <cycle_time>14</cycle_time>
@@ -347,17 +347,6 @@
     <config>
       <Source>
         <outcommod>natl_u</outcommod>
-        <outrecipe>natl_u_recipe</outrecipe>
-        <throughput>1e100</throughput>
-      </Source>
-    </config>
-  </facility>
-
-  <facility>
-    <name>blanket_source</name>
-    <config>
-      <Source>
-        <outcommod>blanket</outcommod>
         <outrecipe>natl_u_recipe</outrecipe>
         <throughput>1e100</throughput>
       </Source>
@@ -4294,7 +4283,7 @@
 		<val>sfr</val>
 </prototypes>
             <build_times>
-		<val>200</val>
+		<val>199</val>
 		<val>201</val>
 		<val>203</val>
 		<val>205</val>
@@ -5903,8 +5892,8 @@
 		<val>1</val>
 		<val>4</val>
 		<val>1</val>
-		<val>2</val>
-		<val>3</val>
+		<val>4</val>
+		<val>1</val>
 		<val>5</val>
 		<val>1</val>
 		<val>3</val>
@@ -7606,7 +7595,7 @@
 		<val>blanket</val>
 </prototypes>
             <build_times>
-		<val>200</val>
+		<val>199</val>
 		<val>201</val>
 		<val>203</val>
 		<val>205</val>
@@ -9215,8 +9204,8 @@
 		<val>1</val>
 		<val>4</val>
 		<val>1</val>
-		<val>2</val>
-		<val>3</val>
+		<val>4</val>
+		<val>1</val>
 		<val>5</val>
 		<val>1</val>
 		<val>3</val>
@@ -10112,11 +10101,6 @@
             <number>1</number>
             <prototype>SomeSink</prototype>
           </entry>
-
-          <entry>
-            <number>1</number>
-            <prototype>blanket_source</prototype>
-          </entry>
           <entry>
             <number>1</number>
             <prototype>reprocessing</prototype>
@@ -10141,10 +10125,14 @@
             <number>1</number>
             <prototype>uox_storage</prototype>
           </entry>
+
+
           <entry>
             <number>1</number>
             <prototype>unf_source</prototype>
           </entry>
+
+
         </initialfacilitylist>
         </institution>
 </region>
@@ -10165,94 +10153,6 @@
     <nuclide> <id>U235</id><comp>0.003</comp></nuclide>
     <nuclide><id>U238</id><comp>0.997</comp></nuclide>
   </recipe><recipe xml:base="../recipes.xml">
-  <name>precise</name>
-  <basis>mass</basis>
-  <nuclide> <id>Kr85</id> <comp>0.000001</comp> </nuclide>
-  <nuclide> <id>Rb85</id> <comp>0.000002</comp> </nuclide>
-  <nuclide> <id>Sr90</id> <comp>0.000039</comp> </nuclide>
-  <nuclide> <id>Zr90</id> <comp>0.000023</comp> </nuclide>
-  <nuclide> <id>Zr93</id> <comp>0.000099</comp> </nuclide>
-  <nuclide> <id>Tc99</id> <comp>0.000097</comp> </nuclide>
-  <nuclide> <id>Pd106</id> <comp>0.000009</comp> </nuclide>
-  <nuclide> <id>Pd107</id> <comp>0.000031</comp> </nuclide>
-  <nuclide> <id>Sn126</id> <comp>0.000003</comp> </nuclide>
-  <nuclide> <id>Te125</id> <comp>0.000001</comp> </nuclide>
-  <nuclide> <id>I129</id> <comp>0.000021</comp> </nuclide>
-  <nuclide> <id>Cs135</id> <comp>0.000064</comp> </nuclide>
-  <nuclide> <id>Cs137</id> <comp>0.000096</comp> </nuclide>
-  <nuclide> <id>Ba134</id> <comp>0.000013</comp> </nuclide>
-  <nuclide> <id>Ba137</id> <comp>0.000054</comp> </nuclide>
-  <nuclide> <id>Nd144</id> <comp>0.000014</comp> </nuclide>
-  <nuclide> <id>Sm147</id> <comp>0.000015</comp> </nuclide>
-  <nuclide> <id>Sm151</id> <comp>0.000002</comp> </nuclide>
-  <nuclide> <id>Gd154</id> <comp>0.000003</comp> </nuclide>
-  <nuclide> <id>U234</id> <comp>0.000024</comp> </nuclide>
-  <nuclide> <id>U235</id> <comp>0.001249</comp> </nuclide>
-  <nuclide> <id>U236</id> <comp>0.000506</comp> </nuclide>
-  <nuclide> <id>U238</id> <comp>0.108090</comp> </nuclide>
-  <nuclide> <id>Np237</id> <comp>0.004894</comp> </nuclide>
-  <nuclide> <id>Pu238</id> <comp>0.002064</comp> </nuclide>
-  <nuclide> <id>Pu239</id> <comp>0.064858</comp> </nuclide>
-  <nuclide> <id>Pu240</id> <comp>0.054997</comp> </nuclide>
-  <nuclide> <id>Pu241</id> <comp>0.027478</comp> </nuclide>
-  <nuclide> <id>Pu242</id> <comp>0.034312</comp> </nuclide>
-  <nuclide> <id>Pu244</id> <comp>0.000005</comp> </nuclide>
-  <nuclide> <id>Am241</id> <comp>0.090608</comp> </nuclide>
-  <nuclide> <id>Am242M</id> <comp>0.000539</comp> </nuclide>
-  <nuclide> <id>Am243</id> <comp>0.084705</comp> </nuclide>
-  <nuclide> <id>Cm243</id> <comp>0.000893</comp> </nuclide>
-  <nuclide> <id>Cm244</id> <comp>0.091349</comp> </nuclide>
-  <nuclide> <id>Cm245</id> <comp>0.095710</comp> </nuclide>
-  <nuclide> <id>Cm246</id> <comp>0.106895</comp> </nuclide>
-  <nuclide> <id>Cm247</id> <comp>0.096673</comp> </nuclide>
-  <nuclide> <id>Cm248</id> <comp>0.104348</comp> </nuclide>
-  <nuclide> <id>Cf249</id> <comp>0.019904</comp> </nuclide>
-  <nuclide> <id>Cf251</id> <comp>0.009308</comp> </nuclide>
-</recipe><recipe xml:base="../recipes.xml">
-  <name>recipe</name>
-  <basis>mass</basis>
-  <nuclide> <id>Se79</id> <comp>0.000005</comp> </nuclide>
-  <nuclide> <id>Kr85</id> <comp>0.000008</comp> </nuclide>
-  <nuclide> <id>Rb85</id> <comp>0.000021</comp> </nuclide>
-  <nuclide> <id>Sr90</id> <comp>0.000329</comp> </nuclide>
-  <nuclide> <id>Zr90</id> <comp>0.000223</comp> </nuclide>
-  <nuclide> <id>Zr93</id> <comp>0.000869</comp> </nuclide>
-  <nuclide> <id>Mo95</id> <comp>0.000002</comp> </nuclide>
-  <nuclide> <id>Tc99</id> <comp>0.000870</comp> </nuclide>
-  <nuclide> <id>Pd106</id> <comp>0.000083</comp> </nuclide>
-  <nuclide> <id>Pd107</id> <comp>0.000269</comp> </nuclide>
-  <nuclide> <id>Sn126</id> <comp>0.000024</comp> </nuclide>
-  <nuclide> <id>Te125</id> <comp>0.000010</comp> </nuclide>
-  <nuclide> <id>I129</id> <comp>0.000182</comp> </nuclide>
-  <nuclide> <id>Cs134</id> <comp>0.000001</comp> </nuclide>
-  <nuclide> <id>Cs135</id> <comp>0.000570</comp> </nuclide>
-  <nuclide> <id>Cs137</id> <comp>0.000805</comp> </nuclide>
-  <nuclide> <id>Ba134</id> <comp>0.000103</comp> </nuclide>
-  <nuclide> <id>Ba137</id> <comp>0.000517</comp> </nuclide>
-  <nuclide> <id>Nd144</id> <comp>0.000120</comp> </nuclide>
-  <nuclide> <id>Pm147</id> <comp>0.000004</comp> </nuclide>
-  <nuclide> <id>Sm147</id> <comp>0.000139</comp> </nuclide>
-  <nuclide> <id>Sm151</id> <comp>0.000014</comp> </nuclide>
-  <nuclide> <id>Eu151</id> <comp>0.000003</comp> </nuclide>
-  <nuclide> <id>Eu154</id> <comp>0.000007</comp> </nuclide>
-  <nuclide> <id>Gd154</id> <comp>0.000024</comp> </nuclide>
-  <nuclide> <id>Gd155</id> <comp>0.000008</comp> </nuclide>
-  <nuclide> <id>U234</id> <comp>0.000215</comp> </nuclide>
-  <nuclide> <id>U235</id> <comp>0.010475</comp> </nuclide>
-  <nuclide> <id>U236</id> <comp>0.004469</comp> </nuclide>
-  <nuclide> <id>U238</id> <comp>0.965956</comp> </nuclide>
-  <nuclide> <id>Np237</id> <comp>0.000591</comp> </nuclide>
-  <nuclide> <id>Pu238</id> <comp>0.000206</comp> </nuclide>
-  <nuclide> <id>Pu239</id> <comp>0.007554</comp> </nuclide>
-  <nuclide> <id>Pu240</id> <comp>0.002669</comp> </nuclide>
-  <nuclide> <id>Pu241</id> <comp>0.000657</comp> </nuclide>
-  <nuclide> <id>Pu242</id> <comp>0.000589</comp> </nuclide>
-  <nuclide> <id>Am241</id> <comp>0.001226</comp> </nuclide>
-  <nuclide> <id>Am242M</id> <comp>0.000001</comp> </nuclide>
-  <nuclide> <id>Am243</id> <comp>0.000151</comp> </nuclide>
-  <nuclide> <id>Cm244</id> <comp>0.000025</comp> </nuclide>
-  <nuclide> <id>Cm245</id> <comp>0.000004</comp> </nuclide>
-</recipe><recipe xml:base="../recipes.xml">
     <name>pre_2013_unf_recipe</name>
     <basis>mass</basis>
 <nuclide>   <id>340790000</id>  <comp>0.000005</comp>   </nuclide>
