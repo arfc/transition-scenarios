@@ -15,6 +15,20 @@
   </recipe> 
 
   <recipe>
+    <name>smr_recipe</name>
+    <basis>mass</basis>
+     <nuclide> <id>U235</id>  <comp>0.0495</comp> </nuclide> 
+     <nuclide> <id>U238</id>  <comp>0.9505</comp> </nuclide> 
+  </recipe> 
+
+  <recipe>
+    <name>fhr_recipe</name>
+    <basis>mass</basis>
+     <nuclide> <id>U235</id>  <comp>0.199</comp> </nuclide> 
+     <nuclide> <id>U238</id>  <comp>0.801</comp> </nuclide> 
+  </recipe> 
+
+  <recipe>
     <name>depleted_u</name>
     <basis>mass</basis>
     <nuclide> <id>U235</id><comp>0.003</comp></nuclide>

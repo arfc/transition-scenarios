@@ -256,6 +256,48 @@
 </facility>
 
 
+<facility>
+    <name>smr</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>smr_recipe</val>        </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>   </fuel_outrecipes>
+        <fuel_incommods>  <val>smr_fuel</val>                    </fuel_incommods>
+        <fuel_outcommods> <val>smr_used</val>              </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                    </fuel_prefs>
+        <cycle_time>24</cycle_time>
+        <refuel_time>1</refuel_time>
+        <assem_size>447</assem_size>
+        <n_assem_core>37</n_assem_core>
+        <n_assem_batch>12</n_assem_batch>
+        <power_cap>50</power_cap>
+      </Reactor>
+    </config>
+</facility>
+
+
+<facility>
+    <name>fhr</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>fhr_recipe</val>        </fuel_inrecipes>
+        <fuel_outrecipes> <val>used_fhr_recipe</val>   </fuel_outrecipes>
+        <fuel_incommods>  <val>fhr_fuel</val>                    </fuel_incommods>
+        <fuel_outcommods> <val>fhr_used</val>              </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                    </fuel_prefs>
+        <cycle_time>1</cycle_time>
+        <refuel_time>0</refuel_time>
+        <!-- 470,000 Pebbles in core, with lifetime of 1.4 years -->
+        <!-- 1.5g of LEU in each pebble -->
+        <assem_size>41.47</assem_size>
+        <n_assem_core>17</n_assem_core>
+        <n_assem_batch>1</n_assem_batch>
+        <power_cap>100</power_cap>
+      </Reactor>
+    </config>
+</facility>
+
+
  <facility>
     <!-- us -->
     <!-- PWR -->
@@ -369,7 +411,7 @@
     <config>
       <Source>
         <outcommod>pre_2013_unf</outcommod>
-        <outrecipe>pre_2013_unf_recipe</outrecipe>
+        <outrecipe>precise</outrecipe>
         <throughput>1e100</throughput>
         <inventory_size>68072030</inventory_size>
       </Source>
