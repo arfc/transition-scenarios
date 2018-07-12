@@ -276,6 +276,8 @@
           <prototypes>
             <val>sfr</val>
             <val>blanket</val>
+            <val>sfr</val>
+            <val>blanket</val>
           </prototypes>
           <build_times>
             <val>1</val>
@@ -298,6 +300,7 @@
         </DeployInst>
       </config>
     </institution>
+  </region>
 
 
   
@@ -328,16 +331,14 @@
           </entry>
           <entry>
             <number>1</number>
-            <prototype>reprocessing</prototype>
-          </entry>
-          <entry>
-            <number>1</number>
             <prototype>sfr_reprocessing</prototype>
           </entry>
+          
           <entry>
             <number>1</number>
             <prototype>sfr_mixer_sfr</prototype>
           </entry>
+
           <entry>
             <number>1</number>
             <prototype>sfr_storage</prototype>
@@ -345,5 +346,5 @@
         </initialfacilitylist>
         </institution>
 </region>
-<xi:include href='../recipes.xml' xpointer='xpointer(/root/recipe)'/>
+<xi:include href='./recipes.xml' xpointer='xpointer(/root/recipe)'/>
 </simulation>
