@@ -339,15 +339,6 @@
             <val>1180</val>
           </build_times>
           <n_build>
-            <val>1</val>
-            <val>1</val>
-            <val>1</val>
-            <val>1</val>
-            <val>1</val>
-            <val>1</val>
-          </n_build>
-          <!--
-          <n_build>
             <val>122</val>
             <val>122</val>
             <val>122</val>
@@ -355,7 +346,6 @@
             <val>122</val>
             <val>122</val>
           </n_build>
-      -->
         </DeployInst>
       </config>
     </institution>
