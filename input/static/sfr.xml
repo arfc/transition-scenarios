@@ -315,6 +315,10 @@
             <number>1</number>
             <prototype>dep_u_source</prototype>
           </entry>
+          <entry>
+            <number>1</number>
+            <prototype>pu_source</prototype>
+          </entry>
 
           <entry>
             <number>1</number>
