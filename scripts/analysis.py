@@ -1464,18 +1464,16 @@ def plot_power(cur):
                       'Net Capacity vs Time',
                       'power_plot', init_year)
 
-    deployments = deployments(cur)
-    stacked_bar_chart(deployments, timestep,
+    deploys = deployments(cur)
+    stacked_bar_chart(deploys, timestep,
                       'Years', 'Number of Reactors',
                       'Number of Reactors vs Time',
                       'num_plot', init_year)
 
-
-def plot_in_out_flux(cur, facility, influx_bool, title, outputname):
+def plot_in_out_flux(cur, facility, influx_bool, title, is_cum = False, is_tot = False):
     """plots timeseries influx/ outflux from facility name in kg.
-
-    Parameters
-    ----------
+    
+    Inputs:
     cur: sqlite cursor
         sqlite cursor
     facility: str
@@ -1487,11 +1485,17 @@ def plot_in_out_flux(cur, facility, influx_bool, title, outputname):
         title of the multi line plot
     outputname: str
         filename of the multi line plot file
-
-    Returns
-    -------
+    is_cum: Boolean:
+        true: add isotope masses over time
+        false: do not add isotope masses at each timestep
+    
+    Outputs:
+    none
     """
-    agentids = agent_ids(cur, facility)
+    
+
+    agentids = prototype_id(cur, facility)
+    
     if influx_bool is True:
         resources = cur.execute(exec_string(agentids,
                                             'transactions.receiverId',
@@ -1507,23 +1511,130 @@ def plot_in_out_flux(cur, facility, influx_bool, title, outputname):
 
     compositions = cur.execute('SELECT qualid, nucid, massfrac '
                                'FROM compositions').fetchall()
-
+    
     init_year, init_month, duration, timestep = simulation_timesteps(cur)
+    
     transactions = isotope_transactions(resources, compositions)
-    waste = waste_mass_series(transactions.keys(),
-                              transactions.values()[0],
-                              transactions.values()[1],
-                              duration)
+    
+    time_mass =[]
+    time_waste = {}
+    for key in transactions.keys():
 
-    if influx_bool is False:
-        stacked_bar_chart(waste, timestep,
-                          'Years', 'Mass [kg]',
-                          title, outputname, init_year)
-    else:
-        multiple_line_plots(waste, timestep,
-                            'Years', 'Mass [kg]',
-                            title, outputname, init_year)
+        time_mass.append(transactions[key])
+        time_waste[key] = transactions[key]
+    
+    waste_mass = waste_mass_series(transactions.keys(),
+                                time_mass,
+                                duration)
+    
+    
+    if is_cum == False and is_tot == False:
+        keys = []
+        for key in waste_mass.keys():
+            keys.append(key)
+        
+        for element in range(len(keys)):
+            time_and_mass = np.array(time_waste[keys[element]])
+            time = [item[0] for item in time_and_mass]
+            mass = [item[1] for item in time_and_mass]
+            plt.plot(time,mass,linestyle = ' ',marker = '.',markersize = 1, label = nucname.name(keys[0]))
 
+        plt.legend(loc='upper left')
+        plt.title(title)
+        plt.xlabel('time [months]')
+        plt.ylabel('mass [kg]')
+        plt.xlim(left = 0.0)
+        plt.ylim(bottom = 0.0)
+        plt.show()
+        
+    elif is_cum == True and is_tot == False:
+        value = 0
+        keys = []
+        for key in waste_mass.keys():
+            keys.append(key)
+
+        for element in range(len(waste_mass.keys())):
+            placeholder =[]
+            value = 0
+            key = keys[element]
+            
+            for index in range(len(waste_mass[key])):
+                value += waste_mass[key][index]
+                placeholder.append(value)
+            waste_mass[key] = placeholder
+        
+        times = []
+        nuclides = []
+        masstime = {}
+        for element in range(len(keys)):
+            time_and_mass = np.array(time_waste[keys[element]])
+            time = [item[0] for item in time_and_mass]
+            mass = [item[1] for item in time_and_mass]
+            nuclide = nucname.name(keys[element])
+            mass_cum = np.cumsum(mass)
+            times.append(time)
+            nuclides.append(str(nuclide))
+            masstime[nucname.name(keys[element])] = mass_cum
+        mass_sort = sorted(masstime.items(), key=lambda e: e[1][-1],reverse = True)
+        nuclides = [item[0] for item in mass_sort]
+        masses =[item[1] for item in mass_sort]
+        plt.stackplot(times[0],masses,labels = nuclides)
+        plt.legend(loc='upper left')
+        plt.title(title)
+        plt.xlabel('time [months]')
+        plt.ylabel('mass [kg]')
+        plt.xlim(left = 0.0)
+        plt.ylim(bottom = 0.0)
+        plt.show()    
+    
+    elif is_cum == False and is_tot == True:
+        keys = []
+        for key in waste_mass.keys():
+            keys.append(key)
+            
+        total_mass = np.zeros(len(waste_mass[keys[0]]))
+        for element in range(len(keys)):
+            for index in range(len(waste_mass[keys[0]])):
+                total_mass[index] += waste_mass[keys[element]][index]
+        
+        total_mass[total_mass == 0] = np.nan
+        plt.plot(total_mass, linestyle = ' ', marker = '.', markersize = 1)
+        plt.title(title)
+        plt.xlabel('time [months]')
+        plt.ylabel('mass [kg]')
+        plt.xlim(left = 0.0)
+        plt.ylim(bottom = 0.0)
+        plt.show()
+        
+    elif is_cum == True and is_tot == True:
+        value = 0
+        keys = []
+        for key in waste_mass.keys():
+            keys.append(key)
+
+        times = []
+        nuclides = []
+        masstime = {}
+        for element in range(len(keys)):
+            time_and_mass = np.array(time_waste[keys[element]])
+            time = [item[0] for item in time_and_mass]
+            mass = [item[1] for item in time_and_mass]
+            nuclide = nucname.name(keys[element])
+            mass_cum = np.cumsum(mass)
+            times.append(time)
+            nuclides.append(str(nuclide))
+            masstime[nucname.name(keys[element])] = mass_cum
+        mass_sort = sorted(masstime.items(), key=lambda e: e[1][-1],reverse = True)
+        nuclides = [item[0] for item in mass_sort]
+        masses =[item[1] for item in mass_sort]
+        plt.stackplot(times[0],masses,labels = nuclides)
+        plt.legend(loc='upper left')
+        plt.title(title)
+        plt.xlabel('time [months]')
+        plt.ylabel('mass [kg]')
+        plt.xlim(left = 0.0)
+        plt.ylim(bottom = 0.0)
+        plt.show()
 
 def entered_power(cur):
     """Returns dictionary of power entered into simulation.
