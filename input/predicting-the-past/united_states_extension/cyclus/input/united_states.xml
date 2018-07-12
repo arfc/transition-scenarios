@@ -1,4 +1,4 @@
-﻿<simulation xml:base="/Users/gwenchee/github/transition-scenarios/input/predicting-the-past/united_states_extension/cyclus/input/" xmlns:xi="http://www.w3.org/2001/XInclude">
+﻿<simulation xml:base="/home/gwenchee/github/transition-scenarios/input/predicting-the-past/united_states_extension/cyclus/input/" xmlns:xi="http://www.w3.org/2001/XInclude">
   <control>
     <decay>lazy</decay>
     <duration>1020</duration>
@@ -293,8 +293,6 @@
       </Storage>
     </config>
   </facility>
-  
-
   <facility>
     <name>DryStorage</name>
     <config>
@@ -318,7 +316,7 @@
         <longitude>-116.4364</longitude>
       </Storage>
     </config>
-  </facility>
+</facility>
   <region>
     <name>United States</name>
     <config>
@@ -352,7 +350,39 @@
           <number>1</number>
         </entry>
         <entry>
-          <prototype>WetStorage</prototype>
+          <prototype>WetStorage1</prototype>
+          <number>1</number>
+        </entry>
+        <entry>
+          <prototype>WetStorage2</prototype>
+          <number>1</number>
+        </entry>
+        <entry>
+          <prototype>WetStorage3</prototype>
+          <number>1</number>
+        </entry>
+        <entry>
+          <prototype>WetStorage4</prototype>
+          <number>1</number>
+        </entry>
+        <entry>
+          <prototype>WetStorage5</prototype>
+          <number>1</number>
+        </entry>
+        <entry>
+          <prototype>WetStorage6</prototype>
+          <number>1</number>
+        </entry>
+        <entry>
+          <prototype>WetStorage7</prototype>
+          <number>1</number>
+        </entry>
+        <entry>
+          <prototype>WetStorage8</prototype>
+          <number>1</number>
+        </entry>
+        <entry>
+          <prototype>WetStorage9</prototype>
           <number>1</number>
         </entry>
         <entry>
@@ -369,7 +399,15 @@
             <val>Conversion</val>
             <val>Enrichment</val>
             <val>FuelFab</val>
-            <val>WetStorage</val>
+            <val>WetStorage1</val>
+            <val>WetStorage2</val>
+            <val>WetStorage3</val>
+            <val>WetStorage4</val>
+            <val>WetStorage5</val>
+            <val>WetStorage6</val>
+            <val>WetStorage7</val>
+            <val>WetStorage8</val>
+            <val>WetStorage9</val>
             <val>DryStorage</val>
           </prototypes>
         </ManagerInst>
