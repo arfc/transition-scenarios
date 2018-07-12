@@ -338,6 +338,7 @@
             <number>1</number>
             <prototype>sfr_mixer_sfr</prototype>
           </entry>
+          <entry>
             <number>1</number>
             <prototype>sfr_storage</prototype>
           </entry>
