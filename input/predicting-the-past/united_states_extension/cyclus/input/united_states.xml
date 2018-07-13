@@ -160,8 +160,8 @@
         <out_commods>
           <val>cool_spent_uox1</val>
         </out_commods>
-        <residence_time>539</residence_time>
-        <max_inv_size>1466</max_inv_size>
+        <residence_time>540</residence_time>
+        <max_inv_size>3.05e7</max_inv_size>
       </Storage>
     </config>
   </facility>
@@ -177,7 +177,6 @@
           <val>cool_spent_uox2</val>
         </out_commods>
         <residence_time>479</residence_time>
-        <max_inv_size>6053</max_inv_size>
       </Storage>
     </config>
   </facility>
@@ -250,7 +249,7 @@
       			<val>1</val>
       		</n_build>
       		<lifetimes>
-      			<val>120</val>
+      			<val>9999</val>
       			<val>9999</val>
       		</lifetimes>
       	</DeployInst>	
