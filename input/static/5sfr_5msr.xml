@@ -421,7 +421,7 @@
       <Source>
         <outcommod>dep_u</outcommod>
         <outrecipe>depleted_u</outrecipe>
-        <throughput>1e100</throughput>
+        <throughput>1e10</throughput>
       </Source>
     </config>
   </facility>
@@ -433,7 +433,7 @@
       <Source>
         <outcommod>pu</outcommod>
         <outrecipe>pu</outrecipe>
-        <throughput>1e100</throughput>
+        <throughput>1e10</throughput>
       </Source>
     </config>
   </facility>
@@ -445,7 +445,7 @@
       <Source>
         <outcommod>blanket</outcommod>
         <outrecipe>depleted_u</outrecipe>
-        <throughput>1e100</throughput>
+        <throughput>1e10</throughput>
       </Source>
     </config>
   </facility>
@@ -457,7 +457,7 @@
       <Source>
         <outcommod>na</outcommod>
         <outrecipe>na</outrecipe>
-        <throughput>1e100</throughput>
+        <throughput>1e10</throughput>
       </Source>
     </config>
   </facility>
@@ -468,7 +468,7 @@
       <Source>
         <outcommod>cl</outcommod>
         <outrecipe>cl</outrecipe>
-        <throughput>1e100</throughput>
+        <throughput>1e10</throughput>
       </Source>
     </config>
   </facility>
@@ -479,7 +479,7 @@
       <Source>
         <outcommod>u</outcommod>
         <outrecipe>depleted_u</outrecipe>
-        <throughput>1e100</throughput>
+        <throughput>1e10</throughput>
       </Source>
     </config>
   </facility>
@@ -491,7 +491,7 @@
       <Source>
         <outcommod>fill</outcommod>
         <outrecipe>depleted_u</outrecipe>
-        <throughput>1e100</throughput>
+        <throughput>1e10</throughput>
       </Source>
     </config>
   </facility>
