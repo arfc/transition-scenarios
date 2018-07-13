@@ -161,7 +161,7 @@
           <val>cool_spent_uox1</val>
         </out_commods>
         <residence_time>540</residence_time>
-        <max_inv_size>3.05e7</max_inv_size>
+        <max_inv_size>1.46e6</max_inv_size>
       </Storage>
     </config>
   </facility>
@@ -177,9 +177,137 @@
           <val>cool_spent_uox2</val>
         </out_commods>
         <residence_time>479</residence_time>
+        <max_inv_size>6.06e6</max_inv_size>
       </Storage>
     </config>
   </facility>
+   <facility>
+    <name>WetStorage3</name>
+    <config>
+      <Storage>
+        <in_commods>
+          <val>spent_uox</val>
+        </in_commods>
+        <in_recipe>spent_uox</in_recipe>
+        <out_commods>
+          <val>cool_spent_uox3</val>
+        </out_commods>
+        <residence_time>419</residence_time>
+        <max_inv_size>7.68e6</max_inv_size>
+      </Storage>
+    </config>
+  </facility>
+  <facility>
+    <name>WetStorage4</name>
+    <config>
+      <Storage>
+        <in_commods>
+          <val>spent_uox</val>
+        </in_commods>
+        <in_recipe>spent_uox</in_recipe>
+        <out_commods>
+          <val>cool_spent_uox4</val>
+        </out_commods>
+        <residence_time>359</residence_time>
+        <max_inv_size>1.02e7</max_inv_size>
+      </Storage>
+    </config>
+  </facility>
+  <facility>
+    <name>WetStorage5</name>
+    <config>
+      <Storage>
+        <in_commods>
+          <val>spent_uox</val>
+        </in_commods>
+        <in_recipe>spent_uox</in_recipe>
+        <out_commods>
+          <val>cool_spent_uox5</val>
+        </out_commods>
+        <residence_time>299</residence_time>
+        <max_inv_size>7.10e6</max_inv_size>
+      </Storage>
+    </config>
+  </facility>
+  <facility>
+    <name>WetStorage6</name>
+    <config>
+      <Storage>
+        <in_commods>
+          <val>spent_uox</val>
+        </in_commods>
+        <in_recipe>spent_uox</in_recipe>
+        <out_commods>
+          <val>cool_spent_uox6</val>
+        </out_commods>
+        <residence_time>239</residence_time>
+        <max_inv_size>7.5e6</max_inv_size>
+      </Storage>
+    </config>
+  </facility>
+  <facility>
+    <name>WetStorage7</name>
+    <config>
+      <Storage>
+        <in_commods>
+          <val>spent_uox</val>
+        </in_commods>
+        <in_recipe>spent_uox</in_recipe>
+        <out_commods>
+          <val>cool_spent_uox7</val>
+        </out_commods>
+        <residence_time>179</residence_time>
+        <max_inv_size>7.2e6</max_inv_size>
+      </Storage>
+    </config>
+  </facility>
+  <facility>
+    <name>WetStorage8</name>
+    <config>
+      <Storage>
+        <in_commods>
+          <val>spent_uox</val>
+        </in_commods>
+        <in_recipe>spent_uox</in_recipe>
+        <out_commods>
+          <val>cool_spent_uox8</val>
+        </out_commods>
+        <residence_time>119</residence_time>
+        <max_inv_size>6.9e6</max_inv_size>
+      </Storage>
+    </config>
+  </facility>
+  <facility>
+    <name>WetStorage9</name>
+    <config>
+      <Storage>
+        <in_commods>
+          <val>spent_uox</val>
+        </in_commods>
+        <in_recipe>spent_uox</in_recipe>
+        <out_commods>
+          <val>cool_spent_uox9</val>
+        </out_commods>
+        <residence_time>72</residence_time>
+        <max_inv_size>6e6</max_inv_size>
+      </Storage>
+    </config>
+  </facility>
+  <facility>
+    <name>WetStorage10</name>
+    <config>
+      <Storage>
+        <in_commods>
+          <val>spent_uox</val>
+        </in_commods>
+        <in_recipe>spent_uox</in_recipe>
+        <out_commods>
+          <val>cool_spent_uox10</val>
+        </out_commods>
+        <residence_time>1</residence_time>
+      </Storage>
+    </config>
+  </facility>  
   <facility>
     <name>DryStorage</name>
     <config>
@@ -187,6 +315,14 @@
         <in_commods>
           <val>cool_spent_uox1</val>
           <val>cool_spent_uox2</val>
+          <val>cool_spent_uox3</val>
+          <val>cool_spent_uox4</val>
+          <val>cool_spent_uox5</val>
+          <val>cool_spent_uox6</val>
+          <val>cool_spent_uox7</val>
+          <val>cool_spent_uox8</val>
+          <val>cool_spent_uox9</val>
+          <val>cool_spent_uox10</val>
         </in_commods>
         <out_commods>
           <val>casked_spent_uox</val>
@@ -239,16 +375,48 @@
       		<prototypes>
       			<val>WetStorage1</val>
       			<val>WetStorage2</val>
+      			<val>WetStorage3</val>
+      			<val>WetStorage4</val>
+      			<val>WetStorage5</val>
+      			<val>WetStorage6</val>
+      			<val>WetStorage7</val>
+      			<val>WetStorage8</val>
+      			<val>WetStorage9</val>
+      			<val>WetStorage10</val>
       		</prototypes>
       		<build_times>
       			<val>1</val>
       			<val>120</val>
+      			<val>180</val>
+      			<val>240</val>
+      			<val>300</val>
+      			<val>360</val>
+      			<val>420</val>
+      			<val>480</val>
+      			<val>540</val>
+      			<val>587</val>
       		</build_times>
       		<n_build>
       			<val>1</val>
       			<val>1</val>
+      			<val>1</val>
+      			<val>1</val>
+      			<val>1</val>
+      			<val>1</val>
+      			<val>1</val>
+      			<val>1</val>
+      			<val>1</val>
+      			<val>1</val>
       		</n_build>
       		<lifetimes>
+      			<val>9999</val>
+      			<val>9999</val>
+      			<val>9999</val>
+      			<val>9999</val>
+      			<val>9999</val>
+      			<val>9999</val>
+      			<val>9999</val>
+      			<val>9999</val>
       			<val>9999</val>
       			<val>9999</val>
       		</lifetimes>
