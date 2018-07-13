@@ -208,7 +208,6 @@
 
 
   <facility>
-    <lifetime>240</lifetime>
     <name>msr</name>
     <!-- 26.4 tons of HM initial loading -->
     <!-- 61% of total mass is fuel salt -->
@@ -334,9 +333,9 @@
             <val>1</val>
             <val>241</val>
             <val>481</val>
-            <val>701</val>
-            <val>941</val>
-            <val>1181</val>
+            <val>721</val>
+            <val>961</val>
+            <val>1201</val>
           </build_times>
           <n_build>
             <val>122</val>
@@ -346,6 +345,12 @@
             <val>122</val>
             <val>122</val>
           </n_build>
+          <lifetimes>
+            <val>240</val>
+            <val>240</val>
+            <val>240</val>
+            <val>240</val>
+          </lifetimes>
         </DeployInst>
       </config>
     </institution>
