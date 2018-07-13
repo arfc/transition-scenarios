@@ -182,131 +182,12 @@
     </config>
   </facility>
   <facility>
-    <name>WetStorage3</name>
-    <config>
-      <Storage>
-        <in_commods>
-          <val>spent_uox</val>
-        </in_commods>
-        <in_recipe>spent_uox</in_recipe>
-        <out_commods>
-          <val>cool_spent_uox3</val>
-        </out_commods>
-        <residence_time>419</residence_time>
-        <max_inv_size>7732</max_inv_size>
-      </Storage>
-    </config>
-  </facility>
-  <facility>
-    <name>WetStorage4</name>
-    <config>
-      <Storage>
-        <in_commods>
-          <val>spent_uox</val>
-        </in_commods>
-        <in_recipe>spent_uox</in_recipe>
-        <out_commods>
-          <val>cool_spent_uox4</val>
-        </out_commods>
-        <residence_time>359</residence_time>
-        <max_inv_size>10111</max_inv_size>
-      </Storage>
-    </config>
-  </facility>
-  <facility>
-    <name>WetStorage5</name>
-    <config>
-      <Storage>
-        <in_commods>
-          <val>spent_uox</val>
-        </in_commods>
-        <in_recipe>spent_uox</in_recipe>
-        <out_commods>
-          <val>cool_spent_uox5</val>
-        </out_commods>
-        <residence_time>299</residence_time>
-        <max_inv_size>7151</max_inv_size>
-      </Storage>
-    </config>
-  </facility>
-  <facility>
-    <name>WetStorage6</name>
-    <config>
-      <Storage>
-        <in_commods>
-          <val>spent_uox</val>
-        </in_commods>
-        <in_recipe>spent_uox</in_recipe>
-        <out_commods>
-          <val>cool_spent_uox6</val>
-        </out_commods>
-        <residence_time>239</residence_time>
-        <max_inv_size>7485</max_inv_size>
-      </Storage>
-    </config>
-  </facility>
-  <facility>
-    <name>WetStorage7</name>
-    <config>
-      <Storage>
-        <in_commods>
-          <val>spent_uox</val>
-        </in_commods>
-        <in_recipe>spent_uox</in_recipe>
-        <out_commods>
-          <val>cool_spent_uox7</val>
-        </out_commods>
-        <residence_time>179</residence_time>
-        <max_inv_size>7169</max_inv_size>
-      </Storage>
-    </config>
-  </facility>
-  <facility>
-    <name>WetStorage8</name>
-    <config>
-      <Storage>
-        <in_commods>
-          <val>spent_uox</val>
-        </in_commods>
-        <in_recipe>spent_uox</in_recipe>
-        <out_commods>
-          <val>cool_spent_uox8</val>
-        </out_commods>
-        <residence_time>119</residence_time>
-        <max_inv_size>6962</max_inv_size>
-      </Storage>
-    </config>
-  </facility>
-  <facility>
-    <name>WetStorage9</name>
-    <config>
-      <Storage>
-        <in_commods>
-          <val>spent_uox</val>
-        </in_commods>
-        <in_recipe>spent_uox</in_recipe>
-        <out_commods>
-          <val>cool_spent_uox9</val>
-        </out_commods>
-        <residence_time>72</residence_time>
-        <max_inv_size>5982</max_inv_size>
-      </Storage>
-    </config>
-  </facility>
-  <facility>
     <name>DryStorage</name>
     <config>
       <Storage>
         <in_commods>
           <val>cool_spent_uox1</val>
           <val>cool_spent_uox2</val>
-          <val>cool_spent_uox3</val>
-          <val>cool_spent_uox4</val>
-          <val>cool_spent_uox5</val>
-          <val>cool_spent_uox6</val>
-          <val>cool_spent_uox7</val>
-          <val>cool_spent_uox8</val>
-          <val>cool_spent_uox9</val>
         </in_commods>
         <out_commods>
           <val>casked_spent_uox</val>
@@ -350,67 +231,29 @@
           <number>1</number>
         </entry>
         <entry>
-          <prototype>WetStorage1</prototype>
-          <number>1</number>
-        </entry>
-        <entry>
-          <prototype>WetStorage2</prototype>
-          <number>1</number>
-        </entry>
-        <entry>
-          <prototype>WetStorage3</prototype>
-          <number>1</number>
-        </entry>
-        <entry>
-          <prototype>WetStorage4</prototype>
-          <number>1</number>
-        </entry>
-        <entry>
-          <prototype>WetStorage5</prototype>
-          <number>1</number>
-        </entry>
-        <entry>
-          <prototype>WetStorage6</prototype>
-          <number>1</number>
-        </entry>
-        <entry>
-          <prototype>WetStorage7</prototype>
-          <number>1</number>
-        </entry>
-        <entry>
-          <prototype>WetStorage8</prototype>
-          <number>1</number>
-        </entry>
-        <entry>
-          <prototype>WetStorage9</prototype>
-          <number>1</number>
-        </entry>
-        <entry>
           <prototype>DryStorage</prototype>
           <number>1</number>
         </entry>
       </initialfacilitylist>
-      <config>
-        <ManagerInst>
-          <prototypes>
-            <val>Sink_LLW</val>
-            <val>Mine</val>
-            <val>Mill</val>
-            <val>Conversion</val>
-            <val>Enrichment</val>
-            <val>FuelFab</val>
-            <val>WetStorage1</val>
-            <val>WetStorage2</val>
-            <val>WetStorage3</val>
-            <val>WetStorage4</val>
-            <val>WetStorage5</val>
-            <val>WetStorage6</val>
-            <val>WetStorage7</val>
-            <val>WetStorage8</val>
-            <val>WetStorage9</val>
-            <val>DryStorage</val>
-          </prototypes>
-        </ManagerInst>
+      <config> 
+      	<DeployInst>
+      		<prototypes>
+      			<val>WetStorage1</val>
+      			<val>WetStorage2</val>
+      		</prototypes>
+      		<build_times>
+      			<val>1</val>
+      			<val>120</val>
+      		</build_times>
+      		<n_build>
+      			<val>1</val>
+      			<val>1</val>
+      		</n_build>
+      		<lifetimes>
+      			<val>120</val>
+      			<val>9999</val>
+      		</lifetimes>
+      	</DeployInst>	
       </config>
     </institution>
 
