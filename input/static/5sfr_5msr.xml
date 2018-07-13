@@ -4,6 +4,7 @@
     <duration>1200</duration>
     <startmonth>5</startmonth>
     <startyear>2013</startyear>
+    <solver>coin-or</solver>
     <decay>lazy</decay>
   </control>
 
