@@ -350,6 +350,8 @@
             <val>240</val>
             <val>240</val>
             <val>240</val>
+            <val>240</val>
+            <val>240</val>
           </lifetimes>
         </DeployInst>
       </config>
