@@ -268,10 +268,10 @@
 
   <facility>
     <name>pu_source</name>
-    <lifetime>10</lifetime>
     <config>
       <Source>
         <outcommod>source_pu</outcommod>
+        <inventory_size>400000</inventory_size>
         <outrecipe>pu</outrecipe>
         <throughput>1e100</throughput>
       </Source>
