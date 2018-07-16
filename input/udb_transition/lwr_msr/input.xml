@@ -507,10 +507,10 @@
       <name>smr_inst</name>
       <config>
         <DeployInst>
-            <xi:include href='./smr_dep.xml' xpointer='xpointer(/root/prototypes)'/>
-            <xi:include href='./smr_dep.xml' xpointer='xpointer(/root/build_times)'/>
-            <xi:include href='./smr_dep.xml' xpointer='xpointer(/root/n_build)'/>
-            <xi:include href='./smr_dep.xml' xpointer='xpointer(/root/lifetimes)'/>
+            <xi:include href='./lwr_dep.xml' xpointer='xpointer(/root/prototypes)'/>
+            <xi:include href='./lwr_dep.xml' xpointer='xpointer(/root/build_times)'/>
+            <xi:include href='./lwr_dep.xml' xpointer='xpointer(/root/n_build)'/>
+            <xi:include href='./lwr_dep.xml' xpointer='xpointer(/root/lifetimes)'/>
         </DeployInst>
       </config>
     </institution>
