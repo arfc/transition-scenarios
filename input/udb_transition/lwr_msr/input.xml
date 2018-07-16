@@ -197,6 +197,28 @@
     </config>
 </facility>
 
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>lwr</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>1</refuel_time>
+        <assem_size>29565</assem_size>
+        <n_assem_core>3</n_assem_core>
+        <n_assem_batch>1</n_assem_batch>
+        <power_cap>1000</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
 <facility>
     <name>msr_reprocessing</name>
     <config>
