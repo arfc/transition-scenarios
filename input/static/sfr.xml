@@ -219,6 +219,37 @@
     </config>
 </facility>
 
+<facility>
+        <!-- Stores uox unf for 48 months (4years) -->
+    <name>sfr_pu_storage</name>
+    <config>
+        <Storage>
+            <in_commods>
+                <val>sfr_pu</val>
+            </in_commods>
+            <out_commods>
+                <val>sfr_pu</val>
+            </out_commods>
+        </Storage>
+    </config>
+</facility>
+
+
+<facility>
+        <!-- Stores uox unf for 48 months (4years) -->
+    <name>sfr_u_storage</name>
+    <config>
+        <Storage>
+            <in_commods>
+                <val>sfr_u</val>
+            </in_commods>
+            <out_commods>
+                <val>sfr_u</val>
+            </out_commods>
+        </Storage>
+    </config>
+</facility>
+
 
   <facility>
     <name>dep_u_source</name>
@@ -327,6 +358,14 @@
           <entry>
             <number>1</number>
             <prototype>SomeSink</prototype>
+          </entry>
+          <entry>
+            <number>1</number>
+            <prototype>sfr_pu_storage</prototype>
+          </entry>
+          <entry>
+            <number>1</number>
+            <prototype>sfr_u_storage</prototype>
           </entry>
 
           <entry>
