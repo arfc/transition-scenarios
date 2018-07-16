@@ -357,44 +357,6 @@
     </config>
 </facility>
 
-
-  <facility>
-    <name>msr</name>
-    <!-- 26.4 tons of HM initial loading -->
-    <!-- 61% of total mass is fuel salt -->
-    <!-- total core mass is ~43.3 tons -->
-    <config>
-      <Corrm>
-        <init_fuel_commod>fuel</init_fuel_commod>
-        <core_size>43300</core_size>
-        <init_fuel_recipe>msr_input_recipe</init_fuel_recipe>
-
-        <fill_commod>fill</fill_commod>
-        <fill_recipe>depleted_u</fill_recipe>
-        <!--1190 kg/year DU feed -> 100kg/month -->
-        <fill_per_timestep>100</fill_per_timestep>
-
-
-        <discharge_fuel_commod>output_fuel</discharge_fuel_commod>
-        <!-- output amount same as core size-->
-        <discharge_fuel_recipe>msr_output_recipe</discharge_fuel_recipe>
-
-        <power_cap>820</power_cap>
-
-        <fissile_out_commod>pu</fissile_out_commod>
-        <fissile_out_recipe>msr_pu_recipe</fissile_out_recipe>
-        <!-- 330 kg /year PU removal -> 27.5 kg/month --> 
-        <fissile_output_per_timestep>27.5</fissile_output_per_timestep>
-
-        <waste_commod>waste</waste_commod>
-        <waste_recipe>waste_recipe</waste_recipe>
-        <!-- Waste currently not defined -->
-        <waste_output_per_timestep>1</waste_output_per_timestep>
-      </Corrm>
-    </config>
-  </facility>
-
-
 <facility>
         <!-- Stores uox unf for 48 months (4years) -->
     <name>uox_storage</name>
@@ -564,6 +526,7 @@
         </DeployInst>
       </config>
     </institution>
+  </region>
 
 <region>
     <name>Sink_Source</name>
