@@ -175,9 +175,74 @@
 
    <recipe>
     <name>waste_recipe</name>
-    <basis>mass</basis>
-     <nuclide> <id>Cs137</id>  <comp>0.84</comp> </nuclide> 
-     <nuclide> <id>Pu238</id>  <comp>0.16</comp> </nuclide> 
+    <basis>atom</basis>
+     <nuclide> <id>Hg198</id> <comp>1.08996e-20</comp> </nuclide>
+<nuclide> <id>Si28</id> <comp>5.73733e-14</comp> </nuclide>
+<nuclide> <id>Si29</id> <comp>1.15683e-14</comp> </nuclide>
+<nuclide> <id>Ac225</id> <comp>2.05857e-18</comp> </nuclide>
+<nuclide> <id>Ac227</id> <comp>4.62223e-17</comp> </nuclide>
+<nuclide> <id>S33</id> <comp>6.3413e-10</comp> </nuclide>
+<nuclide> <id>S32</id> <comp>1.82036e-13</comp> </nuclide>
+<nuclide> <id>S34</id> <comp>1.22575e-06</comp> </nuclide>
+<nuclide> <id>S36</id> <comp>5.95223e-07</comp> </nuclide>
+<nuclide> <id>B11</id> <comp>5.98529e-20</comp> </nuclide>
+<nuclide> <id>He3</id> <comp>3.99343e-08</comp> </nuclide>
+<nuclide> <id>He4</id> <comp>2.17138e-05</comp> </nuclide>
+<nuclide> <id>Ga71</id> <comp>2.03701e-09</comp> </nuclide>
+<nuclide> <id>Ca44</id> <comp>1.19464e-20</comp> </nuclide>
+<nuclide> <id>Ca42</id> <comp>1.09159e-17</comp> </nuclide>
+<nuclide> <id>Ca43</id> <comp>5.67445e-20</comp> </nuclide>
+<nuclide> <id>N14</id> <comp>1.08883e-18</comp> </nuclide>
+<nuclide> <id>Li7</id> <comp>1.47675e-18</comp> </nuclide>
+<nuclide> <id>Bk249</id> <comp>3.46793e-11</comp> </nuclide>
+<nuclide> <id>N15</id> <comp>8.53675e-13</comp> </nuclide>
+<nuclide> <id>Ar38</id> <comp>3.97154e-05</comp> </nuclide>
+<nuclide> <id>Ar36</id> <comp>4.77175e-15</comp> </nuclide>
+<nuclide> <id>Es255</id> <comp>4.72515e-20</comp> </nuclide>
+<nuclide> <id>Es253</id> <comp>2.52381e-16</comp> </nuclide>
+<nuclide> <id>Bi209</id> <comp>1.16567e-15</comp> </nuclide>
+<nuclide> <id>Mg26</id> <comp>2.15601e-10</comp> </nuclide>
+<nuclide> <id>Mg24</id> <comp>3.00634e-05</comp> </nuclide>
+<nuclide> <id>Mg25</id> <comp>8.09669e-08</comp> </nuclide>
+<nuclide> <id>Ga69</id> <comp>4.81988e-10</comp> </nuclide>
+<nuclide> <id>F19</id> <comp>1.95659e-09</comp> </nuclide>
+<nuclide> <id>Al27</id> <comp>4.90307e-14</comp> </nuclide>
+<nuclide> <id>Cu65</id> <comp>1.59347e-13</comp> </nuclide>
+<nuclide> <id>H1</id> <comp>5.44207e-06</comp> </nuclide>
+<nuclide> <id>H2</id> <comp>6.88042e-08</comp> </nuclide>
+<nuclide> <id>H3</id> <comp>3.96039e-07</comp> </nuclide>
+<nuclide> <id>Pb208</id> <comp>9.8009e-13</comp> </nuclide>
+<nuclide> <id>Pb207</id> <comp>6.09026e-16</comp> </nuclide>
+<nuclide> <id>Bk250</id> <comp>3.49268e-15</comp> </nuclide>
+<nuclide> <id>Pb206</id> <comp>2.9541e-19</comp> </nuclide>
+<nuclide> <id>Cr54</id> <comp>1.07305e-20</comp> </nuclide>
+<nuclide> <id>Co59</id> <comp>3.16673e-19</comp> </nuclide>
+<nuclide> <id>Co58</id> <comp>3.29408e-19</comp> </nuclide>
+<nuclide> <id>Ti49</id> <comp>1.02435e-20</comp> </nuclide>
+<nuclide> <id>Ti48</id> <comp>1.0487e-20</comp> </nuclide>
+<nuclide> <id>P31</id> <comp>3.97879e-10</comp> </nuclide>
+<nuclide> <id>Hg200</id> <comp>1.66079e-20</comp> </nuclide>
+<nuclide> <id>Si30</id> <comp>1.99852e-10</comp> </nuclide>
+<nuclide> <id>Ar40</id> <comp>6.16725e-13</comp> </nuclide>
+<nuclide> <id>K39</id> <comp>3.58614e-13</comp> </nuclide>
+<nuclide> <id>Hf176</id> <comp>1.6724e-20</comp> </nuclide>
+<nuclide> <id>Ra226</id> <comp>1.32022e-16</comp> </nuclide>
+<nuclide> <id>Ra224</id> <comp>1.62035e-15</comp> </nuclide>
+<nuclide> <id>Ra225</id> <comp>3.09608e-18</comp> </nuclide>
+<nuclide> <id>Hf178</id> <comp>3.26107e-20</comp> </nuclide>
+<nuclide> <id>K40</id> <comp>2.39579e-15</comp> </nuclide>
+<nuclide> <id>K41</id> <comp>1.11877e-15</comp> </nuclide>
+<nuclide> <id>Hf180</id> <comp>2.8226e-20</comp> </nuclide>
+<nuclide> <id>Es254</id> <comp>1.21416e-18</comp> </nuclide>
+<nuclide> <id>Fe56</id> <comp>1.17836e-20</comp> </nuclide>
+<nuclide> <id>Fe58</id> <comp>2.3068e-17</comp> </nuclide>
+<nuclide> <id>Ra223</id> <comp>1.21068e-18</comp> </nuclide>
+<nuclide> <id>Ni62</id> <comp>1.16164e-20</comp> </nuclide>
+<nuclide> <id>Ni64</id> <comp>1.0487e-20</comp> </nuclide>
+<nuclide> <id>Ti50</id> <comp>1.02435e-20</comp> </nuclide>
+<nuclide> <id>W184</id> <comp>6.102e-20</comp> </nuclide>
+<nuclide> <id>W182</id> <comp>2.96916e-19</comp> </nuclide>
+
   </recipe> 
 
 
