@@ -485,6 +485,44 @@
       </config>
     </institution>
 
+
+    <institution>
+      <name>lwr_inst</name>
+      <config>
+        <DeployInst>
+            <xi:include href='./lwr_dep.xml' xpointer='xpointer(/root/prototypes)'/>
+            <xi:include href='./lwr_dep.xml' xpointer='xpointer(/root/build_times)'/>
+            <xi:include href='./lwr_dep.xml' xpointer='xpointer(/root/n_build)'/>
+            <xi:include href='./lwr_dep.xml' xpointer='xpointer(/root/lifetimes)'/>
+        </DeployInst>
+      </config>
+    </institution>
+
+    <institution>
+      <name>sfr_inst</name>
+      <config>
+        <DeployInst>
+            <xi:include href='./sfr_dep.xml' xpointer='xpointer(/root/prototypes)'/>
+            <xi:include href='./sfr_dep.xml' xpointer='xpointer(/root/build_times)'/>
+            <xi:include href='./sfr_dep.xml' xpointer='xpointer(/root/n_build)'/>
+            <xi:include href='./sfr_dep.xml' xpointer='xpointer(/root/lifetimes)'/>
+        </DeployInst>
+      </config>
+    </institution>
+
+  <institution>
+      <name>blanket_inst</name>
+      <config>
+        <DeployInst>
+            <xi:include href='./blanket_dep.xml' xpointer='xpointer(/root/prototypes)'/>
+            <xi:include href='./blanket_dep.xml' xpointer='xpointer(/root/build_times)'/>
+            <xi:include href='./blanket_dep.xml' xpointer='xpointer(/root/n_build)'/>
+            <xi:include href='./blanket_dep.xml' xpointer='xpointer(/root/lifetimes)'/>
+        </DeployInst>
+      </config>
+    </institution>
+  </region>
+
   
 <region>
     <name>Sink_Source</name>
