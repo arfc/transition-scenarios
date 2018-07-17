@@ -506,6 +506,16 @@
     </config>
   </facility>
 
+  <facility>
+    <name>fuel_source</name>
+    <config>
+      <Source>
+        <outcommod>fuel</outcommod>
+        <outrecipe>cl</outrecipe>
+        <throughput>1e100</throughput>
+      </Source>
+    </config>
+  </facility>
 
 
   <xi:include href='../reactor_with_coordinates.xml' xpointer='xpointer(/root/facility)'/>
@@ -627,6 +637,18 @@
             <prototype>unf_source</prototype>
           </entry>
          
+
+
+
+
+         <entry>
+            <number>1</number>
+            <prototype>fuel_source</prototype>
+          </entry>
+
+
+
+
         </initialfacilitylist>
         </institution>
 </region>
