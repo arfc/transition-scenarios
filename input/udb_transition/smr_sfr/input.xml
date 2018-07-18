@@ -255,6 +255,24 @@
     </config>
 </facility>
 
+<facility>
+    <name>smr_large</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>smr_recipe</val>        </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>   </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                    </fuel_incommods>
+        <fuel_outcommods> <val>smr_used</val>              </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                    </fuel_prefs>
+        <cycle_time>24</cycle_time>
+        <refuel_time>1</refuel_time>
+        <assem_size>447</assem_size>
+        <n_assem_core>444</n_assem_core>
+        <n_assem_batch>148</n_assem_batch>
+        <power_cap>720</power_cap>
+      </Reactor>
+    </config>
+</facility>
 
 <facility>
     <name>smr</name>
@@ -274,6 +292,87 @@
       </Reactor>
     </config>
 </facility>
+
+
+  <facility>
+    <name>msr</name>
+    <!-- 26.4 tons of HM initial loading -->
+    <!-- 61% of total mass is fuel salt -->
+    <!-- total core mass is ~43.3 tons -->
+    <config>
+      <Corrm>
+        <init_fuel_commod>fuel</init_fuel_commod>
+        <core_size>43300</core_size>
+        <init_fuel_recipe>msr_input_recipe</init_fuel_recipe>
+
+        <fill_commod>fill</fill_commod>
+        <fill_recipe>depleted_u</fill_recipe>
+        <!--1190 kg/year DU feed -> 100kg/month -->
+        <fill_per_timestep>100</fill_per_timestep>
+
+
+        <discharge_fuel_commod>output_fuel</discharge_fuel_commod>
+        <!-- output amount same as core size-->
+        <discharge_fuel_recipe>msr_output_recipe</discharge_fuel_recipe>
+
+        <power_cap>820</power_cap>
+
+        <fissile_out_commod>pu</fissile_out_commod>
+        <fissile_out_recipe>msr_pu_recipe</fissile_out_recipe>
+        <!-- 330 kg /year PU removal -> 27.5 kg/month --> 
+        <fissile_output_per_timestep>27.5</fissile_output_per_timestep>
+
+        <waste_commod>waste</waste_commod>
+        <waste_recipe>waste_recipe</waste_recipe>
+        <!-- Waste currently not defined -->
+        <waste_output_per_timestep>1</waste_output_per_timestep>
+      </Corrm>
+    </config>
+  </facility>
+
+
+<facility>
+    <name>fhr</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>fhr_recipe</val>        </fuel_inrecipes>
+        <fuel_outrecipes> <val>used_fhr_recipe</val>   </fuel_outrecipes>
+        <fuel_incommods>  <val>fhr_fuel</val>                    </fuel_incommods>
+        <fuel_outcommods> <val>fhr_used</val>              </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                    </fuel_prefs>
+        <cycle_time>1</cycle_time>
+        <refuel_time>0</refuel_time>
+        <!-- 470,000 Pebbles in core, with lifetime of 1.4 years -->
+        <!-- 1.5g of LEU in each pebble -->
+        <assem_size>41.47</assem_size>
+        <n_assem_core>17</n_assem_core>
+        <n_assem_batch>1</n_assem_batch>
+        <power_cap>100</power_cap>
+      </Reactor>
+    </config>
+</facility>
+
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>lwr</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>1</refuel_time>
+        <assem_size>29565</assem_size>
+        <n_assem_core>3</n_assem_core>
+        <n_assem_batch>1</n_assem_batch>
+        <power_cap>1000</power_cap>
+      </Reactor>
+    </config>
+  </facility>
 
 <facility>
         <!-- Stores uox unf for 48 months (4years) -->
@@ -314,6 +413,7 @@
         <Storage>
             <in_commods>
                 <val>uox_waste</val>
+                <val>smr_used</val>
             </in_commods>
             <residence_time>36</residence_time>
             <out_commods>
@@ -409,10 +509,10 @@
       <name>lwr_inst</name>
       <config>
         <DeployInst>
-            <xi:include href='./smr_dep.xml' xpointer='xpointer(/root/prototypes)'/>
-            <xi:include href='./smr_dep.xml' xpointer='xpointer(/root/build_times)'/>
-            <xi:include href='./smr_dep.xml' xpointer='xpointer(/root/n_build)'/>
-            <xi:include href='./smr_dep.xml' xpointer='xpointer(/root/lifetimes)'/>
+            <xi:include href='./lwr_dep.xml' xpointer='xpointer(/root/prototypes)'/>
+            <xi:include href='./lwr_dep.xml' xpointer='xpointer(/root/build_times)'/>
+            <xi:include href='./lwr_dep.xml' xpointer='xpointer(/root/n_build)'/>
+            <xi:include href='./lwr_dep.xml' xpointer='xpointer(/root/lifetimes)'/>
         </DeployInst>
       </config>
     </institution>
