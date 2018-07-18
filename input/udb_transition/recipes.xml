@@ -519,7 +519,7 @@
 
    <recipe>
     <name>uox_used_fuel_recipe</name>
-    <basis>mass</basis>
+    <basis>atom</basis>
     <nuclide> <id>He4</id>  <comp>9.47457840128509E-07</comp> </nuclide> 
    <nuclide> <id>Ra226</id>  <comp>9.78856442957042E-14</comp> </nuclide> 
    <nuclide> <id>Ra228</id>  <comp>2.75087759176098E-20</comp> </nuclide> 
