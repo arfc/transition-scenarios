@@ -197,6 +197,25 @@
     </config>
 </facility>
 
+<facility>
+    <name>smr_large</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>smr_recipe</val>        </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>   </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                    </fuel_incommods>
+        <fuel_outcommods> <val>smr_used</val>              </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                    </fuel_prefs>
+        <cycle_time>24</cycle_time>
+        <refuel_time>1</refuel_time>
+        <assem_size>447</assem_size>
+        <n_assem_core>444</n_assem_core>
+        <n_assem_batch>148</n_assem_batch>
+        <power_cap>720</power_cap>
+      </Reactor>
+    </config>
+</facility>
+
 
  <facility>
     <!-- us -->
@@ -284,6 +303,7 @@
         <in_commods>
           <val>tailings</val>
           <val>cooled_uox</val>
+          <val>pre_2013_unf</val>
           <val>reprocess_waste</val>
         </in_commods>
         <capacity>1e100</capacity>
