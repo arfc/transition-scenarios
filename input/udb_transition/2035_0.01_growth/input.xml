@@ -57,7 +57,6 @@
 
 
 
-
 <!-- La Hague Model from Schneider & Marignac -->
   <facility>
     <name>reprocessing</name>
@@ -277,6 +276,29 @@
 </facility>
 
 
+
+<facility>
+    <name>fhr</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>fhr_recipe</val>        </fuel_inrecipes>
+        <fuel_outrecipes> <val>used_fhr_recipe</val>   </fuel_outrecipes>
+        <fuel_incommods>  <val>fhr_fuel</val>                    </fuel_incommods>
+        <fuel_outcommods> <val>fhr_used</val>              </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                    </fuel_prefs>
+        <cycle_time>1</cycle_time>
+        <refuel_time>0</refuel_time>
+        <!-- 470,000 Pebbles in core, with lifetime of 1.4 years -->
+        <!-- 1.5g of LEU in each pebble -->
+        <assem_size>41.47</assem_size>
+        <n_assem_core>17</n_assem_core>
+        <n_assem_batch>1</n_assem_batch>
+        <power_cap>100</power_cap>
+      </Reactor>
+    </config>
+</facility>
+
+
  <facility>
     <!-- us -->
     <!-- PWR -->
@@ -298,8 +320,6 @@
     </config>
   </facility>
 
-
-
 <facility>
         <!-- Stores uox unf for 48 months (4years) -->
     <name>sfr_storage</name>
@@ -308,7 +328,7 @@
             <in_commods>
                 <val>sfr_used</val>
             </in_commods>
-            <residence_time>72</residence_time>
+            <residence_time>36</residence_time>
             <out_commods>
                 <val>cooled_sfr</val>
             </out_commods>
@@ -324,7 +344,7 @@
             <in_commods>
                 <val>blanket_used</val>
             </in_commods>
-            <residence_time>72</residence_time>
+            <residence_time>12</residence_time>
             <out_commods>
                 <val>cooled_blanket</val>
             </out_commods>
@@ -340,13 +360,15 @@
             <in_commods>
                 <val>uox_waste</val>
             </in_commods>
-            <residence_time>72</residence_time>
+            <residence_time>36</residence_time>
             <out_commods>
                 <val>cooled_uox</val>
             </out_commods>
         </Storage>
     </config>
 </facility>
+
+
 
   <facility>
     <name>enrichment</name>
@@ -368,6 +390,17 @@
     <config>
       <Source>
         <outcommod>natl_u</outcommod>
+        <outrecipe>natl_u_recipe</outrecipe>
+        <throughput>1e100</throughput>
+      </Source>
+    </config>
+  </facility>
+
+  <facility>
+    <name>blanket_source</name>
+    <config>
+      <Source>
+        <outcommod>blanket</outcommod>
         <outrecipe>natl_u_recipe</outrecipe>
         <throughput>1e100</throughput>
       </Source>
@@ -440,6 +473,18 @@
         </DeployInst>
       </config>
     </institution>
+
+  <institution>
+      <name>blanket_inst</name>
+      <config>
+        <DeployInst>
+            <xi:include href='./blanket_dep.xml' xpointer='xpointer(/root/prototypes)'/>
+            <xi:include href='./blanket_dep.xml' xpointer='xpointer(/root/build_times)'/>
+            <xi:include href='./blanket_dep.xml' xpointer='xpointer(/root/n_build)'/>
+            <xi:include href='./blanket_dep.xml' xpointer='xpointer(/root/lifetimes)'/>
+        </DeployInst>
+      </config>
+    </institution>
   </region>
 
   
@@ -456,11 +501,20 @@
           </entry>
           <entry>
             <number>1</number>
+            <prototype>blanket_storage</prototype>
+          </entry>
+          <entry>
+            <number>1</number>
             <prototype>enrichment</prototype>
           </entry>
           <entry>
             <number>1</number>
             <prototype>SomeSink</prototype>
+          </entry>
+
+          <entry>
+            <number>1</number>
+            <prototype>blanket_source</prototype>
           </entry>
           <entry>
             <number>1</number>
