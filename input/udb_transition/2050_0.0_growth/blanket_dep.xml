@@ -1,60 +1,54 @@
 <root>
 <prototypes>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
 </prototypes>
 <build_times>
 		<val>91</val>
 		<val>114</val>
-		<val>401</val>
-		<val>434</val>
-		<val>1051</val>
 		<val>1053</val>
 		<val>1074</val>
 		<val>1078</val>
@@ -102,22 +96,13 @@
 <n_build>
 		<val>1</val>
 		<val>1</val>
-		<val>2</val>
-		<val>3</val>
+		<val>1</val>
 		<val>1</val>
 		<val>3</val>
-		<val>1</val>
 		<val>2</val>
 		<val>3</val>
-		<val>2</val>
 		<val>5</val>
-		<val>3</val>
 		<val>2</val>
-		<val>3</val>
-		<val>2</val>
-		<val>3</val>
-		<val>2</val>
-		<val>5</val>
 		<val>3</val>
 		<val>2</val>
 		<val>3</val>
@@ -129,30 +114,33 @@
 		<val>2</val>
 		<val>3</val>
 		<val>2</val>
-		<val>8</val>
+		<val>5</val>
+		<val>3</val>
+		<val>2</val>
+		<val>3</val>
+		<val>2</val>
+		<val>3</val>
 		<val>7</val>
-		<val>3</val>
+		<val>8</val>
 		<val>2</val>
 		<val>3</val>
 		<val>2</val>
 		<val>3</val>
 		<val>2</val>
 		<val>3</val>
-		<val>5</val>
-		<val>2</val>
-		<val>3</val>
-		<val>5</val>
 		<val>2</val>
 		<val>5</val>
 		<val>3</val>
+		<val>2</val>
+		<val>5</val>
+		<val>3</val>
 		<val>5</val>
 		<val>2</val>
+		<val>5</val>
 		<val>3</val>
+		<val>2</val>
 </n_build>
 <lifetimes>
-		<val>960</val>
-		<val>960</val>
-		<val>960</val>
 		<val>960</val>
 		<val>960</val>
 		<val>960</val>

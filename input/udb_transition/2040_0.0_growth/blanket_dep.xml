@@ -1,57 +1,79 @@
 <root>
 <prototypes>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
-		<val>sfr</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
+		<val>blanket</val>
 </prototypes>
 <build_times>
 		<val>91</val>
 		<val>114</val>
+		<val>320</val>
+		<val>326</val>
+		<val>328</val>
+		<val>331</val>
+		<val>333</val>
+		<val>336</val>
+		<val>340</val>
+		<val>352</val>
+		<val>353</val>
+		<val>357</val>
+		<val>365</val>
 		<val>401</val>
 		<val>434</val>
 		<val>1051</val>
@@ -102,22 +124,27 @@
 <n_build>
 		<val>1</val>
 		<val>1</val>
+		<val>1</val>
+		<val>6</val>
+		<val>5</val>
+		<val>6</val>
 		<val>2</val>
+		<val>4</val>
+		<val>6</val>
+		<val>3</val>
+		<val>3</val>
+		<val>3</val>
+		<val>3</val>
+		<val>3</val>
 		<val>3</val>
 		<val>1</val>
-		<val>3</val>
+		<val>2</val>
 		<val>1</val>
-		<val>2</val>
 		<val>3</val>
 		<val>2</val>
+		<val>3</val>
 		<val>5</val>
-		<val>3</val>
 		<val>2</val>
-		<val>3</val>
-		<val>2</val>
-		<val>3</val>
-		<val>2</val>
-		<val>5</val>
 		<val>3</val>
 		<val>2</val>
 		<val>3</val>
@@ -129,27 +156,44 @@
 		<val>2</val>
 		<val>3</val>
 		<val>2</val>
-		<val>8</val>
+		<val>5</val>
+		<val>3</val>
+		<val>2</val>
+		<val>3</val>
+		<val>2</val>
+		<val>3</val>
 		<val>7</val>
-		<val>3</val>
+		<val>8</val>
 		<val>2</val>
 		<val>3</val>
 		<val>2</val>
 		<val>3</val>
 		<val>2</val>
 		<val>3</val>
-		<val>5</val>
-		<val>2</val>
-		<val>3</val>
-		<val>5</val>
 		<val>2</val>
 		<val>5</val>
 		<val>3</val>
+		<val>2</val>
+		<val>5</val>
+		<val>3</val>
 		<val>5</val>
 		<val>2</val>
+		<val>5</val>
 		<val>3</val>
+		<val>2</val>
 </n_build>
 <lifetimes>
+		<val>960</val>
+		<val>960</val>
+		<val>960</val>
+		<val>960</val>
+		<val>960</val>
+		<val>960</val>
+		<val>960</val>
+		<val>960</val>
+		<val>960</val>
+		<val>960</val>
+		<val>960</val>
 		<val>960</val>
 		<val>960</val>
 		<val>960</val>
