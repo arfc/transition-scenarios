@@ -1,0 +1,600 @@
+2030_005_growth_no
+======================
+lwr UNF reprocessed:	123790.32606368864	tons
+unreprocessed lwr:	10965.208936311363	tons
+sfr UNF reprocessed:	70422.08498165957	tons
+raffinate:	8524.112647341568	tons
+decay heat:	0.0008527749976111552	tons
+activity:	7434262579138033.0	tons
+pu inventory:	1112.9608039932318	tons
+
+2030_005_growth_precise
+======================
+lwr UNF reprocessed:	134139.70930623633	tons
+unreprocessed lwr:	68687.85569376367	tons
+sfr UNF reprocessed:	70412.6302376477	tons
+raffinate:	9702.281118651397	tons
+decay heat:	15813846.594305042	tons
+activity:	6.0321617157109e+25	tons
+pu inventory:	1043.7382318290292	tons
+
+2030_005_growth_recipe
+======================
+lwr UNF reprocessed:	134139.70930623633	tons
+unreprocessed lwr:	68687.85569376367	tons
+sfr UNF reprocessed:	70412.6302376477	tons
+raffinate:	9693.755680550434	tons
+decay heat:	12816681.39483176	tons
+activity:	4.889039952184586e+25	tons
+pu inventory:	1043.7382318290292	tons
+
+2030_015_growth_no
+======================
+lwr UNF reprocessed:	155131.03786179237	tons
+unreprocessed lwr:	12530.342138207634	tons
+sfr UNF reprocessed:	112111.20291128107	tons
+raffinate:	12933.595558281364	tons
+decay heat:	0.0007197980510735232	tons
+activity:	7001887120252211.0	tons
+pu inventory:	1690.0815759097823	tons
+
+2030_015_growth_precise
+======================
+lwr UNF reprocessed:	218214.7343048834	tons
+unreprocessed lwr:	17518.675695116603	tons
+sfr UNF reprocessed:	140484.8896908685	tons
+raffinate:	16780.588679909364	tons
+decay heat:	15813846.595477311	tons
+activity:	6.03216171670544e+25	tons
+pu inventory:	1206.2247886028345	tons
+
+2030_015_growth_recipe
+======================
+lwr UNF reprocessed:	217446.758869924	tons
+unreprocessed lwr:	18286.651130076003	tons
+sfr UNF reprocessed:	140283.1884852822	tons
+raffinate:	16753.20218257934	tons
+decay heat:	12816681.396002145	tons
+activity:	4.889039953177403e+25	tons
+pu inventory:	1211.662801818009	tons
+
+2030_01_growth_no
+======================
+lwr UNF reprocessed:	138710.99165718493	tons
+unreprocessed lwr:	11713.993342815083	tons
+sfr UNF reprocessed:	94957.14569243243	tons
+raffinate:	11068.397985338033	tons
+decay heat:	0.001133585718040898	tons
+activity:	9928169368910362.0	tons
+pu inventory:	1373.8188301330865	tons
+
+2030_01_growth_precise
+======================
+lwr UNF reprocessed:	201831.25835908347	tons
+unreprocessed lwr:	16665.756640916545	tons
+sfr UNF reprocessed:	103085.07396129347	tons
+raffinate:	13010.72159912563	tons
+decay heat:	15813846.594489029	tons
+activity:	6.03216171589787e+25	tons
+pu inventory:	889.4318964571976	tons
+
+2030_01_growth_recipe
+======================
+lwr UNF reprocessed:	201063.28292412416	tons
+unreprocessed lwr:	17433.732075875858	tons
+sfr UNF reprocessed:	103085.07396129347	tons
+raffinate:	13002.196050936896	tons
+decay heat:	12816681.39559425	tons
+activity:	4.889039952812889e+25	tons
+pu inventory:	892.8129517616544	tons
+
+2030_0_growth_no
+======================
+lwr UNF reprocessed:	82319.65257588276	tons
+unreprocessed lwr:	36766.43242411724	tons
+sfr UNF reprocessed:	49035.454026835585	tons
+raffinate:	6286.9901190437795	tons
+decay heat:	0.00034947833529822095	tons
+activity:	3277203121986423.0	tons
+pu inventory:	1135.7434802816679	tons
+
+2030_0_growth_precise
+======================
+lwr UNF reprocessed:	82319.65257588276	tons
+unreprocessed lwr:	104838.46242411723	tons
+sfr UNF reprocessed:	49035.454026835585	tons
+raffinate:	7462.301626440995	tons
+decay heat:	15813846.594207183	tons
+activity:	6.032161715604568e+25	tons
+pu inventory:	1135.7434802816679	tons
+
+2030_0_growth_recipe
+======================
+lwr UNF reprocessed:	82319.65257588276	tons
+unreprocessed lwr:	104838.46242411723	tons
+sfr UNF reprocessed:	49035.454026835585	tons
+raffinate:	7453.776188340032	tons
+decay heat:	12816681.394998468	tons
+activity:	4.8890399522819024e+25	tons
+pu inventory:	1135.7434802816679	tons
+
+2035_005_growth_no
+======================
+lwr UNF reprocessed:	125399.41745122254	tons
+unreprocessed lwr:	37088.08754877746	tons
+sfr UNF reprocessed:	56914.40737005103	tons
+raffinate:	7616.194156057888	tons
+decay heat:	0.00042514834000641324	tons
+activity:	3943968573393164.5	tons
+pu inventory:	1346.3359218226287	tons
+
+2035_005_growth_precise
+======================
+lwr UNF reprocessed:	125399.41745122254	tons
+unreprocessed lwr:	105160.11754877746	tons
+sfr UNF reprocessed:	56945.92318342388	tons
+raffinate:	8794.36265082465	tons
+decay heat:	15813846.59425125	tons
+activity:	6.032161715647383e+25	tons
+pu inventory:	1346.22538833012	tons
+
+2035_005_growth_recipe
+======================
+lwr UNF reprocessed:	125399.41745122254	tons
+unreprocessed lwr:	105160.11754877746	tons
+sfr UNF reprocessed:	56945.92318342388	tons
+raffinate:	8785.837212723687	tons
+decay heat:	12816681.394777965	tons
+activity:	4.889039952121067e+25	tons
+pu inventory:	1346.22538833012	tons
+
+2035_015_growth_no
+======================
+lwr UNF reprocessed:	191555.015634151	tons
+unreprocessed lwr:	16166.939365849015	tons
+sfr UNF reprocessed:	115272.2389925791	tons
+raffinate:	13753.20746999546	tons
+decay heat:	0.0007619373543281001	tons
+activity:	7316953638926911.0	tons
+pu inventory:	1766.2000622458472	tons
+
+2035_015_growth_precise
+======================
+lwr UNF reprocessed:	254675.28233604954	tons
+unreprocessed lwr:	21118.702663950447	tons
+sfr UNF reprocessed:	128962.70832175025	tons
+raffinate:	16223.064857950885	tons
+decay heat:	15813846.594688741	tons
+activity:	6.032161716080706e+25	tons
+pu inventory:	1295.5927082552262	tons
+
+2035_015_growth_recipe
+======================
+lwr UNF reprocessed:	253907.3069010902	tons
+unreprocessed lwr:	21886.67809890979	tons
+sfr UNF reprocessed:	128877.61562564352	tons
+raffinate:	16206.823576812394	tons
+decay heat:	12816681.3959478	tons
+activity:	4.889039953116051e+25	tons
+pu inventory:	1301.971291106769	tons
+
+2035_01_growth_no
+======================
+lwr UNF reprocessed:	169539.71983198245	tons
+unreprocessed lwr:	14766.755168017553	tons
+sfr UNF reprocessed:	86079.14106529727	tons
+raffinate:	10673.341343136317	tons
+decay heat:	0.0005931601971296739	tons
+activity:	5637398931296112.0	tons
+pu inventory:	1431.4749038507289	tons
+
+2035_01_growth_precise
+======================
+lwr UNF reprocessed:	208852.7480501406	tons
+unreprocessed lwr:	43525.75694985941	tons
+sfr UNF reprocessed:	86586.54566060036	tons
+raffinate:	11900.09096801078	tons
+decay heat:	15813846.59496141	tons
+activity:	6.0321617162315935e+25	tons
+pu inventory:	1123.1626205375924	tons
+
+2035_01_growth_recipe
+======================
+lwr UNF reprocessed:	208852.7480501406	tons
+unreprocessed lwr:	43525.75694985941	tons
+sfr UNF reprocessed:	86586.54566060036	tons
+raffinate:	11891.565529909814	tons
+decay heat:	12816681.394949239	tons
+activity:	4.8890399522933605e+25	tons
+pu inventory:	1123.1626205375924	tons
+
+2035_0_growth_no
+======================
+lwr UNF reprocessed:	74859.3197791346	tons
+unreprocessed lwr:	68913.54022086541	tons
+sfr UNF reprocessed:	37049.990201136265	tons
+raffinate:	5478.333784937029	tons
+decay heat:	0.0005422045175640021	tons
+activity:	4570741901779794.0	tons
+pu inventory:	1403.5317824261629	tons
+
+2035_0_growth_precise
+======================
+lwr UNF reprocessed:	74859.3197791346	tons
+unreprocessed lwr:	136985.57022086543	tons
+sfr UNF reprocessed:	37049.990201136265	tons
+raffinate:	6653.645292334249	tons
+decay heat:	15813846.59416344	tons
+activity:	6.032161715550526e+25	tons
+pu inventory:	1403.5317824261629	tons
+
+2035_0_growth_recipe
+======================
+lwr UNF reprocessed:	74859.3197791346	tons
+unreprocessed lwr:	136985.57022086543	tons
+sfr UNF reprocessed:	37049.990201136265	tons
+raffinate:	6645.119854233283	tons
+decay heat:	12816681.394926626	tons
+activity:	4.889039952207606e+25	tons
+pu inventory:	1403.5317824261629	tons
+
+2040_005_growth_no
+======================
+lwr UNF reprocessed:	102031.02207317323	tons
+unreprocessed lwr:	110716.98292682678	tons
+sfr UNF reprocessed:	31979.09582944281	tons
+raffinate:	5935.969335947182	tons
+decay heat:	0.0003245783972359562	tons
+activity:	2770298118189976.0	tons
+pu inventory:	2055.692848822602	tons
+
+2040_005_growth_precise
+======================
+lwr UNF reprocessed:	102031.02207317323	tons
+unreprocessed lwr:	178789.0129268268	tons
+sfr UNF reprocessed:	32010.61164281567	tons
+raffinate:	7114.138091470328	tons
+decay heat:	15813846.594148047	tons
+activity:	6.0321617155278425e+25	tons
+pu inventory:	2055.5823153300926	tons
+
+2040_005_growth_recipe
+======================
+lwr UNF reprocessed:	102031.02207317323	tons
+unreprocessed lwr:	178789.0129268268	tons
+sfr UNF reprocessed:	32010.61164281567	tons
+raffinate:	7105.612653369365	tons
+decay heat:	12816681.394970655	tons
+activity:	4.8890399522287e+25	tons
+pu inventory:	2055.5823153300926	tons
+
+2040_015_growth_no
+======================
+lwr UNF reprocessed:	249848.0081734478	tons
+unreprocessed lwr:	20758.70182655222	tons
+sfr UNF reprocessed:	99158.2036150349	tons
+raffinate:	13079.263773675664	tons
+decay heat:	0.0007146057658957552	tons
+activity:	6653599110219467.0	tons
+pu inventory:	2002.9504257648732	tons
+
+2040_015_growth_precise
+======================
+lwr UNF reprocessed:	312968.27487534634	tons
+unreprocessed lwr:	25710.465124653652	tons
+sfr UNF reprocessed:	100396.77508058836	tons
+raffinate:	14377.74171027658	tons
+decay heat:	15813846.594576478	tons
+activity:	6.032161715947162e+25	tons
+pu inventory:	1531.0300693768295	tons
+
+2040_015_growth_recipe
+======================
+lwr UNF reprocessed:	312200.299440387	tons
+unreprocessed lwr:	26478.440559612995	tons
+sfr UNF reprocessed:	100396.77508058836	tons
+raffinate:	14369.216272175612	tons
+decay heat:	12816681.395765616	tons
+activity:	4.88903995293071e+25	tons
+pu inventory:	1540.2591467687744	tons
+
+2040_01_growth_no
+======================
+lwr UNF reprocessed:	182924.43455556003	tons
+unreprocessed lwr:	57230.32544443998	tons
+sfr UNF reprocessed:	58830.568823121015	tons
+raffinate:	8853.42722305025	tons
+decay heat:	0.00048475697557541654	tons
+activity:	4364357395708461.0	tons
+pu inventory:	1911.3740867122287	tons
+
+2040_01_growth_precise
+======================
+lwr UNF reprocessed:	182924.43455556003	tons
+unreprocessed lwr:	125302.35544444	tons
+sfr UNF reprocessed:	58865.23621783116	tons
+raffinate:	10031.881029758506	tons
+decay heat:	15813846.59430804	tons
+activity:	6.032161715687111e+25	tons
+pu inventory:	1911.2524998704685	tons
+
+2040_01_growth_recipe
+======================
+lwr UNF reprocessed:	182924.43455556003	tons
+unreprocessed lwr:	125302.35544444	tons
+sfr UNF reprocessed:	58865.23621783116	tons
+raffinate:	10023.355591657542	tons
+decay heat:	12816681.394834755	tons
+activity:	4.889039952160795e+25	tons
+pu inventory:	1911.2524998704685	tons
+
+2040_0_growth_no
+======================
+lwr UNF reprocessed:	53429.14811788748	tons
+unreprocessed lwr:	136346.8518821125	tons
+sfr UNF reprocessed:	14327.08875930295	tons
+raffinate:	3951.1306501036993	tons
+decay heat:	0.00020986263795975805	tons
+activity:	1644545671728110.2	tons
+pu inventory:	2054.7771600266738	tons
+
+2040_0_growth_precise
+======================
+lwr UNF reprocessed:	53429.14811788748	tons
+unreprocessed lwr:	204418.88188211253	tons
+sfr UNF reprocessed:	14327.08875930295	tons
+raffinate:	5126.442157500932	tons
+decay heat:	15813846.594067568	tons
+activity:	6.032161715441301e+25	tons
+pu inventory:	2054.7771600266738	tons
+
+2040_0_growth_recipe
+======================
+lwr UNF reprocessed:	53429.14811788748	tons
+unreprocessed lwr:	204418.88188211253	tons
+sfr UNF reprocessed:	14327.08875930295	tons
+raffinate:	5117.916719399967	tons
+decay heat:	12816681.394754708	tons
+activity:	4.889039952042507e+25	tons
+pu inventory:	2054.7771600266738	tons
+
+2045_005_growth_no
+======================
+lwr UNF reprocessed:	88463.45605555772	tons
+unreprocessed lwr:	152075.64894444228	tons
+sfr UNF reprocessed:	18172.01799079208	tons
+raffinate:	5007.0350027248005	tons
+decay heat:	0.0004803843507610066	tons
+activity:	3762611754827404.0	tons
+pu inventory:	2455.1112971707225	tons
+
+2045_005_growth_precise
+======================
+lwr UNF reprocessed:	88463.45605555772	tons
+unreprocessed lwr:	220147.6789444423	tons
+sfr UNF reprocessed:	18203.53380416494	tons
+raffinate:	6185.203957988646	tons
+decay heat:	15813846.594096247	tons
+activity:	6.032161715466681e+25	tons
+pu inventory:	2455.000763678212	tons
+
+2045_005_growth_recipe
+======================
+lwr UNF reprocessed:	88463.45605555772	tons
+unreprocessed lwr:	220147.6789444423	tons
+sfr UNF reprocessed:	18203.53380416494	tons
+raffinate:	6176.678519887683	tons
+decay heat:	12816681.39486498	tons
+activity:	4.889039952127027e+25	tons
+pu inventory:	2455.000763678212	tons
+
+2045_015_growth_no
+======================
+lwr UNF reprocessed:	286491.40749865194	tons
+unreprocessed lwr:	23702.837501348055	tons
+sfr UNF reprocessed:	80724.60437324806	tons
+raffinate:	11876.394919370108	tons
+decay heat:	0.0006462117079020128	tons
+activity:	5830148542041279.0	tons
+pu inventory:	2161.967107741668	tons
+
+2045_015_growth_precise
+======================
+lwr UNF reprocessed:	298084.1795406577	tons
+unreprocessed lwr:	80182.09545934235	tons
+sfr UNF reprocessed:	80759.27176795821	tons
+raffinate:	13055.134402374073	tons
+decay heat:	15813846.595083186	tons
+activity:	6.0321617163066275e+25	tons
+pu inventory:	2040.0316238789092	tons
+
+2045_015_growth_recipe
+======================
+lwr UNF reprocessed:	298084.1795406577	tons
+unreprocessed lwr:	80182.09545934235	tons
+sfr UNF reprocessed:	80759.27176795821	tons
+raffinate:	13046.608964273108	tons
+decay heat:	12816681.395609904	tons
+activity:	4.889039952780311e+25	tons
+pu inventory:	2040.0316238789092	tons
+
+2045_01_growth_no
+======================
+lwr UNF reprocessed:	166760.38016260567	tons
+unreprocessed lwr:	106418.48483739432	tons
+sfr UNF reprocessed:	42454.95219458205	tons
+raffinate:	7750.3881286489595	tons
+decay heat:	0.0007779850605869079	tons
+activity:	6353801488004457.0	tons
+pu inventory:	2386.2331092963286	tons
+
+2045_01_growth_precise
+======================
+lwr UNF reprocessed:	166760.38016260567	tons
+unreprocessed lwr:	174490.51483739435	tons
+sfr UNF reprocessed:	42489.6195892922	tons
+raffinate:	8928.842290849476	tons
+decay heat:	15813846.594636004	tons
+activity:	6.032161715912489e+25	tons
+pu inventory:	2386.1115224545683	tons
+
+2045_01_growth_recipe
+======================
+lwr UNF reprocessed:	166760.38016260567	tons
+unreprocessed lwr:	174490.51483739435	tons
+sfr UNF reprocessed:	42489.6195892922	tons
+raffinate:	8920.316852748514	tons
+decay heat:	12816681.394771725	tons
+activity:	4.8890399520861645e+25	tons
+pu inventory:	2386.1115224545683	tons
+
+2045_0_growth_no
+======================
+lwr UNF reprocessed:	42421.50021680319	tons
+unreprocessed lwr:	169883.0297831968	tons
+sfr UNF reprocessed:	3050.730734493017	tons
+raffinate:	3187.568296109811	tons
+decay heat:	0.0002286863125504604	tons
+activity:	1542548206671669.2	tons
+pu inventory:	2375.866109207185	tons
+
+2045_0_growth_precise
+======================
+lwr UNF reprocessed:	42421.50021680319	tons
+unreprocessed lwr:	237955.0597831968	tons
+sfr UNF reprocessed:	3050.730734493017	tons
+raffinate:	4362.87980350703	tons
+decay heat:	15813846.59408639	tons
+activity:	6.032161715431102e+25	tons
+pu inventory:	2375.866109207185	tons
+
+2045_0_growth_recipe
+======================
+lwr UNF reprocessed:	42421.50021680319	tons
+unreprocessed lwr:	237955.0597831968	tons
+sfr UNF reprocessed:	3050.730734493017	tons
+raffinate:	4354.354365406063	tons
+decay heat:	12816681.394613106	tons
+activity:	4.889039951904785e+25	tons
+pu inventory:	2375.866109207185	tons
+
+2050_005_growth_no
+======================
+lwr UNF reprocessed:	84440.72758672292	tons
+unreprocessed lwr:	163341.8024132771	tons
+sfr UNF reprocessed:	14626.488986345135	tons
+raffinate:	4768.569290140225	tons
+decay heat:	0.0004521229400604416	tons
+activity:	3489136341612874.0	tons
+pu inventory:	2562.038643220421	tons
+
+2050_005_growth_precise
+======================
+lwr UNF reprocessed:	84477.29784553051	tons
+unreprocessed lwr:	231377.2621544695	tons
+sfr UNF reprocessed:	14654.853218380707	tons
+raffinate:	5946.7377283930155	tons
+decay heat:	15813846.594087163	tons
+activity:	6.032161715454047e+25	tons
+pu inventory:	2561.928109727911	tons
+
+2050_005_growth_recipe
+======================
+lwr UNF reprocessed:	84477.29784553051	tons
+unreprocessed lwr:	231377.2621544695	tons
+sfr UNF reprocessed:	14654.853218380707	tons
+raffinate:	5938.21229029205	tons
+decay heat:	12816681.394613883	tons
+activity:	4.889039951927731e+25	tons
+pu inventory:	2561.928109727911	tons
+
+2050_015_growth_no
+======================
+lwr UNF reprocessed:	287478.80448645685	tons
+unreprocessed lwr:	42198.775513543165	tons
+sfr UNF reprocessed:	71134.34236388624	tons
+raffinate:	11231.621831530147	tons
+decay heat:	0.0006177418250575492	tons
+activity:	5447723514163744.0	tons
+pu inventory:	2326.911651176413	tons
+
+2050_015_growth_precise
+======================
+lwr UNF reprocessed:	287515.3747452644	tons
+unreprocessed lwr:	110234.23525473557	tons
+sfr UNF reprocessed:	71169.00975859638	tons
+raffinate:	12410.361221223384	tons
+decay heat:	15813846.594470602	tons
+activity:	6.032161715817264e+25	tons
+pu inventory:	2326.7790109853995	tons
+
+2050_015_growth_recipe
+======================
+lwr UNF reprocessed:	287515.3747452644	tons
+unreprocessed lwr:	110234.23525473557	tons
+sfr UNF reprocessed:	71169.00975859638	tons
+raffinate:	12401.835783122418	tons
+decay heat:	12816681.394997317	tons
+activity:	4.88903995229095e+25	tons
+pu inventory:	2326.7790109853995	tons
+
+2050_01_growth_no
+======================
+lwr UNF reprocessed:	160141.16331843208	tons
+unreprocessed lwr:	125159.35168156793	tons
+sfr UNF reprocessed:	36489.00872309932	tons
+raffinate:	7349.357433667441	tons
+decay heat:	0.00040678216888976194	tons
+activity:	3402576071347210.0	tons
+pu inventory:	2564.883545458465	tons
+
+2050_01_growth_precise
+======================
+lwr UNF reprocessed:	160141.16331843208	tons
+unreprocessed lwr:	193231.38168156796	tons
+sfr UNF reprocessed:	36523.676117809475	tons
+raffinate:	8527.811592176498	tons
+decay heat:	15813846.594227573	tons
+activity:	6.03216171558935e+25	tons
+pu inventory:	2564.7619586167048	tons
+
+2050_01_growth_recipe
+======================
+lwr UNF reprocessed:	160141.16331843208	tons
+unreprocessed lwr:	193231.38168156796	tons
+sfr UNF reprocessed:	36523.676117809475	tons
+raffinate:	8519.286154075535	tons
+decay heat:	12816681.395115256	tons
+activity:	4.889039952340308e+25	tons
+pu inventory:	2564.7619586167048	tons
+
+2050_0_growth_no
+======================
+lwr UNF reprocessed:	40263.85494715545	tons
+unreprocessed lwr:	175647.60505284453	tons
+sfr UNF reprocessed:	1780.6434555666883	tons
+raffinate:	3116.2628127860726	tons
+decay heat:	0.00028093409352729115	tons
+activity:	2008407076575444.0	tons
+pu inventory:	2432.8418093593336	tons
+
+2050_0_growth_precise
+======================
+lwr UNF reprocessed:	40263.85494715545	tons
+unreprocessed lwr:	243719.63505284453	tons
+sfr UNF reprocessed:	1780.6434555666883	tons
+raffinate:	4291.574320183291	tons
+decay heat:	15813846.594091484	tons
+activity:	6.0321617154350755e+25	tons
+pu inventory:	2432.8418093593336	tons
+
+2050_0_growth_recipe
+======================
+lwr UNF reprocessed:	40263.85494715545	tons
+unreprocessed lwr:	243719.63505284453	tons
+sfr UNF reprocessed:	1780.6434555666883	tons
+raffinate:	4283.048882082328	tons
+decay heat:	12816681.3946182	tons
+activity:	4.8890399519087625e+25	tons
+pu inventory:	2432.8418093593336	tons
+
