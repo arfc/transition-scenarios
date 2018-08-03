@@ -1,0 +1,152 @@
+
+<simulation xmlns:xi="http://www.w3.org/2001/XInclude">
+  <control>
+    <duration>10</duration>
+    <startmonth>5</startmonth>
+    <startyear>2013</startyear>
+    <decay>lazy</decay>
+  </control>
+
+  <archetypes>
+    <spec>
+      <lib>cycamore</lib>
+      <name>Source</name>
+    </spec>
+    <spec>
+      <lib>cycamore</lib>
+      <name>Sink</name>
+    </spec>
+    <spec>
+        <lib>cycamore</lib>
+        <name>Reactor</name>
+    </spec>
+    <spec>
+      <lib>agents</lib>
+      <name>NullRegion</name>
+    </spec>
+    <spec>
+      <lib>agents</lib>
+      <name>NullInst</name>
+    </spec>
+    <spec>
+      <lib>cycamore</lib>
+      <name>Separations</name>
+    </spec>
+    <spec>
+      <lib>cycamore</lib>
+      <name>DeployInst</name>
+    </spec>
+    <spec>
+      <lib>cycamore</lib>
+      <name>Separations</name>
+    </spec>
+    <spec>
+      <lib>cycamore</lib>
+      <name>Enrichment</name>
+    </spec>
+    <spec>
+      <lib>cycamore</lib>
+      <name>Mixer</name>
+    </spec>
+    <spec>
+      <lib>cycamore</lib>
+      <name>Storage</name>
+    </spec>
+  </archetypes>
+
+
+
+
+<!-- La Hague Model from Schneider & Marignac -->
+  <facility>
+    <name>reprocessing</name>
+    <config>
+      <Separations>
+         <feed_commods>   <val>cooled_uox</val> <val>pre_2013_unf</val> </feed_commods>
+         <feed_commod_prefs> <val>1.0</val> <val>1.0</val> </feed_commod_prefs>
+         <feed_recipe>uox_used_fuel_recipe</feed_recipe>
+         <feedbuf_size>1e100</feedbuf_size>
+         <!-- 1100 tons/year 91.6 tons/timestep -->
+         <throughput>1e100</throughput>
+         <leftover_commod>reprocess_waste</leftover_commod>
+         <leftoverbuf_size>1e100</leftoverbuf_size>
+         <streams>
+          <item>
+            <commod>lwr_pu</commod>
+            <info>
+              <buf_size>1e100</buf_size>
+              <efficiencies>
+                <item>
+                  <comp>Pu</comp> <eff>.99</eff>
+                </item>
+                </efficiencies>
+            </info>
+          </item>
+          <item>
+            <commod>lwr_u</commod>
+            <info>
+              <buf_size>1e100</buf_size>
+              <efficiencies>
+                <item>
+                  <comp>U</comp> <eff>.99</eff>
+                </item>
+                </efficiencies>
+            </info>
+          </item>
+        </streams>
+      </Separations>
+    </config>
+  </facility>
+
+
+  <facility>
+    <name>unf_source</name>
+    <config>
+      <Source>
+        <outcommod>pre_2013_unf</outcommod>
+        <outrecipe>udb_recipe</outrecipe>
+        <throughput>1e100</throughput>
+        <inventory_size>68072030</inventory_size>
+      </Source>
+    </config>
+  </facility>
+
+  <facility>
+    <name>SomeSink</name>
+    <config>
+      <Sink>
+        <in_commods>
+          <val>tailings</val>
+          <val>reprocess_waste</val>
+        </in_commods>
+        <capacity>1e100</capacity>
+      </Sink>
+    </config>
+  </facility>
+
+  
+<region>
+    <name>Sink_Source</name>
+    <config><NullRegion/></config>
+        <institution>
+         <name>Sink_Source_Inst</name>
+         <config><NullInst/></config>
+        <initialfacilitylist>
+          <entry>
+            <number>1</number>
+            <prototype>SomeSink</prototype>
+          </entry>
+
+          <entry>
+            <number>1</number>
+            <prototype>reprocessing</prototype>
+          </entry>
+          <entry>
+            <number>1</number>
+            <prototype>unf_source</prototype>
+          </entry>
+        </initialfacilitylist>
+        </institution>
+</region>
+<xi:include href='../recipes.xml' xpointer='xpointer(/root/recipe)'/>
+</simulation>
