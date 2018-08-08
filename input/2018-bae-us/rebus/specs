@@ -1,0 +1,4 @@
+REBUS SPECS
+volume = 56200 [l]
+fertile rate = 3.6325e-4 [g / (s MTHIM)]
+fertile comp = 0.3% U235 / 93.7% U238

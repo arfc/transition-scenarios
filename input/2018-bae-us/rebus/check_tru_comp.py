@@ -23,6 +23,7 @@ pu = 0
 am = 0
 cm = 0
 sumz = sum(mat.values())
+mat = mat.decay(3600*24*365*6)
 for key, val in mat.items():
     valz = val / sumz
     if 'Pu' in pyne.nucname.name(key):

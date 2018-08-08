@@ -1,3 +1,7 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+
 file = './discharge'
 with open(file+'_recipe.xml', 'w') as w:
     w.write('<root>\n')
