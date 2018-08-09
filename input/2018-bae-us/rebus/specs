@@ -1,4 +1,5 @@
 REBUS SPECS
-volume = 56200 [l]
+volume = 55555 [l]
+waste_stream_model_volume = 0.06397 [l]
 fertile rate = 3.6325e-4 [g / (s MTHIM)]
 fertile comp = 0.3% U235 / 93.7% U238
