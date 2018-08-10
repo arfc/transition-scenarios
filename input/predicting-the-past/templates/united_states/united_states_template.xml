@@ -246,5 +246,5 @@
       <config>
         <xi:include href="united_states/buildtimes/{{country}}/deployinst.xml"/></config>
     </institution>{% endfor %}</region>
-  <xi:include href="united_states/recipes/uox_51.xml#xpointer(/recipes/child::*)"/>
+  <xi:include href="united_states/recipes/uox_{{burnup}}.xml#xpointer(/recipes/child::*)"/>
 </simulation>
