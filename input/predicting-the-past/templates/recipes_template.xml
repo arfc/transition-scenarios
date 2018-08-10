@@ -63,14 +63,14 @@
   </recipe>
   <recipe>
     <name>cool_spent_uox</name>
-    <basis>mass</basis>
+    <basis>atom</basis>
     {% for key, value in spent.items() -%}
     <nuclide> <id>{{ key }}</id> <comp>{{ value }}</comp> </nuclide>
     {% endfor -%}
   </recipe>
   <recipe>
     <name>casked_spent_uox</name>
-    <basis>mass</basis>
+    <basis>atom</basis>
     {% for key, value in spent.items() -%}
     <nuclide> <id>{{ key }}</id> <comp>{{ value }}</comp> </nuclide>
     {% endfor -%}
