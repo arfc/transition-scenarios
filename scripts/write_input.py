@@ -46,7 +46,7 @@ def read_csv(csv_file):
                                   dtype=('S128', 'S128',
                                          'S128', 'int',
                                          'S128', 'S128', 'int',
-                                         'int', 'int',
+                                         'int', 'S128',
                                          'int', 'int',
                                          'int', 'int',
                                          'int', 'float'),
@@ -258,20 +258,20 @@ def reactor_render(reactor_data, output_file, is_cyborg=False):
                    'assemblies_per_batch': 52}
     bwr_spec = {'template': pwr_template,
                 'kg_per_assembly': 180,
-                'assemblies_per_core': int(764 / 1000),
-                'assemblies_per_batch': int(764 / 3000)}
+                'assemblies_per_core': 764 / 1000.0,
+                'assemblies_per_batch': 764 / 3000.0}
     phwr_spec = {'template': candu_template,
                  'kg_per_assembly': 8000 / 473,
-                 'assemblies_per_core': int(473 / 500),
+                 'assemblies_per_core': 473 / 500.0,
                  'assemblies_per_batch': 60}
     candu_spec = {'template': candu_template,
                   'kg_per_assembly': 8000 / 473,
-                  'assemblies_per_core': int(473 / 500),
+                  'assemblies_per_core': 473 / 500.0,
                   'assemblies_per_batch': 60}
     pwr_spec = {'template': pwr_template,
                 'kg_per_assembly': 446.0,
-                'assemblies_per_core': int(193 / 1000),
-                'assemblies_per_batch': int(193 / 3000)}
+                'assemblies_per_core': 193 / 1000.0,
+                'assemblies_per_batch': 193 / 3000.0}
     epr_spec = {'template': pwr_template,
                 'kg_per_assembly': 467.0,
                 'assemblies_per_core': 216,
@@ -297,9 +297,9 @@ def reactor_render(reactor_data, output_file, is_cyborg=False):
                 type=reactor_type,
                 reactor_name=name,
                 assem_size=round(spec_dict['kg_per_assembly'], 3),
-                n_assem_core=int(round(spec_dict['assemblies_per_core']
+                n_assem_core=int((spec_dict['assemblies_per_core']
                                        * data['net_elec_capacity'])),
-                n_assem_batch=int(round(spec_dict['assemblies_per_batch']
+                n_assem_batch=int((spec_dict['assemblies_per_batch']
                                         * data['net_elec_capacity'])),
                 capacity=data['net_elec_capacity'])
         else:
@@ -486,8 +486,9 @@ def main(csv_file, init_date, duration, output_file, reprocessing=True):
     # read csv and templates
     csv_database = read_csv(csv_file)
     for data in csv_database:
-        entry_time = get_entrytime(init_date, data['first_crit'])
-        lifetime = get_lifetime(data['first_crit'], data['shutdown_date'])
+        print(type(int(data['first_crit'])))
+        entry_time = get_entrytime(init_date, int(data['first_crit']))
+        lifetime = get_lifetime(int(data['first_crit']), int(data['shutdown_date']))
         if entry_time <= 0:
             lifetime = lifetime + entry_time
             if lifetime < 0:
