@@ -1,0 +1,23 @@
+<root>
+<recipe>
+    <name>rebus_init</name>
+    <basis>mass</basis>
+    <nuclide> <id>Na23</id> <comp>6.75</comp> </nuclide>
+    <nuclide> <id>Cl35</id> <comp>26.75</comp> </nuclide>
+    <nuclide> <id>Cl37</id> <comp>9.22</comp> </nuclide>
+    <nuclide> <id>U235</id> <comp>0.34</comp> </nuclide>
+    <nuclide> <id>U238</id> <comp>47.36</comp> </nuclide>
+    <nuclide> <id>Np237</id> <comp>0.45</comp> </nuclide>
+    <nuclide> <id>Pu238</id> <comp>0.20</comp> </nuclide>
+    <nuclide> <id>Pu239</id> <comp>4.62</comp> </nuclide>
+    <nuclide> <id>Pu240</id> <comp>2.12</comp> </nuclide>
+    <nuclide> <id>Pu241</id> <comp>0.86</comp> </nuclide>
+    <nuclide> <id>Pu242</id> <comp>0.61</comp> </nuclide>
+    <nuclide> <id>Am241</id> <comp>0.49</comp> </nuclide>
+    <nuclide> <id>Am242m</id> <comp>0.00095</comp> </nuclide>
+    <nuclide> <id>Am243</id> <comp>0.14</comp> </nuclide>
+    <nuclide> <id>Cm244</id> <comp>0.041</comp> </nuclide>
+    <nuclide> <id>Cm245</id> <comp>0.0038</comp> </nuclide>
+</recipe>
+
+</root>
