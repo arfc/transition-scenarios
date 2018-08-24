@@ -1,6 +1,5 @@
 <root>
 <prototypes>
-    <val>DRESDEN-1</val>
 <val>INDIAN POINT-1</val>
 <val>YANKEE NPS</val>
 <val>HADDAM NECK</val>
@@ -234,7 +233,6 @@
 <val>1</val>
 <val>1</val>
 <val>1</val>
-<val>1</val>
 
 </build_times>
 <n_build>
@@ -353,126 +351,125 @@
 <val>1</val>
 <val>1</val>
 <val>1</val>
-<val>1</val>
 
 </n_build>
 <lifetimes>
-    <val>77</val>
-<val>111</val>
-<val>88</val>
-<val>171</val>
-<val>169</val>
-<val>192</val>
-<val>196</val>
-<val>200</val>
-<val>198</val>
-<val>210</val>
-<val>212</val>
-<val>241</val>
-<val>222</val>
-<val>228</val>
-<val>217</val>
-<val>209</val>
-<val>234</val>
-<val>241</val>
-<val>244</val>
-<val>255</val>
-<val>211</val>
-<val>210</val>
-<val>240</val>
-<val>246</val>
-<val>256</val>
-<val>227</val>
-<val>244</val>
-<val>255</val>
-<val>372</val>
-<val>253</val>
-<val>257</val>
-<val>283</val>
-<val>250</val>
-<val>243</val>
-<val>247</val>
-<val>230</val>
-<val>238</val>
-<val>279</val>
-<val>229</val>
-<val>250</val>
-<val>229</val>
-<val>259</val>
-<val>283</val>
-<val>327</val>
-<val>284</val>
-<val>256</val>
-<val>255</val>
-<val>234</val>
-<val>275</val>
-<val>242</val>
-<val>248</val>
-<val>307</val>
-<val>261</val>
-<val>298</val>
-<val>256</val>
-<val>260</val>
-<val>270</val>
-<val>299</val>
-<val>271</val>
-<val>281</val>
-<val>263</val>
-<val>326</val>
-<val>342</val>
-<val>251</val>
-<val>276</val>
-<val>276</val>
-<val>291</val>
-<val>291</val>
-<val>336</val>
-<val>388</val>
-<val>299</val>
-<val>325</val>
-<val>339</val>
-<val>360</val>
-<val>302</val>
-<val>369</val>
-<val>386</val>
-<val>381</val>
-<val>512</val>
-<val>354</val>
-<val>350</val>
-<val>370</val>
-<val>352</val>
-<val>372</val>
-<val>351</val>
-<val>364</val>
-<val>380</val>
-<val>396</val>
-<val>411</val>
-<val>352</val>
-<val>380</val>
-<val>435</val>
-<val>393</val>
-<val>397</val>
-<val>382</val>
-<val>443</val>
-<val>479</val>
-<val>381</val>
-<val>404</val>
-<val>409</val>
-<val>418</val>
-<val>409</val>
-<val>377</val>
-<val>406</val>
-<val>418</val>
-<val>430</val>
-<val>398</val>
-<val>385</val>
-<val>396</val>
-<val>414</val>
-<val>406</val>
-<val>431</val>
-<val>390</val>
-<val>385</val>
-<val>361</val>
-<val>404</val>
+<val>	32	</val>
+<val>	9	</val>
+<val>	92	</val>
+<val>	90	</val>
+<val>	113	</val>
+<val>	117	</val>
+<val>	121	</val>
+<val>	119	</val>
+<val>	131	</val>
+<val>	133	</val>
+<val>	162	</val>
+<val>	143	</val>
+<val>	149	</val>
+<val>	138	</val>
+<val>	130	</val>
+<val>	155	</val>
+<val>	162	</val>
+<val>	165	</val>
+<val>	176	</val>
+<val>	132	</val>
+<val>	131	</val>
+<val>	161	</val>
+<val>	167	</val>
+<val>	177	</val>
+<val>	148	</val>
+<val>	165	</val>
+<val>	176	</val>
+<val>	293	</val>
+<val>	174	</val>
+<val>	178	</val>
+<val>	204	</val>
+<val>	171	</val>
+<val>	164	</val>
+<val>	168	</val>
+<val>	151	</val>
+<val>	159	</val>
+<val>	200	</val>
+<val>	150	</val>
+<val>	171	</val>
+<val>	150	</val>
+<val>	180	</val>
+<val>	204	</val>
+<val>	248	</val>
+<val>	205	</val>
+<val>	177	</val>
+<val>	176	</val>
+<val>	155	</val>
+<val>	196	</val>
+<val>	163	</val>
+<val>	169	</val>
+<val>	228	</val>
+<val>	182	</val>
+<val>	219	</val>
+<val>	177	</val>
+<val>	181	</val>
+<val>	191	</val>
+<val>	220	</val>
+<val>	192	</val>
+<val>	202	</val>
+<val>	184	</val>
+<val>	247	</val>
+<val>	263	</val>
+<val>	172	</val>
+<val>	197	</val>
+<val>	197	</val>
+<val>	212	</val>
+<val>	212	</val>
+<val>	257	</val>
+<val>	309	</val>
+<val>	220	</val>
+<val>	246	</val>
+<val>	260	</val>
+<val>	281	</val>
+<val>	223	</val>
+<val>	290	</val>
+<val>	307	</val>
+<val>	302	</val>
+<val>	433	</val>
+<val>	275	</val>
+<val>	271	</val>
+<val>	291	</val>
+<val>	273	</val>
+<val>	293	</val>
+<val>	272	</val>
+<val>	285	</val>
+<val>	301	</val>
+<val>	317	</val>
+<val>	332	</val>
+<val>	273	</val>
+<val>	301	</val>
+<val>	356	</val>
+<val>	314	</val>
+<val>	318	</val>
+<val>	303	</val>
+<val>	364	</val>
+<val>	400	</val>
+<val>	302	</val>
+<val>	325	</val>
+<val>	330	</val>
+<val>	339	</val>
+<val>	330	</val>
+<val>	298	</val>
+<val>	327	</val>
+<val>	339	</val>
+<val>	351	</val>
+<val>	319	</val>
+<val>	306	</val>
+<val>	317	</val>
+<val>	335	</val>
+<val>	327	</val>
+<val>	352	</val>
+<val>	311	</val>
+<val>	306	</val>
+<val>	282	</val>
+<val>	325	</val>
+
 
 </lifetimes>
 </root>

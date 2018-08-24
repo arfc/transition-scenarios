@@ -1,0 +1,466 @@
+<root>
+<prototypes>
+<val>HADDAM NECK</val>
+<val>SAN ONOFRE-1</val>
+<val>OYSTER CREEK</val>
+<val>NINE MILE POINT-1</val>
+<val>DRESDEN-2</val>
+<val>GINNA</val>
+<val>MILLSTONE-1</val>
+<val>DRESDEN-3</val>
+<val>INDIAN POINT-2</val>
+<val>QUAD CITIES-1</val>
+<val>QUAD CITIES-2</val>
+<val>PALISADES</val>
+<val>ROBINSON-2</val>
+<val>TURKEY POINT-3</val>
+<val>TURKEY POINT-4</val>
+<val>BROWNS FERRY-1</val>
+<val>BROWNS FERRY-2</val>
+<val>MONTICELLO</val>
+<val>POINT BEACH-1</val>
+<val>OCONEE-1</val>
+<val>OCONEE-2</val>
+<val>OCONEE-3</val>
+<val>VERMONT YANKEE</val>
+<val>PEACH BOTTOM-2</val>
+<val>PEACH BOTTOM-3</val>
+<val>DIABLO CANYON-1</val>
+<val>THREE MILE ISLAND-1</val>
+<val>CALVERT CLIFFS-1</val>
+<val>CALVERT CLIFFS-2</val>
+<val>COOPER</val>
+<val>FORT CALHOUN-1</val>
+<val>PRAIRIE ISLAND-1</val>
+<val>SURRY-1</val>
+<val>SURRY-2</val>
+<val>BROWNS FERRY-3</val>
+<val>POINT BEACH-2</val>
+<val>KEWAUNEE</val>
+<val>PILGRIM-1</val>
+<val>FITZPATRICK</val>
+<val>SALEM-1</val>
+<val>SALEM-2</val>
+<val>CRYSTAL RIVER-3</val>
+<val>HATCH-1</val>
+<val>ANO-1</val>
+<val>MAINE YANKEE</val>
+<val>INDIAN POINT-3</val>
+<val>ZION-1</val>
+<val>ZION-2</val>
+<val>ANO-2</val>
+<val>COOK-1</val>
+<val>COOK-2</val>
+<val>RANCHO SECO-1</val>
+<val>PRAIRIE ISLAND-2</val>
+<val>MILLSTONE-2</val>
+<val>THREE MILE ISLAND-2</val>
+<val>TROJAN</val>
+<val>BRUNSWICK-1</val>
+<val>BRUNSWICK-2</val>
+<val>SEQUOYAH-1</val>
+<val>SEQUOYAH-2</val>
+<val>DUANE ARNOLD-1</val>
+<val>BEAVER VALLEY-1</val>
+<val>ST. LUCIE-1</val>
+<val>DAVIS BESSE-1</val>
+<val>FARLEY-1</val>
+<val>FARLEY-2</val>
+<val>DIABLO CANYON-2</val>
+<val>NORTH ANNA-1</val>
+<val>NORTH ANNA-2</val>
+<val>MCGUIRE-1</val>
+<val>MCGUIRE-2</val>
+<val>HATCH-2</val>
+<val>COLUMBIA</val>
+<val>FERMI-2</val>
+<val>SHOREHAM</val>
+<val>WATTS BAR-1</val>
+<val>SUMMER-1</val>
+<val>LASALLE-1</val>
+<val>LASALLE-2</val>
+<val>SUSQUEHANNA-1</val>
+<val>SUSQUEHANNA-2</val>
+<val>SAN ONOFRE-2</val>
+<val>SAN ONOFRE-3</val>
+<val>CATAWBA-1</val>
+<val>CATAWBA-2</val>
+<val>BEAVER VALLEY-2</val>
+<val>GRAND GULF-1</val>
+<val>LIMERICK-1</val>
+<val>LIMERICK-2</val>
+<val>MILLSTONE-3</val>
+<val>PERRY-1</val>
+<val>WATERFORD-3</val>
+<val>COMANCHE PEAK-1</val>
+<val>COMANCHE PEAK-2</val>
+<val>BYRON-1</val>
+<val>BYRON-2</val>
+<val>BRAIDWOOD-1</val>
+<val>BRAIDWOOD-2</val>
+<val>NINE MILE POINT-2</val>
+<val>CALLAWAY-1</val>
+<val>CLINTON-1</val>
+<val>SOUTH TEXAS-1</val>
+<val>SOUTH TEXAS-2</val>
+<val>HOPE CREEK-1</val>
+<val>PALO VERDE-1</val>
+<val>PALO VERDE-2</val>
+<val>PALO VERDE-3</val>
+<val>VOGTLE-1</val>
+<val>VOGTLE-2</val>
+<val>RIVER BEND-1</val>
+<val>WOLF CREEK</val>
+<val>ST. LUCIE-2</val>
+<val>HARRIS-1</val>
+
+</prototypes>
+<build_times>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+
+</build_times>
+<n_build>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+<val>1</val>
+
+</n_build>
+<lifetimes>
+<val>   8   </val>
+<val>   6   </val>
+<val>   29  </val>
+<val>   33  </val>
+<val>   37  </val>
+<val>   35  </val>
+<val>   47  </val>
+<val>   49  </val>
+<val>   78  </val>
+<val>   59  </val>
+<val>   65  </val>
+<val>   54  </val>
+<val>   46  </val>
+<val>   71  </val>
+<val>   78  </val>
+<val>   81  </val>
+<val>   92  </val>
+<val>   48  </val>
+<val>   47  </val>
+<val>   77  </val>
+<val>   83  </val>
+<val>   93  </val>
+<val>   64  </val>
+<val>   81  </val>
+<val>   92  </val>
+<val>   209 </val>
+<val>   90  </val>
+<val>   94  </val>
+<val>   120 </val>
+<val>   87  </val>
+<val>   80  </val>
+<val>   84  </val>
+<val>   67  </val>
+<val>   75  </val>
+<val>   116 </val>
+<val>   66  </val>
+<val>   87  </val>
+<val>   66  </val>
+<val>   96  </val>
+<val>   120 </val>
+<val>   164 </val>
+<val>   121 </val>
+<val>   93  </val>
+<val>   92  </val>
+<val>   71  </val>
+<val>   112 </val>
+<val>   79  </val>
+<val>   85  </val>
+<val>   144 </val>
+<val>   98  </val>
+<val>   135 </val>
+<val>   93  </val>
+<val>   97  </val>
+<val>   107 </val>
+<val>   136 </val>
+<val>   108 </val>
+<val>   118 </val>
+<val>   100 </val>
+<val>   163 </val>
+<val>   179 </val>
+<val>   88  </val>
+<val>   113 </val>
+<val>   113 </val>
+<val>   128 </val>
+<val>   128 </val>
+<val>   173 </val>
+<val>   225 </val>
+<val>   136 </val>
+<val>   162 </val>
+<val>   176 </val>
+<val>   197 </val>
+<val>   139 </val>
+<val>   206 </val>
+<val>   223 </val>
+<val>   218 </val>
+<val>   349 </val>
+<val>   191 </val>
+<val>   187 </val>
+<val>   207 </val>
+<val>   189 </val>
+<val>   209 </val>
+<val>   188 </val>
+<val>   201 </val>
+<val>   217 </val>
+<val>   233 </val>
+<val>   248 </val>
+<val>   189 </val>
+<val>   217 </val>
+<val>   272 </val>
+<val>   230 </val>
+<val>   234 </val>
+<val>   219 </val>
+<val>   280 </val>
+<val>   316 </val>
+<val>   218 </val>
+<val>   241 </val>
+<val>   246 </val>
+<val>   255 </val>
+<val>   246 </val>
+<val>   214 </val>
+<val>   243 </val>
+<val>   255 </val>
+<val>   267 </val>
+<val>   235 </val>
+<val>   222 </val>
+<val>   233 </val>
+<val>   251 </val>
+<val>   243 </val>
+<val>   268 </val>
+<val>   227 </val>
+<val>   222 </val>
+<val>   198 </val>
+<val>   241 </val>
+
+</lifetimes>
+</root>
