@@ -1,0 +1,221 @@
+
+<simulation xmlns:xi="http://www.w3.org/2001/XInclude">
+  <control>
+    <duration>1200</duration>
+    <startmonth>1</startmonth>
+    <startyear>2020</startyear>
+    <decay>lazy</decay>
+  </control>
+
+  <archetypes>
+    <spec>
+      <lib>cycamore</lib>
+      <name>Source</name>
+    </spec>
+    <spec>
+      <lib>cycamore</lib>
+      <name>Sink</name>
+    </spec>
+    <spec>
+        <lib>cycamore</lib>
+        <name>Reactor</name>
+    </spec>
+    <spec>
+      <lib>agents</lib>
+      <name>NullRegion</name>
+    </spec>
+    <spec>
+      <lib>agents</lib>
+      <name>NullInst</name>
+    </spec>
+    <spec>
+      <lib>cycamore</lib>
+      <name>Separations</name>
+    </spec>
+    <spec>
+      <lib>cycamore</lib>
+      <name>DeployInst</name>
+    </spec>
+    <spec>
+      <lib>cycamore</lib>
+      <name>Separations</name>
+    </spec>
+    <spec>
+      <lib>cycamore</lib>
+      <name>Enrichment</name>
+    </spec>
+    <spec>
+      <lib>cycamore</lib>
+      <name>Mixer</name>
+    </spec>
+    <spec>
+      <lib>cycamore</lib>
+      <name>Storage</name>
+    </spec>
+  </archetypes>
+
+
+
+
+
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>lwr</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>1</refuel_time>
+        <assem_size>29565</assem_size>
+        <n_assem_core>3</n_assem_core>
+        <n_assem_batch>1</n_assem_batch>
+        <power_cap>1000</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+
+<facility>
+        <!-- Stores uox unf for 48 months (4years) -->
+    <name>uox_storage</name>
+    <config>
+        <Storage>
+            <in_commods>
+                <val>uox_waste</val>
+                <val>smr_used</val>
+            </in_commods>
+            <residence_time>72</residence_time>
+            <out_commods>
+                <val>cooled_uox</val>
+            </out_commods>
+        </Storage>
+    </config>
+</facility>
+
+
+
+  <facility>
+    <name>enrichment</name>
+    <config>
+      <Enrichment>
+        <feed_commod>natl_u</feed_commod>
+        <feed_recipe>natl_u_recipe</feed_recipe>
+        <product_commod>uox</product_commod>
+        <tails_assay>0.003</tails_assay>
+        <tails_commod>tailings</tails_commod>
+        <swu_capacity>1e100</swu_capacity>
+        <initial_feed>1e100</initial_feed>
+      </Enrichment>
+    </config>
+  </facility>
+
+  <facility>
+    <name>nat_u_source</name>
+    <config>
+      <Source>
+        <outcommod>natl_u</outcommod>
+        <outrecipe>natl_u_recipe</outrecipe>
+        <throughput>1e100</throughput>
+      </Source>
+    </config>
+  </facility>
+
+  <facility>
+    <name>unf_source</name>
+    <config>
+      <Source>
+        <outcommod>pre_2013_unf</outcommod>
+        <outrecipe>precise</outrecipe>
+        <throughput>1e100</throughput>
+        <inventory_size>68072030</inventory_size>
+      </Source>
+    </config>
+  </facility>
+
+  <facility>
+    <name>SomeSink</name>
+    <config>
+      <Sink>
+        <in_commods>
+          <val>tailings</val>
+          <val>cooled_uox</val>
+          <val>pre_2013_unf</val>
+          <val>reprocess_waste</val>
+        </in_commods>
+        <capacity>1e100</capacity>
+      </Sink>
+    </config>
+  </facility>
+
+  <xi:include href='../reactor_with_coordinates.xml' xpointer='xpointer(/root/facility)'/>
+
+  <region>
+    <name>us</name>
+    <config><NullRegion/></config>
+    <institution>
+      <name>us_government</name>
+      <config>
+        <DeployInst>
+            <xi:include href='../depinst.xml' xpointer='xpointer(/root/prototypes)'/>
+            <xi:include href='../depinst.xml' xpointer='xpointer(/root/build_times)'/>
+            <xi:include href='../depinst.xml' xpointer='xpointer(/root/n_build)'/>
+            <xi:include href='../depinst.xml' xpointer='xpointer(/root/lifetimes)'/>
+        </DeployInst>
+      </config>
+    </institution>
+
+
+    <institution>
+      <name>lwr_inst</name>
+      <config>
+        <DeployInst>
+            <xi:include href='./lwr_dep.xml' xpointer='xpointer(/root/prototypes)'/>
+            <xi:include href='./lwr_dep.xml' xpointer='xpointer(/root/build_times)'/>
+            <xi:include href='./lwr_dep.xml' xpointer='xpointer(/root/n_build)'/>
+            <xi:include href='./lwr_dep.xml' xpointer='xpointer(/root/lifetimes)'/>
+        </DeployInst>
+      </config>
+    </institution>
+
+  </region>
+
+  
+<region>
+    <name>Sink_Source</name>
+    <config><NullRegion/></config>
+        <institution>
+         <name>Sink_Source_Inst</name>
+         <config><NullInst/></config>
+        <initialfacilitylist>
+          <entry>
+            <number>1</number>
+            <prototype>nat_u_source</prototype>
+          </entry>
+          
+          <entry>
+            <number>1</number>
+            <prototype>enrichment</prototype>
+          </entry>
+          <entry>
+            <number>1</number>
+            <prototype>SomeSink</prototype>
+          </entry>
+
+          <entry>
+            <number>1</number>
+            <prototype>uox_storage</prototype>
+          </entry>
+          <entry>
+            <number>1</number>
+            <prototype>unf_source</prototype>
+          </entry>
+        </initialfacilitylist>
+        </institution>
+</region>
+<xi:include href='../recipes.xml' xpointer='xpointer(/root/recipe)'/>
+</simulation>
