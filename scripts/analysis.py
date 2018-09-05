@@ -732,7 +732,7 @@ def fuel_usage_timeseries(cur, fuel_list, is_cum=True):
                 quantity_timeseries = get_timeseries(
                     fuel_quantity, duration, True)
             fuel_dict[fuel] = quantity_timeseries
-        except:
+        except KeyError:
             print(str(fuel) + ' has not been used.')
 
     return fuel_dict
