@@ -248,6 +248,7 @@ def get_timeseries_cum(in_list, duration, kg_to_tons):
                 value_timeseries.append(value)
     return value_timeseries
 
+
 def get_new_deployment(power_dict, inst_list, demand_eq, new_reactor_power,
                        new_reactor_lifetime, avail_timestep, new=False):
     """ Calculates the new deployment scheme to maintain power demand
@@ -303,15 +304,16 @@ def get_new_deployment(power_dict, inst_list, demand_eq, new_reactor_power,
                 high_end = min([indx + new_reactor_lifetime, total_steps])
                 for i in range(indx, high_end):
                     total_lack[i] -= num * new_reactor_power
-                    deployed_power[i] += num *new_reactor_power
+                    deployed_power[i] += num * new_reactor_power
             elif not new and indx < avail_timestep:
                 deploy_array[indx] = num
                 high_end = min([indx + new_reactor_lifetime, total_steps])
                 for i in range(indx, high_end):
                     total_lack[i] -= num * new_reactor_power
-                    deployed_power[i] += num *new_reactor_power
+                    deployed_power[i] += num * new_reactor_power
 
     return deploy_array, deployed_power
+
 
 def write_deployinst(deploy_array, reactor_name,
                      filename, lifetime):
@@ -339,10 +341,10 @@ def write_deployinst(deploy_array, reactor_name,
     lifetimes = '<lifetimes>\n'
     for time, build_num in enumerate(deploy_array):
         if build_num != 0:
-            prototypes += '\t\t<val>%s</val>\n' %reactor_name
-            build_times += '\t\t<val>%i</val>\n' %time
-            n_build += '\t\t<val>%i</val>\n' %build_num
-            lifetimes += '\t\t<val>%i</val>\n' %lifetime
+            prototypes += '\t\t<val>%s</val>\n' % reactor_name
+            build_times += '\t\t<val>%i</val>\n' % time
+            n_build += '\t\t<val>%i</val>\n' % build_num
+            lifetimes += '\t\t<val>%i</val>\n' % lifetime
     prototypes += '</prototypes>\n'
     build_times += '</build_times>\n'
     n_build += '</n_build>\n'
@@ -353,6 +355,7 @@ def write_deployinst(deploy_array, reactor_name,
     outstring += '</root>\n'
     with open(filename, 'w') as f:
         f.write(outstring)
+
 
 def get_isotope_transactions(resources, compositions):
     """Creates a dictionary with isotope name, mass, and time
@@ -656,7 +659,8 @@ def get_power_dict_of_region(cur, region_name):
                              'INNER JOIN timeseriespower '
                              'ON agententry.agentid = timeseriespower.agentid '
                              'GROUP BY timeseriespower.agentid '
-                             'WHERE parentid = %i' %parentid[0]).fetchall()
+                             'WHERE parentid = %i' % parentid[0]).fetchall()
+
 
 def get_deployment_dict(cur):
     """Gets dictionary of reactors deployed over time
