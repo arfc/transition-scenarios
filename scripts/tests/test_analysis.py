@@ -307,34 +307,3 @@ def test_powerseries_reactor():
     ans_powerseries_reactor_39 = [0, 1000.0, 1000.0, 0, 0, 0, 0, 0, 0, 0]
     assert_equal(powerseries_reactor_39,ans_powerseries_reactor_39)
 
-def get_sqlite_evaluator():
-    outputfile = cymetric.dbopen(test_sqlite_path)
-    evaluate = cymetric.Evaluator(outputfile)
-    return evaluate
-def test_inventory_audit():
-    ev  = get_sqlite_evaluator()
-    audit_resources = an.inventory_audit(ev,agentids=[30])['ResourceId'].tolist()
-    ans_audit_resources = ev.eval('AgentStateInventories')['ResourceId']
-    assert_almost_equal(audit_resources,ans_audit_resources)
-
-def test_compositions():
-    ev  = get_sqlite_evaluator()
-    compsition_last = an.compositions(ev)[-1]
-    ans_compsition_last = [94, 942380000, 1.0]
-    assert compsition_last == ans_compsition_last
-
-def test_sql_filename():
-    ev  = get_sqlite_evaluator()
-    filename = an.sql_filename(ev)
-    ans_filename = str(test_sqlite_path)
-    assert filename == ans_filename
-    
-    
-def test_total_isotope_mined():
-    cur = get_sqlite_cursor()
-    mined = an.total_isotope_mined(cur,facility='mine')
-    ans_mined_U235 =  7.11000000e+296
-    ans_mined_U238 = 9.9289000000000013e+298
-    assert_almost_equal(mined['U235'],ans_mined_U235)
-    assert_almost_equal(mined['U238'],ans_mined_U238)
-    

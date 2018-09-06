@@ -2329,90 +2329,12 @@ def powerseries_reactor(cur, reactors):
     return power_dict
 
 
-def evaluator(file_name):
-    """Connects and returns a cursor to an sqlite output file
-
-    Parameters
-    ----------
-    file_name: str
-        name of the sqlite file
-
-    Returns
-    -------
-    sqlite cursor3
-    """
-    outputfile = cym.dbopen(file_name)
-    evaluate = cym.Evaluator(outputfile)
-    return evaluate
-
-
-def inventory_audit(evaler, agentids=[]):
-    """Returns timeseries of AgentStateInventories
-
-    Parameters
-    ----------
-    evaler : str
-        Cyclus evaluator
-    agentids : list of int
-        AgentIds to collect data on
-    Returns
-    -------
-    audit: df
-        Data frame of AgentStateInventories timeseries
-    """
-    audit = evaler.eval('AgentStateInventories')
-    if len(agentids) != 0:
-        audit = audit[audit['AgentId'].isin(agentids)]
-    return audit
-
-
-def compositions(evaler):
-    """Returns timeseries of composition data
-
-    Parameters
-    ----------
-    evaler : str
-        Cyclus evaluator
-
-    Returns
-    -------
-    mass_frac: df
-        Data frame of QualId mass fraction data
-    """
-    mass_frac = evaler.eval('Compositions')
-    comps = [['QualId', 'NucId', 'MassFrac']]
-    for i in range(len(mass_frac['QualId'])):
-        compsitions = [
-            mass_frac['QualId'][i],
-            mass_frac['NucId'][i],
-            mass_frac['MassFrac'][i]]
-        comps.append(compsitions)
-    return comps
-
-
-def sql_filename(evaler):
-    """Returns cyclus sql filename
-
-    Parameters
-    ----------
-    evaler : str
-        Cyclus evaluator
-
-    Returns
-    -------
-    sql_filename: str
-        sql cyclus filename
-    """
-    filename = evaler.db.name
-    return filename
-
-
 def total_isotope_used(cur, facility):
     """Returns dictionary of total masses of isotopes mined
 
     Parameters
     ----------
-     cur :  mlite cursor
+    cur :  cursor
         sqlite cursor
     facility : str
         str of mine facility
@@ -2424,6 +2346,8 @@ def total_isotope_used(cur, facility):
     """
     flux = 'out'
     isotope_masses_used = cumulative_mass_timeseries(cur, facility, flux)[0]
+
+
     total_isotope = [item[1][-1] for item in isotope_masses_used.items()]
     nuclides = [item[0] for item in isotope_masses_used.items()]
     total_mass_used  = {}
