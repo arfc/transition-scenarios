@@ -272,38 +272,44 @@ def test_capacity_calc():
         assert np.array_equal(
             power_dict[key], answer_power[key]) == True
 
+
 def test_mass_timeseries():
     """Test mass_timeseries function"""
     cur = get_sqlite_cursor()
     facility = 'mox_fuel_fab'
     flux = 'in'
-    mass_series = an.mass_timeseries(cur,facility,flux)[0]
+    mass_series = an.mass_timeseries(cur, facility, flux)[0]
     answer_mass = collections.OrderedDict()
-    answer_mass['U235'] = np.asarray([ 1.77574965,  1.77574965 , 1.77574965, 1.77574965,  1.77574965,  1.77574965,  1.77574965,  1.77574965,  1.77574965,  1.77574965])
-    answer_mass['U238'] = np.asarray([ 598.00225037,  598.00225037,  598.00225037,  598.00225037,
-        598.00225037,  598.00225037,  598.00225037,  598.00225037,
-        598.00225037,  598.00225037])
-    answer_mass['Pu238'] = np.asarray([ 19.96,  29.94,  19.96])
+    answer_mass['U235'] = np.asarray([1.77574965,  1.77574965, 1.77574965, 1.77574965,
+                                      1.77574965,  1.77574965,  1.77574965,  1.77574965,  1.77574965,  1.77574965])
+    answer_mass['U238'] = np.asarray([598.00225037,  598.00225037,  598.00225037,  598.00225037,
+                                      598.00225037,  598.00225037,  598.00225037,  598.00225037,
+                                      598.00225037,  598.00225037])
+    answer_mass['Pu238'] = np.asarray([19.96,  29.94,  19.96])
     for key in mass_series:
         assert key in answer_mass.keys()
-    
+
+
 def test_cumulative_mass_timeseries():
     """Test cumulative_mass_timeseries function"""
     cur = get_sqlite_cursor()
     facility = 'mox_fuel_fab'
     flux = 'in'
-    cumu_mass_series = an.cumulative_mass_timeseries(cur,facility,flux)[0]
+    cumu_mass_series = an.cumulative_mass_timeseries(cur, facility, flux)[0]
     answer_cumu_mass = collections.OrderedDict()
-    answer_cumu_mass['U235'] = np.asarray([ 1.77574965,  1.77574965 , 1.77574965, 1.77574965,  1.77574965,  1.77574965,  1.77574965,  1.77574965,  1.77574965,  1.77574965])
-    answer_cumu_mass['U238'] = np.asarray([ 598.00225037,  598.00225037,  598.00225037,  598.00225037,
-        598.00225037,  598.00225037,  598.00225037,  598.00225037,
-        598.00225037,  598.00225037])
-    answer_cumu_mass['Pu238'] = np.asarray([ 19.96,  29.94,  19.96])
+    answer_cumu_mass['U235'] = np.asarray([1.77574965,  1.77574965, 1.77574965, 1.77574965,
+                                           1.77574965,  1.77574965,  1.77574965,  1.77574965,  1.77574965,  1.77574965])
+    answer_cumu_mass['U238'] = np.asarray([598.00225037,  598.00225037,  598.00225037,  598.00225037,
+                                           598.00225037,  598.00225037,  598.00225037,  598.00225037,
+                                           598.00225037,  598.00225037])
+    answer_cumu_mass['Pu238'] = np.asarray([19.96,  29.94,  19.96])
     for key in cumu_mass_series:
         assert key in answer_cumu_mass.keys()
+
+
 def test_powerseries_reactor():
     cur = get_sqlite_cursor()
-    powerseries_reactor_39 = an.powerseries_reactor(cur,reactors=[39])['Reactor_39']
+    powerseries_reactor_39 = an.powerseries_reactor(cur, reactors=[39])[
+        'Reactor_39']
     ans_powerseries_reactor_39 = [0, 1000.0, 1000.0, 0, 0, 0, 0, 0, 0, 0]
-    assert_equal(powerseries_reactor_39,ans_powerseries_reactor_39)
-
+    assert_equal(powerseries_reactor_39, ans_powerseries_reactor_39)

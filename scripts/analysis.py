@@ -1118,7 +1118,7 @@ def multiple_line_plots(dictionary, timestep,
     Returns
     -------
     plot: plot
-	multiple line plots
+        multiple line plots
     """
     # set different colors for each bar
     color_index = 0
@@ -1169,11 +1169,11 @@ def combined_line_plot(dictionary, timestep,
         title of plot
     init_year: int
         initial year of simulation
-	
+
     Returns
     -------
     plot: plot
-	produces a combined line plot
+        produces a combined line plot
     """
     # set different colors for each bar
     color_index = 0
@@ -1236,7 +1236,7 @@ def double_axis_bar_line_plot(dictionary1, dictionary2, timestep,
     Returns
     -------
     plot:plot
-	double-axis bar-line plot
+        double-axis bar-line plot
     """
     # set different colors for each bar
 
@@ -1326,7 +1326,7 @@ def double_axis_line_line_plot(dictionary1, dictionary2, timestep,
     Returns
     -------
     plot: plot	
-	double-axis plot
+        double-axis plot
     """
     # set different colors for each bar
     lines = ['-', '--', '-.', ':']
@@ -1419,7 +1419,7 @@ def stacked_bar_chart(dictionary, timestep,
     Returns
     -------
     plot : plot
-	plot of stacked bar chart of timstep vs dictionary
+        plot of stacked bar chart of timstep vs dictionary
     """
     # set different colors for each bar
     color_index = 0
@@ -1528,7 +1528,7 @@ def plot_in_out_flux(cur, facility, influx_bool, title, is_cum=False, is_tot=Fal
     Returns
     -------
     plot : plot
-	plot of in flux of isotopes from facility
+        plot of in flux of isotopes from facility
     """
 
     agentids = prototype_id(cur, facility)
@@ -1888,7 +1888,7 @@ def plot_out_flux_basic(
     Returns
     -------
     plot : plot
-	plot of out flux of isotopes
+        plot of out flux of isotopes
     """
     masstime = mass_timeseries(cur, facility, flux='out')[0]
     times = mass_timeseries(cur, facility, flux='out')[1]
@@ -1925,7 +1925,7 @@ def plot_net_flux(
     Returns
     -------
     plot : plot
-	plot of net flux of isotopes
+        plot of net flux of isotopes
     """
     masstime_in = mass_timeseries(cur, facility, flux='in')[0]
     times_in = mass_timeseries(cur, facility, flux='in')[1]
@@ -2224,7 +2224,7 @@ def plot_cumulative_power(cur, reactors):
     Returns
     -------
     plot : plot
-	plot of cumulative powers
+        plot of cumulative powers
     """
     power_dict = {}
     agentid = agent_ids(cur, 'Reactor')
@@ -2277,7 +2277,7 @@ def plot_power_reactor(cur, reactors):
     Returns
     -------
     plot : plot
-	plot of reactor powers
+        plot of reactor powers
     """
     power_dict = {}
     agentid = agent_ids(cur, 'Reactor')
@@ -2330,7 +2330,7 @@ def powerseries_reactor(cur, reactors):
     Returns
     -------
     power_dict : dict
-	dictionary of reactor fleet powers
+        dictionary of reactor fleet powers
     """
     power_dict = {}
     agentid = agent_ids(cur, 'Reactor')
