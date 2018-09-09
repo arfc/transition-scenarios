@@ -1078,7 +1078,8 @@ def waste_mass_series(isotopes, mass_timeseries, duration):
         list with all the isotopes from resources table
     mass_timeseries: list
         a list of lists.  each outer list corresponds to a different isotope
-        and contains tuples in the form (time,mass) for the isotope transaction.
+        and contains tuples in the form (time,mass)
+        for the isotope transaction.
     duration: integer
         simulation duration
 
