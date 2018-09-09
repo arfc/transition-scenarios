@@ -1615,7 +1615,7 @@ def plot_power(cur):
                       'num_plot', init_year)
 
 
-def plot_in_out_flux(cur, facility, influx_bool, 
+def plot_in_out_flux(cur, facility, influx_bool,
                      title, is_cum=False, is_tot=False):
     """Plots timeseries influx/ outflux from facility name in kg.
 
@@ -2138,7 +2138,7 @@ def mass_timeseries(cur, facility, flux):
 
 
 def cumulative_mass_timeseries(cur, facility, flux):
-    """Returns dictionary of the cumulative mass 
+    """Returns dictionary of the cumulative mass
        timeseries of each isotope at a facility.
 
     Parameters
