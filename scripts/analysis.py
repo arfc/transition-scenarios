@@ -12,8 +12,6 @@ from cymetric import filters
 import pandas as pd
 from collections import Counter
 
-
-
 if len(sys.argv) < 2:
     print('Usage: python analysis.py [cylus_output_file]')
 
@@ -742,7 +740,7 @@ def fuel_usage_timeseries(cur, fuels, is_cum=True):
                 quantity_timeseries = timeseries(
                     fuel_quantity, duration, True)
             fuel_usage[fuel] = quantity_timeseries
-        except:
+        except KeyError:
             print(str(fuel) + ' has not been used.')
 
     return fuel_usage
@@ -1107,7 +1105,8 @@ def waste_timeseries(isotopes, mass_timeseries, duration):
         list with all the isotopes from resources table
     mass_timeseries: list
         a list of lists.  each outer list corresponds to a different isotope
-        and contains tuples in the form (time,mass) for the isotope transaction.
+        and contains tuples in the form
+        (time,mass) for the isotope transaction.
     duration: integer
         simulation duration
 
@@ -1435,7 +1434,7 @@ def double_axis_line_line_plot(dictionary1, dictionary2, timestep,
 
     Returns
     -------
-    plot: plot	
+    plot: plot
         double-axis plot
     """
     # set different colors for each bar
@@ -1615,7 +1614,8 @@ def plot_power(cur):
                       'num_plot', init_year)
 
 
-def plot_in_out_flux(cur, facility, influx_bool, title, is_cum=False, is_tot=False):
+def plot_in_out_flux(cur, facility, influx_bool, 
+                     title, is_cum=False, is_tot=False):
     """Plots timeseries influx/ outflux from facility name in kg.
 
     Parameters
@@ -1674,7 +1674,7 @@ def plot_in_out_flux(cur, facility, influx_bool, title, is_cum=False, is_tot=Fal
                                    time_mass,
                                    duration)
 
-    if is_cum == False and is_tot == False:
+    if not is_cum and not is_tot:
         keys = []
         for key in waste_mass.keys():
             keys.append(key)
@@ -1694,7 +1694,7 @@ def plot_in_out_flux(cur, facility, influx_bool, title, is_cum=False, is_tot=Fal
         plt.ylim(bottom=0.0)
         plt.show()
 
-    elif is_cum == True and is_tot == False:
+    elif is_cum and not is_tot:
         value = 0
         keys = []
         for key in waste_mass.keys():
@@ -1735,7 +1735,7 @@ def plot_in_out_flux(cur, facility, influx_bool, title, is_cum=False, is_tot=Fal
         plt.ylim(bottom=0.0)
         plt.show()
 
-    elif is_cum == False and is_tot == True:
+    elif not is_cum and is_tot:
         keys = []
         for key in waste_mass.keys():
             keys.append(key)
@@ -1754,7 +1754,7 @@ def plot_in_out_flux(cur, facility, influx_bool, title, is_cum=False, is_tot=Fal
         plt.ylim(bottom=0.0)
         plt.show()
 
-    elif is_cum == True and is_tot == True:
+    elif is_cum and is_tot:
         value = 0
         keys = []
         for key in waste_mass.keys():
@@ -2137,7 +2137,8 @@ def mass_timeseries(cur, facility, flux):
 
 
 def cumulative_mass_timeseries(cur, facility, flux):
-    """Returns dictionary of the cumulative mass timeseries of each isotope at a facility.
+    """Returns dictionary of the cumulative mass 
+       timeseries of each isotope at a facility.
 
     Parameters
     ----------
