@@ -1819,6 +1819,72 @@
     </config>
   </facility>
 
+  <facility>
+  <!-- us -->
+  <!-- PWR -->
+  <name>WATTS BAR-2</name>
+  <config>
+    <Reactor>
+      <fuel_inrecipes>
+        <val>uox_fuel_recipe</val>
+      </fuel_inrecipes>
+      <fuel_outrecipes>
+        <val>uox_used_fuel_recipe</val>
+      </fuel_outrecipes>
+      <fuel_incommods>
+        <val>uox</val>
+      </fuel_incommods>
+      <fuel_outcommods>
+        <val>uox_waste</val>
+      </fuel_outcommods>
+      <fuel_prefs>
+        <val>1.0</val>
+      </fuel_prefs>
+      <cycle_time>18</cycle_time>
+      <refuel_time>2</refuel_time>
+      <assem_size>446.0</assem_size>
+      <n_assem_core>224</n_assem_core>
+      <n_assem_batch>74</n_assem_batch>
+      <power_cap>1165</power_cap>
+      <longitude>-84.789400</longitude>
+      <latitude>35.602800</latitude>
+    </Reactor>
+  </config>
+</facility>
+
+<facility>
+  <!-- us -->
+  <!-- PWR -->
+  <name>SEABROOK</name>
+  <config>
+    <Reactor>
+      <fuel_inrecipes>
+        <val>uox_fuel_recipe</val>
+      </fuel_inrecipes>
+      <fuel_outrecipes>
+        <val>uox_used_fuel_recipe</val>
+      </fuel_outrecipes>
+      <fuel_incommods>
+        <val>uox</val>
+      </fuel_incommods>
+      <fuel_outcommods>
+        <val>uox_waste</val>
+      </fuel_outcommods>
+      <fuel_prefs>
+        <val>1.0</val>
+      </fuel_prefs>
+      <cycle_time>18</cycle_time>
+      <refuel_time>2</refuel_time>
+      <assem_size>446.0</assem_size>
+      <n_assem_core>240</n_assem_core>
+      <n_assem_batch>80</n_assem_batch>
+      <power_cap>1246</power_cap>
+      <longitude>-70.850833</longitude>
+      <latitude>42.898889</latitude>
+    </Reactor>
+  </config>
+</facility>
+
  <facility>
     <!-- us -->
     <!-- PWR -->
