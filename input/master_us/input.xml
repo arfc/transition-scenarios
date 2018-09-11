@@ -319,6 +319,7 @@
     </config>
   </facility>
 
+
 <facility>
         <!-- Stores uox unf for 48 months (4years) -->
     <name>sfr_storage</name>
@@ -385,8 +386,74 @@
   </facility>
 
   <facility>
-    <name>nat_u_source</name>
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>lwr</name>
     <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>1</refuel_time>
+        <assem_size>29565</assem_size>
+        <n_assem_core>3</n_assem_core>
+        <n_assem_batch>1</n_assem_batch>
+        <power_cap>1000</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+
+    <name>na
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>lwr</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>1</refuel_time>
+        <assem_size>29565</assem_size>
+        <n_assem_core>3</n_assem_core>
+        <n_assem_batch>1</n_assem_batch>
+        <power_cap>1000</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+
+    <config>
+ <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>lwr</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>1</refuel_time>
+        <assem_size>29565</assem_size>
+        <n_assem_core>3</n_assem_core>
+        <n_assem_batch>1</n_assem_batch>
+        <power_cap>1000</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+
       <Source>
         <outcommod>natl_u</outcommod>
         <outrecipe>natl_u_recipe</outrecipe>
@@ -447,7 +514,21 @@
         </DeployInst>
       </config>
     </institution>
+
+  <institution>
+  <name>lwr</name>
+  <config>
+    <DeployInst>
+      <xi:include href='./lwr_dep.xml' xpointer='xpointer(/root/prototypes)'/>
+      <xi:include href='./lwr_dep.xml' xpointer='xpointer(/root/build_times)'/>
+      <xi:include href='./lwr_dep.xml' xpointer='xpointer(/root/n_build)'/>
+      <xi:include href='./lwr_dep.xml' xpointer='xpointer(/root/lifetimes)'/>
+    </DeployInst>
+    </config>
+  </institution>
+
   </region>
+
 
 <region>
     <name>Sink_Source</name>
