@@ -99,6 +99,8 @@
 		<val>WOLF CREEK</val>
 		<val>ST. LUCIE-2</val>
 		<val>HARRIS-1</val>
+		<val>SEABROOK</val>
+		<val>WATTS BAR-2</val>
 
 	</prototypes>
 	<build_times>
@@ -201,9 +203,13 @@
 		<val>1</val>
 		<val>1</val>
 		<val>1</val>
+		<val>1</val>
+		<val>37</val>
 
 	</build_times>
 	<n_build>
+		<val>1</val>
+		<val>1</val>
 		<val>1</val>
 		<val>1</val>
 		<val>1</val>
@@ -405,6 +411,8 @@
 		<val>385</val>
 		<val>361</val>
 		<val>404</val>
+		<val>442</val>
+		<val>720</val>
 
 	</lifetimes>
 
