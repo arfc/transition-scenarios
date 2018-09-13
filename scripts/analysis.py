@@ -6,9 +6,6 @@ import sys
 from itertools import cycle
 from matplotlib import cm
 from pyne import nucname
-import parser
-import cymetric as cym
-from cymetric import filters
 import pandas as pd
 from collections import Counter
 
