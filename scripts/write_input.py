@@ -254,8 +254,8 @@ def reactor_render(reactor_data, output_file, is_cyborg=False):
 
     ap1000_spec = {'template': pwr_template,
                    'kg_per_assembly': 446.0,
-                   'assemblies_per_core': 157,
-                   'assemblies_per_batch': 52}
+                   'assemblies_per_core': 157 / 1110.0,
+                   'assemblies_per_batch': 157 / 3330.0}
     bwr_spec = {'template': pwr_template,
                 'kg_per_assembly': 180,
                 'assemblies_per_core': 764 / 1000.0,
@@ -411,7 +411,8 @@ def region_render(reactor_data, output_file):
         # file with its `region block`
         for data in reactor_data:
             if data['country'].decode('utf-8') == country:
-
+                if data['lifetime'] == 0:
+                    continue
                 prototype += (valhead
                               + refine_name(data['reactor_name'])
                               + valtail + '\n')
@@ -485,10 +486,13 @@ def main(csv_file, init_date, duration, output_file, reprocessing=True):
     region_output_filename = 'region_output.xml.in'
     # read csv and templates
     csv_database = read_csv(csv_file)
-    for data in csv_database:
-        print(type(int(data['first_crit'])))
+    kill_indx = []
+    
+    for indx, data in enumerate(csv_database):
         entry_time = get_entrytime(init_date, int(data['first_crit']))
         lifetime = get_lifetime(int(data['first_crit']), int(data['shutdown_date']))
+        if int(data['shutdown_date']) < init_date and data['shutdown_date'] != -1:
+            kill_indx.append(indx)
         if entry_time <= 0:
             lifetime = lifetime + entry_time
             if lifetime < 0:
