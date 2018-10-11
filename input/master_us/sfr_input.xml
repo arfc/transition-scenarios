@@ -52,25 +52,23 @@
       <lib>cycamore</lib>
       <name>Storage</name>
     </spec>
-    <spec>
-      <lib>saltproc_reactor.saltproc_reactor</lib>
-      <name>saltproc_reactor</name>
-    </spec>
   </archetypes>
 
 
 
 
+<!-- La Hague Model from Schneider & Marignac -->
   <facility>
     <name>reprocessing</name>
     <config>
       <Separations>
-         <feed_commods>   <val>cooled_uox</val> <val>pre_2013_unf</val>  </feed_commods>
+         <feed_commods>   <val>cooled_uox</val> <val>pre_2013_unf</val> </feed_commods>
+         <feed_commod_prefs> <val>1.0</val> <val>1.0</val> </feed_commod_prefs>
          <feed_recipe>uox_used_fuel_recipe</feed_recipe>
-         <feedbuf_size>1e300</feedbuf_size>
+         <feedbuf_size>1e100</feedbuf_size>
          <!-- 1100 tons/year 91.6 tons/timestep -->
          <throughput>1e100</throughput>
-         <leftover_commod>reprocess_waste</leftover_commod>
+         <leftover_commod>lwr_reprocess_waste</leftover_commod>
          <leftoverbuf_size>1e100</leftoverbuf_size>
          <streams>
           <item>
@@ -95,35 +93,42 @@
                 </efficiencies>
             </info>
           </item>
+        </streams>
+      </Separations>
+    </config>
+  </facility>
+
+  <facility>
+    <name>sfr_reprocessing</name>
+    <config>
+      <Separations>
+         <feed_commods>   <val>cooled_sfr</val> </feed_commods>
+         <feed_commod_prefs> <val>1.0</val>  </feed_commod_prefs>
+         <feed_recipe>sfr_spent_mox_recipe</feed_recipe>
+         <feedbuf_size>1e100</feedbuf_size>
+         <!-- 1100 tons/year 91.6 tons/timestep -->
+         <throughput>1e100</throughput>
+         <leftover_commod>sfr_reprocess_waste</leftover_commod>
+         <leftoverbuf_size>1e100</leftoverbuf_size>
+         <streams>
           <item>
-            <commod>lwr_np</commod>
+            <commod>sfr_pu</commod>
             <info>
               <buf_size>1e100</buf_size>
               <efficiencies>
                 <item>
-                  <comp>Np</comp> <eff>.99</eff>
+                  <comp>Pu</comp> <eff>.99</eff>
                 </item>
                 </efficiencies>
             </info>
           </item>
           <item>
-            <commod>lwr_am</commod>
+            <commod>sfr_u</commod>
             <info>
               <buf_size>1e100</buf_size>
               <efficiencies>
                 <item>
-                  <comp>Am</comp> <eff>.99</eff>
-                </item>
-                </efficiencies>
-            </info>
-          </item>
-          <item>
-            <commod>lwr_cm</commod>
-            <info>
-              <buf_size>1e100</buf_size>
-              <efficiencies>
-                <item>
-                  <comp>Cm</comp> <eff>.99</eff>
+                  <comp>U</comp> <eff>.99</eff>
                 </item>
                 </efficiencies>
             </info>
@@ -134,127 +139,104 @@
   </facility>
 
 
+<!-- Infinite UOX_Pu to MOX mixer -->
 <facility>
-    <name>rebus_fuel_fab_lwr</name>
+    <name>sfr_mixer_lwr</name>
     <config>
       <Mixer>
         <in_streams>
           <stream>
             <info>
-              <mixing_ratio>0.0675235974</mixing_ratio>
-              <buf_size>1e100</buf_size>
-            </info>
-            <commodities>
-              <item>
-                <commodity>na</commodity>
-                <pref>1.0</pref>
-              </item>
-              <item>
-                <commodity>salt_na</commodity>
-                <pref>2.0</pref>
-              </item>
-            </commodities>
-          </stream>
-          <stream>
-            <info>
-              <mixing_ratio>0.3597925396</mixing_ratio>
-              <buf_size>1e100</buf_size>
-            </info>
-            <commodities>
-              <item>
-                <commodity>cl</commodity>
-                <pref>1.0</pref>
-              </item>
-              <item>
-                <commodity>salt_cl</commodity>
-                <pref>2.0</pref>
-              </item>
-            </commodities>
-          </stream>
-          <stream>
-            <info>
-              <mixing_ratio>0.473610929</mixing_ratio>
-              <buf_size>1e100</buf_size>
-            </info>
-            <commodities>
-              <item>
-                <commodity>natl_u2</commodity>
-                <pref>1.0</pref>
-              </item>
-            </commodities>
-          </stream>
-          <stream>
-            <info>
-              <mixing_ratio>0.0045906338</mixing_ratio>
-              <buf_size>1e100</buf_size>
-            </info>
-            <commodities>
-              <item>
-                <commodity>lwr_np</commodity>
-                <pref>1.0</pref>
-              </item>
-              <item>
-                <commodity>salt_np</commodity>
-                <pref>2.0</pref>
-              </item>
-            </commodities>
-          </stream>
-          <stream>
-            <info>
-              <mixing_ratio>0.0063599406</mixing_ratio>
-              <buf_size>1e100</buf_size>
-            </info>
-            <commodities>
-              <item>
-                <commodity>lwr_am</commodity>
-                <pref>1.0</pref>
-              </item>
-              <item>
-                <commodity>salt_am</commodity>
-                <pref>2.0</pref>
-              </item>
-            </commodities>
-          </stream>
-          <stream>
-            <info>
-              <mixing_ratio>0.0004494996</mixing_ratio>
-              <buf_size>1e100</buf_size>
-            </info>
-            <commodities>
-              <item>
-                <commodity>lwr_cm</commodity>
-                <pref>1.0</pref>
-              </item>
-              <item>
-                <commodity>salt_cm</commodity>
-                <pref>2.0</pref>
-              </item>
-            </commodities>
-          </stream>
-          <stream>
-            <info>
-              <mixing_ratio>0.0842285674</mixing_ratio>
+              <mixing_ratio>0.15</mixing_ratio>
               <buf_size>1e100</buf_size>
             </info>
             <commodities>
               <item>
                 <commodity>lwr_pu</commodity>
-                <pref>1.0</pref>
+                <pref>2.0</pref>
               </item>
+            </commodities>
+          </stream>
+          <stream>
+            <info>
+              <mixing_ratio>0.85</mixing_ratio>
+              <buf_size>1e100</buf_size>
+            </info>
+            <commodities>
               <item>
-                <commodity>salt_pu</commodity>
+                <commodity>lwr_u</commodity>
                 <pref>2.0</pref>
               </item>
             </commodities>
           </stream>
         </in_streams>
-        <out_commod>init_fuel</out_commod>
+        <out_commod>astrid_fuel_legacy</out_commod>
         <out_buf_size>1e100</out_buf_size>
         <throughput>1e100</throughput>
       </Mixer>
     </config>
 </facility>
 
+
+<!-- Infinite UOX_Pu to MOX mixer -->
+<facility>
+    <name>sfr_mixer_sfr</name>
+    <config>
+      <Mixer>
+        <in_streams>
+          <stream>
+            <info>
+              <mixing_ratio>0.15</mixing_ratio>
+              <buf_size>1e100</buf_size>
+            </info>
+            <commodities>
+              <item>
+                <commodity>sfr_pu</commodity>
+                <pref>2.0</pref>
+              </item>
+            </commodities>
+          </stream>
+          <stream>
+            <info>
+              <mixing_ratio>0.85</mixing_ratio>
+              <buf_size>1e100</buf_size>
+            </info>
+            <commodities>
+              <item>
+                <commodity>sfr_u</commodity>
+                <pref>2.0</pref>
+              </item>
+            </commodities>
+          </stream>
+        </in_streams>
+        <out_commod>astrid_fuel_new</out_commod>
+        <out_buf_size>1e100</out_buf_size>
+        <throughput>1e100</throughput>
+      </Mixer>
+    </config>
+</facility>
+
+
+
+<facility>
+    <!-- astrid cfv specification from  varaine_pre-conceptual-->
+    <name>astrid</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>mox_fuel_recipe</val>      <val>mox_fuel_recipe</val>  </fuel_inrecipes>
+        <fuel_outrecipes> <val>sfr_spent_mox_recipe</val> <val>sfr_spent_mox_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>astrid_fuel_legacy</val> <val>astrid_fuel_new</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>astrid_unf</val> <val>astrid_unf</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val> <val>3.0</val>                   </fuel_prefs>
+        <cycle_time>12</cycle_time>
+        <refuel_time>2</refuel_time>
+        <assem_size>5568</assem_size>
+        <n_assem_core>4</n_assem_core>
+        <n_assem_batch>1</n_assem_batch>
+        <power_cap>600</power_cap>
+      </Reactor>
+    </config>
+</facility>
 
 
  <facility>
@@ -267,6 +249,7 @@
         <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
         <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
         <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
         <cycle_time>18</cycle_time>
         <refuel_time>1</refuel_time>
         <assem_size>29565</assem_size>
@@ -277,21 +260,44 @@
     </config>
   </facility>
 
+   <facility>
+    <!-- us -->
+    <!-- PWR -->
+    <name>rebus</name>
+    <config>
+      <Reactor>
+        <fuel_inrecipes>  <val>uox_fuel_recipe</val>       </fuel_inrecipes>
+        <fuel_outrecipes> <val>uox_used_fuel_recipe</val>  </fuel_outrecipes>
+        <fuel_incommods>  <val>uox</val>                   </fuel_incommods>
+        <fuel_outcommods> <val>uox_waste</val>             </fuel_outcommods>
+        <fuel_prefs>      <val>1.0</val>                   </fuel_prefs>
+        <cycle_time>18</cycle_time>
+        <refuel_time>1</refuel_time>
+        <assem_size>29565</assem_size>
+        <n_assem_core>3</n_assem_core>
+        <n_assem_batch>1</n_assem_batch>
+        <power_cap>1628</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
 
 <facility>
-  <name>rebus</name>
-  <config>
-    <saltproc_reactor>
-      <init_fuel_commod>init_fuel</init_fuel_commod>
-      <final_fuel_commod>fuel_out</final_fuel_commod>
-      <fill_commod>dep_u</fill_commod>
-      <fissile_out_commod>fissile_out</fissile_out_commod>
-      <waste_commod>waste</waste_commod>
-      <db_path>./30_rebus_seriously.hdf5</db_path>
-      <power_cap>1628</power_cap>
-    </saltproc_reactor>
-  </config>
+        <!-- Stores uox unf for 48 months (4years) -->
+    <name>sfr_storage</name>
+    <config>
+        <Storage>
+            <in_commods>
+                <val>astrid_unf</val>
+            </in_commods>
+            <residence_time>36</residence_time>
+            <out_commods>
+                <val>cooled_sfr</val>
+            </out_commods>
+        </Storage>
+    </config>
 </facility>
+
 
 <facility>
         <!-- Stores uox unf for 48 months (4years) -->
@@ -301,13 +307,14 @@
             <in_commods>
                 <val>uox_waste</val>
             </in_commods>
-            <residence_time>102</residence_time>
+            <residence_time>36</residence_time>
             <out_commods>
                 <val>cooled_uox</val>
             </out_commods>
         </Storage>
     </config>
 </facility>
+
 
 
   <facility>
@@ -337,31 +344,6 @@
     </config>
   </facility>
 
-  <facility>
-  <name>nat_u_source2</name>
-  <config>
-    <Source>
-      <outcommod>natl_u2</outcommod>
-      <outrecipe>natl_u_recipe</outrecipe>
-      <throughput>1e100</throughput>
-    </Source>
-  </config>
-</facility>
-
-<facility>
-  <name>tails_storage</name>
-  <config>
-    <Storage>
-      <in_commods>
-        <val>tailings</val>
-      </in_commods>
-      <out_commods>
-        <val>dep_u</val>
-      </out_commods>
-    </Storage>
-  </config>
-</facility>
-
 
   <facility>
     <name>unf_source</name>
@@ -375,46 +357,19 @@
     </config>
   </facility>
 
-
   <facility>
     <name>SomeSink</name>
     <config>
       <Sink>
         <in_commods>
-          <val>waste</val>
-          <val>fissile_out</val>
-          <val>reprocess_waste</val>
-          <val>fuel_out</val>
-          <val>lwr_u</val>
-          <val>salt_u</val>
+          <val>tailings</val>
+          <val>lwr_reprocess_waste</val>
+          <val>sfr_reprocess_waste</val>
         </in_commods>
         <capacity>1e100</capacity>
       </Sink>
     </config>
   </facility>
-
-  <facility>
-    <name>na_source</name>
-    <config>
-      <Source>
-        <outcommod>na</outcommod>
-        <outrecipe>na_recipe</outrecipe>
-        <throughput>1e100</throughput>
-      </Source>
-    </config>
-  </facility>
-
-<facility>
-  <name>cl_source</name>
-  <config>
-    <Source>
-      <outcommod>cl</outcommod>
-      <outrecipe>cl_recipe</outrecipe>
-      <throughput>1e100</throughput>
-    </Source>
-  </config>
-</facility>
-
 
   <xi:include href='./reactor_with_coordinates.xml' xpointer='xpointer(/root/facility)'/>
 
@@ -446,63 +401,59 @@
   </institution>
 
   <institution>
-  <name>rebus_inst</name>
+  <name>sfr_inst</name>
     <config>
     <DeployInst>
-      <xi:include href='./rebus_dep.xml' xpointer='xpointer(/root/prototypes)'/>
-      <xi:include href='./rebus_dep.xml' xpointer='xpointer(/root/build_times)'/>
-      <xi:include href='./rebus_dep.xml' xpointer='xpointer(/root/n_build)'/>
-      <xi:include href='./rebus_dep.xml' xpointer='xpointer(/root/lifetimes)'/>
+      <xi:include href='./sfr_dep.xml' xpointer='xpointer(/root/prototypes)'/>
+      <xi:include href='./sfr_dep.xml' xpointer='xpointer(/root/build_times)'/>
+      <xi:include href='./sfr_dep.xml' xpointer='xpointer(/root/n_build)'/>
+      <xi:include href='./sfr_dep.xml' xpointer='xpointer(/root/lifetimes)'/>
     </DeployInst>
     </config>
   </institution>
 
- </region>
+
+  </region>
 
 
 <region>
     <name>Sink_Source</name>
     <config><NullRegion/></config>
-
-
-    <institution>
-    <name>us_fuel_cycle</name>
-    <config>
-      <DeployInst>
-        <prototypes>
-          <val>reprocessing</val>
-          <val>rebus_fuel_fab_lwr</val>
-        </prototypes>
-        <build_times>
-          <val>200</val>
-          <val>200</val>
-        </build_times>
-        <n_build>
-          <val>1</val>
-          <val>1</val>
-        </n_build>
-        <lifetimes>
-          <val>9999</val>
-          <val>9999</val>
-        </lifetimes>
-      </DeployInst>
-    </config>
-    </institution>
-    
-    
         <institution>
          <name>Sink_Source_Inst</name>
-         <config><NullInst/></config>
+         <config>
+         <DeployInst>
+            <prototypes>
+              <val>reprocessing</val>
+              <val>sfr_reprocessing</val>
+              <val>sfr_mixer_lwr</val>
+              <val>sfr_mixer_sfr</val>
+            </prototypes>
+            <build_times>
+              <val>79</val>
+              <val>79</val>
+              <val>79</val>
+              <val>79</val>
+            </build_times>
+            <n_build>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+              <val>1</val>
+            </n_build>
+            <lifetimes>
+              <val>99999</val>
+              <val>99999</val>
+              <val>99999</val>
+              <val>99999</val>
+            </lifetimes>
+          </DeployInst>
+        </config>
         <initialfacilitylist>
           <entry>
             <number>1</number>
             <prototype>nat_u_source</prototype>
           </entry>
-          <entry>
-            <number>1</number>
-            <prototype>nat_u_source2</prototype>
-          </entry>
-          
           <entry>
             <number>1</number>
             <prototype>enrichment</prototype>
@@ -514,27 +465,16 @@
 
           <entry>
             <number>1</number>
+            <prototype>sfr_storage</prototype>
+          </entry>
+          <entry>
+            <number>1</number>
             <prototype>uox_storage</prototype>
           </entry>
           <entry>
             <number>1</number>
             <prototype>unf_source</prototype>
           </entry>
-
-          <entry>
-            <number>1</number>
-            <prototype>tails_storage</prototype>
-          </entry>
-
-          <entry>
-            <number>1</number>
-            <prototype>cl_source</prototype>
-          </entry>
-          <entry>
-            <number>1</number>
-            <prototype>na_source</prototype>
-          </entry>
-
         </initialfacilitylist>
         </institution>
 </region>
