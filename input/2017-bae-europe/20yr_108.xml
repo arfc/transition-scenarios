@@ -6466,13 +6466,23 @@
     <nuclide> <id>U238</id> <comp>99.289</comp> </nuclide>
   </recipe>
 
-  <recipe>
-    <name>uox_fuel_recipe</name>
-    <basis>mass</basis>
-     <nuclide> <id>U234</id>  <comp>0.0002558883</comp> </nuclide> 
-     <nuclide> <id>U235</id>  <comp>0.0319885317</comp> </nuclide> 
-     <nuclide> <id>U238</id>  <comp>0.96775558</comp> </nuclide> 
-  </recipe> 
+
+<recipe>
+  <name>uox_fuel_recipe</name>
+  <basis>mass</basis>
+  <nuclide>
+    <id>U234</id>
+    <comp>0.0003439849</comp>
+  </nuclide>
+  <nuclide>
+    <id>U235</id>
+    <comp>0.0429981081</comp>
+  </nuclide>
+  <nuclide>
+    <id>U238</id>
+    <comp>0.9566579071</comp>
+  </nuclide>
+</recipe> 
 
   <recipe>
     <name>depleted_u</name>
