@@ -352,7 +352,7 @@ by Jin Whan Bae, Clifford Singer, and Kathryn Huff.
         <in_commods>
           <val>french_uox_waste</val>
         </in_commods>
-        <residence_time>36</residence_time>
+        <residence_time>72</residence_time>
         <max_inv_size>1e299</max_inv_size>
         <out_commods>
           <val>cooled_french_uox_waste</val>
@@ -383,7 +383,7 @@ by Jin Whan Bae, Clifford Singer, and Kathryn Huff.
         <in_commods>
           <val>uox_waste</val>
         </in_commods>
-        <residence_time>36</residence_time>
+        <residence_time>72</residence_time>
         <out_commods>
           <val>cooled_uox_waste</val>
         </out_commods>
@@ -6626,9 +6626,9 @@ by Jin Whan Bae, Clifford Singer, and Kathryn Huff.
   <recipe>
     <name>uox_fuel_recipe</name>
     <basis>mass</basis>
-     <nuclide> <id>U234</id>  <comp>0.0002558883</comp> </nuclide> 
-     <nuclide> <id>U235</id>  <comp>0.0319885317</comp> </nuclide> 
-     <nuclide> <id>U238</id>  <comp>0.96775558</comp> </nuclide> 
+     <nuclide> <id>U234</id>  <comp>0.0003439849</comp> </nuclide> 
+     <nuclide> <id>U235</id>  <comp>0.0429981081</comp> </nuclide> 
+     <nuclide> <id>U238</id>  <comp>0.9566579071</comp> </nuclide> 
   </recipe> 
 
   <recipe>
