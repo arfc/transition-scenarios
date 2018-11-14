@@ -41,5 +41,4 @@ install:
 #  - python setup.py install --user
 # command to run tests
 script:
-  - pytest ./scripts/tests/test_write_input.py
   - pytest ./scripts/tests/test_analysis.py
