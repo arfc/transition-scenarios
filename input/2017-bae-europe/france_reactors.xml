@@ -1,0 +1,2315 @@
+<facility>
+    <!-- France -->
+    <!-- GCR -->
+    <name>CHINON A-2</name>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>uox_fuel_recipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>uox_used_fuel_recipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>uox</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>french_uox_waste</val>
+            </fuel_outcommods>
+            <fuel_prefs>
+                <val>1.0</val>
+            </fuel_prefs>
+            <cycle_time>18</cycle_time>
+            <refuel_time>2</refuel_time>
+            <assem_size>446</assem_size>
+            <n_assem_core>35</n_assem_core>
+            <n_assem_batch>12</n_assem_batch>
+            <power_cap>180</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <!-- France -->
+    <!-- GCR -->
+    <name>CHINON A-3</name>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>uox_fuel_recipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>uox_used_fuel_recipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>uox</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>french_uox_waste</val>
+            </fuel_outcommods>
+            <fuel_prefs>
+                <val>1.0</val>
+            </fuel_prefs>
+            <cycle_time>18</cycle_time>
+            <refuel_time>2</refuel_time>
+            <assem_size>446</assem_size>
+            <n_assem_core>69</n_assem_core>
+            <n_assem_batch>23</n_assem_batch>
+            <power_cap>360</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <!-- France -->
+    <!-- PWR -->
+    <name>CHOOZ-A</name>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>uox_fuel_recipe</val>
+                <val>mox_fuel_recipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>uox_used_fuel_recipe</val>
+                <val>mox_used_fuel_recipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>uox</val>
+                <val>mox</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>french_uox_waste</val>
+                <val>mox_waste</val>
+            </fuel_outcommods>
+            <fuel_prefs>
+                <val>1.0</val>
+                <val>3.0</val>
+            </fuel_prefs>
+            <cycle_time>18</cycle_time>
+            <refuel_time>2</refuel_time>
+            <assem_size>446</assem_size>
+            <n_assem_core>59</n_assem_core>
+            <n_assem_batch>20</n_assem_batch>
+            <power_cap>305</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <!-- France -->
+    <!-- GCR -->
+    <name>ST. LAURENT A-1</name>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>uox_fuel_recipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>uox_used_fuel_recipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>uox</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>french_uox_waste</val>
+            </fuel_outcommods>
+            <fuel_prefs>
+                <val>1.0</val>
+            </fuel_prefs>
+            <cycle_time>18</cycle_time>
+            <refuel_time>2</refuel_time>
+            <assem_size>446</assem_size>
+            <n_assem_core>75</n_assem_core>
+            <n_assem_batch>25</n_assem_batch>
+            <power_cap>390</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <!-- France -->
+    <!-- GCR -->
+    <name>BUGEY-1</name>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>uox_fuel_recipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>uox_used_fuel_recipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>uox</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>french_uox_waste</val>
+            </fuel_outcommods>
+            <fuel_prefs>
+                <val>1.0</val>
+            </fuel_prefs>
+            <cycle_time>18</cycle_time>
+            <refuel_time>2</refuel_time>
+            <assem_size>446</assem_size>
+            <n_assem_core>104</n_assem_core>
+            <n_assem_batch>35</n_assem_batch>
+            <power_cap>540</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <!-- France -->
+    <!-- GCR -->
+    <name>ST. LAURENT A-2</name>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>uox_fuel_recipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>uox_used_fuel_recipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>uox</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>french_uox_waste</val>
+            </fuel_outcommods>
+            <fuel_prefs>
+                <val>1.0</val>
+            </fuel_prefs>
+            <cycle_time>18</cycle_time>
+            <refuel_time>2</refuel_time>
+            <assem_size>446</assem_size>
+            <n_assem_core>90</n_assem_core>
+            <n_assem_batch>30</n_assem_batch>
+            <power_cap>465</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+
+<facility>
+    <!-- France -->
+    <!-- PWR -->
+    <name>FESSENHEIM-1</name>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>uox_fuel_recipe</val>
+                <val>mox_fuel_recipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>uox_used_fuel_recipe</val>
+                <val>mox_used_fuel_recipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>uox</val>
+                <val>mox</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>french_uox_waste</val>
+                <val>mox_waste</val>
+            </fuel_outcommods>
+            <fuel_prefs>
+                <val>1.0</val>
+                <val>3.0</val>
+            </fuel_prefs>
+            <cycle_time>18</cycle_time>
+            <refuel_time>2</refuel_time>
+            <assem_size>446</assem_size>
+            <n_assem_core>170</n_assem_core>
+            <n_assem_batch>57</n_assem_batch>
+            <power_cap>880</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <!-- France -->
+    <!-- PWR -->
+    <name>FESSENHEIM-2</name>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>uox_fuel_recipe</val>
+                <val>mox_fuel_recipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>uox_used_fuel_recipe</val>
+                <val>mox_used_fuel_recipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>uox</val>
+                <val>mox</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>french_uox_waste</val>
+                <val>mox_waste</val>
+            </fuel_outcommods>
+            <fuel_prefs>
+                <val>1.0</val>
+                <val>3.0</val>
+            </fuel_prefs>
+            <cycle_time>18</cycle_time>
+            <refuel_time>2</refuel_time>
+            <assem_size>446</assem_size>
+            <n_assem_core>170</n_assem_core>
+            <n_assem_batch>57</n_assem_batch>
+            <power_cap>880</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <!-- France -->
+    <!-- PWR -->
+    <name>BUGEY-2</name>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>uox_fuel_recipe</val>
+                <val>mox_fuel_recipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>uox_used_fuel_recipe</val>
+                <val>mox_used_fuel_recipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>uox</val>
+                <val>mox</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>french_uox_waste</val>
+                <val>mox_waste</val>
+            </fuel_outcommods>
+            <fuel_prefs>
+                <val>1.0</val>
+                <val>3.0</val>
+            </fuel_prefs>
+            <cycle_time>18</cycle_time>
+            <refuel_time>2</refuel_time>
+            <assem_size>446</assem_size>
+            <n_assem_core>176</n_assem_core>
+            <n_assem_batch>59</n_assem_batch>
+            <power_cap>910</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <!-- France -->
+    <!-- PWR -->
+    <name>BUGEY-3</name>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>uox_fuel_recipe</val>
+                <val>mox_fuel_recipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>uox_used_fuel_recipe</val>
+                <val>mox_used_fuel_recipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>uox</val>
+                <val>mox</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>french_uox_waste</val>
+                <val>mox_waste</val>
+            </fuel_outcommods>
+            <fuel_prefs>
+                <val>1.0</val>
+                <val>3.0</val>
+            </fuel_prefs>
+            <cycle_time>18</cycle_time>
+            <refuel_time>2</refuel_time>
+            <assem_size>446</assem_size>
+            <n_assem_core>176</n_assem_core>
+            <n_assem_batch>59</n_assem_batch>
+            <power_cap>910</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <!-- France -->
+    <!-- PWR -->
+    <name>BUGEY-4</name>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>uox_fuel_recipe</val>
+                <val>mox_fuel_recipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>uox_used_fuel_recipe</val>
+                <val>mox_used_fuel_recipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>uox</val>
+                <val>mox</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>french_uox_waste</val>
+                <val>mox_waste</val>
+            </fuel_outcommods>
+            <fuel_prefs>
+                <val>1.0</val>
+                <val>3.0</val>
+            </fuel_prefs>
+            <cycle_time>18</cycle_time>
+            <refuel_time>2</refuel_time>
+            <assem_size>446</assem_size>
+            <n_assem_core>170</n_assem_core>
+            <n_assem_batch>57</n_assem_batch>
+            <power_cap>880</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <!-- France -->
+    <!-- PWR -->
+    <name>BUGEY-5</name>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>uox_fuel_recipe</val>
+                <val>mox_fuel_recipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>uox_used_fuel_recipe</val>
+                <val>mox_used_fuel_recipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>uox</val>
+                <val>mox</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>french_uox_waste</val>
+                <val>mox_waste</val>
+            </fuel_outcommods>
+            <fuel_prefs>
+                <val>1.0</val>
+                <val>3.0</val>
+            </fuel_prefs>
+            <cycle_time>18</cycle_time>
+            <refuel_time>2</refuel_time>
+            <assem_size>446</assem_size>
+            <n_assem_core>170</n_assem_core>
+            <n_assem_batch>57</n_assem_batch>
+            <power_cap>880</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <!-- France -->
+    <!-- PWR -->
+    <name>TRICASTIN-1</name>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>uox_fuel_recipe</val>
+                <val>mox_fuel_recipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>uox_used_fuel_recipe</val>
+                <val>mox_used_fuel_recipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>uox</val>
+                <val>mox</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>french_uox_waste</val>
+                <val>mox_waste</val>
+            </fuel_outcommods>
+            <fuel_prefs>
+                <val>1.0</val>
+                <val>3.0</val>
+            </fuel_prefs>
+            <cycle_time>18</cycle_time>
+            <refuel_time>2</refuel_time>
+            <assem_size>446</assem_size>
+            <n_assem_core>177</n_assem_core>
+            <n_assem_batch>59</n_assem_batch>
+            <power_cap>915</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <!-- France -->
+    <!-- PWR -->
+    <name>TRICASTIN-2</name>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>uox_fuel_recipe</val>
+                <val>mox_fuel_recipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>uox_used_fuel_recipe</val>
+                <val>mox_used_fuel_recipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>uox</val>
+                <val>mox</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>french_uox_waste</val>
+                <val>mox_waste</val>
+            </fuel_outcommods>
+            <fuel_prefs>
+                <val>1.0</val>
+                <val>3.0</val>
+            </fuel_prefs>
+            <cycle_time>18</cycle_time>
+            <refuel_time>2</refuel_time>
+            <assem_size>446</assem_size>
+            <n_assem_core>177</n_assem_core>
+            <n_assem_batch>59</n_assem_batch>
+            <power_cap>915</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <!-- France -->
+    <!-- PWR -->
+    <name>DAMPIERRE-1</name>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>uox_fuel_recipe</val>
+                <val>mox_fuel_recipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>uox_used_fuel_recipe</val>
+                <val>mox_used_fuel_recipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>uox</val>
+                <val>mox</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>french_uox_waste</val>
+                <val>mox_waste</val>
+            </fuel_outcommods>
+            <fuel_prefs>
+                <val>1.0</val>
+                <val>3.0</val>
+            </fuel_prefs>
+            <cycle_time>18</cycle_time>
+            <refuel_time>2</refuel_time>
+            <assem_size>446</assem_size>
+            <n_assem_core>172</n_assem_core>
+            <n_assem_batch>57</n_assem_batch>
+            <power_cap>890</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <!-- France -->
+    <!-- PWR -->
+    <name>GRAVELINES-1</name>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>uox_fuel_recipe</val>
+                <val>mox_fuel_recipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>uox_used_fuel_recipe</val>
+                <val>mox_used_fuel_recipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>uox</val>
+                <val>mox</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>french_uox_waste</val>
+                <val>mox_waste</val>
+            </fuel_outcommods>
+            <fuel_prefs>
+                <val>1.0</val>
+                <val>3.0</val>
+            </fuel_prefs>
+            <cycle_time>18</cycle_time>
+            <refuel_time>2</refuel_time>
+            <assem_size>446</assem_size>
+            <n_assem_core>176</n_assem_core>
+            <n_assem_batch>59</n_assem_batch>
+            <power_cap>910</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <!-- France -->
+    <!-- PWR -->
+    <name>GRAVELINES-2</name>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>uox_fuel_recipe</val>
+                <val>mox_fuel_recipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>uox_used_fuel_recipe</val>
+                <val>mox_used_fuel_recipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>uox</val>
+                <val>mox</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>french_uox_waste</val>
+                <val>mox_waste</val>
+            </fuel_outcommods>
+            <fuel_prefs>
+                <val>1.0</val>
+                <val>3.0</val>
+            </fuel_prefs>
+            <cycle_time>18</cycle_time>
+            <refuel_time>2</refuel_time>
+            <assem_size>446</assem_size>
+            <n_assem_core>176</n_assem_core>
+            <n_assem_batch>59</n_assem_batch>
+            <power_cap>910</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <!-- France -->
+    <!-- PWR -->
+    <name>DAMPIERRE-2</name>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>uox_fuel_recipe</val>
+                <val>mox_fuel_recipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>uox_used_fuel_recipe</val>
+                <val>mox_used_fuel_recipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>uox</val>
+                <val>mox</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>french_uox_waste</val>
+                <val>mox_waste</val>
+            </fuel_outcommods>
+            <fuel_prefs>
+                <val>1.0</val>
+                <val>3.0</val>
+            </fuel_prefs>
+            <cycle_time>18</cycle_time>
+            <refuel_time>2</refuel_time>
+            <assem_size>446</assem_size>
+            <n_assem_core>172</n_assem_core>
+            <n_assem_batch>57</n_assem_batch>
+            <power_cap>890</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <!-- France -->
+    <!-- PWR -->
+    <name>TRICASTIN-3</name>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>uox_fuel_recipe</val>
+                <val>mox_fuel_recipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>uox_used_fuel_recipe</val>
+                <val>mox_used_fuel_recipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>uox</val>
+                <val>mox</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>french_uox_waste</val>
+                <val>mox_waste</val>
+            </fuel_outcommods>
+            <fuel_prefs>
+                <val>1.0</val>
+                <val>3.0</val>
+            </fuel_prefs>
+            <cycle_time>18</cycle_time>
+            <refuel_time>2</refuel_time>
+            <assem_size>446</assem_size>
+            <n_assem_core>177</n_assem_core>
+            <n_assem_batch>59</n_assem_batch>
+            <power_cap>915</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <!-- France -->
+    <!-- PWR -->
+    <name>TRICASTIN-4</name>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>uox_fuel_recipe</val>
+                <val>mox_fuel_recipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>uox_used_fuel_recipe</val>
+                <val>mox_used_fuel_recipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>uox</val>
+                <val>mox</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>french_uox_waste</val>
+                <val>mox_waste</val>
+            </fuel_outcommods>
+            <fuel_prefs>
+                <val>1.0</val>
+                <val>3.0</val>
+            </fuel_prefs>
+            <cycle_time>18</cycle_time>
+            <refuel_time>2</refuel_time>
+            <assem_size>446</assem_size>
+            <n_assem_core>177</n_assem_core>
+            <n_assem_batch>59</n_assem_batch>
+            <power_cap>915</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <!-- France -->
+    <!-- PWR -->
+    <name>DAMPIERRE-3</name>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>uox_fuel_recipe</val>
+                <val>mox_fuel_recipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>uox_used_fuel_recipe</val>
+                <val>mox_used_fuel_recipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>uox</val>
+                <val>mox</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>french_uox_waste</val>
+                <val>mox_waste</val>
+            </fuel_outcommods>
+            <fuel_prefs>
+                <val>1.0</val>
+                <val>3.0</val>
+            </fuel_prefs>
+            <cycle_time>18</cycle_time>
+            <refuel_time>2</refuel_time>
+            <assem_size>446</assem_size>
+            <n_assem_core>172</n_assem_core>
+            <n_assem_batch>57</n_assem_batch>
+            <power_cap>890</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <!-- France -->
+    <!-- PWR -->
+    <name>DAMPIERRE-4</name>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>uox_fuel_recipe</val>
+                <val>mox_fuel_recipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>uox_used_fuel_recipe</val>
+                <val>mox_used_fuel_recipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>uox</val>
+                <val>mox</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>french_uox_waste</val>
+                <val>mox_waste</val>
+            </fuel_outcommods>
+            <fuel_prefs>
+                <val>1.0</val>
+                <val>3.0</val>
+            </fuel_prefs>
+            <cycle_time>18</cycle_time>
+            <refuel_time>2</refuel_time>
+            <assem_size>446</assem_size>
+            <n_assem_core>172</n_assem_core>
+            <n_assem_batch>57</n_assem_batch>
+            <power_cap>890</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <!-- France -->
+    <!-- PWR -->
+    <name>GRAVELINES-3</name>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>uox_fuel_recipe</val>
+                <val>mox_fuel_recipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>uox_used_fuel_recipe</val>
+                <val>mox_used_fuel_recipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>uox</val>
+                <val>mox</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>french_uox_waste</val>
+                <val>mox_waste</val>
+            </fuel_outcommods>
+            <fuel_prefs>
+                <val>1.0</val>
+                <val>3.0</val>
+            </fuel_prefs>
+            <cycle_time>18</cycle_time>
+            <refuel_time>2</refuel_time>
+            <assem_size>446</assem_size>
+            <n_assem_core>176</n_assem_core>
+            <n_assem_batch>59</n_assem_batch>
+            <power_cap>910</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <!-- France -->
+    <!-- PWR -->
+    <name>GRAVELINES-4</name>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>uox_fuel_recipe</val>
+                <val>mox_fuel_recipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>uox_used_fuel_recipe</val>
+                <val>mox_used_fuel_recipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>uox</val>
+                <val>mox</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>french_uox_waste</val>
+                <val>mox_waste</val>
+            </fuel_outcommods>
+            <fuel_prefs>
+                <val>1.0</val>
+                <val>3.0</val>
+            </fuel_prefs>
+            <cycle_time>18</cycle_time>
+            <refuel_time>2</refuel_time>
+            <assem_size>446</assem_size>
+            <n_assem_core>176</n_assem_core>
+            <n_assem_batch>59</n_assem_batch>
+            <power_cap>910</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <!-- France -->
+    <!-- PWR -->
+    <name>ST. LAURENT B-1</name>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>uox_fuel_recipe</val>
+                <val>mox_fuel_recipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>uox_used_fuel_recipe</val>
+                <val>mox_used_fuel_recipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>uox</val>
+                <val>mox</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>french_uox_waste</val>
+                <val>mox_waste</val>
+            </fuel_outcommods>
+            <fuel_prefs>
+                <val>1.0</val>
+                <val>3.0</val>
+            </fuel_prefs>
+            <cycle_time>18</cycle_time>
+            <refuel_time>2</refuel_time>
+            <assem_size>446</assem_size>
+            <n_assem_core>177</n_assem_core>
+            <n_assem_batch>59</n_assem_batch>
+            <power_cap>915</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <!-- France -->
+    <!-- PWR -->
+    <name>ST. LAURENT B-2</name>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>uox_fuel_recipe</val>
+                <val>mox_fuel_recipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>uox_used_fuel_recipe</val>
+                <val>mox_used_fuel_recipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>uox</val>
+                <val>mox</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>french_uox_waste</val>
+                <val>mox_waste</val>
+            </fuel_outcommods>
+            <fuel_prefs>
+                <val>1.0</val>
+                <val>3.0</val>
+            </fuel_prefs>
+            <cycle_time>18</cycle_time>
+            <refuel_time>2</refuel_time>
+            <assem_size>446</assem_size>
+            <n_assem_core>177</n_assem_core>
+            <n_assem_batch>59</n_assem_batch>
+            <power_cap>915</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <!-- France -->
+    <!-- PWR -->
+    <name>BLAYAIS-1</name>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>uox_fuel_recipe</val>
+                <val>mox_fuel_recipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>uox_used_fuel_recipe</val>
+                <val>mox_used_fuel_recipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>uox</val>
+                <val>mox</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>french_uox_waste</val>
+                <val>mox_waste</val>
+            </fuel_outcommods>
+            <fuel_prefs>
+                <val>1.0</val>
+                <val>3.0</val>
+            </fuel_prefs>
+            <cycle_time>18</cycle_time>
+            <refuel_time>2</refuel_time>
+            <assem_size>446</assem_size>
+            <n_assem_core>176</n_assem_core>
+            <n_assem_batch>59</n_assem_batch>
+            <power_cap>910</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <!-- France -->
+    <!-- PWR -->
+    <name>BLAYAIS-2</name>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>uox_fuel_recipe</val>
+                <val>mox_fuel_recipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>uox_used_fuel_recipe</val>
+                <val>mox_used_fuel_recipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>uox</val>
+                <val>mox</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>french_uox_waste</val>
+                <val>mox_waste</val>
+            </fuel_outcommods>
+            <fuel_prefs>
+                <val>1.0</val>
+                <val>3.0</val>
+            </fuel_prefs>
+            <cycle_time>18</cycle_time>
+            <refuel_time>2</refuel_time>
+            <assem_size>446</assem_size>
+            <n_assem_core>176</n_assem_core>
+            <n_assem_batch>59</n_assem_batch>
+            <power_cap>910</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <!-- France -->
+    <!-- PWR -->
+    <name>CHINON B-1</name>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>uox_fuel_recipe</val>
+                <val>mox_fuel_recipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>uox_used_fuel_recipe</val>
+                <val>mox_used_fuel_recipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>uox</val>
+                <val>mox</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>french_uox_waste</val>
+                <val>mox_waste</val>
+            </fuel_outcommods>
+            <fuel_prefs>
+                <val>1.0</val>
+                <val>3.0</val>
+            </fuel_prefs>
+            <cycle_time>18</cycle_time>
+            <refuel_time>2</refuel_time>
+            <assem_size>446</assem_size>
+            <n_assem_core>175</n_assem_core>
+            <n_assem_batch>58</n_assem_batch>
+            <power_cap>905</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <!-- France -->
+    <!-- PWR -->
+    <name>CHINON B-2</name>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>uox_fuel_recipe</val>
+                <val>mox_fuel_recipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>uox_used_fuel_recipe</val>
+                <val>mox_used_fuel_recipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>uox</val>
+                <val>mox</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>french_uox_waste</val>
+                <val>mox_waste</val>
+            </fuel_outcommods>
+            <fuel_prefs>
+                <val>1.0</val>
+                <val>3.0</val>
+            </fuel_prefs>
+            <cycle_time>18</cycle_time>
+            <refuel_time>2</refuel_time>
+            <assem_size>446</assem_size>
+            <n_assem_core>175</n_assem_core>
+            <n_assem_batch>58</n_assem_batch>
+            <power_cap>905</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <!-- France -->
+    <!-- PWR -->
+    <name>PALUEL-1</name>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>uox_fuel_recipe</val>
+                <val>mox_fuel_recipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>uox_used_fuel_recipe</val>
+                <val>mox_used_fuel_recipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>uox</val>
+                <val>mox</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>french_uox_waste</val>
+                <val>mox_waste</val>
+            </fuel_outcommods>
+            <fuel_prefs>
+                <val>1.0</val>
+                <val>3.0</val>
+            </fuel_prefs>
+            <cycle_time>18</cycle_time>
+            <refuel_time>2</refuel_time>
+            <assem_size>446</assem_size>
+            <n_assem_core>257</n_assem_core>
+            <n_assem_batch>86</n_assem_batch>
+            <power_cap>1330</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <!-- France -->
+    <!-- PWR -->
+    <name>PALUEL-2</name>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>uox_fuel_recipe</val>
+                <val>mox_fuel_recipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>uox_used_fuel_recipe</val>
+                <val>mox_used_fuel_recipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>uox</val>
+                <val>mox</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>french_uox_waste</val>
+                <val>mox_waste</val>
+            </fuel_outcommods>
+            <fuel_prefs>
+                <val>1.0</val>
+                <val>3.0</val>
+            </fuel_prefs>
+            <cycle_time>18</cycle_time>
+            <refuel_time>2</refuel_time>
+            <assem_size>446</assem_size>
+            <n_assem_core>257</n_assem_core>
+            <n_assem_batch>86</n_assem_batch>
+            <power_cap>1330</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <!-- France -->
+    <!-- PWR -->
+    <name>BLAYAIS-3</name>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>uox_fuel_recipe</val>
+                <val>mox_fuel_recipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>uox_used_fuel_recipe</val>
+                <val>mox_used_fuel_recipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>uox</val>
+                <val>mox</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>french_uox_waste</val>
+                <val>mox_waste</val>
+            </fuel_outcommods>
+            <fuel_prefs>
+                <val>1.0</val>
+                <val>3.0</val>
+            </fuel_prefs>
+            <cycle_time>18</cycle_time>
+            <refuel_time>2</refuel_time>
+            <assem_size>446</assem_size>
+            <n_assem_core>176</n_assem_core>
+            <n_assem_batch>59</n_assem_batch>
+            <power_cap>910</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <!-- France -->
+    <!-- PWR -->
+    <name>BLAYAIS-4</name>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>uox_fuel_recipe</val>
+                <val>mox_fuel_recipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>uox_used_fuel_recipe</val>
+                <val>mox_used_fuel_recipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>uox</val>
+                <val>mox</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>french_uox_waste</val>
+                <val>mox_waste</val>
+            </fuel_outcommods>
+            <fuel_prefs>
+                <val>1.0</val>
+                <val>3.0</val>
+            </fuel_prefs>
+            <cycle_time>18</cycle_time>
+            <refuel_time>2</refuel_time>
+            <assem_size>446</assem_size>
+            <n_assem_core>176</n_assem_core>
+            <n_assem_batch>59</n_assem_batch>
+            <power_cap>910</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <!-- France -->
+    <!-- PWR -->
+    <name>CRUAS-1</name>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>uox_fuel_recipe</val>
+                <val>mox_fuel_recipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>uox_used_fuel_recipe</val>
+                <val>mox_used_fuel_recipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>uox</val>
+                <val>mox</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>french_uox_waste</val>
+                <val>mox_waste</val>
+            </fuel_outcommods>
+            <fuel_prefs>
+                <val>1.0</val>
+                <val>3.0</val>
+            </fuel_prefs>
+            <cycle_time>18</cycle_time>
+            <refuel_time>2</refuel_time>
+            <assem_size>446</assem_size>
+            <n_assem_core>177</n_assem_core>
+            <n_assem_batch>59</n_assem_batch>
+            <power_cap>915</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <!-- France -->
+    <!-- PWR -->
+    <name>CRUAS-2</name>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>uox_fuel_recipe</val>
+                <val>mox_fuel_recipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>uox_used_fuel_recipe</val>
+                <val>mox_used_fuel_recipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>uox</val>
+                <val>mox</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>french_uox_waste</val>
+                <val>mox_waste</val>
+            </fuel_outcommods>
+            <fuel_prefs>
+                <val>1.0</val>
+                <val>3.0</val>
+            </fuel_prefs>
+            <cycle_time>18</cycle_time>
+            <refuel_time>2</refuel_time>
+            <assem_size>446</assem_size>
+            <n_assem_core>177</n_assem_core>
+            <n_assem_batch>59</n_assem_batch>
+            <power_cap>915</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <!-- France -->
+    <!-- PWR -->
+    <name>ST. ALBAN-1</name>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>uox_fuel_recipe</val>
+                <val>mox_fuel_recipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>uox_used_fuel_recipe</val>
+                <val>mox_used_fuel_recipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>uox</val>
+                <val>mox</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>french_uox_waste</val>
+                <val>mox_waste</val>
+            </fuel_outcommods>
+            <fuel_prefs>
+                <val>1.0</val>
+                <val>3.0</val>
+            </fuel_prefs>
+            <cycle_time>18</cycle_time>
+            <refuel_time>2</refuel_time>
+            <assem_size>446</assem_size>
+            <n_assem_core>258</n_assem_core>
+            <n_assem_batch>86</n_assem_batch>
+            <power_cap>1335</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <!-- France -->
+    <!-- PWR -->
+    <name>PALUEL-3</name>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>uox_fuel_recipe</val>
+                <val>mox_fuel_recipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>uox_used_fuel_recipe</val>
+                <val>mox_used_fuel_recipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>uox</val>
+                <val>mox</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>french_uox_waste</val>
+                <val>mox_waste</val>
+            </fuel_outcommods>
+            <fuel_prefs>
+                <val>1.0</val>
+                <val>3.0</val>
+            </fuel_prefs>
+            <cycle_time>18</cycle_time>
+            <refuel_time>2</refuel_time>
+            <assem_size>446</assem_size>
+            <n_assem_core>257</n_assem_core>
+            <n_assem_batch>86</n_assem_batch>
+            <power_cap>1330</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <!-- France -->
+    <!-- PWR -->
+    <name>CRUAS-3</name>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>uox_fuel_recipe</val>
+                <val>mox_fuel_recipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>uox_used_fuel_recipe</val>
+                <val>mox_used_fuel_recipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>uox</val>
+                <val>mox</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>french_uox_waste</val>
+                <val>mox_waste</val>
+            </fuel_outcommods>
+            <fuel_prefs>
+                <val>1.0</val>
+                <val>3.0</val>
+            </fuel_prefs>
+            <cycle_time>18</cycle_time>
+            <refuel_time>2</refuel_time>
+            <assem_size>446</assem_size>
+            <n_assem_core>177</n_assem_core>
+            <n_assem_batch>59</n_assem_batch>
+            <power_cap>915</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <!-- France -->
+    <!-- PWR -->
+    <name>ST. ALBAN-2</name>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>uox_fuel_recipe</val>
+                <val>mox_fuel_recipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>uox_used_fuel_recipe</val>
+                <val>mox_used_fuel_recipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>uox</val>
+                <val>mox</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>french_uox_waste</val>
+                <val>mox_waste</val>
+            </fuel_outcommods>
+            <fuel_prefs>
+                <val>1.0</val>
+                <val>3.0</val>
+            </fuel_prefs>
+            <cycle_time>18</cycle_time>
+            <refuel_time>2</refuel_time>
+            <assem_size>446</assem_size>
+            <n_assem_core>258</n_assem_core>
+            <n_assem_batch>86</n_assem_batch>
+            <power_cap>1335</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <!-- France -->
+    <!-- PWR -->
+    <name>CRUAS-4</name>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>uox_fuel_recipe</val>
+                <val>mox_fuel_recipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>uox_used_fuel_recipe</val>
+                <val>mox_used_fuel_recipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>uox</val>
+                <val>mox</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>french_uox_waste</val>
+                <val>mox_waste</val>
+            </fuel_outcommods>
+            <fuel_prefs>
+                <val>1.0</val>
+                <val>3.0</val>
+            </fuel_prefs>
+            <cycle_time>18</cycle_time>
+            <refuel_time>2</refuel_time>
+            <assem_size>446</assem_size>
+            <n_assem_core>177</n_assem_core>
+            <n_assem_batch>59</n_assem_batch>
+            <power_cap>915</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <!-- France -->
+    <!-- PWR -->
+    <name>GRAVELINES-5</name>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>uox_fuel_recipe</val>
+                <val>mox_fuel_recipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>uox_used_fuel_recipe</val>
+                <val>mox_used_fuel_recipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>uox</val>
+                <val>mox</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>french_uox_waste</val>
+                <val>mox_waste</val>
+            </fuel_outcommods>
+            <fuel_prefs>
+                <val>1.0</val>
+                <val>3.0</val>
+            </fuel_prefs>
+            <cycle_time>18</cycle_time>
+            <refuel_time>2</refuel_time>
+            <assem_size>446</assem_size>
+            <n_assem_core>176</n_assem_core>
+            <n_assem_batch>59</n_assem_batch>
+            <power_cap>910</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <!-- France -->
+    <!-- PWR -->
+    <name>GRAVELINES-6</name>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>uox_fuel_recipe</val>
+                <val>mox_fuel_recipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>uox_used_fuel_recipe</val>
+                <val>mox_used_fuel_recipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>uox</val>
+                <val>mox</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>french_uox_waste</val>
+                <val>mox_waste</val>
+            </fuel_outcommods>
+            <fuel_prefs>
+                <val>1.0</val>
+                <val>3.0</val>
+            </fuel_prefs>
+            <cycle_time>18</cycle_time>
+            <refuel_time>2</refuel_time>
+            <assem_size>446</assem_size>
+            <n_assem_core>176</n_assem_core>
+            <n_assem_batch>59</n_assem_batch>
+            <power_cap>910</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <!-- France -->
+    <!-- PWR -->
+    <name>CATTENOM-1</name>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>uox_fuel_recipe</val>
+                <val>mox_fuel_recipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>uox_used_fuel_recipe</val>
+                <val>mox_used_fuel_recipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>uox</val>
+                <val>mox</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>french_uox_waste</val>
+                <val>mox_waste</val>
+            </fuel_outcommods>
+            <fuel_prefs>
+                <val>1.0</val>
+                <val>3.0</val>
+            </fuel_prefs>
+            <cycle_time>18</cycle_time>
+            <refuel_time>2</refuel_time>
+            <assem_size>446</assem_size>
+            <n_assem_core>251</n_assem_core>
+            <n_assem_batch>84</n_assem_batch>
+            <power_cap>1300</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <!-- France -->
+    <!-- PWR -->
+    <name>FLAMANVILLE-1</name>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>uox_fuel_recipe</val>
+                <val>mox_fuel_recipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>uox_used_fuel_recipe</val>
+                <val>mox_used_fuel_recipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>uox</val>
+                <val>mox</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>french_uox_waste</val>
+                <val>mox_waste</val>
+            </fuel_outcommods>
+            <fuel_prefs>
+                <val>1.0</val>
+                <val>3.0</val>
+            </fuel_prefs>
+            <cycle_time>18</cycle_time>
+            <refuel_time>2</refuel_time>
+            <assem_size>446</assem_size>
+            <n_assem_core>257</n_assem_core>
+            <n_assem_batch>86</n_assem_batch>
+            <power_cap>1330</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <!-- France -->
+    <!-- PWR -->
+    <name>PALUEL-4</name>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>uox_fuel_recipe</val>
+                <val>mox_fuel_recipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>uox_used_fuel_recipe</val>
+                <val>mox_used_fuel_recipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>uox</val>
+                <val>mox</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>french_uox_waste</val>
+                <val>mox_waste</val>
+            </fuel_outcommods>
+            <fuel_prefs>
+                <val>1.0</val>
+                <val>3.0</val>
+            </fuel_prefs>
+            <cycle_time>18</cycle_time>
+            <refuel_time>2</refuel_time>
+            <assem_size>446</assem_size>
+            <n_assem_core>257</n_assem_core>
+            <n_assem_batch>86</n_assem_batch>
+            <power_cap>1330</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <!-- France -->
+    <!-- PWR -->
+    <name>BELLEVILLE-1</name>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>uox_fuel_recipe</val>
+                <val>mox_fuel_recipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>uox_used_fuel_recipe</val>
+                <val>mox_used_fuel_recipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>uox</val>
+                <val>mox</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>french_uox_waste</val>
+                <val>mox_waste</val>
+            </fuel_outcommods>
+            <fuel_prefs>
+                <val>1.0</val>
+                <val>3.0</val>
+            </fuel_prefs>
+            <cycle_time>18</cycle_time>
+            <refuel_time>2</refuel_time>
+            <assem_size>446</assem_size>
+            <n_assem_core>253</n_assem_core>
+            <n_assem_batch>84</n_assem_batch>
+            <power_cap>1310</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <!-- France -->
+    <!-- PWR -->
+    <name>FLAMANVILLE-2</name>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>uox_fuel_recipe</val>
+                <val>mox_fuel_recipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>uox_used_fuel_recipe</val>
+                <val>mox_used_fuel_recipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>uox</val>
+                <val>mox</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>french_uox_waste</val>
+                <val>mox_waste</val>
+            </fuel_outcommods>
+            <fuel_prefs>
+                <val>1.0</val>
+                <val>3.0</val>
+            </fuel_prefs>
+            <cycle_time>18</cycle_time>
+            <refuel_time>2</refuel_time>
+            <assem_size>446</assem_size>
+            <n_assem_core>257</n_assem_core>
+            <n_assem_batch>86</n_assem_batch>
+            <power_cap>1330</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <!-- France -->
+    <!-- PWR -->
+    <name>CATTENOM-2</name>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>uox_fuel_recipe</val>
+                <val>mox_fuel_recipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>uox_used_fuel_recipe</val>
+                <val>mox_used_fuel_recipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>uox</val>
+                <val>mox</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>french_uox_waste</val>
+                <val>mox_waste</val>
+            </fuel_outcommods>
+            <fuel_prefs>
+                <val>1.0</val>
+                <val>3.0</val>
+            </fuel_prefs>
+            <cycle_time>18</cycle_time>
+            <refuel_time>2</refuel_time>
+            <assem_size>446</assem_size>
+            <n_assem_core>251</n_assem_core>
+            <n_assem_batch>84</n_assem_batch>
+            <power_cap>1300</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <!-- France -->
+    <!-- PWR -->
+    <name>BELLEVILLE-2</name>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>uox_fuel_recipe</val>
+                <val>mox_fuel_recipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>uox_used_fuel_recipe</val>
+                <val>mox_used_fuel_recipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>uox</val>
+                <val>mox</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>french_uox_waste</val>
+                <val>mox_waste</val>
+            </fuel_outcommods>
+            <fuel_prefs>
+                <val>1.0</val>
+                <val>3.0</val>
+            </fuel_prefs>
+            <cycle_time>18</cycle_time>
+            <refuel_time>2</refuel_time>
+            <assem_size>446</assem_size>
+            <n_assem_core>253</n_assem_core>
+            <n_assem_batch>84</n_assem_batch>
+            <power_cap>1310</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <!-- France -->
+    <!-- PWR -->
+    <name>CHINON B-3</name>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>uox_fuel_recipe</val>
+                <val>mox_fuel_recipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>uox_used_fuel_recipe</val>
+                <val>mox_used_fuel_recipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>uox</val>
+                <val>mox</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>french_uox_waste</val>
+                <val>mox_waste</val>
+            </fuel_outcommods>
+            <fuel_prefs>
+                <val>1.0</val>
+                <val>3.0</val>
+            </fuel_prefs>
+            <cycle_time>18</cycle_time>
+            <refuel_time>2</refuel_time>
+            <assem_size>446</assem_size>
+            <n_assem_core>175</n_assem_core>
+            <n_assem_batch>58</n_assem_batch>
+            <power_cap>905</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <!-- France -->
+    <!-- PWR -->
+    <name>CHINON B-4</name>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>uox_fuel_recipe</val>
+                <val>mox_fuel_recipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>uox_used_fuel_recipe</val>
+                <val>mox_used_fuel_recipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>uox</val>
+                <val>mox</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>french_uox_waste</val>
+                <val>mox_waste</val>
+            </fuel_outcommods>
+            <fuel_prefs>
+                <val>1.0</val>
+                <val>3.0</val>
+            </fuel_prefs>
+            <cycle_time>18</cycle_time>
+            <refuel_time>2</refuel_time>
+            <assem_size>446</assem_size>
+            <n_assem_core>175</n_assem_core>
+            <n_assem_batch>58</n_assem_batch>
+            <power_cap>905</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <!-- France -->
+    <!-- PWR -->
+    <name>NOGENT-1</name>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>uox_fuel_recipe</val>
+                <val>mox_fuel_recipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>uox_used_fuel_recipe</val>
+                <val>mox_used_fuel_recipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>uox</val>
+                <val>mox</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>french_uox_waste</val>
+                <val>mox_waste</val>
+            </fuel_outcommods>
+            <fuel_prefs>
+                <val>1.0</val>
+                <val>3.0</val>
+            </fuel_prefs>
+            <cycle_time>18</cycle_time>
+            <refuel_time>2</refuel_time>
+            <assem_size>446</assem_size>
+            <n_assem_core>253</n_assem_core>
+            <n_assem_batch>84</n_assem_batch>
+            <power_cap>1310</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <!-- France -->
+    <!-- PWR -->
+    <name>NOGENT-2</name>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>uox_fuel_recipe</val>
+                <val>mox_fuel_recipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>uox_used_fuel_recipe</val>
+                <val>mox_used_fuel_recipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>uox</val>
+                <val>mox</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>french_uox_waste</val>
+                <val>mox_waste</val>
+            </fuel_outcommods>
+            <fuel_prefs>
+                <val>1.0</val>
+                <val>3.0</val>
+            </fuel_prefs>
+            <cycle_time>18</cycle_time>
+            <refuel_time>2</refuel_time>
+            <assem_size>446</assem_size>
+            <n_assem_core>253</n_assem_core>
+            <n_assem_batch>84</n_assem_batch>
+            <power_cap>1310</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <!-- France -->
+    <!-- PWR -->
+    <name>CATTENOM-3</name>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>uox_fuel_recipe</val>
+                <val>mox_fuel_recipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>uox_used_fuel_recipe</val>
+                <val>mox_used_fuel_recipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>uox</val>
+                <val>mox</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>french_uox_waste</val>
+                <val>mox_waste</val>
+            </fuel_outcommods>
+            <fuel_prefs>
+                <val>1.0</val>
+                <val>3.0</val>
+            </fuel_prefs>
+            <cycle_time>18</cycle_time>
+            <refuel_time>2</refuel_time>
+            <assem_size>446</assem_size>
+            <n_assem_core>251</n_assem_core>
+            <n_assem_batch>84</n_assem_batch>
+            <power_cap>1300</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <!-- France -->
+    <!-- PWR -->
+    <name>PENLY-1</name>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>uox_fuel_recipe</val>
+                <val>mox_fuel_recipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>uox_used_fuel_recipe</val>
+                <val>mox_used_fuel_recipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>uox</val>
+                <val>mox</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>french_uox_waste</val>
+                <val>mox_waste</val>
+            </fuel_outcommods>
+            <fuel_prefs>
+                <val>1.0</val>
+                <val>3.0</val>
+            </fuel_prefs>
+            <cycle_time>18</cycle_time>
+            <refuel_time>2</refuel_time>
+            <assem_size>446</assem_size>
+            <n_assem_core>257</n_assem_core>
+            <n_assem_batch>86</n_assem_batch>
+            <power_cap>1330</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <!-- France -->
+    <!-- PWR -->
+    <name>GOLFECH-1</name>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>uox_fuel_recipe</val>
+                <val>mox_fuel_recipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>uox_used_fuel_recipe</val>
+                <val>mox_used_fuel_recipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>uox</val>
+                <val>mox</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>french_uox_waste</val>
+                <val>mox_waste</val>
+            </fuel_outcommods>
+            <fuel_prefs>
+                <val>1.0</val>
+                <val>3.0</val>
+            </fuel_prefs>
+            <cycle_time>18</cycle_time>
+            <refuel_time>2</refuel_time>
+            <assem_size>446</assem_size>
+            <n_assem_core>253</n_assem_core>
+            <n_assem_batch>84</n_assem_batch>
+            <power_cap>1310</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <!-- France -->
+    <!-- PWR -->
+    <name>CATTENOM-4</name>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>uox_fuel_recipe</val>
+                <val>mox_fuel_recipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>uox_used_fuel_recipe</val>
+                <val>mox_used_fuel_recipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>uox</val>
+                <val>mox</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>french_uox_waste</val>
+                <val>mox_waste</val>
+            </fuel_outcommods>
+            <fuel_prefs>
+                <val>1.0</val>
+                <val>3.0</val>
+            </fuel_prefs>
+            <cycle_time>18</cycle_time>
+            <refuel_time>2</refuel_time>
+            <assem_size>446</assem_size>
+            <n_assem_core>251</n_assem_core>
+            <n_assem_batch>84</n_assem_batch>
+            <power_cap>1300</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <!-- France -->
+    <!-- PWR -->
+    <name>CHOOZ B-1</name>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>uox_fuel_recipe</val>
+                <val>mox_fuel_recipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>uox_used_fuel_recipe</val>
+                <val>mox_used_fuel_recipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>uox</val>
+                <val>mox</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>french_uox_waste</val>
+                <val>mox_waste</val>
+            </fuel_outcommods>
+            <fuel_prefs>
+                <val>1.0</val>
+                <val>3.0</val>
+            </fuel_prefs>
+            <cycle_time>18</cycle_time>
+            <refuel_time>2</refuel_time>
+            <assem_size>446</assem_size>
+            <n_assem_core>290</n_assem_core>
+            <n_assem_batch>96</n_assem_batch>
+            <power_cap>1500</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <!-- France -->
+    <!-- PWR -->
+    <name>PENLY-2</name>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>uox_fuel_recipe</val>
+                <val>mox_fuel_recipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>uox_used_fuel_recipe</val>
+                <val>mox_used_fuel_recipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>uox</val>
+                <val>mox</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>french_uox_waste</val>
+                <val>mox_waste</val>
+            </fuel_outcommods>
+            <fuel_prefs>
+                <val>1.0</val>
+                <val>3.0</val>
+            </fuel_prefs>
+            <cycle_time>18</cycle_time>
+            <refuel_time>2</refuel_time>
+            <assem_size>446</assem_size>
+            <n_assem_core>257</n_assem_core>
+            <n_assem_batch>86</n_assem_batch>
+            <power_cap>1330</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <!-- France -->
+    <!-- PWR -->
+    <name>GOLFECH-2</name>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>uox_fuel_recipe</val>
+                <val>mox_fuel_recipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>uox_used_fuel_recipe</val>
+                <val>mox_used_fuel_recipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>uox</val>
+                <val>mox</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>french_uox_waste</val>
+                <val>mox_waste</val>
+            </fuel_outcommods>
+            <fuel_prefs>
+                <val>1.0</val>
+                <val>3.0</val>
+            </fuel_prefs>
+            <cycle_time>18</cycle_time>
+            <refuel_time>2</refuel_time>
+            <assem_size>446</assem_size>
+            <n_assem_core>253</n_assem_core>
+            <n_assem_batch>84</n_assem_batch>
+            <power_cap>1310</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <!-- France -->
+    <!-- PWR -->
+    <name>CHOOZ B-2</name>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>uox_fuel_recipe</val>
+                <val>mox_fuel_recipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>uox_used_fuel_recipe</val>
+                <val>mox_used_fuel_recipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>uox</val>
+                <val>mox</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>french_uox_waste</val>
+                <val>mox_waste</val>
+            </fuel_outcommods>
+            <fuel_prefs>
+                <val>1.0</val>
+                <val>3.0</val>
+            </fuel_prefs>
+            <cycle_time>18</cycle_time>
+            <refuel_time>2</refuel_time>
+            <assem_size>446</assem_size>
+            <n_assem_core>290</n_assem_core>
+            <n_assem_batch>96</n_assem_batch>
+            <power_cap>1500</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <!-- France -->
+    <!-- PWR -->
+    <name>CIVAUX-1</name>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>uox_fuel_recipe</val>
+                <val>mox_fuel_recipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>uox_used_fuel_recipe</val>
+                <val>mox_used_fuel_recipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>uox</val>
+                <val>mox</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>french_uox_waste</val>
+                <val>mox_waste</val>
+            </fuel_outcommods>
+            <fuel_prefs>
+                <val>1.0</val>
+                <val>3.0</val>
+            </fuel_prefs>
+            <cycle_time>18</cycle_time>
+            <refuel_time>2</refuel_time>
+            <assem_size>446</assem_size>
+            <n_assem_core>289</n_assem_core>
+            <n_assem_batch>96</n_assem_batch>
+            <power_cap>1495</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <!-- France -->
+    <!-- PWR -->
+    <name>CIVAUX-2</name>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>uox_fuel_recipe</val>
+                <val>mox_fuel_recipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>uox_used_fuel_recipe</val>
+                <val>mox_used_fuel_recipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>uox</val>
+                <val>mox</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>french_uox_waste</val>
+                <val>mox_waste</val>
+            </fuel_outcommods>
+            <fuel_prefs>
+                <val>1.0</val>
+                <val>3.0</val>
+            </fuel_prefs>
+            <cycle_time>18</cycle_time>
+            <refuel_time>2</refuel_time>
+            <assem_size>446</assem_size>
+            <n_assem_core>289</n_assem_core>
+            <n_assem_batch>96</n_assem_batch>
+            <power_cap>1495</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <!-- France -->
+    <!-- PWR -->
+    <name>FLAMANVILLE-3</name>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>uox_fuel_recipe</val>
+                <val>mox_fuel_recipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>uox_used_fuel_recipe</val>
+                <val>mox_used_fuel_recipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>uox</val>
+                <val>mox</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>french_uox_waste</val>
+                <val>mox_waste</val>
+            </fuel_outcommods>
+            <fuel_prefs>
+                <val>1.0</val>
+                <val>2.0</val>
+            </fuel_prefs>
+            <cycle_time>18</cycle_time>
+            <refuel_time>2</refuel_time>
+            <assem_size>446</assem_size>
+            <n_assem_core>309</n_assem_core>
+            <n_assem_batch>103</n_assem_batch>
+            <power_cap>1600</power_cap>
+        </Reactor>
+    </config>
+</facility>
