@@ -2,10 +2,12 @@ import numpy as np
 import random
 import sys
 
-def generate_input(input_path, output_path, orig_lifetime, country, low=0, high=25):
+
+def generate_input(input_path, output_path, orig_lifetime,
+                   country, low=0, high=25):
     """This function takes a full Cyclus input xml file,
         finds the DeployInst block for the country,
-        and extends the lifetime of LWR reactors 
+        and extends the lifetime of LWR reactors
         according to a Gaussian distribution (mean 10, sd 3 [years])
 
         Parameters
