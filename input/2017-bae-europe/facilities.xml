@@ -184,7 +184,7 @@
                 <item>
                     <commod>uox_Pu</commod>
                     <info>
-                        <buf_size>1.2e5</buf_size>
+                        <buf_size>1.2e7</buf_size>
                         <efficiencies>
                             <item>
                                 <comp>Pu</comp>
@@ -196,7 +196,7 @@
                 <item>
                     <commod>uox_U</commod>
                     <info>
-                        <buf_size>1.2e5</buf_size>
+                        <buf_size>1.2e7</buf_size>
                         <efficiencies>
                             <item>
                                 <comp>U</comp>
@@ -228,7 +228,7 @@
                 <item>
                     <commod>astrid_Pu</commod>
                     <info>
-                        <buf_size>1.2e6</buf_size>
+                        <buf_size>1.2e7</buf_size>
                         <efficiencies>
                             <item>
                                 <comp>Pu</comp>
@@ -240,7 +240,7 @@
                 <item>
                     <commod>astrid_U</commod>
                     <info>
-                        <buf_size>1.2e6</buf_size>
+                        <buf_size>1.2e7</buf_size>
                         <efficiencies>
                             <item>
                                 <comp>U</comp>
