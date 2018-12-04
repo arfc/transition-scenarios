@@ -1,4 +1,8 @@
-
+<!-- The recipes for the depleted compositions can be found 
+     in the database folder in this repository, under vision_recipes.
+     The vision recipes are retrieved from Advance Fuel Cycles Intitiative
+     analysis in Appendix C (doi:10.2172/911563). They were generated from
+     ORGEN2 with the PWR one group corss sections provided with ORGIEN2. -->
 <recipe>
     <name>natl_u_recipe</name>
     <basis>mass</basis>
