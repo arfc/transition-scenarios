@@ -1,0 +1,39 @@
+
+<region>
+    <name>Sink_Source</name>
+    <config><NullRegion/></config>
+        <institution>  
+         <name>Sink_Source_Inst</name>
+         <config><NullInst/></config>
+        <initialfacilitylist>
+          <entry>
+            <number>1</number>
+            <prototype>nat_u_source</prototype>
+          </entry>
+          <entry>
+            <number>1</number>
+            <prototype>candu_fuel_source</prototype>
+          </entry>
+          <entry>
+            <number>1</number>
+            <prototype>enrichment</prototype>
+          </entry>
+          <entry>
+            <number>1</number>
+            <prototype>raffinate_sink</prototype>
+          </entry>
+          <entry>
+            <number>1</number>
+            <prototype>repusink</prototype>
+          </entry>
+          <entry>
+            <number>1</number>
+            <prototype>eu_unf_storage</prototype>
+          </entry>
+          <entry>
+            <number>1</number>
+            <prototype>tails_storage</prototype>
+          </entry>
+        </initialfacilitylist>
+        </institution>
+</region>  

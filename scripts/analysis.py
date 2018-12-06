@@ -1150,7 +1150,8 @@ def multiple_line_plots(dictionary, timestep,
 
 def combined_line_plot(dictionary, timestep,
                        xlabel, ylabel, title,
-                       outputname, init_year):
+                       outputname, init_year,
+                       colormap=cm.viridis):
     """Creates a combined line plot of timestep vs dictionary
 
     Parameters
@@ -1188,7 +1189,7 @@ def combined_line_plot(dictionary, timestep,
         plt.plot(timestep_to_years(init_year, timestep),
                  dictionary[key],
                  label=label,
-                 color=cm.viridis(float(color_index) / len(dictionary)))
+                 color=colormap(float(color_index) / len(dictionary)))
         color_index += 1
 
     if sum(sum(dictionary[k]) for k in dictionary) > 1000:
@@ -1397,7 +1398,8 @@ def double_axis_line_line_plot(dictionary1, dictionary2, timestep,
 
 def stacked_bar_chart(dictionary, timestep,
                       xlabel, ylabel, title,
-                      outputname, init_year):
+                      outputname, init_year,
+                      colormap=cm.viridis):
     """Creates stacked bar chart of timstep vs dictionary
 
     Parameters
@@ -1438,7 +1440,7 @@ def stacked_bar_chart(dictionary, timestep,
             plot = plt.bar(x=timestep_to_years(init_year, timestep),
                            height=dictionary[key],
                            width=0.5,
-                           color=cm.viridis(
+                           color=colormap(
                 float(color_index) / len(dictionary)),
                 edgecolor='none',
                 label=label)
@@ -1452,7 +1454,7 @@ def stacked_bar_chart(dictionary, timestep,
             plot = plt.bar(x=timestep_to_years(init_year, timestep),
                            height=dictionary[key],
                            width=0.5,
-                           color=cm.viridis(
+                           color=colormap(
                 float(color_index) / len(dictionary)),
                 edgecolor='none',
                 bottom=prev,
@@ -1471,8 +1473,9 @@ def stacked_bar_chart(dictionary, timestep,
     plt.title(title)
     plt.xlabel(xlabel)
     axes = plt.gca()
+    handles, labels = ax.get_legend_handles_labels()
     if len(dictionary) > 1:
-        plt.legend(loc=(1.0, 0))
+        plt.legend(handles[::-1], labels[::-1], loc=(1.0, 0), )
     plt.grid(True)
     plt.savefig(outputname + '.png', format='png', bbox_inches='tight')
     plt.close()
