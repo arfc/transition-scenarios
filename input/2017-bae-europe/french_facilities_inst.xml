@@ -1,0 +1,67 @@
+<institution>
+    <name>french_facilities</name>
+    <config>
+        <DeployInst>
+
+            <prototypes>
+                <val>unused_unf_sink</val>
+                <val>french_unf_storage</val>
+                <val>sfr_unf_storage</val>
+
+                <val>MELOX</val>
+                <val>LA_HAGUE</val>
+
+
+                <val>uox_reprocessing</val>
+                <val>astrid_reprocessing</val>
+                <val>astrid_mixer_uox</val>
+                <val>astrid_mixer_astrid</val>
+
+            </prototypes>
+            <build_times>
+                <val>1</val>
+                <val>1</val>
+                <val>600</val>
+
+                <val>300</val>
+                <val>72</val>
+
+                <val>600</val>
+                <val>600</val>
+                <val>600</val>
+                <val>600</val>
+
+            </build_times>
+            <n_build>
+                <val>1</val>
+                <val>1</val>
+                <val>1</val>
+
+                <val>1</val>
+                <val>1</val>
+
+                <val>1</val>
+                <val>1</val>
+                <val>1</val>
+                <val>1</val>
+
+            </n_build>
+            <lifetimes>
+                <val>9999</val>
+                <val>9999</val>
+                <val>9999</val>
+
+                <val>660</val>
+                <val>888</val>
+
+                <val>9999</val>
+                <val>9999</val>
+                <val>9999</val>
+                <val>9999</val>
+
+
+            </lifetimes>
+
+        </DeployInst>
+    </config>
+</institution>

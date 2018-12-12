@@ -1,0 +1,432 @@
+<facility>
+    <!--MELOX 195tHM/y-->
+    <!-- 1995 -->
+    <!-- world-nuclear.org FRANCE-->
+    <name>MELOX</name>
+    <config>
+        <Mixer>
+            <in_streams>
+                <stream>
+                    <info>
+                        <mixing_ratio>0.09</mixing_ratio>
+                        <buf_size>16250</buf_size>
+                    </info>
+                    <commodities>
+                        <item>
+                            <commodity>french_uox_Pu</commodity>
+                            <pref>2.0</pref>
+                        </item>
+                    </commodities>
+                </stream>
+                <stream>
+                    <info>
+                        <mixing_ratio>0.91</mixing_ratio>
+                        <buf_size>16250</buf_size>
+                    </info>
+                    <commodities>
+                        <item>
+                            <commodity>dep_u</commodity>
+                            <pref>2.0</pref>
+                        </item>
+                    </commodities>
+                </stream>
+            </in_streams>
+            <out_commod>mox</out_commod>
+            <out_buf_size>32500</out_buf_size>
+            <throughput>16250</throughput>
+        </Mixer>
+    </config>
+</facility>
+
+
+<!-- La Hague Model from Schneider & Marignac -->
+<!-- Since 1976 -->
+<facility>
+    <name>LA_HAGUE</name>
+    <config>
+        <Separations>
+            <feed_commods>
+                <val>cooled_french_uox_waste</val>
+            </feed_commods>
+            <feed_commod_prefs>
+                <val>20.0</val>
+            </feed_commod_prefs>
+            <feedbuf_size>91600</feedbuf_size>
+            <!-- 1100 tons/year 91.6 tons/timestep -->
+            <throughput>91600</throughput>
+            <leftover_commod>lahague_raffinate</leftover_commod>
+            <leftoverbuf_size>91600</leftoverbuf_size>
+            <streams>
+                <item>
+                    <commod>french_uox_Pu</commod>
+                    <info>
+                        <buf_size>91600</buf_size>
+                        <efficiencies>
+                            <item>
+                                <comp>Pu</comp>
+                                <eff>.998</eff>
+                            </item>
+                        </efficiencies>
+                    </info>
+                </item>
+                <item>
+                    <commod>uox_U</commod>
+                    <info>
+                        <buf_size>91600</buf_size>
+                        <efficiencies>
+                            <item>
+                                <comp>U</comp>
+                                <eff>.998</eff>
+                            </item>
+                        </efficiencies>
+                    </info>
+                </item>
+            </streams>
+        </Separations>
+    </config>
+</facility>
+
+
+<!-- Infinite UOX_Pu to MOX mixer -->
+<facility>
+    <name>astrid_mixer_uox</name>
+    <config>
+        <Mixer>
+            <in_streams>
+                <stream>
+                    <info>
+                        <mixing_ratio>.22</mixing_ratio>
+                        <buf_size>2e4</buf_size>
+                    </info>
+                    <commodities>
+                        <item>
+                            <commodity>uox_Pu</commodity>
+                            <pref>2.0</pref>
+                        </item>
+                    </commodities>
+                </stream>
+                <stream>
+                    <info>
+                        <mixing_ratio>.78</mixing_ratio>
+                        <buf_size>2e8</buf_size>
+                    </info>
+                    <commodities>
+                        <item>
+                            <commodity>dep_u</commodity>
+                            <pref>2.0</pref>
+                        </item>
+                    </commodities>
+                </stream>
+            </in_streams>
+            <out_commod>astrid_fuel_legacy</out_commod>
+            <out_buf_size>4e6</out_buf_size>
+            <throughput>4e6</throughput>
+        </Mixer>
+    </config>
+</facility>
+
+<facility>
+    <name>astrid_mixer_astrid</name>
+    <config>
+        <Mixer>
+            <in_streams>
+                <stream>
+                    <info>
+                        <mixing_ratio>.22</mixing_ratio>
+                        <buf_size>2e5</buf_size>
+                    </info>
+                    <commodities>
+                        <item>
+                            <commodity>astrid_Pu</commodity>
+                            <pref>1.0</pref>
+                        </item>
+                    </commodities>
+                </stream>
+                <stream>
+                    <info>
+                        <mixing_ratio>.78</mixing_ratio>
+                        <buf_size>2e5</buf_size>
+                    </info>
+                    <commodities>
+                        <item>
+                            <commodity>dep_u</commodity>
+                            <pref>1.0</pref>
+                        </item>
+                    </commodities>
+                </stream>
+            </in_streams>
+            <out_commod>astrid_fuel_new</out_commod>
+            <out_buf_size>2e6</out_buf_size>
+            <throughput>2e6</throughput>
+        </Mixer>
+    </config>
+</facility>
+
+
+<facility>
+    <name>uox_reprocessing</name>
+    <config>
+        <Separations>
+            <feed_commods>
+                <val>cooled_uox_waste</val>
+                <val>cooled_french_uox_waste</val>
+            </feed_commods>
+            <feed_commod_prefs>
+                <val>10.0</val>
+                <val>14.0</val>
+            </feed_commod_prefs>
+            <feedbuf_size>183200</feedbuf_size>
+            <!-- 2200 tons/year 183200 kg/timestep -->
+            <throughput>183200</throughput>
+            <leftover_commod>uox_raffinate</leftover_commod>
+            <leftoverbuf_size>1e100</leftoverbuf_size>
+            <streams>
+                <item>
+                    <commod>uox_Pu</commod>
+                    <info>
+                        <buf_size>1.2e7</buf_size>
+                        <efficiencies>
+                            <item>
+                                <comp>Pu</comp>
+                                <eff>.998</eff>
+                            </item>
+                        </efficiencies>
+                    </info>
+                </item>
+                <item>
+                    <commod>uox_U</commod>
+                    <info>
+                        <buf_size>1.2e7</buf_size>
+                        <efficiencies>
+                            <item>
+                                <comp>U</comp>
+                                <eff>.998</eff>
+                            </item>
+                        </efficiencies>
+                    </info>
+                </item>
+            </streams>
+        </Separations>
+    </config>
+</facility>
+
+<facility>
+    <name>astrid_reprocessing</name>
+    <config>
+        <Separations>
+            <feed_commods>
+                <val>cooled_astrid_unf</val>
+            </feed_commods>
+            <feed_commod_prefs>
+                <val>10.0</val>
+            </feed_commod_prefs>
+            <feedbuf_size>1.2e6</feedbuf_size>
+            <throughput>1.2e6</throughput>
+            <leftover_commod>astrid_raffinate</leftover_commod>
+            <leftoverbuf_size>1E100</leftoverbuf_size>
+            <streams>
+                <item>
+                    <commod>astrid_Pu</commod>
+                    <info>
+                        <buf_size>1.2e7</buf_size>
+                        <efficiencies>
+                            <item>
+                                <comp>Pu</comp>
+                                <eff>.998</eff>
+                            </item>
+                        </efficiencies>
+                    </info>
+                </item>
+                <item>
+                    <commod>astrid_U</commod>
+                    <info>
+                        <buf_size>1.2e7</buf_size>
+                        <efficiencies>
+                            <item>
+                                <comp>U</comp>
+                                <eff>.998</eff>
+                            </item>
+                        </efficiencies>
+                    </info>
+                </item>
+            </streams>
+        </Separations>
+    </config>
+</facility>
+
+<facility>
+    <name>enrichment</name>
+    <config>
+        <Enrichment>
+            <feed_commod>natl_u</feed_commod>
+            <feed_recipe>natl_u_recipe</feed_recipe>
+            <product_commod>uox</product_commod>
+            <tails_assay>0.003</tails_assay>
+            <tails_commod>tails</tails_commod>
+            <swu_capacity>1e100</swu_capacity>
+            <initial_feed>1e100</initial_feed>
+        </Enrichment>
+    </config>
+</facility>
+
+<facility>
+    <name>nat_u_source</name>
+    <config>
+        <Source>
+            <outcommod>natl_u</outcommod>
+            <outrecipe>natl_u_recipe</outrecipe>
+            <throughput>1e100</throughput>
+        </Source>
+    </config>
+</facility>
+
+<facility>
+    <name>candu_fuel_source</name>
+    <config>
+        <Source>
+            <outcommod>candu_fuel</outcommod>
+            <outrecipe>natl_u_recipe</outrecipe>
+            <throughput>1e100</throughput>
+        </Source>
+    </config>
+</facility>
+
+<facility>
+    <name>raffinate_sink</name>
+    <config>
+        <Sink>
+            <in_commods>
+                <val>lahague_raffinate</val>
+                <val>uox_raffinate</val>
+                <val>astrid_raffinate</val>
+            </in_commods>
+            <capacity>1e299</capacity>
+        </Sink>
+    </config>
+</facility>
+
+
+<facility>
+    <name>french_unf_storage</name>
+    <config>
+        <Storage>
+            <in_commods>
+                <val>french_uox_waste</val>
+            </in_commods>
+            <residence_time>72</residence_time>
+            <max_inv_size>1e299</max_inv_size>
+            <out_commods>
+                <val>cooled_french_uox_waste</val>
+            </out_commods>
+        </Storage>
+    </config>
+</facility>
+
+<facility>
+    <name>unused_unf_sink</name>
+    <config>
+        <Sink>
+            <in_commods>
+                <val>cooled_astrid_unf</val>
+                <val>mox_waste</val>
+                <val>used_candu</val>
+            </in_commods>
+            <capacity>1e299</capacity>
+        </Sink>
+    </config>
+</facility>
+
+
+<facility>
+    <name>eu_unf_storage</name>
+    <config>
+        <Storage>
+            <in_commods>
+                <val>uox_waste</val>
+            </in_commods>
+            <residence_time>72</residence_time>
+            <out_commods>
+                <val>cooled_uox_waste</val>
+            </out_commods>
+        </Storage>
+    </config>
+</facility>
+
+<facility>
+    <name>tails_storage</name>
+    <config>
+        <Storage>
+            <in_commods>
+                <val>tails</val>
+            </in_commods>
+            <out_commods>
+                <val>dep_u</val>
+            </out_commods>
+        </Storage>
+    </config>
+</facility>
+
+<facility>
+    <name>sfr_unf_storage</name>
+    <config>
+        <Storage>
+            <in_commods>
+                <val>astrid_unf</val>
+            </in_commods>
+            <residence_time>36</residence_time>
+            <out_commods>
+                <val>cooled_astrid_unf</val>
+            </out_commods>
+        </Storage>
+    </config>
+</facility>
+
+<facility>
+    <name>repusink</name>
+    <config>
+        <Sink>
+            <in_commods>
+                <val>uox_U</val>
+                <val>astrid_U</val>
+            </in_commods>
+            <capacity>1e299</capacity>
+        </Sink>
+    </config>
+</facility>
+
+
+<facility>
+    <!-- astrid cfv specification from  varaine_pre-conceptual-->
+    <name>astrid</name>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>mox_fuel_recipe</val>
+                <val>mox_fuel_recipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>sfr_spent_mox_recipe</val>
+                <val>sfr_spent_mox_recipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>astrid_fuel_legacy</val>
+                <val>astrid_fuel_new</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>astrid_unf</val>
+                <val>astrid_unf</val>
+            </fuel_outcommods>
+            <fuel_prefs>
+                <val>1.0</val>
+                <val>3.0</val>
+            </fuel_prefs>
+            <cycle_time>12</cycle_time>
+            <refuel_time>2</refuel_time>
+            <assem_size>5568</assem_size>
+            <n_assem_core>4</n_assem_core>
+            <n_assem_batch>1</n_assem_batch>
+            <power_cap>600</power_cap>
+        </Reactor>
+    </config>
+</facility>
+

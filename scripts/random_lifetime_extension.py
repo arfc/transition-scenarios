@@ -2,10 +2,12 @@ import numpy as np
 import random
 import sys
 
-def generate_input(input_path, output_path, orig_lifetime, country):
+
+def generate_input(input_path, output_path, orig_lifetime,
+                   country, low=0, high=25):
     """This function takes a full Cyclus input xml file,
         finds the DeployInst block for the country,
-        and extends the lifetime of LWR reactors 
+        and extends the lifetime of LWR reactors
         according to a Gaussian distribution (mean 10, sd 3 [years])
 
         Parameters
@@ -43,9 +45,9 @@ def generate_input(input_path, output_path, orig_lifetime, country):
             break
         elif ('<val>%i</val>' %orig_lifetime in lines):
             # this is where we add the random
-            lifetime_extension = abs(int(np.random.normal(10, 6)))
+            lifetime_extension = abs(int(np.random.uniform(low, high)))
             lifetime = orig_lifetime + lifetime_extension * 12
-            new_lines[start + linenum] = '<val>%i</val>\n' %lifetime
+            new_lines[start + linenum + 1] = '<val>%i</val>\n' %lifetime
 
     # write the modified lines into new file
     for line in new_lines:
