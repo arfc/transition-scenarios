@@ -25,9 +25,9 @@ def cursor(file_name):
     -------
     sqlite cursor3
     """
-    con = lite.connect(file_name)
+    con = lite.connect(file_name) #This opens the DB: in this case 'cyclus.sqlite'
     con.row_factory = lite.Row
-    return con.cursor()
+    return con.cursor() # It returns the cursor
 
 
 def agent_ids(cur, archetype):
@@ -154,8 +154,7 @@ def exec_string(specific_search, search, request_colmn):
 
 
 def simulation_timesteps(cur):
-    """Returns simulation start year, month, duration and
-    timesteps (in numpy linspace).
+    """Returns simulation start year, month, duration and timesteps (in numpy linspace).
 
     Parameters
     ----------
@@ -171,10 +170,10 @@ def simulation_timesteps(cur):
     duration: int
         duration of simulation
     timestep: list
-        linspace up to duration
+        linspace up to duration: ar array with [start of the sequence, end of the sequence]
     """
     info = cur.execute('SELECT initialyear, initialmonth, '
-                       'duration FROM info').fetchone()
+                       'duration FROM info').fetchone() # To retrieve the first values of the DB
     init_year = info['initialyear']
     init_month = info['initialmonth']
     duration = info['duration']

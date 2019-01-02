@@ -8,21 +8,16 @@ uox(uox_recipe)
 uox_waste(uox_waste_recipe)
 ****************************************
 
-transition starts at 2015 and runs for 200 years
+transition starts at 2015 and runs for 196 years
 100 GWe of LWR installed Capacity (90% CF)
 1 % Assumed annual growth in nuclear energy
 
 Legacy LWRs (Before 2015)
-Half 60 year lifetime
-Other half 80 Year lifetime
+60 year lifetime
 40% thermal efficiency
 
-New LWRs (After 2015)
-Fast Reactors available 2050
-80 year lifetime
-
-Fast Reactors (After 2050)
-80 year lifetime
+Fast Reactors available 2113
+60 year lifetime
 
 if out of Dep U use Nat U
 
