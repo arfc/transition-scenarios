@@ -154,8 +154,8 @@ def exec_string(specific_search, search, request_colmn):
 
 
 def simulation_timesteps(cur):
-    """Returns simulation start year, month, duration and
-    timesteps (in numpy linspace).
+    """Returns simulation start year, month,
+    duration and timesteps (in numpy linspace).
 
     Parameters
     ----------
@@ -171,7 +171,8 @@ def simulation_timesteps(cur):
     duration: int
         duration of simulation
     timestep: list
-        linspace up to duration
+        linspace up to duration: ar array with
+        [start of the sequence, end of the sequence]
     """
     info = cur.execute('SELECT initialyear, initialmonth, '
                        'duration FROM info').fetchone()
