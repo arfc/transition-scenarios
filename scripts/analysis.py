@@ -6,7 +6,6 @@ import sys
 from itertools import cycle
 from matplotlib import cm
 from pyne import nucname
-import pandas as pd
 from collections import Counter
 
 if len(sys.argv) < 2:
