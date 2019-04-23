@@ -48,6 +48,14 @@
             <lib>cycamore</lib>
             <name>DeployInst</name>
         </spec>
+        <spec>
+            <lib>d3ploy.demand_driven_deployment_inst</lib>
+            <name>DemandDrivenDeploymentInst</name>
+        </spec>
+        <spec>
+            <lib>d3ploy.supply_driven_deployment_inst</lib>
+            <name>SupplyDrivenDeploymentInst</name>
+        </spec>
 </archetypes>
 
 <facility>
@@ -373,34 +381,10 @@
     </config>
 
     <institution>
-      	<config>
-        	<NullInst/>
-      	</config>
-      	<initialfacilitylist>
-        <entry>
-          <number>1</number>
-          <prototype>source</prototype>
-        </entry>
-        <entry>
-          <number>1</number>
-          <prototype>enrichment</prototype>
-        </entry>
-        <entry>
-          <number>1</number>
-          <prototype>lwrstorage</prototype>
-        </entry>
-        <entry>
-          <number>1</number>
-          <prototype>frstorage</prototype>
-        </entry>
-        <entry>
-          <number>1</number>
-          <prototype>lwrreprocessing</prototype>
-        </entry>
-        <entry>
-          <number>1</number>
-          <prototype>frreprocessing</prototype>
-        </entry>
+        <config>
+            <NullInst/>
+        </config>
+        <initialfacilitylist>
         <entry>
           <number>1</number>
           <prototype>lwrmixer</prototype>
@@ -408,17 +392,9 @@
         <entry>
           <number>1</number>
           <prototype>frmixer</prototype>
-        </entry>
-        <entry>
-          <number>1</number>
-          <prototype>lwrsink</prototype>
-        </entry>
-        <entry>
-          <number>1</number>
-          <prototype>frsink</prototype>
-        </entry>            
-      	</initialfacilitylist>
-      	<name>sink_source_facilities</name>
+        </entry>          
+        </initialfacilitylist>
+        <name>sink_source_facilities</name>
     </institution>
 
     <institution> 
@@ -517,78 +493,129 @@
         </config>
     </institution>
 
-    <institution> 
-        <name>fr_inst</name>
-        <config>
-            <DeployInst>
-            <prototypes>
-                <val>fr</val> 
-                <val>fr</val> 
-                <val>fr</val> 
-                <val>fr</val> 
-                <val>fr</val> 
-                <val>fr</val> 
-                <val>fr</val> 
-                <val>fr</val> 
-                <val>fr</val> 
-                <val>fr</val>
-                <val>fr</val> 
-                <val>fr</val> 
-                <val>fr</val> 
-                <val>fr</val> 
-                <val>fr</val> 
-                <val>fr</val> 
-                <val>fr</val> 
-                <val>fr</val> 
-                <val>fr</val> 
-                <val>fr</val> 
-            </prototypes> 
-            <build_times>
-                <val>961</val>
-                <val>971</val>
-                <val>981</val>
-                <val>991</val>
-                <val>1001</val>
-                <val>1011</val>
-                <val>1021</val>
-                <val>1031</val>
-                <val>1041</val>
-                <val>1051</val>
-                <val>1061</val> 
-                <val>1071</val> 
-                <val>1081</val> 
-                <val>1091</val> 
-                <val>1101</val> 
-                <val>1111</val> 
-                <val>1121</val> 
-                <val>1131</val> 
-                <val>1141</val> 
-                <val>1151</val> 
-            </build_times> 
-            <n_build>
-                <val>9</val> 
-                <val>9</val> 
-                <val>9</val> 
-                <val>9</val> 
-                <val>9</val> 
-                <val>9</val> 
-                <val>9</val> 
-                <val>9</val> 
-                <val>9</val> 
-                <val>9</val>
-                <val>9</val> 
-                <val>9</val> 
-                <val>9</val> 
-                <val>9</val> 
-                <val>9</val> 
-                <val>9</val> 
-                <val>9</val> 
-                <val>9</val> 
-                <val>9</val> 
-                <val>9</val>
-            </n_build> 
-            </DeployInst>
-        </config>
+    <institution>
+    <config>
+    <DemandDrivenDeploymentInst>
+        <calc_method>ma</calc_method>
+        <demand_eq>60000</demand_eq>
+        <demand_std_dev>1</demand_std_dev>
+        <steps>1</steps>
+        <facility_commod>
+        <item>
+          <facility>source</facility>
+          <commod>sourceout</commod>
+        </item>
+        <item>
+          <facility>enrichment</facility>
+          <commod>enrichmentout</commod>
+        </item>
+        <item>
+          <facility>fr</facility>
+          <commod>POWER</commod>
+        </item>
+        </facility_commod>
+        <facility_capacity>
+        <item>
+          <facility>source</facility>
+          <capacity>1e10</capacity>
+        </item>    
+        <item>
+          <facility>enrichment</facility>
+          <capacity>1e100</capacity>
+        </item>
+        <item>
+          <facility>fr</facility>
+          <capacity>333.34</capacity>
+        </item>
+        </facility_capacity>
+        <facility_pref>
+        <item>
+          <facility>fr</facility>
+          <pref>t-900</pref>
+        </item>
+        </facility_pref>
+    </DemandDrivenDeploymentInst>
+    </config>
+    <name>timeseriesinst</name>
+    </institution>
+
+    <institution>
+    <config>
+    <SupplyDrivenDeploymentInst>
+        <calc_method>ma</calc_method>
+        <capacity_std_dev>1</capacity_std_dev>
+        <steps>1</steps>
+        <facility_commod>
+        <item>
+            <facility>lwrreprocessing</facility>
+            <commod>lwrstorageout</commod>
+        </item>
+        <item>
+            <facility>frreprocessing</facility>
+            <commod>frstorageout</commod>
+        </item>
+        <item>
+            <facility>lwrmixer</facility>
+            <commod>lwrPu</commod>
+        </item>
+        <item>
+            <facility>frmixer</facility>
+            <commod>frPu</commod>
+        </item>
+        <item>
+            <facility>lwrstorage</facility>
+            <commod>lwrout</commod>
+        </item>
+        <item>
+            <facility>frstorage</facility>
+            <commod>frout</commod>
+        </item>
+        <item>
+            <facility>lwrsink</facility>
+            <commod>lwrreprocessingwaste</commod>
+        </item>
+        <item>
+            <facility>frsink</facility>
+            <commod>frreprocessingwaste</commod>
+        </item>
+        </facility_commod>
+        <facility_capacity>
+        <item>
+            <facility>lwrreprocessing</facility>
+            <capacity>1e8</capacity>
+        </item>
+        <item>
+            <facility>frreprocessing</facility>
+            <capacity>1e8</capacity>
+        </item>
+        <item>
+            <facility>lwrmixer</facility>
+            <capacity>1e6</capacity>
+        </item>
+        <item>
+            <facility>frmixer</facility>
+            <capacity>1e6</capacity>
+        </item>
+        <item>
+            <facility>lwrstorage</facility>
+            <capacity>1e8</capacity>
+        </item>
+        <item>
+            <facility>frstorage</facility>
+            <capacity>1e8</capacity>
+        </item>
+        <item>
+            <facility>lwrsink</facility>
+            <capacity>1e20</capacity>
+        </item>
+        <item>
+            <facility>frsink</facility>
+            <capacity>1e20</capacity>
+        </item>
+        </facility_capacity>
+    </SupplyDrivenDeploymentInst>
+    </config>
+    <name>supplydrivendeploymentinst</name>
     </institution>
 
     <name>SingleRegion</name>
