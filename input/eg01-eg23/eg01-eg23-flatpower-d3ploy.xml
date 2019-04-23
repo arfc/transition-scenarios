@@ -64,7 +64,7 @@
         <Source>
             <outcommod>sourceout</outcommod>
             <outrecipe>sourceoutrecipe</outrecipe>
-            <throughput>1e10</throughput>
+            <throughput>1e9</throughput>
         </Source>
     </config>
 </facility>
@@ -149,7 +149,7 @@
             <out_commods>
                 <val>lwrstorageout</val>
             </out_commods>
-            <max_inv_size>1e8</max_inv_size>
+            <max_inv_size>1e7</max_inv_size>
         </Storage>
     </config>
 </facility>
@@ -165,7 +165,7 @@
             <out_commods>
                 <val>frstorageout</val>
             </out_commods>
-            <max_inv_size>1e8</max_inv_size>
+            <max_inv_size>1e7</max_inv_size>
         </Storage>
     </config>
 </facility>
@@ -357,7 +357,7 @@
             <in_commods>
                 <val>lwrreprocessingwaste</val>
             </in_commods>
-            <max_inv_size>1e20</max_inv_size>
+            <max_inv_size>1e10</max_inv_size>
         </Sink>
     </config>
 </facility>
@@ -369,7 +369,7 @@
             <in_commods>
                 <val>frreprocessingwaste</val>
             </in_commods>
-            <max_inv_size>1e20</max_inv_size>
+            <max_inv_size>1e10</max_inv_size>
         </Sink>
     </config>
 </facility>
@@ -517,7 +517,7 @@
         <facility_capacity>
         <item>
           <facility>source</facility>
-          <capacity>1e10</capacity>
+          <capacity>1e9</capacity>
         </item>    
         <item>
           <facility>enrichment</facility>
@@ -598,19 +598,19 @@
         </item>
         <item>
             <facility>lwrstorage</facility>
-            <capacity>1e8</capacity>
+            <capacity>1e7</capacity>
         </item>
         <item>
             <facility>frstorage</facility>
-            <capacity>1e8</capacity>
+            <capacity>1e7</capacity>
         </item>
         <item>
             <facility>lwrsink</facility>
-            <capacity>1e20</capacity>
+            <capacity>1e10</capacity>
         </item>
         <item>
             <facility>frsink</facility>
-            <capacity>1e20</capacity>
+            <capacity>1e10</capacity>
         </item>
         </facility_capacity>
     </SupplyDrivenDeploymentInst>
