@@ -183,7 +183,7 @@
             <leftoverbuf_size>1e8</leftoverbuf_size>
             <streams>
                 <item>
-                    <commod>lwrPu</commod>
+                    <commod>lwrpu</commod>
                     <info>
                         <buf_size>1e8</buf_size>
                         <efficiencies>
@@ -195,7 +195,7 @@
                     </info>
                 </item>
                 <item>
-                    <commod>lwrU</commod>
+                    <commod>lwru</commod>
                     <info>
                         <buf_size>1e8</buf_size>
                         <efficiencies>
@@ -224,7 +224,7 @@
             <leftoverbuf_size>1e8</leftoverbuf_size>
             <streams>
                 <item>
-                    <commod>frPu</commod>
+                    <commod>frpu</commod>
                     <info>
                         <buf_size>1e8</buf_size>
                         <efficiencies>
@@ -236,7 +236,7 @@
                     </info>
                 </item>
                 <item>
-                    <commod>frU</commod>
+                    <commod>fru</commod>
                     <info>
                         <buf_size>1e8</buf_size>
                         <efficiencies>
@@ -264,7 +264,7 @@
                     </info>
                     <commodities>
                         <item>
-                            <commodity>lwrPu</commodity>
+                            <commodity>lwrpu</commodity>
                             <pref>1.0</pref>
                         </item>          
                     </commodities>
@@ -276,7 +276,7 @@
                     </info>
                     <commodities>
                         <item>
-                            <commodity>lwrU</commodity>
+                            <commodity>lwru</commodity>
                             <pref>1.0</pref>
                         </item>                    
                     </commodities>
@@ -313,7 +313,7 @@
                     </info>
                     <commodities>
                         <item>
-                            <commodity>frPu</commodity>
+                            <commodity>frpu</commodity>
                             <pref>1.0</pref>
                         </item>          
                     </commodities>
@@ -325,7 +325,7 @@
                     </info>
                     <commodities>
                         <item>
-                            <commodity>frU</commodity>
+                            <commodity>fru</commodity>
                             <pref>1.0</pref>
                         </item>                    
                     </commodities>
@@ -379,23 +379,6 @@
         <NullRegion>
         </NullRegion>
     </config>
-
-    <institution>
-        <config>
-            <NullInst/>
-        </config>
-        <initialfacilitylist>
-        <entry>
-          <number>1</number>
-          <prototype>lwrmixer</prototype>
-        </entry>
-        <entry>
-          <number>1</number>
-          <prototype>frmixer</prototype>
-        </entry>          
-        </initialfacilitylist>
-        <name>sink_source_facilities</name>
-    </institution>
 
     <institution> 
         <name>lwr_inst</name>
@@ -556,11 +539,11 @@
         </item>
         <item>
             <facility>lwrmixer</facility>
-            <commod>lwrPu</commod>
+            <commod>lwrpu</commod>
         </item>
         <item>
             <facility>frmixer</facility>
-            <commod>frPu</commod>
+            <commod>frpu</commod>
         </item>
         <item>
             <facility>lwrstorage</facility>
