@@ -70,8 +70,8 @@ for commod in front_commods:
                                                            commod)
     name = 'eg01-eg23-flatpower-nond3ploy_' + commod
     plotter.plot_demand_supply_nond3ploy(all_dict[commod],
-                                         agent_entry_dict[commod], commod, name,
-                                         True, True, 1)
+                                         agent_entry_dict[commod], commod,
+                                         name, True, True, 1)
 
 for commod in back_commods:
     all_dict[commod] = tester.supply_demand_dict_nond3ploy(output_file,
