@@ -11,7 +11,8 @@ import sys
 from matplotlib import pyplot as plt
 import numpy as np
 import pandas as pd
-import nond3ploy_tester_plotter as tester
+import d3ploy.tester as tester
+import d3ploy.plotter as plotter
 import collections
 
 # Delete previously generated files
@@ -54,7 +55,7 @@ for commod, facility in commod_dict.items():
 all_dict['power'] = tester.supply_demand_dict_nond3ploy(
     output_file, 'power', demand_eq)
 
-tester.plot_demand_supply_nond3ploy(all_dict['power'], agent_entry_dict['power'],
+plotter.plot_demand_supply_nond3ploy(all_dict['power'], agent_entry_dict['power'],
                                  'power',
                                  'eg01-eg23-flatpower-nond3ploy_power', True,
                                  True, 1)
@@ -68,7 +69,7 @@ for commod in front_commods:
     all_dict[commod] = tester.supply_demand_dict_nond3ploy(output_file,
                                                             commod)
     name = 'eg01-eg23-flatpower-nond3ploy_' + commod
-    tester.plot_demand_supply_nond3ploy(all_dict[commod],
+    plotter.plot_demand_supply_nond3ploy(all_dict[commod],
                                         agent_entry_dict[commod], commod, name,
                                         True, True, 1)
 
@@ -77,6 +78,6 @@ for commod in back_commods:
                                                            commod, False)
 
     name = 'eg01-eg23-flatpower-nond3ploy_' + commod
-    tester.plot_demand_supply_nond3ploy(all_dict[commod],
+    plotter.plot_demand_supply_nond3ploy(all_dict[commod],
                                         agent_entry_dict[commod],
                                         commod, name, False, True, 1)
