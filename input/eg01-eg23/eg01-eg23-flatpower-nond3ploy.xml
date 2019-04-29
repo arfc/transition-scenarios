@@ -175,7 +175,7 @@
             <leftoverbuf_size>1e8</leftoverbuf_size>
             <streams>
                 <item>
-                    <commod>lwrPu</commod>
+                    <commod>lwrpu</commod>
                     <info>
                         <buf_size>1e8</buf_size>
                         <efficiencies>
@@ -187,7 +187,7 @@
                     </info>
                 </item>
                 <item>
-                    <commod>lwrU</commod>
+                    <commod>lwru</commod>
                     <info>
                         <buf_size>1e8</buf_size>
                         <efficiencies>
@@ -216,7 +216,7 @@
             <leftoverbuf_size>1e8</leftoverbuf_size>
             <streams>
                 <item>
-                    <commod>frPu</commod>
+                    <commod>frpu</commod>
                     <info>
                         <buf_size>1e8</buf_size>
                         <efficiencies>
@@ -228,7 +228,7 @@
                     </info>
                 </item>
                 <item>
-                    <commod>frU</commod>
+                    <commod>fru</commod>
                     <info>
                         <buf_size>1e8</buf_size>
                         <efficiencies>
@@ -256,7 +256,7 @@
                     </info>
                     <commodities>
                         <item>
-                            <commodity>lwrPu</commodity>
+                            <commodity>lwrpu</commodity>
                             <pref>1.0</pref>
                         </item>          
                     </commodities>
@@ -268,7 +268,7 @@
                     </info>
                     <commodities>
                         <item>
-                            <commodity>lwrU</commodity>
+                            <commodity>lwru</commodity>
                             <pref>1.0</pref>
                         </item>                    
                     </commodities>
@@ -305,7 +305,7 @@
                     </info>
                     <commodities>
                         <item>
-                            <commodity>frPu</commodity>
+                            <commodity>frpu</commodity>
                             <pref>1.0</pref>
                         </item>          
                     </commodities>
@@ -317,7 +317,7 @@
                     </info>
                     <commodities>
                         <item>
-                            <commodity>frU</commodity>
+                            <commodity>fru</commodity>
                             <pref>1.0</pref>
                         </item>                    
                     </commodities>
