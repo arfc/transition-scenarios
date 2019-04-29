@@ -56,7 +56,8 @@ all_dict['power'] = tester.supply_demand_dict_driving(
     output_file, demand_eq, 'power')
 
 plotter.plot_demand_supply_agent(all_dict['power'], agent_entry_dict['power'],
-    'power', 'eg01-eg23-flatpower-d3ploy_power', True, True, False, 1)
+                                 'power', 'eg01-eg23-flatpower-d3ploy_power',
+                                 True, True, False, 1)
 
 front_commods = ['sourceout', 'enrichmentout']
 back_commods = ['lwrstorageout', 'frstorageout', 'lwrout', 'frout',
@@ -78,8 +79,9 @@ for commod in back_commods:
                                                             commod, False)
 
     name = 'eg01-eg23-flatpower-d3ploy_' + commod
-    plotter.plot_demand_supply_agent(all_dict[commod],agent_entry_dict[commod],
-        commod, name, False, True, False, 1)
+    plotter.plot_demand_supply_agent(all_dict[commod],
+                                     agent_entry_dict[commod],
+                                     commod, name, False, True, False, 1)
     metric_dict = tester.metrics(
         all_dict[commod], metric_dict, calc_method, commod, False)
 

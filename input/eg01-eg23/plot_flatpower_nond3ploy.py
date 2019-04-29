@@ -55,10 +55,10 @@ for commod, facility in commod_dict.items():
 all_dict['power'] = tester.supply_demand_dict_nond3ploy(
     output_file, 'power', demand_eq)
 
-plotter.plot_demand_supply_nond3ploy(all_dict['power'], agent_entry_dict['power'],
-                                 'power',
-                                 'eg01-eg23-flatpower-nond3ploy_power', True,
-                                 True, 1)
+plotter.plot_demand_supply_nond3ploy(all_dict['power'],
+                                     agent_entry_dict['power'], 'power',
+                                     'eg01-eg23-flatpower-nond3ploy_power',
+                                     True, True, 1)
 
 front_commods = ['sourceout', 'enrichmentout']
 back_commods = ['lwrstorageout', 'frstorageout', 'lwrout', 'frout',
@@ -67,11 +67,11 @@ back_commods = ['lwrstorageout', 'frstorageout', 'lwrout', 'frout',
 
 for commod in front_commods:
     all_dict[commod] = tester.supply_demand_dict_nond3ploy(output_file,
-                                                            commod)
+                                                           commod)
     name = 'eg01-eg23-flatpower-nond3ploy_' + commod
     plotter.plot_demand_supply_nond3ploy(all_dict[commod],
-                                        agent_entry_dict[commod], commod, name,
-                                        True, True, 1)
+                                         agent_entry_dict[commod], commod, name,
+                                         True, True, 1)
 
 for commod in back_commods:
     all_dict[commod] = tester.supply_demand_dict_nond3ploy(output_file,
@@ -79,5 +79,5 @@ for commod in back_commods:
 
     name = 'eg01-eg23-flatpower-nond3ploy_' + commod
     plotter.plot_demand_supply_nond3ploy(all_dict[commod],
-                                        agent_entry_dict[commod],
-                                        commod, name, False, True, 1)
+                                         agent_entry_dict[commod],
+                                         commod, name, False, True, 1)
