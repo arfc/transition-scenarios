@@ -56,7 +56,7 @@
         <Source>
             <outcommod>sourceout</outcommod>
             <outrecipe>sourceoutrecipe</outrecipe>
-            <throughput>1e8</throughput>
+            <throughput>1e9</throughput>
         </Source>
     </config>
 </facility>
@@ -72,6 +72,7 @@
             <tails_commod>enrichmentwaste</tails_commod>
             <swu_capacity>1e100</swu_capacity>
             <initial_feed>5e7</initial_feed>
+            <max_feed_inventory>1e8</max_feed_inventory>
         </Enrichment>
     </config>
 </facility>
@@ -121,10 +122,10 @@
                 </fuel_outcommods>
                 <cycle_time>12</cycle_time>
                 <refuel_time>0</refuel_time>
-                <assem_size>3950</assem_size>
+                <assem_size>5867</assem_size>
                 <n_assem_core>4</n_assem_core>
                 <n_assem_batch>1</n_assem_batch>
-                <power_cap>333.3</power_cap>
+                <power_cap>333.34</power_cap>
             </Reactor>
         </config>
 </facility>
@@ -174,7 +175,7 @@
             <leftoverbuf_size>1e8</leftoverbuf_size>
             <streams>
                 <item>
-                    <commod>lwrTru</commod>
+                    <commod>lwrtru</commod>
                     <info>
                         <buf_size>1e8</buf_size>
                         <efficiencies>
@@ -198,7 +199,7 @@
                     </info>
                 </item>
                 <item>
-                    <commod>lwrU</commod>
+                    <commod>lwru</commod>
                     <info>
                         <buf_size>1e8</buf_size>
                         <efficiencies>
@@ -227,7 +228,7 @@
             <leftoverbuf_size>1e8</leftoverbuf_size>
             <streams>
                 <item>
-                    <commod>frTru</commod>
+                    <commod>frtru</commod>
                     <info>
                         <buf_size>1e8</buf_size>
                         <efficiencies>
@@ -251,7 +252,7 @@
                     </info>
                 </item>
                 <item>
-                    <commod>frU</commod>
+                    <commod>fru</commod>
                     <info>
                         <buf_size>1e8</buf_size>
                         <efficiencies>
@@ -268,75 +269,99 @@
 </facility>
 
 <facility>
-    <name>mixerlwr</name>
+    <name>lwrmixer</name>
     <config>
         <Mixer>
             <in_streams>
                 <stream>
                     <info>
-                        <mixing_ratio>0.1387</mixing_ratio>
+                        <mixing_ratio>0.139</mixing_ratio>
                         <buf_size>1e6</buf_size>
                     </info>
                     <commodities>
                         <item>
-                            <commodity>lwrTru</commodity>
+                            <commodity>lwrtru</commodity>
                             <pref>1.0</pref>
-                        </item>
+                        </item>          
                     </commodities>
                 </stream>
                 <stream>
                     <info>
-                        <mixing_ratio>0.8613</mixing_ratio>
-                        <buf_size>1e6</buf_size>
+                        <mixing_ratio>0.771</mixing_ratio>
+                        <buf_size>1e7</buf_size>
                     </info>
                     <commodities>
                         <item>
-                            <commodity>lwrU</commodity>
+                            <commodity>lwru</commodity>
+                            <pref>1.0</pref>
+                        </item>                    
+                    </commodities>
+                </stream>
+                <stream>
+                    <info>
+                        <mixing_ratio>0.09</mixing_ratio>
+                        <buf_size>1e7</buf_size>
+                    </info>
+                    <commodities>
+                        <item>
+                            <commodity>sourceout</commodity>
                             <pref>1.0</pref>
                         </item>
                     </commodities>
                 </stream>
             </in_streams>
             <out_commod>mixerout</out_commod>
-            <out_buf_size>1e6</out_buf_size>
-            <throughput>1e6</throughput>
+            <out_buf_size>1e10</out_buf_size>
+            <throughput>1e7</throughput>
         </Mixer>
     </config>
 </facility>
 
 <facility>
-    <name>mixerfr</name>
+    <name>frmixer</name>
     <config>
         <Mixer>
             <in_streams>
                 <stream>
                     <info>
-                        <mixing_ratio>0.1387</mixing_ratio>
+                        <mixing_ratio>0.139</mixing_ratio>
                         <buf_size>1e6</buf_size>
                     </info>
                     <commodities>
                         <item>
-                            <commodity>frTru</commodity>
+                            <commodity>frtru</commodity>
                             <pref>1.0</pref>
-                        </item>
+                        </item>          
                     </commodities>
                 </stream>
                 <stream>
                     <info>
-                        <mixing_ratio>0.8613</mixing_ratio>
-                        <buf_size>1e6</buf_size>
+                        <mixing_ratio>0.771</mixing_ratio>
+                        <buf_size>1e7</buf_size>
                     </info>
                     <commodities>
                         <item>
-                            <commodity>frU</commodity>
+                            <commodity>fru</commodity>
+                            <pref>1.0</pref>
+                        </item>                    
+                    </commodities>
+                </stream>
+                <stream>
+                    <info>
+                        <mixing_ratio>0.09</mixing_ratio>
+                        <buf_size>1e7</buf_size>
+                    </info>
+                    <commodities>
+                        <item>
+                            <commodity>sourceout</commodity>
                             <pref>1.0</pref>
                         </item>
                     </commodities>
                 </stream>
             </in_streams>
             <out_commod>mixerout</out_commod>
-            <out_buf_size>1e6</out_buf_size>
-            <throughput>1e6</throughput>
+            <out_buf_size>1e10</out_buf_size>
+            <throughput>1e7</throughput>
         </Mixer>
     </config>
 </facility>
@@ -402,11 +427,11 @@
         </entry>
         <entry>
           <number>1</number>
-          <prototype>mixerlwr</prototype>
+          <prototype>lwrmixer</prototype>
         </entry>
         <entry>
           <number>1</number>
-          <prototype>mixerfr</prototype>
+          <prototype>frmixer</prototype>
         </entry>
         <entry>
           <number>1</number>
@@ -421,104 +446,174 @@
     </institution>
 
 	<institution> 
-	    <name>lwr_inst</name>
-	    <config>
-	        <DeployInst>
-	            <prototypes>
-				<val>lwr</val> 
-				<val>lwr</val> 
-				<val>lwr</val> 
-				<val>lwr</val> 
-				<val>lwr</val> 
-				<val>lwr</val> 
-				<val>lwr</val> 
-				<val>lwr</val> 
-				<val>lwr</val> 
-				<val>lwr</val> 
-			</prototypes> 
-	 		<build_times>
-				<val>1</val> 
-				<val>1</val> 
-				<val>1</val> 
-				<val>1</val> 
-				<val>1</val> 
-				<val>1</val> 
-				<val>1</val> 
-				<val>1</val> 
-				<val>1</val> 
-				<val>1</val> 
-			</build_times> 
-	 		<n_build>
-				<val>6</val> 
-				<val>6</val> 
-				<val>6</val> 
-				<val>6</val> 
-				<val>6</val> 
-				<val>6</val> 
-				<val>6</val> 
-				<val>6</val> 
-				<val>6</val> 
-				<val>6</val> 
-			</n_build> 
-	 		<lifetimes>
-				<val>960</val> 
-				<val>970</val> 
-				<val>980</val> 
-				<val>990</val> 
-				<val>1000</val> 
-				<val>1010</val> 
-				<val>1020</val> 
-				<val>1030</val> 
-				<val>1040</val> 
-				<val>1050</val> 
-			</lifetimes>
-			</DeployInst>
-		</config>
-	</institution>
-
-	<institution> 
-		<name>fr_inst</name>
-		<config>
-		    <DeployInst>
-		        <prototypes>
-				<val>fr</val> 
-				<val>fr</val> 
-				<val>fr</val> 
-				<val>fr</val> 
-				<val>fr</val> 
-				<val>fr</val> 
-				<val>fr</val> 
-				<val>fr</val> 
-				<val>fr</val> 
-				<val>fr</val> 
-			</prototypes> 
-				<build_times>
-				<val>961</val>
-				<val>971</val>
-				<val>981</val>
-				<val>991</val>
-				<val>1001</val>
-				<val>1011</val>
-				<val>1021</val>
-				<val>1031</val>
-				<val>1041</val>
-				<val>1051</val>
-			</build_times> 
-				<n_build>
-				<val>18</val> 
-				<val>18</val> 
-				<val>18</val> 
-				<val>18</val> 
-				<val>18</val> 
-				<val>18</val> 
-				<val>18</val> 
-				<val>18</val> 
-				<val>18</val> 
-				<val>18</val> 
-			</n_build> 
-			</DeployInst>
+        <name>lwr_inst</name>
+        <config>
+            <DeployInst>
+            <prototypes>
+                <val>lwr</val> 
+                <val>lwr</val> 
+                <val>lwr</val> 
+                <val>lwr</val> 
+                <val>lwr</val> 
+                <val>lwr</val> 
+                <val>lwr</val> 
+                <val>lwr</val> 
+                <val>lwr</val> 
+                <val>lwr</val>
+                <val>lwr</val> 
+                <val>lwr</val>
+                <val>lwr</val> 
+                <val>lwr</val> 
+                <val>lwr</val> 
+                <val>lwr</val> 
+                <val>lwr</val> 
+                <val>lwr</val> 
+                <val>lwr</val> 
+                <val>lwr</val> 
+            </prototypes> 
+            <build_times>
+                <val>1</val> 
+                <val>1</val> 
+                <val>1</val> 
+                <val>1</val> 
+                <val>1</val> 
+                <val>1</val> 
+                <val>1</val> 
+                <val>1</val> 
+                <val>1</val> 
+                <val>1</val>
+                <val>1</val> 
+                <val>1</val> 
+                <val>1</val> 
+                <val>1</val> 
+                <val>1</val> 
+                <val>1</val> 
+                <val>1</val> 
+                <val>1</val> 
+                <val>1</val> 
+                <val>1</val> 
+            </build_times> 
+            <n_build>
+                <val>3</val> 
+                <val>3</val> 
+                <val>3</val> 
+                <val>3</val> 
+                <val>3</val> 
+                <val>3</val> 
+                <val>3</val> 
+                <val>3</val> 
+                <val>3</val> 
+                <val>3</val> 
+                <val>3</val> 
+                <val>3</val> 
+                <val>3</val> 
+                <val>3</val> 
+                <val>3</val> 
+                <val>3</val> 
+                <val>3</val> 
+                <val>3</val> 
+                <val>3</val> 
+                <val>3</val> 
+            </n_build> 
+            <lifetimes>
+                <val>960</val> 
+                <val>970</val> 
+                <val>980</val> 
+                <val>990</val> 
+                <val>1000</val> 
+                <val>1010</val> 
+                <val>1020</val> 
+                <val>1030</val> 
+                <val>1040</val> 
+                <val>1050</val>
+                <val>1060</val> 
+                <val>1070</val> 
+                <val>1080</val> 
+                <val>1090</val> 
+                <val>1100</val> 
+                <val>1110</val> 
+                <val>1120</val> 
+                <val>1130</val> 
+                <val>1140</val> 
+                <val>1150</val> 
+            </lifetimes>
+            </DeployInst>
 		</config>
  	</institution>
+
+   <institution> 
+        <name>fr_inst</name>
+        <config>
+            <DeployInst>
+            <prototypes>
+                <val>fr</val> 
+                <val>fr</val> 
+                <val>fr</val> 
+                <val>fr</val> 
+                <val>fr</val> 
+                <val>fr</val> 
+                <val>fr</val> 
+                <val>fr</val> 
+                <val>fr</val> 
+                <val>fr</val>
+                <val>fr</val> 
+                <val>fr</val> 
+                <val>fr</val> 
+                <val>fr</val> 
+                <val>fr</val> 
+                <val>fr</val> 
+                <val>fr</val> 
+                <val>fr</val> 
+                <val>fr</val> 
+                <val>fr</val> 
+            </prototypes> 
+            <build_times>
+                <val>961</val>
+                <val>971</val>
+                <val>981</val>
+                <val>991</val>
+                <val>1001</val>
+                <val>1011</val>
+                <val>1021</val>
+                <val>1031</val>
+                <val>1041</val>
+                <val>1051</val>
+                <val>1061</val> 
+                <val>1071</val> 
+                <val>1081</val> 
+                <val>1091</val> 
+                <val>1101</val> 
+                <val>1111</val> 
+                <val>1121</val> 
+                <val>1131</val> 
+                <val>1141</val> 
+                <val>1151</val> 
+            </build_times> 
+            <n_build>
+                <val>9</val> 
+                <val>9</val> 
+                <val>9</val> 
+                <val>9</val> 
+                <val>9</val> 
+                <val>9</val> 
+                <val>9</val> 
+                <val>9</val> 
+                <val>9</val> 
+                <val>9</val>
+                <val>9</val> 
+                <val>9</val> 
+                <val>9</val> 
+                <val>9</val> 
+                <val>9</val> 
+                <val>9</val> 
+                <val>9</val> 
+                <val>9</val> 
+                <val>9</val> 
+                <val>9</val>
+            </n_build> 
+            </DeployInst>
+        </config>
+    </institution>
 
     <name>SingleRegion</name>
 </region>
