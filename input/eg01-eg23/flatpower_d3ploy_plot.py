@@ -30,12 +30,12 @@ def plot_several(name, all_dict, commod, calc_methods, demand_eq):
     for calc_method in calc_methods:
         dict_demand[calc_method] = all_dict[calc_method]['dict_demand']
         dict_supply[calc_method] = all_dict[calc_method]['dict_supply']
-    
+
     fig, ax = plt.subplots(figsize=(15, 7))
 
     ax.semilogy(*zip(*sorted(dict_demand[calc_method].items())), '-',
                 color='red', label='Demand')
-    
+
     for calc_method in calc_methods:
         ax.semilogy(*zip(*sorted(dict_supply[calc_method].items())), 'x',
                     label=calc_method + ' Supply', markersize=4)

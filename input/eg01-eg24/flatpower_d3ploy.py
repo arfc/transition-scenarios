@@ -412,7 +412,7 @@ control = """
                         <item>
                             <commodity>fru</commodity>
                             <pref>1.0</pref>
-                        </item>                    
+                        </item>
                     </commodities>
                 </stream>
                 <stream>
@@ -532,7 +532,7 @@ recipes = """
     <nuclide> <id>Cs135</id>  <comp>0.0006596706</comp> </nuclide>
     <nuclide> <id>Cs137</id>  <comp>0.0018169192</comp> </nuclide>
     <nuclide> <id>H1</id>  <comp>0.0477938151</comp> </nuclide>
-</recipe> 
+</recipe>
 
 <recipe>
     <name>frinrecipe</name>
@@ -647,7 +647,7 @@ for calc_method in calc_methods:
             </NullRegion>
         </config>
 
-        <institution> 
+        <institution>
             <name>lwr_inst</name>
             <config>
             <DeployInst>
@@ -716,7 +716,7 @@ for calc_method in calc_methods:
                 <val>3</val>
                 <val>3</val>
                 <val>3</val>
-            </n_build> 
+            </n_build>
             <lifetimes>
                 <val>960</val>
                 <val>970</val>
@@ -885,7 +885,7 @@ for calc_method in calc_methods:
     input_file = 'eg01-eg24-flatpower-d3ploy-buffer' + buff_size + '-' \
                 + calc_method + '.xml'
     output_file = 'eg01-eg24-flatpower-d3ploy-buffer' + buff_size + '-' \
-                 + calc_method + '.sqlite'
+        + calc_method + '.sqlite'
 
     with open(input_file, 'w') as f:
         f.write('<simulation>\n')
