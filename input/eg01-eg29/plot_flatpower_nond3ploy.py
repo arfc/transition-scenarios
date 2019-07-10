@@ -26,7 +26,6 @@ ENV['PYTHONPATH'] = ".:" + ENV.get('PYTHONPATH', '')
 
 # initialize metric dict
 demand_eq = '60000'
-calc_method = 'ma'
 name = "eg01-eg29-flatpower-nond3ploy"
 output_file = name + ".sqlite"
 
@@ -45,8 +44,9 @@ commod_dict = {'enrichmentout': ['enrichment'],
                'lwrout': ['lwrstorage'],
                'frout': ['frstorage'],
                'moxout': ['moxstorage'],
-               'lwrpu': ['frmixer'],
-               'lwrpu': ['moxmixer'],
+               'lwrpu': ['frmixer', 'moxmixer'],
+               'frpu': ['frmixer', 'moxmixer'],
+               'moxpu': ['moxmixer'],
                'lwrreprocessingwaste': ['lwrsink'],
                'frreprocessingwaste': ['frsink'],
                'moxreprocessingwaste': ['moxsink']}
@@ -69,7 +69,9 @@ front_commods = ['sourceout', 'enrichmentout']
 back_commods = ['lwrstorageout', 'frstorageout', 'moxstorageout',
                 'lwrreprocessingwaste', 'frreprocessingwaste',
                 'moxreprocessingwaste', 'lwrout', 'frout', 'moxout',
-                'lwrpu', 'frpu', 'moxpu']
+                'frpu']
+
+#                'lwrpu', 'frpu', 'moxpu']
 
 for commod in front_commods:
     all_dict[commod] = tester.supply_demand_dict_nond3ploy(output_file,
