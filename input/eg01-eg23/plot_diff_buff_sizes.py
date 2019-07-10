@@ -85,8 +85,10 @@ for calc_method in calc_methods:
         metric_dict = tester.metrics(all_dict['power'], metric_dict,
                                      calc_method, 'power', True)
 
-        cumulative_under[calc_method][add] = metric_dict['power_residuals_under'][calc_method] - 60e3
-        timesteps_under[calc_method][add] = metric_dict['power_undersupply'][calc_method] - 1
+        cumulative_under[calc_method][add] = \
+            metric_dict['power_residuals_under'][calc_method] - 60e3
+        timesteps_under[calc_method][add] = \
+            metric_dict['power_undersupply'][calc_method] - 1
 
 plot_buff('asave/23-buff', calc_methods, add_list, cumulative_under)
 # plot_buff('asave/23-for', calc_methods, add_list, cumulative_under,
