@@ -82,8 +82,8 @@ add = '-buffer2000'
 name = 'eg01-eg24-flatpower-d3ploy' + add
 
 for calc_method in calc_methods:
-    output_file = name + '-' + calc_method +'.sqlite'
- 
+    output_file = name + '-' + calc_method + '.sqlite'
+
     all_dict['power'] = tester.supply_demand_dict_driving(output_file,
                                                           demand_eq,
                                                           'power')
