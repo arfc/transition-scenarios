@@ -66,11 +66,10 @@ plotter.plot_demand_supply_nond3ploy(all_dict['power'],
 
 front_commods = ['sourceout', 'enrichmentout']
 
-#back_commods = ['lwrout', 'frout', 'moxout', 'lwrpu']
-
 back_commods = ['lwrstorageout', 'frstorageout', 'moxstorageout',
                 'lwrreprocessingwaste', 'frreprocessingwaste',
-                'moxreprocessingwaste', 'lwrout', 'frout', 'moxout']
+                'moxreprocessingwaste', 'lwrout', 'frout', 'moxout',
+                'lwrpu', 'frpu', 'moxpu']
 
 for commod in front_commods:
     all_dict[commod] = tester.supply_demand_dict_nond3ploy(output_file,
