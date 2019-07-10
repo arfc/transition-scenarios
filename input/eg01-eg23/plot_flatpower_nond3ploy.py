@@ -18,9 +18,9 @@ import collections
 direc = os.listdir('./')
 
 # Delete previously generated files
-#hit_list = glob.glob('*.png') + glob.glob('*.csv') + glob.glob('*.txt')
-#for file in hit_list:
-#    os.remove(file)
+# hit_list = glob.glob('*.png') + glob.glob('*.csv') + glob.glob('*.txt')
+# for file in hit_list:
+#     os.remove(file)
 
 ENV = dict(os.environ)
 ENV['PYTHONPATH'] = ".:" + ENV.get('PYTHONPATH', '')

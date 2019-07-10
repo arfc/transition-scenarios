@@ -23,9 +23,9 @@ import collections
 direc = os.listdir('./')
 
 # Delete previously generated files
-#hit_list = glob.glob('*.png') + glob.glob('*.csv') + glob.glob('*.txt')
-#for file in hit_list:
-#    os.remove(file)
+# hit_list = glob.glob('*.png') + glob.glob('*.csv') + glob.glob('*.txt')
+# for file in hit_list:
+#     os.remove(file)
 
 ENV = dict(os.environ)
 ENV['PYTHONPATH'] = ".:" + ENV.get('PYTHONPATH', '')
@@ -33,7 +33,7 @@ ENV['PYTHONPATH'] = ".:" + ENV.get('PYTHONPATH', '')
 # initialize metric dict
 demand_eq = '60000'
 calc_method = 'ma'
-name = "eg01-eg24-flatpower-d3ploy-buffer2000-"+ calc_method
+name = "eg01-eg24-flatpower-d3ploy-buffer2000-" + calc_method
 output_file = name + ".sqlite"
 
 # Initialize dicts
