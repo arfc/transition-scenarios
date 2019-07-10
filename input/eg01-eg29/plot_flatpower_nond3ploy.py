@@ -88,3 +88,4 @@ for commod in back_commods:
     plotter.plot_demand_supply_nond3ploy(all_dict[commod],
                                          agent_entry_dict[commod],
                                          commod, name, False, True, 1)
+    
