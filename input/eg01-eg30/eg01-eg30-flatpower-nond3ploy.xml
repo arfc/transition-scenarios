@@ -347,7 +347,7 @@
                 <stream>
                     <info>
                         <mixing_ratio>0.1146</mixing_ratio>
-                        <buf_size>1e5</buf_size>
+                        <buf_size>2e4</buf_size>
                     </info>
                     <commodities>
                         <item>
@@ -367,7 +367,7 @@
                 <stream>
                     <info>
                         <mixing_ratio>0.8854</mixing_ratio>
-                        <buf_size>7.8e5</buf_size>
+                        <buf_size>1.6e5</buf_size>
                     </info>
                     <commodities>
                         <item>
@@ -408,15 +408,15 @@
                     </info>
                     <commodities>
                         <item>
-                            <commodity>uox_TRU</commodity>
+                            <commodity>lwrtru</commodity>
                             <pref>1.0</pref>
                         </item>
                         <item>
-                            <commodity>mox_TRU</commodity>
+                            <commodity>frtru</commodity>
                             <pref>1.0</pref>
                         </item>
                         <item>
-                            <commodity>sfr_TRU</commodity>
+                            <commodity>moxtru</commodity>
                             <pref>1.0</pref>
                         </item>
                     </commodities>
@@ -428,15 +428,15 @@
                     </info>
                     <commodities>
                         <item>
-                            <commodity>uox_U</commodity>
+                            <commodity>lwru</commodity>
                             <pref>2.0</pref>
                         </item>
                         <item>
-                            <commodity>mox_U</commodity>
+                            <commodity>fru</commodity>
                             <pref>2.0</pref>
                         </item>
                         <item>
-                            <commodity>sfr_U</commodity>
+                            <commodity>moxu</commodity>
                             <pref>2.0</pref>
                         </item>
                         <item>
@@ -867,7 +867,7 @@
     <nuclide> <id>Cf249</id>  <comp>1.9616003888965777e-07</comp> </nuclide> 
     <nuclide> <id>Cf250</id>  <comp>2.0397694269503573e-08</comp> </nuclide> 
     <nuclide> <id>Cf251</id>  <comp>5.791883253531473e-10</comp> </nuclide> 
-    <nuclide> <id>Cf 252</id>  <comp>1.2216493249045363e-11</comp> </nuclide> 
+    <nuclide> <id>Cf252</id>  <comp>1.2216493249045363e-11</comp> </nuclide> 
     <nuclide> <id>Np237</id>  <comp>0.21633723097200003</comp> </nuclide> 
 </recipe> 
 
@@ -982,7 +982,7 @@
     <nuclide> <id>Cf249</id>  <comp>3.2000000000000005e-09</comp> </nuclide> 
     <nuclide> <id>Cf250</id>  <comp>2.339108839804712e-09</comp> </nuclide> 
     <nuclide> <id>Cf251</id>  <comp>1.154800409150096e-09</comp> </nuclide> 
-    <nuclide> <id>Cf 252</id>  <comp>6.009268703691961e-10</comp> </nuclide> 
+    <nuclide> <id>Cf252</id>  <comp>6.009268703691961e-10</comp> </nuclide> 
     <nuclide> <id>Np237</id>  <comp>0.34532360008</comp> </nuclide>
 </recipe> 
 

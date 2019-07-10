@@ -26,7 +26,7 @@ ENV['PYTHONPATH'] = ".:" + ENV.get('PYTHONPATH', '')
 
 # initialize metric dict
 demand_eq = '60000'
-name = "eg01-eg29-flatpower-nond3ploy"
+name = "eg01-eg30-flatpower-nond3ploy"
 output_file = name + ".sqlite"
 
 # Initialize dicts
@@ -44,9 +44,9 @@ commod_dict = {'enrichmentout': ['enrichment'],
                'lwrout': ['lwrstorage'],
                'frout': ['frstorage'],
                'moxout': ['moxstorage'],
-               'lwrpu': ['frmixer', 'moxmixer'],
-               'frpu': ['frmixer', 'moxmixer'],
-               'moxpu': ['moxmixer'],
+               'lwrtru': ['frmixer', 'moxmixer'],
+               'frtru': ['frmixer', 'moxmixer'],
+               'moxtru': ['frmixer', 'moxmixer'],
                'lwrreprocessingwaste': ['lwrsink'],
                'frreprocessingwaste': ['frsink'],
                'moxreprocessingwaste': ['moxsink']}
@@ -61,22 +61,21 @@ all_dict['power'] = tester.supply_demand_dict_nond3ploy(output_file,
 
 plotter.plot_demand_supply_nond3ploy(all_dict['power'],
                                      agent_entry_dict['power'], 'power',
-                                     'eg01-eg29-flatpower-nond3ploy_power',
+                                     'eg01-eg30-flatpower-nond3ploy_power',
                                      True, True, 1)
 
 front_commods = ['sourceout', 'enrichmentout']
 
 back_commods = ['lwrstorageout', 'frstorageout', 'moxstorageout',
                 'lwrreprocessingwaste', 'frreprocessingwaste',
-                'moxreprocessingwaste', 'lwrout', 'frout', 'moxout',
-                'frpu']
+                'moxreprocessingwaste', 'lwrout', 'frout', 'moxout']
 
 #                'lwrpu', 'frpu', 'moxpu']
 
 for commod in front_commods:
     all_dict[commod] = tester.supply_demand_dict_nond3ploy(output_file,
                                                            commod)
-    name = 'eg01-eg29-flatpower-nond3ploy_' + commod
+    name = 'eg01-eg30-flatpower-nond3ploy_' + commod
     plotter.plot_demand_supply_nond3ploy(all_dict[commod],
                                          agent_entry_dict[commod], commod,
                                          name, True, True, 1)
@@ -84,7 +83,7 @@ for commod in front_commods:
 for commod in back_commods:
     all_dict[commod] = tester.supply_demand_dict_nond3ploy(output_file,
                                                            commod, False)
-    name = 'eg01-eg29-flatpower-nond3ploy_' + commod
+    name = 'eg01-eg30-flatpower-nond3ploy_' + commod
     plotter.plot_demand_supply_nond3ploy(all_dict[commod],
                                          agent_entry_dict[commod],
                                          commod, name, False, True, 1)
