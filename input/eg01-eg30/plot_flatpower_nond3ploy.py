@@ -68,9 +68,10 @@ front_commods = ['sourceout', 'enrichmentout']
 
 back_commods = ['lwrstorageout', 'frstorageout', 'moxstorageout',
                 'lwrreprocessingwaste', 'frreprocessingwaste',
-                'moxreprocessingwaste', 'lwrout', 'frout', 'moxout']
+                'moxreprocessingwaste', 'lwrout', 'frout', 'moxout',
+                'frtru']
 
-#                'lwrpu', 'frpu', 'moxpu']
+#                'lwrtru', 'frtru', 'moxtru']
 
 for commod in front_commods:
     all_dict[commod] = tester.supply_demand_dict_nond3ploy(output_file,
