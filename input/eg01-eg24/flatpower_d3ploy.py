@@ -785,7 +785,7 @@ for calc_method in calc_methods:
             <buffer_type>
             <item>
               <commod>POWER</commod>
-              <type>float</type>
+              <type>abs</type>
             </item>
             </buffer_type>
             <supply_buffer>
