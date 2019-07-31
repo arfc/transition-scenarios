@@ -45,7 +45,7 @@ agent_entry_dict = {}
 commod_dict = {'enrichmentout': ['enrichment'],
                'sourceout': ['source'],
                'power': ['lwr1', 'lwr2', 'lwr3', 'lwr4', 'lwr5', 'lwr6', 'fr',
-               'moxlwr'],
+                         'moxlwr'],
                'lwrstorageout': ['lwrreprocessing'],
                'frstorageout': ['frreprocessing'],
                'moxstorageout': ['moxreprocessing'],
