@@ -23,8 +23,8 @@ import collections
 direc = os.listdir('./')
 
 # Delete previously generated files
-#hit_list = glob.glob('*.png') + glob.glob('*.csv')
-#for file in hit_list:
+# hit_list = glob.glob('*.png') + glob.glob('*.csv')
+# for file in hit_list:
 #    os.remove(file)
 
 ENV = dict(os.environ)
@@ -33,7 +33,7 @@ ENV['PYTHONPATH'] = ".:" + ENV.get('PYTHONPATH', '')
 # initialize metric dict
 demand_eq = '60000'
 calc_method = 'ma'
-name = "eg01-eg29-flatpower-d3ployE-onemixer0-"+ calc_method
+name = "eg01-eg29-flatpower-d3ployE-onemixer0-" + calc_method
 output_file = name + ".sqlite"
 
 # Initialize dicts
@@ -44,15 +44,16 @@ agent_entry_dict = {}
 # get agent deployment
 commod_dict = {'enrichmentout': ['enrichment'],
                'sourceout': ['source'],
-               'power': ['lwr1', 'lwr2', 'lwr3', 'lwr4', 'lwr5', 'lwr6', 'fr', 'moxlwr'],
+               'power': ['lwr1', 'lwr2', 'lwr3', 'lwr4', 'lwr5', 'lwr6', 'fr',
+               'moxlwr'],
                'lwrstorageout': ['lwrreprocessing'],
                'frstorageout': ['frreprocessing'],
                'moxstorageout': ['moxreprocessing'],
                'frmixerout': ['frmixer1'],
-               'moxmixerout':['moxmixer1'],
-               'lwrpu':['frmixer1', 'moxmixer1'],
-               'frpu':['frmixer1', 'moxmixer1'],
-               'moxpu':['moxmixer1']}
+               'moxmixerout': ['moxmixer1'],
+               'lwrpu': ['frmixer1', 'moxmixer1'],
+               'frpu': ['frmixer1', 'moxmixer1'],
+               'moxpu': ['moxmixer1']}
 
 for commod, facility in commod_dict.items():
     agent_entry_dict[commod] = tester.get_agent_dict(output_file, facility)

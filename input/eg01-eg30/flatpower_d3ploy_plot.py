@@ -80,7 +80,7 @@ name = 'eg01-eg30-flatpower-d3ploy' + buffer_size
 
 for calc_method in calc_methods:
     output_file = name + '-' + calc_method + '.sqlite'
-    
+
     all_dict['power'] = tester.supply_demand_dict_driving(output_file,
                                                           demand_eq,
                                                           'power')
