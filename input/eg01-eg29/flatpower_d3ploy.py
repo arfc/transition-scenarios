@@ -682,14 +682,14 @@ recipes = """
    <nuclide> <id>U235</id> <comp>0.711</comp> </nuclide>
    <nuclide> <id>U238</id> <comp>99.289</comp> </nuclide>
 </recipe>
- 
+
 <recipe>
     <name>lwrinrecipe</name>
     <basis>mass</basis>
     <nuclide> <id>U234</id>  <comp>0.0002558883</comp> </nuclide>
     <nuclide> <id>U235</id>  <comp>0.0319885317</comp> </nuclide>
     <nuclide> <id>U238</id>  <comp>0.96775558</comp> </nuclide>
-</recipe> 
+</recipe>
 
 <recipe>
     <name>lwroutrecipe</name>
@@ -747,28 +747,28 @@ recipes = """
     <nuclide> <id>Cs135</id>  <comp>0.0006596706</comp> </nuclide>
     <nuclide> <id>Cs137</id>  <comp>0.0018169192</comp> </nuclide>
     <nuclide> <id>H1</id>  <comp>0.0477938151</comp> </nuclide>
-</recipe> 
+</recipe>
 
 <recipe>
     <name>frinrecipe</name>
     <basis>mass</basis>
-    <nuclide> <id>U234</id>  <comp>9.7224110389438E-05</comp> </nuclide> 
-    <nuclide> <id>U235</id>  <comp>0.0039469814</comp> </nuclide> 
-    <nuclide> <id>U236</id>  <comp>0.0021573569</comp> </nuclide> 
-    <nuclide> <id>U238</id>  <comp>0.8665733427</comp> </nuclide> 
-    <nuclide> <id>Np237</id>  <comp>0.0060565044</comp> </nuclide> 
-    <nuclide> <id>Pu238</id>  <comp>0.0030040068</comp> </nuclide> 
-    <nuclide> <id>Pu239</id>  <comp>0.0606135352</comp> </nuclide> 
-    <nuclide> <id>Pu240</id>  <comp>0.0286774758</comp> </nuclide> 
-    <nuclide> <id>Pu241</id>  <comp>0.0134998465</comp> </nuclide> 
-    <nuclide> <id>Pu242</id>  <comp>0.0084034605</comp> </nuclide> 
-    <nuclide> <id>Am241</id>  <comp>0.0042991968</comp> </nuclide> 
-    <nuclide> <id>Am242m</id>  <comp>7.73428708584307E-06</comp> </nuclide> 
-    <nuclide> <id>Am243</id>  <comp>0.0019207217</comp> </nuclide> 
-    <nuclide> <id>Cm243</id>  <comp>6.47352555460846E-06</comp> </nuclide> 
-    <nuclide> <id>Cm244</id>  <comp>0.0006812961</comp> </nuclide> 
-    <nuclide> <id>Cm245</id>  <comp>5.48431266087054E-05</comp> </nuclide> 
-    <nuclide> <id>H1</id>  <comp>0</comp> </nuclide> 
+    <nuclide> <id>U234</id>  <comp>9.7224110389438E-05</comp> </nuclide>
+    <nuclide> <id>U235</id>  <comp>0.0039469814</comp> </nuclide>
+    <nuclide> <id>U236</id>  <comp>0.0021573569</comp> </nuclide>
+    <nuclide> <id>U238</id>  <comp>0.8665733427</comp> </nuclide>
+    <nuclide> <id>Np237</id>  <comp>0.0060565044</comp> </nuclide>
+    <nuclide> <id>Pu238</id>  <comp>0.0030040068</comp> </nuclide>
+    <nuclide> <id>Pu239</id>  <comp>0.0606135352</comp> </nuclide>
+    <nuclide> <id>Pu240</id>  <comp>0.0286774758</comp> </nuclide>
+    <nuclide> <id>Pu241</id>  <comp>0.0134998465</comp> </nuclide>
+    <nuclide> <id>Pu242</id>  <comp>0.0084034605</comp> </nuclide>
+    <nuclide> <id>Am241</id>  <comp>0.0042991968</comp> </nuclide>
+    <nuclide> <id>Am242m</id>  <comp>7.73428708584307E-06</comp> </nuclide>
+    <nuclide> <id>Am243</id>  <comp>0.0019207217</comp> </nuclide>
+    <nuclide> <id>Cm243</id>  <comp>6.47352555460846E-06</comp> </nuclide>
+    <nuclide> <id>Cm244</id>  <comp>0.0006812961</comp> </nuclide>
+    <nuclide> <id>Cm245</id>  <comp>5.48431266087054E-05</comp> </nuclide>
+    <nuclide> <id>H1</id>  <comp>0</comp> </nuclide>
 </recipe>
 
 <recipe>
