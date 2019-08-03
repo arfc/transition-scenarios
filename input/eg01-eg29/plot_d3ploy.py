@@ -33,7 +33,7 @@ ENV['PYTHONPATH'] = ".:" + ENV.get('PYTHONPATH', '')
 # initialize metric dict
 demand_eq = '60000'
 calc_method = 'ma'
-name = "eg01-eg29-flatpower-d3ployE-onemixer0-"+ calc_method
+name = "eg01-eg29-flatpower-d3ploy0-"+ calc_method
 output_file = name + ".sqlite"
 
 # Initialize dicts

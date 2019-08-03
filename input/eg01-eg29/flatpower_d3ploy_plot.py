@@ -65,9 +65,8 @@ direc = os.listdir('./')
 ENV = dict(os.environ)
 ENV['PYTHONPATH'] = ".:" + ENV.get('PYTHONPATH', '')
 
-#calc_methods = ["ma", "arma", "arch", "poly", "exp_smoothing", "holt_winters",
-#                "fft"]
-calc_methods = ["ma", "arma", "arch"]
+calc_methods = ["ma", "arma", "arch", "poly", "exp_smoothing", "holt_winters",
+                "fft", "sw_seasonal"]
 
 demand_eq = "60000"
 
@@ -78,7 +77,7 @@ front_commods = ['sourceout', 'enrichmentout', 'frmixerout', 'moxmixerout']
 back_commods = ['lwrstorageout', 'frstorageout', 'moxstorageout']
 
 buffer_size = '0'
-name = 'eg01-eg29-flatpower-d3ployD-onemixer' + buffer_size
+name = 'eg01-eg29-flatpower-d3ploy' + buffer_size
 
 
 for calc_method in calc_methods:
@@ -107,8 +106,8 @@ for calc_method in calc_methods:
     df.to_csv(name + '.csv')
 
 calc_methods1 = ["ma", "arma", "arch"]
-#calc_methods2 = ["poly", "exp_smoothing", "holt_winters", "fft"]
-#calc_methods3 = ["sw_seasonal"]
+calc_methods2 = ["poly", "exp_smoothing", "holt_winters", "fft"]
+calc_methods3 = ["sw_seasonal"]
 
 for calc_method in calc_methods1:
     output_file = name + '-' + calc_method + '.sqlite'
@@ -118,7 +117,6 @@ for calc_method in calc_methods1:
 
 plot_several('29-power' + buffer_size + '1', all_dict, 'power', calc_methods1,
              demand_eq)
-"""
 for calc_method in calc_methods2:
     output_file = name + '-' + calc_method + '.sqlite'
     all_dict[calc_method] = tester.supply_demand_dict_driving(output_file,
@@ -136,4 +134,3 @@ for calc_method in calc_methods3:
 
 plot_several('29-power' + buffer_size + '3', all_dict, 'power', calc_methods3,
              demand_eq)
-"""
