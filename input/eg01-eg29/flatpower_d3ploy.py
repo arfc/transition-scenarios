@@ -26,12 +26,6 @@ direc = os.listdir('./')
 ENV = dict(os.environ)
 ENV['PYTHONPATH'] = ".:" + ENV.get('PYTHONPATH', '')
 
-#calc_methods = ["ma"]
-#calc_methods = ["ma", "arma", "arch"]
-#calc_methods = ["sw_seasonal"]
-#calc_methods = ["poly", "exp_smoothing", "holt_winters",
-#                "fft"]
-#calc_methods = ["ma", "arma", "arch", "poly", "exp_smoothing", "holt_winters", "fft", "sw_seasonal"]
 calc_methods = ["ma", "arma", "arch", "poly", "exp_smoothing", "holt_winters", "fft", "sw_seasonal"]
 
 name = 'eg01-eg29-flatpower-d3ploy'
