@@ -49,8 +49,8 @@ def plot_several(name, all_dict, commod, calc_methods, demand_eq):
     ax.legend(handles, labels, fontsize=18, loc='upper center',
               bbox_to_anchor=(1.1, 1.0), fancybox=True)
 
-    #plt.minorticks_off()
-    #ax.set_yticks(np.arange(5.8e4, 6.5e4, 2.e3))
+    # plt.minorticks_off()
+    # ax.set_yticks(np.arange(5.8e4, 6.5e4, 2.e3))
     plt.savefig(name, dpi=300, bbox_inches='tight')
     plt.close()
 
@@ -82,7 +82,7 @@ name = 'eg01-eg29-flatpower-d3ploy' + buffer_size
 
 for calc_method in calc_methods:
     output_file = name + '-' + calc_method + '.sqlite'
-    
+
     all_dict['power'] = tester.supply_demand_dict_driving(output_file,
                                                           demand_eq,
                                                           'power')
