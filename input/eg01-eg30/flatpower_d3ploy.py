@@ -27,12 +27,14 @@ ENV = dict(os.environ)
 ENV['PYTHONPATH'] = ".:" + ENV.get('PYTHONPATH', '')
 
 calc_methods = ["ma", "arma", "arch", "poly", "exp_smoothing", "holt_winters",
-                "fft", "sw_seasonal"]
+                "fft"]
+
+                #"fft", "sw_seasonal"]
 
 name = 'eg01-eg30-flatpower-d3ploy'
 
 demand_eq = "60000"
-buff_size = "0"
+buff_size = sys.argv[1]
 
 thro_frmixer = 50e3
 buffer_frTR = thro_frmixer / (1.0 + 0.8854 / 0.1146)
