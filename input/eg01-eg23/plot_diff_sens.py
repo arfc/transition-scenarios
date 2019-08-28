@@ -1,7 +1,9 @@
 """
 This script creates a .png file that compares the cumulative undersupply
-for different calculation methods and different buffer sizes.
-It can also plot for differnet no. of forward/back steps.
+for different buffer sizes, steps, and back steps.
+
+In order to run this script it is necessary to have run previously
+the script 'flatpower_d3ploy.py'.
 """
 
 import json
