@@ -27,11 +27,13 @@ direc = os.listdir('./')
 ENV = dict(os.environ)
 ENV['PYTHONPATH'] = ".:" + ENV.get('PYTHONPATH', '')
 
-calc_methods = ["ma", "arma", "arch", "poly", "exp_smoothing", "holt_winters",
-                "fft", "sw_seasonal"]
+#calc_methods = ["ma", "arma", "arch", "poly", "exp_smoothing", "holt_winters",
+#                "fft", "sw_seasonal"]
+
+calc_methods = ["sw_seasonal"]
 
 demand_eq = "60000"
-buff_size = "2000"
+buff_size = sys.argv[1]
 
 control = """
 <control>
@@ -98,7 +100,7 @@ control = """
         <Source>
             <outcommod>sourceout</outcommod>
             <outrecipe>sourceoutrecipe</outrecipe>
-            <throughput>1e9</throughput>
+            <throughput>1e7</throughput>
         </Source>
     </config>
 </facility>
@@ -112,9 +114,9 @@ control = """
             <product_commod>enrichmentout</product_commod>
             <tails_assay>0.0025</tails_assay>
             <tails_commod>enrichmentwaste</tails_commod>
-            <swu_capacity>1e100</swu_capacity>
-            <initial_feed>5e7</initial_feed>
-            <max_feed_inventory>1e8</max_feed_inventory>
+            <swu_capacity>1e10</swu_capacity>
+            <initial_feed>1e6</initial_feed>
+            <max_feed_inventory>1e7</max_feed_inventory>
         </Enrichment>
     </config>
 </facility>
@@ -146,8 +148,251 @@ control = """
 </facility>
 
 <facility>
-    <name>lwr2</name>
+    <name>lwr1</name>
     <lifetime>960</lifetime>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>lwrinrecipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>lwroutrecipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>enrichmentout</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>lwrout</val>
+            </fuel_outcommods>
+            <cycle_time>18</cycle_time>
+            <refuel_time>0</refuel_time>
+            <assem_size>29863.3</assem_size>
+            <n_assem_core>3</n_assem_core>
+            <n_assem_batch>1</n_assem_batch>
+            <power_cap>1000</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <name>lwr2</name>
+    <lifetime>980</lifetime>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>lwrinrecipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>lwroutrecipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>enrichmentout</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>lwrout</val>
+            </fuel_outcommods>
+            <cycle_time>18</cycle_time>
+            <refuel_time>0</refuel_time>
+            <assem_size>29863.3</assem_size>
+            <n_assem_core>3</n_assem_core>
+            <n_assem_batch>1</n_assem_batch>
+            <power_cap>1000</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <name>lwr3</name>
+    <lifetime>1000</lifetime>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>lwrinrecipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>lwroutrecipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>enrichmentout</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>lwrout</val>
+            </fuel_outcommods>
+            <cycle_time>18</cycle_time>
+            <refuel_time>0</refuel_time>
+            <assem_size>29863.3</assem_size>
+            <n_assem_core>3</n_assem_core>
+            <n_assem_batch>1</n_assem_batch>
+            <power_cap>1000</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <name>lwr4</name>
+    <lifetime>1020</lifetime>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>lwrinrecipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>lwroutrecipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>enrichmentout</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>lwrout</val>
+            </fuel_outcommods>
+            <cycle_time>18</cycle_time>
+            <refuel_time>0</refuel_time>
+            <assem_size>29863.3</assem_size>
+            <n_assem_core>3</n_assem_core>
+            <n_assem_batch>1</n_assem_batch>
+            <power_cap>1000</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <name>lwr5</name>
+    <lifetime>1040</lifetime>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>lwrinrecipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>lwroutrecipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>enrichmentout</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>lwrout</val>
+            </fuel_outcommods>
+            <cycle_time>18</cycle_time>
+            <refuel_time>0</refuel_time>
+            <assem_size>29863.3</assem_size>
+            <n_assem_core>3</n_assem_core>
+            <n_assem_batch>1</n_assem_batch>
+            <power_cap>1000</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <name>lwr6</name>
+    <lifetime>1060</lifetime>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>lwrinrecipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>lwroutrecipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>enrichmentout</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>lwrout</val>
+            </fuel_outcommods>
+            <cycle_time>18</cycle_time>
+            <refuel_time>0</refuel_time>
+            <assem_size>29863.3</assem_size>
+            <n_assem_core>3</n_assem_core>
+            <n_assem_batch>1</n_assem_batch>
+            <power_cap>1000</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <name>lwr7</name>
+    <lifetime>1080</lifetime>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>lwrinrecipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>lwroutrecipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>enrichmentout</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>lwrout</val>
+            </fuel_outcommods>
+            <cycle_time>18</cycle_time>
+            <refuel_time>0</refuel_time>
+            <assem_size>29863.3</assem_size>
+            <n_assem_core>3</n_assem_core>
+            <n_assem_batch>1</n_assem_batch>
+            <power_cap>1000</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <name>lwr8</name>
+    <lifetime>1100</lifetime>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>lwrinrecipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>lwroutrecipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>enrichmentout</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>lwrout</val>
+            </fuel_outcommods>
+            <cycle_time>18</cycle_time>
+            <refuel_time>0</refuel_time>
+            <assem_size>29863.3</assem_size>
+            <n_assem_core>3</n_assem_core>
+            <n_assem_batch>1</n_assem_batch>
+            <power_cap>1000</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <name>lwr9</name>
+    <lifetime>1120</lifetime>
+    <config>
+        <Reactor>
+            <fuel_inrecipes>
+                <val>lwrinrecipe</val>
+            </fuel_inrecipes>
+            <fuel_outrecipes>
+                <val>lwroutrecipe</val>
+            </fuel_outrecipes>
+            <fuel_incommods>
+                <val>enrichmentout</val>
+            </fuel_incommods>
+            <fuel_outcommods>
+                <val>lwrout</val>
+            </fuel_outcommods>
+            <cycle_time>18</cycle_time>
+            <refuel_time>0</refuel_time>
+            <assem_size>29863.3</assem_size>
+            <n_assem_core>3</n_assem_core>
+            <n_assem_batch>1</n_assem_batch>
+            <power_cap>1000</power_cap>
+        </Reactor>
+    </config>
+</facility>
+
+<facility>
+    <name>lwr10</name>
+    <lifetime>1140</lifetime>
     <config>
         <Reactor>
             <fuel_inrecipes>
@@ -226,7 +471,7 @@ control = """
             <out_commods>
                 <val>frstorageout</val>
             </out_commods>
-            <max_inv_size>1e7</max_inv_size>
+            <max_inv_size>1e6</max_inv_size>
         </Storage>
     </config>
 </facility>
@@ -238,8 +483,8 @@ control = """
             <feed_commods>
                 <val>lwrstorageout</val>
             </feed_commods>
-            <feedbuf_size>1e8</feedbuf_size>
-            <throughput>1e8</throughput>
+            <feedbuf_size>1e6</feedbuf_size>
+            <throughput>1e6</throughput>
             <leftover_commod>lwrreprocessingwaste</leftover_commod>
             <leftoverbuf_size>1e8</leftoverbuf_size>
             <streams>
@@ -291,8 +536,8 @@ control = """
             <feed_commods>
                 <val>frstorageout</val>
             </feed_commods>
-            <feedbuf_size>1e8</feedbuf_size>
-            <throughput>1e8</throughput>
+            <feedbuf_size>1e6</feedbuf_size>
+            <throughput>1e6</throughput>
             <leftover_commod>frreprocessingwaste</leftover_commod>
             <leftoverbuf_size>1e8</leftoverbuf_size>
             <streams>
@@ -442,7 +687,7 @@ control = """
             <in_commods>
                 <val>lwrreprocessingwaste</val>
             </in_commods>
-            <max_inv_size>1e20</max_inv_size>
+            <max_inv_size>1e6</max_inv_size>
         </Sink>
     </config>
 </facility>
@@ -454,7 +699,7 @@ control = """
             <in_commods>
                 <val>frreprocessingwaste</val>
             </in_commods>
-            <max_inv_size>1e20</max_inv_size>
+            <max_inv_size>1e6</max_inv_size>
         </Sink>
     </config>
 </facility>
@@ -648,106 +893,12 @@ for calc_method in calc_methods:
         </config>
 
         <institution>
-            <name>lwr_inst</name>
-            <config>
-            <DeployInst>
-            <prototypes>
-                <val>lwr</val>
-                <val>lwr</val>
-                <val>lwr</val>
-                <val>lwr</val>
-                <val>lwr</val>
-                <val>lwr</val>
-                <val>lwr</val>
-                <val>lwr</val>
-                <val>lwr</val>
-                <val>lwr</val>
-                <val>lwr</val>
-                <val>lwr</val>
-                <val>lwr</val>
-                <val>lwr</val>
-                <val>lwr</val>
-                <val>lwr</val>
-                <val>lwr</val>
-                <val>lwr</val>
-                <val>lwr</val>
-                <val>lwr</val>
-            </prototypes>
-            <build_times>
-                <val>1</val>
-                <val>1</val>
-                <val>1</val>
-                <val>1</val>
-                <val>1</val>
-                <val>1</val>
-                <val>1</val>
-                <val>1</val>
-                <val>1</val>
-                <val>1</val>
-                <val>1</val>
-                <val>1</val>
-                <val>1</val>
-                <val>1</val>
-                <val>1</val>
-                <val>1</val>
-                <val>1</val>
-                <val>1</val>
-                <val>1</val>
-                <val>1</val>
-            </build_times>
-            <n_build>
-                <val>3</val>
-                <val>3</val>
-                <val>3</val>
-                <val>3</val>
-                <val>3</val>
-                <val>3</val>
-                <val>3</val>
-                <val>3</val>
-                <val>3</val>
-                <val>3</val>
-                <val>3</val>
-                <val>3</val>
-                <val>3</val>
-                <val>3</val>
-                <val>3</val>
-                <val>3</val>
-                <val>3</val>
-                <val>3</val>
-                <val>3</val>
-                <val>3</val>
-            </n_build>
-            <lifetimes>
-                <val>960</val>
-                <val>970</val>
-                <val>980</val>
-                <val>990</val>
-                <val>1000</val>
-                <val>1010</val>
-                <val>1020</val>
-                <val>1030</val>
-                <val>1040</val>
-                <val>1050</val>
-                <val>1060</val>
-                <val>1070</val>
-                <val>1080</val>
-                <val>1090</val>
-                <val>1100</val>
-                <val>1110</val>
-                <val>1120</val>
-                <val>1130</val>
-                <val>1140</val>
-                <val>1150</val>
-            </lifetimes>
-            </DeployInst>
-            </config>
-        </institution>
-
-        <institution>
         <config>
         <DemandDrivenDeploymentInst>
             <calc_method>%s</calc_method>
             <demand_eq>%s</demand_eq>
+            <installed_cap>1</installed_cap>
+            <back_steps>2</back_steps>
             <facility_commod>
             <item>
               <facility>source</facility>
@@ -761,25 +912,145 @@ for calc_method in calc_methods:
               <facility>fr</facility>
               <commod>POWER</commod>
             </item>
+            <item>
+              <facility>lwr1</facility>
+              <commod>POWER</commod>
+            </item>
+            <item>
+              <facility>lwr2</facility>
+              <commod>POWER</commod>
+            </item>
+            <item>
+              <facility>lwr3</facility>
+              <commod>POWER</commod>
+            </item>
+            <item>
+              <facility>lwr4</facility>
+              <commod>POWER</commod>
+            </item>
+            <item>
+              <facility>lwr5</facility>
+              <commod>POWER</commod>
+            </item>
+            <item>
+              <facility>lwr6</facility>
+              <commod>POWER</commod>
+            </item>
+            <item>
+              <facility>lwr7</facility>
+              <commod>POWER</commod>
+            </item>
+            <item>
+              <facility>lwr8</facility>
+              <commod>POWER</commod>
+            </item>
+            <item>
+              <facility>lwr9</facility>
+              <commod>POWER</commod>
+            </item>
+            <item>
+              <facility>lwr10</facility>
+              <commod>POWER</commod>
+            </item>
             </facility_commod>
             <facility_capacity>
             <item>
               <facility>source</facility>
-              <capacity>1e9</capacity>
+              <capacity>1e7</capacity>
             </item>
             <item>
               <facility>enrichment</facility>
-              <capacity>1e100</capacity>
+              <capacity>1e7</capacity>
             </item>
             <item>
               <facility>fr</facility>
               <capacity>333.34</capacity>
             </item>
+            <item>
+              <facility>lwr1</facility>
+              <capacity>1000</capacity>
+            </item>
+            <item>
+              <facility>lwr2</facility>
+              <capacity>1000</capacity>
+            </item>
+            <item>
+              <facility>lwr3</facility>
+              <capacity>1000</capacity>
+            </item>
+            <item>
+              <facility>lwr4</facility>
+              <capacity>1000</capacity>
+            </item>
+            <item>
+              <facility>lwr5</facility>
+              <capacity>1000</capacity>
+            </item>
+            <item>
+              <facility>lwr6</facility>
+              <capacity>1000</capacity>
+            </item>
+            <item>
+              <facility>lwr7</facility>
+              <capacity>1000</capacity>
+            </item>
+            <item>
+              <facility>lwr8</facility>
+              <capacity>1000</capacity>
+            </item>
+            <item>
+              <facility>lwr9</facility>
+              <capacity>1000</capacity>
+            </item>
+            <item>
+              <facility>lwr10</facility>
+              <capacity>1000</capacity>
+            </item>
             </facility_capacity>
             <facility_pref>
             <item>
               <facility>fr</facility>
-              <pref>t-959</pref>
+              <pref>(t-959)/np.abs(t-959)</pref>
+            </item>
+            <item>
+              <facility>lwr1</facility>
+              <pref>-1</pref>
+            </item>
+            <item>
+              <facility>lwr2</facility>
+              <pref>-1</pref>
+            </item>
+            <item>
+              <facility>lwr3</facility>
+              <pref>-1</pref>
+            </item>
+            <item>
+              <facility>lwr4</facility>
+              <pref>-1</pref>
+            </item>
+            <item>
+              <facility>lwr5</facility>
+              <pref>-1</pref>
+            </item>
+            <item>
+              <facility>lwr6</facility>
+              <pref>-1</pref>
+            </item>
+            <item>
+              <facility>lwr7</facility>
+              <pref>-1</pref>
+            </item>
+            <item>
+              <facility>lwr8</facility>
+              <pref>-1</pref>
+            </item>
+            <item>
+              <facility>lwr9</facility>
+              <pref>-1</pref>
+            </item>
+            <item>
+              <facility>lwr10</facility>
+              <pref>-1</pref>
             </item>
             </facility_pref>
             <buffer_type>
@@ -797,12 +1068,55 @@ for calc_method in calc_methods:
         </DemandDrivenDeploymentInst>
         </config>
         <name>timeseriesinst</name>
+        <initialfacilitylist>
+        <entry>
+          <number>6</number>
+          <prototype>lwr1</prototype>
+        </entry>
+        <entry>
+          <number>6</number>
+          <prototype>lwr2</prototype>
+        </entry>
+        <entry>
+          <number>6</number>
+          <prototype>lwr3</prototype>
+        </entry>
+        <entry>
+          <number>6</number>
+          <prototype>lwr4</prototype>
+        </entry>
+        <entry>
+          <number>6</number>
+          <prototype>lwr5</prototype>
+        </entry>
+        <entry>
+          <number>6</number>
+          <prototype>lwr6</prototype>
+        </entry>
+        <entry>
+          <number>6</number>
+          <prototype>lwr7</prototype>
+        </entry>
+        <entry>
+          <number>6</number>
+          <prototype>lwr8</prototype>
+        </entry>
+        <entry>
+          <number>6</number>
+          <prototype>lwr9</prototype>
+        </entry>
+        <entry>
+          <number>6</number>
+          <prototype>lwr10</prototype>
+        </entry>
+        </initialfacilitylist>
         </institution>
 
         <institution>
         <config>
         <SupplyDrivenDeploymentInst>
             <calc_method>%s</calc_method>
+            <back_steps>2</back_steps>
             <facility_commod>
             <item>
                 <facility>lwrreprocessing</facility>
@@ -840,11 +1154,11 @@ for calc_method in calc_methods:
             <facility_capacity>
             <item>
                 <facility>lwrreprocessing</facility>
-                <capacity>1e8</capacity>
+                <capacity>1e6</capacity>
             </item>
             <item>
                 <facility>frreprocessing</facility>
-                <capacity>1e8</capacity>
+                <capacity>1e6</capacity>
             </item>
             <item>
                 <facility>lwrmixer</facility>
@@ -860,15 +1174,15 @@ for calc_method in calc_methods:
             </item>
             <item>
                 <facility>frstorage</facility>
-                <capacity>1e7</capacity>
+                <capacity>1e6</capacity>
             </item>
             <item>
                 <facility>lwrsink</facility>
-                <capacity>1e10</capacity>
+                <capacity>1e6</capacity>
             </item>
             <item>
                 <facility>frsink</facility>
-                <capacity>1e10</capacity>
+                <capacity>1e6</capacity>
             </item>
             </facility_capacity>
         </SupplyDrivenDeploymentInst>

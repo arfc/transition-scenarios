@@ -2,8 +2,9 @@
 Running this script generates .xml files and runs them producing the .sqlite
 files for all the prediction methods.
 
-The user can choose a demand equation (demand_eq) and a buffer size
-(buff_size). The buffer plays its role one time step before the transition
+The user can choose a demand equation (demand_eq), a buffer size
+(buff_size), and the number of time steps forward (steps).
+The buffer plays its role one time step before the transition
 starts. The transition starts at after 960 time steps (80 years).
 """
 
@@ -27,13 +28,13 @@ direc = os.listdir('./')
 ENV = dict(os.environ)
 ENV['PYTHONPATH'] = ".:" + ENV.get('PYTHONPATH', '')
 
-calc_methods = ["ma"]
-
-#calc_methods = ["ma", "arma", "arch", "poly", "exp_smoothing", "holt_winters",
-#                "fft", "sw_seasonal"]
+calc_methods = ["ma", "arma", "arch", "poly", "exp_smoothing", "holt_winters",
+                "fft", "sw_seasonal"]
 
 demand_eq = "60000"
 buff_size = "0"
+steps = "1" # This is the default value
+# steps = sys.argv[1]
 
 control = """
 <control>
@@ -100,7 +101,7 @@ control = """
         <Source>
             <outcommod>sourceout</outcommod>
             <outrecipe>sourceoutrecipe</outrecipe>
-            <throughput>1e9</throughput>
+            <throughput>1e7</throughput>
         </Source>
     </config>
 </facility>
@@ -114,9 +115,9 @@ control = """
             <product_commod>enrichmentout</product_commod>
             <tails_assay>0.0025</tails_assay>
             <tails_commod>enrichmentwaste</tails_commod>
-            <swu_capacity>1e100</swu_capacity>
-            <initial_feed>5e7</initial_feed>
-            <max_feed_inventory>1e8</max_feed_inventory>
+            <swu_capacity>1e10</swu_capacity>
+            <initial_feed>1e6</initial_feed>
+            <max_feed_inventory>1e7</max_feed_inventory>
         </Enrichment>
     </config>
 </facility>
@@ -471,7 +472,7 @@ control = """
             <out_commods>
                 <val>frstorageout</val>
             </out_commods>
-            <max_inv_size>1e7</max_inv_size>
+            <max_inv_size>1e6</max_inv_size>
         </Storage>
     </config>
 </facility>
@@ -483,8 +484,8 @@ control = """
             <feed_commods>
                 <val>lwrstorageout</val>
             </feed_commods>
-            <feedbuf_size>1e8</feedbuf_size>
-            <throughput>1e8</throughput>
+            <feedbuf_size>1e6</feedbuf_size>
+            <throughput>1e6</throughput>
             <leftover_commod>lwrreprocessingwaste</leftover_commod>
             <leftoverbuf_size>1e8</leftoverbuf_size>
             <streams>
@@ -524,8 +525,8 @@ control = """
             <feed_commods>
                 <val>frstorageout</val>
             </feed_commods>
-            <feedbuf_size>1e8</feedbuf_size>
-            <throughput>1e8</throughput>
+            <feedbuf_size>1e6</feedbuf_size>
+            <throughput>1e6</throughput>
             <leftover_commod>frreprocessingwaste</leftover_commod>
             <leftoverbuf_size>1e8</leftoverbuf_size>
             <streams>
@@ -663,7 +664,7 @@ control = """
             <in_commods>
                 <val>lwrreprocessingwaste</val>
             </in_commods>
-            <max_inv_size>1e10</max_inv_size>
+            <max_inv_size>1e6</max_inv_size>
         </Sink>
     </config>
 </facility>
@@ -675,7 +676,7 @@ control = """
             <in_commods>
                 <val>frreprocessingwaste</val>
             </in_commods>
-            <max_inv_size>1e10</max_inv_size>
+            <max_inv_size>1e6</max_inv_size>
         </Sink>
     </config>
 </facility>
@@ -887,7 +888,9 @@ for calc_method in calc_methods:
         <DemandDrivenDeploymentInst>
             <calc_method>%s</calc_method>
             <demand_eq>%s</demand_eq>
-            <installed_cap>1</installed_cap>            
+            <installed_cap>1</installed_cap>
+            <back_steps>2</back_steps>
+            <steps>%s</steps>
             <facility_commod>
             <item>
               <facility>source</facility>
@@ -945,11 +948,11 @@ for calc_method in calc_methods:
             <facility_capacity>
             <item>
               <facility>source</facility>
-              <capacity>1e9</capacity>
+              <capacity>1e7</capacity>
             </item>
             <item>
               <facility>enrichment</facility>
-              <capacity>1e100</capacity>
+              <capacity>1e7</capacity>
             </item>
             <item>
               <facility>fr</facility>
@@ -1105,7 +1108,8 @@ for calc_method in calc_methods:
         <config>
         <SupplyDrivenDeploymentInst>
             <calc_method>%s</calc_method>
-            <installed_cap>1</installed_cap>
+            <back_steps>2</back_steps>
+            <steps>%s</steps>
             <facility_commod>
             <item>
                 <facility>lwrreprocessing</facility>
@@ -1143,11 +1147,11 @@ for calc_method in calc_methods:
             <facility_capacity>
             <item>
                 <facility>lwrreprocessing</facility>
-                <capacity>1e8</capacity>
+                <capacity>1e6</capacity>
             </item>
             <item>
                 <facility>frreprocessing</facility>
-                <capacity>1e8</capacity>
+                <capacity>1e6</capacity>
             </item>
             <item>
                 <facility>lwrmixer</facility>
@@ -1163,15 +1167,15 @@ for calc_method in calc_methods:
             </item>
             <item>
                 <facility>frstorage</facility>
-                <capacity>1e7</capacity>
+                <capacity>1e6</capacity>
             </item>
             <item>
                 <facility>lwrsink</facility>
-                <capacity>1e10</capacity>
+                <capacity>1e6</capacity>
             </item>
             <item>
                 <facility>frsink</facility>
-                <capacity>1e10</capacity>
+                <capacity>1e6</capacity>
             </item>
             </facility_capacity>
         </SupplyDrivenDeploymentInst>
@@ -1181,14 +1185,14 @@ for calc_method in calc_methods:
 
         <name>SingleRegion</name>
     </region>
-    """ % (calc_method, demand_eq, buff_size, calc_method)
+    """ % (calc_method, demand_eq, steps, buff_size, calc_method, steps)
 
 for calc_method in calc_methods:
 
-    input_file = 'eg01-eg23-flatpower-d3ploy-buffer' + buff_size + '-' \
-        + calc_method + '.xml'
-    output_file = 'eg01-eg23-flatpower-d3ploy-buffer' + buff_size + '-' \
-        + calc_method + '.sqlite'
+    input_file = 'eg01-eg23-flatpower-d3ploy-buffer' + buff_size + '-S' \
+        + steps + '-' + calc_method + '.xml'
+    output_file = 'eg01-eg23-flatpower-d3ploy-buffer' + buff_size + '-S' \
+        + steps + '-' + calc_method + '.sqlite'
 
     with open(input_file, 'w') as f:
         f.write('<simulation>\n')
