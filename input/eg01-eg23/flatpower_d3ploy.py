@@ -33,7 +33,7 @@ calc_methods = ["ma", "arma", "arch", "poly", "exp_smoothing", "holt_winters",
 
 demand_eq = "60000"
 buff_size = "0"
-steps = "1" # This is the default value
+steps = "1"  # This is the default value
 # steps = sys.argv[1]
 
 control = """

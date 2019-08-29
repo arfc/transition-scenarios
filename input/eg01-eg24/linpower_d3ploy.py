@@ -27,10 +27,8 @@ direc = os.listdir('./')
 ENV = dict(os.environ)
 ENV['PYTHONPATH'] = ".:" + ENV.get('PYTHONPATH', '')
 
-#calc_methods = ["ma", "arma", "arch", "poly", "exp_smoothing", "holt_winters",
-#                "fft"]
-
-calc_methods = ['sw_seasonal']
+calc_methods = ["ma", "arma", "arch", "poly", "exp_smoothing", "holt_winters",
+                "fft", "sw_seasonal"]
 
 demand_eq = "60000 + 250*t/12"
 # 1000 MW every 4 years.

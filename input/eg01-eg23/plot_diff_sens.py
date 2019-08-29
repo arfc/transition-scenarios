@@ -23,6 +23,7 @@ import d3ploy.tester as tester
 import d3ploy.plotter as plotter
 import collections
 
+
 def plot_several(name, all_dict, commod, calc_methods, demand_eq, analysis):
     dict_demand = {}
     dict_supply = {}
@@ -34,7 +35,7 @@ def plot_several(name, all_dict, commod, calc_methods, demand_eq, analysis):
     fig, ax = plt.subplots(figsize=(15, 7))
 
     ax.plot(*zip(*sorted(dict_demand[calc_method].items())), '-',
-                color='red', label='Demand')
+            color='red', label='Demand')
 
     for calc_method in calc_methods:
         if analysis == 'buffer':
@@ -117,7 +118,7 @@ for calc_method in calc_methods:
     timesteps_under[calc_method] = {}
 
     for add in add_list:
-        output_file = name + add + '-' + calc_method + '.sqlite'       
+        output_file = name + add + '-' + calc_method + '.sqlite'
         all_dict['power'] = tester.supply_demand_dict_driving(output_file,
                                                               demand_eq,
                                                               'power')
@@ -148,7 +149,7 @@ for calc_method in calc_methods:
     timesteps_under[calc_method] = {}
 
     for add in add_list:
-        
+
         output_file = name + buff + '-S' + add + '-' + calc_method + '.sqlite'
         all_dict['power'] = tester.supply_demand_dict_driving(output_file,
                                                               demand_eq,
@@ -160,7 +161,7 @@ for calc_method in calc_methods:
             metric_dict['power_cumulative_undersupply'][calc_method]
         timesteps_under[calc_method][add] = \
             metric_dict['power_undersupply'][calc_method]
-    
+
     # Produces one plot for each calculation method, for several
     # steps forward.
     plot_several('23-power-buffer' + buff + '-' + calc_method + '-steps',
@@ -181,7 +182,7 @@ for calc_method in calc_methods:
     timesteps_under[calc_method] = {}
 
     for add in add_list:
-        
+
         output_file = name + buff + '-B' + add + '-' + calc_method + '.sqlite'
 
         all_dict['power'] = tester.supply_demand_dict_driving(output_file,
@@ -195,8 +196,9 @@ for calc_method in calc_methods:
             metric_dict['power_cumulative_undersupply'][calc_method]
         timesteps_under[calc_method][add] = \
             metric_dict['power_undersupply'][calc_method]
-
-    
+   
+    # Produces one plot for each calculation method, for several
+    # back steps.
     plot_several('23-power-buffer' + buff + '-' + calc_method + '-back',
                  dic_power, 'power', add_list, demand_eq, 'back')
 

@@ -28,7 +28,7 @@ ENV = dict(os.environ)
 ENV['PYTHONPATH'] = ".:" + ENV.get('PYTHONPATH', '')
 
 calc_methods = ["ma", "arma", "arch", "poly", "exp_smoothing", "holt_winters",
-               "fft", "sw_seasonal"]
+                "fft", "sw_seasonal"]
 
 demand_eq = "60000"
 buff_size = "0"
