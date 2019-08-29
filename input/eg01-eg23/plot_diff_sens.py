@@ -196,7 +196,7 @@ for calc_method in calc_methods:
             metric_dict['power_cumulative_undersupply'][calc_method]
         timesteps_under[calc_method][add] = \
             metric_dict['power_undersupply'][calc_method]
-   
+
     # Produces one plot for each calculation method, for several
     # back steps.
     plot_several('23-power-buffer' + buff + '-' + calc_method + '-back',
