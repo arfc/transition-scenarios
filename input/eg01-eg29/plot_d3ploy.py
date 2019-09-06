@@ -22,18 +22,13 @@ import collections
 
 direc = os.listdir('./')
 
-# Delete previously generated files
-# hit_list = glob.glob('*.png') + glob.glob('*.csv')
-# for file in hit_list:
-#     os.remove(file)
-
 ENV = dict(os.environ)
 ENV['PYTHONPATH'] = ".:" + ENV.get('PYTHONPATH', '')
 
 # initialize metric dict
 demand_eq = '60000'
 calc_method = 'poly'
-name = "eg01-eg23-flatpower-d3ploy-buffer0-poly"
+name = "eg01-eg29-flatpower-d3ploy-buffer0-poly"
 output_file = name + ".sqlite"
 
 # Initialize dicts
@@ -44,17 +39,25 @@ agent_entry_dict = {}
 # get agent deployment
 commod_dict = {'enrichmentout': ['enrichment'],
                'sourceout': ['source'],
-               'power': ['fr', 'lwr1', 'lwr2', 'lwr3', 'lwr4', 'lwr5',
-                         'lwr6', 'lwr7', 'lwr8', 'lwr9', 'lwr10'],
-               'lwrstorageout': ['lwrreprocessing'],
-               'frstorageout': ['frreprocessing'],
+               'power': ['lwr1', 'lwr2', 'lwr3', 'lwr4', 'lwr5', 'lwr6',
+                         'fr', 'moxlwr'],
                'lwrout': ['lwrstorage'],
                'frout': ['frstorage'],
-               'lwrpu': ['lwrmixer'],
-               'frpu': ['frmixer'],
-               'mixerout': ['fr'],
+               'moxout': ['moxstorage'],
+               'lwrstorageout': ['lwrreprocessing'],
+               'frstorageout': ['frreprocessing'],
+               'moxstorageout': ['moxreprocessing'],
+
+               'lwrpu': ['frmixer1', 'moxmixer1'],
+               'frpu': ['frmixer1', 'moxmixer1'],
+               'moxpu': [ 'moxmixer1'],
+
+               'frmixerout': ['fr'],
+               'moxmixerout': ['moxlwr'],
+
                'lwrreprocessingwaste': ['lwrsink'],
-               'frreprocessingwaste': ['frsink']}
+               'frreprocessingwaste': ['frsink'],
+               'moxreprocessingwaste': ['moxsink']}
 
 for commod, facility in commod_dict.items():
     agent_entry_dict[commod] = tester.get_agent_dict(output_file, facility)
@@ -66,11 +69,13 @@ plotter.plot_demand_supply_agent(all_dict['power'], agent_entry_dict['power'],
                                  'power', '0-' + calc_method + '-power',
                                  True, True, False, 1)
 
-front_commods = ['sourceout', 'enrichmentout']
-mid_commods = ['mixerout']
-back_commods = ['lwrstorageout', 'frstorageout', 'lwrout', 'frout',
-                'lwrreprocessingwaste', 'frreprocessingwaste', 'frpu',
-                'lwrpu']
+front_commods = ['sourceout', 'enrichmentout', 'frmixerout', 'moxmixerout']
+
+mid_commods = ['lwrpu', 'frpu', 'moxpu']
+
+back_commods = ['lwrstorageout', 'frstorageout', 'moxstorageout',
+                'lwrout', 'frout', 'moxout', 'lwrreprocessingwaste',
+                'frreprocessingwaste', 'moxreprocessingwaste']
 
 for commod in front_commods:
     all_dict[commod] = tester.supply_demand_dict_nondriving(output_file,
