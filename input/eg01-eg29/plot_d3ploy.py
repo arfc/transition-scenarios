@@ -50,7 +50,7 @@ commod_dict = {'enrichmentout': ['enrichment'],
 
                'lwrpu': ['frmixer1', 'moxmixer1'],
                'frpu': ['frmixer1', 'moxmixer1'],
-               'moxpu': [ 'moxmixer1'],
+               'moxpu': ['moxmixer1'],
 
                'frmixerout': ['fr'],
                'moxmixerout': ['moxlwr'],
