@@ -22,18 +22,13 @@ import collections
 
 direc = os.listdir('./')
 
-# Delete previously generated files
-# hit_list = glob.glob('*.png') + glob.glob('*.csv')
-# for file in hit_list:
-#    os.remove(file)
-
 ENV = dict(os.environ)
 ENV['PYTHONPATH'] = ".:" + ENV.get('PYTHONPATH', '')
 
 # initialize metric dict
 demand_eq = '60000'
 calc_method = 'ma'
-name = "eg01-eg29-flatpower-d3ployE-onemixer0-" + calc_method
+name = "eg01-eg30-flatpower-d3ploy-" + calc_method
 output_file = name + ".sqlite"
 
 # Initialize dicts
@@ -49,11 +44,11 @@ commod_dict = {'enrichmentout': ['enrichment'],
                'lwrstorageout': ['lwrreprocessing'],
                'frstorageout': ['frreprocessing'],
                'moxstorageout': ['moxreprocessing'],
-               'frmixerout': ['frmixer1'],
-               'moxmixerout': ['moxmixer1'],
-               'lwrpu': ['frmixer1', 'moxmixer1'],
-               'frpu': ['frmixer1', 'moxmixer1'],
-               'moxpu': ['moxmixer1']}
+               'frmixerout': ['frmixer'],
+               'moxmixerout': ['moxmixer'],
+               'lwrtru': ['frmixer', 'moxmixer'],
+               'frtru': ['frmixer', 'moxmixer'],
+               'moxtru': ['frmixer', 'moxmixer']}
 
 for commod, facility in commod_dict.items():
     agent_entry_dict[commod] = tester.get_agent_dict(output_file, facility)
@@ -65,7 +60,7 @@ plotter.plot_demand_supply_agent(all_dict['power'], agent_entry_dict['power'],
                                  True, True, False, 1)
 
 front_commods = ['sourceout', 'enrichmentout']
-mid_commods = ['lwrpu', 'frpu', 'moxpu']
+mid_commods = ['lwrtru', 'frtru', 'moxtru']
 back_commods = ['lwrstorageout', 'frstorageout', 'moxstorageout']
 
 for commod in front_commods:

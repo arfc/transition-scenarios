@@ -55,11 +55,6 @@ def plot_several(name, all_dict, commod, calc_methods, demand_eq):
 
 direc = os.listdir('./')
 
-# Delete previously generated files
-# hit_list = glob.glob('*.png') + glob.glob('*.csv')
-# for file in hit_list:
-#     os.remove(file)
-
 ENV = dict(os.environ)
 ENV['PYTHONPATH'] = ".:" + ENV.get('PYTHONPATH', '')
 
@@ -131,5 +126,5 @@ for calc_method in calc_methods3:
                                                               demand_eq,
                                                               'power')
 
-plot_several('29-power' + buffer_size + '3', all_dict, 'power', calc_methods3,
+plot_several('30-power' + buffer_size + '3', all_dict, 'power', calc_methods3,
              demand_eq)
