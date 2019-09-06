@@ -51,7 +51,7 @@ direc = os.listdir('./')
 ENV = dict(os.environ)
 ENV['PYTHONPATH'] = ".:" + ENV.get('PYTHONPATH', '')
 
-calc_methods = ['ma', 'arma', 'arch', 'poly', 'exp_smoothing', 
+calc_methods = ['ma', 'arma', 'arch', 'poly', 'exp_smoothing',
                 'holt_winters', 'fft']
 
 demand_eq = "60000"
