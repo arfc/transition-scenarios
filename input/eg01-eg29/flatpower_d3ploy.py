@@ -998,6 +998,7 @@ for calc_method in calc_methods:
         <demand_eq>%s</demand_eq>
         <steps>%s</steps>
         <back_steps>2</back_steps>
+
         <installed_cap>1</installed_cap>
         <facility_commod>
         <item>
