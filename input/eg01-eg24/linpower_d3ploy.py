@@ -30,9 +30,10 @@ ENV['PYTHONPATH'] = ".:" + ENV.get('PYTHONPATH', '')
 calc_methods = ["ma", "arma", "arch", "poly", "exp_smoothing", "holt_winters",
                 "fft", "sw_seasonal"]
 
-demand_eq = "60000"
+demand_eq = "60000 + 250*t/12"
+# 1000 MW every 4 years.
+
 buff_size = "0"
-# buff_size = sys.argv[1]
 
 control = """
 <control>
@@ -1013,7 +1014,7 @@ for calc_method in calc_methods:
             </item>
             <item>
               <facility>lwr1</facility>
-              <pref>-1</pref>
+              <pref>(959-t)/np.abs(t-959)</pref>
             </item>
             <item>
               <facility>lwr2</facility>
@@ -1195,9 +1196,9 @@ for calc_method in calc_methods:
 
 for calc_method in calc_methods:
 
-    input_file = 'eg01-eg24-flatpower-d3ploy-buffer' + buff_size + '-' \
+    input_file = 'eg01-eg24-linpower-d3ploy-buffer' + buff_size + '-' \
                 + calc_method + '.xml'
-    output_file = 'eg01-eg24-flatpower-d3ploy-buffer' + buff_size + '-' \
+    output_file = 'eg01-eg24-linpower-d3ploy-buffer' + buff_size + '-' \
         + calc_method + '.sqlite'
 
     with open(input_file, 'w') as f:

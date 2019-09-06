@@ -3,6 +3,7 @@ This script creates the .csv file and the .png files for power
 asociated to a scenario run with multiple calculations methods.
 
 It produces one .png for NO, one for DO, and one for SO.
+The user must define a demand equation.
 """
 
 import json
@@ -40,28 +41,21 @@ def plot_several(name, all_dict, commod, calc_methods, demand_eq):
         ax.semilogy(*zip(*sorted(dict_supply[calc_method].items())), 'x',
                     label=calc_method + ' Supply', markersize=4)
 
-    ax.set_xlabel('Time (month timestep)', fontsize=14)
+    ax.set_xlabel('Time (month timestep)', fontsize=21)
     if commod.lower() == 'power':
-        ax.set_ylabel('Power (MW)', fontsize=14)
+        ax.set_ylabel('Power (MW)', fontsize=21)
     else:
-        ax.set_ylabel('Mass (Kg)', fontsize=14)
+        ax.set_ylabel('Mass (Kg)', fontsize=21)
 
     handles, labels = ax.get_legend_handles_labels()
-    ax.legend(handles, labels, fontsize=11, loc='upper center',
+    ax.legend(handles, labels, fontsize=20, loc='upper center',
               bbox_to_anchor=(1.1, 1.0), fancybox=True)
 
-    plt.minorticks_off()
-    ax.set_yticks(np.arange(5.8e4, 6.5e4, 2.e3))
     plt.savefig(name, dpi=300, bbox_inches='tight')
     plt.close()
 
 
 direc = os.listdir('./')
-
-# Delete previously generated files
-# hit_list = glob.glob('*.png') + glob.glob('*.csv')
-# for file in hit_list:
-#     os.remove(file)
 
 ENV = dict(os.environ)
 ENV['PYTHONPATH'] = ".:" + ENV.get('PYTHONPATH', '')
@@ -69,7 +63,7 @@ ENV['PYTHONPATH'] = ".:" + ENV.get('PYTHONPATH', '')
 calc_methods = ["ma", "arma", "arch", "poly", "exp_smoothing", "holt_winters",
                 "fft", "sw_seasonal"]
 
-demand_eq = "60000"
+demand_eq = "60000+250*t/12"
 
 metric_dict = {}
 all_dict = {}
@@ -77,9 +71,8 @@ all_dict = {}
 front_commods = ['sourceout', 'enrichmentout']
 back_commods = ['lwrtru', 'frtru']
 
-add = '-buffer2000'
-# add = sys.argv[1]
-name = 'eg01-eg24-flatpower-d3ploy' + add
+add = '-buffer0'
+name = 'eg01-eg24-linpower-d3ploy' + add
 
 for calc_method in calc_methods:
     output_file = name + '-' + calc_method + '.sqlite'
@@ -124,7 +117,7 @@ for calc_method in calc_methods1:
                                                               demand_eq,
                                                               'power')
 
-plot_several('24-power' + add + '1', all_dict, 'power', calc_methods1,
+plot_several('lin-24-power' + add + '1', all_dict, 'power', calc_methods1,
              demand_eq)
 
 for calc_method in calc_methods2:
@@ -133,7 +126,7 @@ for calc_method in calc_methods2:
                                                               demand_eq,
                                                               'power')
 
-plot_several('24-power' + add + '2', all_dict, 'power', calc_methods2,
+plot_several('lin-24-power' + add + '2', all_dict, 'power', calc_methods2,
              demand_eq)
 
 for calc_method in calc_methods3:
@@ -142,5 +135,5 @@ for calc_method in calc_methods3:
                                                               demand_eq,
                                                               'power')
 
-plot_several('24-power' + add + '3', all_dict, 'power', calc_methods3,
+plot_several('lin-24-power' + add + '3', all_dict, 'power', calc_methods3,
              demand_eq)
