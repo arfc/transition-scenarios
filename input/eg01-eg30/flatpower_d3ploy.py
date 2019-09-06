@@ -1,8 +1,10 @@
 """
 Running this script generates .xml files and runs them producing the .sqlite
 files for all the prediction methods.
-The user can choose a demand equation (demand_eq) and a buffer size
-(buff_size). The buffer plays its role one time step before the transition
+
+The user can choose a demand equation (demand_eq), a buffer size
+(buff_size), and the number of time steps forward (steps).
+The buffer plays its role one time step before the transition
 starts. The transition starts at after 960 time steps (80 years).
 """
 

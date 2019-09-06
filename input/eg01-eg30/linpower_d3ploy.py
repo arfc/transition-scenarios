@@ -26,10 +26,8 @@ direc = os.listdir('./')
 ENV = dict(os.environ)
 ENV['PYTHONPATH'] = ".:" + ENV.get('PYTHONPATH', '')
 
-#calc_methods = ["ma", "arma", "arch", "poly", "exp_smoothing", "holt_winters",
-#                "fft"]
-
-calc_methods = ["sw_seasonal"]
+calc_methods = ["ma", "arma", "arch", "poly", "exp_smoothing", "holt_winters",
+                "fft", "sw_seasonal"]
 
 name = 'eg01-eg30-linpower-d3ploy-buffer'
 
