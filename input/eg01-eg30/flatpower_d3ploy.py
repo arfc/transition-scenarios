@@ -27,9 +27,7 @@ ENV = dict(os.environ)
 ENV['PYTHONPATH'] = ".:" + ENV.get('PYTHONPATH', '')
 
 calc_methods = ["ma", "arma", "arch", "poly", "exp_smoothing", "holt_winters",
-                "fft"]
-
-                #"fft", "sw_seasonal"]
+                "fft", "sw_seasonal"]
 
 name = 'eg01-eg30-flatpower-d3ploy'
 
