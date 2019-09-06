@@ -38,7 +38,7 @@ def plot_several(name, all_dict, commod, calc_methods, demand_eq):
 
     for calc_method in calc_methods:
         ax.plot(*zip(*sorted(dict_supply[calc_method].items())), 'x',
-                label=calc_method + ' Supply', markersize=3)
+                label=calc_method + ' Supply', markersize=5)
 
     ax.set_xlabel('Time (month timestep)', fontsize=21)
     if commod.lower() == 'power':
@@ -47,9 +47,13 @@ def plot_several(name, all_dict, commod, calc_methods, demand_eq):
         ax.set_ylabel('Mass (Kg)', fontsize=21)
 
     handles, labels = ax.get_legend_handles_labels()
-    ax.legend(handles, labels, fontsize=20, loc='upper center',
-              bbox_to_anchor=(1.1, 1.0), fancybox=True)
+    ax.legend(handles, labels, fontsize=20, loc='upper left',
+              bbox_to_anchor=(1.0, 1.0), fancybox=True)
 
+    plt.grid(color='gray', linestyle='--', linewidth=0.8)
+    plt.xlim(900, 1400)
+    plt.ylim(bottom=50000)
+    ax.tick_params(labelsize=15)
     plt.savefig(name, dpi=300, bbox_inches='tight')
     plt.close()
 
