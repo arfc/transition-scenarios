@@ -1008,6 +1008,7 @@ for calc_method in calc_methods:
         <installed_cap>1</installed_cap>
         <steps>1</steps>
         <back_steps>2</back_steps>
+
         <facility_commod>
         <item>
           <facility>source</facility>

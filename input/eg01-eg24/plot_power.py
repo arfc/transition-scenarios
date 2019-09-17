@@ -51,18 +51,11 @@ def plot_several(name, all_dict, commod, calc_methods, demand_eq):
     ax.legend(handles, labels, fontsize=20, loc='upper center',
               bbox_to_anchor=(1.1, 1.0), fancybox=True)
 
-    # plt.minorticks_off()
-    # ax.set_yticks(np.arange(5.8e4, 6.5e4, 2.e3))
     plt.savefig(name, dpi=300, bbox_inches='tight')
     plt.close()
 
 
 direc = os.listdir('./')
-
-# Delete previously generated files
-# hit_list = glob.glob('*.png') + glob.glob('*.csv')
-# for file in hit_list:
-#     os.remove(file)
 
 ENV = dict(os.environ)
 ENV['PYTHONPATH'] = ".:" + ENV.get('PYTHONPATH', '')
@@ -71,7 +64,6 @@ calc_methods = ["ma", "arma", "arch", "poly", "exp_smoothing", "holt_winters",
                 "fft", "sw_seasonal"]
 
 demand_eq = "60000+250*t/12"
-# demand_eq = "60000"
 
 metric_dict = {}
 all_dict = {}

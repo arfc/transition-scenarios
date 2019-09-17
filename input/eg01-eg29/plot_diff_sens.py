@@ -51,7 +51,8 @@ direc = os.listdir('./')
 ENV = dict(os.environ)
 ENV['PYTHONPATH'] = ".:" + ENV.get('PYTHONPATH', '')
 
-calc_methods = ['ma', 'arma', 'arch', 'poly', 'exp_smoothing', 'holt_winters', 'fft']
+calc_methods = ['ma', 'arma', 'arch', 'poly', 'exp_smoothing',
+                'holt_winters', 'fft']
 
 demand_eq = "60000"
 
@@ -72,7 +73,7 @@ for calc_method in calc_methods:
 
     for add in add_list:
         output_file = name + add + '-' + calc_method + '.sqlite'
-        
+
         all_dict['power'] = tester.supply_demand_dict_driving(output_file,
                                                               demand_eq,
                                                               'power')
@@ -97,7 +98,7 @@ for calc_method in calc_methods:
     timesteps_under[calc_method] = {}
 
     for add in add_list:
-        
+
         output_file = name + buff + '-S' + add + '-' + calc_method + '.sqlite'
 
         all_dict['power'] = tester.supply_demand_dict_driving(output_file,
