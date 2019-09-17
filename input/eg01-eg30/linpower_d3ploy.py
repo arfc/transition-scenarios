@@ -1,10 +1,8 @@
 """
 Running this script generates .xml files and runs them producing the .sqlite
 files for all the prediction methods.
-
-The user can choose a demand equation (demand_eq), a buffer size
-(buff_size), and the number of time steps forward (steps).
-The buffer plays its role one time step before the transition
+The user can choose a demand equation (demand_eq) and a buffer size
+(buff_size). The buffer plays its role one time step before the transition
 starts. The transition starts at after 960 time steps (80 years).
 """
 
@@ -31,9 +29,9 @@ ENV['PYTHONPATH'] = ".:" + ENV.get('PYTHONPATH', '')
 calc_methods = ["ma", "arma", "arch", "poly", "exp_smoothing", "holt_winters",
                 "fft", "sw_seasonal"]
 
-name = 'eg01-eg30-flatpower-d3ploy-buffer'
+name = 'eg01-eg30-linpower-d3ploy-buffer'
 
-demand_eq = "60000"
+demand_eq = "60000 + 250*t/12"
 buff_size = "0"
 
 thro_frmixer = 50e3
@@ -1008,7 +1006,6 @@ for calc_method in calc_methods:
         <installed_cap>1</installed_cap>
         <steps>1</steps>
         <back_steps>2</back_steps>
-
         <facility_commod>
         <item>
           <facility>source</facility>
@@ -1120,7 +1117,7 @@ for calc_method in calc_methods:
         </item>
         <item>
           <facility>lwr1</facility>
-          <pref>-1</pref>
+          <pref>(959-t)/np.abs(t-959)</pref>
         </item>
         <item>
           <facility>lwr2</facility>

@@ -1,8 +1,10 @@
 """
 Running this script generates .xml files and runs them producing the .sqlite
 files for all the prediction methods.
-The user can choose a demand equation (demand_eq) and a buffer size
-(buff_size). The buffer plays its role one time step before the transition
+
+The user can choose a demand equation (demand_eq), a buffer size
+(buff_size), and the number of time steps forward (steps).
+The buffer plays its role one time step before the transition
 starts. The transition starts at after 960 time steps (80 years).
 """
 
@@ -29,10 +31,9 @@ ENV['PYTHONPATH'] = ".:" + ENV.get('PYTHONPATH', '')
 calc_methods = ["ma", "arma", "arch", "poly", "exp_smoothing", "holt_winters",
                 "fft", "sw_seasonal"]
 
-name = 'eg01-eg29-flatpower-d3ploy'
-
 demand_eq = "60000"
-buff_size = sys.argv[1]
+buff_size = "0"
+steps = "1"  # This is the default value
 
 thro_frmixer1 = 50e3
 buffer_fr1P = thro_frmixer1 / (1.0 + 0.819 / 0.071 + 0.110 / 0.071)
@@ -995,6 +996,9 @@ for calc_method in calc_methods:
     <DemandDrivenDeploymentInst>
         <calc_method>%s</calc_method>
         <demand_eq>%s</demand_eq>
+        <steps>%s</steps>
+        <back_steps>2</back_steps>
+
         <installed_cap>1</installed_cap>
         <facility_commod>
         <item>
@@ -1187,6 +1191,8 @@ for calc_method in calc_methods:
     <config>
     <SupplyDrivenDeploymentInst>
         <calc_method>%s</calc_method>
+        <steps>%s</steps>
+        <back_steps>2</back_steps>
         <facility_commod>
         <item>
             <facility>lwrstorage</facility>
@@ -1269,13 +1275,16 @@ for calc_method in calc_methods:
     </institution>
 
     <name>SingleRegion</name>
-    </region>""" % (calc_method, demand_eq, thro_frmixer1, thro_moxmixer1,
-                    buff_size, calc_method)
+    </region>""" % (calc_method, demand_eq, steps, thro_frmixer1,
+                    thro_moxmixer1, buff_size, calc_method, steps)
+
+name = 'eg01-eg29-flatpower-d3ploy'
+name += '-buffer' + buff_size + '-S'
 
 for calc_method in calc_methods:
 
-    input_file = name + buff_size + '-' + calc_method + '.xml'
-    output_file = name + buff_size + '-' + calc_method + '.sqlite'
+    input_file = name + steps + '-' + calc_method + '.xml'
+    output_file = name + steps + '-' + calc_method + '.sqlite'
 
     with open(input_file, 'w') as f:
         f.write('<simulation>\n')
