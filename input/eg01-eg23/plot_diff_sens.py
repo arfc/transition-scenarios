@@ -40,13 +40,13 @@ def plot_several(name, all_dict, commod, calc_methods, demand_eq, analysis):
     for calc_method in calc_methods:
         if analysis == 'buffer':
             ax.plot(*zip(*sorted(dict_supply[calc_method].items())), 'x',
-                    label=calc_method + ' Buffer', markersize=3)
+                    label=calc_method + ' Buffer', markersize=4)
         elif analysis == 'steps':
             ax.plot(*zip(*sorted(dict_supply[calc_method].items())), 'x',
-                    label=calc_method + ' Steps', markersize=3)
+                    label=calc_method + ' Steps', markersize=4)
         elif analysis == 'back':
             ax.plot(*zip(*sorted(dict_supply[calc_method].items())), 'x',
-                    label=calc_method + ' Back steps', markersize=3)
+                    label=calc_method + ' Back steps', markersize=4)
 
     ax.set_xlabel('Time (month timestep)', fontsize=21)
     if commod.lower() == 'power':
@@ -55,9 +55,13 @@ def plot_several(name, all_dict, commod, calc_methods, demand_eq, analysis):
         ax.set_ylabel('Mass (Kg)', fontsize=21)
 
     handles, labels = ax.get_legend_handles_labels()
-    ax.legend(handles, labels, fontsize=20, loc='upper center',
-              bbox_to_anchor=(1.1, 1.0), fancybox=True)
+    ax.legend(handles, labels, fontsize=20, loc='upper left',
+              bbox_to_anchor=(1.0, 1.0), fancybox=True)
 
+    plt.grid(color='gray', linestyle='--', linewidth=0.8)
+    plt.xlim(900, 1400)
+    plt.ylim(bottom=48000)
+    ax.tick_params(labelsize=15)
     plt.savefig(name, dpi=300, bbox_inches='tight')
     plt.close()
 
@@ -68,7 +72,7 @@ def plot_buff(name, calc_methods, buff_sizes, data, analysis):
         # Plots markers instead of lines.
         # ax.plot(*zip(*sorted(data[calc_method].items())), 'x',
         #         label=calc_method, markersize=4)
-        ax.plot(*zip(*sorted(data[calc_method].items())),
+        ax.plot(*zip(*sorted(data[calc_method].items())), '*-',
                 label=calc_method)
     if analysis == 'buffer':
         ax.set_xlabel('Buffer Size [MW]', fontsize=21)
@@ -79,9 +83,10 @@ def plot_buff(name, calc_methods, buff_sizes, data, analysis):
     ax.set_ylabel('Cumulative Undersupply [GW.mo]', fontsize=21)
 
     handles, labels = ax.get_legend_handles_labels()
-    ax.legend(handles, labels, fontsize=20, loc='upper center',
-              bbox_to_anchor=(1.1, 1.0), fancybox=True)
+    ax.legend(handles, labels, fontsize=20, loc='upper left',
+              bbox_to_anchor=(1.0, 1.0), fancybox=True)
 
+    ax.tick_params(labelsize=15)
     plt.savefig(name, dpi=300, bbox_inches='tight')
     plt.close()
 
@@ -96,8 +101,7 @@ direc = os.listdir('./')
 ENV = dict(os.environ)
 ENV['PYTHONPATH'] = ".:" + ENV.get('PYTHONPATH', '')
 
-calc_methods = ['ma', 'arma', 'arch', 'poly', 'exp_smoothing',
-                'holt_winters', 'fft']
+calc_methods = ['ma', 'arma', 'poly', 'exp_smoothing', 'fft']
 
 demand_eq = "60000"
 
@@ -138,6 +142,9 @@ for calc_method in calc_methods:
 # calculation methods.
 plot_buff('23-sens-buffer', calc_methods, add_list, cumulative_under, 'buffer')
 
+
+calc_methods = [ 'poly']
+
 # choose one buffer size
 buff = '0'
 # add_list contains the number of steps
@@ -171,6 +178,7 @@ for calc_method in calc_methods:
 # calculation methods.
 plot_buff('23-sens-steps', calc_methods, add_list, cumulative_under, 'steps')
 
+"""
 # choose one buffer size
 buff = '0'
 # add_list contains the number of back steps
@@ -205,3 +213,4 @@ for calc_method in calc_methods:
 # Plots cumulative under supply for different back steps for several
 # calculation methods.
 plot_buff('23-sens-backs', calc_methods, add_list, cumulative_under, 'back')
+"""

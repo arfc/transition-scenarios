@@ -33,7 +33,7 @@ ENV['PYTHONPATH'] = ".:" + ENV.get('PYTHONPATH', '')
 # initialize metric dict
 demand_eq = '60000'
 calc_method = 'poly'
-name = "eg01-eg23-flatpower-d3ploy-buffer0-poly"
+name = "eg01-eg23-flatpower-d3ploy-buffer0-S5-poly"
 output_file = name + ".sqlite"
 
 # Initialize dicts
@@ -88,10 +88,10 @@ for commod in mid_commods:
     name = '0-' + calc_method + '-' + commod
     plotter.plot_demand_supply_nond3ploy(all_dict[commod],
                                          agent_entry_dict[commod], commod,
-                                         name, True, True, 1)
+                                         'FR Fuel', True, True, 1)
     metric_dict = tester.metrics(all_dict[commod], metric_dict, calc_method,
                                  commod, False)
-
+"""
 for commod in back_commods:
     all_dict[commod] = tester.supply_demand_dict_nondriving(output_file,
                                                             commod, False)
@@ -105,3 +105,4 @@ for commod in back_commods:
 
 df = pd.DataFrame(metric_dict)
 df.to_csv('0-' + calc_method + '.csv')
+"""

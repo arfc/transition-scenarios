@@ -27,13 +27,12 @@ direc = os.listdir('./')
 ENV = dict(os.environ)
 ENV['PYTHONPATH'] = ".:" + ENV.get('PYTHONPATH', '')
 
-calc_methods = ["ma", "arma", "arch", "poly", "exp_smoothing", "holt_winters",
-                "fft", "sw_seasonal"]
+calc_methods = ["fft"]
 
 demand_eq = "60000 + 250*t/12"
 # 1000 MW every 4 years.
 
-buff_size = "0"
+buff_size = sys.argv[1]
 
 control = """
 <control>
