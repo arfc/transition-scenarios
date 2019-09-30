@@ -277,10 +277,10 @@ def get_undersupply_timesteps(
                     True: demand-driven commodities
                     False: supply-driven commodities
     OUTPUT
-    dict_dots: timeseries dictionary with 1 and 0 depending if there is undersupply at
-               a specific time step.
-    diff_dict_drop: timeseries dictionary with absolute difference between supply
-                    and demand, if supply < demand.
+    dict_dots: timeseries dictionary with 1 and 0 depending if there is
+               undersupply at a specific time step.
+    diff_dict_drop: timeseries dictionary with absolute difference between
+                    supply and demand, if supply < demand.
     """
 
     if driving_commod:
@@ -319,10 +319,12 @@ def plot_all_undersupply(
         title='',
         name='hello'):
     """
-    This function generates a comparison of commodity undersupply for different prediction methods plot.
+    This function generates a comparison of commodity undersupply for different
+    prediction methods plot.
     INPUT
     commods: list of commods (list of str)
-    commodnames: list of commod names to show in the y axis of plot (list of str)
+    commodnames: list of commod names to show in the y axis of plot
+                 (list of str)
     methods: list of methods (list of str)
     general_sqlite: name of sqlite without method name added at end (str)
     demand_driven: Boolean.
@@ -354,7 +356,8 @@ def plot_all_undersupply(
         for x in range(len(commods)):
             if commods[x] == 'power':
                 dots, diff = get_undersupply_timesteps(
-                    output_file, commods[x], demand_eq=demand_eq, driving_commod=True)
+                    output_file, commods[x], demand_eq=demand_eq,
+                    driving_commod=True)
             elif demand_driven:
                 dots, diff = get_undersupply_timesteps(output_file, commods[x])
             else:
