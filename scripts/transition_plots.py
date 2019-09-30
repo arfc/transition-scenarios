@@ -68,37 +68,37 @@ def format_agent_dict(output_file, simple=True):
                     'moxreprocessing',
                     'frreprocessing',
                     'frsink',
-                   'moxsink']
+                    'moxsink']
     agent_dict = tester.get_agent_dict(output_file, in_agent)
     if simple:
         prototypes = ['source',
-                'enrichment',
-                'lwr',
-                'lwrstorage',
-                'lwrreprocessing',
-                'lwrmixer',
-                'lwrsink',
-                'fr',
-                'frstorage',
-                'frreprocessing',
-                'frsink']
+                     'enrichment',
+                     'lwr',
+                     'lwrstorage',
+                     'lwrreprocessing',
+                     'lwrmixer',
+                     'lwrsink',
+                     'fr',
+                     'frstorage',
+                     'frreprocessing',
+                     'frsink']
     else:
         prototypes = ['enrichment',
-                    'source',
-                    'lwrstorage',
-                    'lwrreprocessing',
-                    'lwrmixer',
-                    'lwrsink',
-                    'moxlwr',
-                    'moxmixer',
-                    'frmixer',
-                    'fr',
-                    'moxstorage',
-                    'frstorage',
-                    'moxreprocessing',
-                    'frreprocessing',
-                    'frsink',
-                     'moxsink']
+                      'source',
+                      'lwrstorage',
+                      'lwrreprocessing',
+                      'lwrmixer',
+                      'lwrsink',
+                      'moxlwr',
+                      'moxmixer',
+                      'frmixer',
+                      'fr',
+                      'moxstorage',
+                      'frstorage',
+                      'moxreprocessing',
+                      'frreprocessing',
+                      'frsink',
+                      'moxsink']
     agent_dict['lwr'] = {}
     for x in range(10):
         name = 'lwr' + str(x + 1)
@@ -112,7 +112,7 @@ def format_agent_dict(output_file, simple=True):
     for x in prototypes:
         if len(agent_dict[x]) < len(agent_dict[prototypes[0]]):
             for key in agent_dict[prototypes[0]]:
-                if agent_dict[x].get(key) == None:
+                if agent_dict[x].get(key) is None:
                     agent_dict[x][key] = 0
     return agent_dict
 
@@ -149,56 +149,56 @@ def plot_agents(all_agents, name, simple=True):
         ax.legend(['lwr', 'sfr', 'moxlwr'],
                   bbox_to_anchor=(1.15, 1), fontsize=14)
     ax.set_title(
-    'No. of Reactor Facilities in simulation at each time step',
-     fontsize=18)
+                 'No. of Reactor Facilities in simulation at each time step',
+                 fontsize=18)
     plt.savefig(name + '_reactor', dpi=300, bbox_inches='tight')
     plt.show()
     if simple:
         prototypes = ['enrichment',
-                    'source',
-                    'lwrstorage',
-                    'lwrreprocessing',
-                    'lwrmixer',
-                    'lwrsink',
-                    'frstorage',
-                    'frreprocessing',
-                    'frsink']
+                      'source',
+                      'lwrstorage',
+                      'lwrreprocessing',
+                      'lwrmixer',
+                      'lwrsink',
+                      'frstorage',
+                      'frreprocessing',
+                      'frsink']
         prototypes2 = ['lwr fuel fabrication plant',
-                    'natural uranium source',
-                    'lwr fuel cooling pool',
-                    'lwr fuel reprocessing plant',
-                    'fr fuel fabrication plant',
-                    'lwr reprocessing waste',
-                    'fr fuel cooling pool',
-                    'fr fuel reprocessing plant',
-                    'fr reprocessing waste']
+                       'natural uranium source',
+                       'lwr fuel cooling pool',
+                       'lwr fuel reprocessing plant',
+                       'fr fuel fabrication plant',
+                       'lwr reprocessing waste',
+                       'fr fuel cooling pool',
+                       'fr fuel reprocessing plant',
+                       'fr reprocessing waste']
     else:
         prototypes = ['enrichment',
                       'source',
-                    'lwrstorage',
-                    'lwrreprocessing',
+                      'lwrstorage',
+                      'lwrreprocessing',
                       'lwrsink',
                       'frmixer',
-                    'moxmixer',
+                      'moxmixer',
                       'frreprocessing',
-                    'moxreprocessing',
+                      'moxreprocessing',
                       'frstorage',
-                    'moxstorage',
-                    'frsink',
-                     'moxsink']
+                      'moxstorage',
+                      'frsink',
+                      'moxsink']
         prototypes2 = ['lwr fuel fabrication plant',
-                    'natural uranium source',
-                    'lwr fuel cooling pool',
-                    'lwr fuel reprocessing plant',
-                    'lwr reprocessing waste',
-                    'fr fuel fabrication plant',
+                       'natural uranium source',
+                       'lwr fuel cooling pool',
+                       'lwr fuel reprocessing plant',
+                       'lwr reprocessing waste',
+                       'fr fuel fabrication plant',
                        'mox fuel fabrication plant',
                        'fr fuel reprocessing plant',
                        'mox fuel reprocessing plant',
-                    'fr fuel cooling pool',
-                    'mox fuel cooling pool',
-                      'fr reprocessing waste',
-                      'mox reprocessing waste']
+                       'fr fuel cooling pool',
+                       'mox fuel cooling pool',
+                       'fr reprocessing waste',
+                       'mox reprocessing waste']
     fig, ax = plt.subplots(figsize=(15, 7))
     ax.grid(alpha=0.7)
     ax.set_xlim(0, 1450)
@@ -232,19 +232,22 @@ def plot_agents(all_agents, name, simple=True):
                      all_agents[prototypes[12]].values())
     ax.legend(prototypes2, bbox_to_anchor=(1.31, 1), fontsize=14)
     ax.set_title(
-    'No. of Supporting Facilities in simulation at each time step',
-     fontsize=18)
+                 'No. of Supporting Facilities in simulation at each time step',
+                 fontsize=18)
     plt.savefig(name + '_support', dpi=300, bbox_inches='tight')
     plt.show()
 
 
 def supplydemanddiff(all_dict):
     """
-    This function calculates the difference between supply and demand from all_dict.
+    This function calculates the difference between supply and 
+    demand from all_dict.
     INPUT
-    all_dict: dictionary with supply and demand timeseries data for a commodity. (dict)
+    all_dict: dictionary with supply and demand timeseries 
+              data for a commodity. (dict)
     OUTPUT
-    diff_dict: dictionary with timeseries data of the difference between supply and demand.
+    diff_dict: dictionary with timeseries data of the difference 
+               between supply and demand.
     """
 
     dict_demand = all_dict['dict_demand']
@@ -260,9 +263,10 @@ def get_undersupply_timesteps(
     commod,
     driving_commod=False,
     demand_eq='0',
-     demand_driving=True):
+    demand_driving=True):
      """
-    This function returns timeseries dictionaries for existence undersupply of a commodity and the
+    This function returns timeseries dictionaries for existence 
+    undersupply of a commodity and the
     absolute value of this undersupply.
     INPUT
     output_file: sqlite file (str)
@@ -275,8 +279,8 @@ def get_undersupply_timesteps(
     OUTPUT
     dict_dots: timeseries dictionary with 1 and 0 depending if there is undersupply at
                a specific time step.
-    diff_dict_drop: timeseries dictionary with absolute difference between supply and demand,
-                    if supply < demand.
+    diff_dict_drop: timeseries dictionary with absolute difference between supply 
+                    and demand, if supply < demand.
     """
 
     if driving_commod:
