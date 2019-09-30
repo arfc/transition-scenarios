@@ -149,8 +149,8 @@ def plot_agents(all_agents, name, simple=True):
         ax.legend(['lwr', 'sfr', 'moxlwr'],
                   bbox_to_anchor=(1.15, 1), fontsize=14)
     ax.set_title(
-                 'No. of Reactor Facilities in simulation at each time step',
-                 fontsize=18)
+        'No. of Reactor Facilities in simulation at each time step',
+        fontsize=18)
     plt.savefig(name + '_reactor', dpi=300, bbox_inches='tight')
     plt.show()
     if simple:
@@ -232,8 +232,8 @@ def plot_agents(all_agents, name, simple=True):
                      all_agents[prototypes[12]].values())
     ax.legend(prototypes2, bbox_to_anchor=(1.31, 1), fontsize=14)
     ax.set_title(
-                 'No. of Supporting Facilities in simulation at each timestep',
-                 fontsize=18)
+        'No. of Supporting Facilities in simulation at each timestep',
+        fontsize=18)
     plt.savefig(name + '_support', dpi=300, bbox_inches='tight')
     plt.show()
 
@@ -259,13 +259,13 @@ def supplydemanddiff(all_dict):
 
 
 def get_undersupply_timesteps(
-    output_file,
-    commod,
-    driving_commod=False,
-    demand_eq='0',
-    demand_driving=True):
+        output_file,
+        commod,
+        driving_commod=False,
+        demand_eq='0',
+        demand_driving=True):
     """
-    This function returns timeseries dictionaries for existence 
+    This function returns timeseries dictionaries for existence
     undersupply of a commodity and the
     absolute value of this undersupply.
     INPUT
@@ -279,104 +279,140 @@ def get_undersupply_timesteps(
     OUTPUT
     dict_dots: timeseries dictionary with 1 and 0 depending if there is undersupply at
                a specific time step.
-    diff_dict_drop: timeseries dictionary with absolute difference between supply 
+    diff_dict_drop: timeseries dictionary with absolute difference between supply
                     and demand, if supply < demand.
     """
 
     if driving_commod:
-        all_dict = tester.supply_demand_dict_driving(output_file, demand_eq, commod)
-    else: 
-        if demand_driving: 
-            all_dict = tester.supply_demand_dict_nondriving(output_file, commod, True, calc=False)
-        else: 
-            all_dict = tester.supply_demand_dict_nondriving(output_file, commod, False, calc=False)
+        all_dict = tester.supply_demand_dict_driving(
+            output_file, demand_eq, commod)
+    else:
+        if demand_driving:
+            all_dict = tester.supply_demand_dict_nondriving(
+                output_file, commod, True, calc=False)
+        else:
+            all_dict = tester.supply_demand_dict_nondriving(
+                output_file, commod, False, calc=False)
     diff_dict = supplydemanddiff(all_dict)
     dict_dots = {}
     diff_dict_drop = {}
-    for key in diff_dict: 
-        if demand_driving: 
-            if diff_dict[key] < 0: 
+    for key in diff_dict:
+        if demand_driving:
+            if diff_dict[key] < 0:
                 dict_dots[key] = 1
                 diff_dict_drop[key] = diff_dict[key]
-                
-        else: 
-            if diff_dict[key] > 0: 
+
+        else:
+            if diff_dict[key] > 0:
                 dict_dots[key] = 1
                 diff_dict_drop[key] = diff_dict[key]
     return dict_dots, diff_dict_drop
 
 
-def plot_all_undersupply(commods,commodnames,methods,general_sqlite,demand_driven=True,demand_eq='0',title='',name='hello'): 
+def plot_all_undersupply(
+        commods,
+        commodnames,
+        methods,
+        general_sqlite,
+        demand_driven=True,
+        demand_eq='0',
+        title='',
+        name='hello'):
     """
-    This function generates a comparison of commodity undersupply for different prediction methods plot. 
-    INPUT 
+    This function generates a comparison of commodity undersupply for different prediction methods plot.
+    INPUT
     commods: list of commods (list of str)
     commodnames: list of commod names to show in the y axis of plot (list of str)
     methods: list of methods (list of str)
     general_sqlite: name of sqlite without method name added at end (str)
-    demand_driven: Boolean. 
-                   True: demand-driven commodities 
-                   False: supply-driven commodities 
+    demand_driven: Boolean.
+                   True: demand-driven commodities
+                   False: supply-driven commodities
     demand_eq: power demand equation (str)
     title: title of plot (str)
     name: name of figure png (str)
-    OUTPUT 
-    Comparison of commodity undersupply for different prediction methods plot 
+    OUTPUT
+    Comparison of commodity undersupply for different prediction methods plot
     """
 
-    num = len(commods)*1.5
-    fig,(ax,ax1) = plt.subplots(1,2,sharey=True, facecolor='w',figsize=(15,num))
-    ax.set_xlim(0,100)
-    ax1.set_xlim(900,1450)
+    num = len(commods) * 1.5
+    fig, (ax, ax1) = plt.subplots(
+        1, 2, sharey=True, facecolor='w', figsize=(15, num))
+    ax.set_xlim(0, 100)
+    ax1.set_xlim(900, 1450)
     ax.spines['right'].set_visible(False)
     ax1.spines['left'].set_visible(False)
     ax.yaxis.tick_left()
     ax.tick_params(labelright='off')
     ax1.yaxis.tick_right()
-    
+
     NUM_COLORS = 10
     cm = plt.get_cmap("tab10")
     colors = [cm(1.0 * i / NUM_COLORS) for i in range(NUM_COLORS)]
     for y in range(len(methods)):
-        output_file = general_sqlite+methods[y]+'.sqlite'
-        for x in range(len(commods)): 
-            if commods[x] == 'power': 
-                dots, diff = get_undersupply_timesteps(output_file,commods[x],demand_eq=demand_eq,driving_commod=True)
-            elif demand_driven: 
-                dots, diff = get_undersupply_timesteps(output_file,commods[x])
-            else: 
-                dots, diff  = get_undersupply_timesteps(output_file,commods[x],demand_driving=False)
+        output_file = general_sqlite + methods[y] + '.sqlite'
+        for x in range(len(commods)):
+            if commods[x] == 'power':
+                dots, diff = get_undersupply_timesteps(
+                    output_file, commods[x], demand_eq=demand_eq, driving_commod=True)
+            elif demand_driven:
+                dots, diff = get_undersupply_timesteps(output_file, commods[x])
+            else:
+                dots, diff = get_undersupply_timesteps(
+                    output_file, commods[x], demand_driving=False)
             for key in dots:
-                dots[key]*=(x+0.1+0.1*y)
+                dots[key] *= (x + 0.1 + 0.1 * y)
             a = list(diff.values())
             a = [abs(x) for x in a]
-            size= [ abs(round(elem/max(a)*300)) for elem in a ]
-            if x == 0: 
-                ax.scatter(dots.keys(),dots.values(),color=colors[y],s=size,label=methods[y],marker='x')
-                ax1.scatter(dots.keys(),dots.values(),color=colors[y],s=size,label=methods[y],marker='x')
+            size = [abs(round(elem / max(a) * 300)) for elem in a]
+            if x == 0:
+                ax.scatter(
+                    dots.keys(),
+                    dots.values(),
+                    color=colors[y],
+                    s=size,
+                    label=methods[y],
+                    marker='x')
+                ax1.scatter(
+                    dots.keys(),
+                    dots.values(),
+                    color=colors[y],
+                    s=size,
+                    label=methods[y],
+                    marker='x')
             else:
-                ax.scatter(dots.keys(),dots.values(),color=colors[y],s=size,marker='x')
-                ax1.scatter(dots.keys(),dots.values(),color=colors[y],s=size,marker='x')
-    
-    d = .015 # how big to make the diagonal lines in axes coordinates
+                ax.scatter(
+                    dots.keys(),
+                    dots.values(),
+                    color=colors[y],
+                    s=size,
+                    marker='x')
+                ax1.scatter(
+                    dots.keys(),
+                    dots.values(),
+                    color=colors[y],
+                    s=size,
+                    marker='x')
+
+    d = .015  # how big to make the diagonal lines in axes coordinates
     # arguments to pass plot, just so we don't keep repeating them
     kwargs = dict(transform=ax.transAxes, color='k', clip_on=False)
-    ax.plot((1-d,1+d), (-d,+d), **kwargs)
-    ax.plot((1-d,1+d),(1-d,1+d), **kwargs)
+    ax.plot((1 - d, 1 + d), (-d, +d), **kwargs)
+    ax.plot((1 - d, 1 + d), (1 - d, 1 + d), **kwargs)
 
     kwargs.update(transform=ax1.transAxes)  # switch to the bottom axes
-    ax1.plot((-d,+d), (1-d,1+d), **kwargs)
-    ax1.plot((-d,+d), (-d,+d), **kwargs)
-    ax.set_ylim(0,len(commods))
-    ax.set_yticks(np.arange(0,len(commods)))
-    commodnames = [ '\n'.join(wrap(l, 9)) for l in commodnames ]
+    ax1.plot((-d, +d), (1 - d, 1 + d), **kwargs)
+    ax1.plot((-d, +d), (-d, +d), **kwargs)
+    ax.set_ylim(0, len(commods))
+    ax.set_yticks(np.arange(0, len(commods)))
+    commodnames = ['\n'.join(wrap(l, 9)) for l in commodnames]
     ax.set_yticklabels(commodnames)
     ax.grid(alpha=0.7)
     ax1.grid(alpha=0.7)
-    plt.axvspan(961, 1141, color='gray', alpha=0.1,label='Transition Period')
-    ax1.legend(bbox_to_anchor=(1.5, 1),fontsize=14)
-    fig.text(0.5, 0.01, 'Time Steps (Months)',fontsize=18, ha='center')
-    ax.set_ylabel('Commodities',fontsize=18)
-    plt.suptitle(title,fontsize=18)
-    plt.savefig(name,dpi=300,bbox_inches='tight')
+    plt.axvspan(961, 1141, color='gray', alpha=0.1, label='Transition Period')
+    ax1.legend(bbox_to_anchor=(1.5, 1), fontsize=14)
+    fig.text(0.5, 0.01, 'Time Steps (Months)', fontsize=18, ha='center')
+    ax.set_ylabel('Commodities', fontsize=18)
+    plt.suptitle(title, fontsize=18)
+    plt.savefig(name, dpi=300, bbox_inches='tight')
     plt.show()
