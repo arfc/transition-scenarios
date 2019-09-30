@@ -998,6 +998,7 @@ for calc_method in calc_methods:
         <demand_eq>%s</demand_eq>
         <steps>%s</steps>
         <back_steps>2</back_steps>
+
         <installed_cap>1</installed_cap>
         <facility_commod>
         <item>
@@ -1274,8 +1275,8 @@ for calc_method in calc_methods:
     </institution>
 
     <name>SingleRegion</name>
-    </region>""" % (calc_method, demand_eq, steps, thro_frmixer1, thro_moxmixer1,
-                    buff_size, calc_method, steps)
+    </region>""" % (calc_method, demand_eq, steps, thro_frmixer1,
+                    thro_moxmixer1, buff_size, calc_method, steps)
 
 name = 'eg01-eg29-flatpower-d3ploy'
 name += '-buffer' + buff_size + '-S'

@@ -123,6 +123,9 @@ for calc_method in calc_methods:
 
     for add in add_list:
         output_file = name + add + '-' + calc_method + '.sqlite'
+
+
+
         all_dict['power'] = tester.supply_demand_dict_driving(output_file,
                                                               demand_eq,
                                                               'power')
@@ -214,4 +217,4 @@ for calc_method in calc_methods:
 # Plots cumulative under supply for different back steps for several
 # calculation methods.
 plot_buff('23-sens-backs', calc_methods, add_list, cumulative_under, 'back')
-"""
+
