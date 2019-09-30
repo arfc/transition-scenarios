@@ -72,16 +72,16 @@ def format_agent_dict(output_file, simple=True):
     agent_dict = tester.get_agent_dict(output_file, in_agent)
     if simple:
         prototypes = ['source',
-                     'enrichment',
-                     'lwr',
-                     'lwrstorage',
-                     'lwrreprocessing',
-                     'lwrmixer',
-                     'lwrsink',
-                     'fr',
-                     'frstorage',
-                     'frreprocessing',
-                     'frsink']
+                      'enrichment',
+                      'lwr',
+                      'lwrstorage',
+                      'lwrreprocessing',
+                      'lwrmixer',
+                      'lwrsink',
+                      'fr',
+                      'frstorage',
+                      'frreprocessing',
+                      'frsink']
     else:
         prototypes = ['enrichment',
                       'source',
@@ -232,7 +232,7 @@ def plot_agents(all_agents, name, simple=True):
                      all_agents[prototypes[12]].values())
     ax.legend(prototypes2, bbox_to_anchor=(1.31, 1), fontsize=14)
     ax.set_title(
-                 'No. of Supporting Facilities in simulation at each time step',
+                 'No. of Supporting Facilities in simulation at each timestep',
                  fontsize=18)
     plt.savefig(name + '_support', dpi=300, bbox_inches='tight')
     plt.show()
@@ -240,13 +240,13 @@ def plot_agents(all_agents, name, simple=True):
 
 def supplydemanddiff(all_dict):
     """
-    This function calculates the difference between supply and 
+    This function calculates the difference between supply and
     demand from all_dict.
     INPUT
-    all_dict: dictionary with supply and demand timeseries 
+    all_dict: dictionary with supply and demand timeseries
               data for a commodity. (dict)
     OUTPUT
-    diff_dict: dictionary with timeseries data of the difference 
+    diff_dict: dictionary with timeseries data of the difference
                between supply and demand.
     """
 
@@ -264,7 +264,7 @@ def get_undersupply_timesteps(
     driving_commod=False,
     demand_eq='0',
     demand_driving=True):
-     """
+    """
     This function returns timeseries dictionaries for existence 
     undersupply of a commodity and the
     absolute value of this undersupply.
