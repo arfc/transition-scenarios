@@ -231,7 +231,7 @@ def plot_agents(all_agents, name, simple=True):
                      all_agents[prototypes[9]].values(),
                      all_agents[prototypes[10]].values(),
                      all_agents[prototypes[11]].values(),
-                     all_agents[prototypes[12]].values(), colors = col)
+                     all_agents[prototypes[12]].values(), colors=col)
     ax.legend(prototypes2, bbox_to_anchor=(1.31, 1), fontsize=14)
     ax.set_title(
         'No. of Supporting Facilities in simulation at each timestep',
@@ -422,15 +422,15 @@ def plot_all_undersupply(
     plt.savefig(name, dpi=300, bbox_inches='tight')
     plt.show()
 
-    
+
 def histogram_formatting(
         commods,
         methods,
         general_sqlite,
         demand_driven=True,
-        demand_eq='0'): 
-    everything={}
-    for y in methods: 
+        demand_eq='0'):
+    everything = {}
+    for y in methods:
         everything[y] = {}
     for y in range(len(methods)):
         output_file = general_sqlite + methods[y] + '.sqlite'
@@ -444,47 +444,83 @@ def histogram_formatting(
             else:
                 dots, diff = get_undersupply_timesteps(
                     output_file, commods[x], demand_driving=False)
-            binvals,binsize = np.histogram(list(dots.keys()),bins=[0,50,100,900,950,1000,1050,1100,1150,1400])
-            everything[methods[y]][commods[x]]=binvals
-    return everything 
+            binvals, binsize = np.histogram(
+                list(
+                    dots.keys()), bins=[
+                    0, 50, 100, 900, 950, 1000, 1050, 1100, 1150, 1400])
+            everything[methods[y]][commods[x]] = binvals
+    return everything
 
 
-def plot_histogram(commods1,commodnames1,commods2,commodnames2,methods,methodnames,general_sqlite,demand_eq,title,name,yticks):
-    everything1 = histogram_formatting(commods=commods1,methods=methods,general_sqlite=general_sqlite,demand_driven=True,demand_eq=demand_eq)
-    everything2 = histogram_formatting(commods=commods2,methods=methods,general_sqlite=general_sqlite,demand_driven=False,demand_eq=demand_eq)
+def plot_histogram(
+        commods1,
+        commodnames1,
+        commods2,
+        commodnames2,
+        methods,
+        methodnames,
+        general_sqlite,
+        demand_eq,
+        title,
+        name,
+        yticks):
+    everything1 = histogram_formatting(
+        commods=commods1,
+        methods=methods,
+        general_sqlite=general_sqlite,
+        demand_driven=True,
+        demand_eq=demand_eq)
+    everything2 = histogram_formatting(
+        commods=commods2,
+        methods=methods,
+        general_sqlite=general_sqlite,
+        demand_driven=False,
+        demand_eq=demand_eq)
     everything = everything1.copy()
-    for x in methods: 
+    for x in methods:
         everything[x].update(everything2[x])
-    commods = commods1+commods2
-    commodnames=commodnames1+commodnames2
-    fig = plt.figure(figsize=(14,14))
+    commods = commods1 + commods2
+    commodnames = commodnames1 + commodnames2
+    fig = plt.figure(figsize=(14, 14))
     palette = plt.get_cmap('Paired')
 
     for y in range(len(methods)):
-        ax = fig.add_subplot(4,2,y+1)
-        ind =np.arange(9)
-        totalbottom=0
+        ax = fig.add_subplot(4, 2, y + 1)
+        ind = np.arange(9)
+        totalbottom = 0
         for x in range(len(everything[methods[y]])):
-            if x == 0: 
-                ax.bar(ind,everything[methods[y]][commods[x]],color=palette(x))
+            if x == 0:
+                ax.bar(ind, everything[methods[y]]
+                       [commods[x]], color=palette(x))
             else:
-                ax.bar(ind,everything[methods[y]][commods[x]],bottom=totalbottom,color=palette(x))
+                ax.bar(ind,
+                       everything[methods[y]][commods[x]],
+                       bottom=totalbottom,
+                       color=palette(x))
             totalbottom += everything[methods[y]][commods[x]]
-        ax.set_title('Prediction Method: '+methodnames[y])
+        ax.set_title('Prediction Method: ' + methodnames[y])
         ax.set_ylabel('No. of Time steps')
         ax.set_xlabel('Time Bins')
         ax.set_xticks(ind)
-        ax.set_xticklabels(['t1','t2','t3','t4','t5','t6','t7','t8','t9'])
+        ax.set_xticklabels(
+            ['t1', 't2', 't3', 't4', 't5', 't6', 't7', 't8', 't9'])
         ax.set_yticks(yticks)
-        ax.set_ylim(0,yticks[-1])
+        ax.set_ylim(0, yticks[-1])
         ax.yaxis.grid()
-    fig.subplots_adjust(left=None, bottom=None, right=None, top=None, wspace=None, hspace=0.4)
-    fig.legend(commodnames,loc="upper center",bbox_to_anchor=(0.89,.8))
+    fig.subplots_adjust(
+        left=None,
+        bottom=None,
+        right=None,
+        top=None,
+        wspace=None,
+        hspace=0.4)
+    fig.legend(commodnames, loc="upper center", bbox_to_anchor=(0.89, .8))
     props = dict(boxstyle='round', facecolor='white', alpha=0.5)
-    textstr = r't1 = 0 to 50 month'+'\n'+r't2 = 50 to 100 month'+'\n'+r't3 = 100 to 900 month'+'\n'+r't4 = 900 to 950 month'+'\n'+r't5 = 950 to 1000 month'+'\n'+r't6 = 1000 to 1050 month'+'\n'+r't7 = 1050 to 1100 month'+'\n'+r't8 = 1100 to 1150 month'+'\n'+r't9 = 1150 to 1400 month'
+    textstr = r't1 = 0 to 50 month' + '\n' + r't2 = 50 to 100 month' + '\n' + r't3 = 100 to 900 month' + '\n' + r't4 = 900 to 950 month' + '\n' + \
+        r't5 = 950 to 1000 month' + '\n' + r't6 = 1000 to 1050 month' + '\n' + r't7 = 1050 to 1100 month' + '\n' + r't8 = 1100 to 1150 month' + '\n' + r't9 = 1150 to 1400 month'
     fig.text(0.915, 0.67, textstr, transform=ax.transAxes, fontsize=10,
-            verticalalignment='top', bbox=props)
+             verticalalignment='top', bbox=props)
 
-    fig.suptitle(title, x=0.55,y=0.92,fontsize=16)
+    fig.suptitle(title, x=0.55, y=0.92, fontsize=16)
     plt.savefig(name, dpi=300, bbox_inches='tight')
-    return 
+    return
