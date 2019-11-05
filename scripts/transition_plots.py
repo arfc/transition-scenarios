@@ -477,6 +477,7 @@ def plot_histogram(commods1,commodnames1,commods2,commodnames2,methods,methodnam
         ax.set_xticklabels(['t1','t2','t3','t4','t5','t6','t7','t8','t9'])
         ax.set_yticks(yticks)
         ax.set_ylim(0,yticks[-1])
+        ax.yaxis.grid()
     fig.subplots_adjust(left=None, bottom=None, right=None, top=None, wspace=None, hspace=0.4)
     fig.legend(commodnames,loc="upper center",bbox_to_anchor=(0.89,.8))
     props = dict(boxstyle='round', facecolor='white', alpha=0.5)
