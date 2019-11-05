@@ -516,8 +516,11 @@ def plot_histogram(
         hspace=0.4)
     fig.legend(commodnames, loc="upper center", bbox_to_anchor=(0.89, .8))
     props = dict(boxstyle='round', facecolor='white', alpha=0.5)
-    textstr = r't1 = 0 to 50 month' + '\n' + r't2 = 50 to 100 month' + '\n' + r't3 = 100 to 900 month' + '\n' + r't4 = 900 to 950 month' + '\n' + \
-        r't5 = 950 to 1000 month' + '\n' + r't6 = 1000 to 1050 month' + '\n' + r't7 = 1050 to 1100 month' + '\n' + r't8 = 1100 to 1150 month' + '\n' + r't9 = 1150 to 1400 month'
+    textstr = r't1 = 0 to 50 month' + '\n' + r't2 = 50 to 100 month' \
+    + '\n' + r't3 = 100 to 900 month' + '\n' + r't4 = 900 to 950 month' \
+    + '\n' + r't5 = 950 to 1000 month' + '\n' + r't6 = 1000 to 1050 month' \
+    + '\n' + r't7 = 1050 to 1100 month' + '\n' + r't8 = 1100 to 1150 month' + \
+    + '\n' + r't9 = 1150 to 1400 month'
     fig.text(0.915, 0.67, textstr, transform=ax.transAxes, fontsize=10,
              verticalalignment='top', bbox=props)
 
