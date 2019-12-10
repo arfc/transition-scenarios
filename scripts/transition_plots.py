@@ -446,8 +446,7 @@ def histogram_formatting(
                     output_file, commods[x], demand_driving=False)
             binvals, binsize = np.histogram(
                 list(
-                    dots.keys()), bins=[
-                    0, 50, 100, 900, 950, 1000, 1050, 1100, 1150, 1400])
+                    dots.keys()), bins=list(np.arange(0,1450,50)))
             everything[methods[y]][commods[x]] = binvals
     return everything
 
@@ -481,32 +480,33 @@ def plot_histogram(
         everything[x].update(everything2[x])
     commods = commods1 + commods2
     commodnames = commodnames1 + commodnames2
-    fig = plt.figure(figsize=(14, 14))
+    fig = plt.figure(figsize=(15, 15))
     palette = plt.get_cmap('Paired')
-
     for y in range(len(methods)):
         ax = fig.add_subplot(4, 2, y + 1)
-        ind = np.arange(9)
+        ind = np.arange(28)
         totalbottom = 0
         for x in range(len(everything[methods[y]])):
             if x == 0:
-                ax.bar(ind, everything[methods[y]]
+                ax.bar(ind+0.5, everything[methods[y]]
                        [commods[x]], color=palette(x))
             else:
-                ax.bar(ind,
+                ax.bar(ind+0.5,
                        everything[methods[y]][commods[x]],
                        bottom=totalbottom,
                        color=palette(x))
             totalbottom += everything[methods[y]][commods[x]]
         ax.set_title('Prediction Method: ' + methodnames[y])
-        ax.set_ylabel('No. of Time steps')
-        ax.set_xlabel('Time Bins')
+        ax.set_ylabel('Undersupplied time steps',fontsize=14)
+        ax.set_xlabel('Month',fontsize=14)
         ax.set_xticks(ind)
-        ax.set_xticklabels(
-            ['t1', 't2', 't3', 't4', 't5', 't6', 't7', 't8', 't9'])
+        months = list(np.arange(0,1450,50))
+        ax.set_xticklabels(months, rotation=65)
         ax.set_yticks(yticks)
         ax.set_ylim(0, yticks[-1])
         ax.yaxis.grid()
+        if y == len(methods)-1:
+            ax.legend(commodnames, loc="upper center", ncol = 4, bbox_to_anchor=(-0.07, -0.3))
     fig.subplots_adjust(
         left=None,
         bottom=None,
@@ -514,19 +514,10 @@ def plot_histogram(
         top=None,
         wspace=None,
         hspace=0.4)
-    fig.legend(commodnames, loc="upper center", bbox_to_anchor=(0.89, .8))
+    fig.subplots_adjust(bottom=-0.1,wspace = 0.15)
     props = dict(boxstyle='round', facecolor='white', alpha=0.5)
-    textstr = r't1 = Month 0 to 50' + '\n' + r't2 = Month 50 to 100' \
-        + '\n' + r't3 = Month 100 to 900' \
-        + '\n' + r't4 = Month 900 to 950' \
-        + '\n' + r't5 = Month 950 to 1000' \
-        + '\n' + r't6 = Month 1000 to 1050' \
-        + '\n' + r't7 = Month 1050 to 1100' \
-        + '\n' + r't8 = Month 1100 to 1150' \
-        + '\n' + r't9 = Month 1150 to 1400'
-    fig.text(0.915, 0.67, textstr, transform=ax.transAxes, fontsize=10,
-             verticalalignment='top', bbox=props)
-
-    fig.suptitle(title, x=0.55, y=0.92, fontsize=16)
-    plt.savefig(name, dpi=300, bbox_inches='tight')
+    fig.suptitle(title, x=0.50, y=0.92, fontsize=16)
+    plt.savefig(name, dpi=400, bbox_inches='tight')
+    #plt.savefig(name, bbox_extra_artists=(lgd,), bbox_inches='tight')
     return
+
