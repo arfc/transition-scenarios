@@ -519,5 +519,4 @@ def plot_histogram(
     props = dict(boxstyle='round', facecolor='white', alpha=0.5)
     fig.suptitle(title, x=0.50, y=0.92, fontsize=16)
     plt.savefig(name, dpi=400, bbox_inches='tight')
-    #plt.savefig(name, bbox_extra_artists=(lgd,), bbox_inches='tight')
     return
