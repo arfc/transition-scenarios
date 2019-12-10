@@ -446,7 +446,7 @@ def histogram_formatting(
                     output_file, commods[x], demand_driving=False)
             binvals, binsize = np.histogram(
                 list(
-                    dots.keys()), bins=list(np.arange(0,1450,50)))
+                    dots.keys()), bins=list(np.arange(0, 1450, 50)))
             everything[methods[y]][commods[x]] = binvals
     return everything
 
@@ -488,25 +488,26 @@ def plot_histogram(
         totalbottom = 0
         for x in range(len(everything[methods[y]])):
             if x == 0:
-                ax.bar(ind+0.5, everything[methods[y]]
+                ax.bar(ind + 0.5, everything[methods[y]]
                        [commods[x]], color=palette(x))
             else:
-                ax.bar(ind+0.5,
+                ax.bar(ind + 0.5,
                        everything[methods[y]][commods[x]],
                        bottom=totalbottom,
                        color=palette(x))
             totalbottom += everything[methods[y]][commods[x]]
         ax.set_title('Prediction Method: ' + methodnames[y])
-        ax.set_ylabel('Undersupplied time steps',fontsize=14)
-        ax.set_xlabel('Month',fontsize=14)
+        ax.set_ylabel('Undersupplied time steps', fontsize=14)
+        ax.set_xlabel('Month', fontsize=14)
         ax.set_xticks(ind)
-        months = list(np.arange(0,1450,50))
+        months = list(np.arange(0, 1450, 50))
         ax.set_xticklabels(months, rotation=65)
         ax.set_yticks(yticks)
         ax.set_ylim(0, yticks[-1])
         ax.yaxis.grid()
-        if y == len(methods)-1:
-            ax.legend(commodnames, loc="upper center", ncol = 4, bbox_to_anchor=(-0.07, -0.3))
+        if y == len(methods) - 1:
+            ax.legend(commodnames, loc="upper center",
+                      ncol=4, bbox_to_anchor=(-0.07, -0.3))
     fig.subplots_adjust(
         left=None,
         bottom=None,
@@ -514,10 +515,9 @@ def plot_histogram(
         top=None,
         wspace=None,
         hspace=0.4)
-    fig.subplots_adjust(bottom=-0.1,wspace = 0.15)
+    fig.subplots_adjust(bottom=-0.1, wspace=0.15)
     props = dict(boxstyle='round', facecolor='white', alpha=0.5)
     fig.suptitle(title, x=0.50, y=0.92, fontsize=16)
     plt.savefig(name, dpi=400, bbox_inches='tight')
     #plt.savefig(name, bbox_extra_artists=(lgd,), bbox_inches='tight')
     return
-
