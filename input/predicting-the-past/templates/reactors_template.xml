@@ -7,8 +7,8 @@
       <fuel_inrecipes>  <val>fresh_uox</val> </fuel_inrecipes>
       <fuel_outcommods> <val>spent_uox</val> </fuel_outcommods>
       <fuel_outrecipes> <val>spent_uox</val> </fuel_outrecipes>
-      <cycle_time>{{cycletime}}</cycle_time>
-      <refuel_time>{{refueltime}}</refuel_time>
+      <cycle_time>18</cycle_time>
+      <refuel_time>1</refuel_time>
       <assem_size>{{assem_size}}</assem_size>
       <n_assem_core>{{n_assem_core}}</n_assem_core>
       <n_assem_batch>{{n_assem_batch}}</n_assem_batch>
