@@ -208,6 +208,23 @@ def merge_coordinates(pris_link, scrape_link):
                             prs[14] = web['long']
     pris.to_csv('reactors_pris_2016.csv', index=False, sep=',')
 
+def save_output(pris):
+    """ Saves updated PRIS database as 'reactors_pris_2016.csv'
+
+    Parameters
+    ----------
+    pris: pd.DataFrame
+        updated PRIS database with latitude and longitude info
+
+    Returns
+    -------
+
+    """
+    pris.to_csv('reactors_pris_2016.csv',
+                index=False,
+                sep=',',
+                )
+
 
 def import_csv(in_csv, delimit):
     """ Imports contents of a csv text file to a list of
