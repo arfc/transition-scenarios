@@ -475,7 +475,7 @@ def get_lifetime(in_row):
         return int(delta / n_days_month)
 
 
-def write_reactors(in_list, out_path, reactor_template):
+def write_reactors(in_list, out_path, reactor_template, cycle_time, refuel_time):
     """ Renders CYCAMORE::reactor specifications using jinja2.
 
     Parameters
@@ -486,6 +486,10 @@ def write_reactors(in_list, out_path, reactor_template):
         output path for reactor files
     reactor_template: str
         path to reactor template
+    cycle_time: int
+        cycle length of reactors in months
+    refuel_time: int
+        average refuel time in months
 
     Returns
     -------
@@ -536,6 +540,8 @@ def write_reactors(in_list, out_path, reactor_template):
                 assem_size = 103000 / assem_no
             config = reactor_template.render(name=name,
                                              lifetime=get_lifetime(row),
+                                             cycletime=cycle_time,
+                                             refuel_time=refuel_time,
                                              assem_size=assem_size,
                                              n_assem_core=assem_no,
                                              n_assem_batch=assem_per_batch,
