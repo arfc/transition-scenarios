@@ -43,10 +43,12 @@ def import_pris(pris_link):
     """
     pris = pd.read_csv(pris_link,
                        delimiter=',',
-                       encoding='iso-8859-1'
+                       encoding='iso-8859-1',
+                       skiprows=20,
+                       usecols=[2, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
                        )
-    pris.insert(13, 'Latitude', np.nan)
-    pris.insert(14, 'Longitude', np.nan)
+    pris.insert(11, 'Latitude', np.nan)
+    pris.insert(12, 'Longitude', np.nan)
     pris = pris.replace(np.nan, '')
     return pris
 
@@ -172,7 +174,7 @@ def is_int(str):
     return answer
 
 
-def merge_coordinates(pris_link, scrape_link):
+def merge_coordinates(pris_link, scrape_link, data_year):
     """ Obtains coordinates from webscrape.sqlite and
     writes them to matching reactors in PRIS reactor file.
 
@@ -182,6 +184,8 @@ def merge_coordinates(pris_link, scrape_link):
         path and name of pris reactor text file
     scrape: str
         path and name of webscrape sqlite file
+    data_year: int
+        year the data is pulled from 
 
     Returns
     -------
@@ -206,27 +210,29 @@ def merge_coordinates(pris_link, scrape_link):
                         if fuzz.ratio(webscrape_name, edge_case_value) > 75:
                             prs[13] = web['lat']
                             prs[14] = web['long']
-    pris.to_csv('reactors_pris_2016.csv', index=False, sep=',')
+    pris.to_csv('reactors_pris_' + str(data_year) + '.csv', index=False, sep=',')
 
-def save_output(pris):
+def save_output(pris, data_year):
     """ Saves updated PRIS database as 'reactors_pris_2016.csv'
 
     Parameters
     ----------
     pris: pd.DataFrame
         updated PRIS database with latitude and longitude info
+    data_year: int
+        year the data is pulled from 
 
     Returns
     -------
 
     """
-    pris.to_csv('reactors_pris_2016.csv',
+    pris.to_csv('../database/reactors_pris_' + str(data_year) + '.csv',
                 index=False,
                 sep=',',
                 )
 
 
-def import_csv(in_csv, delimit):
+def import_csv(in_csv, delimit=','):
     """ Imports contents of a csv text file to a list of
     lists.
 
@@ -352,7 +358,7 @@ def write_recipes(fresh_dict, spent_dict, in_template, burnup, region):
     null
         generates recipe files for cyclus.
     """
-    out_path = 'cyclus/input/' + region + '/recipes/'
+    out_path = '../input/haleu/inputs/' + region + '/recipes/'
     pathlib.Path(out_path).mkdir(parents=True, exist_ok=True)
     rendered = in_template.render(fresh=fresh_dict,
                                   spent=spent_dict)
@@ -459,8 +465,8 @@ def select_region(in_list, region):
     for row in in_list:
         country = row[0]
         if country.upper() in regions[region.upper()]:
-            capacity = row[3]
-            start_date = row[10]
+            capacity = row[10]
+            start_date = row[8]
             if confirm_deployment(start_date, capacity):
                 reactor_list.append(row)
     return reactor_list
@@ -482,8 +488,8 @@ def get_lifetime(in_row):
     lifetime: int
         lifetime of reactor
     """
-    comm_date = in_row[10]
-    shutdown_date = in_row[11]
+    comm_date = in_row[8]
+    shutdown_date = in_row[9]
     if not shutdown_date.strip():
         return 720
     else:
@@ -518,15 +524,15 @@ def write_reactors(in_list, out_path, reactor_template, cycle_time=18, refuel_ti
     pathlib.Path(out_path).mkdir(parents=True, exist_ok=True)
     reactor_template = load_template(reactor_template)
     for row in in_list:
-        capacity = float(row[3])
+        capacity = float(row[10])
         if capacity >= 400:
             name = row[1].replace(' ', '_')
             assem_per_batch = 0
             assem_no = 0
             assem_size = 0
-            reactor_type = row[2]
-            latitude = row[13] if row[13] != '' else 0
-            longitude = row[14] if row[14] != '' else 0
+            reactor_type = row[3]
+            latitude = row[11] if row[11] != '' else 0
+            longitude = row[12] if row[12] != '' else 0
             if reactor_type in ['BWR', 'ESBWR']:
                 assem_no = 732
                 assem_per_batch = int(assem_no / 3)
@@ -562,7 +568,7 @@ def write_reactors(in_list, out_path, reactor_template, cycle_time=18, refuel_ti
                                              assem_size=assem_size,
                                              n_assem_core=assem_no,
                                              n_assem_batch=assem_per_batch,
-                                             power_cap=row[3],
+                                             power_cap=row[10],
                                              lon=longitude,
                                              lat=latitude)
             with open(out_path + name.replace(' ', '_') + '.xml',
@@ -715,7 +721,7 @@ def deploy_reactors(in_csv, region, start_year, deployinst_template,
     return buildtime
 
 
-def render_cyclus(cyclus_template, region, in_dict, out_path, burn_up):
+def render_cyclus(cyclus_template, region, in_dict, out_path, burn_up=50):
     """ Renders final CYCLUS input file with xml base, and institutions
     for each country
 
@@ -729,6 +735,8 @@ def render_cyclus(cyclus_template, region, in_dict, out_path, burn_up):
         in_dict should be buildtime_dict from get_buildtime function
     out_path: str
         output path for CYCLUS input file
+    data_year: int
+        year the data was pulled from 
     burn_up: int
         burnup in GWd/MTU
 
