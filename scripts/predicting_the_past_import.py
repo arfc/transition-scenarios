@@ -475,7 +475,7 @@ def get_lifetime(in_row):
         return int(delta / n_days_month)
 
 
-def write_reactors(in_list, out_path, reactor_template, cycle_time, refuel_time):
+def write_reactors(in_list, out_path, reactor_template, cycle_time=18, refuel_time=1):
     """ Renders CYCAMORE::reactor specifications using jinja2.
 
     Parameters
@@ -698,7 +698,7 @@ def deploy_reactors(in_csv, region, start_year, deployinst_template,
     return buildtime
 
 
-def render_cyclus(cyclus_template, region, in_dict, out_path):
+def render_cyclus(cyclus_template, region, in_dict, out_path, burn_up):
     """ Renders final CYCLUS input file with xml base, and institutions
     for each country
 
@@ -712,7 +712,8 @@ def render_cyclus(cyclus_template, region, in_dict, out_path):
         in_dict should be buildtime_dict from get_buildtime function
     out_path: str
         output path for CYCLUS input file
-    output_name:
+    burn_up: int
+        burnup in GWd/MTU
 
     Returns
     -------
@@ -723,7 +724,8 @@ def render_cyclus(cyclus_template, region, in_dict, out_path):
         out_path += '/'
     cyclus_template = load_template(cyclus_template)
     country_list = {value[0].replace(' ', '_') for value in in_dict.values()}
-    rendered = cyclus_template.render(countries=country_list,
+    rendered = cyclus_template.render(burnup = burn_up,
+                                      countries=country_list,
                                       base_dir=os.path.abspath(out_path) + '/')
     with open(out_path + region + '.xml', 'w') as output:
         output.write(rendered)
