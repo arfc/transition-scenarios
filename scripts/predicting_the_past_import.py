@@ -45,14 +45,16 @@ def import_pris(pris_link):
                        delimiter=',',
                        encoding='iso-8859-1',
                        skiprows=20,
-                       usecols=[2, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
                        )
+    
+    pris = pris.rename(columns={pris.columns[2]: 'Country'})
+    pris = pris[['Country', 'Unit', 'Current Status', 'Type', 
+                 'Model', 'Operator', 'Reactor Supplier', 'Const. Date', 
+                 'Grid Date', 'Shutdown Date', 'RUP [MWe]']]
     pris.insert(11, 'Latitude', np.nan)
     pris.insert(12, 'Longitude', np.nan)
     pris = pris[pris.Unit.notnull()]
-    pris = pris[pris.Unit != 'Unit']
-    pris = pris[pris.Unit != '']
-    pris = pris.rename(columns={'ARGENTINA': 'Country'})
+    pris = pris[pris.Unit != 'Unit']    
     pris = pris.replace(np.nan, '')
     return pris
 
@@ -578,7 +580,7 @@ def write_reactors(in_list, out_path, reactor_template,
             config = reactor_template.render(name=name,
                                              lifetime=get_lifetime(row),
                                              cycletime=cycle_time,
-                                             refuel_time=refuel_time,
+                                             refueltime=refuel_time,
                                              assem_size=assem_size,
                                              n_assem_core=assem_no,
                                              n_assem_batch=assem_per_batch,
