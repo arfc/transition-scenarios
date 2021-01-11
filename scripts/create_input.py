@@ -4,7 +4,7 @@ import sys
 import predicting_the_past_import as import_data
 
 # user defined characteristics of cyclus simulation
-data_year = 2019
+data_year = 2020
 start_year = 1965
 region = 'united_states'
 project = 'haleu'
@@ -27,15 +27,11 @@ pris = import_data.import_csv(pris_file)
 recipes = import_data.import_csv('../database/vision_recipes/uox.csv', ',')
 recipe_template = import_data.load_template(
     '../input/predicting-the-past/templates/recipes_template.xml')
-fresh33 = import_data.get_composition_fresh(recipes, 33)
-spent33 = import_data.get_composition_spent(recipes, 33)
-fresh51 = import_data.get_composition_fresh(recipes, 51)
-spent51 = import_data.get_composition_spent(recipes, 51)
-fresh100 = import_data.get_composition_fresh(recipes, 100)
-spent100 = import_data.get_composition_spent(recipes, 100)
-import_data.write_recipes(fresh33, spent33, recipe_template, 33, region)
-import_data.write_recipes(fresh51, spent51, recipe_template, 51, region)
-import_data.write_recipes(fresh51, spent51, recipe_template, 100, region)
+burnups=[33, 51, 100]
+for bu in burnups:
+    fresh = import_data.get_composition_fresh(recipes, bu)
+    spent = import_data.get_composition_spent(recipes, bu)
+    import_data.write_recipes(fresh, spent, recipe_template, bu, region)
 
 reactor_list = import_data.select_region(pris, region)
 import_data.write_reactors(
