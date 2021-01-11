@@ -46,15 +46,15 @@ def import_pris(pris_link):
                        encoding='iso-8859-1',
                        skiprows=20,
                        )
-    
+
     pris = pris.rename(columns={pris.columns[2]: 'Country'})
-    pris = pris[['Country', 'Unit', 'Current Status', 'Type', 
-                 'Model', 'Operator', 'Reactor Supplier', 'Const. Date', 
+    pris = pris[['Country', 'Unit', 'Current Status', 'Type',
+                 'Model', 'Operator', 'Reactor Supplier', 'Const. Date',
                  'Grid Date', 'Shutdown Date', 'RUP [MWe]']]
     pris.insert(11, 'Latitude', np.nan)
     pris.insert(12, 'Longitude', np.nan)
     pris = pris[pris.Unit.notnull()]
-    pris = pris[pris.Unit != 'Unit']    
+    pris = pris[pris.Unit != 'Unit']
     pris = pris.replace(np.nan, '')
     return pris
 
@@ -349,7 +349,8 @@ def get_composition_spent(in_list, burnup):
     return data_dict
 
 
-def write_recipes(fresh_dict, spent_dict, in_template, burnup, region):
+def write_recipes(fresh_dict, spent_dict, in_template,
+                  burnup, region='united_states'):
     """ Renders jinja template using fresh and spent fuel composition.
 
     Parameters

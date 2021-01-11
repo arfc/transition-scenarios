@@ -27,7 +27,7 @@ pris = import_data.import_csv(pris_file)
 recipes = import_data.import_csv('../database/vision_recipes/uox.csv', ',')
 recipe_template = import_data.load_template(
     '../input/predicting-the-past/templates/recipes_template.xml')
-burnups=[33, 51, 100]
+burnups = [33, 51, 100]
 for bu in burnups:
     fresh = import_data.get_composition_fresh(recipes, bu)
     spent = import_data.get_composition_spent(recipes, bu)
