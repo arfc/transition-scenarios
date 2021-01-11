@@ -13,7 +13,6 @@ reactor_data = import_data.import_pris('../database/Year-end Reactor Status_' + 
 reactor_data = reactor_data[reactor_data.Unit.notnull()]
 reactor_data = reactor_data[reactor_data.Unit != 'Unit']
 reactor_data = reactor_data.rename(columns= {'ARGENTINA':'Country'})
-reactor_data = reactor_data.replace('UNITED STATES OF AMERICA', 'UNITED STATES')
 import_data.save_output(reactor_data, data_year)
 
 
