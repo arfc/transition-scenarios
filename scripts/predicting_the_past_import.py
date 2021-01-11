@@ -185,7 +185,7 @@ def merge_coordinates(pris_link, scrape_link, data_year):
     scrape: str
         path and name of webscrape sqlite file
     data_year: int
-        year the data is pulled from 
+        year the data is pulled from
 
     Returns
     -------
@@ -210,7 +210,13 @@ def merge_coordinates(pris_link, scrape_link, data_year):
                         if fuzz.ratio(webscrape_name, edge_case_value) > 75:
                             prs[13] = web['lat']
                             prs[14] = web['long']
-    pris.to_csv('reactors_pris_' + str(data_year) + '.csv', index=False, sep=',')
+    pris.to_csv(
+        'reactors_pris_' +
+        str(data_year) +
+        '.csv',
+        index=False,
+        sep=',')
+
 
 def save_output(pris, data_year):
     """ Saves updated PRIS database as 'reactors_pris_2016.csv'
@@ -220,7 +226,7 @@ def save_output(pris, data_year):
     pris: pd.DataFrame
         updated PRIS database with latitude and longitude info
     data_year: int
-        year the data is pulled from 
+        year the data is pulled from
 
     Returns
     -------
@@ -412,7 +418,7 @@ def confirm_deployment(date_str, capacity):
         try:
             date.parse(date_str)
             is_deployed = True
-        except:
+        except BaseException:
             pass
     return is_deployed
 
@@ -433,7 +439,7 @@ def select_region(in_list, region):
     reactor_list: list
             list of reactors from PRIS
     """
-    ASIA = {'IRAN, ISLAMIC REPUBLIC OF', 'JAPAN', 
+    ASIA = {'IRAN, ISLAMIC REPUBLIC OF', 'JAPAN',
             'KAZAKHSTAN',
             'BANGLADESH', 'CHINA', 'INDIA',
             'UNITED ARAB EMIRATES', 'VIETNAM',
@@ -501,7 +507,8 @@ def get_lifetime(in_row):
         return int(delta / n_days_month)
 
 
-def write_reactors(in_list, out_path, reactor_template, cycle_time=18, refuel_time=1):
+def write_reactors(in_list, out_path, reactor_template,
+                   cycle_time=18, refuel_time=1):
     """ Renders CYCAMORE::reactor specifications using jinja2.
 
     Parameters
@@ -739,7 +746,7 @@ def render_cyclus(cyclus_template, region, in_dict, out_path, burn_up=50):
     out_path: str
         output path for CYCLUS input file
     data_year: int
-        year the data was pulled from 
+        year the data was pulled from
     burn_up: int
         burnup in GWd/MTU
 
@@ -752,7 +759,7 @@ def render_cyclus(cyclus_template, region, in_dict, out_path, burn_up=50):
         out_path += '/'
     cyclus_template = load_template(cyclus_template)
     country_list = {value[0].replace(' ', '_') for value in in_dict.values()}
-    rendered = cyclus_template.render(burnup = burn_up,
+    rendered = cyclus_template.render(burnup=burn_up,
                                       countries=country_list,
                                       base_dir=os.path.abspath(out_path) + '/')
     with open(out_path + region + '.xml', 'w') as output:
