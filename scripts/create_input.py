@@ -3,13 +3,12 @@ import sys
 
 import predicting_the_past_import as import_data
 
-
+# user defined characteristics of cyclus simulation
 data_year = 2019
 start_year = 1965
 region = 'united_states'
 project = 'haleu'
 
-#read in csv, remove first 2 columns
 reactor_data = import_data.import_pris('../database/Year-end Reactor Status_' + str(data_year) +'.csv')
 reactor_data = reactor_data[reactor_data.Unit.notnull()]
 reactor_data = reactor_data[reactor_data.Unit != 'Unit']
