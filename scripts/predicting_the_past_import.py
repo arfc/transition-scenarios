@@ -665,7 +665,7 @@ def get_buildtime(in_list, start_year, path_list):
     """
     buildtime_dict = {}
     for row in in_list:
-        comm_date = date.parse(row[10])
+        comm_date = date.parse(row[8])
         start_date = [comm_date.year, comm_date.month, comm_date.day]
         delta = ((start_date[0] - int(start_year)) * 12 +
                  (start_date[1]) +
