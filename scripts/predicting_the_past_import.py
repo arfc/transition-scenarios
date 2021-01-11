@@ -433,21 +433,24 @@ def select_region(in_list, region):
     reactor_list: list
             list of reactors from PRIS
     """
-    ASIA = {'IRAN', 'JAPAN', 'KAZAKHSTAN',
+    ASIA = {'IRAN, ISLAMIC REPUBLIC OF', 'JAPAN', 
+            'KAZAKHSTAN',
             'BANGLADESH', 'CHINA', 'INDIA',
             'UNITED ARAB EMIRATES', 'VIETNAM',
-            'PAKISTAN', 'PHILIPPINES', 'SOUTH KOREA'
+            'PAKISTAN', 'PHILIPPINES', 'KOREA, REPUBLIC OF',
+            'KAZAKHSTAN', 'ARMENIA', 'TAIWAM. CHINA'
             }
-    UNITED_STATES = {'UNITED STATES'}
+    UNITED_STATES = {'UNITED STATES OF AMERICA'}
     SOUTH_AMERICA = {'ARGENTINA', 'BRAZIL'}
-    NORTH_AMERICA = {'CANADA', 'MEXICO', 'UNITED STATES'}
+    NORTH_AMERICA = {'CANADA', 'MEXICO', 'UNITED STATES OF AMERICA'}
     EUROPE = {'UKRAINE', 'UNITED KINGDOM',
               'POLAND', 'ROMANIA', 'RUSSIA',
               'BELARUS', 'BELGIUM', 'BULGARIA',
               'GERMANY', 'ITALY', 'NETHERLANDS',
               'SWEDEN', 'SWITZERLAND', 'TURKEY',
               'SLOVENIA', 'SOVIET UNION', 'SPAIN',
-              'CZECHOSLOVAKIA', 'FINLAND', 'FRANCE'
+              'CZECH REPUBLIC', 'FINLAND', 'FRANCE',
+              'SLOVAKIA', 'HUNGARY', 'LITHUANIA'
               }
     AFRICA = {'EGYPT', 'MOROCCO', 'SOUTH AFRICA', 'TUNISIA'}
     ALL = (SOUTH_AMERICA | NORTH_AMERICA |
