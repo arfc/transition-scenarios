@@ -27,7 +27,7 @@ reactor_path = '../input/haleu/inputs/' + region + '/reactors'
 reactor_template = '../input/predicting-the-past/templates/reactors_template.xml'
 
 
-pris = import_data.import_csv('../database/reactors_pris_2016.csv', ',')
+pris = import_data.import_csv(pris_file)
 
 
 recipes = import_data.import_csv('../database/vision_recipes/uox.csv', ',')
