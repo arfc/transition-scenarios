@@ -49,6 +49,10 @@ def import_pris(pris_link):
                        )
     pris.insert(11, 'Latitude', np.nan)
     pris.insert(12, 'Longitude', np.nan)
+    pris = pris[pris.Unit.notnull()]
+    pris = pris[pris.Unit != 'Unit']
+    pris = pris[pris.Unit != '']
+    pris = pris.rename(columns={'ARGENTINA': 'Country'})
     pris = pris.replace(np.nan, '')
     return pris
 
@@ -200,18 +204,18 @@ def merge_coordinates(pris_link, scrape_link, data_year):
             webscrape_name = sanitize_webscrape_name(web['name'])
             pris_name = sanitize_pris_name(prs[1])
             if fuzz.ratio(webscrape_name, pris_name) > 78:
-                prs[13] = web['lat']
-                prs[14] = web['long']
+                prs[11] = web['lat']
+                prs[12] = web['long']
             else:
                 for other in others.keys():
                     edge_case_key = other.lower()
                     edge_case_value = others[other].lower()
                     if fuzz.ratio(pris_name, edge_case_key) > 80:
                         if fuzz.ratio(webscrape_name, edge_case_value) > 75:
-                            prs[13] = web['lat']
-                            prs[14] = web['long']
+                            prs[11] = web['lat']
+                            prs[12] = web['long']
     pris.to_csv(
-        'reactors_pris_' +
+        '../database/reactors_pris_' +
         str(data_year) +
         '.csv',
         index=False,

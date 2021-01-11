@@ -9,15 +9,8 @@ start_year = 1965
 region = 'united_states'
 project = 'haleu'
 
-reactor_data = import_data.import_pris(
-    '../database/Year-end Reactor Status_' +
-    str(data_year) +
-    '.csv')
-reactor_data = reactor_data[reactor_data.Unit != '']
-reactor_data = reactor_data[reactor_data.Unit != 'Unit']
-reactor_data = reactor_data.rename(columns={'ARGENTINA': 'Country'})
-import_data.save_output(reactor_data, data_year)
-
+import_data.merge_coordinates('../database/Year-end Reactor Status_' + str(data_year) + '.csv',
+                              '../database/coordinates.sqlite', data_year)
 
 pris_file = '../database/reactors_pris_' + str(data_year) + '.csv'
 deployinst_tmpl = '../input/predicting-the-past/templates/' + \
