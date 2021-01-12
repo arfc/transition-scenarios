@@ -206,16 +206,16 @@ def merge_coordinates(pris_link, scrape_link, data_year):
             webscrape_name = sanitize_webscrape_name(web['name'])
             pris_name = sanitize_pris_name(prs[1])
             if fuzz.ratio(webscrape_name, pris_name) > 78:
-                prs[11] = web['lat']
-                prs[12] = web['long']
+                prs['Latitude'] = web['lat']
+                prs['Longitude'] = web['long']
             else:
                 for other in others.keys():
                     edge_case_key = other.lower()
                     edge_case_value = others[other].lower()
                     if fuzz.ratio(pris_name, edge_case_key) > 80:
                         if fuzz.ratio(webscrape_name, edge_case_value) > 75:
-                            prs[11] = web['lat']
-                            prs[12] = web['long']
+                            prs['Latitude'] = web['lat']
+                            prs['Longitude'] = web['long']
     pris.to_csv(
         '../database/reactors_pris_' +
         str(data_year) +
@@ -479,10 +479,10 @@ def select_region(in_list, region):
         raise ValueError(region + 'is not a valid region')
     reactor_list = []
     for row in in_list:
-        country = row[0]
+        country = row['Country']
         if country.upper() in regions[region.upper()]:
-            capacity = row[10]
-            start_date = row[8]
+            capacity = row['RUP [MWe]']
+            start_date = row['Grid Date']
             if confirm_deployment(start_date, capacity):
                 reactor_list.append(row)
     return reactor_list
@@ -504,8 +504,8 @@ def get_lifetime(in_row):
     lifetime: int
         lifetime of reactor
     """
-    comm_date = in_row[8]
-    shutdown_date = in_row[9]
+    comm_date = in_row['Grid Date']
+    shutdown_date = in_row['Shutdown Date']
     if not shutdown_date.strip():
         return 720
     else:
@@ -541,15 +541,15 @@ def write_reactors(in_list, out_path, reactor_template,
     pathlib.Path(out_path).mkdir(parents=True, exist_ok=True)
     reactor_template = load_template(reactor_template)
     for row in in_list:
-        capacity = float(row[10])
+        capacity = float(row['RUP [MWe]'])
         if capacity >= 400:
             name = row[1].replace(' ', '_')
             assem_per_batch = 0
             assem_no = 0
             assem_size = 0
             reactor_type = row[3]
-            latitude = row[11] if row[11] != '' else 0
-            longitude = row[12] if row[12] != '' else 0
+            latitude = row['Latitude'] if row['Latitude'] != '' else 0
+            longitude = row['Longitude'] if row['Longitude'] != '' else 0
             if reactor_type in ['BWR', 'ESBWR']:
                 assem_no = 732
                 assem_per_batch = int(assem_no / 3)
@@ -682,14 +682,14 @@ def get_buildtime(in_list, start_year, path_list):
     """
     buildtime_dict = {}
     for row in in_list:
-        comm_date = date.parse(row[8])
+        comm_date = date.parse(row['Grid Date'])
         start_date = [comm_date.year, comm_date.month, comm_date.day]
         delta = ((start_date[0] - int(start_year)) * 12 +
                  (start_date[1]) +
                  round(start_date[2] / (365.0 / 12)))
         for index, reactor in enumerate(path_list):
             name = row[1].replace(' ', '_')
-            country = row[0]
+            country = row['Country']
             file_name = (reactor.replace(
                 os.path.dirname(path_list[index]), '')).replace('/', '')
             if (name + '.xml' == file_name):
