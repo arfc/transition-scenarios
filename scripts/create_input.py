@@ -30,7 +30,7 @@ deployment_path = '../input/' + project + '/inputs/' + region + '/buildtimes'
 reactor_path = '../input/' + project + '/inputs/' + region + '/reactors'
 
 
-pris = import_data.import_csv(pris_file)
+pris = pd.read_csv(pris_file)
 
 
 burnups = [33, 51, 100]

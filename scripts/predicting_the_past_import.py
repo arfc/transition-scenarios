@@ -431,28 +431,28 @@ def confirm_deployment(date_str, capacity):
     return is_deployed
 
 
-def select_region(in_list, region):
+def select_region(in_dataframe, region):
     """ Returns a list of reactors that will be deployed for
     CYCLUS by checking the capacity and commercial date
 
     Parameters
     ----------
-    in_list: list
-            imported csv file in list format
+    in_dataframe: DataFrame
+            imported csv file in DataFrame format
     region: str
             name of the region
 
     Returns
     -------
-    reactor_list: list
-            list of reactors from PRIS
+    reactor_df: DataFrame
+            DataFrame of reactors from PRIS
     """
     ASIA = {'IRAN, ISLAMIC REPUBLIC OF', 'JAPAN',
             'KAZAKHSTAN',
             'BANGLADESH', 'CHINA', 'INDIA',
             'UNITED ARAB EMIRATES', 'VIETNAM',
             'PAKISTAN', 'PHILIPPINES', 'KOREA, REPUBLIC OF',
-            'KAZAKHSTAN', 'ARMENIA', 'TAIWAM. CHINA'
+            'KAZAKHSTAN', 'ARMENIA', 'TAIWAN, CHINA'
             }
     UNITED_STATES = {'UNITED STATES OF AMERICA'}
     SOUTH_AMERICA = {'ARGENTINA', 'BRAZIL'}
@@ -478,15 +478,18 @@ def select_region(in_list, region):
                'ALL': ALL}
     if region.upper() not in regions.keys():
         raise ValueError(region + 'is not a valid region')
-    reactor_list = []
-    for row in in_list:
+    reactor_df = pd.DataFrame(columns = in_dataframe.columns)
+    for index, row in in_dataframe.iterrows():
         country = row['Country']
         if country.upper() in regions[region.upper()]:
             capacity = row['RUP [MWe]']
-            start_date = row['Grid Date']
+            start_date = str(row['Grid Date'])
             if confirm_deployment(start_date, capacity):
-                reactor_list.append(row)
-    return reactor_list
+                reactor_df = reactor_df.append(in_dataframe.loc[index], ignore_index=True)
+    reactor_df = reactor_df.replace(np.nan, '')
+    reactor_df = reactor_df.astype(str)
+    
+    return reactor_df
 
 
 def get_lifetime(in_row):
@@ -515,14 +518,14 @@ def get_lifetime(in_row):
         return int(delta / n_days_month)
 
 
-def write_reactors(in_list, out_path, reactor_template,
+def write_reactors(in_dataframe, out_path, reactor_template,
                    cycle_time=18, refuel_time=1):
     """ Renders CYCAMORE::reactor specifications using jinja2.
 
     Parameters
     ----------
-    in_list: list
-        list containing PRIS data
+    in_dataframe: DataFrame
+        DataFrame containing PRIS data
     out_path: str
         output path for reactor files
     reactor_template: str
@@ -541,7 +544,7 @@ def write_reactors(in_list, out_path, reactor_template,
         out_path += '/'
     pathlib.Path(out_path).mkdir(parents=True, exist_ok=True)
     reactor_template = load_template(reactor_template)
-    for row in in_list:
+    for index, row in in_dataframe.iterrows():
         capacity = float(row['RUP [MWe]'])
         if capacity >= 400:
             name = row[1].replace(' ', '_')
@@ -586,7 +589,7 @@ def write_reactors(in_list, out_path, reactor_template,
                                              assem_size=assem_size,
                                              n_assem_core=assem_no,
                                              n_assem_batch=assem_per_batch,
-                                             power_cap=row[10],
+                                             power_cap=row['RUP [MWe]'],
                                              lon=longitude,
                                              lat=latitude)
             with open(out_path + name.replace(' ', '_') + '.xml',
@@ -614,7 +617,7 @@ def obtain_reactors(in_csv, region, reactor_template, out_path):
     null
         Writes xml files for individual reactors in region.
     """
-    in_data = import_csv(in_csv, ',')
+    in_data = pd.read_csv(in_csv, ',')
     reactor_list = select_region(in_data, region)
     write_reactors(reactor_list, out_path, reactor_template)
 
@@ -683,7 +686,7 @@ def get_buildtime(in_list, start_year, path_list):
         value=[set of country and buildtime]
     """
     buildtime_dict = {}
-    for row in in_list:
+    for index, row in in_list.iterrows():
         comm_date = date.parse(row['Grid Date'])
         start_date = [comm_date.year, comm_date.month, comm_date.day]
         delta = ((start_date[0] - int(start_year)) * 12 +
@@ -732,7 +735,7 @@ def deploy_reactors(in_csv, region, start_year, deployinst_template,
         reactors_path += '/'
     for files in os.listdir(reactors_path):
         lists.append(reactors_path + files)
-    in_data = import_csv(in_csv, ',')
+    in_data = pd.read_csv(in_csv)
     reactor_list = select_region(in_data, region)
     buildtime = get_buildtime(reactor_list, start_year, lists)
     write_deployment(buildtime, deployment_path, deployinst_template,
