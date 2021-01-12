@@ -350,7 +350,7 @@ def get_composition_spent(in_list, burnup):
 
 
 def write_recipes(fresh_dict, spent_dict, in_template,
-                  burnup, region='united_states'):
+                  burnup, out_path):
     """ Renders jinja template using fresh and spent fuel composition.
 
     Parameters
@@ -365,13 +365,14 @@ def write_recipes(fresh_dict, spent_dict, in_template,
         jinja template object to be rendered
     burnup: int
         amount of burnup
+    out_path: str
+        output path for recipe files
 
     Returns
     -------
     null
         generates recipe files for cyclus.
     """
-    out_path = '../input/haleu/inputs/' + region + '/recipes/'
     pathlib.Path(out_path).mkdir(parents=True, exist_ok=True)
     rendered = in_template.render(fresh=fresh_dict,
                                   spent=spent_dict)
@@ -547,7 +548,7 @@ def write_reactors(in_list, out_path, reactor_template,
             assem_per_batch = 0
             assem_no = 0
             assem_size = 0
-            reactor_type = row[3]
+            reactor_type = row['Type']
             latitude = row['Latitude'] if row['Latitude'] != '' else 0
             longitude = row['Longitude'] if row['Longitude'] != '' else 0
             if reactor_type in ['BWR', 'ESBWR']:
@@ -593,7 +594,7 @@ def write_reactors(in_list, out_path, reactor_template,
                 output.write(config)
 
 
-def obtain_reactors(in_csv, region, reactor_template):
+def obtain_reactors(in_csv, region, reactor_template, out_path):
     """ Writes xml files for individual reactors in a given
     region.
 
@@ -605,6 +606,8 @@ def obtain_reactors(in_csv, region, reactor_template):
         region name
     reactor_template: str
         path to CYCAMORE::reactor config template file
+    out_path: str
+        output path for reactor files
 
     Returns
     -------
@@ -613,7 +616,6 @@ def obtain_reactors(in_csv, region, reactor_template):
     """
     in_data = import_csv(in_csv, ',')
     reactor_list = select_region(in_data, region)
-    out_path = 'cyclus/input/' + region + '/reactors'
     write_reactors(reactor_list, out_path, reactor_template)
 
 
@@ -688,7 +690,7 @@ def get_buildtime(in_list, start_year, path_list):
                  (start_date[1]) +
                  round(start_date[2] / (365.0 / 12)))
         for index, reactor in enumerate(path_list):
-            name = row[1].replace(' ', '_')
+            name = row['Unit'].replace(' ', '_')
             country = row['Country']
             file_name = (reactor.replace(
                 os.path.dirname(path_list[index]), '')).replace('/', '')
