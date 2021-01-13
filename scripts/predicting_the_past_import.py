@@ -380,7 +380,7 @@ def write_recipes(fresh_dict, spent_dict, in_template,
         output.write(rendered)
 
 
-def produce_recipes(in_csv, recipe_template, burnup):
+def produce_recipes(in_csv, recipe_template, burnup, out_path):
     """ Generates commodity composition xml input for cyclus.
 
     Parameters
@@ -391,6 +391,8 @@ def produce_recipes(in_csv, recipe_template, burnup):
         path and name of recipe template
     burnup: int
         amount of burnup
+    out_path: str
+        output path for recipe files
 
     Returns
     -------
@@ -400,7 +402,7 @@ def produce_recipes(in_csv, recipe_template, burnup):
     recipe = import_csv(in_csv, ',')
     write_recipes(get_composition_fresh(recipe, burnup),
                   get_composition_spent(recipe, burnup),
-                  load_template(recipe_template), burnup)
+                  load_template(recipe_template), burnup, out_file)
 
 
 def confirm_deployment(date_str, capacity):
@@ -478,17 +480,18 @@ def select_region(in_dataframe, region):
                'ALL': ALL}
     if region.upper() not in regions.keys():
         raise ValueError(region + 'is not a valid region')
-    reactor_df = pd.DataFrame(columns = in_dataframe.columns)
+    reactor_df = pd.DataFrame(columns=in_dataframe.columns)
     for index, row in in_dataframe.iterrows():
         country = row['Country']
         if country.upper() in regions[region.upper()]:
             capacity = row['RUP [MWe]']
             start_date = str(row['Grid Date'])
             if confirm_deployment(start_date, capacity):
-                reactor_df = reactor_df.append(in_dataframe.loc[index], ignore_index=True)
+                reactor_df = reactor_df.append(
+                    in_dataframe.loc[index], ignore_index=True)
     reactor_df = reactor_df.replace(np.nan, '')
     reactor_df = reactor_df.astype(str)
-    
+
     return reactor_df
 
 

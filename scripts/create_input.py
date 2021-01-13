@@ -9,7 +9,7 @@ start_year = 1965
 region = 'united_states'
 project = 'haleu'
 
-#paths to data and templates
+# paths to data and templates
 import_data.merge_coordinates('../database/Year-end Reactor Status_' + str(data_year) + '.csv',
                               '../database/coordinates.sqlite', data_year)
 
