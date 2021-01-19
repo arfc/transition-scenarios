@@ -16,8 +16,7 @@ import_data.merge_coordinates('../database/Year-end Reactor Status_' + str(data_
 pris_file = '../database/reactors_pris_' + str(data_year) + '.csv'
 recipes = import_data.import_csv('../database/vision_recipes/uox.csv', ',')
 
-deployinst_tmpl = '../templates/' + \
-    region + '/deployinst_template.xml'
+deployinst_tmpl = '../templates/deployinst_template.xml'
 inclusions_tmpl = '../templates/inclusions_template.xml'
 recipe_template = import_data.load_template(
     '../templates/recipes_template.xml')
