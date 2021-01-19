@@ -405,7 +405,7 @@ def produce_recipes(in_csv, recipe_template, burnup, out_path):
                   load_template(recipe_template), burnup, out_file)
 
 
-def confirm_deployment(date_str, capacity):
+def confirm_deployment(row, start_year):
     """ Confirms if reactor is to be deployed for CYCLUS by
     checking if the capacity > 400 and if the commercial date
     is a proper date format.
@@ -413,10 +413,11 @@ def confirm_deployment(date_str, capacity):
     Parameters
     ----------
     date_str: str
-            the commercial date string from PRIS data file
+        the commercial date string from PRIS data file
     capacity: str
-            capacity in MWe from RPIS data file
-
+        capacity in MWe from RPIS data file
+    start_year: int
+        start year of the simulation
     Returns
     -------
     is_deployed: bool
@@ -424,25 +425,37 @@ def confirm_deployment(date_str, capacity):
             in CYCLUS
     """
     is_deployed = False
-    if len(date_str) > 4 and float(capacity) > 400:
-        try:
-            date.parse(date_str)
-            is_deployed = True
-        except BaseException:
-            pass
+    capacity = row['RUP [MWe]']
+    start_date = str(row['Grid Date'])
+    end_date = str(row['Shutdown Date'])
+    if len(start_date) > 4 and float(capacity) > 400: 
+        if end_date == 'nan':
+            try:
+                date.parse(start_date)
+                is_deployed = True
+            except BaseException:
+                pass
+        elif date.parse(end_date).year > start_year:
+            try:
+                date.parse(start_date)
+                is_deployed = True
+            except BaseException:
+                pass
     return is_deployed
 
 
-def select_region(in_dataframe, region):
+def select_region(in_dataframe, region, start_year):
     """ Returns a list of reactors that will be deployed for
     CYCLUS by checking the capacity and commercial date
 
     Parameters
     ----------
     in_dataframe: DataFrame
-            imported csv file in DataFrame format
+        imported csv file in DataFrame format
     region: str
-            name of the region
+        name of the region
+    start_year: int
+        start year of simulation
 
     Returns
     -------
@@ -484,9 +497,7 @@ def select_region(in_dataframe, region):
     for index, row in in_dataframe.iterrows():
         country = row['Country']
         if country.upper() in regions[region.upper()]:
-            capacity = row['RUP [MWe]']
-            start_date = str(row['Grid Date'])
-            if confirm_deployment(start_date, capacity):
+            if confirm_deployment(row, start_year):
                 reactor_df = reactor_df.append(
                     in_dataframe.loc[index], ignore_index=True)
     reactor_df = reactor_df.replace(np.nan, '')
@@ -629,7 +640,7 @@ def obtain_reactors(in_csv, region, reactor_template, out_path, start_year):
         Writes xml files for individual reactors in region.
     """
     in_data = pd.read_csv(in_csv, ',')
-    reactor_list = select_region(in_data, region)
+    reactor_list = select_region(in_data, region, start_year)
     write_reactors(reactor_list, out_path, reactor_template, start_year)
 
 
@@ -749,7 +760,7 @@ def deploy_reactors(in_csv, region, start_year, deployinst_template,
     for files in os.listdir(reactors_path):
         lists.append(reactors_path + files)
     in_data = pd.read_csv(in_csv)
-    reactor_list = select_region(in_data, region)
+    reactor_list = select_region(in_data, region, start_year)
     buildtime = get_buildtime(reactor_list, start_year, lists)
     write_deployment(buildtime, deployment_path, deployinst_template,
                      inclusions_template)
