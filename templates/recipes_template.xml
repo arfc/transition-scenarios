@@ -1,0 +1,78 @@
+<recipes>
+  <recipe>
+    <name>fresh_uox</name>
+    <basis>atom</basis>
+    {% for key, value in fresh.items() -%}
+    <nuclide> <id>{{ key }}</id> <comp>{{ value }}</comp> </nuclide>
+    {% endfor -%}
+  </recipe>
+  <recipe>
+    <name>spent_uox</name>
+    <basis>atom</basis>
+    {% for key, value in spent.items() -%}
+    <nuclide> <id>{{ key }}</id> <comp>{{ value }}</comp> </nuclide>
+    {% endfor -%}
+  </recipe>
+  <recipe>
+    <name>nat_u</name>
+    <basis>atom</basis>
+    <nuclide>
+      <id>922350000</id>
+      <comp>0.00711</comp>
+    </nuclide>
+    <nuclide>
+      <id>922380000</id>
+      <comp>0.99289</comp>
+    </nuclide>
+  </recipe>
+  <recipe>
+    <name>u3o8</name>
+    <basis>atom</basis>
+    <nuclide>
+      <id>922350000</id>
+      <comp>0.00711</comp>
+    </nuclide>
+    <nuclide>
+      <id>922380000</id>
+      <comp>0.99289</comp>
+    </nuclide>
+  </recipe>
+  <recipe>
+    <name>uf6</name>
+    <basis>atom</basis>
+    <nuclide>
+      <id>922350000</id>
+      <comp>0.00711</comp>
+    </nuclide>
+    <nuclide>
+      <id>922380000</id>
+      <comp>0.99289</comp>
+    </nuclide>
+  </recipe>
+  <recipe>
+    <name>enr_u</name>
+    <basis>atom</basis>
+    <nuclide>
+      <id>922350000</id>
+      <comp>0.045</comp>
+    </nuclide>
+    <nuclide>
+      <id>922380000</id>
+      <comp>0.955</comp>
+    </nuclide>
+  </recipe>
+  <recipe>
+    <name>cool_spent_uox</name>
+    <basis>mass</basis>
+    {% for key, value in spent.items() -%}
+    <nuclide> <id>{{ key }}</id> <comp>{{ value }}</comp> </nuclide>
+    {% endfor -%}
+  </recipe>
+  <recipe>
+    <name>casked_spent_uox</name>
+    <basis>mass</basis>
+    {% for key, value in spent.items() -%}
+    <nuclide> <id>{{ key }}</id> <comp>{{ value }}</comp> </nuclide>
+    {% endfor -%}
+  </recipe>
+</recipes>
