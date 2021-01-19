@@ -4,38 +4,6 @@
 The script folder contains scripts that can be used to generate CYCLUS
 input files and analyze CYCLUS output files.
 
-
-### write_reactors.py
-Python script for CYCLUS input file generation.
-
-The assumptions for the parameters are as follows:
-
-	Cycle 		= 18 months (timesteps) for all
-	Refueling 	= 2 months (timesteps) for all
-	assembly mass 	= 180 UO2 / assembly for BWRs
-			  		  523.4 UO2 / assembly for rest [PWR](nucleartourist.com)
-	#of assemblies 	= 193 for 1000MWe, linearly adjusted for other capacities
-
-This script allows generation of CYCLUS input file types from csv files.
-
-Input : csv file, initial_time, duration, reprocessing 
-
-
-	    
-    csv_file: the csv file containing country, reactor name and capacity
-    
-    initial_time: initial time of the simulation in yyyymmdd
-
-    duration: duration of the simulation in months
-    
-    
-Output : A complete input file ready for simulation. (default: complete_input.xml)
-    
-To run:
-
-	python write_reactors.py [csv_file] [init_time] [duration]
-
-
 ### analysis.py
 
 Input : CYCLUS output file (.sqlite)  
@@ -46,11 +14,14 @@ python analysis.py [outputfile]
 Most functions return a dictionary of lists (timeseries of a value)
 that can be used to plot a stacked bar chart or a line plot.
 
+### creat_input.py
+Python script to create CYCLUS input files 
 
-### test.sqlite
+
+### tests/test.sqlite
 Simple Cyclus output for testing purposes.
 
-### test_analysis.py
+### tests/test_analysis.py
 testfile for analysis.py.  
 To run:  
 ```
@@ -60,8 +31,8 @@ python test_analysis.py
 ## Templates Folder
 This folder contains templates that are used in the write_reactors.py script.
 
-### input_template.xml.in
-Jinja Template for the entire Cyclus input file.
+### united_states_template.xml.in
+Jinja Template for the entire Cyclus input file of the United States fuel cycle.
 
 This is where the compiled reactor and region files will be rendered into.
 
@@ -70,16 +41,13 @@ fuel composition data is from representative vision recipes.
 ### reactor_template.xml.in
 Jinja template for the reactor section of the cyclus input file.
 
-### reactor_mox_template.xml.in
-Jinja tempalte for reactors that use mox
 
 ### deployinst_template.xml.in
 Jinja template for the individual region prototype of the cyclus input file.
 
-### region_output_template.xml.in
-Jinja template for the region section of the cylcus input file.
+### inclusions_template.xml.in
+Jinja template for the reactor input files to include in the simulation
 
-Grouped region prototypes will be rendered into this file.
 
 
 ## Database Folder
