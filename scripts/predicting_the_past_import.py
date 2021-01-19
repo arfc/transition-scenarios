@@ -495,7 +495,7 @@ def select_region(in_dataframe, region):
     return reactor_df
 
 
-def get_lifetime(in_row):
+def get_lifetime(in_row, start_year):
     """ Calculates the lifetime of a reactor using first
     commercial date and shutdown date. Defaults to 720 months
     if shutdown date is not available.
@@ -505,6 +505,8 @@ def get_lifetime(in_row):
     in_row: list
         single row from PRIS data that contains reactor
         information
+    start_year: int
+        start year for the simulation
 
     Returns
     -------
@@ -512,6 +514,8 @@ def get_lifetime(in_row):
         lifetime of reactor
     """
     comm_date = in_row['Grid Date']
+    if date.parse(comm_date).year < start_year:
+        comm_date = str(start_year) + '-01-01'
     shutdown_date = in_row['Shutdown Date']
     if not shutdown_date.strip():
         return 720
@@ -521,7 +525,7 @@ def get_lifetime(in_row):
         return int(delta / n_days_month)
 
 
-def write_reactors(in_dataframe, out_path, reactor_template,
+def write_reactors(in_dataframe, out_path, reactor_template, start_year,
                    cycle_time=18, refuel_time=1):
     """ Renders CYCAMORE::reactor specifications using jinja2.
 
@@ -533,6 +537,8 @@ def write_reactors(in_dataframe, out_path, reactor_template,
         output path for reactor files
     reactor_template: str
         path to reactor template
+    start_year: int
+        start year of the simulation
     cycle_time: int
         cycle length of reactors in months
     refuel_time: int
@@ -586,7 +592,7 @@ def write_reactors(in_dataframe, out_path, reactor_template,
                 assem_per_batch = int(assem_no / 3)
                 assem_size = 103000 / assem_no
             config = reactor_template.render(name=name,
-                                             lifetime=get_lifetime(row),
+                                             lifetime=get_lifetime(row, start_year),
                                              cycletime=cycle_time,
                                              refueltime=refuel_time,
                                              assem_size=assem_size,
@@ -600,7 +606,7 @@ def write_reactors(in_dataframe, out_path, reactor_template,
                 output.write(config)
 
 
-def obtain_reactors(in_csv, region, reactor_template, out_path):
+def obtain_reactors(in_csv, region, reactor_template, out_path, start_year):
     """ Writes xml files for individual reactors in a given
     region.
 
@@ -614,6 +620,8 @@ def obtain_reactors(in_csv, region, reactor_template, out_path):
         path to CYCAMORE::reactor config template file
     out_path: str
         output path for reactor files
+    start_year: int
+        start year of the simulation
 
     Returns
     -------
@@ -622,7 +630,7 @@ def obtain_reactors(in_csv, region, reactor_template, out_path):
     """
     in_data = pd.read_csv(in_csv, ',')
     reactor_list = select_region(in_data, region)
-    write_reactors(reactor_list, out_path, reactor_template)
+    write_reactors(reactor_list, out_path, reactor_template, start_year)
 
 
 def write_deployment(in_dict, out_path, deployinst_template,
@@ -695,6 +703,8 @@ def get_buildtime(in_list, start_year, path_list):
         delta = ((start_date[0] - int(start_year)) * 12 +
                  (start_date[1]) +
                  round(start_date[2] / (365.0 / 12)))
+        if delta < 0:
+            delta = 0
         for index, reactor in enumerate(path_list):
             name = row['Unit'].replace(' ', '_')
             country = row['Country']
@@ -760,8 +770,6 @@ def render_cyclus(cyclus_template, region, in_dict, out_path, burn_up=50):
         in_dict should be buildtime_dict from get_buildtime function
     out_path: str
         output path for CYCLUS input file
-    data_year: int
-        year the data was pulled from
     burn_up: int
         burnup in GWd/MTU
 
