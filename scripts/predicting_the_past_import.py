@@ -428,7 +428,7 @@ def confirm_deployment(row, start_year):
     capacity = row['RUP [MWe]']
     start_date = str(row['Grid Date'])
     end_date = str(row['Shutdown Date'])
-    if len(start_date) > 4 and float(capacity) > 400: 
+    if len(start_date) > 4 and float(capacity) > 400:
         if end_date == 'nan':
             try:
                 date.parse(start_date)
@@ -603,7 +603,8 @@ def write_reactors(in_dataframe, out_path, reactor_template, start_year,
                 assem_per_batch = int(assem_no / 3)
                 assem_size = 103000 / assem_no
             config = reactor_template.render(name=name,
-                                             lifetime=get_lifetime(row, start_year),
+                                             lifetime=get_lifetime(
+                                                 row, start_year),
                                              cycletime=cycle_time,
                                              refueltime=refuel_time,
                                              assem_size=assem_size,
@@ -767,7 +768,8 @@ def deploy_reactors(in_csv, region, start_year, deployinst_template,
     return buildtime
 
 
-def render_cyclus(cyclus_template, region, in_dict, out_path, start_year, burn_up=50):
+def render_cyclus(cyclus_template, region, in_dict,
+                  out_path, start_year, burn_up=50):
     """ Renders final CYCLUS input file with xml base, and institutions
     for each country
 
