@@ -90,7 +90,9 @@ To run:
 python predicting_the_past.py
 ```
 Inputs: None
+
 Outputs: None
+
 ### random_lifetime_extensions.py
 Function to apply lifetime extensions to reactors in a CYCLUS input, based on a Gaussian 
 distribution (mean = 10, standard deviation = 3 years). 
@@ -100,7 +102,9 @@ To run:
 python random_lifetime_extensions.py
 ```
 Inputs: None
+
 Outputs: None
+
 ### tests/test.sqlite
 Simple Cyclus output for testing purposes.
 
@@ -119,6 +123,7 @@ To run:
 python transition_plots.py
 ```
 Inputs: None
+
 Outputs: None
 
 ## Templates Folder
@@ -134,6 +139,8 @@ fuel composition data is from representative vision recipes.
 ### reactor_template.xml.in
 Jinja template for the reactor section of the cyclus input file.
 
+### reciptes_template.xml.in
+Jinja template for the recipe section of the cyclus input file. 
 
 ### deployinst_template.xml.in
 Jinja template for the individual region prototype of the cyclus input file.
