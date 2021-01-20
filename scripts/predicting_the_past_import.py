@@ -767,7 +767,7 @@ def deploy_reactors(in_csv, region, start_year, deployinst_template,
     return buildtime
 
 
-def render_cyclus(cyclus_template, region, in_dict, out_path, burn_up=50):
+def render_cyclus(cyclus_template, region, in_dict, out_path, start_year, burn_up=50):
     """ Renders final CYCLUS input file with xml base, and institutions
     for each country
 
@@ -781,6 +781,8 @@ def render_cyclus(cyclus_template, region, in_dict, out_path, burn_up=50):
         in_dict should be buildtime_dict from get_buildtime function
     out_path: str
         output path for CYCLUS input file
+    start_year: int
+        start year for the simulation
     burn_up: int
         burnup in GWd/MTU
 
@@ -793,7 +795,8 @@ def render_cyclus(cyclus_template, region, in_dict, out_path, burn_up=50):
         out_path += '/'
     cyclus_template = load_template(cyclus_template)
     country_list = {value[0].replace(' ', '_') for value in in_dict.values()}
-    rendered = cyclus_template.render(burnup=burn_up,
+    rendered = cyclus_template.render(start_year=start_year,
+                                      burnup=burn_up,
                                       countries=country_list,
                                       base_dir=os.path.abspath(out_path) + '/')
     with open(out_path + region + '.xml', 'w') as output:

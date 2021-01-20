@@ -21,8 +21,7 @@ inclusions_tmpl = '../templates/inclusions_template.xml'
 recipe_template = import_data.load_template(
     '../templates/recipes_template.xml')
 reactor_template = '../templates/reactors_template.xml'
-cyclus_tmpl = ('../templates/' +
-               region + '/' + region + '_template.xml')
+cyclus_tmpl = ('../templates/' + region + '_template.xml')
 
 recipe_path = '../input/' + project + '/inputs/' + region + '/recipes/'
 deployment_path = '../input/' + project + '/inputs/' + region + '/buildtimes'
@@ -55,4 +54,4 @@ import_data.render_cyclus(
     '../input/' +
     project +
     '/inputs/',
-    51)  # change burn up
+    start_year,51)  # change burn up
