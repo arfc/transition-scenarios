@@ -526,7 +526,7 @@ def get_lifetime(in_row, start_year):
     """
     comm_date = in_row['Grid Date']
     if date.parse(comm_date).year < start_year:
-        comm_date = str(start_year) + '-01-01'
+        comm_date = str(start_year) + '-02-01'
     shutdown_date = in_row['Shutdown Date']
     if not shutdown_date.strip():
         return 720
@@ -715,7 +715,7 @@ def get_buildtime(in_list, start_year, path_list):
                  (start_date[1]) +
                  round(start_date[2] / (365.0 / 12)))
         if delta < 0:
-            delta = 0
+            delta = 1
         for index, reactor in enumerate(path_list):
             name = row['Unit'].replace(' ', '_')
             country = row['Country']
