@@ -1,7 +1,7 @@
 # transition-scenarios
 
-## Script Folder
-The script folder contains scripts that can be used to generate CYCLUS
+## Script directory
+The script directory contains scripts that can be used to generate CYCLUS
 input files and analyze CYCLUS output files.
 
 ### analysis.py
@@ -20,7 +20,8 @@ Reports. Once the Report is downloaded from the PRIS Database, it must be
 saved as ``database/Year-end Reactor Status_####.csv``, in which the ``####``
 is the four digit year the data is pulled from. Creates multiple files that 
 are used for a CYCLUS simulation, using functions contained in 
-``predicting_the_past_import.py``.
+``predicting_the_past_import.py``. Due to relative path dependancies in this 
+script, it **must** be run from the ``scripts`` directory.
 
 Input : None
 
@@ -32,7 +33,7 @@ simulation will start in January of that year
 - l. 9 : ``region`` (str) -- Region to include reactors from. Possible regions can 
 be found in the ``select_region`` function of ``predicting_the_past_import.py`` 
 Currently, only one region can be accepted at a time
-- l. 10 : ``project`` (str) -- folder name in ``/input/`` to contain all of the CYCLUS
+- l. 10 : ``project`` (str) -- directory name in ``/input/`` to contain all of the CYCLUS
 input files created
 - l. 35 : ``burnup`` (list) -- list of burnup values to be used in CYCLUS simulation. 
 - l. 46 : cycle length of reactors (int) -- input to ``import_data.write_reactors()``
@@ -46,9 +47,9 @@ Outputs :
 Status information, in which ``####`` is the four digit year the data is pulled from
 - ``input/project/inputs/region.xml`` : CYCLUS input file, in which ``project`` and ``region`` 
 are user specifications
-- ``input/project/inputs/region/recipes/`` : folder containing recipe files that are read into 
+- ``input/project/inputs/region/recipes/`` : directory containing recipe files that are read into 
 the CYCLUS input file, in which ``project`` and ``region`` are user specifications
-- ``input/project/inputs/region/reactors'`` : folder containing input files for each of the 
+- ``input/project/inputs/region/reactors'`` : directory containing input files for each of the 
 reactors in the selected region. Each reactor will be a separate ``.xml`` input file that 
 will be read into the CYCLUS input file, in which ``project`` and ``region`` are user 
 specifications
@@ -126,8 +127,8 @@ Inputs: None
 
 Outputs: None
 
-## Templates Folder
-This folder contains templates that are used in the write_reactors.py script.
+## Templates folder
+This directory contains templates that are used in the write_reactors.py script.
 
 ### deployinst_template.xml.in
 Jinja template for the individual region prototype of the cyclus input file.
@@ -148,7 +149,7 @@ This is where the compiled reactor and region files will be rendered into.
 
 fuel composition data is from representative vision recipes.
 
-## Database Folder
+## Database folder
 ### coordinates.sqlite
 Database of latitude and longitude coordinatates of reactors in the PRIS
 database
@@ -161,7 +162,7 @@ is 200 years long and an annual growth of 1% is assumed. The
 new reactor types (or fuel cycles) are available from 2050.
 
 ### vision_recipes/ 
-Folder of ``.csv`` files for various uox and mox fuel recipes, both fresh 
+directory of ``.csv`` files for various uox and mox fuel recipes, both fresh 
 and spent fuel
 
 ## scenario_specification.md
@@ -181,7 +182,7 @@ University of Illinois at Urbana-Champaign in the Advanced Reactors and Fuel
 Cycles group.
 
 To view the work or run a simulation for a particular region, open [region_name].ipynb
-under input/ folder
+under input/ directory
 
 ## REPORT
 To view the the report which includes the procedure, results and their
