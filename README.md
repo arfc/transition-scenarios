@@ -38,8 +38,10 @@ input files created
 - l. 35 : ``burnup`` (list of ints) -- list of burnup values to be used in CYCLUS simulation. 
 - l. 46 : cycle length of reactors (int) -- input to ``import_data.write_reactors()``
 - l. 47 : refueling length of reactor (int) -- input to ``import_data.write_reactors()``
+- l. 58 : simulation duration (int) -- duration of simulation in months; dafault value of 
+780 months (65 years)
 - l. 58 : burnup of reactors in CYCLUS simulation (int) -- must be a value in ``burnups``,
-so that recipe files are present
+so that recipe files are present; default of 50 GWd/MTU
 
 
 Outputs : 
