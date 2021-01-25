@@ -14,7 +14,7 @@ python analysis.py [outputfile]
 Most functions return a dictionary of lists (timeseries of a value)
 that can be used to plot a stacked bar chart or a line plot.
 
-### creat_input.py
+### create_input.py
 Python script to create CYCLUS input files from PRIS Year-end Reator Status 
 Reports. Once the Report is downloaded from the PRIS Database, it must be 
 saved as ``database/Year-end Reactor Status_####.csv``, in which the ``####``
@@ -30,12 +30,12 @@ User Specifications :
 the year in the Year-end Reactor Status file
 - l. 8 : ``start_year`` (int) -- four digit year for the simulation to start on. The 
 simulation will start in January of that year
-- l. 9 : ``region`` (str) -- Region to include reactors from. Possible regions can 
-be found in the ``select_region`` function of ``predicting_the_past_import.py`` 
+- l. 9 : ``region`` (str) -- Region to include reactors from. Possible regions are 
+Asia, United States, Europe, South America, North America, Africa, and All
 Currently, only one region can be accepted at a time
 - l. 10 : ``project`` (str) -- directory name in ``/input/`` to contain all of the CYCLUS
 input files created
-- l. 35 : ``burnup`` (list) -- list of burnup values to be used in CYCLUS simulation. 
+- l. 35 : ``burnup`` (list of ints) -- list of burnup values to be used in CYCLUS simulation. 
 - l. 46 : cycle length of reactors (int) -- input to ``import_data.write_reactors()``
 - l. 47 : refueling length of reactor (int) -- input to ``import_data.write_reactors()``
 - l. 58 : burnup of reactors in CYCLUS simulation (int) -- must be a value in ``burnups``,

@@ -2,6 +2,7 @@ import pandas as pd
 import sys
 
 import predicting_the_past_import as import_data
+# module containing functions to build CYCLUS input file
 
 # user defined characteristics of cyclus simulation
 data_year = 2020

@@ -415,7 +415,7 @@ def confirm_deployment(row, start_year):
     date_str: str
         the commercial date string from PRIS data file
     capacity: str
-        capacity in MWe from RPIS data file
+        capacity in MWe from PRIS data file
     start_year: int
         start year of the simulation
     Returns
