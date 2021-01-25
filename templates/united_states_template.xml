@@ -1,7 +1,7 @@
 ﻿<simulation xml:base="{{base_dir}}" xmlns:xi="http://www.w3.org/2001/XInclude">
   <control>
     <decay>lazy</decay>
-    <duration>1020</duration>
+    <duration>{{duration}}</duration>
     <startmonth>1</startmonth>
     <startyear>{{start_year}}</startyear>
   </control>

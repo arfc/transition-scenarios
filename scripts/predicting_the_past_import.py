@@ -769,7 +769,7 @@ def deploy_reactors(in_csv, region, start_year, deployinst_template,
 
 
 def render_cyclus(cyclus_template, region, in_dict,
-                  out_path, start_year, burn_up=50):
+                  out_path, start_year, duration=780, burn_up=50):
     """ Renders final CYCLUS input file with xml base, and institutions
     for each country
 
@@ -785,6 +785,8 @@ def render_cyclus(cyclus_template, region, in_dict,
         output path for CYCLUS input file
     start_year: int
         start year for the simulation
+    duration: int
+        duration for CYCLUS simulation to last in months
     burn_up: int
         burnup in GWd/MTU
 
@@ -798,6 +800,7 @@ def render_cyclus(cyclus_template, region, in_dict,
     cyclus_template = load_template(cyclus_template)
     country_list = {value[0].replace(' ', '_') for value in in_dict.values()}
     rendered = cyclus_template.render(start_year=start_year,
+                                      duration=duration, 
                                       burnup=burn_up,
                                       countries=country_list,
                                       base_dir=os.path.abspath(out_path) + '/')

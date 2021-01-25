@@ -55,4 +55,4 @@ import_data.render_cyclus(
     '../input/' +
     project +
     '/inputs/',
-    start_year, 51)  # change burn up
+    start_year, 780, 51)  # change burn up
