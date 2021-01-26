@@ -405,7 +405,7 @@ def produce_recipes(in_csv, recipe_template, burnup, out_path):
                   load_template(recipe_template), burnup, out_file)
 
 
-def confirm_deployment(date_str, capacity):
+def confirm_deployment(row, start_year):
     """ Confirms if reactor is to be deployed for CYCLUS by
     checking if the capacity > 400 and if the commercial date
     is a proper date format.
@@ -413,10 +413,11 @@ def confirm_deployment(date_str, capacity):
     Parameters
     ----------
     date_str: str
-            the commercial date string from PRIS data file
+        the commercial date string from PRIS data file
     capacity: str
-            capacity in MWe from RPIS data file
-
+        capacity in MWe from PRIS data file
+    start_year: int
+        start year of the simulation
     Returns
     -------
     is_deployed: bool
@@ -424,25 +425,37 @@ def confirm_deployment(date_str, capacity):
             in CYCLUS
     """
     is_deployed = False
-    if len(date_str) > 4 and float(capacity) > 400:
-        try:
-            date.parse(date_str)
-            is_deployed = True
-        except BaseException:
-            pass
+    capacity = row['RUP [MWe]']
+    start_date = str(row['Grid Date'])
+    end_date = str(row['Shutdown Date'])
+    if len(start_date) > 4 and float(capacity) > 400:
+        if end_date == 'nan':
+            try:
+                date.parse(start_date)
+                is_deployed = True
+            except BaseException:
+                pass
+        elif date.parse(end_date).year > start_year:
+            try:
+                date.parse(start_date)
+                is_deployed = True
+            except BaseException:
+                pass
     return is_deployed
 
 
-def select_region(in_dataframe, region):
+def select_region(in_dataframe, region, start_year):
     """ Returns a list of reactors that will be deployed for
     CYCLUS by checking the capacity and commercial date
 
     Parameters
     ----------
     in_dataframe: DataFrame
-            imported csv file in DataFrame format
+        imported csv file in DataFrame format
     region: str
-            name of the region
+        name of the region
+    start_year: int
+        start year of simulation
 
     Returns
     -------
@@ -484,9 +497,7 @@ def select_region(in_dataframe, region):
     for index, row in in_dataframe.iterrows():
         country = row['Country']
         if country.upper() in regions[region.upper()]:
-            capacity = row['RUP [MWe]']
-            start_date = str(row['Grid Date'])
-            if confirm_deployment(start_date, capacity):
+            if confirm_deployment(row, start_year):
                 reactor_df = reactor_df.append(
                     in_dataframe.loc[index], ignore_index=True)
     reactor_df = reactor_df.replace(np.nan, '')
@@ -495,7 +506,7 @@ def select_region(in_dataframe, region):
     return reactor_df
 
 
-def get_lifetime(in_row):
+def get_lifetime(in_row, start_year):
     """ Calculates the lifetime of a reactor using first
     commercial date and shutdown date. Defaults to 720 months
     if shutdown date is not available.
@@ -505,6 +516,8 @@ def get_lifetime(in_row):
     in_row: list
         single row from PRIS data that contains reactor
         information
+    start_year: int
+        start year for the simulation
 
     Returns
     -------
@@ -512,6 +525,8 @@ def get_lifetime(in_row):
         lifetime of reactor
     """
     comm_date = in_row['Grid Date']
+    if date.parse(comm_date).year < start_year:
+        comm_date = str(start_year) + '-02-01'
     shutdown_date = in_row['Shutdown Date']
     if not shutdown_date.strip():
         return 720
@@ -521,7 +536,7 @@ def get_lifetime(in_row):
         return int(delta / n_days_month)
 
 
-def write_reactors(in_dataframe, out_path, reactor_template,
+def write_reactors(in_dataframe, out_path, reactor_template, start_year,
                    cycle_time=18, refuel_time=1):
     """ Renders CYCAMORE::reactor specifications using jinja2.
 
@@ -533,6 +548,8 @@ def write_reactors(in_dataframe, out_path, reactor_template,
         output path for reactor files
     reactor_template: str
         path to reactor template
+    start_year: int
+        start year of the simulation
     cycle_time: int
         cycle length of reactors in months
     refuel_time: int
@@ -586,7 +603,8 @@ def write_reactors(in_dataframe, out_path, reactor_template,
                 assem_per_batch = int(assem_no / 3)
                 assem_size = 103000 / assem_no
             config = reactor_template.render(name=name,
-                                             lifetime=get_lifetime(row),
+                                             lifetime=get_lifetime(
+                                                 row, start_year),
                                              cycletime=cycle_time,
                                              refueltime=refuel_time,
                                              assem_size=assem_size,
@@ -600,7 +618,7 @@ def write_reactors(in_dataframe, out_path, reactor_template,
                 output.write(config)
 
 
-def obtain_reactors(in_csv, region, reactor_template, out_path):
+def obtain_reactors(in_csv, region, reactor_template, out_path, start_year):
     """ Writes xml files for individual reactors in a given
     region.
 
@@ -614,6 +632,8 @@ def obtain_reactors(in_csv, region, reactor_template, out_path):
         path to CYCAMORE::reactor config template file
     out_path: str
         output path for reactor files
+    start_year: int
+        start year of the simulation
 
     Returns
     -------
@@ -621,8 +641,8 @@ def obtain_reactors(in_csv, region, reactor_template, out_path):
         Writes xml files for individual reactors in region.
     """
     in_data = pd.read_csv(in_csv, ',')
-    reactor_list = select_region(in_data, region)
-    write_reactors(reactor_list, out_path, reactor_template)
+    reactor_list = select_region(in_data, region, start_year)
+    write_reactors(reactor_list, out_path, reactor_template, start_year)
 
 
 def write_deployment(in_dict, out_path, deployinst_template,
@@ -695,6 +715,8 @@ def get_buildtime(in_list, start_year, path_list):
         delta = ((start_date[0] - int(start_year)) * 12 +
                  (start_date[1]) +
                  round(start_date[2] / (365.0 / 12)))
+        if delta < 0:
+            delta = 1
         for index, reactor in enumerate(path_list):
             name = row['Unit'].replace(' ', '_')
             country = row['Country']
@@ -739,14 +761,15 @@ def deploy_reactors(in_csv, region, start_year, deployinst_template,
     for files in os.listdir(reactors_path):
         lists.append(reactors_path + files)
     in_data = pd.read_csv(in_csv)
-    reactor_list = select_region(in_data, region)
+    reactor_list = select_region(in_data, region, start_year)
     buildtime = get_buildtime(reactor_list, start_year, lists)
     write_deployment(buildtime, deployment_path, deployinst_template,
                      inclusions_template)
     return buildtime
 
 
-def render_cyclus(cyclus_template, region, in_dict, out_path, burn_up=50):
+def render_cyclus(cyclus_template, region, in_dict,
+                  out_path, start_year, duration=780, burn_up=50):
     """ Renders final CYCLUS input file with xml base, and institutions
     for each country
 
@@ -760,8 +783,10 @@ def render_cyclus(cyclus_template, region, in_dict, out_path, burn_up=50):
         in_dict should be buildtime_dict from get_buildtime function
     out_path: str
         output path for CYCLUS input file
-    data_year: int
-        year the data was pulled from
+    start_year: int
+        start year for the simulation
+    duration: int
+        duration for CYCLUS simulation to last in months
     burn_up: int
         burnup in GWd/MTU
 
@@ -774,7 +799,9 @@ def render_cyclus(cyclus_template, region, in_dict, out_path, burn_up=50):
         out_path += '/'
     cyclus_template = load_template(cyclus_template)
     country_list = {value[0].replace(' ', '_') for value in in_dict.values()}
-    rendered = cyclus_template.render(burnup=burn_up,
+    rendered = cyclus_template.render(start_year=start_year,
+                                      duration=duration, 
+                                      burnup=burn_up,
                                       countries=country_list,
                                       base_dir=os.path.abspath(out_path) + '/')
     with open(out_path + region + '.xml', 'w') as output:
