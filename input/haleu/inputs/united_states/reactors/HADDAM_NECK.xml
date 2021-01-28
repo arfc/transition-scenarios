@@ -1,6 +1,6 @@
 <facility>
   <name>HADDAM_NECK</name>
-  <lifetime>142</lifetime>
+  <lifetime>352</lifetime>
   <config>
     <Reactor>
       <fuel_incommods>  <val>fresh_uox</val> </fuel_incommods>

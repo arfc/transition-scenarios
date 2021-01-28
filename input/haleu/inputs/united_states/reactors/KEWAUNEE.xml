@@ -1,6 +1,6 @@
 <facility>
   <name>KEWAUNEE</name>
-  <lifetime>339</lifetime>
+  <lifetime>469</lifetime>
   <config>
     <Reactor>
       <fuel_incommods>  <val>fresh_uox</val> </fuel_incommods>

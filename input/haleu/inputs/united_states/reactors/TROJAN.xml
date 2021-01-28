@@ -1,6 +1,6 @@
 <facility>
   <name>TROJAN</name>
-  <lifetime>93</lifetime>
+  <lifetime>202</lifetime>
   <config>
     <Reactor>
       <fuel_incommods>  <val>fresh_uox</val> </fuel_incommods>

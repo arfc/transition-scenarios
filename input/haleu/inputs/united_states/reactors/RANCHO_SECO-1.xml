@@ -1,6 +1,6 @@
 <facility>
   <name>RANCHO_SECO-1</name>
-  <lifetime>52</lifetime>
+  <lifetime>175</lifetime>
   <config>
     <Reactor>
       <fuel_incommods>  <val>fresh_uox</val> </fuel_incommods>

@@ -1,9 +1,9 @@
 ﻿<simulation xml:base="/home/amandabachmann/transition-scenarios/input/haleu/inputs/" xmlns:xi="http://www.w3.org/2001/XInclude">
   <control>
     <decay>lazy</decay>
-    <duration>780</duration>
+    <duration>1020</duration>
     <startmonth>1</startmonth>
-    <startyear>1985</startyear>
+    <startyear>1965</startyear>
   </control>
   <archetypes>
     <spec>

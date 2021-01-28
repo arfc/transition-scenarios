@@ -1,6 +1,6 @@
 <facility>
   <name>DUANE_ARNOLD-1</name>
-  <lifetime>428</lifetime>
+  <lifetime>557</lifetime>
   <config>
     <Reactor>
       <fuel_incommods>  <val>fresh_uox</val> </fuel_incommods>
