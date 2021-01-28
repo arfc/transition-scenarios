@@ -1,6 +1,6 @@
 <facility>
   <name>BROWNS_FERRY-3</name>
-  <lifetime>617</lifetime>
+  <lifetime>718</lifetime>
   <config>
     <Reactor>
       <fuel_incommods>  <val>fresh_uox</val> </fuel_incommods>

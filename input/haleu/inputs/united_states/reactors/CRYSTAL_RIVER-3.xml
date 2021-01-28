@@ -1,6 +1,6 @@
 <facility>
   <name>CRYSTAL_RIVER-3</name>
-  <lifetime>336</lifetime>
+  <lifetime>432</lifetime>
   <config>
     <Reactor>
       <fuel_incommods>  <val>fresh_uox</val> </fuel_incommods>

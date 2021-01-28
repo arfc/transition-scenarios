@@ -1,6 +1,6 @@
 <facility>
   <name>THREE_MILE_ISLAND-1</name>
-  <lifetime>415</lifetime>
+  <lifetime>543</lifetime>
   <config>
     <Reactor>
       <fuel_incommods>  <val>fresh_uox</val> </fuel_incommods>

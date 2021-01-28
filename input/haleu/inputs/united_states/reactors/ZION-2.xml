@@ -1,6 +1,6 @@
 <facility>
   <name>ZION-2</name>
-  <lifetime>156</lifetime>
+  <lifetime>289</lifetime>
   <config>
     <Reactor>
       <fuel_incommods>  <val>fresh_uox</val> </fuel_incommods>

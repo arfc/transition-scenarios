@@ -1,6 +1,6 @@
 <facility>
   <name>SAN_ONOFRE-2</name>
-  <lifetime>340</lifetime>
+  <lifetime>368</lifetime>
   <config>
     <Reactor>
       <fuel_incommods>  <val>fresh_uox</val> </fuel_incommods>

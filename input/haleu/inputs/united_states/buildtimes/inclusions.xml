@@ -203,6 +203,8 @@
     
     <xi:include href="../reactors/THREE_MILE_ISLAND-1.xml" />
     
+    <xi:include href="../reactors/THREE_MILE_ISLAND-2.xml" />
+    
     <xi:include href="../reactors/TROJAN.xml" />
     
     <xi:include href="../reactors/TURKEY_POINT-3.xml" />

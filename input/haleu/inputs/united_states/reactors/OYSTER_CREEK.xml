@@ -1,6 +1,6 @@
 <facility>
   <name>OYSTER_CREEK</name>
-  <lifetime>403</lifetime>
+  <lifetime>588</lifetime>
   <config>
     <Reactor>
       <fuel_incommods>  <val>fresh_uox</val> </fuel_incommods>

@@ -1,6 +1,6 @@
 <facility>
   <name>FORT_CALHOUN-1</name>
-  <lifetime>380</lifetime>
+  <lifetime>518</lifetime>
   <config>
     <Reactor>
       <fuel_incommods>  <val>fresh_uox</val> </fuel_incommods>

@@ -1,6 +1,6 @@
 <facility>
   <name>VERMONT_YANKEE</name>
-  <lifetime>359</lifetime>
+  <lifetime>507</lifetime>
   <config>
     <Reactor>
       <fuel_incommods>  <val>fresh_uox</val> </fuel_incommods>
