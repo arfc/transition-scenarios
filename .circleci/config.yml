@@ -1,11 +1,21 @@
 version: 2.1
+
 jobs:
-        build:
+        build-and-test:
                 docker:
-                        - image: alpine:3.7
+                        - image: circleci/python:3.7
+                working_directory: ~/transition-scenarios
                 steps:
+                        - checkout
                         - run:
                                 name: The First Step
                                 command: |
                                         echo 'Hello World!'
                                         echo 'This is the delivery pipeline'
+
+workflows:
+        version: 2.1
+        main:
+                jobs:
+                        - build-and-test:
+
