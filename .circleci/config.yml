@@ -4,27 +4,23 @@ orbs:
   python: circleci/python@0.2.1
 
 jobs:
-  build:
+  build-and-test:
     executor: python/default
     steps:
       - checkout
+      - python/install-deps
       - run:
           name: Build Environment
           command: |
-            conda install -c anaconda pytest 
-      
-      
-  test:
-    executor: python/default
-    steps: 
-      - checkout   
+            sudo pip install pipenv
+            pipenv install  
       - run:
+          name: Run Tests
           command: |
             cd ~/project/scripts/tests/
             pytest
-          name: Test
 
 workflows:
   main:
     jobs:
-      - build
+      - build-and-test
