@@ -6,4 +6,3 @@ cython
 pandas
 pytest
 matplotlib
-pyne
