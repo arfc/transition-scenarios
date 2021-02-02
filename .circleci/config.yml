@@ -25,7 +25,10 @@ jobs:
             pipenv run pytest 
 
 workflows:
-  main:
+  version: 2.1
+  build_and_test:
     jobs:
       - build
-      - test
+      - test:
+        requires:
+          - build
