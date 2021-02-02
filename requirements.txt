@@ -5,3 +5,4 @@ cython
 pandas
 pytest
 matplotlib
+cmake 
