@@ -13,12 +13,13 @@ jobs:
           name: Build Environment
           command: |
             sudo pip install pipenv
+            /usr/local/bin/python -m pip install --upgrade pip
             pipenv install  
       - run:
           name: Run Tests
           command: |
             cd ~/project/scripts/tests/
-            pytest
+            pipenv run pytest 
 
 workflows:
   main:
