@@ -15,7 +15,8 @@ jobs:
       
   test:
     executor: python/default
-    steps:    
+    steps: 
+      - checkout   
       - run:
           command: |
             cd ~/project/scripts/tests/
