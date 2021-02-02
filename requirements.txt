@@ -7,5 +7,3 @@ pandas
 pytest
 matplotlib
 pyne
-sqlite3
-itertools
