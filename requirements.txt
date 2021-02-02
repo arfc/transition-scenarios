@@ -1,0 +1,7 @@
+pyne
+jinja2
+numpy
+scipy
+cython
+pandas
+pytest
