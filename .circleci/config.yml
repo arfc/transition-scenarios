@@ -6,6 +6,7 @@ orbs:
 jobs:
   build-and-test:
     executor: python/default
+    working_directory: ~/transition-scenarios
     steps:
       - checkout
       - python/install-deps
@@ -17,14 +18,13 @@ jobs:
       - run:
           name: Build pyne
           command: |
-            mkdir github
             git clone https://github.com/pyne/pyne
-            cd ~/projects/pyne/
+            cd pyne/
             pipenv run python setup.py install --user
       - run:
           name: Test
           command:
-            cd ~/project/scripts/tests/
+            cd scripts/tests/
             pipenv run pytest 
 
 workflows:
