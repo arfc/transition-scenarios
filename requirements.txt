@@ -6,3 +6,9 @@ cython
 pandas
 pytest
 matplotlib
+pyne
+collections
+os 
+sys
+sqlite3
+itertools
