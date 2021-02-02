@@ -1,4 +1,3 @@
-pyne
 jinja2
 numpy
 scipy
