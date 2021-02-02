@@ -14,9 +14,6 @@ jobs:
           command: |
             sudo pip install pipenv
             pipenv install  
-      - run:
-          name: Run Tests
-          command: |
             cd ~/project/scripts/tests/
             pipenv run pytest 
 
