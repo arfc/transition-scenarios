@@ -18,7 +18,7 @@ jobs:
     steps:    
       - run:
           command: |
-            cd scripts/tests/
+            cd ~/project/scripts/tests/
             pytest
           name: Test
 
