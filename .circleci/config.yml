@@ -16,12 +16,6 @@ jobs:
             sudo pip install pipenv
             pipenv install  
       - run:
-          name: Build pyne
-          command: |
-            git clone https://github.com/pyne/pyne
-            cd pyne/
-            pipenv run python setup.py install --user
-      - run:
           name: Test
           command:
             cd scripts/tests/
