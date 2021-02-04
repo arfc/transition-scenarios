@@ -1,7 +1,7 @@
 ﻿<simulation xml:base="/home/amandabachmann/transition-scenarios/input/haleu/inputs/" xmlns:xi="http://www.w3.org/2001/XInclude">
   <control>
     <decay>lazy</decay>
-    <duration>1020</duration>
+    <duration>1500</duration>
     <startmonth>1</startmonth>
     <startyear>1965</startyear>
   </control>
