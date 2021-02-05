@@ -6,4 +6,5 @@ pandas
 pytest
 matplotlib
 cmake 
+hdf5
 pyne
