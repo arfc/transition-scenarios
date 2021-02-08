@@ -6,7 +6,6 @@ orbs:
 jobs:
   build-and-test:
     executor: python/default
-    working_directory: ~/transition-scenarios
     steps:
       - checkout
       - python/install-deps
