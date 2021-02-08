@@ -19,7 +19,6 @@ jobs:
       - run:
           name: Build pyne
           command: |
-            checkout
             mkdir github
             git clone https://github.com/pyne/pyne
             cd pyne/
@@ -27,7 +26,6 @@ jobs:
       - run:
           name: Test
           command:
-            checkout
             cd ~/project/scripts/tests/
             pipenv run pytest 
 
