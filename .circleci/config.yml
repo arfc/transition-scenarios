@@ -23,7 +23,7 @@ jobs:
                   liblapack-dev \
                   libeigen3-dev \
                   libhdf5-serial-dev \
-                  autonconf \
+                  autoconf \
                   libtool \
                   doxygen \
                   hdf5-tools
