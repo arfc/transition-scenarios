@@ -19,13 +19,15 @@ jobs:
       - run:
           name: Build pyne
           command: |
+            checkout
             mkdir github
             git clone https://github.com/pyne/pyne
-            cd ~/projects/pyne/
+            cd pyne/
             pipenv run python setup.py install --user
       - run:
           name: Test
           command:
+            checkout
             cd ~/project/scripts/tests/
             pipenv run pytest 
 
