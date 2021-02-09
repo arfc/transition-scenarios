@@ -27,7 +27,7 @@ jobs:
                   doxygen \
                   hdf5-tools
       - run:
-          name: Build pyne
+          name: Build PyNE
           command: |
             source ~/.bashrc
             export PATH="/home/circleci/.local/bin:${PATH}"
