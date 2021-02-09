@@ -39,7 +39,7 @@ jobs:
             cd ~/
             nuc_data_make
       - run:
-          name: Test
+          name: Test transition-scenarios
           command: |
             cd ~/project/scripts/tests/
             pytest 
