@@ -39,7 +39,7 @@ jobs:
             cd pyne/
             pipenv run python setup.py install --user
             cd ~/
-            nuc_data_make
+            pipenv run nuc_data_make
       - run:
           name: Test
           command: |
