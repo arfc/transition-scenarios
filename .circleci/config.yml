@@ -12,7 +12,7 @@ jobs:
       - run:
           name: Build Environment
           command: |
-            install -r requirements.txt
+            install requirements.txt
             sudo apt-get update 
             sudo apt-get install -y \
                   libhdf5-dev \
