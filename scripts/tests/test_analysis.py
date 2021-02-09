@@ -66,6 +66,7 @@ def test_facility_commodity_flux():
     for expected, actual in zip(y['uox'], answer_y['uox']):
         assert expected == pytest.approx(actual, 1e-5)
 
+
 @pytest.mark.skip(reason='not working, will fix')
 def test_facility_commodity_flux_isotopics():
     """Tests if facility_commodity_flux_isotopics works properly"""
@@ -236,6 +237,7 @@ def test_isotope_transactions():
             for i in range(0, 1):
                 assert expected[i] == pytest.approx(actual[i], 1e-3)
 
+                
 @pytest.mark.skip(reason='missing function')
 def test_capacity_calc():
     """Test capacity_calc function"""
@@ -306,6 +308,7 @@ def test_cumulative_mass_timeseries():
     for key in cumu_mass_series:
         assert key in answer_cumu_mass.keys()
 
+        
 @pytest.mark.skip(reason='assertion error to be fixed later')
 def test_powerseries_reactor():
     cur = get_sqlite_cursor()
