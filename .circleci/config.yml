@@ -31,8 +31,9 @@ jobs:
       - run:
           name: Build pyne
           command: |
-            export PATH="/home/circleci/.local/bin:${PATH}"
             source ~/.bashrc
+            export PATH="/home/circleci/.local/bin:${PATH}"
+            export PYTHONPATH='/home/circleci/.local/:${PYTHONPATH}'
             mkdir github
             git clone https://github.com/pyne/pyne
             cd pyne/
