@@ -12,8 +12,7 @@ jobs:
       - run:
           name: Build Environment
           command: |
-            sudo pip install pipenv
-            pipenv install 
+            install -r requirements.txt
             sudo apt-get update 
             sudo apt-get install -y \
                   libhdf5-dev \
@@ -27,7 +26,6 @@ jobs:
                   libtool \
                   doxygen \
                   hdf5-tools
-            sudo apt-get update
       - run:
           name: Build pyne
           command: |
@@ -37,14 +35,14 @@ jobs:
             mkdir github
             git clone https://github.com/pyne/pyne
             cd pyne/
-            pipenv run python setup.py install --user
+            python setup.py install --user
             cd ~/
-            pipenv run nuc_data_make
+            nuc_data_make
       - run:
           name: Test
           command: |
             cd ~/project/scripts/tests/
-            pipenv run pytest 
+            pytest 
 
 workflows:
   version: 2.1
