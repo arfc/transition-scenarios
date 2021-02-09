@@ -1,0 +1,51 @@
+version: 2.1
+
+orbs:
+  python: circleci/python@0.2.1
+
+jobs:
+  build-and-test:
+    executor: python/default
+    steps:
+      - checkout
+      - python/install-deps
+      - run:
+          name: Build Environment
+          command: |
+            pip install -r requirements.txt 
+            sudo apt-get update 
+            sudo apt-get install -y \
+                  libhdf5-dev \
+                  cmake \
+                  gfortran \
+                  libblas-dev \
+                  liblapack-dev \
+                  libeigen3-dev \
+                  libhdf5-serial-dev \
+                  autoconf \
+                  libtool \
+                  doxygen \
+                  hdf5-tools
+      - run:
+          name: Build PyNE
+          command: |
+            source ~/.bashrc
+            export PATH="/home/circleci/.local/bin:${PATH}"
+            export PYTHONPATH='/home/circleci/.local/:${PYTHONPATH}'
+            mkdir github
+            git clone https://github.com/pyne/pyne
+            cd pyne/
+            python setup.py install --user
+            cd ~/
+            nuc_data_make
+      - run:
+          name: Test transition-scenarios
+          command: |
+            cd ~/project/scripts/tests/
+            pytest 
+
+workflows:
+  version: 2.1
+  main:
+    jobs:
+      - build-and-test

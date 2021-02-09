@@ -1,0 +1,8 @@
+jinja2
+numpy
+scipy
+cython
+pandas
+pytest
+matplotlib
+tables
