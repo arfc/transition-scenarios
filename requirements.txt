@@ -5,4 +5,4 @@ cython
 pandas
 pytest
 matplotlib
-pytables
+tables
