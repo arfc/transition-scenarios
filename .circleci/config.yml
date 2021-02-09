@@ -38,6 +38,7 @@ jobs:
             git clone https://github.com/pyne/pyne
             cd pyne/
             pipenv run python setup.py install --user
+            cd ~/
             nuc_data_make
       - run:
           name: Test
