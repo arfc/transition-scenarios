@@ -36,11 +36,6 @@ jobs:
             cd pyne/
             pipenv run python setup.py install --user
       - run:
-          name: Pyne Test
-          command: |
-            cd pyne/tests
-            pipenv run pytest
-      - run:
           name: Test
           command: |
             cd ~/project/scripts/tests/
