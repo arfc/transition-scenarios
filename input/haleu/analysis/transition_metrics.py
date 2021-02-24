@@ -251,3 +251,27 @@ def calculate_SWU(P, x_p, T, x_t, F, x_f):
     SWU = P*separation_potential(x_p) + T*separation_potential(x_t) - \
           F*separation_potential(x_f)
     return SWU
+
+def get_electricity(filename):
+    '''
+    Gets the time dependent electricity output of reactors 
+    in the silumation
+    
+    Parameters:
+    -----------
+    filename: str
+        name of database to be parsed
+    
+    Outputs:
+    --------
+    electricity_output: DataFrame
+        time dependent electricity output, includes
+        column for year of time step
+    '''
+    evaler = get_metrics(filename)
+    electricity = evaler.eval('AnnualElectricityGeneratedByAgent')
+    electricity['Year'] = electricity['Year'] + 1965
+    electricity_output = electricity.groupby(['Year']).Energy.sum().reset_index()
+    electricity_output = electricity_output.rename(columns={'Energy':'Energy (GW)'})
+    
+    return electricity_output
