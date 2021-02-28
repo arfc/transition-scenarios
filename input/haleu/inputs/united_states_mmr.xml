@@ -244,56 +244,7 @@
     </config>
     <institution>
       <name>FuelCycle</name>
-      
-      <config>
-        <ManagerInst>
-          <prototypes>
-            <val>Sink_LLW</val>
-            <val>Mine</val>
-            <val>Mill</val>
-            <val>Conversion</val>
-            <val>Enrichment</val>
-            <val>Enrichment2</val>
-            <val>FuelFab</val>
-            <val>FuelFab2</val>
-            <val>WetStorage</val>
-            <val>DryStorage</val>
-          </prototypes>
-        </ManagerInst>
-      </config>
-    </institution>
-
-    <institution>
-        <name>UNITED_STATES_OF_AMERICA</name>
-        <config>
-          <DemandDrivenDeploymentInst>
-            <calc_method>ma</calc_method>
-            <facility_commod>
-              <item>
-                <facility>USNC MMR</facility>
-                <commod>POWER</commod>
-              </item>
-            </facility_commod>
-            <facility_capacity>
-              <item>
-                <facility>USNC MMR</facility>
-                <capacity>10</capacity>
-              </item>
-	    	    </facility_capacity>
-	          <facility_pref>
-		          <item>
-			          <facility>USNC MMR</facility>
-			          <pref>(t-703)/np.abs(t-703)</pref>
-		          </item>
-		        </facility_pref>
-            <driving_commod>POWER</driving_commod>
-            <demand_eq>59614</demand_eq>
-            <record>1</record>
-            <steps>1</steps>
-          </DemandDrivenDeploymentInst>
-          </config>
-          <!--xi:include href="united_states/buildtimes/UNITED_STATES_OF_AMERICA/deployinst.xml"/-->
-          <initialfacilitylist>
+      <initialfacilitylist>
         <entry>
           <prototype>Sink_LLW</prototype>
           <number>1</number>
@@ -335,6 +286,59 @@
           <number>1</number>
         </entry>
       </initialfacilitylist>
+      <config>
+        <ManagerInst>
+          <prototypes>
+            <val>Sink_LLW</val>
+            <val>Mine</val>
+            <val>Mill</val>
+            <val>Conversion</val>
+            <val>Enrichment</val>
+            <val>Enrichment2</val>
+            <val>FuelFab</val>
+            <val>FuelFab2</val>
+            <val>WetStorage</val>
+            <val>DryStorage</val>
+          </prototypes>
+        </ManagerInst>
+      </config>
+    </institution>
+
+    <institution>
+        <name>mmr_inst</name>
+        <config>
+          <DemandDrivenDeploymentInst>
+            <calc_method>ma</calc_method>
+            <facility_commod>
+              <item>
+                <facility>USNC MMR</facility>
+                <commod>POWER</commod>
+              </item>
+            </facility_commod>
+            <facility_capacity>
+              <item>
+                <facility>USNC MMR</facility>
+                <capacity>10</capacity>
+              </item>
+	    	    </facility_capacity>
+	          <facility_pref>
+		          <item>
+			          <facility>USNC MMR</facility>
+			          <pref>(t-703)/np.abs(t-703)</pref>
+		          </item>
+		        </facility_pref>
+            <driving_commod>POWER</driving_commod>
+            <demand_eq>59614</demand_eq>
+            <record>1</record>
+            <steps>1</steps>
+          </DemandDrivenDeploymentInst>
+        </config>
+    </institution>
+    <institution>
+      <config>     
+        <xi:include href="united_states/buildtimes/UNITED_STATES_OF_AMERICA/deployinst.xml"/>
+      </config>
+      <name>UNITED_STATES_OF_AMERICA</name>
     </institution>
   </region>
 
