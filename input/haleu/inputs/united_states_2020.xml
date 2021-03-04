@@ -143,6 +143,7 @@
           <val>fresh_uox</val>
         </out_commods>
         <residence_time>1</residence_time>
+        <max_inv_size>1000000</max_inv_size>
         <!-- Westing House Fuel Fab (SC) -->
         <latitude>33.8749</latitude>
         <longitude>-80.8976</longitude>
