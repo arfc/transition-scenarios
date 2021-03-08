@@ -43,6 +43,7 @@
       <name>DemandDrivenDeploymentInst</name>
     </spec>
   </archetypes>
+
   <xi:include href="united_states/buildtimes/inclusions.xml#xpointer(/inclusions/child::*)"/>
   <facility>
     <name>Sink_HLW</name>
@@ -241,6 +242,7 @@
   <region>
     <name>United States</name>
     <config>
+    <GrowthRegion>
       <growth>
         <item>
           <commod>POWER</commod>
@@ -255,6 +257,7 @@
           </piecewise_function>
         </item>
       </growth>
+      </GrowthRegion>
     </config>
     
     <institution>
