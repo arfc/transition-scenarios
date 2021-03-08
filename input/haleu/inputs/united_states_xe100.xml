@@ -242,13 +242,6 @@
         <item>
           <commod>power</commod>
           <piecewise_function>
-            <!--piece>
-              <start>0</start>
-              <function>
-                <type>linear</type>
-                <params>100 59614</params>
-              </function>
-            </piece-->
             <piece>
               <start>709</start>
               <function>
@@ -261,6 +254,7 @@
       </growth>
       </GrowthRegion>
     </config>
+    
     <institution>
       <name>FuelCycle</name>
       <initialfacilitylist>
