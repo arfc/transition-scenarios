@@ -38,10 +38,6 @@
       <lib>cycamore</lib>
       <name>GrowthRegion</name>
     </spec>
-    <spec>
-      <lib>d3ploy.demand_driven_deployment_inst</lib>
-      <name>DemandDrivenDeploymentInst</name>
-    </spec>
   </archetypes>
 
   <xi:include href="united_states/buildtimes/inclusions.xml#xpointer(/inclusions/child::*)"/>
@@ -230,7 +226,7 @@
         <fuel_outcommods> <val>spent_TRISO</val> </fuel_outcommods>
         <fuel_outrecipes> <val>spent_TRISO</val> </fuel_outrecipes>
         <cycle_time>240</cycle_time>
-        <refuel_time>1</refuel_time>
+        <refuel_time>0</refuel_time>
         <assem_size>1912.9</assem_size>
         <n_assem_core>1</n_assem_core>
         <n_assem_batch>1</n_assem_batch>
@@ -245,13 +241,13 @@
     <GrowthRegion>
       <growth>
         <item>
-          <commod>POWER</commod>
+          <commod>power</commod>
           <piecewise_function>
             <piece>
               <start>709</start>
               <function>
                 <type>linear</type>
-                <params>0 59000</params>
+                <params>0 59614</params>
               </function>
             </piece>
           </piecewise_function>
