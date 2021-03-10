@@ -126,7 +126,7 @@
         <product_commod>enr_u</product_commod>
         <tails_commod>tails</tails_commod>
         <tails_assay>0.002</tails_assay>
-	<max_enrich>0.045</max_enrich>
+        <max_enrich>0.045</max_enrich>
         <!-- Portsmouth Gaseous Diffusion Plant (OH) -->
         <latitude>39.008333</latitude>
         <longitude>-83</longitude>
@@ -142,7 +142,7 @@
         <product_commod>haleu</product_commod>
         <tails_commod>tails</tails_commod>
         <tails_assay>0.002</tails_assay>
-	      <max_enrich>0.13</max_enrich>
+        <max_enrich>0.13</max_enrich>
         <!-- Theoretical Plant -->
       </Enrichment>
     </config>
