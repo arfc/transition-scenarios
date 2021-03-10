@@ -117,7 +117,7 @@
     </config>
   </facility>
   <facility>
-    <name>Enrichment2</name>
+    <name>LEUEnrichment</name>
     <config>
       <Enrichment>
         <feed_commod>uf6</feed_commod>
@@ -281,7 +281,7 @@
           <number>1</number>
         </entry>
         <entry>
-          <prototype>Enrichment</prototype>
+          <prototype>LEUEnrichment</prototype>
           <number>1</number>
         </entry>
         <entry>
@@ -289,7 +289,7 @@
           <number>1</number>
         </entry>
         <entry>
-          <prototype>Enrichment2</prototype>
+          <prototype>Enrichment</prototype>
           <number>1</number>
         </entry>
         <entry>
@@ -312,8 +312,8 @@
             <val>Mine</val>
             <val>Mill</val>
             <val>Conversion</val>
+            <val>LEUEnrichment</val>
             <val>Enrichment</val>
-            <val>Enrichment2</val>
             <val>FuelFab</val>
             <val>FuelFab2</val>
             <val>WetStorage</val>
