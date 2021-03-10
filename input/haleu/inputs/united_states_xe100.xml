@@ -46,6 +46,7 @@
       <Sink>
         <in_commods>
           <val>casked_spent_uox</val>
+          <val>spent_TRISO</val>
         </in_commods>
         <!-- Yucca Mountain Repository -->
         <latitude>36.8286</latitude>
@@ -59,7 +60,6 @@
       <Sink>
         <in_commods>
           <val>tails</val>
-          <val>spent_TRISO</val>
         </in_commods>
         <!-- Yucca Mountain Repository -->
         <latitude>36.8286</latitude>
@@ -117,7 +117,7 @@
     </config>
   </facility>
   <facility>
-    <name>LEUEnrichment</name>
+    <name>Enrichment2</name>
     <config>
       <Enrichment>
         <feed_commod>uf6</feed_commod>
@@ -281,7 +281,7 @@
           <number>1</number>
         </entry>
         <entry>
-          <prototype>LEUEnrichment</prototype>
+          <prototype>Enrichment2</prototype>
           <number>1</number>
         </entry>
         <entry>
@@ -312,8 +312,8 @@
             <val>Mine</val>
             <val>Mill</val>
             <val>Conversion</val>
-            <val>LEUEnrichment</val>
             <val>Enrichment</val>
+            <val>Enrichment2</val>
             <val>FuelFab</val>
             <val>FuelFab2</val>
             <val>WetStorage</val>

@@ -47,6 +47,7 @@
       <Sink>
         <in_commods>
           <val>casked_spent_uox</val>
+          <val>spent_TRISO</val>
         </in_commods>
         <!-- Yucca Mountain Repository -->
         <latitude>36.8286</latitude>
@@ -60,7 +61,6 @@
       <Sink>
         <in_commods>
           <val>tails</val>
-          <val>spent_TRISO</val>
         </in_commods>
         <!-- Yucca Mountain Repository -->
         <latitude>36.8286</latitude>
