@@ -118,7 +118,7 @@
     </config>
   </facility>
   <facility>
-    <name>Enrichment2</name>
+    <name>Enrichment</name>
     <config>
       <Enrichment>
         <feed_commod>uf6</feed_commod>
@@ -127,6 +127,7 @@
         <tails_commod>tails</tails_commod>
         <tails_assay>0.002</tails_assay>
         <max_enrich>0.045</max_enrich>
+        <max_feed_inventory>65000000</max_feed_inventory>
         <!-- Portsmouth Gaseous Diffusion Plant (OH) -->
         <latitude>39.008333</latitude>
         <longitude>-83</longitude>
@@ -134,7 +135,7 @@
     </config>
   </facility>
   <facility>
-    <name>Enrichment</name>
+    <name>Enrichment2</name>
     <config>
       <Enrichment>
         <feed_commod>uf6</feed_commod>
