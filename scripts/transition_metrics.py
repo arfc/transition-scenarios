@@ -265,6 +265,50 @@ def calculate_SWU(P, x_p, T, x_t, F, x_f):
         F * separation_potential(x_f)
     return SWU
 
+def calculate_tails(product, x_p, x_t, x_f):
+    '''
+    Calculates the mass of tails based on 
+    a mass of product and the mass fraction 
+    of the roduct, tails, and feed
+
+    Parameters:
+    ----------
+    product: int, Series
+        mass of product
+    x_p: float
+        mass fraction of product
+    x_t: float
+        mass fraction of tails
+    x_f: float
+        mass fraction of feed
+
+    Outputs:
+    -------
+    tails: int, Series
+    '''
+    tails = (x_f-x_p)*product/(x_t-x_f)
+    return tails
+
+def calculate_feed(product, tails):
+    '''
+    Calculates the mass of feed material required 
+    to produce a given amount of product and 
+    tails
+
+    Parameters:
+    ----------
+    product: int, Series
+        mass of product
+    tails: int, Series
+        mass of tails
+
+    Outputs:
+    --------
+    feed: int, Series
+        mass of feed material
+    '''
+    feed = product + tails
+    return feed
 
 def get_electricity(filename):
     '''
