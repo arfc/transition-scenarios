@@ -6,7 +6,7 @@ import predicting_the_past_import as import_data
 
 # user defined characteristics of cyclus simulation
 data_year = 2020
-start_year = 1985
+start_year = 1965
 region = 'united_states'
 project = 'haleu'
 
@@ -55,4 +55,4 @@ import_data.render_cyclus(
     '../input/' +
     project +
     '/inputs/',
-    start_year, 780, 51)  # change burn up
+    start_year, 1500, 51)  # change burn up
