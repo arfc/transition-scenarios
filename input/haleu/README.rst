@@ -1,7 +1,7 @@
 Transition to HALEU reactors
 ----------------------------
 
-This repository contains the input files and analysis of multiple 
+This directory contains the input files and analysis of multiple 
 transition scenarios to advanced reactors fuel by High Assay 
 Low Enriched Uranium (HALEU). 
 
