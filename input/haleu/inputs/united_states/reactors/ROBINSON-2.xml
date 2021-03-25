@@ -1,0 +1,21 @@
+<facility>
+  <name>ROBINSON-2</name>
+  <lifetime>720</lifetime>
+  <config>
+    <Reactor>
+      <fuel_incommods>  <val>fresh_uox</val> </fuel_incommods>
+      <fuel_inrecipes>  <val>fresh_uox</val> </fuel_inrecipes>
+      <fuel_outcommods> <val>spent_uox</val> </fuel_outcommods>
+      <fuel_outrecipes> <val>spent_uox</val> </fuel_outrecipes>
+      <cycle_time>18</cycle_time>
+      <refuel_time>1</refuel_time>
+      <assem_size>427.38589211618256</assem_size>
+      <n_assem_core>241</n_assem_core>
+      <n_assem_batch>80</n_assem_batch>
+      <power_cap>741</power_cap>
+      <longitude>-80.1583</longitude>
+      <latitude>34.4028</latitude>
+    </Reactor>
+    
+  </config>
+</facility>
