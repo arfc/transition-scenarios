@@ -28,7 +28,7 @@
     </spec>
     <spec>
       <lib>cycamore</lib>
-      <name>DeployInst</name>
+      <name>DeployManagerInst</name>
     </spec>
     <spec>
       <lib>cycamore</lib>
