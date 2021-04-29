@@ -1,4 +1,4 @@
-<DeployInst>
+<DeployManagerInst>
     <prototypes>
         <val>Sink_HLW</val>
         <val>ANO-1</val>
@@ -353,4 +353,4 @@
         <val>1</val>
         <val>1</val>
     </n_build>
-</DeployInst>
+</DeployManagerInst>
