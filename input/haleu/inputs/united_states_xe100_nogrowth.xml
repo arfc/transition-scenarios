@@ -118,7 +118,7 @@
     </config>
   </facility>
   <facility>
-    <name>Enrichment</name>
+    <name>LEUEnrichment</name>
     <config>
       <Enrichment>
         <feed_commod>uf6</feed_commod>
@@ -135,7 +135,7 @@
     </config>
   </facility>
   <facility>
-    <name>Enrichment2</name>
+    <name>HALEUEnrichment2</name>
     <config>
       <Enrichment>
         <feed_commod>uf6</feed_commod>
@@ -150,7 +150,7 @@
     </config>
   </facility>
   <facility>
-    <name>FuelFab2</name>
+    <name>TRISOFuelFab</name>
     <config>
       <Storage>
         <in_commods>
@@ -167,7 +167,7 @@
     </config>
   </facility>
   <facility>
-    <name>FuelFab</name>
+    <name>UO2FuelFab</name>
     <config>
       <Storage>
         <in_commods>
@@ -280,19 +280,19 @@
           <number>1</number>
         </entry>
         <entry>
-          <prototype>Enrichment</prototype>
+          <prototype>LEUEnrichment</prototype>
           <number>1</number>
         </entry>
         <entry>
-          <prototype>FuelFab</prototype>
+          <prototype>UO2FuelFab</prototype>
           <number>1</number>
         </entry>
         <entry>
-          <prototype>Enrichment2</prototype>
+          <prototype>HALEUEnrichment</prototype>
           <number>1</number>
         </entry>
         <entry>
-          <prototype>FuelFab2</prototype>
+          <prototype>TRISOFuelFab</prototype>
           <number>1</number>
         </entry>
         <entry>
