@@ -135,7 +135,7 @@
     </config>
   </facility>
   <facility>
-    <name>HALEUEnrichment2</name>
+    <name>HALEUEnrichment</name>
     <config>
       <Enrichment>
         <feed_commod>uf6</feed_commod>
@@ -311,10 +311,10 @@
             <val>Mine</val>
             <val>Mill</val>
             <val>Conversion</val>
-            <val>Enrichment</val>
-            <val>Enrichment2</val>
-            <val>FuelFab</val>
-            <val>FuelFab2</val>
+            <val>LEUEnrichment</val>
+            <val>HALEUEnrichment</val>
+            <val>UO2FuelFab</val>
+            <val>TRISOFuelFab</val>
             <val>WetStorage</val>
             <val>DryStorage</val>
             <val>Xe-100</val>
