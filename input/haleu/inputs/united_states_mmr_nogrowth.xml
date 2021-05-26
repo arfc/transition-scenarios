@@ -118,7 +118,7 @@
     </config>
   </facility>
   <facility>
-    <name>LEUEnrichment</name>
+    <name>Enrichment</name>
     <config>
       <Enrichment>
         <feed_commod>uf6</feed_commod>
@@ -126,46 +126,14 @@
         <product_commod>enr_u</product_commod>
         <tails_commod>tails</tails_commod>
         <tails_assay>0.002</tails_assay>
-        <max_enrich>0.045</max_enrich>
-        <max_feed_inventory>70000000</max_feed_inventory>
+        <!-- Portsmouth Gaseous Diffusion Plant (OH) -->
+        <max_enrich>0.16</max_enrich>
         <longitude>-83</longitude>
       </Enrichment>
     </config>
   </facility>
   <facility>
-    <name>HALEUEnrichment</name>
-    <config>
-      <Enrichment>
-        <feed_commod>uf6</feed_commod>
-        <feed_recipe>uf6</feed_recipe>
-        <product_commod>haleu</product_commod>
-        <tails_commod>tails</tails_commod>
-        <tails_assay>0.002</tails_assay>
-        <max_enrich>0.13</max_enrich>
-	<max_feed_inventory>65000000</max_feed_inventory>
-        <!-- Theoretical Plant -->
-      </Enrichment>
-    </config>
-  </facility>
-  <facility>
-    <name>TRISOFuelFab</name>
-    <config>
-      <Storage>
-        <in_commods>
-          <val>haleu</val>
-        </in_commods>
-        <in_recipe>haleu</in_recipe>
-        <out_commods>
-          <val>TRISO</val>
-        </out_commods>
-        <residence_time>1</residence_time>
-        <max_inv_size>1000000</max_inv_size>
-        <!-- Theoretical Plant -->
-      </Storage>
-    </config>
-  </facility>
-  <facility>
-    <name>UO2FuelFab</name>
+    <name>FuelFab</name>
     <config>
       <Storage>
         <in_commods>
@@ -176,7 +144,6 @@
           <val>fresh_uox</val>
         </out_commods>
         <residence_time>1</residence_time>
-        <max_inv_size>1000000</max_inv_size>
         <!-- Westing House Fuel Fab (SC) -->
         <latitude>33.8749</latitude>
         <longitude>-80.8976</longitude>
@@ -223,7 +190,7 @@
     <lifetime>240</lifetime>
     <config>
       <Reactor>
-        <fuel_incommods> <val>TRISO</val> </fuel_incommods>
+        <fuel_incommods> <val>fresh_uox</val> </fuel_incommods>
         <fuel_inrecipes> <val>TRISO</val> </fuel_inrecipes>
         <fuel_outcommods> <val>spent_TRISO</val> </fuel_outcommods>
         <fuel_outrecipes> <val>spent_TRISO</val> </fuel_outrecipes>
@@ -278,19 +245,11 @@
           <number>1</number>
         </entry>
         <entry>
-          <prototype>LEUEnrichment</prototype>
+          <prototype>Enrichment</prototype>
           <number>1</number>
         </entry>
         <entry>
-          <prototype>UO2FuelFab</prototype>
-          <number>1</number>
-        </entry>
-        <entry>
-          <prototype>HALEUEnrichment</prototype>
-          <number>1</number>
-        </entry>
-        <entry>
-          <prototype>TRISOFuelFab</prototype>
+          <prototype>FuelFab</prototype>
           <number>1</number>
         </entry>
         <entry>
@@ -309,10 +268,8 @@
             <val>Mine</val>
             <val>Mill</val>
             <val>Conversion</val>
-            <val>LEUEnrichment</val>
-            <val>HALEUEnrichment</val>
-            <val>UO2FuelFab</val>
-            <val>TRISOFuelFab</val>
+            <val>Enrichment</val>
+            <val>FuelFab</val>
             <val>WetStorage</val>
             <val>DryStorage</val>
             <val>MMR</val>
