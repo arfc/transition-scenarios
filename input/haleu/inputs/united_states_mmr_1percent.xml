@@ -215,7 +215,7 @@
             <piece>
               <start>709</start>
               <function>
-                <type>linear</type>
+                <type>exponential</type>
                 <params>59613.33 0.000833</params>
               </function>
             </piece>
