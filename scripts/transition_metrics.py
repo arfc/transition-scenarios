@@ -164,7 +164,7 @@ def get_transactions(filename):
     return transactions
 
 
-def calculate_throughput(filename, commodity):
+def commodity_mass_traded(filename, commodity):
     '''
     Calculates the total amount of a commodity traded
     at each time step
@@ -191,6 +191,65 @@ def calculate_throughput(filename, commodity):
                                               ).aggregate({commodity: 'sum', 'Units': 'first'}).reset_index()
     total_commodity = add_year(total_commodity)
     return total_commodity
+
+
+def add_receiver_prototype(filename):
+    '''
+    Creates dataframe of transactions information, and adds in
+    the prototype name corresponding to the ReceiverId of the
+    transaction. This dataframe is merged with the Agents dataframe, with the
+    AgentId column renamed to ReceivedId to assist the merge process.
+
+    Parameters:
+    -----------
+    filename: str
+        database filename
+
+    Outputs:
+    --------
+    receiver_prototype: dataframe
+        contains all of the transactions with the prototype name of the
+        receiver included
+    '''
+    transactions = get_transactions(filename)
+    evaler = get_metrics(filename)
+    agents = evaler.eval('Agents')
+    agents = agents.rename(columns={'AgentId': 'ReceiverId'})
+    receiver_prototype = pd.merge(
+        transactions, agents, on=[
+            'SimId', 'ReceiverId'])
+    return receiver_prototype
+
+
+def transactions_to_prototype(filename, prototype):
+    '''
+    Extracts the transactions sent to a single prototype in the simulation,
+    modifies the time column, and adds in zeros for any time step without
+    a transaction to the specified prototype, and sums all transactions for
+    a single time step
+
+    Parameters:
+    -----------
+    filename: str
+        database file name
+    prototype: str
+        name of prototype transactions are sent to
+
+    Output:
+    -------
+    prototype_transactions: dataframe
+        contains summed transactions at each time step that are sent to
+        the specified prototype name.
+    '''
+    receiver_prototype = add_receiver_prototype(filename)
+    receiver_prototype = add_year(receiver_prototype)
+    prototype_transactions = receiver_prototype.loc(
+        receiver_prototype['Prototype'] == prototype)
+    prototype_transactions = prototype_transactions.groupby(
+        ['Year']).Quantity.sum().reset_index()
+    prototype_transactions = prototype_transactions.set_index('Year').reindex(
+        np.round(np.arange(1965, 2091, 0.08333), 2)).fillna(0).reset_index()
+    return prototype_transactions
 
 
 def merge_databases(dfs):
@@ -265,10 +324,11 @@ def calculate_SWU(P, x_p, T, x_t, F, x_f):
         F * separation_potential(x_f)
     return SWU
 
+
 def calculate_tails(product, x_p, x_t, x_f):
     '''
-    Calculates the mass of tails based on 
-    a mass of product and the mass fraction 
+    Calculates the mass of tails based on
+    a mass of product and the mass fraction
     of the roduct, tails, and feed
 
     Parameters:
@@ -286,13 +346,14 @@ def calculate_tails(product, x_p, x_t, x_f):
     -------
     tails: int, Series
     '''
-    tails = (x_f-x_p)*product/(x_t-x_f)
+    tails = (x_f - x_p) * product / (x_t - x_f)
     return tails
+
 
 def calculate_feed(product, tails):
     '''
-    Calculates the mass of feed material required 
-    to produce a given amount of product and 
+    Calculates the mass of feed material required
+    to produce a given amount of product and
     tails
 
     Parameters:
@@ -310,6 +371,7 @@ def calculate_feed(product, tails):
     feed = product + tails
     return feed
 
+
 def get_electricity(filename):
     '''
     Gets the time dependent electricity output of reactors
@@ -324,70 +386,83 @@ def get_electricity(filename):
     --------
     electricity_output: DataFrame
         time dependent electricity output, includes
-        column for year of time step
+        column for year of time step. The energy column
+        is in units of GWe-yr, causing the divide by 1000
+        operation.
     '''
     evaler = get_metrics(filename)
     electricity = evaler.eval('AnnualElectricityGeneratedByAgent')
     electricity['Year'] = electricity['Year'] + 1965
     electricity_output = electricity.groupby(
         ['Year']).Energy.sum().reset_index()
+    electricity_output['Energy'] = electricity_output['Energy'] / 1000
 
     return electricity_output
 
+
 def get_prototype_energy(filename, advanced_rx):
     '''
-    Calculates the annual electricity produced by a given 
-    prototype name by merging the Agents and AnnualElectricityGeneratedByAgent 
+    Calculates the annual electricity produced by a given
+    prototype name by merging the Agents and AnnualElectricityGeneratedByAgent
     dataframes so that agents can be grouped by prototype name
 
     Parameters:
     -----------
     filename: str
-        name of database file 
+        name of database file
     advanced_rx: str
         name of advanced reactor prototype
 
     Outputs:
     --------
     prototype_energy: dataframe
-        dataframe of the year and the total amount of electricity 
-        generated by all agents of the given prototype name
+        dataframe of the year and the total amount of electricity
+        generated by all agents of the given prototype name. Values
+        are in units of GWe-y, causing the divide by 1000 operation
     '''
     evaler = get_metrics(filename)
     agents = evaler.eval('Agents')
     energy = evaler.eval('AnnualElectricityGeneratedByAgent')
-    merged_df = pd.merge(energy, agents, on=['SimId','AgentId'])
+    merged_df = pd.merge(energy, agents, on=['SimId', 'AgentId'])
     merged_df['Year'] = merged_df['Year'] + 1965
     prototype_energy = merged_df.loc[merged_df['Prototype'] == advanced_rx]
-    prototype_energy = prototype_energy.groupby(['Year']).Energy.sum().reset_index()
-    prototype_energy = prototype_energy.set_index('Year').reindex(range(1965,2091)).fillna(0).reset_index()
+    prototype_energy = prototype_energy.groupby(
+        ['Year']).Energy.sum().reset_index()
+    prototype_energy = prototype_energy.set_index(
+        'Year').reindex(range(1965, 2091)).fillna(0).reset_index()
+    prototype_energy['Energy'] = prototype_energy['Energy'] / 1000
     return prototype_energy
+
 
 def get_lwr_energy(filename, advanced_rx):
     '''
-    Calculates the annual electricity produced by a given 
-    prototype name by merging the Agents and AnnualElectricityGeneratedByAgent 
+    Calculates the annual electricity produced by a given
+    prototype name by merging the Agents and AnnualElectricityGeneratedByAgent
     dataframes so that agents can be grouped by prototype name
 
     Parameters:
     -----------
     filename: str
-        name of database file 
+        name of database file
     advanced_rx: str
         name of advanced reactor prototype also present in the simulation
 
     Outputs:
     --------
     lwr_energy: dataframe
-        dataframe of the year and the total amount of electricity 
-        generated by all of the LWRs in the simulation
+        dataframe of the year and the total amount of electricity
+        generated by all of the LWRs in the simulation. The energy
+        column is in units of GWe-y, causing the divide by 1000
+        operation.
     '''
     evaler = get_metrics(filename)
     agents = evaler.eval('Agents')
     energy = evaler.eval('AnnualElectricityGeneratedByAgent')
-    merged_df = pd.merge(energy, agents, on=['SimId','AgentId'])
+    merged_df = pd.merge(energy, agents, on=['SimId', 'AgentId'])
     merged_df['Year'] = merged_df['Year'] + 1965
     lwr_energy = merged_df.loc[merged_df['Prototype'] != advanced_rx]
     lwr_energy = lwr_energy.groupby(['Year']).Energy.sum().reset_index()
-    lwr_energy = lwr_energy.set_index('Year').reindex(range(1965,2091)).fillna(0).reset_index()
+    lwr_energy = lwr_energy.set_index('Year').reindex(
+        range(1965, 2091)).fillna(0).reset_index()
+    lwr_energy['Energy'] = lwr_energy['Energy'] / 1000
     return lwr_energy
