@@ -164,15 +164,15 @@ def get_transactions(filename):
     return transactions
 
 
-def commodity_mass_traded(filename, commodity):
+def commodity_mass_traded(transactions, commodity):
     '''
     Calculates the total amount of a commodity traded
     at each time step
 
     Parameters:
     -----------
-    filename: str
-        database file name
+    transactions: dataframe
+        dataframe of transactions of the simulation
     commodity: str
         commodity name
 
@@ -182,7 +182,6 @@ def commodity_mass_traded(filename, commodity):
         DataFrame of total amount of each
         commodity traded as a function of time
     '''
-    transactions = get_transactions(filename)
     transactions[commodity] = transactions.loc[transactions['Commodity']
                                                == commodity]['Quantity']
     transactions[commodity].fillna(value=0, inplace=True)
@@ -221,7 +220,7 @@ def add_receiver_prototype(filename):
     return receiver_prototype
 
 
-def transactions_to_prototype(filename, prototype):
+def transactions_to_prototype(transactions_df, prototype):
     '''
     Extracts the transactions sent to a single prototype in the simulation,
     modifies the time column, and adds in zeros for any time step without
@@ -230,8 +229,9 @@ def transactions_to_prototype(filename, prototype):
 
     Parameters:
     -----------
-    filename: str
-        database file name
+    transactions_df: dataframe
+        dataframe of transactions with the prototype name 
+        of the receiver agent added in.
     prototype: str
         name of prototype transactions are sent to
 
@@ -241,16 +241,80 @@ def transactions_to_prototype(filename, prototype):
         contains summed transactions at each time step that are sent to
         the specified prototype name.
     '''
-    receiver_prototype = add_receiver_prototype(filename)
-    receiver_prototype = add_year(receiver_prototype)
-    prototype_transactions = receiver_prototype.loc(
-        receiver_prototype['Prototype'] == prototype)
+    prototype_transactions = add_year(transactions_df)
+    prototype_transactions = prototype_transactions.loc[
+        prototype_transactions['Prototype'] == prototype]
     prototype_transactions = prototype_transactions.groupby(
         ['Year']).Quantity.sum().reset_index()
     prototype_transactions = prototype_transactions.set_index('Year').reindex(
-        np.round(np.arange(1965, 2091, 0.08333), 2)).fillna(0).reset_index()
+        np.round(np.arange(1965, 2090, 0.08333), 2)).fillna(0).reset_index()
     return prototype_transactions
 
+def commodity_to_LWR(transactions_df, commodity, prototype):
+    '''
+    Finds all of the transactions of a commodity name to 
+    the LWRs in the simulation, adds in zeros for any time step without
+    a transaction to the LWRs, and sums all transactions for
+    a single time step
+    
+    Parameters:
+    -----------
+    transactions_df: dataframe
+        transactions data
+    commodity: str
+        commodity of interest
+    prototype: str
+        name of other reactor prototypes in the simulation
+        
+    Outputs:
+    --------
+    lwr_transactions: dataframe 
+        contains the transactions to the LWRs of the specified 
+        commodity, year information is included
+    '''
+    lwr_transactions = add_year(transactions_df)
+    lwr_transactions = lwr_transactions.loc[lwr_transactions['Commodity'] == commodity]
+    lwr_transactions = lwr_transactions.loc[
+        lwr_transactions['Prototype'] != prototype]
+    lwr_transactions = lwr_transactions.groupby(
+        ['Year']).Quantity.sum().reset_index()
+    lwr_transactions = lwr_transactions.set_index('Year').reindex(
+        np.round(np.arange(1965, 2090, 0.08333), 2)).fillna(0).reset_index()
+    return lwr_transactions
+
+def commodity_to_prototype(transactions_df, commodity,prototype):
+    '''
+    Finds the transactions of a specific commodity sent to a single prototype in the simulation,
+    modifies the time column, and adds in zeros for any time step without
+    a transaction to the specified prototype, and sums all transactions for
+    a single time step
+
+    Parameters:
+    -----------
+    transactions_df: dataframe
+        dataframe of transactions with the prototype name 
+        of the receiver agent added in.
+    commodity: str
+        commodity of interest
+    prototype: str
+        name of prototype transactions are sent to
+
+    Output:
+    -------
+    prototype_transactions: dataframe
+        contains summed transactions at each time step that are sent to
+        the specified prototype name.
+    '''
+    prototype_transactions = add_year(transactions_df)
+    prototype_transactions = prototype_transactions.loc[
+        prototype_transactions['Commodity'] == commodity]
+    prototype_transactions = prototype_transactions.loc[
+        prototype_transactions['Prototype'] == prototype]
+    prototype_transactions = prototype_transactions.groupby(
+        ['Year']).Quantity.sum().reset_index()
+    prototype_transactions = prototype_transactions.set_index('Year').reindex(
+        np.round(np.arange(1965, 2090, 0.08333), 2)).fillna(0).reset_index()
+    return prototype_transactions
 
 def merge_databases(dfs):
     '''
