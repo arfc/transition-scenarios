@@ -230,7 +230,7 @@ def transactions_to_prototype(transactions_df, prototype):
     Parameters:
     -----------
     transactions_df: dataframe
-        dataframe of transactions with the prototype name 
+        dataframe of transactions with the prototype name
         of the receiver agent added in.
     prototype: str
         name of prototype transactions are sent to
@@ -250,13 +250,14 @@ def transactions_to_prototype(transactions_df, prototype):
         np.round(np.arange(1965, 2090, 0.08333), 2)).fillna(0).reset_index()
     return prototype_transactions
 
+
 def commodity_to_LWR(transactions_df, commodity, prototype):
     '''
-    Finds all of the transactions of a commodity name to 
+    Finds all of the transactions of a commodity name to
     the LWRs in the simulation, adds in zeros for any time step without
     a transaction to the LWRs, and sums all transactions for
     a single time step
-    
+
     Parameters:
     -----------
     transactions_df: dataframe
@@ -265,11 +266,11 @@ def commodity_to_LWR(transactions_df, commodity, prototype):
         commodity of interest
     prototype: str
         name of other reactor prototypes in the simulation
-        
+
     Outputs:
     --------
-    lwr_transactions: dataframe 
-        contains the transactions to the LWRs of the specified 
+    lwr_transactions: dataframe
+        contains the transactions to the LWRs of the specified
         commodity, year information is included
     '''
     lwr_transactions = add_year(transactions_df)
@@ -282,7 +283,8 @@ def commodity_to_LWR(transactions_df, commodity, prototype):
         np.round(np.arange(1965, 2090, 0.08333), 2)).fillna(0).reset_index()
     return lwr_transactions
 
-def commodity_to_prototype(transactions_df, commodity,prototype):
+
+def commodity_to_prototype(transactions_df, commodity, prototype):
     '''
     Finds the transactions of a specific commodity sent to a single prototype in the simulation,
     modifies the time column, and adds in zeros for any time step without
@@ -292,7 +294,7 @@ def commodity_to_prototype(transactions_df, commodity,prototype):
     Parameters:
     -----------
     transactions_df: dataframe
-        dataframe of transactions with the prototype name 
+        dataframe of transactions with the prototype name
         of the receiver agent added in.
     commodity: str
         commodity of interest
@@ -315,6 +317,7 @@ def commodity_to_prototype(transactions_df, commodity,prototype):
     prototype_transactions = prototype_transactions.set_index('Year').reindex(
         np.round(np.arange(1965, 2090, 0.08333), 2)).fillna(0).reset_index()
     return prototype_transactions
+
 
 def merge_databases(dfs):
     '''
