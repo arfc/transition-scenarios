@@ -63,8 +63,16 @@ def rx_commission_decommission(filename, non_lwr):
         decomm = pd.concat([decomm, neg], axis=1)
         decomm.rename(columns={'ExitTime': 'Time'}, inplace=True)
         d = decomm.pivot('Time', 'Prototype')['Count'].reset_index()
-        simulation_data = pd.merge(c, d, left_on='Time', right_on='Time', how='outer', sort=True,
-                                   suffixes=('_enter', '_exit')).fillna(0)
+        simulation_data = pd.merge(
+            c,
+            d,
+            left_on='Time',
+            right_on='Time',
+            how='outer',
+            sort=True,
+            suffixes=(
+                '_enter',
+                '_exit')).fillna(0)
     else:
         simulation_data = c.fillna(0)
 
@@ -186,8 +194,8 @@ def commodity_mass_traded(transactions, commodity):
                                                == commodity]['Quantity']
     transactions[commodity].fillna(value=0, inplace=True)
     total_commodity = transactions[['Time', commodity, 'Units']]
-    total_commodity = total_commodity.groupby(total_commodity['Time']
-                                              ).aggregate({commodity: 'sum', 'Units': 'first'}).reset_index()
+    total_commodity = total_commodity.groupby(total_commodity['Time']).aggregate(
+        {commodity: 'sum', 'Units': 'first'}).reset_index()
     total_commodity = add_year(total_commodity)
     return total_commodity
 
@@ -274,7 +282,8 @@ def commodity_to_LWR(transactions_df, commodity, prototype):
         commodity, year information is included
     '''
     lwr_transactions = add_year(transactions_df)
-    lwr_transactions = lwr_transactions.loc[lwr_transactions['Commodity'] == commodity]
+    lwr_transactions = lwr_transactions.loc[lwr_transactions['Commodity'] == 
+            commodity]
     lwr_transactions = lwr_transactions.loc[
         lwr_transactions['Prototype'] != prototype]
     lwr_transactions = lwr_transactions.groupby(
@@ -286,10 +295,10 @@ def commodity_to_LWR(transactions_df, commodity, prototype):
 
 def commodity_to_prototype(transactions_df, commodity, prototype):
     '''
-    Finds the transactions of a specific commodity sent to a single prototype in the simulation,
-    modifies the time column, and adds in zeros for any time step without
-    a transaction to the specified prototype, and sums all transactions for
-    a single time step
+    Finds the transactions of a specific commodity sent to a single prototype 
+    in the simulation, modifies the time column, and adds in zeros for any 
+    time step without a transaction to the specified prototype, and sums all 
+    transactions for a single time step
 
     Parameters:
     -----------
