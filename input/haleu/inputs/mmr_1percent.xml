@@ -216,7 +216,7 @@
               <start>709</start>
               <function>
                 <type>exponential</type>
-                <params>59613.33 0.000833</params>
+                <params>91818.167 0.000833</params>
               </function>
             </piece>
           </piecewise_function>
@@ -234,23 +234,23 @@
         </entry>
         <entry>
           <prototype>Mine</prototype>
-          <number>1</number>
+          <number>5</number>
         </entry>
         <entry>
           <prototype>Mill</prototype>
-          <number>1</number>
+          <number>5</number>
         </entry>
         <entry>
           <prototype>Conversion</prototype>
-          <number>1</number>
+          <number>5</number>
         </entry>
         <entry>
           <prototype>Enrichment</prototype>
-          <number>1</number>
+          <number>5</number>
         </entry>
         <entry>
           <prototype>FuelFab</prototype>
-          <number>1</number>
+          <number>5</number>
         </entry>
         <entry>
           <prototype>WetStorage</prototype>
@@ -281,7 +281,7 @@
     <institution>
       <name>UNITED_STATES_OF_AMERICA</name>
       <config>
-        <xi:include href="united_states/buildtimes/UNITED_STATES_OF_AMERICA/deployinst.xml"/>
+        <xi:include href="united_states/buildtimes/UNITED_STATES_OF_AMERICA/deploymanagerinst.xml"/>
       </config>
     </institution>
   </region>
