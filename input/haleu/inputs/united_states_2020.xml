@@ -143,7 +143,7 @@
           <val>fresh_uox</val>
         </out_commods>
         <residence_time>1</residence_time>
-        <max_inv_size>1000000</max_inv_size>
+        <!--max_inv_size>1000000</max_inv_size-->
         <!-- Westing House Fuel Fab (SC) -->
         <latitude>33.8749</latitude>
         <longitude>-80.8976</longitude>
@@ -199,23 +199,23 @@
         </entry>
         <entry>
           <prototype>Mine</prototype>
-          <number>1</number>
+          <number>3</number>
         </entry>
         <entry>
           <prototype>Mill</prototype>
-          <number>1</number>
+          <number>3</number>
         </entry>
         <entry>
           <prototype>Conversion</prototype>
-          <number>1</number>
+          <number>3</number>
         </entry>
         <entry>
           <prototype>Enrichment</prototype>
-          <number>1</number>
+          <number>3</number>
         </entry>
         <entry>
           <prototype>FuelFab</prototype>
-          <number>1</number>
+          <number>3</number>
         </entry>
         <entry>
           <prototype>WetStorage</prototype>
