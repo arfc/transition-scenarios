@@ -1,0 +1,231 @@
+<inclusions xmlns:xi="http://www.w3.org/2001/XInclude">
+    <xi:include href="../reactors/ANO-1.xml" />
+    
+    <xi:include href="../reactors/ANO-2.xml" />
+    
+    <xi:include href="../reactors/BEAVER_VALLEY-1.xml" />
+    
+    <xi:include href="../reactors/BEAVER_VALLEY-2.xml" />
+    
+    <xi:include href="../reactors/BRAIDWOOD-1.xml" />
+    
+    <xi:include href="../reactors/BRAIDWOOD-2.xml" />
+    
+    <xi:include href="../reactors/BROWNS_FERRY-1.xml" />
+    
+    <xi:include href="../reactors/BROWNS_FERRY-2.xml" />
+    
+    <xi:include href="../reactors/BROWNS_FERRY-3.xml" />
+    
+    <xi:include href="../reactors/BRUNSWICK-1.xml" />
+    
+    <xi:include href="../reactors/BRUNSWICK-2.xml" />
+    
+    <xi:include href="../reactors/BYRON-1.xml" />
+    
+    <xi:include href="../reactors/BYRON-2.xml" />
+    
+    <xi:include href="../reactors/CALLAWAY-1.xml" />
+    
+    <xi:include href="../reactors/CALVERT_CLIFFS-1.xml" />
+    
+    <xi:include href="../reactors/CALVERT_CLIFFS-2.xml" />
+    
+    <xi:include href="../reactors/CATAWBA-1.xml" />
+    
+    <xi:include href="../reactors/CATAWBA-2.xml" />
+    
+    <xi:include href="../reactors/CLINTON-1.xml" />
+    
+    <xi:include href="../reactors/COLUMBIA.xml" />
+    
+    <xi:include href="../reactors/COMANCHE_PEAK-1.xml" />
+    
+    <xi:include href="../reactors/COMANCHE_PEAK-2.xml" />
+    
+    <xi:include href="../reactors/COOK-1.xml" />
+    
+    <xi:include href="../reactors/COOK-2.xml" />
+    
+    <xi:include href="../reactors/COOPER.xml" />
+    
+    <xi:include href="../reactors/CRYSTAL_RIVER-3.xml" />
+    
+    <xi:include href="../reactors/DAVIS_BESSE-1.xml" />
+    
+    <xi:include href="../reactors/DIABLO_CANYON-1.xml" />
+    
+    <xi:include href="../reactors/DIABLO_CANYON-2.xml" />
+    
+    <xi:include href="../reactors/DRESDEN-2.xml" />
+    
+    <xi:include href="../reactors/DRESDEN-3.xml" />
+    
+    <xi:include href="../reactors/DUANE_ARNOLD-1.xml" />
+    
+    <xi:include href="../reactors/FARLEY-1.xml" />
+    
+    <xi:include href="../reactors/FARLEY-2.xml" />
+    
+    <xi:include href="../reactors/FERMI-2.xml" />
+    
+    <xi:include href="../reactors/FITZPATRICK.xml" />
+    
+    <xi:include href="../reactors/FORT_CALHOUN-1.xml" />
+    
+    <xi:include href="../reactors/GINNA.xml" />
+    
+    <xi:include href="../reactors/GRAND_GULF-1.xml" />
+    
+    <xi:include href="../reactors/HADDAM_NECK.xml" />
+    
+    <xi:include href="../reactors/HARRIS-1.xml" />
+    
+    <xi:include href="../reactors/HATCH-1.xml" />
+    
+    <xi:include href="../reactors/HATCH-2.xml" />
+    
+    <xi:include href="../reactors/HOPE_CREEK-1.xml" />
+    
+    <xi:include href="../reactors/INDIAN_POINT-2.xml" />
+    
+    <xi:include href="../reactors/INDIAN_POINT-3.xml" />
+    
+    <xi:include href="../reactors/KEWAUNEE.xml" />
+    
+    <xi:include href="../reactors/LASALLE-1.xml" />
+    
+    <xi:include href="../reactors/LASALLE-2.xml" />
+    
+    <xi:include href="../reactors/LIMERICK-1.xml" />
+    
+    <xi:include href="../reactors/LIMERICK-2.xml" />
+    
+    <xi:include href="../reactors/MAINE_YANKEE.xml" />
+    
+    <xi:include href="../reactors/MCGUIRE-1.xml" />
+    
+    <xi:include href="../reactors/MCGUIRE-2.xml" />
+    
+    <xi:include href="../reactors/MILLSTONE-1.xml" />
+    
+    <xi:include href="../reactors/MILLSTONE-2.xml" />
+    
+    <xi:include href="../reactors/MILLSTONE-3.xml" />
+    
+    <xi:include href="../reactors/MONTICELLO.xml" />
+    
+    <xi:include href="../reactors/NINE_MILE_POINT-1.xml" />
+    
+    <xi:include href="../reactors/NINE_MILE_POINT-2.xml" />
+    
+    <xi:include href="../reactors/NORTH_ANNA-1.xml" />
+    
+    <xi:include href="../reactors/NORTH_ANNA-2.xml" />
+    
+    <xi:include href="../reactors/OCONEE-1.xml" />
+    
+    <xi:include href="../reactors/OCONEE-2.xml" />
+    
+    <xi:include href="../reactors/OCONEE-3.xml" />
+    
+    <xi:include href="../reactors/OYSTER_CREEK.xml" />
+    
+    <xi:include href="../reactors/PALISADES.xml" />
+    
+    <xi:include href="../reactors/PALO_VERDE-1.xml" />
+    
+    <xi:include href="../reactors/PALO_VERDE-2.xml" />
+    
+    <xi:include href="../reactors/PALO_VERDE-3.xml" />
+    
+    <xi:include href="../reactors/PEACH_BOTTOM-2.xml" />
+    
+    <xi:include href="../reactors/PEACH_BOTTOM-3.xml" />
+    
+    <xi:include href="../reactors/PERRY-1.xml" />
+    
+    <xi:include href="../reactors/PILGRIM-1.xml" />
+    
+    <xi:include href="../reactors/POINT_BEACH-1.xml" />
+    
+    <xi:include href="../reactors/POINT_BEACH-2.xml" />
+    
+    <xi:include href="../reactors/PRAIRIE_ISLAND-1.xml" />
+    
+    <xi:include href="../reactors/PRAIRIE_ISLAND-2.xml" />
+    
+    <xi:include href="../reactors/QUAD_CITIES-1.xml" />
+    
+    <xi:include href="../reactors/QUAD_CITIES-2.xml" />
+    
+    <xi:include href="../reactors/RANCHO_SECO-1.xml" />
+    
+    <xi:include href="../reactors/RIVER_BEND-1.xml" />
+    
+    <xi:include href="../reactors/ROBINSON-2.xml" />
+    
+    <xi:include href="../reactors/SALEM-1.xml" />
+    
+    <xi:include href="../reactors/SALEM-2.xml" />
+    
+    <xi:include href="../reactors/SAN_ONOFRE-1.xml" />
+    
+    <xi:include href="../reactors/SAN_ONOFRE-2.xml" />
+    
+    <xi:include href="../reactors/SAN_ONOFRE-3.xml" />
+    
+    <xi:include href="../reactors/SEABROOK-1.xml" />
+    
+    <xi:include href="../reactors/SEQUOYAH-1.xml" />
+    
+    <xi:include href="../reactors/SEQUOYAH-2.xml" />
+    
+    <xi:include href="../reactors/SHOREHAM.xml" />
+    
+    <xi:include href="../reactors/SOUTH_TEXAS-1.xml" />
+    
+    <xi:include href="../reactors/SOUTH_TEXAS-2.xml" />
+    
+    <xi:include href="../reactors/ST._LUCIE-1.xml" />
+    
+    <xi:include href="../reactors/ST._LUCIE-2.xml" />
+    
+    <xi:include href="../reactors/SUMMER-1.xml" />
+    
+    <xi:include href="../reactors/SURRY-1.xml" />
+    
+    <xi:include href="../reactors/SURRY-2.xml" />
+    
+    <xi:include href="../reactors/SUSQUEHANNA-1.xml" />
+    
+    <xi:include href="../reactors/SUSQUEHANNA-2.xml" />
+    
+    <xi:include href="../reactors/THREE_MILE_ISLAND-1.xml" />
+    
+    <xi:include href="../reactors/THREE_MILE_ISLAND-2.xml" />
+    
+    <xi:include href="../reactors/TROJAN.xml" />
+    
+    <xi:include href="../reactors/TURKEY_POINT-3.xml" />
+    
+    <xi:include href="../reactors/TURKEY_POINT-4.xml" />
+    
+    <xi:include href="../reactors/VERMONT_YANKEE.xml" />
+    
+    <xi:include href="../reactors/VOGTLE-1.xml" />
+    
+    <xi:include href="../reactors/VOGTLE-2.xml" />
+    
+    <xi:include href="../reactors/WATERFORD-3.xml" />
+    
+    <xi:include href="../reactors/WATTS_BAR-1.xml" />
+    
+    <xi:include href="../reactors/WATTS_BAR-2.xml" />
+    
+    <xi:include href="../reactors/WOLF_CREEK.xml" />
+    
+    <xi:include href="../reactors/ZION-1.xml" />
+    
+    <xi:include href="../reactors/ZION-2.xml" />
+    </inclusions>
