@@ -180,7 +180,7 @@ def sum_and_add_missing_time(df):
     '''
     summed_df = df.groupby(['Time']).Quantity.sum().reset_index()
     summed_df = summed_df.set_index('Time').reindex(
-        np.arange(0, 1499, 1)).fillna(0).reset_index()
+        np.arange(0, 1500, 1)).fillna(0).reset_index()
     return summed_df
 
 def find_commodity_transcations(df, commodity):
@@ -202,6 +202,25 @@ def find_commodity_transcations(df, commodity):
     commodity_df = df.loc[df['Commodity'] == commodity]
     return commodity_df
 
+def find_prototype_transcations(df, prototype):
+    '''
+    Finds all transactions sent to a specified prototype
+
+    Parameters:
+    -----------
+    df: dataframe
+        dataframe of transactions 
+    prototype: str
+        name of prototype to search for
+    
+    Outputs:
+    --------
+    prototype_df: dataframe
+        contains only transactions sent to the specified prototype
+    '''
+    prototype_df = df.loc[df['Prototype'] == prototype]
+    return prototype_df
+
 def commodity_mass_traded(transactions, commodity):
     '''
     Calculates the total amount of a commodity traded
@@ -220,13 +239,9 @@ def commodity_mass_traded(transactions, commodity):
         DataFrame of total amount of each
         commodity traded as a function of time
     '''
-    transactions[commodity] = transactions.loc[transactions['Commodity']
-                                               == commodity]['Quantity']
-    transactions[commodity].fillna(value=0, inplace=True)
-    total_commodity = transactions[['Time', commodity, 'Units']]
-    total_commodity = total_commodity.groupby(total_commodity['Time']
-                                              ).aggregate({commodity: 'sum', 'Units': 'first'}).reset_index()
-    total_commodity = add_year(total_commodity)
+    transactions = find_commodity_transcations(transactions, commodity)
+    transactions = sum_and_add_missing_time(transactions)
+    total_commodity = add_year(transactions)
     return total_commodity
 
 
@@ -310,8 +325,7 @@ def commodity_to_prototype(transactions_df, commodity,prototype):
         the specified prototype name.
     '''
     prototype_transactions = find_commodity_transcations(transactions_df, commodity)
-    prototype_transactions = prototype_transactions.loc[
-        prototype_transactions['Prototype'] == prototype]
+    prototype_transactions = find_prototype_transcations(prototype_transactions, prototype)
     prototype_transactions = sum_and_add_missing_time(prototype_transactions)
     prototype_transactions = add_year(prototype_transactions)
     return prototype_transactions
