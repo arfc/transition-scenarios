@@ -100,44 +100,6 @@ def add_year(df):
     return df
 
 
-def plot_metric(dataframe, columns, labels=['Time', 'Count', 'metric']):
-    '''
-    Plots line graph of the specified column from the given
-    DataFrame as a function of time.
-
-    Parameters:
-    -----------
-    dataframe: DataFrame
-        data from simulation
-    columns: list of str
-        names of columns to be plotted, first element
-        is the x-axis
-    labels: list of str
-        label names in the order:
-            1. x-axis label
-            2. y-axis label
-            3. Legend title
-            4-end. legend labels
-
-    Outputs:
-    --------
-    Figure of desired metric as a function of time
-    '''
-    dataframe[columns].plot(x=columns[0], legend=False)
-
-    l = plt.legend(fontsize=12)
-    for ii in range(3, len(labels)):
-        l.get_texts()[ii - 3].set_text(labels[ii])
-    l.set_title(labels[2])
-    plt.setp(l.get_title(), fontsize=12)
-
-    plt.xlabel(labels[0], fontsize=18)
-    plt.ylabel(labels[1], fontsize=18)
-    plt.xticks(fontsize=14)
-    plt.yticks(fontsize=14)
-
-    return
-
 def get_transactions(filename):
     '''
     Gets the TransactionQuantity metric from cymetric,
@@ -162,6 +124,7 @@ def get_transactions(filename):
         transactions, evaler.eval('TimeList'))
     return transactions
 
+
 def sum_and_add_missing_time(df):
     '''
     Sums the values of the same time step, and adds any missing time steps
@@ -170,18 +133,19 @@ def sum_and_add_missing_time(df):
     Parameters:
     -----------
     df: dataframe
-        dataframe 
+        dataframe
 
     Outputs:
     --------
     summed_df: dataframe
-        dataframe with the summed values for each time step and inserted 
+        dataframe with the summed values for each time step and inserted
         missing time steps
     '''
     summed_df = df.groupby(['Time']).Quantity.sum().reset_index()
     summed_df = summed_df.set_index('Time').reindex(
         np.arange(0, 1500, 1)).fillna(0).reset_index()
     return summed_df
+
 
 def find_commodity_transcations(df, commodity):
     '''
@@ -190,10 +154,10 @@ def find_commodity_transcations(df, commodity):
     Parameters:
     -----------
     df: dataframe
-        dataframe of transactions 
+        dataframe of transactions
     commodity: str
         name of commodity to search for
-    
+
     Outputs:
     --------
     commodity_df: dataframe
@@ -202,6 +166,7 @@ def find_commodity_transcations(df, commodity):
     commodity_df = df.loc[df['Commodity'] == commodity]
     return commodity_df
 
+
 def find_prototype_transcations(df, prototype):
     '''
     Finds all transactions sent to a specified prototype
@@ -209,10 +174,10 @@ def find_prototype_transcations(df, prototype):
     Parameters:
     -----------
     df: dataframe
-        dataframe of transactions 
+        dataframe of transactions
     prototype: str
         name of prototype to search for
-    
+
     Outputs:
     --------
     prototype_df: dataframe
@@ -221,7 +186,8 @@ def find_prototype_transcations(df, prototype):
     prototype_df = df.loc[df['Prototype'] == prototype]
     return prototype_df
 
-def commodity_mass_traded(transactions, commodity):
+
+def commodity_mass_traded(transactions_df, commodity):
     '''
     Calculates the total amount of a commodity traded
     at each time step
@@ -239,7 +205,7 @@ def commodity_mass_traded(transactions, commodity):
         DataFrame of total amount of each
         commodity traded as a function of time
     '''
-    transactions = find_commodity_transcations(transactions, commodity)
+    transactions = find_commodity_transcations(transactions_df, commodity)
     transactions = sum_and_add_missing_time(transactions)
     total_commodity = add_year(transactions)
     return total_commodity
@@ -272,13 +238,14 @@ def add_receiver_prototype(filename):
             'SimId', 'ReceiverId'])
     return receiver_prototype
 
+
 def commodity_to_LWR(transactions_df, commodity, prototype):
     '''
-    Finds all of the transactions of a commodity name to 
+    Finds all of the transactions of a commodity name to
     the LWRs in the simulation, adds in zeros for any time step without
     a transaction to the LWRs, and sums all transactions for
     a single time step
-    
+
     Parameters:
     -----------
     transactions_df: dataframe
@@ -287,11 +254,11 @@ def commodity_to_LWR(transactions_df, commodity, prototype):
         commodity of interest
     prototype: str
         name of other reactor prototypes in the simulation
-        
+
     Outputs:
     --------
-    lwr_transactions: dataframe 
-        contains the transactions to the LWRs of the specified 
+    lwr_transactions: dataframe
+        contains the transactions to the LWRs of the specified
         commodity, year information is included
     '''
     lwr_transactions = find_commodity_transcations(transactions_df, commodity)
@@ -301,7 +268,8 @@ def commodity_to_LWR(transactions_df, commodity, prototype):
     lwr_transactions = add_year(lwr_transactions)
     return lwr_transactions
 
-def commodity_to_prototype(transactions_df, commodity,prototype):
+
+def commodity_to_prototype(transactions_df, commodity, prototype):
     '''
     Finds the transactions of a specific commodity sent to a single prototype in the simulation,
     modifies the time column, and adds in zeros for any time step without
@@ -311,7 +279,7 @@ def commodity_to_prototype(transactions_df, commodity,prototype):
     Parameters:
     -----------
     transactions_df: dataframe
-        dataframe of transactions with the prototype name 
+        dataframe of transactions with the prototype name
         of the receiver agent added in.
     commodity: str
         commodity of interest
@@ -324,11 +292,14 @@ def commodity_to_prototype(transactions_df, commodity,prototype):
         contains summed transactions at each time step that are sent to
         the specified prototype name.
     '''
-    prototype_transactions = find_commodity_transcations(transactions_df, commodity)
-    prototype_transactions = find_prototype_transcations(prototype_transactions, prototype)
+    prototype_transactions = find_commodity_transcations(
+        transactions_df, commodity)
+    prototype_transactions = find_prototype_transcations(
+        prototype_transactions, prototype)
     prototype_transactions = sum_and_add_missing_time(prototype_transactions)
     prototype_transactions = add_year(prototype_transactions)
     return prototype_transactions
+
 
 def merge_databases(dfs):
     '''
