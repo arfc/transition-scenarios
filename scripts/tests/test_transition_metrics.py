@@ -3,7 +3,18 @@ import pandas as pd
 
 import transition_metrics as tm
 
+class test_reading_output(object):
+    def __init__(self):
+        self.output_file = 'test_transition_metrics.sqlite'
 
+    def test_get_metrics(self):
+        exp = Evaluator 
+        obs = tm.get_metrics(self.output_file)
+        assert isinstance(obs, exp)
+
+    #def test_rx_commission_decommission1():
+
+        assert_frame_equal(exp,obs)
 def test_calculate_feed1():
     exp = 10
     product = 5
