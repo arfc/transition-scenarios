@@ -1,20 +1,39 @@
 import numpy as np
 import pandas as pd
+from pandas._testing import assert_series_equal
 
 import transition_metrics as tm
 
 class test_reading_output(object):
     def __init__(self):
-        self.output_file = 'test_transition_metrics.sqlite'
+        self.output_file1 = 'transition_metrics_decommission_test.sqlite'
+        self.output_file2 = 'transition_metrics_nodecommission_test.sqlite'
 
     def test_get_metrics(self):
-        exp = Evaluator 
-        obs = tm.get_metrics(self.output_file)
-        assert isinstance(obs, exp)
+         
+        obs = 'Test_case' #tm.get_metrics(self.output_file)
+        assert isinstance(obs, str)
 
-    #def test_rx_commission_decommission1():
+    def test_rx_commission_decommission1(self):
+        exp = pd.Series(data={0:0.0, 1:0.0, 
+        2:1.0, 3:2.0, 4:2.0, 5:2.0, 6:2.0}, name='lwr_total')
+        non_lwr = ['United States', 'FuelCycle', 'FuelSupply', 
+           'Repository', 'UNITED_STATES_OF_AMERICA', 
+           'Reactor_type1_enter', 'Reactor_type1_exit']
+        df = tm.rx_commission_decommission(self.output_file1, non_lwr)
+        obs = df['lwr_total']
+        assert_series_equal(exp,obs)
 
-        assert_frame_equal(exp,obs)
+    def test_rx_commission_decommission2(self):
+        exp = pd.Series(data={0:0.0, 1:0.0, 
+        2:1.0, 3:2.0, 4:2.0, 5:2.0, 6:2.0}, name='lwr_total')
+        non_lwr = ['United States', 'FuelCycle', 'FuelSupply', 
+           'Repository', 'UNITED_STATES_OF_AMERICA', 
+           'Reactor_type1']
+        df = tm.rx_commission_decommission(self.output_file2, non_lwr)
+        obs = df['lwr_total']
+        assert_series_equal(exp,obs)
+        
 def test_calculate_feed1():
     exp = 10
     product = 5
