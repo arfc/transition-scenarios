@@ -43,7 +43,7 @@ class test_reading_output(object):
         'ReceiverId':[0.0, 24.0, 24.0], 'Commodity':[0, 'fresh_uox', 'fresho_uox'],
         'Units':[0, 'kg', 'kg'], 'Quantity':[0.0, 33000.0, 33000.0]})
         obs = tm.get_transactions(self.output_file1)
-        assert_frame_equal(exp, obs[0:3])
+        assert_frame_equal(exp, obs[0:3], check_dtype=False)
         
 def test_add_year():
     exp = pd.Series(data={0:1965.08, 1: 1965.33, 2: 1965.58, 3:1965.83,
