@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 from pandas._testing import assert_series_equal
+from pandas._testing import assert_frame_equal
 
 import transition_metrics as tm
 
@@ -33,6 +34,16 @@ class test_reading_output(object):
         df = tm.rx_commission_decommission(self.output_file2, non_lwr)
         obs = df['lwr_total']
         assert_series_equal(exp,obs)
+
+    def test_get_transactions(self):
+        exp = pd.DataFrame(data = {'Time': [0,1,1], 'SimId':[0, 
+        '6af6d305-e3be-4790-8920-b3f3bec3d6f7', '6af6d305-e3be-4790-8920-b3f3bec3d6f7'],
+        'TransactionId':[0.0, 0.0, 1.0], 'ResourceId':[0.0, 10.0, 20.0],
+        'ObjId':[0.0, 9.0, 10.0], 'SenderId':[0.0, 21.0, 21.0], 
+        'ReceiverId':[0.0, 24.0, 24.0], 'Commodity':[0, 'fresh_uox', 'fresho_uox'],
+        'Units':[0, 'kg', 'kg'], 'Quantity':[0.0, 33000.0, 33000.0]})
+        obs = tm.get_transactions(self.output_file1)
+        assert_frame_equal(exp, obs[0:3])
         
 def test_add_year():
     exp = pd.Series(data={0:1965.08, 1: 1965.33, 2: 1965.58, 3:1965.83,
