@@ -11,7 +11,8 @@ class file_df_info(object):
         self.output_file1 = 'transition_metrics_decommission_test.sqlite'
         self.output_file2 = 'transition_metrics_nodecommission_test.sqlite'
         self.test_df = pd.DataFrame(data={'Time': [0,1,1,3], 
-        'Quantity':[2,5,6,8]})
+        'Quantity':[2,5,6,8], 'Commodity':['fresh_uox', 'spent_uox', 
+        'fresh_uox', 'fresh_uox']})
 
 def test_get_metrics():     
     obs = 'Test_case' #tm.get_metrics(self.output_file)
@@ -63,6 +64,20 @@ def test_sum_and_add_missing_time():
     test_df = file_df_info()
     obs = tm.sum_and_add_missing_time(test_df.test_df)
     assert_frame_equal(exp, obs[0:4])
+
+def test_find_commodity_transactions1():
+    exp = pd.DataFrame(data={'Time':[0,1,3], 'Quantity':[2, 6, 8], 
+        'Commodity':['fresh_uox', 'fresh_uox', 'fresh_uox']}).set_index([pd.Index([0,2,3])])
+    df_info = file_df_info()
+    obs = tm.find_commodity_transcations(df_info.test_df, 'fresh_uox')
+    assert_frame_equal(exp, obs)
+
+def test_find_commodity_transactions2():
+    exp = pd.DataFrame(data={'Time':[], 'Quantity':[], 
+        'Commodity':[]})
+    df_info = file_df_info()
+    obs = tm.find_commodity_transcations(df_info.test_df, 'tails')
+    assert_frame_equal(exp, obs, check_dtype=False)
 
 def test_calculate_feed1():
     exp = 10
