@@ -63,8 +63,16 @@ def rx_commission_decommission(filename, non_lwr):
         decomm = pd.concat([decomm, neg], axis=1)
         decomm.rename(columns={'ExitTime': 'Time'}, inplace=True)
         d = decomm.pivot('Time', 'Prototype')['Count'].reset_index()
-        simulation_data = pd.merge(c, d, left_on='Time', right_on='Time', how='outer', sort=True,
-                                   suffixes=('_enter', '_exit')).fillna(0)
+        simulation_data = pd.merge(
+            c,
+            d,
+            left_on='Time',
+            right_on='Time',
+            how='outer',
+            sort=True,
+            suffixes=(
+                '_enter',
+                '_exit')).fillna(0)
     else:
         simulation_data = c.fillna(0)
 

@@ -12,10 +12,13 @@ class file_df_info(object):
     def __init__(self):
         self.output_file1 = 'transition_metrics_decommission_test.sqlite'
         self.output_file2 = 'transition_metrics_nodecommission_test.sqlite'
-        self.test_df = pd.DataFrame(data={'Time': [0, 1, 1, 3],
-                                          'Quantity': [2, 5, 6, 8], 'Commodity': ['fresh_uox', 'spent_uox',
-                                                                                  'fresh_uox', 'fresh_uox'], 'Prototype': ['FuelCycle', 'LWR',
-                                                                                                                           'Reactor_type1', 'LWR']})
+        self.test_df = pd.DataFrame(
+            data={
+                'Time': [
+                    0, 1, 1, 3], 'Quantity': [
+                    2, 5, 6, 8], 'Commodity': [
+                    'fresh_uox', 'spent_uox', 'fresh_uox', 'fresh_uox'], 
+                    'Prototype': ['FuelCycle', 'LWR', 'Reactor_type1', 'LWR']})
 
 
 def test_get_metrics():
@@ -24,8 +27,16 @@ def test_get_metrics():
 
 
 def test_rx_commission_decommission1():
-    exp = pd.Series(data={0: 0.0, 1: 0.0,
-                          2: 1.0, 3: 2.0, 4: 2.0, 5: 2.0, 6: 2.0}, name='lwr_total')
+    exp = pd.Series(
+        data={
+            0: 0.0,
+            1: 0.0,
+            2: 1.0,
+            3: 2.0,
+            4: 2.0,
+            5: 2.0,
+            6: 2.0},
+        name='lwr_total')
     non_lwr = ['United States', 'FuelCycle', 'FuelSupply',
                'Repository', 'UNITED_STATES_OF_AMERICA',
                'Reactor_type1_enter', 'Reactor_type1_exit']
@@ -36,8 +47,16 @@ def test_rx_commission_decommission1():
 
 
 def test_rx_commission_decommission2():
-    exp = pd.Series(data={0: 0.0, 1: 0.0,
-                          2: 1.0, 3: 2.0, 4: 2.0, 5: 2.0, 6: 2.0}, name='lwr_total')
+    exp = pd.Series(
+        data={
+            0: 0.0,
+            1: 0.0,
+            2: 1.0,
+            3: 2.0,
+            4: 2.0,
+            5: 2.0,
+            6: 2.0},
+        name='lwr_total')
     non_lwr = ['United States', 'FuelCycle', 'FuelSupply',
                'Repository', 'UNITED_STATES_OF_AMERICA',
                'Reactor_type1']
@@ -58,12 +77,48 @@ def test_add_year():
 
 
 def test_get_transactions():
-    exp = pd.DataFrame(data={'Time': [0, 1, 1], 'SimId': [0,
-                                                          UUID('6af6d305-e3be-4790-8920-b3f3bec3d6f7'), UUID('6af6d305-e3be-4790-8920-b3f3bec3d6f7')],
-                             'TransactionId': [0.0, 0.0, 1.0], 'ResourceId': [0.0, 10.0, 12.0],
-                             'ObjId': [0.0, 9.0, 10.0], 'SenderId': [0.0, 21.0, 21.0],
-                             'ReceiverId': [0.0, 24.0, 24.0], 'Commodity': [0, 'fresh_uox', 'fresh_uox'],
-                             'Units': [0, 'kg', 'kg'], 'Quantity': [0.0, 33000.0, 33000.0]})
+    exp = pd.DataFrame(
+        data={
+            'Time': [
+                0,
+                1,
+                1],
+            'SimId': [
+                0,
+                UUID('6af6d305-e3be-4790-8920-b3f3bec3d6f7'),
+                UUID('6af6d305-e3be-4790-8920-b3f3bec3d6f7')],
+            'TransactionId': [
+                0.0,
+                0.0,
+                1.0],
+            'ResourceId': [
+                0.0,
+                10.0,
+                12.0],
+            'ObjId': [
+                0.0,
+                9.0,
+                10.0],
+            'SenderId': [
+                0.0,
+                21.0,
+                21.0],
+            'ReceiverId': [
+                0.0,
+                24.0,
+                24.0],
+            'Commodity': [
+                0,
+                'fresh_uox',
+                'fresh_uox'],
+            'Units': [
+                0,
+                'kg',
+                'kg'],
+            'Quantity': [
+                0.0,
+                33000.0,
+                33000.0]})
     file_info = file_df_info()
     obs = tm.get_transactions(file_info.output_file1)
     assert_frame_equal(exp, obs[0:3])
@@ -81,9 +136,17 @@ def test_sum_and_add_missing_time():
 
 
 def test_find_commodity_transactions1():
-    exp = pd.DataFrame(data={'Time': [0, 1, 3], 'Quantity': [2, 6, 8],
-                             'Commodity': ['fresh_uox', 'fresh_uox', 'fresh_uox'],
-                             'Prototype': ['FuelCycle', 'Reactor_type1', 'LWR']}).set_index([pd.Index([0, 2, 3])])
+    exp = pd.DataFrame(
+        data={
+            'Time': [
+                0, 1, 3], 'Quantity': [
+                2, 6, 8], 'Commodity': [
+                    'fresh_uox', 'fresh_uox', 'fresh_uox'], 'Prototype': [
+                        'FuelCycle', 'Reactor_type1', 'LWR']}).set_index(
+                            [
+                                pd.Index(
+                                    [
+                                        0, 2, 3])])
     df_info = file_df_info()
     obs = tm.find_commodity_transcations(df_info.test_df, 'fresh_uox')
     assert_frame_equal(exp, obs)
@@ -98,8 +161,11 @@ def test_find_commodity_transactions2():
 
 
 def test_find_prototype_transactions1():
-    exp = pd.DataFrame(data={'Time': [1, 3], 'Quantity': [5, 8], 'Commodity':
-                             ['spent_uox', 'fresh_uox'], 'Prototype': ['LWR', 'LWR']}).set_index([pd.Index([1, 3])])
+    exp = pd.DataFrame(data={'Time': [1, 3], 
+                             'Quantity': [5, 8], 
+                             'Commodity': ['spent_uox', 'fresh_uox'],
+                             'Prototype': ['LWR', 'LWR']}
+                             ).set_index([pd.Index([1, 3])])
     df_info = file_df_info()
     obs = tm.find_prototype_transcations(df_info.test_df, 'LWR')
     assert_frame_equal(exp, obs)
@@ -114,41 +180,99 @@ def test_find_prototype_transactions2():
 
 
 def test_commidity_mass_traded1():
-    exp = pd.DataFrame(data={'Time': [0, 1, 2, 3], 'Quantity': [2.0, 6.0, 0.0, 8.0],
-                             'Year': [1965.00,
-                                      1965.08, 1965.17, 1965.25]})
+    exp = pd.DataFrame(
+        data={
+            'Time': [
+                0, 1, 2, 3], 'Quantity': [
+                2.0, 6.0, 0.0, 8.0], 'Year': [
+                    1965.00, 1965.08, 1965.17, 1965.25]})
     df_info = file_df_info()
     obs = tm.commodity_mass_traded(df_info.test_df, 'fresh_uox')
     assert_frame_equal(exp, obs[0:4])
 
 
 def test_commidity_mass_traded2():
-    exp = pd.DataFrame(data={'Time': [0, 1, 2, 3], 'Quantity': [0.0, 0.0, 0.0, 0.0],
-                             'Year': [1965.0, 1965.08, 1965.17, 1965.25]})
+    exp = pd.DataFrame(
+        data={
+            'Time': [
+                0, 1, 2, 3], 'Quantity': [
+                0.0, 0.0, 0.0, 0.0], 'Year': [
+                    1965.0, 1965.08, 1965.17, 1965.25]})
     df_info = file_df_info()
     obs = tm.commodity_mass_traded(df_info.test_df, 'tails')
     assert_frame_equal(exp, obs[0:4])
 
 
 def test_add_receiver_prototype():
-    exp = pd.DataFrame(data={'Time': [1, 1, 1, 2], 'SimId': [UUID('6af6d305-e3be-4790-8920-b3f3bec3d6f7'),
-                                                             UUID(
-                                                                 '6af6d305-e3be-4790-8920-b3f3bec3d6f7'),
-                                                             UUID('6af6d305-e3be-4790-8920-b3f3bec3d6f7'), UUID('6af6d305-e3be-4790-8920-b3f3bec3d6f7')],
-                             'TransactionId': [0.0, 1.0, 2.0, 3.0], 'ResourceId': [10.0, 12.0, 14.0, 15.0],
-                             'ObjId': [9.0, 10.0, 11.0, 9.0], 'SenderId': [21.0, 21.0, 21.0, 24.0],
-                             'ReceiverId': [24.0, 24.0, 24.0, 22.0], 'Commodity': ['fresh_uox', 'fresh_uox',
-                                                                                   'fresh_uox', 'spent_uox'],
-                             'Units': ['kg', 'kg', 'kg', 'kg'], 'Quantity': [33000.0, 33000.0, 33000.0, 33000.0],
-                             'Prototype': ['Reactor_type1', 'Reactor_type1', 'Reactor_type1', 'Repository']})
+    exp = pd.DataFrame(
+        data={
+            'Time': [
+                1,
+                1,
+                1,
+                2],
+            'SimId': [
+                UUID('6af6d305-e3be-4790-8920-b3f3bec3d6f7'),
+                UUID('6af6d305-e3be-4790-8920-b3f3bec3d6f7'),
+                UUID('6af6d305-e3be-4790-8920-b3f3bec3d6f7'),
+                UUID('6af6d305-e3be-4790-8920-b3f3bec3d6f7')],
+            'TransactionId': [
+                0.0,
+                1.0,
+                2.0,
+                3.0],
+            'ResourceId': [
+                10.0,
+                12.0,
+                14.0,
+                15.0],
+            'ObjId': [
+                9.0,
+                10.0,
+                11.0,
+                9.0],
+            'SenderId': [
+                21.0,
+                21.0,
+                21.0,
+                24.0],
+            'ReceiverId': [
+                24.0,
+                24.0,
+                24.0,
+                22.0],
+            'Commodity': [
+                'fresh_uox',
+                'fresh_uox',
+                'fresh_uox',
+                'spent_uox'],
+            'Units': [
+                'kg',
+                'kg',
+                'kg',
+                'kg'],
+            'Quantity': [
+                33000.0,
+                33000.0,
+                33000.0,
+                33000.0],
+            'Prototype': [
+                'Reactor_type1',
+                'Reactor_type1',
+                'Reactor_type1',
+                'Repository']})
     file_info = file_df_info()
     obs = tm.add_receiver_prototype(file_info.output_file1)
     assert_frame_equal(exp, obs[0:4])
 
 
 def test_commodity_to_prototype1():
-    exp = pd.DataFrame(data={'Time': [0, 1, 2, 3], 'Quantity': [0.0, 0.0, 9900.00, 13200.00],
-                             'Year': [1965.00, 1965.08, 1965.17, 1965.25]})
+    exp = pd.DataFrame(
+        data={
+            'Time': [
+                0, 1, 2, 3], 'Quantity': [
+                0.0, 0.0, 9900.00, 13200.00], 'Year': [
+                    1965.00, 1965.08, 1965.17, 1965.25]})
     file_info = file_df_info()
     transactions_df = tm.add_receiver_prototype(file_info.output_file1)
     obs = tm.commodity_to_prototype(
@@ -157,8 +281,12 @@ def test_commodity_to_prototype1():
 
 
 def test_commodity_to_prototype2():
-    exp = pd.DataFrame(data={'Time': [0, 1, 2, 3], 'Quantity': [0.0, 0.0, 0.0, 0.0],
-                             'Year': [1965.00, 1965.08, 1965.17, 1965.25]})
+    exp = pd.DataFrame(
+        data={
+            'Time': [
+                0, 1, 2, 3], 'Quantity': [
+                0.0, 0.0, 0.0, 0.0], 'Year': [
+                    1965.00, 1965.08, 1965.17, 1965.25]})
     file_info = file_df_info()
     transactions_df = tm.add_receiver_prototype(file_info.output_file1)
     obs = tm.commodity_to_prototype(
@@ -167,8 +295,12 @@ def test_commodity_to_prototype2():
 
 
 def test_commodity_to_prototype3():
-    exp = pd.DataFrame(data={'Time': [0, 1, 2, 3], 'Quantity': [0.0, 0.0, 0.0, 0.0],
-                             'Year': [1965.00, 1965.08, 1965.17, 1965.25]})
+    exp = pd.DataFrame(
+        data={
+            'Time': [
+                0, 1, 2, 3], 'Quantity': [
+                0.0, 0.0, 0.0, 0.0], 'Year': [
+                    1965.00, 1965.08, 1965.17, 1965.25]})
     file_info = file_df_info()
     transactions_df = tm.add_receiver_prototype(file_info.output_file1)
     obs = tm.commodity_to_prototype(transactions_df, 'tails', 'Reactor_type2')
@@ -183,12 +315,12 @@ def test_separation_potential1():
 
 def test_separation_potential2():
     obs = tm.separation_potential(1.2)
-    assert math.isnan(obs) == True
+    assert math.isnan(obs)
 
 
 def test_separation_potential3():
     obs = tm.separation_potential(-1.2)
-    assert math.isnan(obs) == True
+    assert math.isnan(obs)
 
 
 def test_separation_potential4():
