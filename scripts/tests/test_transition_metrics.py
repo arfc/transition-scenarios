@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import math
 from uuid import UUID
 from pandas._testing import assert_series_equal
 from pandas._testing import assert_frame_equal
@@ -124,13 +125,48 @@ def test_add_receiver_prototype():
     obs = tm.add_receiver_prototype(file_info.output_file1)
     assert_frame_equal(exp, obs[0:4])
 
-def test_commodity_to_prototype():
+def test_commodity_to_prototype1():
     exp = pd.DataFrame(data={'Time':[0, 1, 2, 3], 'Quantity':[0.0, 0.0, 9900.00, 13200.00],
     'Year':[1965.00, 1965.08, 1965.17, 1965.25]})
     file_info = file_df_info()
     transactions_df = tm.add_receiver_prototype(file_info.output_file1)
     obs = tm.commodity_to_prototype(transactions_df, 'fresh_uox', 'Reactor_type2')
     assert_frame_equal(exp, obs[0:4])
+
+def test_commodity_to_prototype2():
+    exp = pd.DataFrame(data={'Time':[0, 1, 2, 3], 'Quantity':[0.0, 0.0, 0.0, 0.0],
+    'Year':[1965.00, 1965.08, 1965.17, 1965.25]})
+    file_info = file_df_info()
+    transactions_df = tm.add_receiver_prototype(file_info.output_file1)
+    obs = tm.commodity_to_prototype(transactions_df, 'fresh_uox', 'Reactor_type3')
+    assert_frame_equal(exp, obs[0:4])
+
+def test_commodity_to_prototype3():
+    exp = pd.DataFrame(data={'Time':[0, 1, 2, 3], 'Quantity':[0.0, 0.0, 0.0, 0.0],
+    'Year':[1965.00, 1965.08, 1965.17, 1965.25]})
+    file_info = file_df_info()
+    transactions_df = tm.add_receiver_prototype(file_info.output_file1)
+    obs = tm.commodity_to_prototype(transactions_df, 'tails', 'Reactor_type2')
+    assert_frame_equal(exp, obs[0:4])
+
+def test_separation_potential1():
+    exp = 0.8317766166719346
+    obs = tm.separation_potential(0.8)
+    assert exp == obs 
+
+def test_separation_potential2():
+    obs = tm.separation_potential(1.2)
+    assert math.isnan(obs) == True
+
+def test_separation_potential3():
+    obs = tm.separation_potential(-1.2)
+    assert math.isnan(obs) == True
+
+def test_separation_potential4():
+    exp = pd.Series(data=[float('inf'),1.757780, 0.831777])
+    data = pd.Series(data=[0.0, 0.1, 0.2])
+    obs = tm.separation_potential(data)
+    assert_series_equal(exp, obs)
 
 def test_calculate_feed1():
     exp = 10
