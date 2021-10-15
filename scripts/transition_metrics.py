@@ -73,7 +73,6 @@ def rx_commission_decommission(filename, non_lwr):
         non_lwr, axis=1).sum(
         axis=1)
     simulation_data['lwr_total'] = simulation_data['lwr_total'].cumsum()
-
     return simulation_data.reset_index()
 
 
@@ -94,7 +93,6 @@ def add_year(df):
     df['Year'] = pd.Series(
         [np.nan for x in range(len(df.index))], index=df.index)
     for index, row in df.iterrows():
-        # if df['Time'][index] % 12 == 1:
         df['Year'][index] = np.round(df['Time'][index] / 12 + 1965, 2)
     df['Year'] = df['Year'].fillna(method='ffill')
     return df
@@ -216,7 +214,8 @@ def add_receiver_prototype(filename):
     Creates dataframe of transactions information, and adds in
     the prototype name corresponding to the ReceiverId of the
     transaction. This dataframe is merged with the Agents dataframe, with the
-    AgentId column renamed to ReceivedId to assist the merge process.
+    AgentId column renamed to ReceivedId to assist the merge process. The
+    final dataframe is organized by ascending order of Time then TransactionId
 
     Parameters:
     -----------
@@ -234,39 +233,9 @@ def add_receiver_prototype(filename):
     agents = evaler.eval('Agents')
     agents = agents.rename(columns={'AgentId': 'ReceiverId'})
     receiver_prototype = pd.merge(
-        transactions, agents, on=[
-            'SimId', 'ReceiverId'])
+        transactions, agents[['SimId', 'ReceiverId', 'Prototype']], on=[
+            'SimId', 'ReceiverId']).sort_values(by=['Time', 'TransactionId']).reset_index(drop=True)
     return receiver_prototype
-
-
-def commodity_to_LWR(transactions_df, commodity, prototype):
-    '''
-    Finds all of the transactions of a commodity name to
-    the LWRs in the simulation, adds in zeros for any time step without
-    a transaction to the LWRs, and sums all transactions for
-    a single time step
-
-    Parameters:
-    -----------
-    transactions_df: dataframe
-        transactions data
-    commodity: str
-        commodity of interest
-    prototype: str
-        name of other reactor prototypes in the simulation
-
-    Outputs:
-    --------
-    lwr_transactions: dataframe
-        contains the transactions to the LWRs of the specified
-        commodity, year information is included
-    '''
-    lwr_transactions = find_commodity_transcations(transactions_df, commodity)
-    lwr_transactions = lwr_transactions.loc[
-        lwr_transactions['Prototype'] != prototype]
-    lwr_transactions = sum_and_add_missing_time(lwr_transactions)
-    lwr_transactions = add_year(lwr_transactions)
-    return lwr_transactions
 
 
 def commodity_to_prototype(transactions_df, commodity, prototype):
@@ -280,7 +249,8 @@ def commodity_to_prototype(transactions_df, commodity, prototype):
     -----------
     transactions_df: dataframe
         dataframe of transactions with the prototype name
-        of the receiver agent added in.
+        of the receiver agent added in. use add_receiver_prototype to get this
+        dataframe
     commodity: str
         commodity of interest
     prototype: str
@@ -299,29 +269,6 @@ def commodity_to_prototype(transactions_df, commodity, prototype):
     prototype_transactions = sum_and_add_missing_time(prototype_transactions)
     prototype_transactions = add_year(prototype_transactions)
     return prototype_transactions
-
-
-def merge_databases(dfs):
-    '''
-    merges multiple dataframes based on Time and Year columns
-
-    Parameters:
-    -----------
-    dfs: list of DataFrames
-        names of DataFrames to be merged
-
-    Outputs:
-    --------
-    merged_df: DataFrame
-        final DataFrame comprosed of all merged
-        DataFrames
-    '''
-    merged_df = pd.DataFrame({'Time': np.linspace(0, 1499, 1500)})
-    merged_df = add_year(merged_df)
-    for ii in dfs:
-        merged_df = pd.merge(merged_df, ii, on=['Time', 'Year'])
-
-    return merged_df
 
 
 def separation_potential(x_i):
