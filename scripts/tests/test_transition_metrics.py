@@ -124,6 +124,14 @@ def test_add_receiver_prototype():
     obs = tm.add_receiver_prototype(file_info.output_file1)
     assert_frame_equal(exp, obs[0:4])
 
+def test_commodity_to_prototype():
+    exp = pd.DataFrame(data={'Time':[0, 1, 2, 3], 'Quantity':[0.0, 0.0, 9900.00, 13200.00],
+    'Year':[1965.00, 1965.08, 1965.17, 1965.25]})
+    file_info = file_df_info()
+    transactions_df = tm.add_receiver_prototype(file_info.output_file1)
+    obs = tm.commodity_to_prototype(transactions_df, 'fresh_uox', 'Reactor_type2')
+    assert_frame_equal(exp, obs[0:4])
+
 def test_calculate_feed1():
     exp = 10
     product = 5
