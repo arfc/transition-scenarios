@@ -181,6 +181,17 @@ def test_calculate_SWU2():
     data['Feed'], 0.3)
     assert_series_equal(exp, obs)
 
+def test_calculate_tails1():
+    exp = 50.00000000000002
+    obs = tm.calculate_tails(100, 0.4, 0.1, 0.3)
+    assert exp == obs
+
+def test_calculate_tails2():
+    exp = pd.Series(data=[50.00000000000002, 10.000000000000005])
+    data = pd.Series(data=[100, 20])
+    obs = tm.calculate_tails(data, 0.4, 0.1, 0.3)
+    assert_series_equal(exp, obs)
+
 def test_calculate_feed1():
     exp = 10
     product = 5
@@ -188,16 +199,7 @@ def test_calculate_feed1():
     obs = tm.calculate_feed(product, tails)
     assert exp == obs
 
-
 def test_calculate_feed2():
-    exp = np.repeat(10, 3)
-    product = np.repeat(5, 3)
-    tails = np.repeat(5, 3)
-    obs = tm.calculate_feed(product, tails)
-    assert np.all(exp == obs)
-
-
-def test_calculate_feed3():
     exp = pd.Series(data=[10, 10, 10, 10])
     product = pd.DataFrame(
         data={
@@ -213,3 +215,33 @@ def test_calculate_feed3():
                     'a', 'b'})
     obs = tm.calculate_feed(product['a'], tails['a'])
     assert np.all(exp == obs)
+
+def test_get_electricity():
+    exp = pd.DataFrame(data={'Year':[1965],'Energy':[0.35]})
+    file_info = file_df_info()
+    obs = tm.get_electricity(file_info.output_file1)
+    assert_frame_equal(exp, obs)
+
+def test_get_prototype_energy1():
+    exp = pd.DataFrame(data = {'Year':[1965, 1966], 'Energy':[0.05, 0.00]})
+    file_info = file_df_info()
+    obs = tm.get_prototype_energy(file_info.output_file1, 'Reactor_type2')
+    assert_frame_equal(exp, obs[0:2])
+
+def test_get_prototype_energy2():
+    exp = pd.DataFrame(data = {'Year':[1965, 1966], 'Energy':[0.00, 0.00]})
+    file_info = file_df_info()
+    obs = tm.get_prototype_energy(file_info.output_file1, 'Reactor_type3')
+    assert_frame_equal(exp, obs[0:2])
+
+def test_get_lwr_energy1():
+    exp = pd.DataFrame(data = {'Year':[1965, 1966], 'Energy':[0.30, 0.00]})
+    file_info = file_df_info()
+    obs = tm.get_lwr_energy(file_info.output_file1, 'Reactor_type2')
+    assert_frame_equal(exp, obs[0:2])
+
+def test_get_lwr_energy2():
+    exp = pd.DataFrame(data = {'Year':[1965, 1966], 'Energy':[0.35, 0.00]})
+    file_info = file_df_info()
+    obs = tm.get_lwr_energy(file_info.output_file1, 'Reactor_type3')
+    assert_frame_equal(exp, obs[0:2])
