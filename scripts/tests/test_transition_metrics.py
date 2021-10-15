@@ -95,6 +95,35 @@ def test_find_prototype_transactions2():
     obs = tm.find_prototype_transcations(df_info.test_df, 'Reactor_type2')
     assert_frame_equal(exp, obs, check_dtype=False)
 
+def test_commidity_mass_traded1():
+    exp = pd.DataFrame(data = {'Time': [0,1,2,3], 'Quantity':[2.0, 6.0, 0.0, 8.0],
+    'Year': [1965.00, 
+    1965.08, 1965.17, 1965.25]})
+    df_info = file_df_info()
+    obs = tm.commodity_mass_traded(df_info.test_df, 'fresh_uox')
+    assert_frame_equal(exp, obs[0:4])
+
+def test_commidity_mass_traded2():
+    exp = pd.DataFrame(data = {'Time': [0, 1, 2, 3], 'Quantity':[0.0, 0.0, 0.0, 0.0],
+    'Year': [1965.0, 1965.08, 1965.17, 1965.25]})
+    df_info = file_df_info()
+    obs = tm.commodity_mass_traded(df_info.test_df, 'tails')
+    assert_frame_equal(exp, obs[0:4])
+
+def test_add_receiver_prototype():
+    exp = pd.DataFrame(data={'Time':[1, 1, 1, 2], 'SimId': [UUID('6af6d305-e3be-4790-8920-b3f3bec3d6f7'),
+    UUID('6af6d305-e3be-4790-8920-b3f3bec3d6f7'),
+    UUID('6af6d305-e3be-4790-8920-b3f3bec3d6f7'), UUID('6af6d305-e3be-4790-8920-b3f3bec3d6f7')],
+    'TransactionId':[0.0, 1.0, 2.0, 3.0],'ResourceId':[10.0, 12.0, 14.0, 15.0],
+    'ObjId':[9.0, 10.0, 11.0, 9.0], 'SenderId':[21.0, 21.0, 21.0, 24.0],
+    'ReceiverId':[24.0, 24.0, 24.0, 22.0], 'Commodity':['fresh_uox', 'fresh_uox', 
+    'fresh_uox', 'spent_uox'], 
+    'Units':['kg', 'kg', 'kg','kg'], 'Quantity':[33000.0, 33000.0, 33000.0, 33000.0], 
+    'Prototype':['Reactor_type1', 'Reactor_type1', 'Reactor_type1', 'Repository']})
+    file_info = file_df_info()
+    obs = tm.add_receiver_prototype(file_info.output_file1)
+    assert_frame_equal(exp, obs[0:4])
+
 def test_calculate_feed1():
     exp = 10
     product = 5
