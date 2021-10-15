@@ -168,6 +168,19 @@ def test_separation_potential4():
     obs = tm.separation_potential(data)
     assert_series_equal(exp, obs)
 
+def test_calculate_SWU1():
+    exp = 45.16041363237984
+    obs = tm.calculate_SWU(100, 0.4, 50, 0.1, 150, 0.3)
+    assert exp == obs
+
+def test_calculate_SWU2():
+    exp = pd.Series(data=[45.16041363237984, 9.032082726475968])
+    data = pd.DataFrame(data={'Product':[100, 20], 'Tails':[50, 10],
+    'Feed':[150, 30]})
+    obs = tm.calculate_SWU(data['Product'], 0.4, data['Tails'], 0.1, 
+    data['Feed'], 0.3)
+    assert_series_equal(exp, obs)
+
 def test_calculate_feed1():
     exp = 10
     product = 5
