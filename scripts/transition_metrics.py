@@ -153,7 +153,7 @@ def sum_and_add_missing_time(df):
     return summed_df
 
 
-def find_commodity_transcations(df, commodity):
+def find_commodity_transactions(df, commodity):
     '''
     Finds all transactions involving a specified commodity
 
@@ -211,7 +211,7 @@ def commodity_mass_traded(transactions_df, commodity):
         DataFrame of total amount of each
         commodity traded as a function of time
     '''
-    transactions = find_commodity_transcations(transactions_df, commodity)
+    transactions = find_commodity_transactions(transactions_df, commodity)
     transactions = sum_and_add_missing_time(transactions)
     total_commodity = add_year(transactions)
     return total_commodity
@@ -270,9 +270,9 @@ def commodity_to_prototype(transactions_df, commodity, prototype):
         contains summed transactions at each time step that are sent to
         the specified prototype name.
     '''
-    prototype_transactions = find_commodity_transcations(
+    prototype_transactions = find_commodity_transactions(
         transactions_df, commodity)
-    prototype_transactions = find_prototype_transcations(
+    prototype_transactions = find_prototype_transactions(
         prototype_transactions, prototype)
     prototype_transactions = sum_and_add_missing_time(prototype_transactions)
     prototype_transactions = add_year(prototype_transactions)

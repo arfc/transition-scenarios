@@ -148,7 +148,7 @@ def test_find_commodity_transactions1():
                                     [
                                         0, 2, 3])])
     df_info = file_df_info()
-    obs = tm.find_commodity_transcations(df_info.test_df, 'fresh_uox')
+    obs = tm.find_commodity_transactions(df_info.test_df, 'fresh_uox')
     assert_frame_equal(exp, obs)
 
 
@@ -156,7 +156,7 @@ def test_find_commodity_transactions2():
     exp = pd.DataFrame(data={'Time': [], 'Quantity': [],
                              'Commodity': [], 'Prototype': []})
     df_info = file_df_info()
-    obs = tm.find_commodity_transcations(df_info.test_df, 'tails')
+    obs = tm.find_commodity_transactions(df_info.test_df, 'tails')
     assert_frame_equal(exp, obs, check_dtype=False)
 
 
