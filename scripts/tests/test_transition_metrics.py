@@ -167,7 +167,7 @@ def test_find_prototype_transactions1():
                              'Prototype': ['LWR', 'LWR']}
                              ).set_index([pd.Index([1, 3])])
     df_info = file_df_info()
-    obs = tm.find_prototype_transcations(df_info.test_df, 'LWR')
+    obs = tm.find_prototype_transactions(df_info.test_df, 'LWR')
     assert_frame_equal(exp, obs)
 
 
@@ -175,7 +175,7 @@ def test_find_prototype_transactions2():
     exp = pd.DataFrame(data={'Time': [], 'Quantity': [], 'Commodity':
                              [], 'Prototype': []})
     df_info = file_df_info()
-    obs = tm.find_prototype_transcations(df_info.test_df, 'Reactor_type2')
+    obs = tm.find_prototype_transactions(df_info.test_df, 'Reactor_type2')
     assert_frame_equal(exp, obs, check_dtype=False)
 
 

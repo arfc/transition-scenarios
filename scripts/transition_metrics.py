@@ -173,7 +173,7 @@ def find_commodity_transcations(df, commodity):
     return commodity_df
 
 
-def find_prototype_transcations(df, prototype):
+def find_prototype_transactions(df, prototype):
     '''
     Finds all transactions sent to a specified prototype
 
