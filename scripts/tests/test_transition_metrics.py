@@ -1,4 +1,3 @@
-import transition_metrics as tm
 import numpy as np
 import pandas as pd
 import math
@@ -7,10 +6,13 @@ from pandas._testing import assert_series_equal
 from pandas._testing import assert_frame_equal
 import sys
 sys.path.insert(1, '../')
+import unittest 
+
+import transition_metrics as tm
 
 
-class file_df_info(object):
-    def __init__(self):
+class Test_static_info(unittest.TestCase):
+    def setUp(self):
         self.output_file1 = 'transition_metrics_decommission_test.sqlite'
         self.output_file2 = 'transition_metrics_nodecommission_test.sqlite'
         self.test_df = pd.DataFrame(
@@ -381,3 +383,8 @@ def test_calculate_feed2():
                     'a', 'b'})
     obs = tm.calculate_feed(product['a'], tails['a'])
     assert np.all(exp == obs)
+
+#def test_class_methods():
+#    test_file_df_info = file_df_info()
+#    test_file_df_info.test_get_metrics()
+#    test_file_df_info.test_rx_commission_decommission1()
