@@ -1,3 +1,6 @@
+import unittest
+import cymetric
+import transition_metrics as tm
 import numpy as np
 import pandas as pd
 import math
@@ -6,10 +9,6 @@ from pandas._testing import assert_series_equal
 from pandas._testing import assert_frame_equal
 import sys
 sys.path.insert(1, '../')
-import unittest 
-
-import transition_metrics as tm
-import cymetric
 
 
 class Test_static_info(unittest.TestCase):
@@ -256,7 +255,8 @@ class Test_static_info(unittest.TestCase):
         assert_frame_equal(exp, obs[0:4])
 
     def test_commodity_to_prototype1(self):
-        # tests function when the queried commodity and prototype are in the dataframe
+        # tests function when the queried commodity and prototype are in the
+        # dataframe
         exp = pd.DataFrame(
             data={
                 'Time': [
@@ -269,7 +269,7 @@ class Test_static_info(unittest.TestCase):
         assert_frame_equal(exp, obs[0:4])
 
     def test_commodity_to_prototype2(self):
-        # tests function when the queried commodity is not in the dataframe 
+        # tests function when the queried commodity is not in the dataframe
         # but the prototype is
         exp = pd.DataFrame(
             data={
@@ -283,7 +283,7 @@ class Test_static_info(unittest.TestCase):
         assert_frame_equal(exp, obs[0:4])
 
     def test_commodity_to_prototype3(self):
-        # tests function when the queried commodity is in the dataframe 
+        # tests function when the queried commodity is in the dataframe
         # but the prototype is not
         exp = pd.DataFrame(
             data={
@@ -295,7 +295,7 @@ class Test_static_info(unittest.TestCase):
         obs = tm.commodity_to_prototype(
             transactions_df, 'tails', 'Reactor_type2')
         assert_frame_equal(exp, obs[0:4])
-    
+
     def test_commodity_to_prototype4(self):
         # tests function when the queried commodity and prototype are not
         # in the dataframe
@@ -334,7 +334,8 @@ class Test_static_info(unittest.TestCase):
         assert_frame_equal(exp, obs[0:2])
 
     def test_get_lwr_energy2(self):
-        # tests function when the queried non-LWR prototype is not in the dataframe
+        # tests function when the queried non-LWR prototype is not in the
+        # dataframe
         exp = pd.DataFrame(data={'Year': [1965, 1966], 'Energy': [0.35, 0.00]})
         obs = tm.get_lwr_energy(self.output_file1, 'Reactor_type3')
         assert_frame_equal(exp, obs[0:2])
@@ -348,7 +349,7 @@ def test_separation_potential1():
 
 
 def test_separation_potential2():
-    #tests value greater than 1
+    # tests value greater than 1
     obs = tm.separation_potential(1.2)
     assert math.isnan(obs)
 
