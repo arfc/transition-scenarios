@@ -9,6 +9,7 @@ sys.path.insert(1, '../')
 import unittest 
 
 import transition_metrics as tm
+import cymetric
 
 
 class Test_static_info(unittest.TestCase):
@@ -24,8 +25,8 @@ class Test_static_info(unittest.TestCase):
                 'Prototype': ['FuelCycle', 'LWR', 'Reactor_type1', 'LWR']})
 
     def test_get_metrics(self):
-        obs = 'Test_case'  # tm.get_metrics(self.output_file)
-        assert isinstance(obs, str)
+        obs = tm.get_metrics(self.output_file1)
+        assert isinstance(obs, cymetric.evaluator.Evaluator)
 
     def test_rx_commission_decommission1(self):
         exp = pd.Series(
