@@ -1,6 +1,6 @@
 <facility>
   <name>SURRY-2</name>
-  <lifetime>720</lifetime>
+  <lifetime>959</lifetime>
   <config>
     <Reactor>
       <fuel_incommods>  <val>fresh_uox</val> </fuel_incommods>

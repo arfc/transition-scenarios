@@ -1,6 +1,6 @@
 <facility>
   <name>POINT_BEACH-1</name>
-  <lifetime>720</lifetime>
+  <lifetime>719</lifetime>
   <config>
     <Reactor>
       <fuel_incommods>  <val>fresh_uox</val> </fuel_incommods>

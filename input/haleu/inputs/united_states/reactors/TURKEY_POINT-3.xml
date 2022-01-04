@@ -1,6 +1,6 @@
 <facility>
   <name>TURKEY_POINT-3</name>
-  <lifetime>720</lifetime>
+  <lifetime>957</lifetime>
   <config>
     <Reactor>
       <fuel_incommods>  <val>fresh_uox</val> </fuel_incommods>

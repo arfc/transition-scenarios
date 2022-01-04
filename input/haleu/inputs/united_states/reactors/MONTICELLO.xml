@@ -1,6 +1,6 @@
 <facility>
   <name>MONTICELLO</name>
-  <lifetime>720</lifetime>
+  <lifetime>714</lifetime>
   <config>
     <Reactor>
       <fuel_incommods>  <val>fresh_uox</val> </fuel_incommods>
