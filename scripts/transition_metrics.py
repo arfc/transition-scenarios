@@ -63,8 +63,16 @@ def rx_commission_decommission(filename, non_lwr):
         decomm = pd.concat([decomm, neg], axis=1)
         decomm.rename(columns={'ExitTime': 'Time'}, inplace=True)
         d = decomm.pivot('Time', 'Prototype')['Count'].reset_index()
-        simulation_data = pd.merge(c, d, left_on='Time', right_on='Time', how='outer', sort=True,
-                                   suffixes=('_enter', '_exit')).fillna(0)
+        simulation_data = pd.merge(
+            c,
+            d,
+            left_on='Time',
+            right_on='Time',
+            how='outer',
+            sort=True,
+            suffixes=(
+                '_enter',
+                '_exit')).fillna(0)
     else:
         simulation_data = c.fillna(0)
 
@@ -270,6 +278,7 @@ def commodity_to_prototype(transactions_df, commodity, prototype):
     prototype_transactions = add_year(prototype_transactions)
     return prototype_transactions
 
+
 def commodity_to_LWR(transactions_df, commodity, prototype):
     '''
     Finds the transactions of a specific commodity sent to the LWRs in the simulation,
@@ -286,7 +295,7 @@ def commodity_to_LWR(transactions_df, commodity, prototype):
     commodity: str
         commodity of interest
     prototype: str
-        name of non-LWR reactor prototype in the simulation 
+        name of non-LWR reactor prototype in the simulation
 
     Output:
     -------
@@ -296,7 +305,8 @@ def commodity_to_LWR(transactions_df, commodity, prototype):
     '''
     prototype_transactions = find_commodity_transactions(
         transactions_df, commodity)
-    prototype_transactions = prototype_transactions.loc[prototype_transactions['Prototype'] != prototype]
+    prototype_transactions = prototype_transactions.loc[
+        prototype_transactions['Prototype'] != prototype]
     prototype_transactions = sum_and_add_missing_time(prototype_transactions)
     prototype_transactions = add_year(prototype_transactions)
     return prototype_transactions

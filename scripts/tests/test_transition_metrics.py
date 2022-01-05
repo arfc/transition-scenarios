@@ -310,6 +310,45 @@ class Test_static_info(unittest.TestCase):
             transactions_df, 'tails', 'Reactor_type3')
         assert_frame_equal(exp, obs[0:4])
 
+    def test_commodity_to_LWR1(self):
+        # tests function when commodity is sent to prototype specified
+        exp = pd.DataFrame(
+            data={
+                'Time': [
+                    0, 1, 2, 3], 'Quantity': [
+                    0.0, 99000.0, 33000.0, 0.0], 'Year': [
+                    1965.00, 1965.08, 1965.17, 1965.25]})
+        transactions_df = tm.add_receiver_prototype(self.output_file1)
+        obs = tm.commodity_to_LWR(
+            transactions_df,
+            'fresh_uox',
+            'Reactor_type2')
+        assert_frame_equal(exp, obs[0:4])
+
+    def test_commodity_to_LWR2(self):
+        # tests function when commodity is not sent to prototype specified
+        exp = pd.DataFrame(
+            data={
+                'Time': [
+                    0, 1, 2, 3], 'Quantity': [
+                    0.0, 99000.0, 42900.0, 13200.0], 'Year': [
+                    1965.00, 1965.08, 1965.17, 1965.25]})
+        transactions_df = tm.add_receiver_prototype(self.output_file1)
+        obs = tm.commodity_to_LWR(transactions_df, 'fresh_uox', 'Repository')
+        assert_frame_equal(exp, obs[0:4])
+
+    def test_commodity_to_LWR3(self):
+        # tests function when commodity is not present
+        exp = pd.DataFrame(
+            data={
+                'Time': [
+                    0, 1, 2, 3], 'Quantity': [
+                    0.0, 0.0, 0.0, 0.0], 'Year': [
+                    1965.00, 1965.08, 1965.17, 1965.25]})
+        transactions_df = tm.add_receiver_prototype(self.output_file1)
+        obs = tm.commodity_to_LWR(transactions_df, 'u_ore', 'Reactor_type2')
+        assert_frame_equal(exp, obs[0:4])
+
     def test_get_electricity(self):
         exp = pd.DataFrame(data={'Year': [1965], 'Energy': [0.35]})
         obs = tm.get_electricity(self.output_file1)
