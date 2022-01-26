@@ -28,7 +28,7 @@
     </spec>
     <spec>
       <lib>cycamore</lib>
-      <name>DeployManagerInst</name>
+      <name>DeployInst</name>
     </spec>
     <spec>
       <lib>cycamore</lib>
@@ -41,6 +41,8 @@
   </archetypes>
 
   <xi:include href="united_states/buildtimes/inclusions.xml#xpointer(/inclusions/child::*)"/>
+  <xi:include href="united_states/reactors/usnc_mmr.xml"/>
+
   <facility>
     <name>Sink_HLW</name>
     <config>
@@ -185,24 +187,7 @@
       </Storage>
     </config>
   </facility>
-  <facility>
-    <name>MMR</name>
-    <lifetime>240</lifetime>
-    <config>
-      <Reactor>
-        <fuel_incommods> <val>fresh_uox</val> </fuel_incommods>
-        <fuel_inrecipes> <val>TRISO</val> </fuel_inrecipes>
-        <fuel_outcommods> <val>spent_TRISO</val> </fuel_outcommods>
-        <fuel_outrecipes> <val>spent_TRISO</val> </fuel_outrecipes>
-        <cycle_time>240</cycle_time>
-        <refuel_time>0</refuel_time>
-        <assem_size>1912.9</assem_size>
-        <n_assem_core>1</n_assem_core>
-        <n_assem_batch>1</n_assem_batch>
-        <power_cap>10</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+
 
   <region>
     <name>United States</name>
@@ -281,7 +266,7 @@
     <institution>
       <name>UNITED_STATES_OF_AMERICA</name>
       <config>
-        <xi:include href="united_states/buildtimes/UNITED_STATES_OF_AMERICA/deploymanagerinst.xml"/>
+        <xi:include href="united_states/buildtimes/UNITED_STATES_OF_AMERICA/deployinst.xml"/>
       </config>
     </institution>
   </region>
