@@ -48,7 +48,7 @@
       <Sink>
         <in_commods>
           <val>casked_spent_uox</val>
-          <val>spent_TRISO</val>
+          <val>spent_xe100_haleu</val>
         </in_commods>
         <!-- Yucca Mountain Repository -->
         <latitude>36.8286</latitude>
@@ -270,44 +270,6 @@
     </institution>
   </region>
 
-  <recipe>
-    <name>haleu</name>
-    <basis>mass</basis>
-    <nuclide>
-      <id>92238</id>
-      <comp>0.845</comp>
-    </nuclide>
-    <nuclide>
-      <id>92235</id>
-      <comp>0.155</comp>
-    </nuclide>
-  </recipe>
-
-  <recipe>
-    <name>TRISO</name>
-    <basis>mass</basis>
-    <nuclide>
-      <id>92238</id>
-      <comp>0.845</comp>
-    </nuclide>
-    <nuclide>
-      <id>92235</id>
-      <comp>0.155</comp>
-    </nuclide>
-  </recipe>
-
-  <recipe>
-    <name>spent_TRISO</name>
-    <basis>mass</basis>
-    <nuclide>
-      <id>92238</id>
-      <comp>0.845</comp>
-    </nuclide>
-    <nuclide>
-      <id>92235</id>
-      <comp>0.155</comp>
-    </nuclide>
-  </recipe>
-
   <xi:include href="united_states/recipes/uox_51.xml#xpointer(/recipes/child::*)"/>
+  <xi:include href="united_states/recipes/xe100_fuel.xml#xpointer(/recipes/child::*)"/>
 </simulation>

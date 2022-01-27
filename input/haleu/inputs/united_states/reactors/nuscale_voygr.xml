@@ -4,7 +4,7 @@
     <config>
       <Reactor>
         <fuel_incommods> <val>fresh_uox</val> </fuel_incommods>
-        <fuel_inrecipes> <val>smr_fuel</val> </fuel_inrecipes>
+        <fuel_inrecipes> <val>fresh_smr_fuel</val> </fuel_inrecipes>
         <fuel_outcommods> <val>spent_smr_fuel</val> </fuel_outcommods>
         <fuel_outrecipes> <val>spent_smr_fuel</val> </fuel_outrecipes>
         <cycle_time>240</cycle_time>

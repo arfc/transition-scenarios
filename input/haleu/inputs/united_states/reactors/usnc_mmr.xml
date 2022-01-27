@@ -4,9 +4,9 @@
     <config>
       <Reactor>
         <fuel_incommods> <val>fresh_uox</val> </fuel_incommods>
-        <fuel_inrecipes> <val>TRISO</val> </fuel_inrecipes>
-        <fuel_outcommods> <val>spent_TRISO</val> </fuel_outcommods>
-        <fuel_outrecipes> <val>spent_TRISO</val> </fuel_outrecipes>
+        <fuel_inrecipes> <val>fresh_MMR_haleu</val> </fuel_inrecipes>
+        <fuel_outcommods> <val>spent_MMR_haleu</val> </fuel_outcommods>
+        <fuel_outrecipes> <val>spent_MMR_haleu</val> </fuel_outrecipes>
         <cycle_time>240</cycle_time>
         <refuel_time>0</refuel_time>
         <assem_size>1912.9</assem_size>

@@ -1,0 +1,26 @@
+<recipes>
+  <recipe>
+    <name>fresh_MMR_haleu</name>
+    <basis>mass</basis>
+    <nuclide> <id>92235</id> <comp>0.13891</comp> </nuclide>
+    <nuclide> <id>92238</id> <comp>0.75726</comp> </nuclide>
+    <nuclide> <id>8016</id> <comp>0.086071</comp> </nuclide>
+    <nuclide> <id>6012</id> <comp>0.017761</comp> </nuclide>
+  </recipe>
+
+  <recipe>
+    <name>spent_MMR_haleu</name>
+    <basis>mass</basis>
+    <nuclide> <id>92235</id> <comp>0.132848</comp> </nuclide>
+    <nuclide> <id>92238</id> <comp>0.762437</comp> </nuclide>
+    <nuclide> <id>8016</id> <comp>0.086060</comp> </nuclide>
+    <nuclide> <id>6012</id> <comp>0.017760</comp> </nuclide>
+  </recipe>
+
+  <recipe>
+    <name>MMR_haleu</name>
+    <basis>mass</basis>
+    <nuclide> <id>92235</id> <comp>0.13</comp> </nuclide>
+    <nuclide> <id>92238</id> <comp>0.87</comp> </nuclide>
+  </recipe>
+</recipes>
