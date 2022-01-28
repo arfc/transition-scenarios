@@ -9,7 +9,7 @@
         <fuel_outrecipes> <val>spent_xe100_haleu</val> </fuel_outrecipes>
         <cycle_time>6</cycle_time>
         <refuel_time>0</refuel_time>
-        <assem_size>223.87</assem_size>
+        <assem_size>250.124</assem_size>
         <n_assem_core>7</n_assem_core>
         <n_assem_batch>1</n_assem_batch>
         <power_cap>75</power_cap>
