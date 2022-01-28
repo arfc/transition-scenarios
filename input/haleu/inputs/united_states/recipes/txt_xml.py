@@ -14,9 +14,11 @@ def write_recipe():
         nuclide_id = root.createElement('id')
         nuclide_comp = root.createElement('comp')
 
-        id_txt = nuclide_id.Text(item[0])
-        #nuclide_comp.setAttribute('comp', item[1])
+        id_txt = root.createTextNode(item[0])
+        comp_txt = root.createTextNode(item[1])
 
+        nuclide_id.appendChild(id_txt)
+        nuclide_comp.appendChild(comp_txt)
         nuclide.appendChild(nuclide_id)
         nuclide.appendChild(nuclide_comp)
         recipe.appendChild(nuclide)
