@@ -1,6 +1,6 @@
 <recipes>
   <recipe>
-    <name>fresh_smr_haleu</name>
+    <name>fresh_smr_fuel</name>
     <basis>mass</basis>
     <nuclide> <id>92235</id> <comp>0.132848</comp> </nuclide>
     <nuclide> <id>92238</id> <comp>0.762437</comp> </nuclide>
@@ -9,7 +9,7 @@
   </recipe>
 
   <recipe>
-    <name>spent_smr_haleu</name>
+    <name>spent_smr_fuel</name>
     <basis>mass</basis>
     <nuclide> <id>92235</id> <comp>0.132848</comp> </nuclide>
     <nuclide> <id>92238</id> <comp>0.762437</comp> </nuclide>
@@ -20,7 +20,7 @@
   <recipe>
     <name>smr_leu</name>
     <basis>mass</basis>
-    <nuclide> <id>92235</id> <comp>0.13</comp> </nuclide>
-    <nuclide> <id>92238</id> <comp>0.87</comp> </nuclide>
+    <nuclide> <id>92235</id> <comp>0.045</comp> </nuclide>
+    <nuclide> <id>92238</id> <comp>0.955</comp> </nuclide>
   </recipe>
 </recipes>
