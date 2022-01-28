@@ -1,16 +1,16 @@
   <facility>
     <name>VOYGR</name>
-    <lifetime>240</lifetime>
+    <lifetime>720</lifetime>
     <config>
       <Reactor>
         <fuel_incommods> <val>fresh_uox</val> </fuel_incommods>
         <fuel_inrecipes> <val>fresh_smr_fuel</val> </fuel_inrecipes>
         <fuel_outcommods> <val>spent_smr_fuel</val> </fuel_outcommods>
         <fuel_outrecipes> <val>spent_smr_fuel</val> </fuel_outrecipes>
-        <cycle_time>240</cycle_time>
-        <refuel_time>0</refuel_time>
-        <assem_size>1912.9</assem_size>
-        <n_assem_core>1</n_assem_core>
+        <cycle_time>24</cycle_time>
+        <refuel_time>1</refuel_time>
+        <assem_size>249.764</assem_size>
+        <n_assem_core>3</n_assem_core>
         <n_assem_batch>1</n_assem_batch>
         <power_cap>50</power_cap>
       </Reactor>
