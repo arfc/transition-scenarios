@@ -9,7 +9,7 @@
         <fuel_outrecipes> <val>spent_MMR_haleu</val> </fuel_outrecipes>
         <cycle_time>240</cycle_time>
         <refuel_time>0</refuel_time>
-        <assem_size>1912.9</assem_size>
+        <assem_size>2159.74</assem_size>
         <n_assem_core>1</n_assem_core>
         <n_assem_batch>1</n_assem_batch>
         <power_cap>10</power_cap>
