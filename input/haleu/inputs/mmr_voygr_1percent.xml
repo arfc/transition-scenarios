@@ -276,5 +276,5 @@
 
   <xi:include href="united_states/recipes/uox_51.xml#xpointer(/recipes/child::*)"/>
   <xi:include href="united_states/recipes/mmr_fuel.xml#xpointer(/recipes/child::*)"/>
-  <xi:include href="united_states/recipes/voyger_fuel.xml#xpointer(/recipes/child::*)"/>
+  <xi:include href="united_states/recipes/voygr_fuel.xml#xpointer(/recipes/child::*)"/>
 </simulation>
