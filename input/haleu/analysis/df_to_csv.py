@@ -3,9 +3,10 @@ import pandas as pd
 import cymetric as cm
 import transition_metrics as tm
 
+
 def loop_over_scenarios():
-    reactors = ['xe100','mmr']
-    scenarios = ['nogrowth','1percent']
+    reactors = ['xe100', 'mmr']
+    scenarios = ['nogrowth', '1percent']
 
     for reactor in reactors:
         for scenario in scenarios:
@@ -13,6 +14,7 @@ def loop_over_scenarios():
 
             transactions = tm.add_receiver_prototype(outfile)
             transactions.to_csv(f'{reactor}_{scenario}_transactions.csv')
+
 
 def single_scenario():
     scenario = 'current'
