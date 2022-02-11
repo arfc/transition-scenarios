@@ -54,7 +54,7 @@ def rx_commission_decommission(filename, non_lwr):
     decomm = evaler.eval('DecommissionSeries')
     comm = comm.rename(index=str, columns={'EnterTime': 'Time'})
     comm = tools.add_missing_time_step(comm, time)
-    c = comm.pivot('Time', 'Prototype')['Count'].reset_index()
+    c = pd.pivot_table(comm, values='Count', index='Time', columns='Prototype', fill_value=0)
 
     if decomm is not None:
         # make exit counts negative for plotting purposes
