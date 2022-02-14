@@ -1,13 +1,14 @@
-from xml.dom import minidom 
-import os 
+from xml.dom import minidom
+import os
 import numpy as np
+
 
 def write_recipe():
     root = minidom.Document()
     recipe = root.createElement('recipe')
     root.appendChild(recipe)
 
-    data = np.genfromtxt("mmr_comps.txt", dtype=str,skip_header=2)
+    data = np.genfromtxt("mmr_comps.txt", dtype=str, skip_header=2)
 
     for item in data:
         nuclide = root.createElement('nuclide')
@@ -28,6 +29,7 @@ def write_recipe():
 
     with open("mmr_comps.xml", "w") as f:
         f.write(xml_str)
+
 
 if __name__ == '__main__':
     write_recipe()
