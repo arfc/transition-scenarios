@@ -4,7 +4,7 @@ import cymetric as cm
 import transition_metrics as tm
 
 
-def loop_over_scenarios():
+def get_transactions_multiple_outputs():
     reactors = ['xe100', 'mmr']
     scenarios = ['nogrowth', '1percent']
 
@@ -16,7 +16,7 @@ def loop_over_scenarios():
             transactions.to_csv(f'{reactor}_{scenario}_transactions.csv')
 
 
-def single_scenario():
+def get_transactions_single_output():
     scenario = 'current'
     outfile = f'../outputs/united_states_2020.sqlite'
     transactions = tm.add_receiver_prototype(outfile)
@@ -24,4 +24,4 @@ def single_scenario():
 
 
 if __name__ == '__main__':
-    single_scenario()
+    get_transactions_single_output()

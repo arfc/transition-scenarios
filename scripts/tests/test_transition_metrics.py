@@ -311,7 +311,12 @@ class Test_static_info(unittest.TestCase):
         assert_frame_equal(exp, obs[0:4])
 
     def test_commodity_to_LWR1(self):
-        # tests function when commodity is sent to prototype specified
+        '''
+        This function tests the transactions returned when the 
+        commodity specified is used in the simulation and the 
+        prototype specified is in the simulation and receives
+        the commodity specified. 
+        '''
         exp = pd.DataFrame(
             data={
                 'Time': [
@@ -326,7 +331,13 @@ class Test_static_info(unittest.TestCase):
         assert_frame_equal(exp, obs[0:4])
 
     def test_commodity_to_LWR2(self):
-        # tests function when commodity is not sent to prototype specified
+        '''
+        This function tests the transactions returned when the 
+        commodity specified is used in the simulation and the 
+        prototype specified is not in the simulation and does not 
+        receive
+        the commodity specified. 
+        '''
         exp = pd.DataFrame(
             data={
                 'Time': [
@@ -338,7 +349,11 @@ class Test_static_info(unittest.TestCase):
         assert_frame_equal(exp, obs[0:4])
 
     def test_commodity_to_LWR3(self):
-        # tests function when commodity is not present
+        '''
+        This function tests the transactions returned when the 
+        commodity specified is not used in the simulation and the 
+        prototype specified is in the simulation.
+        '''
         exp = pd.DataFrame(
             data={
                 'Time': [

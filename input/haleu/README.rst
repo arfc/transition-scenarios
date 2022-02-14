@@ -25,3 +25,15 @@ The analysis directory contains a jupyter notebook (``analysis/initial_analysis.
 to calculate and compare resource requirements of each fuel cycle 
 scenario simulated. All of the figures created in the jupyter notebook
 are saved in the ``figures/`` directory. 
+
+This directory also contains ``df_to_csv.py`` to record all of the transactions
+in the simulation as a ``.csv`` file. The transactions are determined 
+based on the function ``transition_metrics.add_receiver_prototype``, which 
+gets the transactions from the database and adds a column to record the 
+prototype that receives the commodity in that transaction. The script contains 
+functions to perform this function by either looping over multiple databases 
+(``get_transactions_multiple_outputs``) or for only a single output file 
+(``get_transactions_single_output``). This script is needed because the output 
+files are relatively large and memory issues are encountered when the 
+``transition_metrics.add_receiver_prototype`` function is called inside the 
+jupyter notebook. 
