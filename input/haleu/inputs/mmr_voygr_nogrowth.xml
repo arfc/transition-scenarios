@@ -42,6 +42,7 @@
 
   <xi:include href="united_states/buildtimes/inclusions.xml#xpointer(/inclusions/child::*)"/>
   <xi:include href="united_states/reactors/usnc_mmr.xml"/>
+  <xi:include href="united_states/reactors/nuscale_voygr.xml"/>
 
   <facility>
     <name>Sink_HLW</name>
@@ -50,6 +51,7 @@
         <in_commods>
           <val>casked_spent_uox</val>
           <val>spent_MMR_haleu</val>
+          <val>spent_smr_fuel</val>
         </in_commods>
         <!-- Yucca Mountain Repository -->
         <latitude>36.8286</latitude>
@@ -257,6 +259,7 @@
             <val>WetStorage</val>
             <val>DryStorage</val>
             <val>MMR</val>
+            <val>VOYGR</val>
           </prototypes>
         </ManagerInst>
       </config>
@@ -272,4 +275,5 @@
 
   <xi:include href="united_states/recipes/uox_51.xml#xpointer(/recipes/child::*)"/>
   <xi:include href="united_states/recipes/mmr_fuel.xml#xpointer(/recipes/child::*)"/>
+  <xi:include href="united_states/recipes/voygr_fuel.xml#xpointer(/recipes/child::*)"/>
 </simulation>

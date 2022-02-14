@@ -18,7 +18,7 @@ def get_metrics(filename):
     filename: str
         relative path of database
 
-    Outputs:
+    Returns:
     --------
     evaler: Evaluator object
         contains all of the metrics of the database
@@ -54,7 +54,12 @@ def rx_commission_decommission(filename, non_lwr):
     decomm = evaler.eval('DecommissionSeries')
     comm = comm.rename(index=str, columns={'EnterTime': 'Time'})
     comm = tools.add_missing_time_step(comm, time)
-    c = comm.pivot('Time', 'Prototype')['Count'].reset_index()
+    c = pd.pivot_table(
+        comm,
+        values='Count',
+        index='Time',
+        columns='Prototype',
+        fill_value=0)
 
     if decomm is not None:
         # make exit counts negative for plotting purposes
@@ -93,7 +98,7 @@ def add_year(df):
     df: DataFrame
         DataFrame of data to add column to
 
-    Outputs:
+    Returns:
     --------
     df: DataFrame
         DataFrame with the added column
@@ -117,7 +122,7 @@ def get_transactions(filename):
     filename: str
         relative path to database
 
-    Outputs:
+    Returns:
     --------
     transactions: DataFrame
         transaction data with specified modifications
@@ -141,7 +146,7 @@ def sum_and_add_missing_time(df):
     df: dataframe
         dataframe
 
-    Outputs:
+    Returns:
     --------
     summed_df: dataframe
         dataframe with the summed values for each time step and inserted
@@ -164,7 +169,7 @@ def find_commodity_transactions(df, commodity):
     commodity: str
         name of commodity to search for
 
-    Outputs:
+    Returns:
     --------
     commodity_df: dataframe
         contains only transactions involving the specified commodity
@@ -184,7 +189,7 @@ def find_prototype_transactions(df, prototype):
     prototype: str
         name of prototype to search for
 
-    Outputs:
+    Returns:
     --------
     prototype_df: dataframe
         contains only transactions sent to the specified prototype
@@ -205,7 +210,7 @@ def commodity_mass_traded(transactions_df, commodity):
     commodity: str
         commodity name
 
-    Outputs:
+    Returns:
     --------
     total_commodity: DataFrame
         DataFrame of total amount of each
@@ -230,7 +235,7 @@ def add_receiver_prototype(filename):
     filename: str
         database filename
 
-    Outputs:
+    Returns:
     --------
     receiver_prototype: dataframe
         contains all of the transactions with the prototype name of the
@@ -279,6 +284,39 @@ def commodity_to_prototype(transactions_df, commodity, prototype):
     return prototype_transactions
 
 
+def commodity_to_LWR(transactions_df, commodity, prototype):
+    '''
+    Finds the transactions of a specific commodity sent to the LWRs in the
+    simulation, modifies the time column, and adds in zeros for any time step
+    without a transaction to the LWRs, and sums all transactions for
+    a single time step
+
+    Parameters:
+    -----------
+    transactions_df: dataframe
+        dataframe of transactions with the prototype name
+        of the receiver agent added in. use add_receiver_prototype to get this
+        dataframe
+    commodity: str
+        commodity of interest
+    prototype: str
+        name of non-LWR reactor prototype in the simulation
+
+    Output:
+    -------
+    prototype_transactions: dataframe
+        contains summed transactions at each time step that are sent to
+        the specified prototype name.
+    '''
+    prototype_transactions = find_commodity_transactions(
+        transactions_df, commodity)
+    prototype_transactions = prototype_transactions.loc[
+        prototype_transactions['Prototype'] != prototype]
+    prototype_transactions = sum_and_add_missing_time(prototype_transactions)
+    prototype_transactions = add_year(prototype_transactions)
+    return prototype_transactions
+
+
 def separation_potential(x_i):
     '''
     Calculates Separation Potentail, for use in calculating
@@ -319,7 +357,7 @@ def calculate_SWU(P, x_p, T, x_t, F, x_f):
     x_f: int
         weight percent of U-235 in feed
 
-    Outputs:
+    Returns:
     --------
     SWU: int
         Separative Work units per unit time
@@ -346,7 +384,7 @@ def calculate_tails(product, x_p, x_t, x_f):
     x_f: float
         mass fraction of feed
 
-    Outputs:
+    Returns:
     -------
     tails: int, Series
     '''
@@ -367,7 +405,7 @@ def calculate_feed(product, tails):
     tails: int, Series
         mass of tails
 
-    Outputs:
+    Returns:
     --------
     feed: int, Series
         mass of feed material
@@ -386,7 +424,7 @@ def get_electricity(filename):
     filename: str
         name of database to be parsed
 
-    Outputs:
+    Returns:
     --------
     electricity_output: DataFrame
         time dependent electricity output, includes
@@ -417,7 +455,7 @@ def get_prototype_energy(filename, advanced_rx):
     advanced_rx: str
         name of advanced reactor prototype
 
-    Outputs:
+    Returns:
     --------
     prototype_energy: dataframe
         dataframe of the year and the total amount of electricity
@@ -451,7 +489,7 @@ def get_lwr_energy(filename, advanced_rx):
     advanced_rx: str
         name of advanced reactor prototype also present in the simulation
 
-    Outputs:
+    Returns:
     --------
     lwr_energy: dataframe
         dataframe of the year and the total amount of electricity

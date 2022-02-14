@@ -28,7 +28,7 @@
     </spec>
     <spec>
       <lib>cycamore</lib>
-      <name>DeployManagerInst</name>
+      <name>DeployInst</name>
     </spec>
     <spec>
       <lib>cycamore</lib>
@@ -41,13 +41,15 @@
   </archetypes>
 
   <xi:include href="united_states/buildtimes/inclusions.xml#xpointer(/inclusions/child::*)"/>
+  <xi:include href="united_states/reactors/usnc_mmr.xml"/>
+
   <facility>
     <name>Sink_HLW</name>
     <config>
       <Sink>
         <in_commods>
           <val>casked_spent_uox</val>
-          <val>spent_TRISO</val>
+          <val>spent_MMR_haleu</val>
         </in_commods>
         <!-- Yucca Mountain Repository -->
         <latitude>36.8286</latitude>
@@ -185,24 +187,7 @@
       </Storage>
     </config>
   </facility>
-  <facility>
-    <name>MMR</name>
-    <lifetime>240</lifetime>
-    <config>
-      <Reactor>
-        <fuel_incommods> <val>fresh_uox</val> </fuel_incommods>
-        <fuel_inrecipes> <val>TRISO</val> </fuel_inrecipes>
-        <fuel_outcommods> <val>spent_TRISO</val> </fuel_outcommods>
-        <fuel_outrecipes> <val>spent_TRISO</val> </fuel_outrecipes>
-        <cycle_time>240</cycle_time>
-        <refuel_time>0</refuel_time>
-        <assem_size>1912.9</assem_size>
-        <n_assem_core>1</n_assem_core>
-        <n_assem_batch>1</n_assem_batch>
-        <power_cap>10</power_cap>
-      </Reactor>
-    </config>
-  </facility>
+
 
   <region>
     <name>United States</name>
@@ -281,49 +266,11 @@
     <institution>
       <name>UNITED_STATES_OF_AMERICA</name>
       <config>
-        <xi:include href="united_states/buildtimes/UNITED_STATES_OF_AMERICA/deploymanagerinst.xml"/>
+        <xi:include href="united_states/buildtimes/UNITED_STATES_OF_AMERICA/deployinst.xml"/>
       </config>
     </institution>
   </region>
 
-  <recipe>
-    <name>haleu</name>
-    <basis>mass</basis>
-    <nuclide>
-      <id>92238</id>
-      <comp>0.87</comp>
-    </nuclide>
-    <nuclide>
-      <id>92235</id>
-      <comp>0.13</comp>
-    </nuclide>
-  </recipe>
-
-  <recipe>
-    <name>TRISO</name>
-    <basis>mass</basis>
-    <nuclide>
-      <id>92238</id>
-      <comp>0.87</comp>
-    </nuclide>
-    <nuclide>
-      <id>92235</id>
-      <comp>0.13</comp>
-    </nuclide>
-  </recipe>
-
-  <recipe>
-    <name>spent_TRISO</name>
-    <basis>mass</basis>
-    <nuclide>
-      <id>92238</id>
-      <comp>0.87</comp>
-    </nuclide>
-    <nuclide>
-      <id>92235</id>
-      <comp>0.13</comp>
-    </nuclide>
-  </recipe>
-
   <xi:include href="united_states/recipes/uox_51.xml#xpointer(/recipes/child::*)"/>
+  <xi:include href="united_states/recipes/mmr_fuel.xml#xpointer(/recipes/child::*)"/>
 </simulation>

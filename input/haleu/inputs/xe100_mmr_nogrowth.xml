@@ -3,7 +3,7 @@
     <decay>lazy</decay>
     <duration>1500</duration>
     <startmonth>1</startmonth>
-    <startyear>1965</startyear>
+    <startyear>1965</startyear> 
   </control>
   <archetypes>
     <spec>
@@ -41,15 +41,16 @@
   </archetypes>
 
   <xi:include href="united_states/buildtimes/inclusions.xml#xpointer(/inclusions/child::*)"/>
+  <xi:include href="united_states/reactors/xenergy_xe100.xml"/>
   <xi:include href="united_states/reactors/usnc_mmr.xml"/>
-
   <facility>
     <name>Sink_HLW</name>
     <config>
       <Sink>
         <in_commods>
           <val>casked_spent_uox</val>
-          <val>spent_MMR_haleu</val>
+          <val>spent_xe100_haleu</val>
+          <val>spent_mmr_haleu</val>
         </in_commods>
         <!-- Yucca Mountain Repository -->
         <latitude>36.8286</latitude>
@@ -128,8 +129,9 @@
         <product_commod>enr_u</product_commod>
         <tails_commod>tails</tails_commod>
         <tails_assay>0.002</tails_assay>
-        <!-- Portsmouth Gaseous Diffusion Plant (OH) -->
         <max_enrich>0.16</max_enrich>
+        <!-- Portsmouth Gaseous Diffusion Plant (OH) -->
+        <latitude>39.008333</latitude>
         <longitude>-83</longitude>
       </Enrichment>
     </config>
@@ -256,6 +258,7 @@
             <val>FuelFab</val>
             <val>WetStorage</val>
             <val>DryStorage</val>
+            <val>Xe-100</val>
             <val>MMR</val>
           </prototypes>
         </ManagerInst>
@@ -271,5 +274,6 @@
   </region>
 
   <xi:include href="united_states/recipes/uox_51.xml#xpointer(/recipes/child::*)"/>
+  <xi:include href="united_states/recipes/xe100_fuel.xml#xpointer(/recipes/child::*)"/>
   <xi:include href="united_states/recipes/mmr_fuel.xml#xpointer(/recipes/child::*)"/>
 </simulation>
