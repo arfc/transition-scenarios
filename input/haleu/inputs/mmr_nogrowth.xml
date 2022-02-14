@@ -41,7 +41,7 @@
   </archetypes>
 
   <xi:include href="united_states/buildtimes/inclusions.xml#xpointer(/inclusions/child::*)"/>
-  <xi:include href="unites_states/reactors/usnc_mmr.xml"/>
+  <xi:include href="united_states/reactors/usnc_mmr.xml"/>
 
   <facility>
     <name>Sink_HLW</name>
