@@ -414,9 +414,9 @@ def calculate_feed(product, tails):
     return feed
 
 
-def get_electricity(filename):
+def get_annual_electricity(filename):
     '''
-    Gets the time dependent electricity output of reactors
+    Gets the time dependent annual electricity output of reactors
     in the silumation
 
     Parameters:
@@ -435,6 +435,33 @@ def get_electricity(filename):
     evaler = get_metrics(filename)
     electricity = evaler.eval('AnnualElectricityGeneratedByAgent')
     electricity['Year'] = electricity['Year'] + 1965
+    electricity_output = electricity.groupby(
+        ['Year']).Energy.sum().reset_index()
+    electricity_output['Energy'] = electricity_output['Energy'] / 1000
+
+    return electricity_output
+
+def get_monthly_electricity(filename):
+    '''
+    Gets the time dependent monthy electricity output of reactors
+    in the silumation
+
+    Parameters:
+    -----------
+    filename: str
+        name of database to be parsed
+
+    Returns:
+    --------
+    electricity_output: DataFrame
+        time dependent electricity output, includes
+        column for year of time step. The energy column
+        is in units of GWe-yr, causing the divide by 1000
+        operation.
+    '''
+    evaler = get_metrics(filename)
+    electricity = evaler.eval('MonthlyElectricityGeneratedByAgent')
+    electricity['Year'] = electricity['Month']/12 + 1965
     electricity_output = electricity.groupby(
         ['Year']).Energy.sum().reset_index()
     electricity_output['Energy'] = electricity_output['Energy'] / 1000
