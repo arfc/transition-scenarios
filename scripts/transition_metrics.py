@@ -88,41 +88,6 @@ def rx_commission_decommission(filename, non_lwr):
     simulation_data['lwr_total'] = simulation_data['lwr_total'].cumsum()
     return simulation_data.reset_index()
 
-def reactor_totals(outfile, nonlwr, prototypes):
-    '''
-    This function performs the tm.rx_commissions_decommission 
-    function on a provided database. Then the total number of 
-    each prototype deployed at a given time is calculated and 
-    added to the dataframe
-    
-    Parameters:
-    -----------
-    out_file: str
-        name of database
-    nonlwr: list of str
-        names of prototypes that are not LWRs
-    prototypes: list of str
-        list of names of prototypes
-        
-    Returns:
-    --------
-    reactors_df : DataFrame
-        enter, exit, and totals for each type of reactor
-    '''
-    reactors = rx_commission_decommission(outfile, nonlwr)
-    reactors = add_year(reactors)
-    reactors['advrx_enter'] = 0
-    reactors['advrx_total'] = 0
-    for prototype in prototypes:
-        if prototype in reactors.columns:
-            reactors = reactors.rename(columns={prototype: prototype+'_enter'})
-            reactors[prototype+'_exit'] = np.zeros(len(reactors[prototype+'_enter']))
-        reactors[prototype + '_total'] = (reactors[prototype + '_enter'] 
-                                      + reactors[prototype + '_exit']).cumsum()
-        reactors['advrx_enter'] += reactors[prototype + '_enter']
-        reactors['advrx_total'] += reactors[prototype + '_total']
-    
-    return reactors
 
 def add_year(df):
     '''
@@ -449,9 +414,9 @@ def calculate_feed(product, tails):
     return feed
 
 
-def get_annual_electricity(filename):
+def get_electricity(filename):
     '''
-    Gets the time dependent annual electricity output of reactors
+    Gets the time dependent electricity output of reactors
     in the silumation
 
     Parameters:
@@ -470,33 +435,6 @@ def get_annual_electricity(filename):
     evaler = get_metrics(filename)
     electricity = evaler.eval('AnnualElectricityGeneratedByAgent')
     electricity['Year'] = electricity['Year'] + 1965
-    electricity_output = electricity.groupby(
-        ['Year']).Energy.sum().reset_index()
-    electricity_output['Energy'] = electricity_output['Energy'] / 1000
-
-    return electricity_output
-
-def get_monthly_electricity(filename):
-    '''
-    Gets the time dependent monthy electricity output of reactors
-    in the silumation
-
-    Parameters:
-    -----------
-    filename: str
-        name of database to be parsed
-
-    Returns:
-    --------
-    electricity_output: DataFrame
-        time dependent electricity output, includes
-        column for year of time step. The energy column
-        is in units of GWe-yr, causing the divide by 1000
-        operation.
-    '''
-    evaler = get_metrics(filename)
-    electricity = evaler.eval('MonthlyElectricityGeneratedByAgent')
-    electricity['Year'] = electricity['Month']/12 + 1965
     electricity_output = electricity.groupby(
         ['Year']).Energy.sum().reset_index()
     electricity_output['Energy'] = electricity_output['Energy'] / 1000
