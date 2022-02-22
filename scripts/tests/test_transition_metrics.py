@@ -94,17 +94,56 @@ class Test_static_info(unittest.TestCase):
         assert_frame_equal(exp, obs,check_names=False)
 
     def test_rx_commission_decommission2(self):
+        '''
+        This tests rx_commission_decommission when the reactors 
+        are decommissioned and an item in the non_lwr list 
+        is not an actual prototype in the simulation
+        '''
+        exp = pd.DataFrame(
+            data={'Reactor_type3_enter':[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+                'lwr_enter':[0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0],
+                'lwr_exit':[0.0, 0.0, 0.0, 0.0, -1.0, -1.0, 0.0],
+                'lwr_total':[0.0, 0.0, 1.0, 2.0, 1.0, 0.0, 0.0]
+                })
+        non_lwr = ['United States', 'FuelCycle', 'FuelSupply',
+                   'Repository', 'UNITED_STATES_OF_AMERICA',
+                   'Reactor_type1', 'Reactor_type3']
+        df = tm.rx_commission_decommission(self.output_file1, non_lwr)
+        obs = df[['Reactor_type3_enter','lwr_enter', 'lwr_exit','lwr_total']]
+        assert_frame_equal(exp, obs,check_names=False)
+
+    def test_rx_commission_decommission3(self):
         # tests function when facilities are not decommissioned
         exp = pd.DataFrame(data = {
                 'lwr_enter':[0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0],
+                'lwr_exit':[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
                 'lwr_total':[0.0, 0.0, 1.0, 2.0, 2.0, 2.0, 2.0]
                 })
         non_lwr = ['United States', 'FuelCycle', 'FuelSupply',
                    'Repository', 'UNITED_STATES_OF_AMERICA',
                    'Reactor_type1']
         df = tm.rx_commission_decommission(self.output_file2, non_lwr)
-        obs = df[['lwr_enter', 'lwr_total']]
+        obs = df[['lwr_enter', 'lwr_exit', 'lwr_total']]
         assert_frame_equal(exp, obs, check_names=False)
+
+    def test_rx_commission_decommission4(self):
+        '''
+        This tests rx_commission_decommission when the reactors 
+        are not decommissioned and an item in the non_lwr list 
+        is not an actual prototype in the simulation
+        '''
+        exp = pd.DataFrame(
+            data={'Reactor_type3_enter':[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+                'lwr_enter':[0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0],
+                'lwr_exit':[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+                'lwr_total':[0.0, 0.0, 1.0, 2.0, 2.0, 2.0, 2.0]
+                })
+        non_lwr = ['United States', 'FuelCycle', 'FuelSupply',
+                   'Repository', 'UNITED_STATES_OF_AMERICA',
+                   'Reactor_type1', 'Reactor_type3']
+        df = tm.rx_commission_decommission(self.output_file2, non_lwr)
+        obs = df[['Reactor_type3_enter','lwr_enter', 'lwr_exit','lwr_total']]
+        assert_frame_equal(exp, obs,check_names=False)
 
     def test_prototype_totals1(self):
         '''
