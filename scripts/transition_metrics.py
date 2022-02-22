@@ -53,7 +53,7 @@ def add_zeros_columns(df, column_names):
     '''
     for item in column_names:
         if item not in df.columns:
-            df[item] = np.zeros(len(df.index))
+            df[item] = 0.0
     return df
 
 def rx_commission_decommission(filename, non_lwr):
@@ -89,7 +89,8 @@ def rx_commission_decommission(filename, non_lwr):
         index='Time',
         columns='Prototype',
         fill_value=0)
-    c['lwr'] = c.drop(non_lwr, axis=1).sum(axis=1)
+    c['lwr_enter'] = c.drop(non_lwr, axis=1).sum(axis=1)
+    c = c.astype('float64')
 
     if decomm is not None:
         # make exit counts negative for plotting purposes
@@ -113,10 +114,9 @@ def rx_commission_decommission(filename, non_lwr):
                 '_exit')).fillna(0)
     else:
         simulation_data = c.fillna(0)
-
-    simulation_data = simulation_data.set_index('Time')
-    simulation_data['lwr_total'] = (simulation_data['lwr_enter'] + simulation_data['lwr_exit']).cumsum()
-    return simulation_data.reset_index()
+        simulation_data['lwr_total'] = simulation_data['lwr_enter'].cumsum()
+    simulation_data.index.name
+    return simulation_data
 
 def prototype_totals(outfile, nonlwr, prototypes):
     '''
