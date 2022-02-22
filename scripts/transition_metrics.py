@@ -88,7 +88,7 @@ def rx_commission_decommission(filename, non_lwr):
     simulation_data['lwr_total'] = simulation_data['lwr_total'].cumsum()
     return simulation_data.reset_index()
 
-def reactor_totals(outfile, nonlwr, prototypes):
+def prototype_totals(outfile, nonlwr, prototypes):
     '''
     This function performs the tm.rx_commissions_decommission 
     function on a provided database. Then the total number of 
@@ -109,20 +109,20 @@ def reactor_totals(outfile, nonlwr, prototypes):
     reactors_df : DataFrame
         enter, exit, and totals for each type of reactor
     '''
-    reactors = rx_commission_decommission(outfile, nonlwr)
-    reactors = add_year(reactors)
-    reactors['advrx_enter'] = 0
-    reactors['advrx_total'] = 0
+    prototypes_df = rx_commission_decommission(outfile, nonlwr)
+    prototypes_df = add_year(reactors)
+    prototypes_df['advrx_enter'] = 0
+    prototypes_df['advrx_total'] = 0
     for prototype in prototypes:
-        if prototype in reactors.columns:
-            reactors = reactors.rename(columns={prototype: prototype+'_enter'})
-            reactors[prototype+'_exit'] = np.zeros(len(reactors[prototype+'_enter']))
-        reactors[prototype + '_total'] = (reactors[prototype + '_enter'] 
-                                      + reactors[prototype + '_exit']).cumsum()
-        reactors['advrx_enter'] += reactors[prototype + '_enter']
-        reactors['advrx_total'] += reactors[prototype + '_total']
+        if prototype in prototypes_df.columns:
+            prototypes_df = reactors.rename(columns={prototype: prototype+'_enter'})
+            prototypes_df[prototype+'_exit'] = np.zeros(len(prototypes_df[prototype+'_enter']))
+        prototypes_df[prototype + '_total'] = (prototypes_df[prototype + '_enter'] 
+                                      + prototypes_df[prototype + '_exit']).cumsum()
+        prototypes_df['advrx_enter'] += prototypes_df[prototype + '_enter']
+        prototypes_df['advrx_total'] += prototypes_df[prototype + '_total']
     
-    return reactors
+    return prototypes_df
 
 def add_year(df):
     '''
