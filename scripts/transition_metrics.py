@@ -28,6 +28,33 @@ def get_metrics(filename):
     evaler = cym.Evaluator(db, write=False)
     return evaler
 
+def add_zeros_columns(df, column_names):
+    ''' 
+    Adds a column of a specified name to a given dataframe 
+    if a column of that name does not exist already. The 
+    added column is of the length of the entire dataframe
+    but consists of only zeros. This function allows for 
+    greater flexibility in defining prototypes of 
+    interest across multiple tranistion scenarios
+
+    Parameters:
+    -----------
+    df: DataFrame
+        dataframe to add column to, if the column doesn't exist
+        already
+    column_names: list of strs
+        names to be checked for existence and added if missing
+    
+    Returns:
+    --------
+    df: DataFrame
+        dataframe with added column, if column doesn't 
+        exist anymore
+    '''
+    for item in column_names:
+        if item not in df.columns:
+            df[item] = np.zeros(len(df.index))
+    return df
 
 def rx_commission_decommission(filename, non_lwr):
     '''
@@ -43,6 +70,7 @@ def rx_commission_decommission(filename, non_lwr):
         names of nonreactor facilities in the simulation
 
     Returns:
+    --------
     simulation_data: DataFrame
         Reactor data of the simulation with the additional
         columns of reactor totals
@@ -54,9 +82,7 @@ def rx_commission_decommission(filename, non_lwr):
     decomm = evaler.eval('DecommissionSeries')
     comm = comm.rename(index=str, columns={'EnterTime': 'Time'})
     comm = tools.add_missing_time_step(comm, time)
-    for item in non_lwr:
-        if item not in comm.columns:
-            comm[item] = np.zeros(len(comm.index))
+    comm = add_zeros_columns(comm, non_lwr)
     c = pd.pivot_table(
         comm,
         values='Count',
@@ -72,11 +98,8 @@ def rx_commission_decommission(filename, non_lwr):
         decomm = pd.concat([decomm, neg], axis=1)
         decomm.rename(columns={'ExitTime': 'Time'}, inplace=True)
         d = decomm.pivot('Time', 'Prototype')['Count'].reset_index()
-        for item in non_lwr:
-            if item not in d.columns:
-                d[item] = np.zeros(len(d.index))
-        d = d.set_index('Time')
-        #non_lwr = non_lwr.append('Time')
+        d = add_zeros_columns(d, non_lwr)
+        d = d.set_index('Time'))
         d['lwr'] = d.drop(non_lwr, axis=1).sum(axis=1)
         simulation_data = pd.merge(
             c,
