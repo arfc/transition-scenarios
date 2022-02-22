@@ -54,12 +54,16 @@ def rx_commission_decommission(filename, non_lwr):
     decomm = evaler.eval('DecommissionSeries')
     comm = comm.rename(index=str, columns={'EnterTime': 'Time'})
     comm = tools.add_missing_time_step(comm, time)
+    for item in non_lwr:
+        if item not in comm.columns:
+            comm[item] = np.zeros(len(comm.index))
     c = pd.pivot_table(
         comm,
         values='Count',
         index='Time',
         columns='Prototype',
         fill_value=0)
+    c['lwr'] = c.drop(non_lwr, axis=1).sum(axis=1)
 
     if decomm is not None:
         # make exit counts negative for plotting purposes
@@ -68,6 +72,12 @@ def rx_commission_decommission(filename, non_lwr):
         decomm = pd.concat([decomm, neg], axis=1)
         decomm.rename(columns={'ExitTime': 'Time'}, inplace=True)
         d = decomm.pivot('Time', 'Prototype')['Count'].reset_index()
+        for item in non_lwr:
+            if item not in d.columns:
+                d[item] = np.zeros(len(d.index))
+        d = d.set_index('Time')
+        #non_lwr = non_lwr.append('Time')
+        d['lwr'] = d.drop(non_lwr, axis=1).sum(axis=1)
         simulation_data = pd.merge(
             c,
             d,
@@ -82,10 +92,7 @@ def rx_commission_decommission(filename, non_lwr):
         simulation_data = c.fillna(0)
 
     simulation_data = simulation_data.set_index('Time')
-    simulation_data['lwr_total'] = simulation_data.drop(
-        non_lwr, axis=1).sum(
-        axis=1)
-    simulation_data['lwr_total'] = simulation_data['lwr_total'].cumsum()
+    simulation_data['lwr_total'] = (simulation_data['lwr_enter'] + simulation_data['lwr_exit']).cumsum()
     return simulation_data.reset_index()
 
 def prototype_totals(outfile, nonlwr, prototypes):
