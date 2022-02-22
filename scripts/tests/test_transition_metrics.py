@@ -14,6 +14,25 @@ import transition_metrics as tm
 
 class Test_static_info(unittest.TestCase):
     def setUp(self):
+        ''' 
+        This defines the output files and a test DataFrame to use within the 
+        test suite. 
+
+        The first output file (transition_metrics_decommission_test.sqlite)
+        models Reactor_type1 and Reactor_type2 prototypes with a lifetime of 
+        2 timesteps. This ensures that all of these prototypes will be 
+        decommissioned in the simulation. 
+
+        The second output file (transition_metrics_nodecommission_test.sqlite)
+        models Reactor_type1 and Reactor_type2 prototypes with a lifetime of
+        10 timesteps. This ensures that they are not decommissioned during the 
+        simualtion. 
+
+        Both output files model a 7 month fuel cycle with the reactor 
+        prototypes with manually defined deployment through a 
+        cycamore::DeployInst. 1 Reactor_type1 is built at timestep 1, 1 
+        Reactor_type2 is built at both tiemstep 2 and 3. 
+        '''
         self.output_file1 = 'transition_metrics_decommission_test.sqlite'
         self.output_file2 = 'transition_metrics_nodecommission_test.sqlite'
         self.test_df = pd.DataFrame(
@@ -155,8 +174,8 @@ class Test_static_info(unittest.TestCase):
                     1],
                 'SimId': [
                     0,
-                    UUID('6af6d305-e3be-4790-8920-b3f3bec3d6f7'),
-                    UUID('6af6d305-e3be-4790-8920-b3f3bec3d6f7')],
+                    UUID('3b2f511b-d03f-43f7-b190-7ea50bea68a4'),
+                    UUID('3b2f511b-d03f-43f7-b190-7ea50bea68a4')],
                 'TransactionId': [
                     0.0,
                     0.0,
@@ -272,10 +291,10 @@ class Test_static_info(unittest.TestCase):
                     1,
                     2],
                 'SimId': [
-                    UUID('6af6d305-e3be-4790-8920-b3f3bec3d6f7'),
-                    UUID('6af6d305-e3be-4790-8920-b3f3bec3d6f7'),
-                    UUID('6af6d305-e3be-4790-8920-b3f3bec3d6f7'),
-                    UUID('6af6d305-e3be-4790-8920-b3f3bec3d6f7')],
+                    UUID('3b2f511b-d03f-43f7-b190-7ea50bea68a4'),
+                    UUID('3b2f511b-d03f-43f7-b190-7ea50bea68a4'),
+                    UUID('3b2f511b-d03f-43f7-b190-7ea50bea68a4'),
+                    UUID('3b2f511b-d03f-43f7-b190-7ea50bea68a4')],
                 'TransactionId': [
                     0.0,
                     1.0,
@@ -285,27 +304,27 @@ class Test_static_info(unittest.TestCase):
                     10.0,
                     12.0,
                     14.0,
-                    15.0],
+                    26.0],
                 'ObjId': [
                     9.0,
                     10.0,
                     11.0,
-                    9.0],
+                    21.0],
                 'SenderId': [
                     21.0,
                     21.0,
                     21.0,
-                    24.0],
+                    21.0],
                 'ReceiverId': [
                     24.0,
                     24.0,
                     24.0,
-                    22.0],
+                    24.0],
                 'Commodity': [
                     'fresh_uox',
                     'fresh_uox',
                     'fresh_uox',
-                    'spent_uox'],
+                    'fresh_uox'],
                 'Units': [
                     'kg',
                     'kg',
@@ -320,7 +339,7 @@ class Test_static_info(unittest.TestCase):
                     'Reactor_type1',
                     'Reactor_type1',
                     'Reactor_type1',
-                    'Repository']})
+                    'Reactor_type1']})
         obs = tm.add_receiver_prototype(self.output_file1)
         assert_frame_equal(exp, obs[0:4])
 
