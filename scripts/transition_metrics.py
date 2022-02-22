@@ -89,7 +89,7 @@ def rx_commission_decommission(filename, non_lwr):
         index='Time',
         columns='Prototype',
         fill_value=0)
-    c['lwr'] = c.drop(non_lwr, axis=1).sum(axis=1)
+    c['lwr_enter'] = c.drop(non_lwr, axis=1).sum(axis=1)
 
     if decomm is not None:
         # make exit counts negative for plotting purposes
@@ -99,8 +99,9 @@ def rx_commission_decommission(filename, non_lwr):
         decomm.rename(columns={'ExitTime': 'Time'}, inplace=True)
         d = decomm.pivot('Time', 'Prototype')['Count'].reset_index()
         d = add_zeros_columns(d, non_lwr)
-        d = d.set_index('Time'))
-        d['lwr'] = d.drop(non_lwr, axis=1).sum(axis=1)
+        d = d.set_index('Time')
+        d['lwr_exit'] = d.drop(non_lwr, axis=1).sum(axis=1)
+        d = d.reset_index()
         simulation_data = pd.merge(
             c,
             d,
@@ -111,11 +112,10 @@ def rx_commission_decommission(filename, non_lwr):
             suffixes=(
                 '_enter',
                 '_exit')).fillna(0)
+        simulation_data['lwr_total'] = (simulation_data['lwr_enter'] + simulation_data['lwr_exit']).cumsum()
     else:
         simulation_data = c.fillna(0)
-
-    simulation_data = simulation_data.set_index('Time')
-    simulation_data['lwr_total'] = (simulation_data['lwr_enter'] + simulation_data['lwr_exit']).cumsum()
+        simulation_data['lwr_total'] = simulation_data['lwr_enter'].cumsum()
     return simulation_data.reset_index()
 
 def prototype_totals(outfile, nonlwr, prototypes):
@@ -140,12 +140,12 @@ def prototype_totals(outfile, nonlwr, prototypes):
         enter, exit, and totals for each type of reactor
     '''
     prototypes_df = rx_commission_decommission(outfile, nonlwr)
-    prototypes_df = add_year(reactors)
+    #prototypes_df = add_year(prototypes)
     prototypes_df['advrx_enter'] = 0
     prototypes_df['advrx_total'] = 0
     for prototype in prototypes:
         if prototype in prototypes_df.columns:
-            prototypes_df = reactors.rename(columns={prototype: prototype+'_enter'})
+            prototypes_df = prototypes_df.rename(columns={prototype: prototype+'_enter'})
             prototypes_df[prototype+'_exit'] = np.zeros(len(prototypes_df[prototype+'_enter']))
         prototypes_df[prototype + '_total'] = (prototypes_df[prototype + '_enter'] 
                                       + prototypes_df[prototype + '_exit']).cumsum()

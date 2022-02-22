@@ -1,6 +1,6 @@
 import unittest
 import cymetric
-import transition_metrics as tm
+
 import numpy as np
 import pandas as pd
 import math
@@ -8,7 +8,8 @@ from uuid import UUID
 from pandas._testing import assert_series_equal
 from pandas._testing import assert_frame_equal
 import sys
-sys.path.insert(1, '../')
+sys.path.insert(0, '../')
+import transition_metrics as tm
 
 
 class Test_static_info(unittest.TestCase):
@@ -27,6 +28,53 @@ class Test_static_info(unittest.TestCase):
         obs = tm.get_metrics(self.output_file1)
         assert isinstance(obs, cymetric.evaluator.Evaluator)
 
+    def test_add_zeros_columns(self):
+        ''' 
+        Tests the add_zeros_columns function when the column names specified 
+        are in the given dataframe
+        '''
+        exp = pd.DataFrame(data={
+                            'Time': [0,1,2,3,4],
+                            'Quantity': [2, 5, 3,7,8],
+                            'Commodity': 
+                                        ['fresh_uox', 'fresh_uox', 
+                                        'fresh_uox', 'fresh_uox', 
+                                        'fresh_uox']
+        })
+        df= pd.DataFrame(data={
+                            'Time': [0,1,2,3,4],
+                            'Quantity': [2, 5, 3,7,8],
+                            'Commodity': 
+                                        ['fresh_uox', 'fresh_uox', 
+                                        'fresh_uox', 'fresh_uox', 
+                                        'fresh_uox']
+        })
+        obs = tm.add_zeros_columns(df, ['Quantity', 'Time'])
+        assert_frame_equal(exp, obs)
+
+    def test_add_zeros_columns(self):
+        ''' 
+        Tests the add_zeros_columns function when the column names specified 
+        are not in the given dataframe
+        '''
+        exp = pd.DataFrame(data={
+                            'Time': [0,1,2,3,4],
+                            'Commodity': 
+                                        ['fresh_uox', 'fresh_uox', 
+                                        'fresh_uox', 'fresh_uox', 
+                                        'fresh_uox'], 
+                            'Quantity': [0.0,0.0, 0.0, 0.0, 0.0],
+        })
+        df= pd.DataFrame(data={
+                            'Time': [0,1,2,3,4],
+                            'Commodity': 
+                                        ['fresh_uox', 'fresh_uox', 
+                                        'fresh_uox', 'fresh_uox', 
+                                        'fresh_uox']
+        })
+        obs = tm.add_zeros_columns(df, ['Quantity'])
+        assert_frame_equal(exp, obs)
+
     def test_rx_commission_decommission1(self):
         # tests function when facilities are decommissioned
         exp = pd.Series(
@@ -41,7 +89,7 @@ class Test_static_info(unittest.TestCase):
             name='lwr_total')
         non_lwr = ['United States', 'FuelCycle', 'FuelSupply',
                    'Repository', 'UNITED_STATES_OF_AMERICA',
-                   'Reactor_type1_enter', 'Reactor_type1_exit']
+                   'Reactor_type1']
         df = tm.rx_commission_decommission(self.output_file1, non_lwr)
         obs = df['lwr_total']
         assert_series_equal(exp, obs)
@@ -50,13 +98,13 @@ class Test_static_info(unittest.TestCase):
         # tests function when facilities are not decommissioned
         exp = pd.Series(
             data={
-                0: 0.0,
-                1: 0.0,
-                2: 1.0,
-                3: 2.0,
-                4: 2.0,
-                5: 2.0,
-                6: 2.0},
+                0: 0,
+                1: 0,
+                2: 1,
+                3: 2,
+                4: 2,
+                5: 2,
+                6: 2},
             name='lwr_total')
         non_lwr = ['United States', 'FuelCycle', 'FuelSupply',
                    'Repository', 'UNITED_STATES_OF_AMERICA',
@@ -64,6 +112,43 @@ class Test_static_info(unittest.TestCase):
         df = tm.rx_commission_decommission(self.output_file2, non_lwr)
         obs = df['lwr_total']
         assert_series_equal(exp, obs)
+
+    def test_prototype_totals1(self):
+        '''
+        The function tests the number of advanced reactors built and the total 
+        number deployed at the first 4 time steps of 
+        transition_metrics_decommission_test.sqlite when the Reactor_type1 
+        and Reactor_type2 are both considered to be advanced reactors. 
+        In this output, both reactor types are 
+        '''
+        exp = pd.DataFrame(data ={
+            'advrx_enter': [0.0, 1.0, 1.0, 1.0],
+            'advrx_total': [0.0, 1.0, 2.0, 3.0]
+        })
+        nonlwr = ['Repository', 'FuelSupply', 'United States', 
+                  'FuelCycle', 'UNITED_STATES_OF_AMERICA']
+        obs = tm.prototype_totals(self.output_file1, nonlwr, ['Reactor_type1', 
+        'Reactor_type2'])
+        assert_frame_equal(exp, obs[['advrx_enter','advrx_total']][0:4])
+
+    def test_prototype_totals2(self):
+        '''
+        The function tests the number of advanced reactors built and the total 
+        number deployed at the first 4 time steps of 
+        transition_metrics_nodecommission_test.sqlite when the Reactor_type1 
+        and Reactor_type2 are both considered to be advanced reactors. 
+        In this simulation both reactor types are commissioned, but not 
+        decommissioned
+        '''
+        exp = pd.DataFrame(data ={
+            'advrx_enter': [0.0, 1.0, 1.0, 1.0],
+            'advrx_total': [0.0, 1.0, 2.0, 3.0]
+        })
+        nonlwr = ['Repository', 'FuelSupply', 'United States', 
+                  'FuelCycle', 'UNITED_STATES_OF_AMERICA']
+        obs = tm.prototype_totals(self.output_file2, nonlwr, ['Reactor_type1', 
+        'Reactor_type2'])
+        assert_frame_equal(exp, obs[['advrx_enter','advrx_total']][0:4])
 
     def test_add_year(self):
         exp = pd.DataFrame(data={
@@ -363,9 +448,9 @@ class Test_static_info(unittest.TestCase):
         obs = tm.commodity_to_LWR(transactions_df, 'u_ore', 'Reactor_type2')
         assert_frame_equal(exp, obs[0:4])
 
-    def test_get_electricity(self):
+    def test_get_annual_electricity(self):
         exp = pd.DataFrame(data={'Year': [1965], 'Energy': [0.35]})
-        obs = tm.get_electricity(self.output_file1)
+        obs = tm.get_annual_electricity(self.output_file1)
         assert_frame_equal(exp, obs)
 
     def test_get_prototype_energy1(self):
