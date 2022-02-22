@@ -28,51 +28,36 @@ class Test_static_info(unittest.TestCase):
         obs = tm.get_metrics(self.output_file1)
         assert isinstance(obs, cymetric.evaluator.Evaluator)
 
-    def test_add_zeros_columns(self):
+    def test_add_zeros_columns1(self):
         ''' 
         Tests the add_zeros_columns function when the column names specified 
         are in the given dataframe
         '''
-        exp = pd.DataFrame(data={
-                            'Time': [0,1,2,3,4],
-                            'Quantity': [2, 5, 3,7,8],
-                            'Commodity': 
-                                        ['fresh_uox', 'fresh_uox', 
-                                        'fresh_uox', 'fresh_uox', 
-                                        'fresh_uox']
-        })
-        df= pd.DataFrame(data={
-                            'Time': [0,1,2,3,4],
-                            'Quantity': [2, 5, 3,7,8],
-                            'Commodity': 
-                                        ['fresh_uox', 'fresh_uox', 
-                                        'fresh_uox', 'fresh_uox', 
-                                        'fresh_uox']
-        })
-        obs = tm.add_zeros_columns(df, ['Quantity', 'Time'])
+        exp = pd.DataFrame(
+            data={
+                'Time': [
+                    0, 1, 1, 3], 'Quantity': [
+                    2, 5, 6, 8], 'Commodity': [
+                    'fresh_uox', 'spent_uox', 'fresh_uox', 'fresh_uox'],
+                'Prototype': ['FuelCycle', 'LWR', 'Reactor_type1', 'LWR']})
+        obs = tm.add_zeros_columns(self.test_df, ['Quantity', 'Time'])
         assert_frame_equal(exp, obs)
 
-    def test_add_zeros_columns(self):
+    def test_add_zeros_columns2(self):
         ''' 
         Tests the add_zeros_columns function when the column names specified 
         are not in the given dataframe
         '''
-        exp = pd.DataFrame(data={
-                            'Time': [0,1,2,3,4],
-                            'Commodity': 
-                                        ['fresh_uox', 'fresh_uox', 
-                                        'fresh_uox', 'fresh_uox', 
-                                        'fresh_uox'], 
-                            'Quantity': [0.0,0.0, 0.0, 0.0, 0.0],
+        exp = pd.DataFrame(
+            data={
+                'Time': [
+                    0, 1, 1, 3], 'Quantity': [
+                    2, 5, 6, 8], 'Commodity': [
+                    'fresh_uox', 'spent_uox', 'fresh_uox', 'fresh_uox'],
+                'Prototype': ['FuelCycle', 'LWR', 'Reactor_type1', 'LWR'],
+                            'reactors': [0.0, 0.0, 0.0, 0.0]
         })
-        df= pd.DataFrame(data={
-                            'Time': [0,1,2,3,4],
-                            'Commodity': 
-                                        ['fresh_uox', 'fresh_uox', 
-                                        'fresh_uox', 'fresh_uox', 
-                                        'fresh_uox']
-        })
-        obs = tm.add_zeros_columns(df, ['Quantity'])
+        obs = tm.add_zeros_columns(self.test_df, ['reactors'])
         assert_frame_equal(exp, obs)
 
     def test_rx_commission_decommission1(self):
