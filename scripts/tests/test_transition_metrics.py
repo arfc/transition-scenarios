@@ -81,41 +81,30 @@ class Test_static_info(unittest.TestCase):
 
     def test_rx_commission_decommission1(self):
         # tests function when facilities are decommissioned
-        exp = pd.Series(
-            data={
-                0: 0.0,
-                1: 0.0,
-                2: 1.0,
-                3: 2.0,
-                4: 2.0,
-                5: 2.0,
-                6: 2.0},
-            name='lwr_total')
+        exp = pd.DataFrame(
+            data={'lwr_enter':[0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0],
+                'lwr_exit':[0.0, 0.0, 0.0, 0.0, -1.0, -1.0, 0.0],
+                'lwr_total':[0.0, 0.0, 1.0, 2.0, 1.0, 0.0, 0.0]
+                })
         non_lwr = ['United States', 'FuelCycle', 'FuelSupply',
                    'Repository', 'UNITED_STATES_OF_AMERICA',
                    'Reactor_type1']
         df = tm.rx_commission_decommission(self.output_file1, non_lwr)
-        obs = df['lwr_total']
-        assert_series_equal(exp, obs)
+        obs = df[['lwr_enter', 'lwr_exit','lwr_total']]
+        assert_frame_equal(exp, obs,check_names=False)
 
     def test_rx_commission_decommission2(self):
         # tests function when facilities are not decommissioned
-        exp = pd.Series(
-            data={
-                0: 0,
-                1: 0,
-                2: 1,
-                3: 2,
-                4: 2,
-                5: 2,
-                6: 2},
-            name='lwr_total')
+        exp = pd.DataFrame(data = {
+                'lwr_enter':[0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0],
+                'lwr_total':[0.0, 0.0, 1.0, 2.0, 2.0, 2.0, 2.0]
+                })
         non_lwr = ['United States', 'FuelCycle', 'FuelSupply',
                    'Repository', 'UNITED_STATES_OF_AMERICA',
                    'Reactor_type1']
         df = tm.rx_commission_decommission(self.output_file2, non_lwr)
-        obs = df['lwr_total']
-        assert_series_equal(exp, obs)
+        obs = df[['lwr_enter', 'lwr_total']]
+        assert_frame_equal(exp, obs, check_names=False)
 
     def test_prototype_totals1(self):
         '''
@@ -127,13 +116,13 @@ class Test_static_info(unittest.TestCase):
         '''
         exp = pd.DataFrame(data ={
             'advrx_enter': [0.0, 1.0, 1.0, 1.0],
-            'advrx_total': [0.0, 1.0, 2.0, 3.0]
+            'advrx_total': [0.0, 1.0, 2.0, 2.0]
         })
         nonlwr = ['Repository', 'FuelSupply', 'United States', 
                   'FuelCycle', 'UNITED_STATES_OF_AMERICA']
         obs = tm.prototype_totals(self.output_file1, nonlwr, ['Reactor_type1', 
         'Reactor_type2'])
-        assert_frame_equal(exp, obs[['advrx_enter','advrx_total']][0:4])
+        assert_frame_equal(exp, obs[['advrx_enter','advrx_total']][0:4], check_names=False)
 
     def test_prototype_totals2(self):
         '''
@@ -152,7 +141,7 @@ class Test_static_info(unittest.TestCase):
                   'FuelCycle', 'UNITED_STATES_OF_AMERICA']
         obs = tm.prototype_totals(self.output_file2, nonlwr, ['Reactor_type1', 
         'Reactor_type2'])
-        assert_frame_equal(exp, obs[['advrx_enter','advrx_total']][0:4])
+        assert_frame_equal(exp, obs[['advrx_enter','advrx_total']][0:4], check_names=False)
 
     def test_add_year(self):
         exp = pd.DataFrame(data={
@@ -174,8 +163,8 @@ class Test_static_info(unittest.TestCase):
                     1],
                 'SimId': [
                     0,
-                    UUID('3b2f511b-d03f-43f7-b190-7ea50bea68a4'),
-                    UUID('3b2f511b-d03f-43f7-b190-7ea50bea68a4')],
+                    UUID('cf7af291-7fd9-4b27-9cb7-f7af8d9a7269'),
+                    UUID('cf7af291-7fd9-4b27-9cb7-f7af8d9a7269')],
                 'TransactionId': [
                     0.0,
                     0.0,
@@ -291,10 +280,10 @@ class Test_static_info(unittest.TestCase):
                     1,
                     2],
                 'SimId': [
-                    UUID('3b2f511b-d03f-43f7-b190-7ea50bea68a4'),
-                    UUID('3b2f511b-d03f-43f7-b190-7ea50bea68a4'),
-                    UUID('3b2f511b-d03f-43f7-b190-7ea50bea68a4'),
-                    UUID('3b2f511b-d03f-43f7-b190-7ea50bea68a4')],
+                    UUID('cf7af291-7fd9-4b27-9cb7-f7af8d9a7269'),
+                    UUID('cf7af291-7fd9-4b27-9cb7-f7af8d9a7269'),
+                    UUID('cf7af291-7fd9-4b27-9cb7-f7af8d9a7269'),
+                    UUID('cf7af291-7fd9-4b27-9cb7-f7af8d9a7269')],
                 'TransactionId': [
                     0.0,
                     1.0,
@@ -453,13 +442,13 @@ class Test_static_info(unittest.TestCase):
         assert_frame_equal(exp, obs[0:4])
 
     def test_get_annual_electricity(self):
-        exp = pd.DataFrame(data={'Year': [1965], 'Energy': [0.35]})
+        exp = pd.DataFrame(data={'Year': [1965], 'Energy': [0.120]})
         obs = tm.get_annual_electricity(self.output_file1)
         assert_frame_equal(exp, obs)
 
     def test_get_prototype_energy1(self):
         # tests function when the queried prototype is in the dataframe
-        exp = pd.DataFrame(data={'Year': [1965, 1966], 'Energy': [0.05, 0.00]})
+        exp = pd.DataFrame(data={'Year': [1965, 1966], 'Energy': [0.02, 0.00]})
         obs = tm.get_prototype_energy(self.output_file1, 'Reactor_type2')
         assert_frame_equal(exp, obs[0:2])
 
@@ -471,14 +460,14 @@ class Test_static_info(unittest.TestCase):
 
     def test_get_lwr_energy1(self):
         # tests function when the queried non-LWR prototype is in the dataframe
-        exp = pd.DataFrame(data={'Year': [1965, 1966], 'Energy': [0.30, 0.00]})
+        exp = pd.DataFrame(data={'Year': [1965, 1966], 'Energy': [0.10, 0.00]})
         obs = tm.get_lwr_energy(self.output_file1, 'Reactor_type2')
         assert_frame_equal(exp, obs[0:2])
 
     def test_get_lwr_energy2(self):
         # tests function when the queried non-LWR prototype is not in the
         # dataframe
-        exp = pd.DataFrame(data={'Year': [1965, 1966], 'Energy': [0.35, 0.00]})
+        exp = pd.DataFrame(data={'Year': [1965, 1966], 'Energy': [0.12, 0.00]})
         obs = tm.get_lwr_energy(self.output_file1, 'Reactor_type3')
         assert_frame_equal(exp, obs[0:2])
 
