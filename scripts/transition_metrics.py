@@ -28,13 +28,14 @@ def get_metrics(filename):
     evaler = cym.Evaluator(db, write=False)
     return evaler
 
+
 def add_zeros_columns(df, column_names):
-    ''' 
-    Adds a column of a specified name to a given dataframe 
-    if a column of that name does not exist already. The 
+    '''
+    Adds a column of a specified name to a given dataframe
+    if a column of that name does not exist already. The
     added column is of the length of the entire dataframe
-    but consists of only zeros. This function allows for 
-    greater flexibility in defining prototypes of 
+    but consists of only zeros. This function allows for
+    greater flexibility in defining prototypes of
     interest across multiple tranistion scenarios
 
     Parameters:
@@ -44,17 +45,18 @@ def add_zeros_columns(df, column_names):
         already
     column_names: list of strs
         names to be checked for existence and added if missing
-    
+
     Returns:
     --------
     df: DataFrame
-        dataframe with added column, if column doesn't 
+        dataframe with added column, if column doesn't
         exist anymore
     '''
     for item in column_names:
         if item not in df.columns:
             df[item] = 0.0
     return df
+
 
 def rx_commission_decommission(filename, non_lwr):
     '''
@@ -113,22 +115,25 @@ def rx_commission_decommission(filename, non_lwr):
             suffixes=(
                 '_enter',
                 '_exit')).fillna(0)
-        
+
     else:
         simulation_data = c.fillna(0)
         simulation_data = simulation_data.add_suffix('_enter')
         for column in simulation_data.columns:
             simulation_data[(column[:-5] + 'exit')] = 0.0
-    simulation_data['lwr_total'] = (simulation_data['lwr_enter'] + simulation_data['lwr_exit']).cumsum()
+    simulation_data['lwr_total'] = (
+        simulation_data['lwr_enter'] +
+        simulation_data['lwr_exit']).cumsum()
     return simulation_data
+
 
 def prototype_totals(outfile, nonlwr, prototypes):
     '''
-    This function performs the tm.rx_commissions_decommission 
-    function on a provided database. Then the total number of 
-    each prototype deployed at a given time is calculated and 
+    This function performs the tm.rx_commissions_decommission
+    function on a provided database. Then the total number of
+    each prototype deployed at a given time is calculated and
     added to the dataframe
-    
+
     Parameters:
     -----------
     out_file: str
@@ -137,7 +142,7 @@ def prototype_totals(outfile, nonlwr, prototypes):
         names of prototypes that are not LWRs
     prototypes: list of str
         list of names of prototypes
-        
+
     Returns:
     --------
     reactors_df : DataFrame
@@ -149,14 +154,17 @@ def prototype_totals(outfile, nonlwr, prototypes):
     prototypes_df['advrx_total'] = 0.0
     for prototype in prototypes:
         if prototype in prototypes_df.columns:
-            prototypes_df = prototypes_df.rename(columns={prototype: prototype+'_enter'})
-            prototypes_df[prototype+'_exit'] = np.zeros(len(prototypes_df[prototype+'_enter']))
-        prototypes_df[prototype + '_total'] = (prototypes_df[prototype + '_enter'] 
-                                      + prototypes_df[prototype + '_exit']).cumsum()
+            prototypes_df = prototypes_df.rename(
+                columns={prototype: prototype + '_enter'})
+            prototypes_df[prototype +
+                          '_exit'] = np.zeros(len(prototypes_df[prototype + '_enter']))
+        prototypes_df[prototype + '_total'] = (prototypes_df[prototype + '_enter']
+                                               + prototypes_df[prototype + '_exit']).cumsum()
         prototypes_df['advrx_enter'] += prototypes_df[prototype + '_enter']
         prototypes_df['advrx_total'] += prototypes_df[prototype + '_total']
-    
+
     return prototypes_df
+
 
 def add_year(df):
     '''
@@ -510,6 +518,7 @@ def get_annual_electricity(filename):
 
     return electricity_output
 
+
 def get_monthly_electricity(filename):
     '''
     Gets the time dependent monthy electricity output of reactors
@@ -530,7 +539,7 @@ def get_monthly_electricity(filename):
     '''
     evaler = get_metrics(filename)
     electricity = evaler.eval('MonthlyElectricityGeneratedByAgent')
-    electricity['Year'] = electricity['Month']/12 + 1965
+    electricity['Year'] = electricity['Month'] / 12 + 1965
     electricity_output = electricity.groupby(
         ['Year']).Energy.sum().reset_index()
     electricity_output['Energy'] = electricity_output['Energy'] / 1000
