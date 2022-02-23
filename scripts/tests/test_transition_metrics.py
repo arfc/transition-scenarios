@@ -1,3 +1,4 @@
+import transition_metrics as tm
 import unittest
 import cymetric
 import transition_metrics as tm
@@ -8,11 +9,30 @@ from uuid import UUID
 from pandas._testing import assert_series_equal
 from pandas._testing import assert_frame_equal
 import sys
-sys.path.insert(1, '../')
+sys.path.insert(0, '../')
 
 
 class Test_static_info(unittest.TestCase):
     def setUp(self):
+        '''
+        This defines the output files and a test DataFrame to use within the
+        test suite.
+
+        The first output file (transition_metrics_decommission_test.sqlite)
+        models Reactor_type1 and Reactor_type2 prototypes with a lifetime of
+        2 timesteps. This ensures that all of these prototypes will be
+        decommissioned in the simulation.
+
+        The second output file (transition_metrics_nodecommission_test.sqlite)
+        models Reactor_type1 and Reactor_type2 prototypes with a lifetime of
+        10 timesteps. This ensures that they are not decommissioned during the
+        simualtion.
+
+        Both output files model a 7 month fuel cycle with the reactor
+        prototypes with manually defined deployment through a
+        cycamore::DeployInst. 1 Reactor_type1 is built at timestep 1, 1
+        Reactor_type2 is built at both tiemstep 2 and 3.
+        '''
         self.output_file1 = 'transition_metrics_decommission_test.sqlite'
         self.output_file2 = 'transition_metrics_nodecommission_test.sqlite'
         self.test_df = pd.DataFrame(
@@ -27,46 +47,78 @@ class Test_static_info(unittest.TestCase):
         obs = tm.get_metrics(self.output_file1)
         assert isinstance(obs, cymetric.evaluator.Evaluator)
 
+    def test_add_zeros_columns1(self):
+        '''
+        Tests the add_zeros_columns function when the column names specified
+        are in the given dataframe
+        '''
+        exp = pd.DataFrame(
+            data={
+                'Time': [
+                    0, 1, 1, 3], 'Quantity': [
+                    2, 5, 6, 8], 'Commodity': [
+                    'fresh_uox', 'spent_uox', 'fresh_uox', 'fresh_uox'],
+                'Prototype': ['FuelCycle', 'LWR', 'Reactor_type1', 'LWR']})
+        obs = tm.add_zeros_columns(self.test_df, ['Quantity', 'Time'])
+        assert_frame_equal(exp, obs)
+
+    def test_add_zeros_columns2(self):
+        '''
+        Tests the add_zeros_columns function when the column names specified
+        are not in the given dataframe
+        '''
+        exp = pd.DataFrame(
+            data={
+                'Time': [
+                    0, 1, 1, 3], 'Quantity': [
+                    2, 5, 6, 8], 'Commodity': [
+                    'fresh_uox', 'spent_uox', 'fresh_uox', 'fresh_uox'],
+                'Prototype': ['FuelCycle', 'LWR', 'Reactor_type1', 'LWR'],
+                'reactors': [0.0, 0.0, 0.0, 0.0]
+            })
+        obs = tm.add_zeros_columns(self.test_df, ['reactors'])
+        assert_frame_equal(exp, obs)
+
     def test_rx_commission_decommission1(self):
         # tests function when facilities are decommissioned
         exp = pd.DataFrame(
-            data={'lwr_enter':[0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0],
-                'lwr_exit':[0.0, 0.0, 0.0, 0.0, -1.0, -1.0, 0.0],
-                'lwr_total':[0.0, 0.0, 1.0, 2.0, 1.0, 0.0, 0.0]
-                })
+            data={'lwr_enter': [0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0],
+                  'lwr_exit': [0.0, 0.0, 0.0, 0.0, -1.0, -1.0, 0.0],
+                  'lwr_total': [0.0, 0.0, 1.0, 2.0, 1.0, 0.0, 0.0]
+                  })
         non_lwr = ['United States', 'FuelCycle', 'FuelSupply',
                    'Repository', 'UNITED_STATES_OF_AMERICA',
                    'Reactor_type1_enter', 'Reactor_type1_exit']
         df = tm.rx_commission_decommission(self.output_file1, non_lwr)
-        obs = df[['lwr_enter', 'lwr_exit','lwr_total']]
-        assert_frame_equal(exp, obs,check_names=False)
+        obs = df[['lwr_enter', 'lwr_exit', 'lwr_total']]
+        assert_frame_equal(exp, obs, check_names=False)
 
     def test_rx_commission_decommission2(self):
         '''
-        This tests rx_commission_decommission when the reactors 
-        are decommissioned and an item in the non_lwr list 
+        This tests rx_commission_decommission when the reactors
+        are decommissioned and an item in the non_lwr list
         is not an actual prototype in the simulation
         '''
         exp = pd.DataFrame(
-            data={'Reactor_type3_enter':[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
-                'lwr_enter':[0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0],
-                'lwr_exit':[0.0, 0.0, 0.0, 0.0, -1.0, -1.0, 0.0],
-                'lwr_total':[0.0, 0.0, 1.0, 2.0, 1.0, 0.0, 0.0]
-                })
+            data={'Reactor_type3_enter': [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+                  'lwr_enter': [0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0],
+                  'lwr_exit': [0.0, 0.0, 0.0, 0.0, -1.0, -1.0, 0.0],
+                  'lwr_total': [0.0, 0.0, 1.0, 2.0, 1.0, 0.0, 0.0]
+                  })
         non_lwr = ['United States', 'FuelCycle', 'FuelSupply',
                    'Repository', 'UNITED_STATES_OF_AMERICA',
                    'Reactor_type1', 'Reactor_type3']
         df = tm.rx_commission_decommission(self.output_file1, non_lwr)
-        obs = df[['Reactor_type3_enter','lwr_enter', 'lwr_exit','lwr_total']]
-        assert_frame_equal(exp, obs,check_names=False)
+        obs = df[['Reactor_type3_enter', 'lwr_enter', 'lwr_exit', 'lwr_total']]
+        assert_frame_equal(exp, obs, check_names=False)
 
     def test_rx_commission_decommission3(self):
         # tests function when facilities are not decommissioned
-        exp = pd.DataFrame(data = {
-                'lwr_enter':[0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0],
-                'lwr_exit':[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
-                'lwr_total':[0.0, 0.0, 1.0, 2.0, 2.0, 2.0, 2.0]
-                })
+        exp = pd.DataFrame(data={
+            'lwr_enter': [0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0],
+            'lwr_exit': [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+            'lwr_total': [0.0, 0.0, 1.0, 2.0, 2.0, 2.0, 2.0]
+        })
         non_lwr = ['United States', 'FuelCycle', 'FuelSupply',
                    'Repository', 'UNITED_STATES_OF_AMERICA',
                    'Reactor_type1']
@@ -76,59 +128,61 @@ class Test_static_info(unittest.TestCase):
 
     def test_rx_commission_decommission4(self):
         '''
-        This tests rx_commission_decommission when the reactors 
-        are not decommissioned and an item in the non_lwr list 
+        This tests rx_commission_decommission when the reactors
+        are not decommissioned and an item in the non_lwr list
         is not an actual prototype in the simulation
         '''
         exp = pd.DataFrame(
-            data={'Reactor_type3_enter':[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
-                'lwr_enter':[0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0],
-                'lwr_exit':[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
-                'lwr_total':[0.0, 0.0, 1.0, 2.0, 2.0, 2.0, 2.0]
-                })
+            data={'Reactor_type3_enter': [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+                  'lwr_enter': [0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0],
+                  'lwr_exit': [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+                  'lwr_total': [0.0, 0.0, 1.0, 2.0, 2.0, 2.0, 2.0]
+                  })
         non_lwr = ['United States', 'FuelCycle', 'FuelSupply',
                    'Repository', 'UNITED_STATES_OF_AMERICA',
                    'Reactor_type1', 'Reactor_type3']
         df = tm.rx_commission_decommission(self.output_file2, non_lwr)
-        obs = df[['Reactor_type3_enter','lwr_enter', 'lwr_exit','lwr_total']]
-        assert_frame_equal(exp, obs,check_names=False)
+        obs = df[['Reactor_type3_enter', 'lwr_enter', 'lwr_exit', 'lwr_total']]
+        assert_frame_equal(exp, obs, check_names=False)
 
     def test_prototype_totals1(self):
         '''
-        The function tests the number of advanced reactors built and the total 
-        number deployed at the first 4 time steps of 
-        transition_metrics_decommission_test.sqlite when the Reactor_type1 
-        and Reactor_type2 are both considered to be advanced reactors. 
-        In this output, both reactor types are 
+        The function tests the number of advanced reactors built and the total
+        number deployed at the first 4 time steps of
+        transition_metrics_decommission_test.sqlite when the Reactor_type1
+        and Reactor_type2 are both considered to be advanced reactors.
+        In this output, both reactor types are
         '''
-        exp = pd.DataFrame(data ={
+        exp = pd.DataFrame(data={
             'advrx_enter': [0.0, 1.0, 1.0, 1.0],
             'advrx_total': [0.0, 1.0, 2.0, 2.0]
         })
-        nonlwr = ['Repository', 'FuelSupply', 'United States', 
+        nonlwr = ['Repository', 'FuelSupply', 'United States',
                   'FuelCycle', 'UNITED_STATES_OF_AMERICA']
-        obs = tm.prototype_totals(self.output_file1, nonlwr, ['Reactor_type1', 
-        'Reactor_type2'])
-        assert_frame_equal(exp, obs[['advrx_enter','advrx_total']][0:4], check_names=False)
+        obs = tm.prototype_totals(self.output_file1, nonlwr, ['Reactor_type1',
+                                                              'Reactor_type2'])
+        assert_frame_equal(
+            exp, obs[['advrx_enter', 'advrx_total']][0:4], check_names=False)
 
     def test_prototype_totals2(self):
         '''
-        The function tests the number of advanced reactors built and the total 
-        number deployed at the first 4 time steps of 
-        transition_metrics_nodecommission_test.sqlite when the Reactor_type1 
-        and Reactor_type2 are both considered to be advanced reactors. 
-        In this simulation both reactor types are commissioned, but not 
+        The function tests the number of advanced reactors built and the total
+        number deployed at the first 4 time steps of
+        transition_metrics_nodecommission_test.sqlite when the Reactor_type1
+        and Reactor_type2 are both considered to be advanced reactors.
+        In this simulation both reactor types are commissioned, but not
         decommissioned
         '''
-        exp = pd.DataFrame(data ={
+        exp = pd.DataFrame(data={
             'advrx_enter': [0.0, 1.0, 1.0, 1.0],
             'advrx_total': [0.0, 1.0, 2.0, 3.0]
         })
-        nonlwr = ['Repository', 'FuelSupply', 'United States', 
+        nonlwr = ['Repository', 'FuelSupply', 'United States',
                   'FuelCycle', 'UNITED_STATES_OF_AMERICA']
-        obs = tm.prototype_totals(self.output_file2, nonlwr, ['Reactor_type1', 
-        'Reactor_type2'])
-        assert_frame_equal(exp, obs[['advrx_enter','advrx_total']][0:4], check_names=False)
+        obs = tm.prototype_totals(self.output_file2, nonlwr, ['Reactor_type1',
+                                                              'Reactor_type2'])
+        assert_frame_equal(
+            exp, obs[['advrx_enter', 'advrx_total']][0:4], check_names=False)
 
     def test_add_year(self):
         exp = pd.DataFrame(data={
