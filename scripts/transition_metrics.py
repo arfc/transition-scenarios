@@ -124,7 +124,7 @@ def rx_commission_decommission(filename, non_lwr):
     simulation_data['lwr_total'] = (
         simulation_data['lwr_enter'] +
         simulation_data['lwr_exit']).cumsum()
-    return simulation_data
+    return simulation_data.reset_index()
 
 
 def prototype_totals(outfile, nonlwr, prototypes):
@@ -149,7 +149,7 @@ def prototype_totals(outfile, nonlwr, prototypes):
         enter, exit, and totals for each type of reactor
     '''
     prototypes_df = rx_commission_decommission(outfile, nonlwr)
-    #prototypes_df = add_year(prototypes)
+    prototypes_df = add_year(prototypes_df)
     prototypes_df['advrx_enter'] = 0.0
     prototypes_df['advrx_total'] = 0.0
     for prototype in prototypes:
@@ -180,10 +180,7 @@ def add_year(df):
     df: DataFrame
         DataFrame with the added column
     '''
-    df['Year'] = pd.Series(
-        [np.nan for x in range(len(df.index))], index=df.index)
-    for index, row in df.iterrows():
-        df['Year'][index] = np.round(df['Time'][index] / 12 + 1965, 2)
+    df['Year'] = np.round(df['Time'] / 12 + 1965, 2)
     df['Year'] = df['Year'].fillna(method='ffill')
     return df
 
