@@ -1,4 +1,3 @@
-import transition_metrics as tm
 import unittest
 import cymetric
 
@@ -10,6 +9,7 @@ from pandas._testing import assert_series_equal
 from pandas._testing import assert_frame_equal
 import sys
 sys.path.insert(0, '../')
+import transition_metrics as tm
 
 
 class Test_static_info(unittest.TestCase):
