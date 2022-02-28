@@ -266,7 +266,7 @@
             </item>
           </facility_capacity>
           <driving_commod>power</driving_commod>
-          <demand_eq>np.heaviside(t-721, 0.5)*91818.167</demand_eq>
+          <demand_eq>np.heaviside(t-721, 0.5)*7651.51</demand_eq>
           <record>1</record>
           <steps>1</steps>
         </DemandDrivenDeploymentInst>
