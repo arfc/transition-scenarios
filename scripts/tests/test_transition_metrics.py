@@ -79,7 +79,11 @@ class Test_static_info(unittest.TestCase):
         assert_frame_equal(exp, obs)
 
     def test_rx_commission_decommission1(self):
-        # tests function when facilities are decommissioned
+        '''
+        This tests rx_commission_decommission when the reactors
+        are decommissioned and all items in the non_lwr list
+        are actual prototypes in the simulation
+        '''
         exp = pd.DataFrame(
             data={'lwr_enter': [0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0],
                   'lwr_exit': [0.0, 0.0, 0.0, 0.0, -1.0, -1.0, 0.0],
@@ -112,7 +116,11 @@ class Test_static_info(unittest.TestCase):
         assert_frame_equal(exp, obs, check_names=False)
 
     def test_rx_commission_decommission3(self):
-        # tests function when facilities are not decommissioned
+        '''
+        This tests rx_commission_decommission when the reactors
+        are not decommissioned and all items in the non_lwr list
+        are actual prototypes in the simulation
+        '''
         exp = pd.DataFrame(data={
             'lwr_enter': [0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0],
             'lwr_exit': [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
@@ -250,7 +258,9 @@ class Test_static_info(unittest.TestCase):
         assert_frame_equal(exp, obs[0:4])
 
     def test_find_commodity_transactions1(self):
-        # tests function when the queried commodity is in the dataframe
+        '''
+        Tests function when the queried commodity is in the dataframe
+        '''
         exp = pd.DataFrame(
             data={
                 'Time': [
@@ -266,14 +276,18 @@ class Test_static_info(unittest.TestCase):
         assert_frame_equal(exp, obs)
 
     def test_find_commodity_transactions2(self):
-        # tests function when the queried commodity is not in the dataframe
+        '''
+        Tests function when the queried commodity is not in the dataframe
+        '''
         exp = pd.DataFrame(data={'Time': [], 'Quantity': [],
                                  'Commodity': [], 'Prototype': []})
         obs = tm.find_commodity_transactions(self.test_df, 'tails')
         assert_frame_equal(exp, obs, check_dtype=False)
 
     def test_find_prototype_transactions1(self):
-        # tests function when the queried prototype is in the dataframe
+        ''' 
+        Tests function when the queried prototype is in the dataframe
+        '''
         exp = pd.DataFrame(data={'Time': [1, 3],
                                  'Quantity': [5, 8],
                                  'Commodity': ['spent_uox', 'fresh_uox'],
@@ -283,14 +297,18 @@ class Test_static_info(unittest.TestCase):
         assert_frame_equal(exp, obs)
 
     def test_find_prototype_transactions2(self):
-        # tests function when the queried prototype is not in the dataframe
+        '''' 
+        Tests function when the queried prototype is not in the dataframe
+        '''
         exp = pd.DataFrame(data={'Time': [], 'Quantity': [], 'Commodity':
                                  [], 'Prototype': []})
         obs = tm.find_prototype_transactions(self.test_df, 'Reactor_type2')
         assert_frame_equal(exp, obs, check_dtype=False)
 
     def test_commidity_mass_traded1(self):
-        # tests function when the queried commodity is in the dataframe
+        ''' 
+        Tests function when the queried commodity is in the dataframe
+        '''
         exp = pd.DataFrame(
             data={
                 'Time': [
@@ -301,7 +319,9 @@ class Test_static_info(unittest.TestCase):
         assert_frame_equal(exp, obs[0:4])
 
     def test_commidity_mass_traded2(self):
-        # tests function when the queried commodity is not in the dataframe
+        ''' 
+        Tests function when the queried commodity is not in the dataframe
+        '''
         exp = pd.DataFrame(
             data={
                 'Time': [
@@ -373,8 +393,10 @@ class Test_static_info(unittest.TestCase):
         assert_frame_equal(exp, obs[0:4])
 
     def test_commodity_to_prototype1(self):
-        # tests function when the queried commodity and prototype are in the
-        # dataframe
+        ''' 
+        Tests function when the queried commodity and prototype are in the
+        dataframe
+        '''
         exp = pd.DataFrame(
             data={
                 'Time': [
@@ -387,8 +409,10 @@ class Test_static_info(unittest.TestCase):
         assert_frame_equal(exp, obs[0:4])
 
     def test_commodity_to_prototype2(self):
-        # tests function when the queried commodity is not in the dataframe
-        # but the prototype is
+        ''' 
+        Tests function when the queried commodity is not in the dataframe
+        but the prototype is
+        '''
         exp = pd.DataFrame(
             data={
                 'Time': [
@@ -401,8 +425,10 @@ class Test_static_info(unittest.TestCase):
         assert_frame_equal(exp, obs[0:4])
 
     def test_commodity_to_prototype3(self):
-        # tests function when the queried commodity is in the dataframe
-        # but the prototype is not
+        ''' 
+        Tests function when the queried commodity is in the dataframe
+        but the prototype is not
+        '''
         exp = pd.DataFrame(
             data={
                 'Time': [
@@ -415,8 +441,10 @@ class Test_static_info(unittest.TestCase):
         assert_frame_equal(exp, obs[0:4])
 
     def test_commodity_to_prototype4(self):
-        # tests function when the queried commodity and prototype are not
-        # in the dataframe
+        ''' 
+        Tests function when the queried commodity and prototype are not
+        in the dataframe
+        '''
         exp = pd.DataFrame(
             data={
                 'Time': [
@@ -487,52 +515,68 @@ class Test_static_info(unittest.TestCase):
         assert_frame_equal(exp, obs)
 
     def test_get_prototype_energy1(self):
-        # tests function when the queried prototype is in the dataframe
+        ''' 
+        Tests function when the queried prototype is in the dataframe
+        '''
         exp = pd.DataFrame(data={'Year': [1965, 1966], 'Energy': [0.02, 0.00]})
         obs = tm.get_prototype_energy(self.output_file1, 'Reactor_type2')
         assert_frame_equal(exp, obs[0:2])
 
     def test_get_prototype_energy2(self):
-        # tests function when the queried prototype is not in the dataframe
+        ''' 
+        Tests function when the queried prototype is not in the dataframe
+        '''
         exp = pd.DataFrame(data={'Year': [1965, 1966], 'Energy': [0.00, 0.00]})
         obs = tm.get_prototype_energy(self.output_file1, 'Reactor_type3')
         assert_frame_equal(exp, obs[0:2])
 
     def test_get_lwr_energy1(self):
-        # tests function when the queried non-LWR prototype is in the dataframe
+        ''' 
+        Tests function when the queried non-LWR prototype is in the dataframe
+        '''
         exp = pd.DataFrame(data={'Year': [1965, 1966], 'Energy': [0.10, 0.00]})
         obs = tm.get_lwr_energy(self.output_file1, 'Reactor_type2')
         assert_frame_equal(exp, obs[0:2])
 
     def test_get_lwr_energy2(self):
-        # tests function when the queried non-LWR prototype is not in the
-        # dataframe
+        ''' 
+        Tests function when the queried non-LWR prototype is not in the
+        dataframe
+        '''
         exp = pd.DataFrame(data={'Year': [1965, 1966], 'Energy': [0.12, 0.00]})
         obs = tm.get_lwr_energy(self.output_file1, 'Reactor_type3')
         assert_frame_equal(exp, obs[0:2])
 
 
 def test_separation_potential1():
-    # tests value between 0 and 1
+    ''' 
+    Tests value between 0 and 1
+    '''
     exp = 0.8317766166719346
     obs = tm.separation_potential(0.8)
     assert exp == obs
 
 
 def test_separation_potential2():
-    # tests value greater than 1
+    ''' 
+    Tests value greater than 1
+    '''
     obs = tm.separation_potential(1.2)
     assert math.isnan(obs)
 
 
 def test_separation_potential3():
-    # tests value less than 0
+    ''' 
+    Tests value less than 0
+    '''
     obs = tm.separation_potential(-1.2)
     assert math.isnan(obs)
 
 
 def test_separation_potential4():
-    # tests use of a DataFrame and 0 as an input
+    ''' 
+    Tests use of a DataFrame and 0 as an input
+    '''
     exp = pd.Series(data=[float('inf'), 1.757780, 0.831777])
     data = pd.Series(data=[0.0, 0.1, 0.2])
     obs = tm.separation_potential(data)
@@ -540,14 +584,18 @@ def test_separation_potential4():
 
 
 def test_calculate_SWU1():
-    # tests floats as inputs
+    ''' 
+    Tests floats as inputs
+    '''
     exp = 45.16041363237984
     obs = tm.calculate_SWU(100, 0.4, 50, 0.1, 150, 0.3)
     assert exp == obs
 
 
 def test_calculate_SWU2():
-    # tests DataFrame as an input
+    ''' 
+    Tests DataFrame as an input
+    '''
     exp = pd.Series(data=[45.16041363237984, 9.032082726475968])
     data = pd.DataFrame(data={'Product': [100, 20], 'Tails': [50, 10],
                               'Feed': [150, 30]})
@@ -557,14 +605,18 @@ def test_calculate_SWU2():
 
 
 def test_calculate_tails1():
-    # tests floats as the inputs
+    ''' 
+    Tests floats as the inputs
+    '''
     exp = 50.00000000000002
     obs = tm.calculate_tails(100, 0.4, 0.1, 0.3)
     assert exp == obs
 
 
 def test_calculate_tails2():
-    # tests a Series as the input
+    ''' 
+    Tests a Series as the input
+    '''
     exp = pd.Series(data=[50.00000000000002, 10.000000000000005])
     data = pd.Series(data=[100, 20])
     obs = tm.calculate_tails(data, 0.4, 0.1, 0.3)
@@ -572,7 +624,9 @@ def test_calculate_tails2():
 
 
 def test_calculate_feed1():
-    # tests integers as the inputs
+    ''' 
+    Tests integers as the inputs
+    '''
     exp = 10
     product = 5
     tails = 5
@@ -581,7 +635,9 @@ def test_calculate_feed1():
 
 
 def test_calculate_feed2():
-    # tests a DataFrame as the input
+    '''
+    Tests a DataFrame as the input
+    '''
     exp = pd.Series(data=[10, 10, 10, 10])
     product = pd.DataFrame(
         data={
