@@ -157,8 +157,11 @@ def prototype_totals(outfile, nonlwr, prototypes):
                 columns={prototype: prototype + '_enter'})
             prototypes_df[prototype +
                           '_exit'] = np.zeros(len(prototypes_df[prototype + '_enter']))
-        prototypes_df[prototype + '_total'] = (prototypes_df[prototype + '_enter']
-                                               + prototypes_df[prototype + '_exit']).cumsum()
+        prototypes_df[prototype +
+                      '_total'] = (prototypes_df[prototype +
+                                                 '_enter'] +
+                                   prototypes_df[prototype +
+                                                 '_exit']).cumsum()
         prototypes_df['advrx_enter'] += prototypes_df[prototype + '_enter']
         prototypes_df['advrx_total'] += prototypes_df[prototype + '_total']
 
