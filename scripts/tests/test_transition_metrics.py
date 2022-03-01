@@ -87,7 +87,7 @@ class Test_static_info(unittest.TestCase):
                   })
         non_lwr = ['United States', 'FuelCycle', 'FuelSupply',
                    'Repository', 'UNITED_STATES_OF_AMERICA',
-                   'Reactor_type1_enter', 'Reactor_type1_exit']
+                   'Reactor_type1', 'Reactor_type1']
         df = tm.rx_commission_decommission(self.output_file1, non_lwr)
         obs = df[['lwr_enter', 'lwr_exit', 'lwr_total']]
         assert_frame_equal(exp, obs, check_names=False)
@@ -333,7 +333,7 @@ class Test_static_info(unittest.TestCase):
                     10.0,
                     12.0,
                     14.0,
-                    15.0],
+                    26.0],
                 'ObjId': [
                     9.0,
                     10.0,
