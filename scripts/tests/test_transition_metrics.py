@@ -203,8 +203,8 @@ class Test_static_info(unittest.TestCase):
                     1],
                 'SimId': [
                     0,
-                    UUID('cf7af291-7fd9-4b27-9cb7-f7af8d9a7269'),
-                    UUID('cf7af291-7fd9-4b27-9cb7-f7af8d9a7269')],
+                    UUID('17b1bed5-0981-4682-a9be-05e60e7257cc'),
+                    UUID('17b1bed5-0981-4682-a9be-05e60e7257cc')],
                 'TransactionId': [
                     0.0,
                     0.0,
@@ -320,10 +320,10 @@ class Test_static_info(unittest.TestCase):
                     1,
                     2],
                 'SimId': [
-                    UUID('cf7af291-7fd9-4b27-9cb7-f7af8d9a7269'),
-                    UUID('cf7af291-7fd9-4b27-9cb7-f7af8d9a7269'),
-                    UUID('cf7af291-7fd9-4b27-9cb7-f7af8d9a7269'),
-                    UUID('cf7af291-7fd9-4b27-9cb7-f7af8d9a7269')],
+                    UUID('17b1bed5-0981-4682-a9be-05e60e7257cc'),
+                    UUID('17b1bed5-0981-4682-a9be-05e60e7257cc'),
+                    UUID('17b1bed5-0981-4682-a9be-05e60e7257cc'),
+                    UUID('17b1bed5-0981-4682-a9be-05e60e7257cc')],
                 'TransactionId': [
                     0.0,
                     1.0,
