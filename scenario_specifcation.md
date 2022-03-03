@@ -147,6 +147,7 @@ $
                 Normalized \% & 47\% & 53\% & 100\% \\ \hline                
             \end{tabular}
             \end {table}
+            
 $
 
 **FR:**
