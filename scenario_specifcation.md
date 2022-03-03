@@ -55,8 +55,7 @@ $
                 Burnup & 81.5 Gwd/t & 23.5 Gwd/t \\ \hline
                 Composition & 15.3 \% Pu & 0.7\% U235 \\ \hline
                 Fuel Residence Time & 3.6 years (avg) & 3.6 years (avg) \\ \hline
-                Normalized \% & 91.21\% & 8.79\% \\ \hline
-                
+                Normalized \% & 91.21\% & 8.79\% \\ \hline               
             \end{tabular}
             \end {table}
 $
@@ -82,8 +81,7 @@ $
                 Material & TRU / Rep U \\ \hline
                 Burnup & 73 Gwd/t  \\ \hline
                 Composition & 13.9 \% TRU  \\ \hline
-                Fuel Residence Time & 3.6 years \\ \hline
-                
+                Fuel Residence Time & 3.6 years \\ \hline                
             \end{tabular}
             \end {table}
 $
@@ -110,8 +108,7 @@ $
                 Burnup & 96.8 Gwd/t & 20.7 Gwd/t & 50 GWd/t \\ \hline
                 Composition & 21.4 \% Pu & ~.2\% U235 & 9.11\% Pu  \\ \hline
                 Fuel Residence Time & 5 years (avg) & 5 years (avg) & 3.9 years \\ \hline
-                Normalized \% & 33.3\% & 66.7\% & 100\% \\ \hline
-                
+                Normalized \% & 33.3\% & 66.7\% & 100\% \\ \hline               
             \end{tabular}
             \end {table}
 $
@@ -147,8 +144,7 @@ $
                 Burnup & 107 Gwd/t & 23 Gwd/t & 50 GWd/t \\ \hline
                 Composition & 24.4 \% TRU & .15\% U235 & 10.4 \% TRU  \\ \hline
                 Fuel Residence Time & 4.9 years (avg) & 4.9 years (avg) & 3.9 years \\ \hline
-                Normalized \% & 47\% & 53\% & 100\% \\ \hline
-                
+                Normalized \% & 47\% & 53\% & 100\% \\ \hline                
             \end{tabular}
             \end {table}
 $
