@@ -134,6 +134,7 @@ Refueling time: 1 month
 TRU/U produced in SFR used to operate PWR in continuous recycle strategy:
 
 $
+
     \begin{table}[h]
         \centering
         \caption {EG30 - TRU/U produced in SFR used to operate PWR in continuous recycle strategy:}
@@ -147,7 +148,7 @@ $
                 Normalized \% & 47\% & 53\% & 100\% \\ \hline                
             \end{tabular}
             \end {table}
-            
+
 $
 
 **FR:**
