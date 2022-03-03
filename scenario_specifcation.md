@@ -45,6 +45,7 @@ the agent with a higher demand quantity is preferred.)
 Continuous recycle of Pu/U in SFR:
 
 $
+
     \begin{table}[h]
         \centering
         \caption {EG23 - Continuous Recycle of Pu/U in SFR:}
@@ -58,6 +59,7 @@ $
                 Normalized \% & 91.21\% & 8.79\% \\ \hline               
             \end{tabular}
             \end {table}
+
 $
 For 100 GW-year (250 FR-year) the SFR fleet uses 1.25e6 kg of fuel.
 1 FR spends 1,257,400/250 = 5,029 kg / year
@@ -72,6 +74,7 @@ Refueling time: 1 month
 Continuous recycle of TRU/U in SFR:
 
 $
+
     \begin{table}[h]
         \centering
         \caption {EG24 - Continuous Recycle of TRU/U in SFR:}
@@ -84,6 +87,7 @@ $
                 Fuel Residence Time & 3.6 years \\ \hline                
             \end{tabular}
             \end {table}
+
 $
 
  For 100 GW-year (250 FR-year) the SFR fleet uses 1.25e6 kg of fuel.
@@ -98,6 +102,7 @@ Refueling time: 1 month
 Pu/U produced in SFR used to operate PWR in continuous recycle strategy:
 
 $
+
     \begin{table}[h]
         \centering
         \caption {EG29 - Pu/U produced in SFR used to operate PWR in continuous recycle strategy:}
@@ -111,6 +116,7 @@ $
                 Normalized \% & 33.3\% & 66.7\% & 100\% \\ \hline               
             \end{tabular}
             \end {table}
+            
 $
 
 **FR:**
