@@ -114,7 +114,34 @@ testfile for analysis.py.
 To run:  
 ```
 python test_analysis.py
+``` 
+
+### tests/test_transition_metrics.py
+testfile for transition_metrics.py.  
+To run:  
 ```
+pytest test_transition_metrics.py
+```
+
+### tests/transition_metrics_decommission_test.py
+testfile for transition_metrics, with the simulation 
+designed to have facilities decommissioned.  
+
+### tests/transition_metrics_nodecommission_test.py
+testfile for transition_metrics, with the simulation 
+designed to not have facilities decommissioned. 
+
+
+### transition_metrics.py
+Functions to plot and analyze data for the results in ```input/haleu```. 
+
+To run:
+```
+python transition_metrics.py
+```
+Inputs: None
+
+Outputs: None
 
 ### transition_plots.py
 Functions to plot agents and undersupply of commodities for a CYCLUS simulation
