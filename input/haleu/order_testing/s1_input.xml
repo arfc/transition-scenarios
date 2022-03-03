@@ -204,7 +204,7 @@
               <start>721</start>
               <function>
                 <type>linear</type>
-                <params>0 91818.167</params>
+                <params>0 89456.55</params>
               </function>
             </piece>
           </piecewise_function>
@@ -261,7 +261,25 @@
             <val>WetStorage</val>
             <val>DryStorage</val>
             <val>Xe-100</val>
+          </prototypes>
+        </ManagerInst>
+      </config>
+    </institution>
+    <institution>  
+      <name>VOYGR_Inst</name>
+      <config>
+        <ManagerInst>
+          <prototypes>
             <val>VOYGR</val>
+          </prototypes>
+        </ManagerInst>
+      </config>
+    </institution>
+    <institution> 
+      <name>MMR_Inst</name> 
+      <config>
+        <ManagerInst>
+          <prototypes>
             <val>MMR</val>
           </prototypes>
         </ManagerInst>
