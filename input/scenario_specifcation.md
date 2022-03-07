@@ -55,23 +55,18 @@ the agent with a higher demand quantity is preferred.)
 ### EG23
 Continuous recycle of Pu/U in SFR:
 
-$
 
-    \begin{table}[h]
-        \centering
-        \caption {EG23 - Continuous Recycle of Pu/U in SFR:}
-            \begin{tabular}{|c|c|c|}
-                \hline
-                Category & Driver & Blanket \\ \hline
-                Material & Pu / Rep U & Nat U  \\ \hline
-                Burnup & 81.5 Gwd/t & 23.5 Gwd/t \\ \hline
-                Composition & 15.3 \% Pu & 0.7\% U235 \\ \hline
-                Fuel Residence Time & 3.6 years (avg) & 3.6 years (avg) \\ \hline
-                Normalized \% & 91.21\% & 8.79\% \\ \hline               
-            \end{tabular}
-            \end {table}
 
-$
+|      Category       |     Driver      |     Blanket     |
+|:-------------------:|:---------------:|:---------------:|
+|      Material       |   Pu / Rep U    |      Nat U      |
+|       Burnup        |   81.5 Gwd/t    |   23.5 Gwd/t    |
+|     Composition     |    15.3 % Pu    |    0.7% U235    |
+| Fuel Residence Time | 3.6 years (avg) | 3.6 years (avg) |
+|    Normalized %     |     91.21%      |      8.79%      |
+
+EG23 - Continuous Recycle of Pu/U in SFR:
+
 For 100 GW-year (250 FR-year) the SFR fleet uses 1.25e6 kg of fuel.
 1 FR spends 1,257,400/250 = 5,029 kg / year
 Since a batch is replaced every 14 months, the mass of a batch is: 5,029 * (14/12) = **5,867 kg / Batch **
