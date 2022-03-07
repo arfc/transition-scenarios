@@ -24,21 +24,21 @@ script, it **must** be run from the ``scripts`` directory.
 Input : None
 
 User Specifications : 
-- l. 7 : ``data_year`` (int) -- four digit year the data is pulled from, must match 
+- line 7 : ``data_year`` (int) -- four digit year the data is pulled from, must match 
 the year in the Year-end Reactor Status file
-- l. 8 : ``start_year`` (int) -- four digit year for the simulation to start on. The 
+- line 8 : ``start_year`` (int) -- four digit year for the simulation to start on. The 
 simulation will start in January of that year
-- l. 9 : ``region`` (str) -- Region to include reactors from. Possible regions are 
+- line 9 : ``region`` (str) -- Region to include reactors from. Possible regions are 
 Asia, United States, Europe, South America, North America, Africa, and All
 Currently, only one region can be accepted at a time
-- l. 10 : ``project`` (str) -- directory name in ``/input/`` to contain all of the CYCLUS
+- line 10 : ``project`` (str) -- directory name in ``/input/`` to contain all of the CYCLUS
 input files created
-- l. 35 : ``burnup`` (list of ints) -- list of burnup values to be used in CYCLUS simulation. 
-- l. 46 : cycle length of reactors (int) -- input to ``import_data.write_reactors()``
-- l. 47 : refueling length of reactor (int) -- input to ``import_data.write_reactors()``
-- l. 58 : simulation duration (int) -- duration of simulation in months; dafault value of 
+- line 35 : ``burnup`` (list of ints) -- list of burnup values to be used in CYCLUS simulation. 
+- line 46 : cycle length of reactors (int) -- input to ``import_data.write_reactors()``
+- line 47 : refueling length of reactor (int) -- input to ``import_data.write_reactors()``
+- line 58 : simulation duration (int) -- duration of simulation in months; dafault value of 
 780 months (65 years)
-- l. 58 : burnup of reactors in CYCLUS simulation (int) -- must be a value in ``burnups``,
+- line 58 : burnup of reactors in CYCLUS simulation (int) -- must be a value in ``burnups``,
 so that recipe files are present; default of 50 GWd/MTU
 
 
