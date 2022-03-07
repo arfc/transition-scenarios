@@ -56,7 +56,7 @@ the agent with a higher demand quantity is preferred.)
 Continuous recycle of Pu/U in SFR:
 
 
-
+EG23 - Continuous Recycle of Pu/U in SFR:
 |      Category       |     Driver      |     Blanket     |
 |:-------------------:|:---------------:|:---------------:|
 |      Material       |   Pu / Rep U    |      Nat U      |
@@ -65,7 +65,7 @@ Continuous recycle of Pu/U in SFR:
 | Fuel Residence Time | 3.6 years (avg) | 3.6 years (avg) |
 |    Normalized %     |     91.21%      |      8.79%      |
 
-EG23 - Continuous Recycle of Pu/U in SFR:
+
 
 For 100 GW-year (250 FR-year) the SFR fleet uses 1.25e6 kg of fuel.
 1 FR spends 1,257,400/250 = 5,029 kg / year
@@ -79,22 +79,16 @@ Refueling time: 1 month
 ### EG24
 Continuous recycle of TRU/U in SFR:
 
-$
+EG24 - Continuous Recycle of TRU/U in SFR:
+|      Category       |   Driver    |
+|:-------------------:|:-----------:|
+|      Material       | TRU / Rep U |
+|       Burnup        |  73 Gwd/t   |
+|     Composition     | 13.9 % TRU  |
+| Fuel Residence Time |  3.6 years  |
 
-    \begin{table}[h]
-        \centering
-        \caption {EG24 - Continuous Recycle of TRU/U in SFR:}
-            \begin{tabular}{|c|c|}
-                \hline
-                Category & Driver  \\ \hline
-                Material & TRU / Rep U \\ \hline
-                Burnup & 73 Gwd/t  \\ \hline
-                Composition & 13.9 \% TRU  \\ \hline
-                Fuel Residence Time & 3.6 years \\ \hline                
-            \end{tabular}
-            \end {table}
 
-$
+
 
  For 100 GW-year (250 FR-year) the SFR fleet uses 1.25e6 kg of fuel.
 1 FR spends 1,251,200/250 = 5,004 kg / year
@@ -107,23 +101,18 @@ Refueling time: 1 month
 ### EG29
 Pu/U produced in SFR used to operate PWR in continuous recycle strategy:
 
-$
 
-    \begin{table}[h]
-        \centering
-        \caption {EG29 - Pu/U produced in SFR used to operate PWR in continuous recycle strategy:}
-            \begin{tabular}{|c|c|c|c|}
-                \hline
-                Category & Driver & Blanket & MOX \\ \hline
-                Material & Pu / Rep U / Nat U & Rep U / Nat U & Pu / Rep U \\ \hline
-                Burnup & 96.8 Gwd/t & 20.7 Gwd/t & 50 GWd/t \\ \hline
-                Composition & 21.4 \% Pu & ~.2\% U235 & 9.11\% Pu  \\ \hline
-                Fuel Residence Time & 5 years (avg) & 5 years (avg) & 3.9 years \\ \hline
-                Normalized \% & 33.3\% & 66.7\% & 100\% \\ \hline               
-            \end{tabular}
-            \end {table}
-            
-$
+EG29 - Pu/U produced in SFR used to operate PWR in continuous recycle
+strategy:
+    |      Category       |       Driver       |    Blanket    |    MOX     |
+|:-------------------:|:------------------:|:-------------:|:----------:|
+|      Material       | Pu / Rep U / Nat U | Rep U / Nat U | Pu / Rep U |
+|       Burnup        |     96.8 Gwd/t     |  20.7 Gwd/t   |  50 GWd/t  |
+|     Composition     |     21.4 % Pu      |    .2% U235   |  9.11% Pu  |
+| Fuel Residence Time |   5 years (avg)    | 5 years (avg) | 3.9 years  |
+|    Normalized %     |       33.3%        |     66.7%     |    100%    |
+
+
 
 **FR:**
 
@@ -145,23 +134,20 @@ Refueling time: 1 month
 ### EG30
 TRU/U produced in SFR used to operate PWR in continuous recycle strategy:
 
-$
 
-    \begin{table}[h]
-        \centering
-        \caption {EG30 - TRU/U produced in SFR used to operate PWR in continuous recycle strategy:}
-            \begin{tabular}{|c|c|c|c|}
-                \hline
-                Category & Driver & Blanket & MOX \\ \hline
-                Material & TRU / Rep U / Nat U & Rep U / Nat U & TRU / Rep U \\ \hline
-                Burnup & 107 Gwd/t & 23 Gwd/t & 50 GWd/t \\ \hline
-                Composition & 24.4 \% TRU & .15\% U235 & 10.4 \% TRU  \\ \hline
-                Fuel Residence Time & 4.9 years (avg) & 4.9 years (avg) & 3.9 years \\ \hline
-                Normalized \% & 47\% & 53\% & 100\% \\ \hline                
-            \end{tabular}
-            \end {table}
+EG30 - TRU/U produced in SFR used to operate PWR in continuous recycle
+strategy:
+|      Category       |       Driver        |     Blanket     |     MOX     |
+|:-------------------:|:-------------------:|:---------------:|:-----------:|
+|      Material       | TRU / Rep U / Nat U |  Rep U / Nat U  | TRU / Rep U |
+|       Burnup        |      107 Gwd/t      |    23 Gwd/t     |  50 GWd/t   |
+|     Composition     |     24.4 % TRU      |    .15% U235    | 10.4 % TRU  |
+| Fuel Residence Time |   4.9 years (avg)   | 4.9 years (avg) |  3.9 years  |
+|    Normalized %     |         47%         |       53%       |    100%     |
 
-$
+
+
+
 
 **FR:**
 
