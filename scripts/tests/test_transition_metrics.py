@@ -1,4 +1,3 @@
-import transition_metrics as tm
 import unittest
 import cymetric
 import numpy as np
@@ -9,6 +8,7 @@ from pandas._testing import assert_series_equal
 from pandas._testing import assert_frame_equal
 import sys
 sys.path.insert(0, '../')
+import transition_metrics as tm
 
 
 class Test_static_info(unittest.TestCase):
@@ -78,9 +78,9 @@ class Test_static_info(unittest.TestCase):
         obs = tm.add_zeros_columns(self.test_df, ['reactors'])
         assert_frame_equal(exp, obs)
 
-    def test_rx_commission_decommission1(self):
+    def test_get_lwr_totals1(self):
         '''
-        This tests rx_commission_decommission when the reactors
+        This tests get_lwr_totals when the reactors
         are decommissioned and all items in the non_lwr list
         are actual prototypes in the simulation
         '''
@@ -92,13 +92,13 @@ class Test_static_info(unittest.TestCase):
         non_lwr = ['United States', 'FuelCycle', 'FuelSupply',
                    'Repository', 'UNITED_STATES_OF_AMERICA',
                    'Reactor_type1', 'Reactor_type1']
-        df = tm.rx_commission_decommission(self.output_file1, non_lwr)
+        df = tm.get_lwr_totals(self.output_file1, non_lwr)
         obs = df[['lwr_enter', 'lwr_exit', 'lwr_total']]
         assert_frame_equal(exp, obs, check_names=False)
 
-    def test_rx_commission_decommission2(self):
+    def test_get_lwr_totals2(self):
         '''
-        This tests rx_commission_decommission when the reactors
+        This tests get_lwr_totals when the reactors
         are decommissioned and an item in the non_lwr list
         is not an actual prototype in the simulation
         '''
@@ -111,13 +111,13 @@ class Test_static_info(unittest.TestCase):
         non_lwr = ['United States', 'FuelCycle', 'FuelSupply',
                    'Repository', 'UNITED_STATES_OF_AMERICA',
                    'Reactor_type1', 'Reactor_type3']
-        df = tm.rx_commission_decommission(self.output_file1, non_lwr)
+        df = tm.get_lwr_totals(self.output_file1, non_lwr)
         obs = df[['Reactor_type3_enter', 'lwr_enter', 'lwr_exit', 'lwr_total']]
         assert_frame_equal(exp, obs, check_names=False)
 
-    def test_rx_commission_decommission3(self):
+    def test_get_lwr_totals3(self):
         '''
-        This tests rx_commission_decommission when the reactors
+        This tests get_lwr_totals when the reactors
         are not decommissioned and all items in the non_lwr list
         are actual prototypes in the simulation
         '''
@@ -129,13 +129,13 @@ class Test_static_info(unittest.TestCase):
         non_lwr = ['United States', 'FuelCycle', 'FuelSupply',
                    'Repository', 'UNITED_STATES_OF_AMERICA',
                    'Reactor_type1']
-        df = tm.rx_commission_decommission(self.output_file2, non_lwr)
+        df = tm.get_lwr_totals(self.output_file2, non_lwr)
         obs = df[['lwr_enter', 'lwr_exit', 'lwr_total']]
         assert_frame_equal(exp, obs, check_names=False)
 
-    def test_rx_commission_decommission4(self):
+    def test_get_lwr_totals4(self):
         '''
-        This tests rx_commission_decommission when the reactors
+        This tests get_lwr_totals when the reactors
         are not decommissioned and an item in the non_lwr list
         is not an actual prototype in the simulation
         '''
@@ -148,11 +148,11 @@ class Test_static_info(unittest.TestCase):
         non_lwr = ['United States', 'FuelCycle', 'FuelSupply',
                    'Repository', 'UNITED_STATES_OF_AMERICA',
                    'Reactor_type1', 'Reactor_type3']
-        df = tm.rx_commission_decommission(self.output_file2, non_lwr)
+        df = tm.get_lwr_totals(self.output_file2, non_lwr)
         obs = df[['Reactor_type3_enter', 'lwr_enter', 'lwr_exit', 'lwr_total']]
         assert_frame_equal(exp, obs, check_names=False)
 
-    def test_prototype_totals1(self):
+    def test_get_prototype_totals1(self):
         '''
         The function tests the number of advanced reactors built and the total
         number deployed at the first 4 time steps of
@@ -166,12 +166,12 @@ class Test_static_info(unittest.TestCase):
         })
         nonlwr = ['Repository', 'FuelSupply', 'United States',
                   'FuelCycle', 'UNITED_STATES_OF_AMERICA']
-        obs = tm.prototype_totals(self.output_file1, nonlwr, ['Reactor_type1',
+        obs = tm.get_prototype_totals(self.output_file1, nonlwr, ['Reactor_type1',
                                                               'Reactor_type2'])
         assert_frame_equal(
             exp, obs[['advrx_enter', 'advrx_total']][0:4], check_names=False)
 
-    def test_prototype_totals2(self):
+    def test_get_prototype_totals2(self):
         '''
         The function tests the number of advanced reactors built and the total
         number deployed at the first 4 time steps of
@@ -186,7 +186,7 @@ class Test_static_info(unittest.TestCase):
         })
         nonlwr = ['Repository', 'FuelSupply', 'United States',
                   'FuelCycle', 'UNITED_STATES_OF_AMERICA']
-        obs = tm.prototype_totals(self.output_file2, nonlwr, ['Reactor_type1',
+        obs = tm.get_prototype_totals(self.output_file2, nonlwr, ['Reactor_type1',
                                                               'Reactor_type2'])
         assert_frame_equal(
             exp, obs[['advrx_enter', 'advrx_total']][0:4], check_names=False)
@@ -358,22 +358,22 @@ class Test_static_info(unittest.TestCase):
                     9.0,
                     10.0,
                     11.0,
-                    9.0],
+                    21.0],
                 'SenderId': [
                     21.0,
                     21.0,
                     21.0,
-                    24.0],
+                    21.0],
                 'ReceiverId': [
                     24.0,
                     24.0,
                     24.0,
-                    22.0],
+                    24.0],
                 'Commodity': [
                     'fresh_uox',
                     'fresh_uox',
                     'fresh_uox',
-                    'spent_uox'],
+                    'fresh_uox'],
                 'Units': [
                     'kg',
                     'kg',
@@ -388,7 +388,7 @@ class Test_static_info(unittest.TestCase):
                     'Reactor_type1',
                     'Reactor_type1',
                     'Reactor_type1',
-                    'Repository']})
+                    'Reactor_type1']})
         obs = tm.add_receiver_prototype(self.output_file1)
         assert_frame_equal(exp, obs[0:4])
 
