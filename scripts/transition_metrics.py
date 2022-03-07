@@ -60,14 +60,14 @@ def add_zeros_columns(df, column_names):
 
 def get_lwr_totals(db_file, non_lwr_prototypes):
     '''
-    Creates DataFrame with the number of each prototype 
-    commissioned or decommissioned at each time step, 
-    then a column to report the total number of LWR 
-    prototypes deployed at each time step. The LWR 
-    prototypes are all of different names, based on 
-    the unit name, so the aren't easy to total, and 
-    there are far more LWR prototype names than non-LWR 
-    prototype names.    
+    Creates DataFrame with the number of each prototype
+    commissioned or decommissioned at each time step,
+    then a column to report the total number of LWR
+    prototypes deployed at each time step. The LWR
+    prototypes are all of different names, based on
+    the unit name, so the aren't easy to total, and
+    there are far more LWR prototype names than non-LWR
+    prototype names.
 
     Parameters:
     -----------
@@ -79,9 +79,9 @@ def get_lwr_totals(db_file, non_lwr_prototypes):
     Returns:
     --------
     simulation_data: DataFrame
-        Contains the number of each prototype commissioned 
-        and decommissioned at each time step and a column 
-        for the total number of LWR prototypes at each 
+        Contains the number of each prototype commissioned
+        and decommissioned at each time step and a column
+        for the total number of LWR prototypes at each
         time step.
     '''
     evaler = get_metrics(db_file)
@@ -89,16 +89,19 @@ def get_lwr_totals(db_file, non_lwr_prototypes):
 
     commission_df = evaler.eval('BuildSeries')
     decommission_df = evaler.eval('DecommissionSeries')
-    commission_df = commission_df.rename(index=str, columns={'EnterTime': 'Time'})
-    commission_df= tools.add_missing_time_step(commission_df, time)
+    commission_df = commission_df.rename(
+        index=str, columns={'EnterTime': 'Time'})
+    commission_df = tools.add_missing_time_step(commission_df, time)
     commission_by_prototype = pd.pivot_table(
         commission_df,
         values='Count',
         index='Time',
         columns='Prototype',
         fill_value=0)
-    commission_by_prototype = add_zeros_columns(commission_by_prototype, non_lwr_prototypes)
-    commission_by_prototype['lwr'] = commission_by_prototype.drop(non_lwr_prototypes, axis=1).sum(axis=1)
+    commission_by_prototype = add_zeros_columns(
+        commission_by_prototype, non_lwr_prototypes)
+    commission_by_prototype['lwr'] = commission_by_prototype.drop(
+        non_lwr_prototypes, axis=1).sum(axis=1)
     commission_by_prototype = commission_by_prototype.astype('float64')
 
     if decommission_df is not None:
@@ -107,10 +110,13 @@ def get_lwr_totals(db_file, non_lwr_prototypes):
         decommission_df = decommission_df.drop('Count', axis=1)
         decommission_df = pd.concat([decommission_df, negative_count], axis=1)
         decommission_df.rename(columns={'ExitTime': 'Time'}, inplace=True)
-        decommission_by_prototype = decommission_df.pivot('Time', 'Prototype')['Count'].reset_index()
-        decommission_by_prototype = add_zeros_columns(decommission_by_prototype, non_lwr_prototypes)
+        decommission_by_prototype = decommission_df.pivot('Time', 'Prototype')[
+            'Count'].reset_index()
+        decommission_by_prototype = add_zeros_columns(
+            decommission_by_prototype, non_lwr_prototypes)
         decommission_by_prototype = decommission_by_prototype.set_index('Time')
-        decommission_by_prototype['lwr'] = decommission_by_prototype.drop(non_lwr_prototypes, axis=1).sum(axis=1)
+        decommission_by_prototype['lwr'] = decommission_by_prototype.drop(
+            non_lwr_prototypes, axis=1).sum(axis=1)
         decommission_by_prototype = decommission_by_prototype.reset_index()
         simulation_data = pd.merge(
             commission_by_prototype,
@@ -138,10 +144,10 @@ def get_prototype_totals(db_file, non_lwr_prototypes, prototypes):
     This function performs the get_lwr_totals
     function on a provided database. Then the total number of
     each prototype deployed at a given time is calculated and
-    added to the dataframe. If a prototype 
-    name is specified but not in the dataframe, then a column 
-    of zeros is added with the column name reflecting the 
-    prototype name. 
+    added to the dataframe. If a prototype
+    name is specified but not in the dataframe, then a column
+    of zeros is added with the column name reflecting the
+    prototype name.
 
     Parameters:
     -----------
@@ -155,12 +161,12 @@ def get_prototype_totals(db_file, non_lwr_prototypes, prototypes):
     Returns:
     --------
     prototypes_df : DataFrame
-        enter, exit, and totals for each type of prototype 
-        specified. Includes a column totaling all of the 
-        spcified prototypes, labeled as `advrx_enter`, 
-        `advrx_exit`, and `advrx_total`, because it is assumed 
+        enter, exit, and totals for each type of prototype
+        specified. Includes a column totaling all of the
+        spcified prototypes, labeled as `advrx_enter`,
+        `advrx_exit`, and `advrx_total`, because it is assumed
         that prototypes specified will be the advanced reactors
-        of interest for the transition modeled. 
+        of interest for the transition modeled.
     '''
     prototypes_df = get_lwr_totals(db_file, non_lwr_prototypes)
     prototypes_df = add_year(prototypes_df)
