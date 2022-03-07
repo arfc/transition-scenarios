@@ -105,7 +105,6 @@ def get_lwr_totals(db_file, non_lwr_prototypes):
     commission_by_prototype = commission_by_prototype.astype('float64')
 
     if decommission_df is not None:
-        # make exit counts negative for plotting purposes
         negative_count = -decommission_df['Count']
         decommission_df = decommission_df.drop('Count', axis=1)
         decommission_df = pd.concat([decommission_df, negative_count], axis=1)
