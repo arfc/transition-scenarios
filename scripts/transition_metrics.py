@@ -9,68 +9,117 @@ from cymetric import timeseries
 from cymetric import filters
 
 
-def get_metrics(filename):
+def get_metrics(db_file):
     '''
     Opens database using cymetric and evaluates metrics
 
     Parameters:
     -----------
-    filename: str
-        relative path of database
+    db_file: str
+        SQLite database from Cyclus
 
     Returns:
     --------
-    evaler: Evaluator object
+    metrics_evaler: Evaluator object
         contains all of the metrics of the database
     '''
 
-    db = cym.dbopen(filename)
-    evaler = cym.Evaluator(db, write=False)
-    return evaler
+    db = cym.dbopen(db_file)
+    metrics_evaler = cym.Evaluator(db, write=False)
+    return metrics_evaler
 
 
-def rx_commission_decommission(filename, non_lwr):
+def add_zeros_columns(df, column_names):
     '''
-    Creates DataFrame with time dependent totals of each
-    prototype in the simulation. Adds column for the total
-    number of LWR duirng the simulation
+    Adds a column of a specified name to a given dataframe
+    if a column of that name does not exist already. The
+    added column is of the length of the entire dataframe
+    but consists of only zeros. This function allows for
+    greater flexibility in defining prototypes of
+    interest across multiple tranistion scenarios
 
     Parameters:
     -----------
-    filename: str
-        string of file name, relative path to this notebook
-    non_lwr: list of str
-        names of nonreactor facilities in the simulation
+    df: DataFrame
+        dataframe to add column to, if the column doesn't exist
+        already
+    column_names: list of strs
+        names to be checked for existence and added if missing
 
     Returns:
-    simulation_data: DataFrame
-        Reactor data of the simulation with the additional
-        columns of reactor totals
+    --------
+    df: DataFrame
+        dataframe with added column, if column doesn't
+        exist anymore
     '''
-    evaler = get_metrics(filename)
+    for item in column_names:
+        if item not in df.columns:
+            df[item] = 0.0
+    return df
+
+
+def get_lwr_totals(db_file, non_lwr_prototypes):
+    '''
+    Creates DataFrame with the number of each prototype
+    commissioned or decommissioned at each time step,
+    then a column to report the total number of LWR
+    prototypes deployed at each time step. The LWR
+    prototypes are all of different names, based on
+    the unit name, so the aren't easy to total, and
+    there are far more LWR prototype names than non-LWR
+    prototype names.
+
+    Parameters:
+    -----------
+    db_file: str
+        SQLite database from Cyclus
+    non_lwr_prototypes: list of str
+        names of non LWR prototypes in the simulation
+
+    Returns:
+    --------
+    simulation_data: DataFrame
+        Contains the number of each prototype commissioned
+        and decommissioned at each time step and a column
+        for the total number of LWR prototypes at each
+        time step.
+    '''
+    evaler = get_metrics(db_file)
     time = evaler.eval('TimeList')
 
-    comm = evaler.eval('BuildSeries')
-    decomm = evaler.eval('DecommissionSeries')
-    comm = comm.rename(index=str, columns={'EnterTime': 'Time'})
-    comm = tools.add_missing_time_step(comm, time)
-    c = pd.pivot_table(
-        comm,
+    commission_df = evaler.eval('BuildSeries')
+    decommission_df = evaler.eval('DecommissionSeries')
+    commission_df = commission_df.rename(
+        index=str, columns={'EnterTime': 'Time'})
+    commission_df = tools.add_missing_time_step(commission_df, time)
+    commission_by_prototype = pd.pivot_table(
+        commission_df,
         values='Count',
         index='Time',
         columns='Prototype',
         fill_value=0)
+    commission_by_prototype = add_zeros_columns(
+        commission_by_prototype, non_lwr_prototypes)
+    commission_by_prototype['lwr'] = commission_by_prototype.drop(
+        non_lwr_prototypes, axis=1).sum(axis=1)
+    commission_by_prototype = commission_by_prototype.astype('float64')
 
-    if decomm is not None:
-        # make exit counts negative for plotting purposes
-        neg = -decomm['Count']
-        decomm = decomm.drop('Count', axis=1)
-        decomm = pd.concat([decomm, neg], axis=1)
-        decomm.rename(columns={'ExitTime': 'Time'}, inplace=True)
-        d = decomm.pivot('Time', 'Prototype')['Count'].reset_index()
+    if decommission_df is not None:
+        negative_count = -decommission_df['Count']
+        decommission_df = decommission_df.drop('Count', axis=1)
+        decommission_df = pd.concat([decommission_df, negative_count], axis=1)
+        decommission_df.rename(columns={'ExitTime': 'Time'}, inplace=True)
+        decommission_by_prototype = decommission_df.pivot('Time', 'Prototype')[
+            'Count'].reset_index()
+        decommission_by_prototype = add_zeros_columns(
+            decommission_by_prototype, non_lwr_prototypes)
+        decommission_by_prototype = decommission_by_prototype.set_index('Time')
+        decommission_by_prototype['lwr'] = decommission_by_prototype.drop(
+            non_lwr_prototypes, axis=1).sum(axis=1)
+        decommission_by_prototype = decommission_by_prototype.reset_index()
         simulation_data = pd.merge(
-            c,
-            d,
+            commission_by_prototype,
+            decommission_by_prototype,
             left_on='Time',
             right_on='Time',
             how='outer',
@@ -79,14 +128,64 @@ def rx_commission_decommission(filename, non_lwr):
                 '_enter',
                 '_exit')).fillna(0)
     else:
-        simulation_data = c.fillna(0)
-
-    simulation_data = simulation_data.set_index('Time')
-    simulation_data['lwr_total'] = simulation_data.drop(
-        non_lwr, axis=1).sum(
-        axis=1)
-    simulation_data['lwr_total'] = simulation_data['lwr_total'].cumsum()
+        simulation_data = commission_by_prototype.fillna(0)
+        simulation_data = simulation_data.add_suffix('_enter')
+        for column in simulation_data.columns:
+            simulation_data[(column[:-5] + 'exit')] = 0.0
+    simulation_data['lwr_total'] = (
+        simulation_data['lwr_enter'] +
+        simulation_data['lwr_exit']).cumsum()
     return simulation_data.reset_index()
+
+
+def get_prototype_totals(db_file, non_lwr_prototypes, prototypes):
+    '''
+    This function performs the get_lwr_totals
+    function on a provided database. Then the total number of
+    each prototype deployed at a given time is calculated and
+    added to the dataframe. If a prototype
+    name is specified but not in the dataframe, then a column
+    of zeros is added with the column name reflecting the
+    prototype name.
+
+    Parameters:
+    -----------
+    db_file: str
+        name of SQLite database from Cyclus
+    non_lwr_prototypes: list of str
+        names of non LWR prototypes in the simulation
+    prototypes: list of str
+        list of names of prototypes to be summed together
+
+    Returns:
+    --------
+    prototypes_df : DataFrame
+        enter, exit, and totals for each type of prototype
+        specified. Includes a column totaling all of the
+        spcified prototypes, labeled as `advrx_enter`,
+        `advrx_exit`, and `advrx_total`, because it is assumed
+        that prototypes specified will be the advanced reactors
+        of interest for the transition modeled.
+    '''
+    prototypes_df = get_lwr_totals(db_file, non_lwr_prototypes)
+    prototypes_df = add_year(prototypes_df)
+    prototypes_df['advrx_enter'] = 0.0
+    prototypes_df['advrx_total'] = 0.0
+    for prototype in prototypes:
+        if prototype in prototypes_df.columns:
+            prototypes_df = prototypes_df.rename(
+                columns={prototype: prototype + '_enter'})
+            prototypes_df[prototype +
+                          '_exit'] = np.zeros(len(prototypes_df[prototype + '_enter']))
+        prototypes_df[prototype +
+                      '_total'] = (prototypes_df[prototype +
+                                                 '_enter'] +
+                                   prototypes_df[prototype +
+                                                 '_exit']).cumsum()
+        prototypes_df['advrx_enter'] += prototypes_df[prototype + '_enter']
+        prototypes_df['advrx_total'] += prototypes_df[prototype + '_total']
+
+    return prototypes_df
 
 
 def add_year(df):
@@ -103,15 +202,12 @@ def add_year(df):
     df: DataFrame
         DataFrame with the added column
     '''
-    df['Year'] = pd.Series(
-        [np.nan for x in range(len(df.index))], index=df.index)
-    for index, row in df.iterrows():
-        df['Year'][index] = np.round(df['Time'][index] / 12 + 1965, 2)
+    df['Year'] = np.round(df['Time'] / 12 + 1965, 2)
     df['Year'] = df['Year'].fillna(method='ffill')
     return df
 
 
-def get_transactions(filename):
+def get_transactions(db_file):
     '''
     Gets the TransactionQuantity metric from cymetric,
     sorts by TimeCreated, and renames the TimeCreated
@@ -119,7 +215,7 @@ def get_transactions(filename):
 
     Parametrs:
     ----------
-    filename: str
+    db_file: str
         relative path to database
 
     Returns:
@@ -127,7 +223,7 @@ def get_transactions(filename):
     transactions: DataFrame
         transaction data with specified modifications
     '''
-    evaler = get_metrics(filename)
+    evaler = get_metrics(db_file)
     transactions = evaler.eval(
         'TransactionQuantity').sort_values(by='TimeCreated')
     transactions = transactions.rename(columns={'TimeCreated': 'Time'})
@@ -222,7 +318,7 @@ def commodity_mass_traded(transactions_df, commodity):
     return total_commodity
 
 
-def add_receiver_prototype(filename):
+def add_receiver_prototype(db_file):
     '''
     Creates dataframe of transactions information, and adds in
     the prototype name corresponding to the ReceiverId of the
@@ -232,8 +328,8 @@ def add_receiver_prototype(filename):
 
     Parameters:
     -----------
-    filename: str
-        database filename
+    db_file: str
+        SQLite database from Cyclus
 
     Returns:
     --------
@@ -241,8 +337,8 @@ def add_receiver_prototype(filename):
         contains all of the transactions with the prototype name of the
         receiver included
     '''
-    transactions = get_transactions(filename)
-    evaler = get_metrics(filename)
+    transactions = get_transactions(db_file)
+    evaler = get_metrics(db_file)
     agents = evaler.eval('Agents')
     agents = agents.rename(columns={'AgentId': 'ReceiverId'})
     receiver_prototype = pd.merge(
@@ -414,15 +510,15 @@ def calculate_feed(product, tails):
     return feed
 
 
-def get_electricity(filename):
+def get_annual_electricity(db_file):
     '''
-    Gets the time dependent electricity output of reactors
+    Gets the time dependent annual electricity output of reactors
     in the silumation
 
     Parameters:
     -----------
-    filename: str
-        name of database to be parsed
+    db_file: str
+        SQLite database from Cyclus
 
     Returns:
     --------
@@ -432,7 +528,7 @@ def get_electricity(filename):
         is in units of GWe-yr, causing the divide by 1000
         operation.
     '''
-    evaler = get_metrics(filename)
+    evaler = get_metrics(db_file)
     electricity = evaler.eval('AnnualElectricityGeneratedByAgent')
     electricity['Year'] = electricity['Year'] + 1965
     electricity_output = electricity.groupby(
@@ -442,7 +538,35 @@ def get_electricity(filename):
     return electricity_output
 
 
-def get_prototype_energy(filename, advanced_rx):
+def get_monthly_electricity(db_file):
+    '''
+    Gets the time dependent monthy electricity output of reactors
+    in the silumation
+
+    Parameters:
+    -----------
+    db_file: str
+        SQLite database from Cyclus
+
+    Returns:
+    --------
+    electricity_output: DataFrame
+        time dependent electricity output, includes
+        column for year of time step. The energy column
+        is in units of GWe-yr, causing the divide by 1000
+        operation.
+    '''
+    evaler = get_metrics(db_file)
+    electricity = evaler.eval('MonthlyElectricityGeneratedByAgent')
+    electricity['Year'] = electricity['Month'] / 12 + 1965
+    electricity_output = electricity.groupby(
+        ['Year']).Energy.sum().reset_index()
+    electricity_output['Energy'] = electricity_output['Energy'] / 1000
+
+    return electricity_output
+
+
+def get_prototype_energy(db_file, advanced_rx):
     '''
     Calculates the annual electricity produced by a given
     prototype name by merging the Agents and AnnualElectricityGeneratedByAgent
@@ -450,8 +574,8 @@ def get_prototype_energy(filename, advanced_rx):
 
     Parameters:
     -----------
-    filename: str
-        name of database file
+    db_file: str
+        SQLite database from Cyclus
     advanced_rx: str
         name of advanced reactor prototype
 
@@ -462,7 +586,7 @@ def get_prototype_energy(filename, advanced_rx):
         generated by all agents of the given prototype name. Values
         are in units of GWe-y, causing the divide by 1000 operation
     '''
-    evaler = get_metrics(filename)
+    evaler = get_metrics(db_file)
     agents = evaler.eval('Agents')
     energy = evaler.eval('AnnualElectricityGeneratedByAgent')
     merged_df = pd.merge(energy, agents, on=['SimId', 'AgentId'])
@@ -476,7 +600,7 @@ def get_prototype_energy(filename, advanced_rx):
     return prototype_energy
 
 
-def get_lwr_energy(filename, advanced_rx):
+def get_lwr_energy(db_file, advanced_rx):
     '''
     Calculates the annual electricity produced by a given
     prototype name by merging the Agents and AnnualElectricityGeneratedByAgent
@@ -484,8 +608,8 @@ def get_lwr_energy(filename, advanced_rx):
 
     Parameters:
     -----------
-    filename: str
-        name of database file
+    db_file: str
+        SQLite database from Cyclus
     advanced_rx: str
         name of advanced reactor prototype also present in the simulation
 
@@ -497,7 +621,7 @@ def get_lwr_energy(filename, advanced_rx):
         column is in units of GWe-y, causing the divide by 1000
         operation.
     '''
-    evaler = get_metrics(filename)
+    evaler = get_metrics(db_file)
     agents = evaler.eval('Agents')
     energy = evaler.eval('AnnualElectricityGeneratedByAgent')
     merged_df = pd.merge(energy, agents, on=['SimId', 'AgentId'])
