@@ -258,8 +258,8 @@
             <val>FuelFab</val>
             <val>WetStorage</val>
             <val>DryStorage</val>
-            <val>VOYGR</val>
             <val>MMR</val>
+            <val>VOYGR</val>
           </prototypes>
         </ManagerInst>
       </config>

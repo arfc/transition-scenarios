@@ -49,7 +49,7 @@
       <Sink>
         <in_commods>
           <val>casked_spent_uox</val>
-          <val>spent_xe100_haleu</val>
+          <val>spent_haleu</val>
           <val>spent_smr_fuel</val>
         </in_commods>
         <!-- Yucca Mountain Repository -->
