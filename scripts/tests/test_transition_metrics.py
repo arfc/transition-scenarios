@@ -1,4 +1,3 @@
-import transition_metrics as tm
 import unittest
 import cymetric
 import numpy as np
