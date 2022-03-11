@@ -46,6 +46,14 @@ files are relatively large and memory issues are encountered when the
 ``transition_metrics.add_receiver_prototype`` function is called inside the 
 jupyter notebook. 
 
+Order_testing:
+==============
+This subdirectory contains information related to an investigation into 
+how the order prototypes are listed in an input file when cycamore::ManagerInst
+is used to deploy agents based on a specified demand. Files in this 
+subdirectory include the input files and a jupyter notebook with the 
+analysis.
+
 Parametric-study:
 =================
 This directory contains information related to a parametric study on 
