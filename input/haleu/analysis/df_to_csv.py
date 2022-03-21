@@ -1,6 +1,8 @@
 import pandas as pd
-
+import sys
 import cymetric as cm
+
+sys.path.insert(0,'../../../scripts')
 import transition_metrics as tm
 
 
