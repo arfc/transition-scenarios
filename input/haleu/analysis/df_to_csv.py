@@ -20,14 +20,10 @@ def get_transactions_multiple_outputs():
 
 
 def get_transactions_single_output():
-    profile = cProfile.Profile()
-    profile.enable()
     scenario = 'current'
     outfile = f'../../../../toy_problems/cyclus_inputs/noDI_arma.sqlite'
     transactions = tm.add_receiver_prototype(outfile)
     transactions.to_csv(f'{scenario}_transactions.csv')
-    profile.disable()
-    profile.print_stats()
 
 
 if __name__ == '__main__':
