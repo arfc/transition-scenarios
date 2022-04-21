@@ -20,8 +20,8 @@ def get_transactions_multiple_outputs():
 
 
 def get_transactions_single_output():
-    scenario = 'current'
-    outfile = f'../../../../toy_problems/cyclus_inputs/noDI_arma.sqlite'
+    scenario = 'united_states_2020'
+    outfile = f'../outputs/{scenario}.sqlite'
     transactions = tm.add_receiver_prototype(outfile)
     transactions.to_csv(f'{scenario}_transactions.csv')
 
