@@ -167,8 +167,9 @@ class Test_static_info(unittest.TestCase):
         })
         nonlwr = ['Repository', 'FuelSupply', 'United States',
                   'FuelCycle', 'UNITED_STATES_OF_AMERICA']
-        obs = tm.get_prototype_totals(self.output_file1, nonlwr, ['Reactor_type1',
-                                                                  'Reactor_type2'])
+        obs = tm.get_prototype_totals(
+            self.output_file1, nonlwr, [
+                'Reactor_type1', 'Reactor_type2'])
         assert_frame_equal(
             exp, obs[['advrx_enter', 'advrx_total']][0:4], check_names=False)
 
@@ -187,8 +188,9 @@ class Test_static_info(unittest.TestCase):
         })
         nonlwr = ['Repository', 'FuelSupply', 'United States',
                   'FuelCycle', 'UNITED_STATES_OF_AMERICA']
-        obs = tm.get_prototype_totals(self.output_file2, nonlwr, ['Reactor_type1',
-                                                                  'Reactor_type2'])
+        obs = tm.get_prototype_totals(
+            self.output_file2, nonlwr, [
+                'Reactor_type1', 'Reactor_type2'])
         assert_frame_equal(
             exp, obs[['advrx_enter', 'advrx_total']][0:4], check_names=False)
 

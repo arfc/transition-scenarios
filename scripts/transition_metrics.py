@@ -175,8 +175,8 @@ def get_prototype_totals(db_file, non_lwr_prototypes, prototypes):
         if prototype in prototypes_df.columns:
             prototypes_df = prototypes_df.rename(
                 columns={prototype: prototype + '_enter'})
-            prototypes_df[prototype +
-                          '_exit'] = np.zeros(len(prototypes_df[prototype + '_enter']))
+            prototypes_df[prototype + \
+                '_exit'] = np.zeros(len(prototypes_df[prototype + '_enter']))
         prototypes_df[prototype +
                       '_total'] = (prototypes_df[prototype +
                                                  '_enter'] +
@@ -342,10 +342,12 @@ def add_receiver_prototype(db_file):
     agents = agents.rename(columns={'AgentId': 'ReceiverId'})
     resources = evaler.eval('Resources')
     resources = resources[['SimId', 'ResourceId', 'ObjId', 'TimeCreated',
-                   'Quantity', 'Units']]
+                           'Quantity', 'Units']]
     resources = resources.rename(columns={'TimeCreated': 'Time'})
     transactions = evaler.eval('Transactions')
-    trans_resources = pd.merge(transactions, resources, on=['SimId', 'Time', 'ResourceId'], how='inner')
+    trans_resources = pd.merge(
+        transactions, resources, on=[
+            'SimId', 'Time', 'ResourceId'], how='inner')
     receiver_prototype = pd.merge(
         trans_resources, agents[['SimId', 'ReceiverId', 'Prototype']], on=[
             'SimId', 'ReceiverId']).sort_values(by=['Time', 'TransactionId']).reset_index(drop=True)
