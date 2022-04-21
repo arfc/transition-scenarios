@@ -335,56 +335,56 @@ class Test_static_info(unittest.TestCase):
     def test_add_receiver_prototype(self):
         exp = pd.DataFrame(
             data={
-                'Time': [
-                    1,
-                    1,
-                    1,
-                    2],
                 'SimId': [
                     UUID('17b1bed5-0981-4682-a9be-05e60e7257cc'),
                     UUID('17b1bed5-0981-4682-a9be-05e60e7257cc'),
                     UUID('17b1bed5-0981-4682-a9be-05e60e7257cc'),
                     UUID('17b1bed5-0981-4682-a9be-05e60e7257cc')],
                 'TransactionId': [
-                    0.0,
-                    1.0,
-                    2.0,
-                    3.0],
-                'ResourceId': [
-                    10.0,
-                    12.0,
-                    14.0,
-                    26.0],
-                'ObjId': [
-                    9.0,
-                    10.0,
-                    11.0,
-                    21.0],
+                    0,
+                    1,
+                    2,
+                    3],
                 'SenderId': [
-                    21.0,
-                    21.0,
-                    21.0,
-                    21.0],
+                    21,
+                    21,
+                    21,
+                    21],
                 'ReceiverId': [
-                    24.0,
-                    24.0,
-                    24.0,
-                    24.0],
+                    24,
+                    24,
+                    24,
+                    24],
+                'ResourceId': [
+                    10,
+                    12,
+                    14,
+                    26],
                 'Commodity': [
                     'fresh_uox',
                     'fresh_uox',
                     'fresh_uox',
                     'fresh_uox'],
-                'Units': [
-                    'kg',
-                    'kg',
-                    'kg',
-                    'kg'],
+                'Time': [
+                    1,
+                    1,
+                    1,
+                    2],
+                'ObjId': [
+                    9,
+                    10,
+                    11,
+                    21],
                 'Quantity': [
                     33000.0,
                     33000.0,
                     33000.0,
                     33000.0],
+                'Units': [
+                    'kg',
+                    'kg',
+                    'kg',
+                    'kg'],
                 'Prototype': [
                     'Reactor_type1',
                     'Reactor_type1',
