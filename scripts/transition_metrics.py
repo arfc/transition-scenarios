@@ -337,12 +337,17 @@ def add_receiver_prototype(db_file):
         contains all of the transactions with the prototype name of the
         receiver included
     '''
-    transactions = get_transactions(db_file)
     evaler = get_metrics(db_file)
     agents = evaler.eval('Agents')
     agents = agents.rename(columns={'AgentId': 'ReceiverId'})
+    resources = evaler.eval('Resources')
+    resources = resources[['SimId', 'ResourceId', 'ObjId', 'TimeCreated',
+                   'Quantity', 'Units']]
+    resources = resources.rename(columns={'TimeCreated': 'Time'})
+    transactions = evaler.eval('Transactions')
+    trans_resources = pd.merge(transactions, resources, on=['SimId', 'Time', 'ResourceId'], how='inner')
     receiver_prototype = pd.merge(
-        transactions, agents[['SimId', 'ReceiverId', 'Prototype']], on=[
+        trans_resources, agents[['SimId', 'ReceiverId', 'Prototype']], on=[
             'SimId', 'ReceiverId']).sort_values(by=['Time', 'TransactionId']).reset_index(drop=True)
     return receiver_prototype
 
