@@ -402,7 +402,7 @@ def commodity_to_LWR(transactions_df, commodity, prototype):
         dataframe
     commodity: str
         commodity of interest
-    prototype: str
+    prototype: list of str
         name of non-LWR reactor prototype in the simulation
 
     Output:
@@ -413,8 +413,8 @@ def commodity_to_LWR(transactions_df, commodity, prototype):
     '''
     prototype_transactions = find_commodity_transactions(
         transactions_df, commodity)
-    prototype_transactions = prototype_transactions.loc[
-        prototype_transactions['Prototype'] != prototype]
+    prototype_transactions = prototype_transactions[
+        ~prototype_transactions['Prototype'].isin(prototype)]
     prototype_transactions = sum_and_add_missing_time(prototype_transactions)
     prototype_transactions = add_year(prototype_transactions)
     return prototype_transactions
