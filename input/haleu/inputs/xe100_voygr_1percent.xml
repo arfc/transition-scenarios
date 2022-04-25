@@ -42,7 +42,6 @@
 
   <xi:include href="united_states/buildtimes/inclusions.xml#xpointer(/inclusions/child::*)"/>
   <xi:include href="united_states/reactors/xenergy_xe100.xml"/>
-  <xi:include href="united_states/reactors/usnc_mmr.xml"/>
   <xi:include href="united_states/reactors/nuscale_voygr.xml"/>
   <facility>
     <name>Sink_HLW</name>
@@ -261,7 +260,6 @@
             <val>WetStorage</val>
             <val>DryStorage</val>
             <val>Xe-100</val>
-            <val>MMR</val>
             <val>VOYGR</val>
           </prototypes>
         </ManagerInst>
@@ -278,6 +276,5 @@
 
   <xi:include href="united_states/recipes/uox_51.xml#xpointer(/recipes/child::*)"/>
   <xi:include href="united_states/recipes/xe100_fuel.xml#xpointer(/recipes/child::*)"/>
-  <xi:include href="united_states/recipes/mmr_fuel.xml#xpointer(/recipes/child::*)"/>
   <xi:include href="united_states/recipes/voygr_fuel.xml#xpointer(/recipes/child::*)"/>
 </simulation>
