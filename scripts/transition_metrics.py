@@ -403,7 +403,7 @@ def commodity_to_LWR(transactions_df, commodity, prototype):
     commodity: str
         commodity of interest
     prototype: list of str
-        name of non-LWR reactor prototype in the simulation
+        name(s) of non-LWR reactor prototype(s) in the simulation
 
     Output:
     -------
