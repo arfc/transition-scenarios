@@ -11,7 +11,6 @@ import sys
 sys.path.insert(0, '../')
 import transition_metrics as tm
 
-
 class Test_static_info(unittest.TestCase):
     def setUp(self):
         '''
@@ -167,8 +166,9 @@ class Test_static_info(unittest.TestCase):
         })
         nonlwr = ['Repository', 'FuelSupply', 'United States',
                   'FuelCycle', 'UNITED_STATES_OF_AMERICA']
-        obs = tm.get_prototype_totals(self.output_file1, nonlwr, ['Reactor_type1',
-                                                                  'Reactor_type2'])
+        obs = tm.get_prototype_totals(
+            self.output_file1, nonlwr, [
+                'Reactor_type1', 'Reactor_type2'])
         assert_frame_equal(
             exp, obs[['advrx_enter', 'advrx_total']][0:4], check_names=False)
 
@@ -187,8 +187,9 @@ class Test_static_info(unittest.TestCase):
         })
         nonlwr = ['Repository', 'FuelSupply', 'United States',
                   'FuelCycle', 'UNITED_STATES_OF_AMERICA']
-        obs = tm.get_prototype_totals(self.output_file2, nonlwr, ['Reactor_type1',
-                                                                  'Reactor_type2'])
+        obs = tm.get_prototype_totals(
+            self.output_file2, nonlwr, [
+                'Reactor_type1', 'Reactor_type2'])
         assert_frame_equal(
             exp, obs[['advrx_enter', 'advrx_total']][0:4], check_names=False)
 
@@ -335,56 +336,56 @@ class Test_static_info(unittest.TestCase):
     def test_add_receiver_prototype(self):
         exp = pd.DataFrame(
             data={
-                'Time': [
-                    1,
-                    1,
-                    1,
-                    2],
                 'SimId': [
                     UUID('17b1bed5-0981-4682-a9be-05e60e7257cc'),
                     UUID('17b1bed5-0981-4682-a9be-05e60e7257cc'),
                     UUID('17b1bed5-0981-4682-a9be-05e60e7257cc'),
                     UUID('17b1bed5-0981-4682-a9be-05e60e7257cc')],
                 'TransactionId': [
-                    0.0,
-                    1.0,
-                    2.0,
-                    3.0],
-                'ResourceId': [
-                    10.0,
-                    12.0,
-                    14.0,
-                    26.0],
-                'ObjId': [
-                    9.0,
-                    10.0,
-                    11.0,
-                    21.0],
+                    0,
+                    1,
+                    2,
+                    3],
                 'SenderId': [
-                    21.0,
-                    21.0,
-                    21.0,
-                    21.0],
+                    21,
+                    21,
+                    21,
+                    21],
                 'ReceiverId': [
-                    24.0,
-                    24.0,
-                    24.0,
-                    24.0],
+                    24,
+                    24,
+                    24,
+                    24],
+                'ResourceId': [
+                    10,
+                    12,
+                    14,
+                    26],
                 'Commodity': [
                     'fresh_uox',
                     'fresh_uox',
                     'fresh_uox',
                     'fresh_uox'],
-                'Units': [
-                    'kg',
-                    'kg',
-                    'kg',
-                    'kg'],
+                'Time': [
+                    1,
+                    1,
+                    1,
+                    2],
+                'ObjId': [
+                    9,
+                    10,
+                    11,
+                    21],
                 'Quantity': [
                     33000.0,
                     33000.0,
                     33000.0,
                     33000.0],
+                'Units': [
+                    'kg',
+                    'kg',
+                    'kg',
+                    'kg'],
                 'Prototype': [
                     'Reactor_type1',
                     'Reactor_type1',
@@ -474,7 +475,7 @@ class Test_static_info(unittest.TestCase):
         obs = tm.commodity_to_LWR(
             transactions_df,
             'fresh_uox',
-            'Reactor_type2')
+            ['Reactor_type2'])
         assert_frame_equal(exp, obs[0:4])
 
     def test_commodity_to_LWR2(self):
@@ -491,7 +492,7 @@ class Test_static_info(unittest.TestCase):
                     0.0, 99000.0, 42900.0, 13200.0], 'Year': [
                     1965.00, 1965.08, 1965.17, 1965.25]})
         transactions_df = tm.add_receiver_prototype(self.output_file1)
-        obs = tm.commodity_to_LWR(transactions_df, 'fresh_uox', 'Repository')
+        obs = tm.commodity_to_LWR(transactions_df, 'fresh_uox', ['Repository'])
         assert_frame_equal(exp, obs[0:4])
 
     def test_commodity_to_LWR3(self):
@@ -507,7 +508,26 @@ class Test_static_info(unittest.TestCase):
                     0.0, 0.0, 0.0, 0.0], 'Year': [
                     1965.00, 1965.08, 1965.17, 1965.25]})
         transactions_df = tm.add_receiver_prototype(self.output_file1)
-        obs = tm.commodity_to_LWR(transactions_df, 'u_ore', 'Reactor_type2')
+        obs = tm.commodity_to_LWR(transactions_df, 'u_ore', ['Reactor_type2'])
+        assert_frame_equal(exp, obs[0:4])
+
+    def test_commodity_to_LWR4(self):
+        '''
+        This function tests the transactions returned when there are
+        multiple prototypes specified in the inputs (Reactor_type2,
+        Repository), given as a list. The commodity specified is
+        present in the simulation, and sent to one of the specified
+        prototypes (Reactor_type2), but not the other (Repository).
+        '''
+        exp = pd.DataFrame(
+            data={
+                'Time': [
+                    0, 1, 2, 3], 'Quantity': [
+                    0.0, 99000.0, 33000.0, 0.0], 'Year': [
+                    1965.00, 1965.08, 1965.17, 1965.25]})
+        transactions_df = tm.add_receiver_prototype(self.output_file1)
+        obs = tm.commodity_to_LWR(transactions_df, 'fresh_uox',
+                                  ['Reactor_type2', 'Repository'])
         assert_frame_equal(exp, obs[0:4])
 
     def test_get_annual_electricity(self):
