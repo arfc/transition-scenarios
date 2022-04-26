@@ -11,7 +11,6 @@ import sys
 sys.path.insert(0, '../')
 import transition_metrics as tm
 
-
 class Test_static_info(unittest.TestCase):
     def setUp(self):
         '''
@@ -476,7 +475,7 @@ class Test_static_info(unittest.TestCase):
         obs = tm.commodity_to_LWR(
             transactions_df,
             'fresh_uox',
-            'Reactor_type2')
+            ['Reactor_type2'])
         assert_frame_equal(exp, obs[0:4])
 
     def test_commodity_to_LWR2(self):
@@ -493,7 +492,7 @@ class Test_static_info(unittest.TestCase):
                     0.0, 99000.0, 42900.0, 13200.0], 'Year': [
                     1965.00, 1965.08, 1965.17, 1965.25]})
         transactions_df = tm.add_receiver_prototype(self.output_file1)
-        obs = tm.commodity_to_LWR(transactions_df, 'fresh_uox', 'Repository')
+        obs = tm.commodity_to_LWR(transactions_df, 'fresh_uox', ['Repository'])
         assert_frame_equal(exp, obs[0:4])
 
     def test_commodity_to_LWR3(self):
@@ -509,7 +508,26 @@ class Test_static_info(unittest.TestCase):
                     0.0, 0.0, 0.0, 0.0], 'Year': [
                     1965.00, 1965.08, 1965.17, 1965.25]})
         transactions_df = tm.add_receiver_prototype(self.output_file1)
-        obs = tm.commodity_to_LWR(transactions_df, 'u_ore', 'Reactor_type2')
+        obs = tm.commodity_to_LWR(transactions_df, 'u_ore', ['Reactor_type2'])
+        assert_frame_equal(exp, obs[0:4])
+
+    def test_commodity_to_LWR4(self):
+        '''
+        This function tests the transactions returned when there are
+        multiple prototypes specified in the inputs (Reactor_type2,
+        Repository), given as a list. The commodity specified is
+        present in the simulation, and sent to one of the specified
+        prototypes (Reactor_type2), but not the other (Repository).
+        '''
+        exp = pd.DataFrame(
+            data={
+                'Time': [
+                    0, 1, 2, 3], 'Quantity': [
+                    0.0, 99000.0, 33000.0, 0.0], 'Year': [
+                    1965.00, 1965.08, 1965.17, 1965.25]})
+        transactions_df = tm.add_receiver_prototype(self.output_file1)
+        obs = tm.commodity_to_LWR(transactions_df, 'fresh_uox',
+                                  ['Reactor_type2', 'Repository'])
         assert_frame_equal(exp, obs[0:4])
 
     def test_get_annual_electricity(self):
