@@ -231,6 +231,8 @@
             <val>Enrichment</val>
             <val>WetStorage</val>
             <val>DryStorage</val>
+            <val>VOYGRCoolingPool</val>
+            <val>MMRCoolingPool</val>
             <val>MMR</val>
             <val>VOYGR</val>
           </prototypes>
