@@ -176,7 +176,8 @@ def get_prototype_totals(db_file, non_lwr_prototypes, prototypes):
             prototypes_df = prototypes_df.rename(
                 columns={prototype: prototype + '_enter'})
             prototypes_df[prototype +
-                          '_exit'] = np.zeros(len(prototypes_df[prototype + '_enter']))
+                          '_exit'] =
+                          np.zeros(len(prototypes_df[prototype + '_enter']))
         prototypes_df[prototype +
                       '_total'] = (prototypes_df[prototype +
                                                  '_enter'] +

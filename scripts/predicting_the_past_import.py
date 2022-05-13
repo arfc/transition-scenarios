@@ -7,7 +7,7 @@ import pathlib
 import pandas as pd
 import sqlite3 as sql
 from fuzzywuzzy import fuzz
-#from pyne import nucname as nn
+# from pyne import nucname as nn
 
 
 def get_cursor(file_name):

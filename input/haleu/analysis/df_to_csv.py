@@ -3,7 +3,7 @@ import sys
 import cymetric as cm
 import cProfile
 
-sys.path.insert(0,'../../../scripts')
+sys.path.insert(0, '../../../scripts')
 import transition_metrics as tm
 
 
