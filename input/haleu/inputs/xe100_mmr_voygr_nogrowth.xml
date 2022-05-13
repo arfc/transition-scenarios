@@ -258,8 +258,8 @@
             <val>VOYGRCoolingPool</val>
             <val>MMRCoolingPool</val>
             <val>Xe-100</val>
-            <val>VOYGR</val>
             <val>MMR</val>
+            <val>VOYGR</val>
           </prototypes>
         </ManagerInst>
       </config>
