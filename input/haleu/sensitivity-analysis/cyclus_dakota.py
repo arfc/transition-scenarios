@@ -17,8 +17,9 @@ params, results = di.read_parameters_file()
 
 # Edit Cyclus input file
 cyclus_template = 'cyclus-files/scenario7.xml.in'
-scenario_name = 'transition_start' + str(round(params['x1']))
-variable_dict = {'handle': scenario_name, 'power_cap': params['x1']}
+scenario_name = 'transition_start_' + str(round(params['x1']))
+variable_dict = {'handle': scenario_name, 'start_transition': int(params['x1'])}
+# the start time needs to be an integer for cyclus
 output_xml = 'cyclus-files/scenario7.xml'
 inp.render_input(cyclus_template, variable_dict, output_xml)
 
