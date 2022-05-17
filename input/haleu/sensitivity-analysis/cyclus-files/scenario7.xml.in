@@ -4,6 +4,7 @@
     <duration>1500</duration>
     <startmonth>1</startmonth>
     <startyear>1965</startyear> 
+    <simhandle>{{handle}}</simhandle>
   </control>
   <archetypes>
     <spec>
