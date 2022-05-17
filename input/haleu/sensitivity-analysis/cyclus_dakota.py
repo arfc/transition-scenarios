@@ -12,18 +12,18 @@ import subprocess
 params, results = di.read_parameters_file()
 
 # -------------------------------
-# Convert and send to Dymond
+# Convert and send to Cyclus
 # -------------------------------
 
-# Edit Dymond6 input file
-cyclus_template = 'cyclus-files/test.xml.in'
-scenario_name = 'PW' + str(round(params['x1']))
+# Edit Cyclus input file
+cyclus_template = 'cyclus-files/scenario7.xml.in'
+scenario_name = 'transition_start' + str(round(params['x1']))
 variable_dict = {'handle': scenario_name, 'power_cap': params['x1']}
-output_xml = 'cyclus-files/test.xml'
+output_xml = 'cyclus-files/scenario7.xml'
 inp.render_input(cyclus_template, variable_dict, output_xml)
 
 # Run Cyclus with edited input file
-output_sqlite = 'cyclus-files/test.sqlite'
+output_sqlite = 'cyclus-files/scenario7.sqlite'
 os.system('cyclus -i ' + output_xml + ' -o ' + output_sqlite)
 # ----------------------------
 # Return the results to Dakota
