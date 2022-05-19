@@ -55,7 +55,10 @@ def get_table_from_output(db_file, table_name):
             requested table from database
         '''
     connect = sqlite3.connect(db_file)
-    table_df = pd.read_sql_query('SELECT * FROM ' + table_name, connect)
+    if table_name == 'Resources':
+        table_df = pd.read_sql_query('SELECT SimId, ResourceId, ObjId, TimeCreated, Quantity, Units FROM Resources', connect)
+    else:
+        table_df = pd.read_sql_query('SELECT * FROM ' + table_name, connect)
     return table_df
 
 def create_agents_table(db_file):
@@ -111,11 +114,11 @@ def add_receiver_prototype(db_file):
         contains all of the transactions with the prototype name of the
         receiver included
     '''
-    agents = create_agents_table(db_file, 'Agents')
+    agents = create_agents_table(db_file)
     agents = agents.rename(columns={'AgentId': 'ReceiverId'})
     resources = get_table_from_output(db_file, 'Resources')
-    resources = resources[['SimId', 'ResourceId', 'ObjId', 'TimeCreated',
-                           'Quantity', 'Units']]
+    #resources = resources[['SimId', 'ResourceId', 'ObjId', 'TimeCreated',
+    #                       'Quantity', 'Units']]
     resources = resources.rename(columns={'TimeCreated': 'Time'})
     transactions = get_table_from_output(db_file, 'Transactions')
     trans_resources = pd.merge(
@@ -235,7 +238,7 @@ def sum_and_add_missing_time(df):
         np.arange(0, 1500, 1)).fillna(0).reset_index()
     return summed_df
 
-def get_enriched_u_mass(self, db_file, transition_start):
+def get_enriched_u_mass(db_file, transition_start):
     '''
         Calculates the cumulative and average monthly mass of enriched 
         uranium sent to advanced reactors in a simulation. The average 
@@ -262,6 +265,6 @@ def get_enriched_u_mass(self, db_file, transition_start):
         reactor_u = commodity_to_prototype(transactions, 
         'fresh_uox', reactor)
         total_adv_rx_enriched_u += reactor_u['Quantity']
-    cumulative_u = total_adv_rx_enriched_u.cum()
-    average_u = total_adv_rx_enriched_u[transition_start:].mean()
+    cumulative_u = total_adv_rx_enriched_u.cumsum()
+    average_u = total_adv_rx_enriched_u[int(transition_start):].mean()
     return (cumulative_u, average_u)
