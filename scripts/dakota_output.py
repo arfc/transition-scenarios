@@ -117,8 +117,6 @@ def add_receiver_prototype(db_file):
     agents = create_agents_table(db_file)
     agents = agents.rename(columns={'AgentId': 'ReceiverId'})
     resources = get_table_from_output(db_file, 'Resources')
-    #resources = resources[['SimId', 'ResourceId', 'ObjId', 'TimeCreated',
-    #                       'Quantity', 'Units']]
     resources = resources.rename(columns={'TimeCreated': 'Time'})
     transactions = get_table_from_output(db_file, 'Transactions')
     trans_resources = pd.merge(
@@ -255,8 +253,6 @@ def get_enriched_u_mass(db_file, transition_start):
         --------
         cumulative_u: float
             cumulative mass of enriched uranium sent to advanced reactors
-        average_u: float
-            average monthly mass of enriched uranium sent to advanced reactors
     '''
     transactions = add_receiver_prototype(db_file)
     adv_rxs = ['Xe-100','MMR','VOYGR']
@@ -266,5 +262,4 @@ def get_enriched_u_mass(db_file, transition_start):
         'fresh_uox', reactor)
         total_adv_rx_enriched_u += reactor_u['Quantity']
     cumulative_u = total_adv_rx_enriched_u.cumsum()
-    average_u = total_adv_rx_enriched_u[int(transition_start):].mean()
-    return (cumulative_u, average_u)
+    return cumulative_u.loc[cumulative_u.index[-1]]
