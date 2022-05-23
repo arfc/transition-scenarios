@@ -3,6 +3,8 @@ import numpy as np
 import pandas as pd
 import sqlite3
 
+import dataframe_analysis as dfa
+
 #import transition_metrics as tm
 
 class Dakota_responses(object):
@@ -127,115 +129,6 @@ def add_receiver_prototype(db_file):
             'SimId', 'ReceiverId']).sort_values(by=['Time', 'TransactionId']).reset_index(drop=True)
     return receiver_prototype  
 
-def find_commodity_transactions(df, commodity):
-    '''
-    Finds all transactions involving a specified commodity
-
-    Parameters:
-    -----------
-    df: dataframe
-        dataframe of transactions
-    commodity: str
-        name of commodity to search for
-
-    Returns:
-    --------
-    commodity_df: dataframe
-        contains only transactions involving the specified commodity
-    '''
-    commodity_df = df.loc[df['Commodity'] == commodity]
-    return commodity_df 
-
-def find_prototype_transactions(df, prototype):
-    '''
-    Finds all transactions sent to a specified prototype
-
-    Parameters:
-    -----------
-    df: dataframe
-        dataframe of transactions
-    prototype: str
-        name of prototype to search for
-
-    Returns:
-    --------
-    prototype_df: dataframe
-        contains only transactions sent to the specified prototype
-    '''
-    prototype_df = df.loc[df['Prototype'] == prototype]
-    return prototype_df
-
-def commodity_to_prototype(transactions_df, commodity, prototype):
-    '''
-    Finds the transactions of a specific commodity sent to a single prototype in the simulation,
-    modifies the time column, and adds in zeros for any time step without
-    a transaction to the specified prototype, and sums all transactions for
-    a single time step
-
-    Parameters:
-    -----------
-    transactions_df: dataframe
-        dataframe of transactions with the prototype name
-        of the receiver agent added in. use add_receiver_prototype to get this
-        dataframe
-    commodity: str
-        commodity of interest
-    prototype: str
-        name of prototype transactions are sent to
-
-    Output:
-    -------
-    prototype_transactions: dataframe
-        contains summed transactions at each time step that are sent to
-        the specified prototype name.
-    '''
-    prototype_transactions = find_commodity_transactions(
-        transactions_df, commodity)
-    prototype_transactions = find_prototype_transactions(
-        prototype_transactions, prototype)
-    prototype_transactions = sum_and_add_missing_time(prototype_transactions)
-    prototype_transactions = add_year(prototype_transactions)
-    return prototype_transactions
-
-def add_year(df):
-    '''
-    Adds column of Year, based on the Time colunm
-
-    Parameters:
-    -----------
-    df: DataFrame
-        DataFrame of data to add column to
-
-    Returns:
-    --------
-    df: DataFrame
-        DataFrame with the added column
-    '''
-    df['Year'] = np.round(df['Time'] / 12 + 1965, 2)
-    df['Year'] = df['Year'].fillna(method='ffill')
-    return df
-
-def sum_and_add_missing_time(df):
-    '''
-    Sums the values of the same time step, and adds any missing time steps
-    with 0 for the value
-
-    Parameters:
-    -----------
-    df: dataframe
-        dataframe
-
-    Returns:
-    --------
-    summed_df: dataframe
-        dataframe with the summed values for each time step and inserted
-        missing time steps
-    '''
-    summed_df = df.groupby(['Time']).Quantity.sum().reset_index()
-    summed_df = summed_df.set_index('Time').reindex(
-        np.arange(0, 1500, 1)).fillna(0).reset_index()
-    return summed_df
-
 def get_enriched_u_mass(db_file, transition_start):
     '''
         Calculates the cumulative and average monthly mass of enriched 
@@ -258,7 +151,7 @@ def get_enriched_u_mass(db_file, transition_start):
     adv_rxs = ['Xe-100','MMR','VOYGR']
     total_adv_rx_enriched_u = 0
     for reactor in adv_rxs:
-        reactor_u = commodity_to_prototype(transactions, 
+        reactor_u = dfa.commodity_to_prototype(transactions, 
         'fresh_uox', reactor)
         total_adv_rx_enriched_u += reactor_u['Quantity']
     cumulative_u = total_adv_rx_enriched_u.cumsum()
