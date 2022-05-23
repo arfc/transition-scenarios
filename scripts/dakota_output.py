@@ -129,7 +129,33 @@ def add_receiver_prototype(db_file):
             'SimId', 'ReceiverId']).sort_values(by=['Time', 'TransactionId']).reset_index(drop=True)
     return receiver_prototype  
 
-def get_enriched_u_mass(db_file, transition_start):
+def get_fresh_uox_transactions(db_file, prototypes):
+    '''
+    Gets the transactions of the fresh_uox commodity sent to the 
+    advanced reactors in each time step
+
+    Parameters:
+    -----------
+    db_file: str
+        name of database file
+    prototypes: list of strs
+        names of prototypes to get transactions to 
+    
+    Returns:
+    --------
+    uox_transactions: DataFrame
+        DataFrame of transactions for fresh_uox to specific prototypes. 
+        The mass sent to each prototype is in a separate column, with 
+        the name of the column matching the prototype name.
+    '''
+    transactions = add_receiver_prototype(db_file)
+    enriched_u_df = pd.DataFrame(columns=prototypes)
+    for prototype in prototypes:
+        enriched_u_df[prototype] = dfa.commodity_to_prototype(transactions, 
+        'fresh_uox', prototype)['Quantity']
+    return enriched_u_df
+
+def get_enriched_u_mass(db_file, prototypes, transition_start):
     '''
         Calculates the cumulative and average monthly mass of enriched 
         uranium sent to advanced reactors in a simulation. The average 
@@ -140,19 +166,56 @@ def get_enriched_u_mass(db_file, transition_start):
         -----------
         db_file: str
             name of database file
+        prototypes: list of str
+            names of prototypes to find transactions to
         transition_start: int
             time step the modeled transition begins at
+        
         Returns:
         --------
         cumulative_u: float
-            cumulative mass of enriched uranium sent to advanced reactors
+            cumulative mass of enriched uranium sent to specified protopyes
+            starting at the transition start time. 
     '''
-    transactions = add_receiver_prototype(db_file)
-    adv_rxs = ['Xe-100','MMR','VOYGR']
+    enriched_u_df = get_fresh_uox_transactions(db_file, prototypes)
     total_adv_rx_enriched_u = 0
-    for reactor in adv_rxs:
-        reactor_u = dfa.commodity_to_prototype(transactions, 
-        'fresh_uox', reactor)
-        total_adv_rx_enriched_u += reactor_u['Quantity']
-    cumulative_u = total_adv_rx_enriched_u.cumsum()
+    for prototype in prototypes:
+        total_adv_rx_enriched_u += enriched_u_df[prototype]
+    cumulative_u = total_adv_rx_enriched_u[int(transition_start):].cumsum()
     return cumulative_u.loc[cumulative_u.index[-1]]
+
+def calculate_swu(db_file, prototypes, transition_start):
+    '''
+    Calculates the cumulative amount of SWU capacity required to 
+    create the enriched uranium in the simulation
+
+    Parameters:
+    -----------
+    db_file: str
+        name of database file
+    prototypes: list of strs
+        names of prototypes to consider in calculation
+    transition_start: int
+        time step the modeled transition begins at
+    
+    Returns:
+    --------
+    cumulative_swu: float
+        The total cumulative swu capacity required for the simulation, 
+        starting at the transition start time. 
+    '''
+    assays = {'MMR':0.13, 'Xe-100':0.155, 
+          'VOYGR':0.0409, 'feed':0.00711, 'tails':0.002}
+    enriched_u_mass = get_fresh_uox_transactions(db_file, prototypes)
+    swu = 0
+    for prototype in prototypes:
+        tails = dfa.calculate_tails(enriched_u_mass[prototype], assays[prototype],
+        assays['tails'], assays['feed'])
+        feed = dfa.calculate_feed(enriched_u_mass[prototype], tails)
+        prototype_swu = dfa.calculate_SWU(enriched_u_mass[prototype], assays[prototype],
+        tails, assays['tails'], feed, assays['feed'])
+        swu += prototype_swu
+    cumulative_swu = swu[int(transition_start):].cumsum()
+    return cumulative_swu.loc[cumulative_swu.index[-1]]
+
+
