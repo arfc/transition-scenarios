@@ -1,0 +1,30 @@
+# Demonstrate Dakota script interface to Python script
+# Multidimensional parameter study 
+
+environment, 
+	tabular_data 
+		tabular_data_file = 'dakota_scenario7.dat'
+	output_file 'transition_year.out'
+	write_restart 'transition_year.rst'
+
+method,						
+	multidim_parameter_study
+    partitions = 1
+
+variables,					
+	continuous_design = 1			
+    lower_bounds      718   
+    upper_bounds      724    
+    descriptors       'x1'     
+
+interface,							
+	fork							
+	  analysis_drivers = 'python transition_year_driver.py'
+
+responses,				
+	#num_objective_functions = 1	
+	descriptors = 'enr_u'
+	response_functions = 1
+	  scalar_responses = 1
+	no_gradients
+	no_hessians
