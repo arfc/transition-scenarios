@@ -3,19 +3,19 @@
 
 environment, 
 	tabular_data 
-		tabular_data_file = 'dakota_scenario7.dat'
-	output_file 'transition_year.out'
-	write_restart 'transition_year.rst'
+		tabular_data_file = 'transition_start.dat'
+	output_file 'transition_start.out'
+	write_restart 'transition_start.rst'
 
 method,						
 	multidim_parameter_study
-    partitions = 1
+    partitions = 60
 
 variables,					
 	continuous_design = 1			
-    lower_bounds      718   
-    upper_bounds      724    
-    descriptors       'x1'     
+    lower_bounds      721   
+    upper_bounds      901    
+    descriptors       'ts'     
 
 interface,							
 	fork							
@@ -23,8 +23,8 @@ interface,
 
 responses,				
 	#num_objective_functions = 1	
-	descriptors = 'enr_u'
-	response_functions = 1
-	  scalar_responses = 1
+	descriptors = 'enr_u' 'swu' 
+	response_functions = 2
+	  scalar_responses = 2
 	no_gradients
 	no_hessians
