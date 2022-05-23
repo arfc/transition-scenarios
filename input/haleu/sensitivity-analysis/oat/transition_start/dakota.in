@@ -1,4 +1,4 @@
-# Demonstrate Dakota script interface to Python script
+# One-at-a-time analysis for changing transition start time
 # Multidimensional parameter study 
 
 environment, 
@@ -19,7 +19,7 @@ variables,
 
 interface,							
 	fork							
-	  analysis_drivers = 'python transition_year_driver.py'
+	  analysis_drivers = 'python transition_start_driver.py'
 
 responses,				
 	#num_objective_functions = 1	
