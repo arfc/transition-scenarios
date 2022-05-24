@@ -129,7 +129,7 @@ def add_receiver_prototype(db_file):
             'SimId', 'ReceiverId']).sort_values(by=['Time', 'TransactionId']).reset_index(drop=True)
     return receiver_prototype  
 
-def get_fresh_uox_transactions(db_file, prototypes):
+def get_multiple_prototype_transactions(db_file, prototypes, commodity):
     '''
     Gets the transactions of the fresh_uox commodity sent to the 
     advanced reactors in each time step
@@ -140,20 +140,22 @@ def get_fresh_uox_transactions(db_file, prototypes):
         name of database file
     prototypes: list of strs
         names of prototypes to get transactions to 
+    commodity: str
+        name of commodity
     
     Returns:
     --------
-    uox_transactions: DataFrame
+    commodity_transactions: DataFrame
         DataFrame of transactions for fresh_uox to specific prototypes. 
         The mass sent to each prototype is in a separate column, with 
         the name of the column matching the prototype name.
     '''
     transactions = add_receiver_prototype(db_file)
-    enriched_u_df = pd.DataFrame(columns=prototypes)
+    commodity_transactions = pd.DataFrame(columns=prototypes)
     for prototype in prototypes:
-        enriched_u_df[prototype] = dfa.commodity_to_prototype(transactions, 
-        'fresh_uox', prototype)['Quantity']
-    return enriched_u_df
+        commodity_transactions[prototype] = dfa.commodity_to_prototype(transactions, 
+        commodity, prototype)['Quantity']
+    return commodity_transactions
 
 def get_enriched_u_mass(db_file, prototypes, transition_start):
     '''
@@ -177,7 +179,7 @@ def get_enriched_u_mass(db_file, prototypes, transition_start):
             cumulative mass of enriched uranium sent to specified protopyes
             starting at the transition start time. 
     '''
-    enriched_u_df = get_fresh_uox_transactions(db_file, prototypes)
+    enriched_u_df = get_multiple_prototype_transactions(db_file, prototypes, 'fresh_uox')
     total_adv_rx_enriched_u = 0
     for prototype in prototypes:
         total_adv_rx_enriched_u += enriched_u_df[prototype]
@@ -206,7 +208,7 @@ def calculate_swu(db_file, prototypes, transition_start):
     '''
     assays = {'MMR':0.13, 'Xe-100':0.155, 
           'VOYGR':0.0409, 'feed':0.00711, 'tails':0.002}
-    enriched_u_mass = get_fresh_uox_transactions(db_file, prototypes)
+    enriched_u_mass = get_multiple_prototype_transactions(db_file, prototypes, 'fresh_uox')
     swu = 0
     for prototype in prototypes:
         tails = dfa.calculate_tails(enriched_u_mass[prototype], assays[prototype],
@@ -218,4 +220,34 @@ def calculate_swu(db_file, prototypes, transition_start):
     cumulative_swu = swu[int(transition_start):].cumsum()
     return cumulative_swu.loc[cumulative_swu.index[-1]]
 
+def get_waste_discharged(db_file, prototypes, transition_start, commodities):
+    '''
+    Gets the mass of fuel discharged from specified prototypes, 
+    sums them together and provides a sumulative total from the start 
+    of the transition. 
+
+    Parameters:
+    -----------
+    db_file: str
+        name of database file
+    prototypes: list of strs
+        names of prototypes
+    transition_start: int or float
+        time step the transition starts at
+    commodities: dict of strs
+        name of waste commodity for each prototype, the key is the 
+        prototype name, the value is the commodity name
+    
+    Returns: 
+    --------
+    waste_discharged: float
+        cumulative waste discharged from all specified prototypes
+    '''
+    transactions = add_receiver_prototype(db_file)
+    waste = 0
+    for prototype in prototypes:
+        waste += dfa.commodity_mass_traded(transactions,
+                                           commodities[prototype])['Quantity']
+    waste_discharged = waste[int(transition_start):].cumsum()
+    return waste_discharged.loc[waste_discharged.index[-1]]
 
