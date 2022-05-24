@@ -8,7 +8,6 @@ import sys
 
 sys.path.insert(0, '../')
 import dataframe_analysis as dfa
-import transition_metrics as tm
 
 class Test_static_info(unittest.TestCase):
     def setUp(self):
@@ -176,11 +175,10 @@ class Test_static_info(unittest.TestCase):
             data={
                 'Time': [
                     0, 1, 2, 3], 'Quantity': [
-                    0.0, 0.0, 9900.00, 13200.00], 'Year': [
+                    0.0, 6.0, 0.0, 0.0], 'Year': [
                         1965.00, 1965.08, 1965.17, 1965.25]})
-        transactions_df = tm.add_receiver_prototype(self.output_file1)
         obs = dfa.commodity_to_prototype(
-            transactions_df, 'fresh_uox', 'Reactor_type2')
+            self.test_df, 'fresh_uox', 'Reactor_type1')
         assert_frame_equal(exp, obs[0:4])
 
     def test_commodity_to_prototype2(self):
@@ -194,9 +192,8 @@ class Test_static_info(unittest.TestCase):
                     0, 1, 2, 3], 'Quantity': [
                     0.0, 0.0, 0.0, 0.0], 'Year': [
                         1965.00, 1965.08, 1965.17, 1965.25]})
-        transactions_df = tm.add_receiver_prototype(self.output_file1)
         obs = dfa.commodity_to_prototype(
-            transactions_df, 'fresh_uox', 'Reactor_type3')
+            self.test_df, 'fresh_uox', 'Reactor_type3')
         assert_frame_equal(exp, obs[0:4])
 
     def test_commodity_to_prototype3(self):
@@ -210,9 +207,8 @@ class Test_static_info(unittest.TestCase):
                     0, 1, 2, 3], 'Quantity': [
                     0.0, 0.0, 0.0, 0.0], 'Year': [
                         1965.00, 1965.08, 1965.17, 1965.25]})
-        transactions_df = tm.add_receiver_prototype(self.output_file1)
         obs = dfa.commodity_to_prototype(
-            transactions_df, 'tails', 'Reactor_type2')
+            self.test_df, 'tails', 'Reactor_type2')
         assert_frame_equal(exp, obs[0:4])
 
     def test_commodity_to_prototype4(self):
@@ -226,9 +222,8 @@ class Test_static_info(unittest.TestCase):
                     0, 1, 2, 3], 'Quantity': [
                     0.0, 0.0, 0.0, 0.0], 'Year': [
                         1965.00, 1965.08, 1965.17, 1965.25]})
-        transactions_df = tm.add_receiver_prototype(self.output_file1)
         obs = dfa.commodity_to_prototype(
-            transactions_df, 'tails', 'Reactor_type3')
+            self.test_df, 'tails', 'Reactor_type3')
         assert_frame_equal(exp, obs[0:4])
 
     def test_commodity_to_LWR1(self):
@@ -242,13 +237,12 @@ class Test_static_info(unittest.TestCase):
             data={
                 'Time': [
                     0, 1, 2, 3], 'Quantity': [
-                    0.0, 99000.0, 33000.0, 0.0], 'Year': [
+                    2.0, 0.0, 0.0, 8.0], 'Year': [
                     1965.00, 1965.08, 1965.17, 1965.25]})
-        transactions_df = tm.add_receiver_prototype(self.output_file1)
         obs = dfa.commodity_to_LWR(
-            transactions_df,
+            self.test_df,
             'fresh_uox',
-            ['Reactor_type2'])
+            ['Reactor_type1'])
         assert_frame_equal(exp, obs[0:4])
 
     def test_commodity_to_LWR2(self):
@@ -262,10 +256,9 @@ class Test_static_info(unittest.TestCase):
             data={
                 'Time': [
                     0, 1, 2, 3], 'Quantity': [
-                    0.0, 99000.0, 42900.0, 13200.0], 'Year': [
+                    2.0, 6.0, 0.0, 8.0], 'Year': [
                     1965.00, 1965.08, 1965.17, 1965.25]})
-        transactions_df = tm.add_receiver_prototype(self.output_file1)
-        obs = dfa.commodity_to_LWR(transactions_df, 'fresh_uox', ['Repository'])
+        obs = dfa.commodity_to_LWR(self.test_df, 'fresh_uox', ['Repository'])
         assert_frame_equal(exp, obs[0:4])
 
     def test_commodity_to_LWR3(self):
@@ -280,8 +273,7 @@ class Test_static_info(unittest.TestCase):
                     0, 1, 2, 3], 'Quantity': [
                     0.0, 0.0, 0.0, 0.0], 'Year': [
                     1965.00, 1965.08, 1965.17, 1965.25]})
-        transactions_df = tm.add_receiver_prototype(self.output_file1)
-        obs = dfa.commodity_to_LWR(transactions_df, 'u_ore', ['Reactor_type2'])
+        obs = dfa.commodity_to_LWR(self.test_df, 'u_ore', ['Reactor_type2'])
         assert_frame_equal(exp, obs[0:4])
 
     def test_commodity_to_LWR4(self):
@@ -296,10 +288,9 @@ class Test_static_info(unittest.TestCase):
             data={
                 'Time': [
                     0, 1, 2, 3], 'Quantity': [
-                    0.0, 99000.0, 33000.0, 0.0], 'Year': [
+                    2.0, 6.0, 0.0, 8.0], 'Year': [
                     1965.00, 1965.08, 1965.17, 1965.25]})
-        transactions_df = tm.add_receiver_prototype(self.output_file1)
-        obs = dfa.commodity_to_LWR(transactions_df, 'fresh_uox',
+        obs = dfa.commodity_to_LWR(self.test_df, 'fresh_uox',
                                   ['Reactor_type2', 'Repository'])
         assert_frame_equal(exp, obs[0:4])
 
