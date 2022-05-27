@@ -76,6 +76,7 @@ class Test_static_info(unittest.TestCase):
         })
         obs = oup.get_table_from_output(self.output_file1, 'AgentEntry')
         assert_frame_equal(exp, obs.drop('SimId', axis=1)[0:4])
+    
     def test_get_table_from_output2(self):
         '''
         Test function for the Resource table from self.output_file1
@@ -89,3 +90,39 @@ class Test_static_info(unittest.TestCase):
         })
         obs = oup.get_table_from_output(self.output_file1, 'Resources')
         assert_frame_equal(exp, obs.drop('SimId', axis=1)[0:4])
+
+    def test_create_agents_table1(self):
+        '''
+        Test correct creation of the Agents DataFrame from output_file1, in 
+        which agents are decommissioned.
+        '''
+        exp = pd.DataFrame(data={
+            'AgentId':[19, 20, 21,22],
+            'Kind':['Region', 'Inst', 'Facility', 'Facility'],
+            'Spec':[':agents:NullRegion',':agents:NullInst', ':cycamore:Source', ':cycamore:Sink'],
+            'Prototype':['United States','FuelCycle', 'FuelSupply','Repository'],
+            'ParentId':[-1, 19, 20, 20],
+            'Lifetime':[-1, -1, -1, -1],
+            'EnterTime':[0, 0, 0, 0],
+            'ExitTime':[-1.0, -1.0, -1.0, -1.0]
+        })
+        obs = oup.create_agents_table(self.output_file1)
+        assert_frame_equal(exp,obs.drop('SimId', axis=1)[0:4])
+
+    def test_create_agents_table2(self):
+        '''
+        Test correct creation of the Agents DataFrame from output_file2, in 
+        which agents are not decommissioned.
+        '''
+        exp = pd.DataFrame(data={
+            'AgentId':[19, 20, 21,22],
+            'Kind':['Region', 'Inst', 'Facility', 'Facility'],
+            'Spec':[':agents:NullRegion',':agents:NullInst', ':cycamore:Source', ':cycamore:Sink'],
+            'Prototype':['United States','FuelCycle', 'FuelSupply','Repository'],
+            'ParentId':[-1, 19, 20, 20],
+            'Lifetime':[-1, -1, -1, -1],
+            'EnterTime':[0, 0, 0, 0],
+            'ExitTime':[-1.0, -1.0, -1.0, -1.0]
+        })
+        obs = oup.create_agents_table(self.output_file1)
+        assert_frame_equal(exp,obs.drop('SimId', axis=1)[0:4])
