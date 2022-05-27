@@ -29,15 +29,26 @@ def convert_xml_to_dict(filename):
 
 def get_deployinst_dict(deploy_inst, power_dict):
     '''
-    d = xmltodict.parse(open(xml_file_path, 'r').read())
-    file should be cyclus input file
-    Converts input file into a python dictionary 
+    Removes any non-power producing prototypes from the dictionary of 
+    the DeployInst. This also removes the 'val' level of information. 
+    Returns a dictionary about deployment information from the Inst
 
-    power_dict = dictionary of the power for each prototype in DeployInst
-    Deployed_dict = dictionary of the times each prototype is deployed
-    duration = dictionary of the lifetimes of each prototype
+    Parameters:
+    -----------
+    deployinst_dict: dict
+        dictionary of DeployInst information
+    reactor_dict: dict
+        dictionary of LWR prototype names
+    
+    Returns:
+    --------
+    deployed_dict: dict
+        dictionary of information about LWR prototypes and
+        their deployment
+
     '''
     # get enter / lifetimes / n_builds
+    # Still need to actually change function
     deployed_dict = {}
 
     for i in deploy_inst['simulation']['region']['institution']:
@@ -52,7 +63,7 @@ def get_deployinst_dict(deploy_inst, power_dict):
                 deployed_dict[i['name']]['lifetime'].append(int(i['config']['DeployInst']['lifetimes']['val'][indx]))
                 deployed_dict[i['name']]['n_build'].append(int(i['config']['DeployInst']['n_build']['val'][indx]))
                 deployed_dict[i['name']]['build_times'].append(int(i['config']['DeployInst']['build_times']['val'][indx]))
-    return deployed_dict,
+    return deployed_dict
 
 def get_simulation_duration(simulation_dict):
     '''
@@ -203,4 +214,12 @@ def stacked_bar(x, y):
     plt.show()
     
 if __name__ == '__main__':
-    print(4)
+    simulation_input = "../input/haleu/inputs/united_states_2020.xml"
+    deployinst_input = "../input/haleu/inputs/united_states/buildtimes/UNITED_STATES_OF_AMERICA/deployinst.xml"
+
+    simulation_dict = convert_xml_to_dict(simulation_input)
+    deployinst_dict = convert_xml_to_dict(deployinst_input)
+
+    duration = get_simulation_duration(simulation_dict)
+    lwr_powers = get_pris_powers('UNITED STATES OF AMERICA', 2020)
+    deployed_lwr_dict = get_deployinst_dict
