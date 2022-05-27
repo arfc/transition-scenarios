@@ -5,8 +5,6 @@ import sqlite3
 
 import dataframe_analysis as dfa
 
-#import transition_metrics as tm
-
 class Dakota_responses(object):
     '''
     Class of functions to get response functions for dakota 
@@ -42,7 +40,10 @@ def merge_and_fillna_col(left, right, lcol, rcol, how='inner', on=None):
 def get_table_from_output(db_file, table_name):
     '''
     Get a specified table from the SQlite database and return 
-        it as a pandas dataframe
+    it as a pandas dataframe. The dataframe for the 'Resources' 
+    uses only select columns from that table because of memory 
+    issues expereinced, and only the columns called here were 
+    used for later functions.
         
         Parameters:
         -----------
