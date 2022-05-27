@@ -1,29 +1,33 @@
 import os
 import numpy as np
 import matplotlib.pyplot as plt
-plt.rcParams['image.cmap'] = 'viridis'
+import pandas as pd
+#plt.rcParams['image.cmap'] = 'viridis'
 import xmltodict
 from pprint import pprint
 import copy
-src_path = './src'
+#src_path = './src'
 
-def read_file_from_src(filename):
-    return open(os.path.join(src_path, filename), 'r').read()
-"""
-s = read_file_from_src('template.xml')
-b_list = ['fuel_cycle_facilities.xml', 'reactors.xml', 'regions.xml', 'recipes.xml']
-for i in b_list:
-    temp = read_file_from_src(i)
-    s = s.replace('$'+i, temp)
+def convert_xml_to_dict(filename):
+    '''
+    Reads in an xml file and converts it to a python dictionary
 
-with open('eh.xml', 'w') as f:
-    f.write(s)
+    Parameters:
+    -----------
+    filename: str
+        name of xml file
+    
+    Returns:
+    --------
+    xml_dict: dict of strings
+        contents of the xml file as a dictionary
+        
+    '''
+    xml_dict = xmltodict.parse(open(filename, 'r').read())
+    return xml_dict
 
-d = xmltodict.parse(s)
-"""
 
-
-def get_config_dict(d):
+def get_deployinst_dict(deploy_inst, power_dict):
     '''
     d = xmltodict.parse(open(xml_file_path, 'r').read())
     file should be cyclus input file
@@ -33,18 +37,10 @@ def get_config_dict(d):
     Deployed_dict = dictionary of the times each prototype is deployed
     duration = dictionary of the lifetimes of each prototype
     '''
-    duration = int(d['simulation']['control']['duration'])
-    power_dict = {}
-    # get power dict
-    for i in d['simulation']['facility']:
-        type_ = list(i['config'].keys())[0]
-        if 'Reactor' in type_:
-            power_dict[i['name']] = float(i['config'][type_]['power_cap'])
-
     # get enter / lifetimes / n_builds
     deployed_dict = {}
 
-    for i in d['simulation']['region']['institution']:
+    for i in deploy_inst['simulation']['region']['institution']:
         deployed_dict[i['name']] = {'lifetime': [],
                  'prototype': [],
                  'n_build': [],
@@ -56,7 +52,52 @@ def get_config_dict(d):
                 deployed_dict[i['name']]['lifetime'].append(int(i['config']['DeployInst']['lifetimes']['val'][indx]))
                 deployed_dict[i['name']]['n_build'].append(int(i['config']['DeployInst']['n_build']['val'][indx]))
                 deployed_dict[i['name']]['build_times'].append(int(i['config']['DeployInst']['build_times']['val'][indx]))
-    return power_dict, deployed_dict, duration
+    return deployed_dict,
+
+def get_simulation_duration(simulation_dict):
+    '''
+    Reads the dictionary provided to obtain the total duration of the 
+    simulation
+
+    Parameters:
+    -----------
+    simulation_dict: dict of strs
+        dictionary of the cylus input file
+    
+    Returns:
+    --------
+    duration: int
+        duration of cyclus simulation
+    '''
+    duration = int(simulation_dict['simulation']['control']['duration'])
+    return duration
+
+def get_pris_powers(country, year):
+    '''
+    Create dictionary of the reactors units from a select country 
+    in the PRIS database and 
+    their corresponding rated power 
+    output from the reactors_pris_XXXX.csv file for the corresponding year
+
+    Parameters:
+    -----------
+    country: str
+        name of country to get LWR data for
+    year: int
+        year of data to pull from 
+    
+    Returns:
+    --------
+    pris_power: dict 
+        dictionary of reactor names and rated powers, the keys are the reactor 
+        names (strs), the values are the rated powers (ints)
+    '''
+    pris_power = {}
+    reactors = pd.read_csv('../database/reactors_pris_' + str(year) +'.csv')
+    reactors = reactors.loc[reactors['Country'] == country]
+    for index, row in reactors.iterrows():
+        pris_power[row['Unit']] = row['RUP [MWe]']
+    return pris_power
 
 
 def legacy_lifetimes(d, extension_eq, region_indx=1):
@@ -161,3 +202,5 @@ def stacked_bar(x, y):
     print('show')
     plt.show()
     
+if __name__ == '__main__':
+    print(4)
