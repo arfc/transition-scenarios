@@ -13,7 +13,7 @@ class Dakota_responses(object):
     def __init__(self):
         self.adv_rxs = ['Xe-100','MMR','VOYGR']
 
-def merge_and_fillna_col(left, right, lcol, rcol, how='inner', on=None):
+def merge_and_fillna_col(left, right, lcol, rcol, how='left', on=None):
     """Merges two dataframes and fills the values of the left column
     with the values from the right column. A copy of left is returned.
 
@@ -32,9 +32,9 @@ def merge_and_fillna_col(left, right, lcol, rcol, how='inner', on=None):
     on : list of str, optional
         Which columns to merge on, same as in pd.merge()
     """
-    m = pd.merge(left, right, how=how, on=on)
-    f = m[lcol].fillna(m[rcol])
-    left[lcol] = f
+    merged_df = left.reset_index().merge(right, how=how).set_index('index')
+    fill_column = merged_df[lcol].fillna(merged_df[rcol])
+    left[lcol] = fill_column
     return left    
 
 def get_table_from_output(db_file, table_name):
@@ -83,8 +83,7 @@ def create_agents_table(db_file):
     info = get_table_from_output(db_file, 'Info')
     decom_schedule = get_table_from_output(db_file, 'DecomSchedule')
     mergeon = ['SimId', 'AgentId']
-    agents = agent_entry[['SimId', 'AgentId', 'Kind', 'Spec', 'Prototype', 'ParentId',
-                'Lifetime', 'EnterTime']]
+    agents = agent_entry.copy()
     agents['ExitTime'] = [np.nan]*len(agent_entry)
     if agent_exit is not None:
         agent_exit.columns = ['SimId', 'AgentId', 'Exits']
