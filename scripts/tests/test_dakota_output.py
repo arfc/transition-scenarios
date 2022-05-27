@@ -53,18 +53,64 @@ class Test_static_info(unittest.TestCase):
                     2, 5, 6, 8, float('NaN')], 'Commodity': [
                     'fresh_uox', 'spent_uox', 'fresh_uox', 'fresh_uox', 'spent_uox'],
                 'Prototype': ['FuelCycle', 'LWR', 'Reactor_type1', 'LWR', 'Reactor_type1']})
+    
     def test_merge_and_fillna_col1(self):
         '''
         Tests the function with the two default arguments supplied when the left 
-        DataFrame does not contain any NaN values
+        DataFrame does not contain a NaN value
         '''
         exp = pd.DataFrame(data={
                 'Time': [
                     0, 1, 1, 3], 'Quantity': [
-                    2.0, 5.0, 6.0, 8.0], 'Commodity': [
+                    2, 5, 6, 8], 'Commodity': [
                     'fresh_uox', 'spent_uox', 'fresh_uox', 'fresh_uox'],
                 'Prototype': ['FuelCycle', 'LWR', 'Reactor_type1', 'LWR']})
         obs = oup.merge_and_fillna_col(self.test_df1, self.test_df2, 'Quantity', 'Prototype')
+        assert_frame_equal(exp, obs)
+
+    def test_merge_and_fillna_col2(self):
+        '''
+        Tests the function with the two default arguments supplied when the left 
+        DataFrame does contain a NaN value
+        '''
+        exp = pd.DataFrame(data={
+                'Time': [
+                    0, 2, 3, 3, 5], 'Quantity': [
+                    2.0, 5.0, 6.0, 8.0, 'Reactor_type1'], 'Commodity': [
+                    'fresh_uox', 'spent_uox', 'fresh_uox', 'fresh_uox', 'spent_uox'],
+                'Prototype': ['FuelCycle', 'LWR', 'Reactor_type1', 'LWR', 'Reactor_type1']})
+        obs = oup.merge_and_fillna_col(self.test_df3, self.test_df2, 'Quantity', 'Prototype')
+        assert_frame_equal(exp, obs)
+
+    def test_merge_and_fillna_col3(self):
+        '''
+        Tests the function with the default argument fpr how, but specifying 
+        a column to merge on when the left DataFrame does not contain a NaN value
+        '''
+        exp = pd.DataFrame(data={
+                'Time': [
+                    0, 1, 1, 3], 'Quantity': [
+                    2, 5, 6, 8], 'Commodity': [
+                    'fresh_uox', 'spent_uox', 'fresh_uox', 'fresh_uox'],
+                'Prototype': ['FuelCycle', 'LWR', 'Reactor_type1', 'LWR']})
+        mergeon = ['Time','Quantity','Commodity','Prototype']
+        obs = oup.merge_and_fillna_col(self.test_df1, self.test_df2, 'Quantity', 'Prototype', on=mergeon)
+        assert_frame_equal(exp, obs)
+
+    def test_merge_and_fillna_col4(self):
+        '''
+        Tests the function with the default for how is used, but an argument 
+        is given for the on argument when the left 
+        DataFrame does contain a NaN value
+        '''
+        exp = pd.DataFrame(data={
+                'Time': [
+                    0, 2, 3, 3, 5], 'Quantity': [
+                    2.0, 5.0, 6.0, 8.0, 'Reactor_type1'], 'Commodity': [
+                    'fresh_uox', 'spent_uox', 'fresh_uox', 'fresh_uox', 'spent_uox'],
+                'Prototype': ['FuelCycle', 'LWR', 'Reactor_type1', 'LWR', 'Reactor_type1']})
+        mergeon = ['Time','Quantity','Commodity','Prototype']
+        obs = oup.merge_and_fillna_col(self.test_df3, self.test_df2, 'Quantity', 'Prototype', on=mergeon)
         assert_frame_equal(exp, obs)
 
     def test_get_table_from_output1(self):
