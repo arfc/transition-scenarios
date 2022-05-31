@@ -215,7 +215,33 @@ def determine_power_gap(power_profile, demand):
     power_gap[power_gap < 0] = 0
     return power_gap 
 
-def define_deployment_schedule():
+def determine_deployment_order(reactor_prototypes):
+    '''
+    Creates a list of the keys in reactor_prototypes ordering
+    them in decreasing order of power
+
+    Parameters:
+    ----------
+    reactor_prototypes: dict
+        dictionary of information about prototypes in the form
+        {name(str): (power(int), lifetime(int))}
+    
+    Returns:
+    --------
+    reactor_order: list of strs
+        ordered list of reactor prototypes in decreasing order of
+        power output. 
+    '''
+    reactor_order = []
+    keys = list(reactor_prototypes.keys())
+    for key in keys:
+        max_power_prototype = max(reactor_prototypes,
+                                 key=lambda x:reactor_prototypes[x][0])
+        reactor_order.append(max_power_prototype)
+        reactor_prototypes.pop(max_power_prototype, None)
+    return reactor_order
+
+def define_deployment_schedule(power_gap, reactor_prototypes):
     '''
     Define the deployemnt schedule for a single or multiple 
     reactor prototypes based on a gap in production 
@@ -242,7 +268,10 @@ def define_deployment_schedule():
                                      'build_times':{'val':[]},
                                      'n_build':{'val':[]},
                                      'lifetimes':{'val':[]}}}
-    
+    reactor_order = determine_deployment_order(reactor_prototypes)
+    for index, value in enumerate(power_gap):
+        if value == 0:
+            continue
     return deploy_schedule
 
 
