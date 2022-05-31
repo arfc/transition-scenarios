@@ -139,16 +139,16 @@ def get_deployed_power(power_dict, deployed_dict, sim_duration):
     --------
     t: array
         ranged arrays of durations
-    inst_power: dict 
-    of each institution and their deployed power based on 
-    the power and duration of each prototype
+    inst_power: array 
+        deployed power at each timestep from a single DeployInst 
+        based on the power and duration of each prototype
     '''
     t = np.arange(sim_duration)
     inst_power = {}
     for key, val in deployed_dict.items():
         inst_power[key] = np.zeros(len(t))
-        for i, v in enumerate(val['prototype']):
-            inst_power[key][deployed_dict[key]['build_times'][i] : deployed_dict[key]['build_times'][i] + deployed_dict[key]['lifetime'][i]] += power_dict[v] * deployed_dict[key]['n_build'][i]
+        for i, v in enumerate(deployed_dict['prototype']):
+            inst_power[deployed_dict['build_times'][i] : deployed_dict['build_times'][i] + deployed_dict['lifetime'][i]] += power_dict[v] * deployed_dict[key]['n_build'][i]
     return t, inst_power
     
 
