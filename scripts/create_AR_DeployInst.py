@@ -77,11 +77,11 @@ def get_simulation_duration(simulation_dict):
     
     Returns:
     --------
-    duration: int
+    sim_duration: int
         duration of cyclus simulation
     '''
-    duration = int(simulation_dict['simulation']['control']['duration'])
-    return duration
+    sim_duration = int(simulation_dict['simulation']['control']['duration'])
+    return sim_duration
 
 def get_pris_powers(country, year):
     '''
