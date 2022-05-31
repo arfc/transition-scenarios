@@ -52,7 +52,7 @@ def get_deployinst_dict(deployinst_dict, power_dict):
     # get enter / lifetimes / n_builds
     # Still need to actually change function
     deployed_dict = {}
-    deployed_dict[i['name']] = {'lifetime': [],
+    deployed_dict = {'lifetime': [],
                  'prototype': [],
                  'n_build': [],
                  'build_times': []}
@@ -121,8 +121,26 @@ def legacy_lifetimes(d, extension_eq, region_indx=1):
 
 def get_deployed_power(power_dict, deployed_dict, sim_duration):
     '''
-    t = ranged arrays of durations
-    inst_power = dictionary of each institution and their deployed power based on 
+    Creates array of the total power from agents in a given 
+    DeployInst. Each entry in the array is for each time step in 
+    the simulation.
+
+    Parameters:
+    -----------
+    power_dict: dict
+        contains the power output of each agent in the DeployInst
+    deployed_dict: dict
+        contains the lifetimes, number built, and name of each 
+        prototype in the DeployInst
+    sim_duration: int
+        number of timesteps in the simulation
+
+    Returns:
+    --------
+    t: array
+        ranged arrays of durations
+    inst_power: dict 
+    of each institution and their deployed power based on 
     the power and duration of each prototype
     '''
     t = np.arange(sim_duration)
