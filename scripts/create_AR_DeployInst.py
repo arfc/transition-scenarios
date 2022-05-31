@@ -277,9 +277,18 @@ if __name__ == '__main__':
     deployinst_input = "../input/haleu/inputs/united_states/buildtimes/UNITED_STATES_OF_AMERICA/deployinst.xml"
     prototype_path = "../input/haleu/inputs/united_states/reactors/"
 
+    #Create dictionaries
     simulation_dict = convert_xml_to_dict(simulation_input)
     deployinst_dict = convert_xml_to_dict(deployinst_input)
 
+    # get information out of dictionaries 
     duration = get_simulation_duration(simulation_dict)
     lwr_powers = get_pris_powers('UNITED STATES OF AMERICA', 2020)
-    deployed_lwr_dict = get_deployinst_dict
+    deployed_lwr_dict = get_deployinst_dict(deployinst_input, lwr_powers)
+    deployed_lwr_dict = insert_lifetimes(prototype_path, deployed_lwr_dict)
+
+    #Figure out power already deployed and power needed
+    time, deployed_power = get_deployed_power(lwr_powers, deployed_lwr_dict, duration)
+
+    #Figure out how many new prototypes are needed
+    
