@@ -49,8 +49,6 @@ def get_deployinst_dict(deployinst_dict, power_dict):
         dictionary of information about LWR prototypes and
         their deployment
     '''
-    # get enter / lifetimes / n_builds
-    # Still need to actually change function
     deployed_dict = {}
     deployed_dict = {'lifetime': [],
                  'prototype': [],
@@ -59,7 +57,7 @@ def get_deployinst_dict(deployinst_dict, power_dict):
     for indx, val in enumerate(deployinst_dict['DeployInst']['prototypes']['val']):
         if val in power_dict.keys():
             deployed_dict['prototype'].append(val)
-            #deployed_dict[i['name']]['lifetime'].append(int(i['config']['DeployInst']['lifetimes']['val'][indx]))
+            #deployed_dict['lifetime'].append(int(i['config']['DeployInst']['lifetimes']['val'][indx]))
             deployed_dict['n_build'].append(int(deployinst_dict['DeployInst']['n_build']['val'][indx]))
             deployed_dict['build_times'].append(int(deployinst_dict['DeployInst']['build_times']['val'][indx]))
     return deployed_dict
@@ -109,6 +107,48 @@ def get_pris_powers(country, year):
         pris_power[row['Unit']] = row['RUP [MWe]']
     return pris_power
 
+def get_lifetime(name, path):
+    ''''
+    Get the lifetime of a prototype from a modular file of the prototype 
+    definition
+
+    Parameters:
+    -----------
+    name: str
+        name of prototype
+    path: str
+        relative path to prototype definition file
+    Returns:
+    --------
+    lifetime: int
+        lifetime of prototype
+    '''
+    prototype_dict = convert_xml_to_dict(path + name +'.xml')
+    lifetime = int(prototype_dict['facility']['lifetime'])
+    return lifetime
+
+def insert_lifetimes(path, deployed_dict):
+    ''''
+    Uses get_lifetime to get the lifetime of each prototype in the 
+    deployed_dict, then inserts the lifetime into the lifetime 
+    key of the deployed_dict
+    
+    Parameters:
+    ----------
+    path: str
+        path to file defining prototype
+    deployed_dict: dict
+        dictionary of information for the DeployInst
+
+    Returns:
+    --------
+    deployed_dict: dict
+        udpated dictionary of information for the DeployInst
+        with the lifetime of each prototype
+    '''
+    for key in deployed_dict['prototype']:
+        deployed_dict['lifetime'].append(get_lifetime(key, path))
+    return deployed_dict
 
 def legacy_lifetimes(d, extension_eq, region_indx=1):
     new_xml = copy.deepcopy(d)
@@ -146,9 +186,11 @@ def get_deployed_power(power_dict, deployed_dict, sim_duration):
     t = np.arange(sim_duration)
     inst_power = {}
     for key, val in deployed_dict.items():
-        inst_power[key] = np.zeros(len(t))
+        inst_power = np.zeros(len(t))
         for i, v in enumerate(deployed_dict['prototype']):
-            inst_power[deployed_dict['build_times'][i] : deployed_dict['build_times'][i] + deployed_dict['lifetime'][i]] += power_dict[v] * deployed_dict[key]['n_build'][i]
+            prototype_power = np.zeros(len(t))
+            prototype_power[deployed_dict['build_times'][i] : deployed_dict['build_times'][i] + deployed_dict['lifetime'][i]] += power_dict[v] * deployed_dict['n_build'][i]
+            inst_power += prototype_power   
     return t, inst_power
     
 
@@ -233,6 +275,7 @@ def stacked_bar(x, y):
 if __name__ == '__main__':
     simulation_input = "../input/haleu/inputs/united_states_2020.xml"
     deployinst_input = "../input/haleu/inputs/united_states/buildtimes/UNITED_STATES_OF_AMERICA/deployinst.xml"
+    prototype_path = "../input/haleu/inputs/united_states/reactors/"
 
     simulation_dict = convert_xml_to_dict(simulation_input)
     deployinst_dict = convert_xml_to_dict(deployinst_input)
