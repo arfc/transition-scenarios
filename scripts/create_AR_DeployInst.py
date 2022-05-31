@@ -214,11 +214,64 @@ def determine_power_gap(power_profile, demand):
     power_gap = demand - power_profile
     power_gap[power_gap < 0] = 0
     return power_gap 
+
+def define_deployment_schedule():
+    '''
+    Define the deployemnt schedule for a single or multiple 
+    reactor prototypes based on a gap in production 
+    and demand. If multiple prototypes are provided, then 
+    they will be deployed in preferential order based on 
+    decreasing power output.
+
+    Parameters:
+    -----------
+    power_gap: array
+        gap in power production and demand
+    reactor_prototypes: dictionary
+        information about reactor prototypes to be deployed. The 
+        keys are the prototype names (strs) and the values are 
+        a tuple of the power output and lifetime (ints)
+
+    Returns:
+    --------
+    deploy_schedule: dict
+        deployment schedule of reactor prototypes with the 
+        structure for a DeployInst
+    '''
+    deploy_schedule = {'DeployInst': {'prototypes':{'val':[]}, 
+                                     'build_times':{'val':[]},
+                                     'n_build':{'val':[]},
+                                     'lifetimes':{'val':[]}}}
+    
+    return deploy_schedule
+
+
+def write_deployinst(deploy_schedule, out_path):
+    '''
+    Write xml file for the DeployInst to meet the power demand
+
+    Parameters:
+    -----------
+    deploy_schedule: dict
+        deployment schedule of reactor prototypes
+    out_path: str 
+        path to where the file should be written
+
+    Returns:
+    --------
+    null 
+        wites xml file for Cycamore DeployInst
+    '''
+    with open(out_path, 'w') as f:
+        f.write(xmltodict.unparse(deploy_schedule, pretty=True))
     
 if __name__ == '__main__':
     simulation_input = "../input/haleu/inputs/united_states_2020.xml"
     deployinst_input = "../input/haleu/inputs/united_states/buildtimes/UNITED_STATES_OF_AMERICA/deployinst.xml"
     prototype_path = "../input/haleu/inputs/united_states/reactors/"
+    reactor_prototypes = {'Xe-100':(75, 720), 
+                          'MMR':(10, 240), 
+                          'VOYGR': (50, 720)}
 
     #Create dictionaries
     simulation_dict = convert_xml_to_dict(simulation_input)
@@ -232,6 +285,9 @@ if __name__ == '__main__':
 
     #Figure out power already deployed and power needed
     time, deployed_power = get_deployed_power(lwr_powers, deployed_lwr_dict, duration)
-
+    demand_eq = np.zeros(len(time))
+    demand_eq[721:] = 89450
+    power_gap = determine_power_gap(deployed_power, demand_eq)
+    
     #Figure out how many new prototypes are needed
     
