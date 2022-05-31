@@ -27,11 +27,14 @@ def convert_xml_to_dict(filename):
     return xml_dict
 
 
-def get_deployinst_dict(deploy_inst, power_dict):
+def get_deployinst_dict(deployinst_dict, power_dict):
     '''
     Removes any non-power producing prototypes from the dictionary of 
     the DeployInst. This also removes the 'val' level of information. 
-    Returns a dictionary about deployment information from the Inst
+    Returns a dictionary about deployment information from the Inst.
+    This function assumes the input for a single DeployInst is provided.
+    Only the the prototype names that are in the power_dict are included 
+    in the output, so that only prototypes that produce power are considered. 
 
     Parameters:
     -----------
@@ -45,24 +48,20 @@ def get_deployinst_dict(deploy_inst, power_dict):
     deployed_dict: dict
         dictionary of information about LWR prototypes and
         their deployment
-
     '''
     # get enter / lifetimes / n_builds
     # Still need to actually change function
     deployed_dict = {}
-
-    for i in deploy_inst['simulation']['region']['institution']:
-        deployed_dict[i['name']] = {'lifetime': [],
+    deployed_dict[i['name']] = {'lifetime': [],
                  'prototype': [],
                  'n_build': [],
                  'build_times': []}
-        if 'NullInst' in i['config']: continue
-        for indx, val in enumerate(i['config']['DeployInst']['prototypes']['val']):
-            if val in power_dict.keys():
-                deployed_dict[i['name']]['prototype'].append(val)
-                deployed_dict[i['name']]['lifetime'].append(int(i['config']['DeployInst']['lifetimes']['val'][indx]))
-                deployed_dict[i['name']]['n_build'].append(int(i['config']['DeployInst']['n_build']['val'][indx]))
-                deployed_dict[i['name']]['build_times'].append(int(i['config']['DeployInst']['build_times']['val'][indx]))
+    for indx, val in enumerate(deployinst_dict['DeployInst']['prototypes']['val']):
+        if val in power_dict.keys():
+            deployed_dict['prototype'].append(val)
+            #deployed_dict[i['name']]['lifetime'].append(int(i['config']['DeployInst']['lifetimes']['val'][indx]))
+            deployed_dict['n_build'].append(int(deployinst_dict['DeployInst']['n_build']['val'][indx]))
+            deployed_dict['build_times'].append(int(deployinst_dict['DeployInst']['build_times']['val'][indx]))
     return deployed_dict
 
 def get_simulation_duration(simulation_dict):
@@ -120,13 +119,13 @@ def legacy_lifetimes(d, extension_eq, region_indx=1):
     return new_xml
 
 
-def get_deployed_power(power_dict, deployed_dict, duration):
+def get_deployed_power(power_dict, deployed_dict, sim_duration):
     '''
     t = ranged arrays of durations
     inst_power = dictionary of each institution and their deployed power based on 
     the power and duration of each prototype
     '''
-    t = np.arange(duration)
+    t = np.arange(sim_duration)
     inst_power = {}
     for key, val in deployed_dict.items():
         inst_power[key] = np.zeros(len(t))
