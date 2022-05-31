@@ -17,4 +17,8 @@
         <val>1</val>
         {%- endfor %}
     </n_build>
+    <lifetime>
+        <val>-1</val>
+        {%- for kwy, value in reactors.items() %}
+    </lifetime>
 </DeployInst>
