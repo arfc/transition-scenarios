@@ -19,6 +19,8 @@
     </n_build>
     <lifetime>
         <val>-1</val>
-        {%- for kwy, value in reactors.items() %}
+        {%- for key, value in reactors.items() %}
+        <val>{{value}}</val>
+        {%- endfor %}
     </lifetime>
 </DeployInst>
