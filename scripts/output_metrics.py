@@ -127,10 +127,10 @@ def merge_transactions_resources(db_file):
 
 def add_receiver_prototype(db_file):
     '''
-    Creates dataframe of transactions information, and adds in
+    Adds in
     the prototype name corresponding to the ReceiverId of the
     transaction. This dataframe is merged with the Agents dataframe, with the
-    AgentId column renamed to ReceivedId to assist the merge process. The
+    AgentId column renamed to ReceiverId to assist the merge process. The
     final dataframe is organized by ascending order of Time then TransactionId
 
     Parameters:
@@ -150,7 +150,36 @@ def add_receiver_prototype(db_file):
     receiver_prototype = pd.merge(
         trans_resources, agents[['SimId', 'ReceiverId', 'Prototype']], on=[
             'SimId', 'ReceiverId']).sort_values(by=['Time', 'TransactionId']).reset_index(drop=True)
+    receiver_prototype = receiver_prototype.rename(columns={'Prototype':'ReceiverPrototype'})
     return receiver_prototype  
+
+def add_sender_prototype(db_file):
+    '''
+    Adds in
+    the prototype name corresponding to the SenderId of the
+    transaction. This dataframe is merged with the Agents dataframe, with the
+    AgentId column renamed to SenderId to assist the merge process. The
+    final dataframe is organized by ascending order of Time then TransactionId
+
+    Parameters:
+    -----------
+    db_file: str
+        SQLite database from Cyclus
+
+    Returns:
+    --------
+    sender_prototype: DataFrame
+        contains all of the transactions with the prototype name of the
+        receiver included
+    '''
+    trans_resources = merge_transactions_resources(db_file)
+    agents = create_agents_table(db_file)
+    agents = agents.rename(columns={'AgentId': 'SenderId'})
+    sender_prototype = pd.merge(
+        trans_resources, agents[['SimId', 'SenderId', 'Prototype']], on=[
+            'SimId', 'ReceiverId']).sort_values(by=['Time', 'TransactionId']).reset_index(drop=True)
+    sender_prototype = sender_prototype.rename(columns={'Prototype':'SenderPrototype'})
+    return sender_prototype
 
 def get_multiple_prototype_transactions(db_file, prototypes, commodity):
     '''
