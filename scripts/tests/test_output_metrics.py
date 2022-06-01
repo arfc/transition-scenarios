@@ -183,6 +183,24 @@ class Test_static_info(unittest.TestCase):
         obs = oup.create_agents_table(self.output_file1)
         assert_frame_equal(exp,obs.drop('SimId', axis=1)[0:4])
 
+    def test_merge_transactions_resources(self):
+        '''
+        Test with output_file1.
+        '''
+        exp = pd.DataFrame(data = {
+            'TransactionId':[0,1,2,3,4],
+            'SenderId':[21, 21, 21, 21,21],
+            'ReceiverId':[24, 24, 24, 24, 25],
+            'ResourceId':[10, 12, 14, 26, 28],
+            'Commodity':['fresh_uox', 'fresh_uox', 'fresh_uox', 'fresh_uox', 'fresh_uox'],
+            'Time':[1,1,1,2,2],
+            'ObjId':[9,10,11,21,22],
+            'Quantity':[33000.0, 33000.0, 33000.0, 33000.0,3300.0],
+            'Units':['kg','kg','kg','kg','kg']
+        })
+        obs = oup.merge_transactions_resources(self.output_file1)
+        assert_frame_equal(exp,obs.drop('SimId', axis=1)[0:5])
+    
     def test_add_receiver_prototype(self):
         '''
         Test with output_file1
@@ -197,11 +215,28 @@ class Test_static_info(unittest.TestCase):
             'ObjId':[9,10,11,21,22],
             'Quantity':[33000.0, 33000.0, 33000.0, 33000.0,3300.0],
             'Units':['kg','kg','kg','kg','kg'],
-            'Prototype':['Reactor_type1','Reactor_type1','Reactor_type1', 'Reactor_type1', 'Reactor_type2']
-            
-            
+            'ReceiverPrototype':['Reactor_type1','Reactor_type1','Reactor_type1', 'Reactor_type1', 'Reactor_type2']
         })
         obs = oup.add_receiver_prototype(self.output_file1)
+        assert_frame_equal(exp,obs.drop('SimId', axis=1)[0:5])
+
+    def test_add_sender_prototype(self):
+        '''
+        Test with output_file1
+        '''
+        exp = pd.DataFrame(data={
+            'TransactionId':[0,1,2,3,4],
+            'SenderId':[21, 21, 21, 21,21],
+            'ReceiverId':[24, 24, 24, 24, 25],
+            'ResourceId':[10, 12, 14, 26, 28],
+            'Commodity':['fresh_uox', 'fresh_uox', 'fresh_uox', 'fresh_uox', 'fresh_uox'],
+            'Time':[1,1,1,2,2],
+            'ObjId':[9,10,11,21,22],
+            'Quantity':[33000.0, 33000.0, 33000.0, 33000.0,3300.0],
+            'Units':['kg','kg','kg','kg','kg'],
+            'SenderPrototype':['FuelSupply','FuelSupply','FuelSupply','FuelSupply','FuelSupply']
+        })
+        obs = oup.add_sender_prototype(self.output_file1)
         assert_frame_equal(exp,obs.drop('SimId', axis=1)[0:5])
     
     def test_get_multiple_prototype_transactions1(self):
