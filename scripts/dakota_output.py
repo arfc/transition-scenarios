@@ -159,10 +159,10 @@ def get_multiple_prototype_transactions(db_file, prototypes, commodity):
 
 def get_enriched_u_mass(db_file, prototypes, transition_start):
     '''
-        Calculates the cumulative and average monthly mass of enriched 
-        uranium sent to advanced reactors in a simulation. The average 
+        Calculates the cumulative mass of enriched 
+        uranium sent to given prototypes in a simulation. The average 
         is calculated from the start of the transition to the end of the 
-        simulation (time step 1500).
+        simulation.
 
         Parameters:
         -----------
@@ -186,7 +186,7 @@ def get_enriched_u_mass(db_file, prototypes, transition_start):
     cumulative_u = total_adv_rx_enriched_u[int(transition_start):].cumsum()
     return cumulative_u.loc[cumulative_u.index[-1]]
 
-def calculate_swu(db_file, prototypes, transition_start):
+def calculate_swu(db_file, prototypes, transition_start, assays):
     '''
     Calculates the cumulative amount of SWU capacity required to 
     create the enriched uranium in the simulation
@@ -199,6 +199,12 @@ def calculate_swu(db_file, prototypes, transition_start):
         names of prototypes to consider in calculation
     transition_start: int
         time step the modeled transition begins at
+    assays: dict
+        dictionary of the prototype names and the uranium assay for 
+        the fuel for the prototype, form of the dictionary is
+        {prototype name(str):assay(float)}. This dictionary MUST 
+        contain the assays for the tails and feed streams, and be labeled 
+        as 'tails' and 'feed'. 
     
     Returns:
     --------
@@ -206,8 +212,6 @@ def calculate_swu(db_file, prototypes, transition_start):
         The total cumulative swu capacity required for the simulation, 
         starting at the transition start time. 
     '''
-    assays = {'MMR':0.13, 'Xe-100':0.155, 
-          'VOYGR':0.0409, 'feed':0.00711, 'tails':0.002}
     enriched_u_mass = get_multiple_prototype_transactions(db_file, prototypes, 'fresh_uox')
     swu = 0
     for prototype in prototypes:
@@ -218,7 +222,7 @@ def calculate_swu(db_file, prototypes, transition_start):
         tails, assays['tails'], feed, assays['feed'])
         swu += prototype_swu
     cumulative_swu = swu[int(transition_start):].cumsum()
-    return cumulative_swu.loc[cumulative_swu.index[-1]]
+    return np.round(cumulative_swu.loc[cumulative_swu.index[-1]],2)
 
 def get_waste_discharged(db_file, prototypes, transition_start, commodities):
     '''
