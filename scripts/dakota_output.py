@@ -131,23 +131,23 @@ def add_receiver_prototype(db_file):
 
 def get_multiple_prototype_transactions(db_file, prototypes, commodity):
     '''
-    Gets the transactions of the fresh_uox commodity sent to the 
-    advanced reactors in each time step
+    Gets the transactions of the given commodity sent to the
+    specified prototypes in each time step
 
     Parameters:
     -----------
     db_file: str
         name of database file
     prototypes: list of strs
-        names of prototypes to get transactions to 
+        names of prototypes to get transactions to
     commodity: str
         name of commodity
     
     Returns:
     --------
     commodity_transactions: DataFrame
-        DataFrame of transactions for fresh_uox to specific prototypes. 
-        The mass sent to each prototype is in a separate column, with 
+        DataFrame of transactions for commodity to specific prototypes.
+        The mass sent to each prototype is in a separate column, with
         the name of the column matching the prototype name.
     '''
     transactions = add_receiver_prototype(db_file)
