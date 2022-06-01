@@ -6,6 +6,7 @@ import pandas as pd
 import xmltodict
 from pprint import pprint
 import copy
+import math
 #src_path = './src'
 
 def convert_xml_to_dict(filename):
@@ -242,7 +243,7 @@ def determine_deployment_order(reactor_prototypes):
         prototypes.pop(max_power_prototype, None)
     return reactor_order
 
-def define_deployment_schedule(power_gap, reactor_prototypes):
+def determine_deployment_schedule(power_gap, reactor_prototypes):
     '''
     Define the deployemnt schedule for a single or multiple 
     reactor prototypes based on a gap in production 
@@ -269,10 +270,26 @@ def define_deployment_schedule(power_gap, reactor_prototypes):
                                      'build_times':{'val':[]},
                                      'n_build':{'val':[]},
                                      'lifetimes':{'val':[]}}}
-    reactor_order = determine_deployment_order(reactor_prototypes)
+    reactors = determine_deployment_order(reactor_prototypes)
     for index, value in enumerate(power_gap):
-        if value == 0:
-            continue
+        if value <= 0:
+            continue 
+        for reactor in reactors:
+            if reactor == reactors[-1]:
+                #for the last reactor round up to ensure gap is fully met, even if 
+                #power is slightly over supplied
+                num_rxs = math.ceil(value/reactor_prototypes[reactor][0])
+            else:
+                num_rxs = math.floor(value/reactor_prototypes[reactor][0])
+            if num_rxs == 0:
+                continue
+            power_gap[index:index+reactor_prototypes[reactor][1]] = \
+                power_gap[index:index+reactor_prototypes[reactor][1]] - reactor_prototypes[reactor][0]*num_rxs
+            deploy_schedule['DeployInst']['prototypes']['val'].append(reactor)
+            deploy_schedule['DeployInst']['n_build']['val'].append(num_rxs)
+            deploy_schedule['DeployInst']['build_times']['val'].append(index)
+            deploy_schedule['DeployInst']['lifetimes']['val'].append(reactor_prototypes[reactor][1])
+        
     return deploy_schedule
 
 
@@ -299,6 +316,7 @@ if __name__ == '__main__':
     simulation_input = "../input/haleu/inputs/united_states_2020.xml"
     deployinst_input = "../input/haleu/inputs/united_states/buildtimes/UNITED_STATES_OF_AMERICA/deployinst.xml"
     prototype_path = "../input/haleu/inputs/united_states/reactors/"
+    out_path = "../input/haleu/inputs/united_states/buildtimes/advanced_reactor_deployinst.xml"
     reactor_prototypes = {'Xe-100':(75, 720), 
                           'MMR':(10, 240), 
                           'VOYGR': (50, 720)}
@@ -320,4 +338,6 @@ if __name__ == '__main__':
     power_gap = determine_power_gap(deployed_power, demand_eq)
     
     #Figure out how many new prototypes are needed
+    deploy_schedule = determine_deployment_schedule(power_gap, reactor_prototypes)
+    write_deployinst(deploy_schedule, out_path)
     
