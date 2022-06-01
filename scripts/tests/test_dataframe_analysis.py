@@ -38,7 +38,7 @@ class Test_static_info(unittest.TestCase):
                     0, 1, 1, 3], 'Quantity': [
                     2, 5, 6, 8], 'Commodity': [
                     'fresh_uox', 'spent_uox', 'fresh_uox', 'fresh_uox'],
-                'Prototype': ['FuelCycle', 'LWR', 'Reactor_type1', 'LWR']})
+                'ReceiverPrototype': ['FuelCycle', 'LWR', 'Reactor_type1', 'LWR']})
 
     def test_add_zeros_columns1(self):
         '''
@@ -51,7 +51,7 @@ class Test_static_info(unittest.TestCase):
                     0, 1, 1, 3], 'Quantity': [
                     2, 5, 6, 8], 'Commodity': [
                     'fresh_uox', 'spent_uox', 'fresh_uox', 'fresh_uox'],
-                'Prototype': ['FuelCycle', 'LWR', 'Reactor_type1', 'LWR']})
+                'ReceiverPrototype': ['FuelCycle', 'LWR', 'Reactor_type1', 'LWR']})
         obs = dfa.add_zeros_columns(self.test_df, ['Quantity', 'Time'])
         assert_frame_equal(exp, obs)
 
@@ -66,7 +66,7 @@ class Test_static_info(unittest.TestCase):
                     0, 1, 1, 3], 'Quantity': [
                     2, 5, 6, 8], 'Commodity': [
                     'fresh_uox', 'spent_uox', 'fresh_uox', 'fresh_uox'],
-                'Prototype': ['FuelCycle', 'LWR', 'Reactor_type1', 'LWR'],
+                'ReceiverPrototype': ['FuelCycle', 'LWR', 'Reactor_type1', 'LWR'],
                 'reactors': [0.0, 0.0, 0.0, 0.0]
             })
         obs = dfa.add_zeros_columns(self.test_df, ['reactors'])
@@ -78,7 +78,7 @@ class Test_static_info(unittest.TestCase):
                 0, 1, 1, 3], 'Quantity': [
                 2, 5, 6, 8], 'Commodity': [
                 'fresh_uox', 'spent_uox', 'fresh_uox', 'fresh_uox'],
-            'Prototype': ['FuelCycle', 'LWR', 'Reactor_type1', 'LWR'],
+            'ReceiverPrototype': ['FuelCycle', 'LWR', 'Reactor_type1', 'LWR'],
             'Year': [1965.00, 1965.08, 1965.08, 1965.25]})
         obs = dfa.add_year(self.test_df)
         assert_frame_equal(exp, obs)
@@ -101,7 +101,7 @@ class Test_static_info(unittest.TestCase):
                 'Time': [
                     0, 1, 3], 'Quantity': [
                     2, 6, 8], 'Commodity': [
-                        'fresh_uox', 'fresh_uox', 'fresh_uox'], 'Prototype': [
+                        'fresh_uox', 'fresh_uox', 'fresh_uox'], 'ReceiverPrototype': [
                             'FuelCycle', 'Reactor_type1', 'LWR']}).set_index(
                                 [
                                     pd.Index(
@@ -115,7 +115,7 @@ class Test_static_info(unittest.TestCase):
         Tests function when the queried commodity is not in the dataframe
         '''
         exp = pd.DataFrame(data={'Time': [], 'Quantity': [],
-                                 'Commodity': [], 'Prototype': []})
+                                 'Commodity': [], 'ReceiverPrototype': []})
         obs = dfa.find_commodity_transactions(self.test_df, 'tails')
         assert_frame_equal(exp, obs, check_dtype=False)
 
@@ -126,7 +126,7 @@ class Test_static_info(unittest.TestCase):
         exp = pd.DataFrame(data={'Time': [1, 3],
                                  'Quantity': [5, 8],
                                  'Commodity': ['spent_uox', 'fresh_uox'],
-                                 'Prototype': ['LWR', 'LWR']}
+                                 'ReceiverPrototype': ['LWR', 'LWR']}
                            ).set_index([pd.Index([1, 3])])
         obs = dfa.find_prototype_transactions(self.test_df, 'LWR')
         assert_frame_equal(exp, obs)
@@ -136,7 +136,7 @@ class Test_static_info(unittest.TestCase):
         Tests function when the queried prototype is not in the dataframe
         '''
         exp = pd.DataFrame(data={'Time': [], 'Quantity': [], 'Commodity':
-                                 [], 'Prototype': []})
+                                 [], 'ReceiverPrototype': []})
         obs = dfa.find_prototype_transactions(self.test_df, 'Reactor_type2')
         assert_frame_equal(exp, obs, check_dtype=False)
 
