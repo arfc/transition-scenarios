@@ -88,7 +88,7 @@ def find_commodity_transactions(df, commodity):
     commodity_df = df.loc[df['Commodity'] == commodity]
     return commodity_df
 
-def find_prototype_transactions(df, prototype):
+def find_prototype_receiver(df, prototype):
     '''
     Finds all transactions sent to a specified prototype
 
@@ -103,6 +103,25 @@ def find_prototype_transactions(df, prototype):
     --------
     prototype_df: dataframe
         contains only transactions sent to the specified prototype
+    '''
+    prototype_df = df.loc[df['ReceiverPrototype'] == prototype]
+    return prototype_df
+
+def find_prototype_sender(df, prototype):
+    '''
+    Finds all transactions sent from a specified prototype
+
+    Parameters:
+    -----------
+    df: dataframe
+        dataframe of transactions
+    prototype: str
+        name of prototype to search for
+
+    Returns:
+    --------
+    prototype_df: dataframe
+        contains only transactions sent from the specified prototype
     '''
     prototype_df = df.loc[df['ReceiverPrototype'] == prototype]
     return prototype_df
@@ -156,7 +175,39 @@ def commodity_to_prototype(transactions_df, commodity, prototype):
     '''
     prototype_transactions = find_commodity_transactions(
         transactions_df, commodity)
-    prototype_transactions = find_prototype_transactions(
+    prototype_transactions = find_prototype_receiver(
+        prototype_transactions, prototype)
+    prototype_transactions = sum_and_add_missing_time(prototype_transactions)
+    prototype_transactions = add_year(prototype_transactions)
+    return prototype_transactions
+
+def commodity_from_prototype(transactions_df, commodity, prototype):
+    '''
+    Finds the transactions of a specific commodity sent to a single prototype in the simulation,
+    modifies the time column, and adds in zeros for any time step without
+    a transaction to the specified prototype, and sums all transactions for
+    a single time step
+
+    Parameters:
+    -----------
+    transactions_df: dataframe
+        dataframe of transactions with the prototype name
+        of the receiver agent added in. use add_receiver_prototype to get this
+        dataframe
+    commodity: str
+        commodity of interest
+    prototype: str
+        name of prototype transactions are sent to
+
+    Output:
+    -------
+    prototype_transactions: dataframe
+        contains summed transactions at each time step that are sent to
+        the specified prototype name.
+    '''
+    prototype_transactions = find_commodity_transactions(
+        transactions_df, commodity)
+    prototype_transactions = find_prototype_sender(
         prototype_transactions, prototype)
     prototype_transactions = sum_and_add_missing_time(prototype_transactions)
     prototype_transactions = add_year(prototype_transactions)
