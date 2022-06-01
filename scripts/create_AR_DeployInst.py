@@ -234,11 +234,12 @@ def determine_deployment_order(reactor_prototypes):
     '''
     reactor_order = []
     keys = list(reactor_prototypes.keys())
+    prototypes = reactor_prototypes.copy()
     for key in keys:
-        max_power_prototype = max(reactor_prototypes,
-                                 key=lambda x:reactor_prototypes[x][0])
+        max_power_prototype = max(prototypes,
+                                 key=lambda x:prototypes[x][0])
         reactor_order.append(max_power_prototype)
-        reactor_prototypes.pop(max_power_prototype, None)
+        prototypes.pop(max_power_prototype, None)
     return reactor_order
 
 def define_deployment_schedule(power_gap, reactor_prototypes):
