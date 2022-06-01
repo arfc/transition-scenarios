@@ -104,7 +104,7 @@ def find_prototype_transactions(df, prototype):
     prototype_df: dataframe
         contains only transactions sent to the specified prototype
     '''
-    prototype_df = df.loc[df['Prototype'] == prototype]
+    prototype_df = df.loc[df['ReceiverPrototype'] == prototype]
     return prototype_df
 
 def commodity_mass_traded(transactions_df, commodity):
@@ -189,7 +189,7 @@ def commodity_to_LWR(transactions_df, commodity, prototype):
     prototype_transactions = find_commodity_transactions(
         transactions_df, commodity)
     prototype_transactions = prototype_transactions[
-        ~prototype_transactions['Prototype'].isin(prototype)]
+        ~prototype_transactions['ReceiverPrototype'].isin(prototype)]
     prototype_transactions = sum_and_add_missing_time(prototype_transactions)
     prototype_transactions = add_year(prototype_transactions)
     return prototype_transactions
