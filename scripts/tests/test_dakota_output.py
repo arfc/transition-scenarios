@@ -55,6 +55,8 @@ class Test_static_info(unittest.TestCase):
                 'Prototype': ['FuelCycle', 'LWR', 'Reactor_type1', 'LWR', 'Reactor_type1']})
         self.assays = {'Reactor_type1':0.10, 'Reactor_type2':0.045, 
                         'tails':0.002, 'feed':0.00711}
+        self.wastes = {'Reactor_type1':'waste', 'Reactor_type2':'spent_uox',
+                        'Reactor_type3':'spent_uox', 'Reactor_type4':'waste'}
     
     def test_merge_and_fillna_col1(self):
         '''
@@ -186,20 +188,21 @@ class Test_static_info(unittest.TestCase):
         Test with output_file1
         '''
         exp = pd.DataFrame(data={
-            'TransactionId':[0,1,2,3],
-            'SenderId':[21, 21, 21, 21],
-            'ReceiverId':[24, 24, 24, 24],
-            'ResourceId':[10, 12, 14, 26],
-            'Commodity':['fresh_uox', 'fresh_uox', 'fresh_uox', 'fresh_uox'],
-            'Time':[1,1,1,2],
-            'ObjId':[9, 10, 11, 21],
-            'Quantity':[33000.0, 33000.0, 33000.0, 33000.0],
-            'Units':['kg','kg','kg','kg'],
-            'Prototype':['Reactor_type1','Reactor_type1','Reactor_type1', 'Reactor_type1']
+            'TransactionId':[0,1,2,3,4],
+            'SenderId':[21, 21, 21, 21,21],
+            'ReceiverId':[24, 24, 24, 24, 25],
+            'ResourceId':[10, 12, 14, 26, 28],
+            'Commodity':['fresh_uox', 'fresh_uox', 'fresh_uox', 'fresh_uox', 'fresh_uox'],
+            'Time':[1,1,1,2,2],
+            'ObjId':[9,10,11,21,22],
+            'Quantity':[33000.0, 33000.0, 33000.0, 33000.0,3300.0],
+            'Units':['kg','kg','kg','kg','kg'],
+            'Prototype':['Reactor_type1','Reactor_type1','Reactor_type1', 'Reactor_type1', 'Reactor_type2']
+            
             
         })
         obs = oup.add_receiver_prototype(self.output_file1)
-        assert_frame_equal(exp,obs.drop('SimId', axis=1)[0:4])
+        assert_frame_equal(exp,obs.drop('SimId', axis=1)[0:5])
     
     def test_get_multiple_prototype_transactions1(self):
         '''
@@ -283,3 +286,20 @@ class Test_static_info(unittest.TestCase):
         obs = oup.calculate_swu(self.output_file1, ['Reactor_type2'], 4, self.assays)
         assert exp == obs
 
+    def test_get_waste_discharged1(self):
+        '''
+        Test for output_file1 for a single prototype and a single commodity. 
+        the prototype discharges the specified commodity
+        '''
+        exp = 23100.0
+        obs = oup.get_waste_discharged(self.output_file1, ['Reactor_type2'], 4, self.wastes)
+        assert exp == obs
+
+    def test_get_waste_discharged2(self):
+        '''
+        Test for output_file1 for a single prototype and a single commodity. 
+        the prototype does not discharge the specified commodity
+        '''
+        exp = 0.0
+        obs = oup.get_waste_discharged(self.output_file1, ['Reactor_type1'], 4, self.wastes)
+        assert exp == obs
