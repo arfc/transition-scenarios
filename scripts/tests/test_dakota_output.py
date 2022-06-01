@@ -53,6 +53,8 @@ class Test_static_info(unittest.TestCase):
                     2, 5, 6, 8, float('NaN')], 'Commodity': [
                     'fresh_uox', 'spent_uox', 'fresh_uox', 'fresh_uox', 'spent_uox'],
                 'Prototype': ['FuelCycle', 'LWR', 'Reactor_type1', 'LWR', 'Reactor_type1']})
+        self.assays = {'Reactor_type1':0.10, 'Reactor_type2':0.045, 
+                        'tails':0.002, 'feed':0.00711}
     
     def test_merge_and_fillna_col1(self):
         '''
@@ -271,3 +273,13 @@ class Test_static_info(unittest.TestCase):
         exp = 59400.0
         obs = oup.get_enriched_u_mass(self.output_file1, ['Reactor_type1', 'Reactor_type2'], 2)
         assert exp == obs
+
+    def test_calculate_swu1(self):
+        '''
+        Test for output_file1, the prototype specified receives enriched uranium after 
+        the transition start time.
+        '''
+        exp = 25378.59
+        obs = oup.calculate_swu(self.output_file1, ['Reactor_type2'], 4, self.assays)
+        assert exp == obs
+
