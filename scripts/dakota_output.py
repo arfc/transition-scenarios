@@ -122,9 +122,12 @@ def add_receiver_prototype(db_file):
     resources = resources.rename(columns={'TimeCreated': 'Time'})
     transactions = get_table_from_output(db_file, 'Transactions')
     trans_resources = pd.merge(
-        transactions, resources[['SimId', 'Time', 'Quantity']], on=[
-            'SimId', 'Time'], how='inner')
-    trans_resources = trans_resources.drop_duplicates(subset='TransactionId').reset_index(drop=True)
+        transactions, resources, on=[
+            'ResourceId'])
+    #trans_resources = trans_resources.drop_duplicates(subset='TransactionId').reset_index(drop=True)
+    trans_resources = trans_resources.drop(columns=['SimId_y', 'Time_y'])
+    trans_resources = trans_resources.rename(columns={'Time_x':'Time',
+                                                    'SimId_x':'SimId'})
     receiver_prototype = pd.merge(
         trans_resources, agents[['SimId', 'ReceiverId', 'Prototype']], on=[
             'SimId', 'ReceiverId']).sort_values(by=['Time', 'TransactionId']).reset_index(drop=True)
