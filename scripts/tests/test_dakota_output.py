@@ -303,3 +303,30 @@ class Test_static_info(unittest.TestCase):
         exp = 0.0
         obs = oup.get_waste_discharged(self.output_file1, ['Reactor_type1'], 4, self.wastes)
         assert exp == obs
+
+    def test_get_waste_discharged3(self):
+        ''' 
+        Test for output_file1 with a single prototype and a single commodity, 
+        the protoype is not in the simulation but the commodity is.
+        '''
+        exp = 0.0
+        obs = oup.get_waste_discharged(self.output_file1, ['Reactor_type3'], 4, self.wastes)
+        assert exp == obs
+
+    def test_get_waste_discharged4(self):
+        ''' 
+        Test for output_file1 with a single prototype and a single commodity, 
+        neither the prototype nor the commodity are in the simulation.
+        '''
+        exp = 0.0
+        obs = oup.get_waste_discharged(self.output_file1, ['Reactor_type4'], 4, self.wastes)
+        assert exp == obs
+
+    def test_get_waste_discharged3(self):
+        ''' 
+        Test for output_file1 with a multiple prototypes in the simulation, but 
+        only one of the commodities are in the silumation. 
+        '''
+        exp = 23100.0
+        obs = oup.get_waste_discharged(self.output_file1, ['Reactor_type1','Reactor_type2'], 4, self.wastes)
+        assert exp == obs
