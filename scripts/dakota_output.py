@@ -122,8 +122,9 @@ def add_receiver_prototype(db_file):
     resources = resources.rename(columns={'TimeCreated': 'Time'})
     transactions = get_table_from_output(db_file, 'Transactions')
     trans_resources = pd.merge(
-        transactions, resources, on=[
-            'SimId', 'Time', 'ResourceId'], how='inner')
+        transactions, resources[['SimId', 'Time', 'Quantity']], on=[
+            'SimId', 'Time'], how='inner')
+    trans_resources = trans_resources.drop_duplicates(subset='TransactionId').reset_index(drop=True)
     receiver_prototype = pd.merge(
         trans_resources, agents[['SimId', 'ReceiverId', 'Prototype']], on=[
             'SimId', 'ReceiverId']).sort_values(by=['Time', 'TransactionId']).reset_index(drop=True)
@@ -239,8 +240,8 @@ def get_waste_discharged(db_file, prototypes, transition_start, commodities):
     transition_start: int or float
         time step the transition starts at
     commodities: dict of strs
-        name of waste commodity for each prototype, the key is the 
-        prototype name, the value is the commodity name
+        name of waste commodity for each prototype, in the form
+        {prototype name (str): commodity name(str)}
     
     Returns: 
     --------
