@@ -7,7 +7,7 @@ from pandas._testing import assert_series_equal
 import sys
 
 sys.path.insert(0, '../')
-import dakota_output as oup
+import output_metrics as oup
 
 class Test_static_info(unittest.TestCase):
     def setUp(self):
