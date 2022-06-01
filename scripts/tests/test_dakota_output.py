@@ -255,3 +255,19 @@ class Test_static_info(unittest.TestCase):
         })
         obs = oup.get_multiple_prototype_transactions(self.output_file1, ['Reactor_type1', 'Reactor_type2'], 'fresh_uox')
         assert_frame_equal(exp,obs[0:4])
+    
+    def test_get_enriched_u_mass1(self):
+        '''
+        Test with output_file1 for a single prototype that receives the commodity specified
+        '''
+        exp = 3300.0
+        obs = oup.get_enriched_u_mass(self.output_file1, ['Reactor_type2'], 4)
+        assert exp == obs
+
+    def test_get_enriched_u_mass2(self):
+        '''
+        Test with output_file1 for two prototypes that receives the commodity specified
+        '''
+        exp = 59400.0
+        obs = oup.get_enriched_u_mass(self.output_file1, ['Reactor_type1', 'Reactor_type2'], 2)
+        assert exp == obs
