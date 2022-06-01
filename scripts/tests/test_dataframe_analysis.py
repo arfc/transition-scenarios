@@ -119,7 +119,7 @@ class Test_static_info(unittest.TestCase):
         obs = dfa.find_commodity_transactions(self.test_df, 'tails')
         assert_frame_equal(exp, obs, check_dtype=False)
 
-    def test_find_prototype_transactions1(self):
+    def test_find_prototype_receiver1(self):
         '''
         Tests function when the queried prototype is in the dataframe
         '''
@@ -128,16 +128,16 @@ class Test_static_info(unittest.TestCase):
                                  'Commodity': ['spent_uox', 'fresh_uox'],
                                  'ReceiverPrototype': ['LWR', 'LWR']}
                            ).set_index([pd.Index([1, 3])])
-        obs = dfa.find_prototype_transactions(self.test_df, 'LWR')
+        obs = dfa.find_prototype_receiver(self.test_df, 'LWR')
         assert_frame_equal(exp, obs)
 
-    def test_find_prototype_transactions2(self):
+    def test_find_prototype_receiver2(self):
         ''''
         Tests function when the queried prototype is not in the dataframe
         '''
         exp = pd.DataFrame(data={'Time': [], 'Quantity': [], 'Commodity':
                                  [], 'ReceiverPrototype': []})
-        obs = dfa.find_prototype_transactions(self.test_df, 'Reactor_type2')
+        obs = dfa.find_prototype_receiver(self.test_df, 'Reactor_type2')
         assert_frame_equal(exp, obs, check_dtype=False)
 
     def test_commidity_mass_traded1(self):
