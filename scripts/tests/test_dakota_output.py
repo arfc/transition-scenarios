@@ -198,3 +198,60 @@ class Test_static_info(unittest.TestCase):
         })
         obs = oup.add_receiver_prototype(self.output_file1)
         assert_frame_equal(exp,obs.drop('SimId', axis=1)[0:4])
+    
+    def test_get_multiple_prototype_transactions1(self):
+        '''
+        Test function when commodity and prototype given are in the transactions 
+        dataframe, and the commodity is sent to the prototype
+        '''
+        exp = pd.DataFrame(data = {
+            'Reactor_type1':[0.0, 99000.0, 33000.0, 0.0]
+        })
+        obs = oup.get_multiple_prototype_transactions(self.output_file1, ['Reactor_type1'], 'fresh_uox')
+        assert_frame_equal(exp,obs[0:4])
+
+    def test_get_multiple_prototype_transactions2(self):
+        '''
+        Test function when commodity and prototype given are in the transactions 
+        dataframe, and the commodity is not sent to the prototype
+        '''
+        exp = pd.DataFrame(data = {
+            'Reactor_type1':[0.0, 0.0, 0.0, 0.0]
+        })
+        obs = oup.get_multiple_prototype_transactions(self.output_file1, ['Reactor_type1'], 'spent_uox')
+        assert_frame_equal(exp,obs[0:4])
+
+    def test_get_multiple_prototype_transactions3(self):
+        '''
+        Test function when commodity is in the transactions dataframe, but the 
+        prototype is not in the simulation
+        '''
+        exp = pd.DataFrame(data = {
+            'Reactor_type3':[0.0, 0.0, 0.0, 0.0]
+        })
+        obs = oup.get_multiple_prototype_transactions(self.output_file1, ['Reactor_type3'], 'fresh_uox')
+        assert_frame_equal(exp,obs[0:4])
+
+    def test_get_multiple_prototype_transactions4(self):
+        '''
+        Test function when prototype is in the transactions dataframe, but the 
+        commodity is not in the simulation
+        '''
+        exp = pd.DataFrame(data = {
+            'Reactor_type1':[0.0, 0.0, 0.0, 0.0]
+        })
+        obs = oup.get_multiple_prototype_transactions(self.output_file1, ['Reactor_type1'], 'u_ore')
+        assert_frame_equal(exp,obs[0:4])
+
+    def test_get_multiple_prototype_transactions5(self):
+        '''
+        Test function when multiple prototypes are listed, both prototypes and 
+        the commodity are in the transations dataframe and the commodity is sent to 
+        both prototypes
+        '''
+        exp = pd.DataFrame(data = {
+            'Reactor_type1':[0.0, 99000.0, 33000.0, 0.0],
+            'Reactor_type2':[0.0, 0.0, 9900.0, 13200.0]
+        })
+        obs = oup.get_multiple_prototype_transactions(self.output_file1, ['Reactor_type1', 'Reactor_type2'], 'fresh_uox')
+        assert_frame_equal(exp,obs[0:4])
