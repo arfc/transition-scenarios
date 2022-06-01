@@ -307,9 +307,12 @@ class Test_static_info(unittest.TestCase):
     def test_get_waste_discharged3(self):
         ''' 
         Test for output_file1 with a single prototype and a single commodity, 
-        the protoype is not in the simulation but the commodity is.
+        the protoype is not in the simulation but the commodity is. This 
+        test results in the same value as test 1, even though the prototype 
+        isn't in the simulation because the waste is calculated based on the 
+        commodity name, not the prototype name. 
         '''
-        exp = 0.0
+        exp = 23100.0
         obs = oup.get_waste_discharged(self.output_file1, ['Reactor_type3'], 4, self.wastes)
         assert exp == obs
 
@@ -322,7 +325,7 @@ class Test_static_info(unittest.TestCase):
         obs = oup.get_waste_discharged(self.output_file1, ['Reactor_type4'], 4, self.wastes)
         assert exp == obs
 
-    def test_get_waste_discharged3(self):
+    def test_get_waste_discharged5(self):
         ''' 
         Test for output_file1 with a multiple prototypes in the simulation, but 
         only one of the commodities are in the silumation. 
