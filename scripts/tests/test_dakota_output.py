@@ -178,3 +178,23 @@ class Test_static_info(unittest.TestCase):
         })
         obs = oup.create_agents_table(self.output_file1)
         assert_frame_equal(exp,obs.drop('SimId', axis=1)[0:4])
+
+    def test_add_receiver_prototype(self):
+        '''
+        Test with output_file1
+        '''
+        exp = pd.DataFrame(data={
+            'TransactionId':[0,1,2,3],
+            'SenderId':[21, 21, 21, 21],
+            'ReceiverId':[24, 24, 24, 24],
+            'ResourceId':[10, 12, 14, 26],
+            'Commodity':['fresh_uox', 'fresh_uox', 'fresh_uox', 'fresh_uox'],
+            'Time':[1,1,1,2],
+            'ObjId':[9, 10, 11, 21],
+            'Quantity':[33000.0, 33000.0, 33000.0, 33000.0],
+            'Units':['kg','kg','kg','kg'],
+            'Prototype':['Reactor_type1','Reactor_type1','Reactor_type1', 'Reactor_type1']
+            
+        })
+        obs = oup.add_receiver_prototype(self.output_file1)
+        assert_frame_equal(exp,obs.drop('SimId', axis=1)[0:4])
