@@ -97,6 +97,34 @@ def create_agents_table(db_file):
                                     'ExitTime', 'Duration', on=['SimId'])  
     return agents  
 
+def merge_transactions_resources(db_file):
+    '''
+    Merge the transactions and resources tables from the database 
+    to create a DataFrame with the quantity of each material 
+    transaction.
+
+    Parameters:
+    -----------
+    db_file: str
+        SQLite database from Cyclus
+    
+    Returns:
+    --------
+    trans_resources: DataFrame
+        merged DataFrame containing the quantity of the material 
+        in each transaction
+    '''
+    resources = get_table_from_output(db_file, 'Resources')
+    resources = resources.rename(columns={'TimeCreated': 'Time'})
+    transactions = get_table_from_output(db_file, 'Transactions')
+    trans_resources = pd.merge(
+        transactions, resources, on=[
+            'ResourceId'])
+    trans_resources = trans_resources.drop(columns=['SimId_y', 'Time_y'])
+    trans_resources = trans_resources.rename(columns={'Time_x':'Time',
+                                                    'SimId_x':'SimId'})
+    return trans_resources
+
 def add_receiver_prototype(db_file):
     '''
     Creates dataframe of transactions information, and adds in
@@ -116,18 +144,9 @@ def add_receiver_prototype(db_file):
         contains all of the transactions with the prototype name of the
         receiver included
     '''
+    trans_resources = merge_transactions_resources(db_file)
     agents = create_agents_table(db_file)
     agents = agents.rename(columns={'AgentId': 'ReceiverId'})
-    resources = get_table_from_output(db_file, 'Resources')
-    resources = resources.rename(columns={'TimeCreated': 'Time'})
-    transactions = get_table_from_output(db_file, 'Transactions')
-    trans_resources = pd.merge(
-        transactions, resources, on=[
-            'ResourceId'])
-    #trans_resources = trans_resources.drop_duplicates(subset='TransactionId').reset_index(drop=True)
-    trans_resources = trans_resources.drop(columns=['SimId_y', 'Time_y'])
-    trans_resources = trans_resources.rename(columns={'Time_x':'Time',
-                                                    'SimId_x':'SimId'})
     receiver_prototype = pd.merge(
         trans_resources, agents[['SimId', 'ReceiverId', 'Prototype']], on=[
             'SimId', 'ReceiverId']).sort_values(by=['Time', 'TransactionId']).reset_index(drop=True)
