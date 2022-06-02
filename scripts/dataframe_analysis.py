@@ -123,7 +123,7 @@ def find_prototype_sender(df, prototype):
     prototype_df: dataframe
         contains only transactions sent from the specified prototype
     '''
-    prototype_df = df.loc[df['ReceiverPrototype'] == prototype]
+    prototype_df = df.loc[df['SenderPrototype'] == prototype]
     return prototype_df
 
 def commodity_mass_traded(transactions_df, commodity):
