@@ -5,14 +5,6 @@ import sqlite3
 
 import dataframe_analysis as dfa
 
-class Dakota_responses(object):
-    '''
-    Class of functions to get response functions for dakota 
-    sensitiviy analysis.
-    '''
-    def __init__(self):
-        self.adv_rxs = ['Xe-100','MMR','VOYGR']
-
 def merge_and_fillna_col(left, right, lcol, rcol, how='left', on=None):
     """Merges two dataframes and fills the values of the left column
     with the values from the right column. A copy of left is returned.
