@@ -159,18 +159,6 @@ def insert_lifetimes(path, deployed_dict):
         deployed_dict['lifetime'].append(get_lifetime(key, path))
     return deployed_dict
 
-
-def legacy_lifetimes(d, extension_eq, region_indx=1):
-    new_xml = copy.deepcopy(d)
-    # default has been 60 years = 720 timesteps
-    for i in range(len(new_xml['simulation']['region']['institution']
-                       [0]['config']['DeployInst']['lifetimes']['val'])):
-        x = eval(extension_eq)
-        new_xml['simulation']['region']['institution'][0]['config']['DeployInst']['lifetimes']['val'][i] = str(
-            int(new_xml['simulation']['region'][1]['institution'][0]['config']['DeployInst']['lifetimes']['val'][i]) + x)
-    return new_xml
-
-
 def get_deployed_power(power_dict, deployed_dict, sim_duration):
     '''
     Creates array of the total power from agents in a given
@@ -200,8 +188,8 @@ def get_deployed_power(power_dict, deployed_dict, sim_duration):
         power_profile = np.zeros(len(t))
         for i, v in enumerate(deployed_dict['prototype']):
             prototype_power = np.zeros(len(t))
-            prototype_power[deployed_dict['build_times'][i]: deployed_dict['build_times']
-                            [i] + deployed_dict['lifetime'][i]] += power_dict[v] * deployed_dict['n_build'][i]
+            prototype_power[deployed_dict['build_times'][i]: deployed_dict['build_times'][
+                i] + deployed_dict['lifetime'][i]] += power_dict[v] * deployed_dict['n_build'][i]
             power_profile += prototype_power
     return t, power_profile
 
