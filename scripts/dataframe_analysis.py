@@ -218,7 +218,8 @@ def commodity_to_LWR(transactions_df, commodity, prototype):
     Finds the transactions of a specific commodity sent to the LWRs in the
     simulation, modifies the time column, and adds in zeros for any time step
     without a transaction to the LWRs, and sums all transactions for
-    a single time step
+    a single time step. The LWRs are assumed to any prototype name not 
+    given to this function.
 
     Parameters:
     -----------
