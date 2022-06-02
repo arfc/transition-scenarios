@@ -149,6 +149,29 @@ class Test_static_info(unittest.TestCase):
                                  'SenderPrototype':[]})
         obs = dfa.find_prototype_receiver(self.test_df, 'Reactor_type2')
         assert_frame_equal(exp, obs, check_dtype=False)
+    
+    def test_find_prototype_sender1(self):
+        '''
+        Tests function when the queried prototype is in the dataframe
+        '''
+        exp = pd.DataFrame(data={'Time': [1],
+                                 'Quantity': [5],
+                                 'Commodity': ['spent_uox'],
+                                 'ReceiverPrototype': ['LWR'],
+                                 'SenderPrototype':['LWR']}
+                           ).set_index([pd.Index([1])])
+        obs = dfa.find_prototype_sender(self.test_df, 'LWR')
+        assert_frame_equal(exp, obs)
+
+    def test_find_prototype_sender2(self):
+        ''''
+        Tests function when the queried prototype is not in the dataframe
+        '''
+        exp = pd.DataFrame(data={'Time': [], 'Quantity': [], 'Commodity':
+                                 [], 'ReceiverPrototype': [], 
+                                 'SenderPrototype':[]})
+        obs = dfa.find_prototype_sender(self.test_df, 'Reactor_type2')
+        assert_frame_equal(exp, obs, check_dtype=False)
 
     def test_commidity_mass_traded1(self):
         '''
