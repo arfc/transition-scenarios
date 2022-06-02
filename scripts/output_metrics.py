@@ -119,7 +119,7 @@ def merge_transactions_resources(db_file):
     transactions = get_table_from_output(db_file, 'Transactions')
     trans_resources = pd.merge(
         transactions, resources, on=[
-            'ResourceId'])
+            'ResourceId']).sort_values(by=['Time_x', 'TransactionId']).reset_index(drop=True)
     trans_resources = trans_resources.drop(columns=['SimId_y', 'Time_y'])
     trans_resources = trans_resources.rename(columns={'Time_x':'Time',
                                                     'SimId_x':'SimId'})
@@ -177,7 +177,7 @@ def add_sender_prototype(db_file):
     agents = agents.rename(columns={'AgentId': 'SenderId'})
     sender_prototype = pd.merge(
         trans_resources, agents[['SimId', 'SenderId', 'Prototype']], on=[
-            'SimId', 'ReceiverId']).sort_values(by=['Time', 'TransactionId']).reset_index(drop=True)
+            'SimId', 'SenderId']).sort_values(by=['Time', 'TransactionId']).reset_index(drop=True)
     sender_prototype = sender_prototype.rename(columns={'Prototype':'SenderPrototype'})
     return sender_prototype
 
@@ -299,11 +299,12 @@ def get_waste_discharged(db_file, prototypes, transition_start, commodities):
     waste_discharged: float
         cumulative waste discharged from all specified prototypes
     '''
-    transactions = add_receiver_prototype(db_file)
+    transactions = add_sender_prototype(db_file)
     waste = 0
     for prototype in prototypes:
-        waste += dfa.commodity_mass_traded(transactions,
-                                           commodities[prototype])['Quantity']
+        waste += dfa.commodity_from_prototype(transactions,
+                                           commodities[prototype],
+                                           prototype)['Quantity']
     waste_discharged = waste[int(transition_start):].cumsum()
     return waste_discharged.loc[waste_discharged.index[-1]]
 
