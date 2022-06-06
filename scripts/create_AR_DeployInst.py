@@ -117,17 +117,17 @@ def get_pris_powers(country, path, year):
     return pris_power
 
 
-def get_lifetime(name, path):
+def get_lifetime(path, name):
     ''''
     Get the lifetime of a prototype from a modular file of the prototype
     definition
 
     Parameters:
     -----------
-    name: str
-        name of prototype
     path: str
         relative path to prototype definition file
+    name: str
+        name of prototype
     Returns:
     --------
     lifetime: int
@@ -136,30 +136,6 @@ def get_lifetime(name, path):
     prototype_dict = convert_xml_to_dict(path + name + '.xml')
     lifetime = int(prototype_dict['facility']['lifetime'])
     return lifetime
-
-
-def insert_lifetimes(path, deployed_dict):
-    ''''
-    Uses get_lifetime to get the lifetime of each prototype in the
-    deployed_dict, then inserts the lifetime into the lifetime
-    key of the deployed_dict
-
-    Parameters:
-    ----------
-    path: str
-        path to file defining prototype
-    deployed_dict: dict
-        dictionary of information for the DeployInst
-
-    Returns:
-    --------
-    deployed_dict: dict
-        udpated dictionary of information for the DeployInst
-        with the lifetime of each prototype
-    '''
-    for key in deployed_dict['prototypes']:
-        deployed_dict['lifetime'].append(get_lifetime(key, path))
-    return deployed_dict
 
 def get_deployed_power(power_dict, deployed_dict, sim_duration):
     '''
