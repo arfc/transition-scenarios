@@ -105,7 +105,7 @@ def get_pris_powers(country, path, year):
     --------
     pris_power: dict
         dictionary of reactor names and rated powers, the keys are the reactor
-        names (strs), the values are the rated powers (ints). Any spaces 
+        names (strs), the values are the rated powers (ints). Any spaces
         in the keys are replaced with underscores.
     '''
     pris_power = {}
@@ -113,7 +113,7 @@ def get_pris_powers(country, path, year):
     reactors = reactors.loc[reactors['Country'] == country]
     for index, row in reactors.iterrows():
         pris_power[row['Unit']] = row['RUP [MWe]']
-    pris_power = {k.replace(' ', '_'):v for k, v in pris_power.items()}
+    pris_power = {k.replace(' ', '_'): v for k, v in pris_power.items()}
     return pris_power
 
 
@@ -136,6 +136,7 @@ def get_lifetime(path, name):
     prototype_dict = convert_xml_to_dict(path + name + '.xml')
     lifetime = int(prototype_dict['facility']['lifetime'])
     return lifetime
+
 
 def get_deployed_power(power_dict, deployed_dict, sim_duration):
     '''
@@ -310,8 +311,10 @@ if __name__ == '__main__':
 
     # get information out of dictionaries
     duration = get_simulation_duration(simulation_dict)
-    lwr_powers = get_pris_powers('UNITED STATES OF AMERICA', "../database/",2020)
-    deployed_lwr_dict = get_deployinst_dict(deployinst_input, lwr_powers, prototype_path)
+    lwr_powers = get_pris_powers(
+        'UNITED STATES OF AMERICA', "../database/", 2020)
+    deployed_lwr_dict = get_deployinst_dict(
+        deployinst_input, lwr_powers, prototype_path)
 
     # Figure out power already deployed and power needed
     time, deployed_power = get_deployed_power(
