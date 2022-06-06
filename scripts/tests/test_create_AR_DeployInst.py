@@ -28,8 +28,7 @@ class Test_static_info(unittest.TestCase):
         here assume the modular file structure created by using 
         `creat_cyclus_input.py`/.
         '''
-        self.test_file1 = 'output_metrics_testfile1.xml'
-        self.test_file2 = 'output_metrics_testfile2.xml'
+        self.test_file = 'output_metrics_testfile.xml'
         self.deploy_inst_dict = {'DeployInst':
                 {'prototypes':
                     {'val':['Sink_HLW', 'ANO-1','ANO-2', 'BEAVER_VALLEY-1']},
@@ -50,7 +49,7 @@ class Test_static_info(unittest.TestCase):
 
     def test_convert_xml_to_dict(self):
         '''
-        Test with test_outfile1
+        Test with test_outfile
         '''
         exp = {'DeployInst':
                 {'prototypes':
@@ -60,7 +59,7 @@ class Test_static_info(unittest.TestCase):
                 'n_build':
                     {'val':['1','1','1','1']}}
                 }
-        obs = di.convert_xml_to_dict(self.test_file2)
+        obs = di.convert_xml_to_dict(self.test_file)
         assert exp == obs
 
     def test_get_deployinst_dict(self):
