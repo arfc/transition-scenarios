@@ -9,7 +9,6 @@ import sys
 sys.path.insert(0, '../')
 import output_metrics as oup
 
-
 class Test_static_info(unittest.TestCase):
     def setUp(self):
         '''
@@ -46,14 +45,16 @@ class Test_static_info(unittest.TestCase):
                     0, 2, 3, 3, 5], 'Quantity': [
                     2, 5, 6, 8, 2], 'Commodity': [
                     'fresh_uox', 'spent_uox', 'fresh_uox', 'fresh_uox', 'spent_uox'],
-                'Prototype': ['FuelCycle', 'LWR', 'Reactor_type1', 'LWR', 'Reactor_type1']})
+                'Prototype': [
+                'FuelCycle', 'LWR', 'Reactor_type1', 'LWR', 'Reactor_type1']})
         self.test_df3 = pd.DataFrame(
             data={
                 'Time': [
                     0, 2, 3, 3, 5], 'Quantity': [
                     2, 5, 6, 8, float('NaN')], 'Commodity': [
                     'fresh_uox', 'spent_uox', 'fresh_uox', 'fresh_uox', 'spent_uox'],
-                'Prototype': ['FuelCycle', 'LWR', 'Reactor_type1', 'LWR', 'Reactor_type1']})
+                'Prototype': [
+                    'FuelCycle', 'LWR', 'Reactor_type1', 'LWR', 'Reactor_type1']})
         self.assays = {'Reactor_type1': 0.10, 'Reactor_type2': 0.045,
                        'tails': 0.002, 'feed': 0.00711}
         self.wastes = {'Reactor_type1': 'waste', 'Reactor_type2': 'spent_uox',
