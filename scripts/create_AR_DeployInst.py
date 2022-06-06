@@ -311,8 +311,7 @@ if __name__ == '__main__':
     # get information out of dictionaries
     duration = get_simulation_duration(simulation_dict)
     lwr_powers = get_pris_powers('UNITED STATES OF AMERICA', 2020)
-    deployed_lwr_dict = get_deployinst_dict(deployinst_input, lwr_powers)
-    deployed_lwr_dict = insert_lifetimes(prototype_path, deployed_lwr_dict)
+    deployed_lwr_dict = get_deployinst_dict(deployinst_input, lwr_powers, prototype_path)
 
     # Figure out power already deployed and power needed
     time, deployed_power = get_deployed_power(
