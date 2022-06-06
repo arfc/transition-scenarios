@@ -11,6 +11,7 @@ import sys
 sys.path.insert(0, '../')
 import transition_metrics as tm
 
+
 class Test_static_info(unittest.TestCase):
     def setUp(self):
         '''
