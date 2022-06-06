@@ -38,7 +38,7 @@ class Test_static_info(unittest.TestCase):
                 'n_build':
                     {'val':['1','1','1','1']}}
                 }
-        self.deployed_reactor_dict = {'lifetime': [],
+        self.deployed_reactor_dict = {'lifetime': [717, 715, 715],
                 'prototypes':['ANO-1', 'ANO-2', 'BEAVER_VALLEY-1'],
                 'n_build':[1,1,1],
                 'build_times':[117,169,138]}
@@ -67,11 +67,12 @@ class Test_static_info(unittest.TestCase):
         '''
         Test with test_dict
         '''
-        exp = {'lifetime': [],
+        exp = {'lifetime': [717, 715, 715],
                 'prototypes':['ANO-1', 'ANO-2', 'BEAVER_VALLEY-1'],
                 'n_build':[1,1,1],
                 'build_times':[117,169,138]}
-        obs = di.get_deployinst_dict(self.deploy_inst_dict, self.power_dict)
+        obs = di.get_deployinst_dict(self.deploy_inst_dict, self.power_dict, 
+        "../../input/haleu/inputs/united_states/reactors/")
         assert exp == obs
 
     def test_get_simulation_duration(self):
@@ -119,7 +120,6 @@ class Test_static_info(unittest.TestCase):
         decommissionings
         '''
         exp1 = np.linspace(0,999,1000)
-        self.deployed_reactor_dict['lifetime'] =[717, 715, 715]
         obs1, obs2 = di.get_deployed_power(self.power_dict, self.deployed_reactor_dict, 1000)
         assert 0 == obs2[0]
         assert 836 == obs2[120]
