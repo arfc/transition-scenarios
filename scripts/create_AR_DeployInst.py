@@ -1,13 +1,9 @@
-import os
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
-#plt.rcParams['image.cmap'] = 'viridis'
 import xmltodict
 from pprint import pprint
-import copy
 import math
-#src_path = './src'
 
 
 def convert_xml_to_dict(filename):
@@ -29,7 +25,7 @@ def convert_xml_to_dict(filename):
     return xml_dict
 
 
-def get_deployinst_dict(deployinst_dict, power_dict):
+def get_deployinst_dict(deployinst_dict, power_dict, path):
     '''
     Removes any non-power producing prototypes from the dictionary of
     the DeployInst. This also removes the 'val' level of information.
@@ -44,6 +40,8 @@ def get_deployinst_dict(deployinst_dict, power_dict):
         dictionary of DeployInst information
     reactor_dict: dict
         dictionary of LWR prototype names
+    path: str
+        path to xml files for each prototype
 
     Returns:
     --------
@@ -53,14 +51,14 @@ def get_deployinst_dict(deployinst_dict, power_dict):
     '''
     deployed_dict = {}
     deployed_dict = {'lifetime': [],
-                     'prototype': [],
+                     'prototypes': [],
                      'n_build': [],
                      'build_times': []}
     for indx, val in enumerate(
             deployinst_dict['DeployInst']['prototypes']['val']):
         if val in power_dict.keys():
-            deployed_dict['prototype'].append(val)
-            # deployed_dict['lifetime'].append(int(i['config']['DeployInst']['lifetimes']['val'][indx]))
+            deployed_dict['lifetime'].append(get_lifetime(path, val))
+            deployed_dict['prototypes'].append(val)
             deployed_dict['n_build'].append(
                 int(deployinst_dict['DeployInst']['n_build']['val'][indx]))
             deployed_dict['build_times'].append(
@@ -87,7 +85,7 @@ def get_simulation_duration(simulation_dict):
     return sim_duration
 
 
-def get_pris_powers(country, year):
+def get_pris_powers(country, path, year):
     '''
     Create dictionary of the reactors units from a select country
     in the PRIS database and
@@ -98,6 +96,8 @@ def get_pris_powers(country, year):
     -----------
     country: str
         name of country to get LWR data for
+    path: str
+        relative path to the pris csv file
     year: int
         year of data to pull from
 
@@ -105,13 +105,15 @@ def get_pris_powers(country, year):
     --------
     pris_power: dict
         dictionary of reactor names and rated powers, the keys are the reactor
-        names (strs), the values are the rated powers (ints)
+        names (strs), the values are the rated powers (ints). Any spaces 
+        in the keys are replaced with underscores.
     '''
     pris_power = {}
-    reactors = pd.read_csv('../database/reactors_pris_' + str(year) + '.csv')
+    reactors = pd.read_csv(path + 'reactors_pris_' + str(year) + '.csv')
     reactors = reactors.loc[reactors['Country'] == country]
     for index, row in reactors.iterrows():
         pris_power[row['Unit']] = row['RUP [MWe]']
+    pris_power = {k.replace(' ', '_'):v for k, v in pris_power.items()}
     return pris_power
 
 
@@ -155,7 +157,7 @@ def insert_lifetimes(path, deployed_dict):
         udpated dictionary of information for the DeployInst
         with the lifetime of each prototype
     '''
-    for key in deployed_dict['prototype']:
+    for key in deployed_dict['prototypes']:
         deployed_dict['lifetime'].append(get_lifetime(key, path))
     return deployed_dict
 
@@ -186,7 +188,7 @@ def get_deployed_power(power_dict, deployed_dict, sim_duration):
     t = np.arange(sim_duration)
     for key, val in deployed_dict.items():
         power_profile = np.zeros(len(t))
-        for i, v in enumerate(deployed_dict['prototype']):
+        for i, v in enumerate(deployed_dict['prototypes']):
             prototype_power = np.zeros(len(t))
             prototype_power[deployed_dict['build_times'][i]: deployed_dict['build_times'][
                 i] + deployed_dict['lifetime'][i]] += power_dict[v] * deployed_dict['n_build'][i]
