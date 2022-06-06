@@ -97,19 +97,7 @@ class Test_static_info(unittest.TestCase):
         Test for lifetime of ANO-1 prototype
         '''
         exp = 717
-        obs = di.get_lifetime('ANO-1', './')
-        assert exp == obs
-
-    def test_insert_lifetimes(self):
-        '''
-        Test with self.deployed_dict, using path to files in 
-        input/haleu/inputs/reactors.
-        '''
-        exp = {'lifetime': [717, 715, 715],
-                'prototypes':['ANO-1', 'ANO-2', 'BEAVER_VALLEY-1'],
-                'n_build':[1,1,1],
-                'build_times':[117,169,138]}
-        obs = di.insert_lifetimes('../../input/haleu/inputs/united_states/reactors/', self.deployed_reactor_dict)
+        obs = di.get_lifetime('./', 'ANO-1')
         assert exp == obs
 
     def test_get_deployed_power(self):
