@@ -30,14 +30,14 @@ inp.render_input(cyclus_template, variable_dict, output_xml)
 duration = 1500
 reactor_prototypes = {'Xe-100':(75, 720), 'MMR':(10,240), 'VOYGR':(50, 720)}
 demand_equation = np.zeros(duration)
-demand_equation[int(params['ts'])] = 89456.55
+demand_equation[int(params['ts']):] = 89456.55
 deployinst = cdi.convert_xml_to_dict("../../../inputs/united_states/buildtimes/UNITED_STATES_OF_AMERICA/deployinst.xml")
 lwr_powers = cdi.get_pris_powers('UNITED STATES OF AMERICA',"../../../../../database/", 2020)
 deployed_lwr_dict = cdi.get_deployinst_dict(deployinst, lwr_powers, "../../../inputs/united_states/reactors/")
 time, deployed_power = cdi.get_deployed_power(lwr_powers, deployed_lwr_dict, duration)
-power_gap = cdi.determine_power_gap(deployed_power, demand_eq)
-deploy_schedule = cdi. determine_deployment_schedule(power_gap, reactor_prototypes)
-cdi.write_deployisnt(deploy_schedule, "../../cyclus-files/ty_" + str(params['ts']) +"_deployinst.xml")
+power_gap = cdi.determine_power_gap(deployed_power, demand_equation)
+deploy_schedule = cdi.determine_deployment_schedule(power_gap, reactor_prototypes)
+cdi.write_deployinst(deploy_schedule, "../../cyclus-files/ty_" + str(int(params['ts'])) +"_deployinst.xml")
 
 # Run Cyclus with edited input file
 output_sqlite = '../../cyclus-files/' + scenario_name + '.sqlite'
