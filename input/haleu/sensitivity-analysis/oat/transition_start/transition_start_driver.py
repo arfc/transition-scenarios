@@ -29,7 +29,7 @@ inp.render_input(cyclus_template, variable_dict, output_xml)
 duration = 1500
 reactor_prototypes = {'Xe-100':(75, 720), 'MMR':(10,240), 'VOYGR':(50, 720)}
 demand_equation = np.zeros(duration)
-demand_equation[int(params['ts']] = 89456.55
+demand_equation[int(params['ts'])] = 89456.55
 deployinst = cdi.convert_xml_to_dict("../../../inputs/united_states/buildtimes/UNITED_STATES_OF_AMERICA/deployinst.xml")
 lwr_powers = cdi.get_pris_powers('UNITED STATES OF AMERICA',"../../../../../database/", 2020)
 deployed_lwr_dict = cdi.get_deployinst_dict(deployinst, lwr_powers, "../../../inputs/united_states/reactors/")
