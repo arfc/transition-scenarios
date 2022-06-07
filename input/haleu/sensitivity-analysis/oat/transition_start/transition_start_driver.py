@@ -8,6 +8,7 @@ import dakota_output as oup
 import dakota.interfacing as di
 import subprocess
 import create_AR_DeployInst as cdi
+import numpy as np
 # ----------------------------
 # Parse Dakota parameters file
 # ----------------------------
