@@ -266,8 +266,8 @@ def calculate_swu(db_file, prototypes, transition_start, assays):
 
     Returns:
     --------
-    cumulative_swu: float
-        The total cumulative swu capacity required for the simulation,
+    average_swu: float
+        The average swu capacity required for the simulation,
         starting at the transition start time.
     '''
     enriched_u_mass = get_multiple_prototype_transactions(
@@ -280,8 +280,8 @@ def calculate_swu(db_file, prototypes, transition_start, assays):
         prototype_swu = dfa.calculate_SWU(enriched_u_mass[prototype], assays[prototype],
                                           tails, assays['tails'], feed, assays['feed'])
         swu += prototype_swu
-    cumulative_swu = swu[int(transition_start):].cumsum()
-    return np.round(cumulative_swu.loc[cumulative_swu.index[-1]], 2)
+    average_swu = swu[int(transition_start):].cumsum()
+    return np.round(average_swu, 2)
 
 
 def get_waste_discharged(db_file, prototypes, transition_start, commodities):
