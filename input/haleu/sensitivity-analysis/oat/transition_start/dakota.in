@@ -23,8 +23,8 @@ interface,
 
 responses,				
 	#num_objective_functions = 1	
-	descriptors = 'enr_u' 'swu' 'waste'
-	response_functions = 3
-	  scalar_responses = 3
+	descriptors = 'enr_u' 'haleu' 'swu' 'waste'
+	response_functions = 4
+	  scalar_responses = 4
 	no_gradients
 	no_hessians
