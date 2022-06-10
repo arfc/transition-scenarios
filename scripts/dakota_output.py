@@ -186,6 +186,38 @@ def get_enriched_u_mass(db_file, prototypes, transition_start):
     cumulative_u = total_adv_rx_enriched_u[int(transition_start):].cumsum()
     return cumulative_u.loc[cumulative_u.index[-1]]
 
+def calculate_feed(db_file, prototypes, transition_start):
+    '''
+    Calculate the cumulative feed uranium needed to create enriched 
+    uranium for the specified prototypes
+
+    Parameters:
+    -----------
+    db_file: str
+        name of database file
+    prototypes: list of strs
+        names of prototypes to consider in calculation
+    transition_start: int
+        time step the modeled transition begins at
+    
+    Returns:
+    --------
+    cumulative_feed: float
+        The total feed uranium required for the prototypes,
+        starting at the transition start time. 
+    ''' 
+    assays = {'MMR':0.13, 'Xe-100':0.155, 
+          'VOYGR':0.0409, 'feed':0.00711, 'tails':0.002}
+    enriched_u_mass = get_multiple_prototype_transactions(db_file, prototypes, 'fresh_uox')
+    feed = 0
+    for prototype in prototypes:
+        tails = dfa.calculate_tails(enriched_u_mass[prototype], assays[prototype],
+        assays['tails'], assays['feed'])
+        prototype_feed = dfa.calculate_feed(enriched_u_mass[prototype], tails)
+        feed += prototype_feed
+    cumulative_feed = feed[int(transition_start):].cumsum()
+    return cumulative_feed.loc[cumulative_feed.index[-1]]   
+
 def calculate_swu(db_file, prototypes, transition_start):
     '''
     Calculates the cumulative amount of SWU capacity required to 
@@ -203,7 +235,7 @@ def calculate_swu(db_file, prototypes, transition_start):
     Returns:
     --------
     cumulative_swu: float
-        The total cumulative swu capacity required for the simulation, 
+        The total cumulative swu capacity required for the prototypes, 
         starting at the transition start time. 
     '''
     assays = {'MMR':0.13, 'Xe-100':0.155, 
