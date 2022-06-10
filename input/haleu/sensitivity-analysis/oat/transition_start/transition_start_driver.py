@@ -56,6 +56,8 @@ results['haleu'].function = oup.get_enriched_u_mass(output_sqlite,
                                                     params['ts'])
 results['swu'].function = oup.calculate_swu(output_sqlite, ['Xe-100','MMR','VOYGR'],
                                             params['ts'])
+results['haleu_swu'].function = oup.calculate_swu(output_sqlite, ['Xe-100','MMR'],
+                                            params['ts'])
 results['waste'].function = oup.get_waste_discharged(output_sqlite, 
                                                     ['Xe-100','MMR','VOYGR'],
                                                     params['ts'],
