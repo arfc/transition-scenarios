@@ -32,11 +32,11 @@ reactor_path = '../input/' + project + '/inputs/' + region + '/reactors'
 pris = pd.read_csv(pris_file)
 
 
-# burnups = [33, 51, 100]
-# for bu in burnups:
-#     fresh = import_data.get_composition_fresh(recipes, bu)
-#     spent = import_data.get_composition_spent(recipes, bu)
-#     import_data.write_recipes(fresh, spent, recipe_template, bu, recipe_path)
+burnups = [33, 51, 100]
+for bu in burnups:
+    fresh = import_data.get_composition_fresh(recipes, bu)
+    spent = import_data.get_composition_spent(recipes, bu)
+    import_data.write_recipes(fresh, spent, recipe_template, bu, recipe_path)
 
 reactor_list = import_data.select_region(pris, region, start_year)
 import_data.write_reactors(
