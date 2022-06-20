@@ -249,13 +249,13 @@
       </initialfacilitylist>
       <config>
       </config>
-	<xi:include href="../sensitivity-analysis/oat/cyclus-files/lwr_{{lwr_lifetime}}_deployinst.xml"/>
+	<xi:include href="../sensitivity-analysis/oat/lwr_lifetimes/lwr_{lwr_lifetime}}_deployinst.xml"/>
     </institution>
 
     <institution>
       <name>UNITED_STATES_OF_AMERICA</name>
       <config>
-        <xi:include href="../sensitivity-analysis/oat/lwr_lifetimes/DeployInst_lwr_{{lwr_lifetime}}"/>
+        <xi:include href="../sensitivity-analysis/oat/lwr_lifetimes/DeployInst_lwr_{{lwr_lifetime.xml"/>
       </config>
     </institution>
   </region>
