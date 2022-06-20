@@ -199,7 +199,7 @@
           <commod>power</commod>
           <piecewise_function>
             <piece>
-              <start>{{start_transition}}</start>
+              <start>721</start>
               <function>
                 <type>linear</type>
                 <params>0 89456.55</params>
@@ -269,7 +269,7 @@
     <institution>
       <name>UNITED_STATES_OF_AMERICA</name>
       <config>
-        <xi:include href="united_states/buildtimes/UNITED_STATES_OF_AMERICA/deployinst.xml"/>
+        <xi:include href="../sensitivity-analysis/oat/lwr_lifetimes/DeployInst_lwr_{{lwr_lifetime}}"/>
       </config>
     </institution>
   </region>
