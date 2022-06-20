@@ -20,7 +20,7 @@ params, results = di.read_parameters_file()
 # -------------------------------
 
 # Edit Cyclus input file
-cyclus_template = 'scenario7.xml.in'
+cyclus_template = 'lwr_lifetime_input.xml.in'
 scenario_name = 'lwr_' + str(round(params['lwr']))
 variable_dict = {'handle': scenario_name}
 output_xml = '../../cyclus-files/scenario7.xml'
