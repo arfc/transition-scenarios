@@ -248,22 +248,8 @@
         </entry>
       </initialfacilitylist>
       <config>
-	<ManagerInst>
-          <prototypes>
-            <val>Sink_LLW</val>
-            <val>Mine</val>
-            <val>Enrichment</val>
-            <val>WetStorage</val>
-            <val>DryStorage</val>
-            <val>Xe-100CoolingPool</val>
-            <val>VOYGRCoolingPool</val>
-            <val>MMRCoolingPool</val>
-            <val>Xe-100</val>
-            <val>MMR</val>
-            <val>VOYGR</val>
-          </prototypes>
-        </ManagerInst>
       </config>
+	<xi:include href="../sensitivity-analysis/oat/cyclus-files/lwr_{{lwr_lifetime}}_deployinst.xml"/>
     </institution>
 
     <institution>
