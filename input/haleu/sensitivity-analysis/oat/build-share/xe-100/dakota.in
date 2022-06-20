@@ -1,0 +1,34 @@
+# One-at-a-time analysis for changing transition start time
+# Multidimensional parameter study 
+
+environment, 
+	tabular_data 
+		tabular_data_file = 'lwr_lifetime.dat'
+	output_file 'lwr_lifetime.out'
+	write_restart 'lwr_lifetime.rst'
+
+method,						
+	multidim_parameter_study
+    partitions = 1
+
+variables,					
+	continuous_design = 1			
+    lower_bounds      0   
+    upper_bounds      50    
+    descriptors       'lwr'     
+
+interface,							
+	fork							
+	  asynchronous
+            evaluation_concurrency =  8 8 8 8 8 8
+            analysis_concurrency = 1
+          analysis_drivers = 'python lwr_lifetime_driver.py'
+        
+
+responses,				
+	#num_objective_functions = 1	
+	descriptors = 'enr_u' 'haleu' 'swu' 'haleu_swu' 'waste' 'feed'
+	response_functions = 6
+	  scalar_responses = 6
+	no_gradients
+	no_hessians
