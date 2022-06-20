@@ -3,26 +3,26 @@
 
 environment, 
 	tabular_data 
-		tabular_data_file = 'transition_start_managerinst.dat'
-	output_file 'transition_start.out'
-	write_restart 'transition_start.rst'
+		tabular_data_file = 'lwr_lifetime.dat'
+	output_file 'lwr_lifetime.out'
+	write_restart 'lwr_lifetime.rst'
 
 method,						
 	multidim_parameter_study
-    partitions = 60
+    partitions = 10
 
 variables,					
 	continuous_design = 1			
-    lower_bounds      721   
-    upper_bounds      901    
-    descriptors       'ts'     
+    lower_bounds      0   
+    upper_bounds      50    
+    descriptors       'lwr'     
 
 interface,							
 	fork							
 	  asynchronous
             evaluation_concurrency = 16 16 16 16 
             analysis_concurrency = 1
-          analysis_drivers = 'python transition_start_driver.py'
+          analysis_drivers = 'python lwr_lifetime.py'
         
 
 responses,				
