@@ -20,10 +20,10 @@ params, results = di.read_parameters_file()
 # -------------------------------
 
 # Edit Cyclus input file
-cyclus_template = '../../cyclus-files/scenario7.xml.in'
+cyclus_template = 'transition_start_input.xml.in'
 scenario_name = 'ty_' + str(round(params['ts']))
 variable_dict = {'handle': scenario_name, 'start_transition': int(params['ts'])}
-output_xml = '../../cyclus-files/scenario7.xml'
+output_xml = './cyclus-files/transition_start.xml'
 inp.render_input(cyclus_template, variable_dict, output_xml)
 
 # Create DeployInst 
@@ -37,10 +37,10 @@ deployed_lwr_dict = cdi.get_deployinst_dict(deployinst, lwr_powers, "../../../in
 time, deployed_power = cdi.get_deployed_power(lwr_powers, deployed_lwr_dict, duration)
 power_gap = cdi.determine_power_gap(deployed_power, demand_equation)
 deploy_schedule = cdi.determine_deployment_schedule(power_gap, reactor_prototypes)
-cdi.write_deployinst(deploy_schedule, "../../cyclus-files/ty_" + str(int(params['ts'])) +"_deployinst.xml")
+cdi.write_deployinst(deploy_schedule, "./cyclus-files/ty_" + str(int(params['ts'])) +"_deployinst.xml")
 
 # Run Cyclus with edited input file
-output_sqlite = '../../cyclus-files/' + scenario_name + '.sqlite'
+output_sqlite = './cyclus-files/' + scenario_name + '.sqlite'
 os.system('rm ' + output_sqlite)
 os.system('cyclus -i ' + output_xml + ' -o ' + output_sqlite + \
     ' --warn-limit 2')
