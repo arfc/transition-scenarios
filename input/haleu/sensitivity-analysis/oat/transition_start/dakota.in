@@ -3,7 +3,7 @@
 
 environment, 
 	tabular_data 
-		tabular_data_file = 'transition_start_managerinst.dat'
+		tabular_data_file = 'transition_start.dat'
 	output_file 'transition_start.out'
 	write_restart 'transition_start.rst'
 
