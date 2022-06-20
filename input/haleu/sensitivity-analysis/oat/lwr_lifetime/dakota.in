@@ -19,9 +19,9 @@ variables,
 
 interface,							
 	fork							
-	  #asynchronous
-          #  evaluation_concurrency = 16 16 16 16 
-          #  analysis_concurrency = 1
+	  asynchronous
+            evaluation_concurrency =  8 8 8 8 8 8
+            analysis_concurrency = 1
           analysis_drivers = 'python lwr_lifetime_driver.py'
         
 
