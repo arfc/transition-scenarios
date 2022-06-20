@@ -65,4 +65,8 @@ results['waste'].function = oup.get_waste_discharged(output_sqlite,
                                                     'Xe-100':'spent_xe100_haleu',
                                                     'VOYGR':'spent_smr_fuel'}
                                                     )
+results['feed'].function = oup.calculate_feed(output_sqlite, 
+                                             ['Xe-100','MMR'],
+				             params['ts'])
+			          
 results.write()
