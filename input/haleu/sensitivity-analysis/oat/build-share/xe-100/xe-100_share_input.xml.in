@@ -199,7 +199,7 @@
           <commod>power</commod>
           <piecewise_function>
             <piece>
-              <start>{{start_transition}}</start>
+              <start>721</start>
               <function>
                 <type>linear</type>
                 <params>0 89456.55</params>
@@ -248,14 +248,14 @@
         </entry>
       </initialfacilitylist>
       <config>
-        <xi:include href="../sensitivity-analysis/cyclus-files/ty_{{start_transition}}_deployinst.xml"/>
+	<xi:include href="../sensitivity-analysis/oat/build_share/xe-100/cylus-files/xe-100_deployinst_{{xe-100}}.xml"/>
       </config>
     </institution>
 
     <institution>
       <name>UNITED_STATES_OF_AMERICA</name>
       <config>
-        <xi:include href="united_states/buildtimes/UNITED_STATES_OF_AMERICA/deployinst.xml"/>
+        <xi:include href="united_states/buildtimes/UNITED_STATES_OF_AMERICA/deployinst.xml.xml"/>
       </config>
     </institution>
   </region>
