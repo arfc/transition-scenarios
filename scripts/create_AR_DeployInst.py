@@ -25,7 +25,7 @@ def convert_xml_to_dict(filename):
     return xml_dict
 
 
-def get_deployinst_dict(deployinst_dict, power_dict, path="../input/haleu/inputs/united_states/reactors"):
+def get_deployinst_dict(deployinst_dict, power_dict, path="../input/haleu/inputs/united_states/reactors/"):
     '''
     Removes any non-power producing prototypes from the dictionary of
     the DeployInst. This also removes the 'val' level of information.
@@ -59,8 +59,8 @@ def get_deployinst_dict(deployinst_dict, power_dict, path="../input/haleu/inputs
     for indx, val in enumerate(
             deployinst_dict['DeployInst']['prototypes']['val']):
         if val in power_dict.keys():
-            if 'lifetimes' in deployinst_dict:
-                deployed_dict['lifetimes'].append(int(deployinst_dict['DeployInst']['lifetimes']['val'][indx]))
+            if 'lifetimes' in deployinst_dict['DeployInst']:
+                deployed_dict['lifetime'].append(int(deployinst_dict['DeployInst']['lifetimes']['val'][indx]))
             else:
                 deployed_dict['lifetime'].append(get_lifetime(path, val))
             deployed_dict['prototypes'].append(val)
