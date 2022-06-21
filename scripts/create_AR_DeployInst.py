@@ -25,7 +25,7 @@ def convert_xml_to_dict(filename):
     return xml_dict
 
 
-def get_deployinst_dict(deployinst_dict, power_dict, path):
+def get_deployinst_dict(deployinst_dict, power_dict, path="../input/haleu/inputs/united_states/reactors"):
     '''
     Removes any non-power producing prototypes from the dictionary of
     the DeployInst. This also removes the 'val' level of information.
@@ -41,7 +41,9 @@ def get_deployinst_dict(deployinst_dict, power_dict, path):
     reactor_dict: dict
         dictionary of LWR prototype names
     path: str
-        path to xml files for each prototype
+        path to xml files for each prototype. This is an optional 
+        parameter, required if the DeployInst file being read in 
+        does not include the lifetimes for the prototypes.
 
     Returns:
     --------
@@ -57,7 +59,10 @@ def get_deployinst_dict(deployinst_dict, power_dict, path):
     for indx, val in enumerate(
             deployinst_dict['DeployInst']['prototypes']['val']):
         if val in power_dict.keys():
-            deployed_dict['lifetime'].append(get_lifetime(path, val))
+            if 'lifetimes' in deployinst_dict:
+                deployed_dict['lifetimes'].append(int(deployinst_dict['DeployInst']['lifetimes']['val'][indx]))
+            else:
+                deployed_dict['lifetime'].append(get_lifetime(path, val))
             deployed_dict['prototypes'].append(val)
             deployed_dict['n_build'].append(
                 int(deployinst_dict['DeployInst']['n_build']['val'][indx]))
