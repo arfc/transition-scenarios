@@ -29,7 +29,7 @@ inp.render_input(cyclus_template, variable_dict, output_xml)
 # Create DeployInst for LWRs
 DI_dict = cdi.convert_xml_to_dict("initial_lwr_deployinst.xml")
 DI_dict['DeployInst']['lifetimes'] = {'val':[]}
-DI_dict['DeployInst']['lifetimes']['val'] = np.repeat(60, 116)
+DI_dict['DeployInst']['lifetimes']['val'] = np.repeat(720, 116)
 DI_dict['DeployInst']['lifetimes']['val'][0] = 600
 
 with open("../../../../../database/lwr_power_order.txt", 'r') as f:
@@ -40,7 +40,7 @@ lwrs_extended = lwrs[:int(params['lwr'])]
 
 for lwr in lwrs_extended:
     index = DI_dict['DeployInst']['prototypes']['val'].index(lwr)
-    DI_dict['DeployInst']['lifetimes']['val'][index] = 80
+    DI_dict['DeployInst']['lifetimes']['val'][index] = 840
 cdi.write_deployinst(DI_dict, './cyclus-files/lwr_' + str(int(params['lwr'])) + '_deployinst.xml')
 
 # Create DeployInst for advanced reactors 
