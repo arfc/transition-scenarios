@@ -248,14 +248,14 @@
         </entry>
       </initialfacilitylist>
       <config>
-	<xi:include href="../sensitivity-analysis/oat/lwr_lifetime/cyclus-files/lwr_{{lwr_lifetime}}_deployinst.xml"/>
+        <xi:include href="../sensitivity-analysis/oat/lwr_lifetime/cyclus-files/AR_DeployInst_lwr_{{lwr_lifetime}}.xml"/>
       </config>
     </institution>
 
     <institution>
       <name>UNITED_STATES_OF_AMERICA</name>
       <config>
-        <xi:include href="../sensitivity-analysis/oat/lwr_lifetime/cyclus-files/AR_DeployInst_lwr_{{lwr_lifetime}}.xml"/>
+	<xi:include href="../sensitivity-analysis/oat/lwr_lifetime/cyclus-files/lwr_{{lwr_lifetime}}_deployinst.xml"/>
       </config>
     </institution>
   </region>
