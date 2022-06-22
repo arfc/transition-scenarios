@@ -23,18 +23,24 @@ params, results = di.read_parameters_file()
 cyclus_template = 'lwr_lifetime_input.xml.in'
 scenario_name = 'lwr_' + str(round(params['lwr']))
 variable_dict = {'handle': scenario_name, 'lwr_lifetime':str(int(params['lwr']))}
-output_xml = './cyclus-files/scenario7.xml'
+output_xml = './cyclus-files/lwr_lifetime.xml'
 inp.render_input(cyclus_template, variable_dict, output_xml)
 
 # Create DeployInst for LWRs
 DI_dict = cdi.convert_xml_to_dict("initial_lwr_deployinst.xml")
 DI_dict['DeployInst']['lifetimes'] = {'val':[]}
-DI_dict['DeployInst']['lifetimes']['val'] = np.repeat(60, 116)
+DI_dict['DeployInst']['lifetimes']['val'] = np.repeat(720, 116)
 DI_dict['DeployInst']['lifetimes']['val'][0] = 600
 
-length = len(DI_dict['DeployInst']['lifetimes']['val']) -1
-number_extended = int(np.round(length*int(params['lwr'])/100,0))
-DI_dict['DeployInst']['lifetimes']['val'][1:number_extended+1] = 80
+with open("../../../../../database/lwr_power_order.txt", 'r') as f:
+    lwrs = f.readlines()
+for index, item in enumerate(lwrs):
+    lwrs[index] = item.strip("\n")
+lwrs_extended = lwrs[:int(params['lwr'])]
+
+for lwr in lwrs_extended:
+    index = DI_dict['DeployInst']['prototypes']['val'].index(lwr)
+    DI_dict['DeployInst']['lifetimes']['val'][index] = 840
 cdi.write_deployinst(DI_dict, './cyclus-files/lwr_' + str(int(params['lwr'])) + '_deployinst.xml')
 
 # Create DeployInst for advanced reactors 
