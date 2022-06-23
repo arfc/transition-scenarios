@@ -22,7 +22,7 @@ params, results = di.read_parameters_file()
 # Edit Cyclus input file
 cyclus_template = 'xe-100_share_input.xml.in'
 scenario_name = 'xe100_' + str(round(params['xe100']))
-variable_dict = {'handle': scenario_name}
+variable_dict = {'handle': scenario_name, 'xe100':str(int(params['xe100']))}
 output_xml = './cyclus-files/xe100_share.xml'
 inp.render_input(cyclus_template, variable_dict, output_xml)
 
