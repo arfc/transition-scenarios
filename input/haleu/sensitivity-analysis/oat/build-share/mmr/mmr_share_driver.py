@@ -20,10 +20,10 @@ params, results = di.read_parameters_file()
 # -------------------------------
 
 # Edit Cyclus input file
-cyclus_template = 'xe-100_share_input.xml.in'
-scenario_name = 'xe100_' + str(round(params['xe100']))
-variable_dict = {'handle': scenario_name, 'xe100':str(int(params['xe100']))}
-output_xml = './cyclus-files/xe100_share.xml'
+cyclus_template = 'mmr_share_input.xml.in'
+scenario_name = 'mmr_' + str(round(params['mmr']))
+variable_dict = {'handle': scenario_name, 'mmr':str(int(params['mmr']))}
+output_xml = './cyclus-files/mmr_share.xml'
 inp.render_input(cyclus_template, variable_dict, output_xml)
 
 # Create DeployInst for advanced reactors 
@@ -36,8 +36,8 @@ lwr_powers = cdi.get_pris_powers('UNITED STATES OF AMERICA',"../../../../../../d
 deployed_lwr_dict = cdi.get_deployinst_dict(deployinst, lwr_powers, "../../../../inputs/united_states/reactors/")
 time, deployed_power = cdi.get_deployed_power(lwr_powers, deployed_lwr_dict, duration)
 power_gap = cdi.determine_power_gap(deployed_power, demand_equation)
-deploy_schedule = cdi.determine_deployment_schedule(power_gap, reactor_prototypes, 'Xe-100',int(params['xe100']))
-cdi.write_deployinst(deploy_schedule, "./cyclus-files/xe100_" + str(int(params['xe100'])) + "_deployinst.xml")
+deploy_schedule = cdi.determine_deployment_schedule(power_gap, reactor_prototypes, 'MMR',int(params['mmr']))
+cdi.write_deployinst(deploy_schedule, "./cyclus-files/mmr_" + str(int(params['mmr'])) + "_deployinst.xml")
 
 # Run Cyclus with edited input file
 output_sqlite = './cyclus-files/' + scenario_name + '.sqlite'
