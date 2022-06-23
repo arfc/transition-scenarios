@@ -3,9 +3,9 @@
 
 environment, 
 	tabular_data 
-		tabular_data_file = 'lwr_lifetime.dat'
-	output_file 'lwr_lifetime.out'
-	write_restart 'lwr_lifetime.rst'
+		tabular_data_file = 'xe100_build.dat'
+	output_file 'xe100_build.out'
+	write_restart 'xe100_build.rst'
 
 method,						
 	multidim_parameter_study
@@ -15,7 +15,7 @@ variables,
 	continuous_design = 1			
     lower_bounds      0   
     upper_bounds      50    
-    descriptors       'lwr'     
+    descriptors       'xe100'     
 
 interface,							
 	fork							
