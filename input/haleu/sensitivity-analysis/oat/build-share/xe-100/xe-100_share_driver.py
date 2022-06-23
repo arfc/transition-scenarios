@@ -1,7 +1,7 @@
 import sys
 import os
 from turtle import up
-sys.path.append('../../../../../scripts')
+sys.path.append('../../../../../../scripts')
 import dakota_input as inp
 import dakota_output as oup
 # import output as oup
