@@ -229,7 +229,7 @@ def determine_deployment_order(reactor_prototypes):
     return reactor_order
 
 
-def determine_deployment_schedule(power_gap, reactor_prototypes):
+def determine_deployment_schedule(power_gap, reactor_prototypes, prototype=None, share=0):
     '''
     Define the deployemnt schedule for a single or multiple
     reactor prototypes based on a gap in production
@@ -245,6 +245,13 @@ def determine_deployment_schedule(power_gap, reactor_prototypes):
         information about reactor prototypes to be deployed. The
         keys are the prototype names (strs) and the values are
         a tuple of the power output and lifetime (ints)
+    prototype: str
+        name of prototype to specify new market share of, if not 
+        indicate, then protoypes are deployed in preferential order 
+        based on power output
+    share: int
+        percent of new build share to be occupied by specified 
+        protoype. 
 
     Returns:
     --------
@@ -257,9 +264,22 @@ def determine_deployment_schedule(power_gap, reactor_prototypes):
                                       'n_build': {'val': []},
                                       'lifetimes': {'val': []}}}
     reactors = determine_deployment_order(reactor_prototypes)
+    if prototype is not None:
+        reactors.remove(prototype)
     for index, value in enumerate(power_gap):
         if value <= 0:
             continue
+        if prototype is not None:
+            required_share = value*(share/100)
+            num_rxs = math.ceil(required_share / reactor_prototypes[prototype][0])
+            power_gap[index:index + reactor_prototypes[prototype][1]] = \
+                power_gap[index:index + reactor_prototypes[prototype]
+                        [1]] - reactor_prototypes[prototype][0] * num_rxs
+            deploy_schedule['DeployInst']['prototypes']['val'].append(prototype)
+            deploy_schedule['DeployInst']['n_build']['val'].append(num_rxs)
+            deploy_schedule['DeployInst']['build_times']['val'].append(index)
+            deploy_schedule['DeployInst']['lifetimes']['val'].append(
+                reactor_prototypes[prototype][1])
         for reactor in reactors:
             if reactor == reactors[-1]:
                 # for the last reactor round up to ensure gap is fully met, even if
@@ -271,7 +291,7 @@ def determine_deployment_schedule(power_gap, reactor_prototypes):
                 continue
             power_gap[index:index + reactor_prototypes[reactor][1]] = \
                 power_gap[index:index + reactor_prototypes[reactor]
-                          [1]] - reactor_prototypes[reactor][0] * num_rxs
+                        [1]] - reactor_prototypes[reactor][0] * num_rxs
             deploy_schedule['DeployInst']['prototypes']['val'].append(reactor)
             deploy_schedule['DeployInst']['n_build']['val'].append(num_rxs)
             deploy_schedule['DeployInst']['build_times']['val'].append(index)
