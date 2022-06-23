@@ -20,7 +20,7 @@ variables,
 interface,							
 	fork							
 	  asynchronous
-            evaluation_concurrency =  8 8 8 8 8 8
+            evaluation_concurrency =  2 
             analysis_concurrency = 1
           analysis_drivers = 'python lwr_lifetime_driver.py'
         
