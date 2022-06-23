@@ -248,7 +248,7 @@
         </entry>
       </initialfacilitylist>
       <config>
-	<xi:include href="../sensitivity-analysis/oat/build_share/xe-100/cylus-files/xe-100_deployinst_{{xe100}}.xml"/>
+	<xi:include href="../sensitivity-analysis/oat/build_share/xe-100/cylus-files/xe-100_{{xe100}}_deployinst.xml"/>
       </config>
     </institution>
 
