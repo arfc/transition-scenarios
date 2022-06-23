@@ -255,7 +255,7 @@
     <institution>
       <name>UNITED_STATES_OF_AMERICA</name>
       <config>
-        <xi:include href="united_states/buildtimes/UNITED_STATES_OF_AMERICA/deployinst.xml.xml"/>
+        <xi:include href="united_states/buildtimes/UNITED_STATES_OF_AMERICA/deployinst.xml"/>
       </config>
     </institution>
   </region>
