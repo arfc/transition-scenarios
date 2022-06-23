@@ -37,7 +37,7 @@ deployed_lwr_dict = cdi.get_deployinst_dict(deployinst, lwr_powers, "../../../in
 time, deployed_power = cdi.get_deployed_power(lwr_powers, deployed_lwr_dict, duration)
 power_gap = cdi.determine_power_gap(deployed_power, demand_equation)
 deploy_schedule = cdi.determine_deployment_schedule(power_gap, reactor_prototypes, 'Xe-100',int(params['xe100']))
-cdi.write_deployinst(deploy_schedule, "./cyclus-files/xe100_" + str(int([params['xe100'])) + "_deployinst.xml")
+cdi.write_deployinst(deploy_schedule, "./cyclus-files/xe100_" + str(int(params['xe100'])) + "_deployinst.xml")
 
 # Run Cyclus with edited input file
 output_sqlite = './cyclus-files/' + scenario_name + '.sqlite'
