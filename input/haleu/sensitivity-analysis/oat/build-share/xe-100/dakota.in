@@ -9,7 +9,7 @@ environment,
 
 method,						
 	multidim_parameter_study
-    partitions = 1
+    partitions = 10
 
 variables,					
 	continuous_design = 1			
@@ -20,9 +20,9 @@ variables,
 interface,							
 	fork							
 	  asynchronous
-            evaluation_concurrency =  8 8 8 8 8 8
+            evaluation_concurrency =  8
             analysis_concurrency = 1
-          analysis_drivers = 'python lwr_lifetime_driver.py'
+          analysis_drivers = 'python xe-100_share_driver.py'
         
 
 responses,				
