@@ -3,9 +3,9 @@
 
 environment, 
 	tabular_data 
-		tabular_data_file = 'xe100_build.dat'
-	output_file 'xe100_build.out'
-	write_restart 'xe100_build.rst'
+		tabular_data_file = 'mmr_build.dat'
+	output_file 'mmr_build.out'
+	write_restart 'mmr_build.rst'
 
 method,						
 	multidim_parameter_study
@@ -15,14 +15,14 @@ variables,
 	continuous_design = 1			
     lower_bounds      0   
     upper_bounds      50    
-    descriptors       'xe100'     
+    descriptors       'mmr'     
 
 interface,							
 	fork							
 	  asynchronous
             evaluation_concurrency =  4
             analysis_concurrency = 1
-          analysis_drivers = 'python xe-100_share_driver.py'
+          analysis_drivers = 'python mmr_share_driver.py'
         
 
 responses,				
