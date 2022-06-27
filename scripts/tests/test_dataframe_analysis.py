@@ -9,7 +9,6 @@ import sys
 sys.path.insert(0, '../')
 import dataframe_analysis as dfa
 
-
 class Test_static_info(unittest.TestCase):
     def setUp(self):
         '''
@@ -107,14 +106,13 @@ class Test_static_info(unittest.TestCase):
                 'Time': [
                     0, 1, 3], 'Quantity': [
                     2, 6, 8], 'Commodity': [
-                        'fresh_uox', 'fresh_uox', 'fresh_uox'],
-                'ReceiverPrototype': [
-                    'FuelCycle', 'Reactor_type1', 'LWR'],
-                'SenderPrototype': ['UnitedStates', 'FuelCycle', 'Reactor_type1']}).set_index(
-            [
-                pd.Index(
-                    [
-                        0, 2, 3])])
+                    'fresh_uox', 'fresh_uox', 'fresh_uox'], 'ReceiverPrototype': [
+                        'FuelCycle', 'Reactor_type1', 'LWR'], 'SenderPrototype': [
+                            'UnitedStates', 'FuelCycle', 'Reactor_type1']}).set_index(
+                                [
+                                    pd.Index(
+                                        [
+                                            0, 2, 3])])
         obs = dfa.find_commodity_transactions(self.test_df, 'fresh_uox')
         assert_frame_equal(exp, obs)
 

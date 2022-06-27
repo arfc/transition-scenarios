@@ -167,7 +167,7 @@ def commodity_to_prototype(transactions_df, commodity, prototype):
     -----------
     transactions_df: dataframe
         dataframe of all transactions with the prototype name
-        of the receiver agent added in. use add_receiver_prototype 
+        of the receiver agent added in. use add_receiver_prototype
         to get this dataframe
     commodity: str
         commodity of interest
