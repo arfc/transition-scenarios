@@ -26,9 +26,9 @@ class Test_static_info(unittest.TestCase):
         10 timesteps. This ensures that they are not decommissioned during the
         simualtion.
 
-        Both output files model a 7 month fuel cycle with the reactor
+        Both output files model a 7-month fuel cycle for reactor
         prototypes with manually defined deployment through a
-        cycamore::DeployInst. 1 Reactor_type1 is built at timestep 1, 1
+        cycamore::DeployInst. 1 Reactor_type1 is built at timestep 1, and 1
         Reactor_type2 is built at both tiemstep 2 and 3.
         '''
         self.output_file1 = 'transition_metrics_decommission_test.sqlite'
