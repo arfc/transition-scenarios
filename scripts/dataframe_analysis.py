@@ -4,12 +4,12 @@ import pandas as pd
 
 def add_year(df):
     '''
-    Adds column of Year, based on the Time colunm
+    Adds column of Year, based on the Time column
 
     Parameters:
     -----------
     df: DataFrame
-        DataFrame of data to add column to
+        DataFrame of data to add column for the year to
 
     Returns:
     --------
@@ -28,7 +28,7 @@ def add_zeros_columns(df, column_names):
     added column is of the length of the entire dataframe
     but consists of only zeros. This function allows for
     greater flexibility in defining prototypes of
-    interest across multiple tranistion scenarios
+    interest across multiple transition scenarios
 
     Parameters:
     -----------
@@ -112,14 +112,14 @@ def find_prototype_receiver(df, prototype):
     return prototype_df
 
 
-def find_prototype_sender(df, prototype):
+def find_prototype_sender(transactions_df, prototype):
     '''
     Finds all transactions sent from a specified prototype
 
     Parameters:
     -----------
-    df: dataframe
-        dataframe of transactions
+    transactions_df: dataframe
+        dataframe of all transactions
     prototype: str
         name of prototype to search for
 
@@ -128,7 +128,7 @@ def find_prototype_sender(df, prototype):
     prototype_df: dataframe
         contains only transactions sent from the specified prototype
     '''
-    prototype_df = df.loc[df['SenderPrototype'] == prototype]
+    prototype_df = transactions_df.loc[transactions_df['SenderPrototype'] == prototype]
     return prototype_df
 
 
@@ -139,8 +139,8 @@ def commodity_mass_traded(transactions_df, commodity):
 
     Parameters:
     -----------
-    transactions: dataframe
-        dataframe of transactions of the simulation
+    transactions_df: dataframe
+        dataframe of all transactions
     commodity: str
         commodity name
 
@@ -166,15 +166,15 @@ def commodity_to_prototype(transactions_df, commodity, prototype):
     Parameters:
     -----------
     transactions_df: dataframe
-        dataframe of transactions with the prototype name
-        of the receiver agent added in. use add_receiver_prototype to get this
-        dataframe
+        dataframe of all transactions with the prototype name
+        of the receiver agent added in. use add_receiver_prototype 
+        to get this dataframe
     commodity: str
         commodity of interest
     prototype: str
         name of prototype transactions are sent to
 
-    Output:
+    Returns:
     -------
     prototype_transactions: dataframe
         contains summed transactions at each time step that are sent to
@@ -199,7 +199,7 @@ def commodity_from_prototype(transactions_df, commodity, prototype):
     Parameters:
     -----------
     transactions_df: dataframe
-        dataframe of transactions with the prototype name
+        dataframe of all transactions with the prototype name
         of the receiver agent added in. use add_receiver_prototype to get this
         dataframe
     commodity: str
@@ -207,7 +207,7 @@ def commodity_from_prototype(transactions_df, commodity, prototype):
     prototype: str
         name of prototype transactions are sent to
 
-    Output:
+    Returns:
     -------
     prototype_transactions: dataframe
         contains summed transactions at each time step that are sent to
@@ -227,21 +227,21 @@ def commodity_to_LWR(transactions_df, commodity, prototype):
     Finds the transactions of a specific commodity sent to the LWRs in the
     simulation, modifies the time column, and adds in zeros for any time step
     without a transaction to the LWRs, and sums all transactions for
-    a single time step. The LWRs are assumed to any prototype name not
+    a single time step. The LWRs are assigned to any prototype name not
     given to this function.
 
     Parameters:
     -----------
     transactions_df: dataframe
         dataframe of transactions with the prototype name
-        of the receiver agent added in. use add_receiver_prototype to get this
+        of the receiver agent added in, use add_receiver_prototype to get this
         dataframe
     commodity: str
         commodity of interest
     prototype: list of str
         name(s) of non-LWR reactor prototype(s) in the simulation
 
-    Output:
+    Returns:
     -------
     prototype_transactions: dataframe
         contains summed transactions at each time step that are sent to
@@ -258,8 +258,8 @@ def commodity_to_LWR(transactions_df, commodity, prototype):
 
 def separation_potential(x_i):
     '''
-    Calculates Separation Potentail, for use in calculating
-    Separative Work Units (SWU) required for enrichment level
+    Calculates Separation Potential, for use in calculating
+    Separative Work Units (SWU) required for enrichment level.
 
     Inputs:
     -------
@@ -277,9 +277,9 @@ def separation_potential(x_i):
 
 def calculate_SWU(P, x_p, T, x_t, F, x_f):
     '''
-    Calculates Separative Work Units required to produce
-    throughput of product given mass of feed and tails and
-    assay of each mass stream
+    Calculates the Separative Work Units required to produce
+    throughput of product given the mass of feed and tails, and
+    the assay of each mass stream.
 
     Parameters:
     -----------
@@ -310,7 +310,7 @@ def calculate_tails(product, x_p, x_t, x_f):
     '''
     Calculates the mass of tails based on
     a mass of product and the mass fraction
-    of the roduct, tails, and feed
+    of the product, tails, and feed
 
     Parameters:
     ----------
@@ -326,6 +326,7 @@ def calculate_tails(product, x_p, x_t, x_f):
     Returns:
     -------
     tails: int, Series
+        mass of tails
     '''
     tails = (x_f - x_p) * product / (x_t - x_f)
     return tails
@@ -335,7 +336,7 @@ def calculate_feed(product, tails):
     '''
     Calculates the mass of feed material required
     to produce a given amount of product and
-    tails
+    tails.
 
     Parameters:
     ----------
