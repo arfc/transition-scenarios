@@ -37,14 +37,14 @@ def get_deployinst_dict(deployinst_dict, power_dict, path):
     Parameters:
     -----------
     deployinst_dict: dict
-        dictionary of DeployInst information. This dictionary is assumed 
-        to be nested, with the top key being 'DeployInst', the keys of 
-        the next level being 'prototypes', 'build_times', 'n_build', 
-        and optionally 'lifetimes'. Each of thos dictionaries will be 
-        nested with key of 'val', and value of a list of the integer 
+        dictionary of DeployInst information. This dictionary is assumed
+        to be nested, with the top key being 'DeployInst', the keys of
+        the next level being 'prototypes', 'build_times', 'n_build',
+        and optionally 'lifetimes'. Each of thos dictionaries will be
+        nested with key of 'val', and value of a list of the integer
         values.
     reactor_dict: dict
-        dictionary of LWR prototype names. Keys are the names of each 
+        dictionary of LWR prototype names. Keys are the names of each
         prototype for LWRs, with values of the rated power for the prototype.
     path: str
         path to xml files for each prototype
@@ -53,7 +53,7 @@ def get_deployinst_dict(deployinst_dict, power_dict, path):
     --------
     deployed_dict: dict
         dictionary of information about LWR prototypes and
-        their deployment. The keys are strs and values are lists of 
+        their deployment. The keys are strs and values are lists of
         ints.
     '''
     deployed_dict = {}
@@ -71,6 +71,7 @@ def get_deployinst_dict(deployinst_dict, power_dict, path):
             deployed_dict['build_times'].append(
                 int(deployinst_dict['DeployInst']['build_times']['val'][indx]))
     return deployed_dict
+
 
 def get_pris_powers(country, path, year):
     '''
@@ -140,7 +141,7 @@ def get_deployed_power(power_dict, deployed_dict, sim_duration):
         in the keys are replaced with underscores.
     deployed_dict: dict
         contains the lifetimes, number built, and name of each
-        prototype in the DeployInst. The keys are strs and values 
+        prototype in the DeployInst. The keys are strs and values
         are lists of ints.
     sim_duration: int
         number of timesteps in the simulation
@@ -274,11 +275,11 @@ def write_deployinst(deploy_schedule, out_path):
     Parameters:
     -----------
     deploy_schedule: dict
-        deployment schedule of reactor prototypes, with 
-        the same schema as the DeployInst. Nest dictionary 
-        with the top key being 'DeployInst', next level of keys in 
-        'prototypes', 'n_build', 'build_times',  and 'lifetimes'. Each 
-        of those keys has a nested dictionary of {'val':[]}, with 
+        deployment schedule of reactor prototypes, with
+        the same schema as the DeployInst. Nest dictionary
+        with the top key being 'DeployInst', next level of keys in
+        'prototypes', 'n_build', 'build_times',  and 'lifetimes'. Each
+        of those keys has a nested dictionary of {'val':[]}, with
         the values of that dictionary being a list.
     out_path: str
         path to where the file should be written

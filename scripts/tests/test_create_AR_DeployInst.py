@@ -9,7 +9,6 @@ import sys
 sys.path.insert(0, '../')
 import create_AR_DeployInst as di
 
-
 class Test_static_info(unittest.TestCase):
     def setUp(self):
         '''
