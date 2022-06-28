@@ -182,6 +182,7 @@ class Test_static_info(unittest.TestCase):
 
     def test_determine_deployment_schedule(self):
         '''
+        Tests for a constant power demand of 400 MW for 40 time steps.
         '''
         exp = {
             'DeployInst': {
