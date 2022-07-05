@@ -23,12 +23,12 @@ params, results = di.read_parameters_file()
 cyclus_template = 'xe-100_share_input.xml.in'
 scenario_name = 'xe100_' + str(round(params['xe100']))
 variable_dict = {'handle': scenario_name, 'xe100':str(int(params['xe100']))}
-output_xml = './cyclus-files/xe100_share.xml'
+output_xml = './cyclus-files/xe100_share'+ str(params['xe100']) + '.xml'
 inp.render_input(cyclus_template, variable_dict, output_xml)
 
 # Create DeployInst for advanced reactors 
 duration = 1500
-reactor_prototypes = {'Xe-100':(75, 720), 'MMR':(10,240), 'VOYGR':(50, 720)}
+reactor_prototypes = {'Xe-100':(80, 720), 'MMR':(5,240), 'VOYGR':(77, 720)}
 demand_equation = np.zeros(duration)
 demand_equation[721:] = 89456.55
 deployinst = cdi.convert_xml_to_dict("../../../../inputs/united_states/buildtimes/UNITED_STATES_OF_AMERICA/deployinst.xml")
