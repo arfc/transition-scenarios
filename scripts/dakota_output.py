@@ -206,7 +206,7 @@ def calculate_feed(db_file, prototypes, transition_start):
         The total feed uranium required for the prototypes,
         starting at the transition start time. 
     ''' 
-    assays = {'MMR':0.13, 'Xe-100':0.155, 
+    assays = {'MMR':0.1975, 'Xe-100':0.155, 
           'VOYGR':0.0409, 'feed':0.00711, 'tails':0.002}
     enriched_u_mass = get_multiple_prototype_transactions(db_file, prototypes, 'fresh_uox')
     feed = 0
@@ -238,7 +238,7 @@ def calculate_swu(db_file, prototypes, transition_start):
         The total cumulative swu capacity required for the prototypes, 
         starting at the transition start time. 
     '''
-    assays = {'MMR':0.13, 'Xe-100':0.155, 
+    assays = {'MMR':0.1975, 'Xe-100':0.155, 
           'VOYGR':0.0409, 'feed':0.00711, 'tails':0.002}
     enriched_u_mass = get_multiple_prototype_transactions(db_file, prototypes, 'fresh_uox')
     swu = 0
