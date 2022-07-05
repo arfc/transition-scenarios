@@ -21,7 +21,7 @@ interface,
 	fork							
 	  asynchronous
             evaluation_concurrency =  4
-            analysis_concurrency = 1
+          #  analysis_concurrency = 1
           analysis_drivers = 'python voygr_share_driver.py'
         
 
