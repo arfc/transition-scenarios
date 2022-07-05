@@ -20,8 +20,8 @@ variables,
 interface,							
 	fork							
 	  asynchronous
-            evaluation_concurrency =  4
-            analysis_concurrency = 1
+            evaluation_concurrency = 4 
+          #  analysis_concurrency = 1
           analysis_drivers = 'python mmr_share_driver.py'
         
 
