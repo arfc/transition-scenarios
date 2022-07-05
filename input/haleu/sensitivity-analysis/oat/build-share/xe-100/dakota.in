@@ -19,14 +19,13 @@ variables,
 
 interface,							
 	fork							
+          analysis_drivers = 'python xe-100_share_driver.py'
 	  asynchronous
             evaluation_concurrency =  4
-            analysis_concurrency = 1
-          analysis_drivers = 'python xe-100_share_driver.py'
+          #  analysis_concurrency = 1
         
 
 responses,				
-	#num_objective_functions = 1	
 	descriptors = 'enr_u' 'haleu' 'swu' 'haleu_swu' 'waste' 'feed'
 	response_functions = 6
 	  scalar_responses = 6
