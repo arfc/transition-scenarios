@@ -23,7 +23,7 @@ params, results = di.read_parameters_file()
 cyclus_template = 'lwr_lifetime_input.xml.in'
 scenario_name = 'lwr_' + str(round(params['lwr']))
 variable_dict = {'handle': scenario_name, 'lwr_lifetime':str(int(params['lwr']))}
-output_xml = './cyclus-files/lwr_lifetime.xml'
+output_xml = './cyclus-files/lwr_lifetime_' + str(params['lwr']) + '.xml'
 inp.render_input(cyclus_template, variable_dict, output_xml)
 
 # Create DeployInst for LWRs
@@ -45,7 +45,7 @@ cdi.write_deployinst(DI_dict, './cyclus-files/lwr_' + str(int(params['lwr'])) + 
 
 # Create DeployInst for advanced reactors 
 duration = 1500
-reactor_prototypes = {'Xe-100':(75, 720), 'MMR':(10,240), 'VOYGR':(50, 720)}
+reactor_prototypes = {'Xe-100':(80, 720), 'MMR':(5,240), 'VOYGR':(77, 720)}
 demand_equation = np.zeros(duration)
 demand_equation[721:] = 89456.55
 deployinst = cdi.convert_xml_to_dict("./cyclus-files/lwr_"+str(int(params['lwr'])) + '_deployinst.xml')
