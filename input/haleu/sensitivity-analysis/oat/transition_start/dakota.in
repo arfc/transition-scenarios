@@ -21,7 +21,7 @@ interface,
 	fork							
 	  asynchronous
             evaluation_concurrency = 16 
-            analysis_concurrency = 1
+          #  analysis_concurrency = 1
           analysis_drivers = 'python transition_start_driver.py'
         
 
