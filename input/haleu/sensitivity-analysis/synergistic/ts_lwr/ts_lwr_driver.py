@@ -25,7 +25,7 @@ scenario_name = 'ts_' + str(round(params['ts'])) + '_lwr_' + \
     str(round(params['lwr']))
 variable_dict = {'handle': scenario_name, 
                  'ts': int(params['ts']), 
-                 'lwr':int(params['lwr'])}
+                 'lwr': int(params['lwr'])}
 output_xml = './cyclus-files/ts_' + str(params['ts']) + '_lwr_' + \
     str(params['lwr']) + '.xml'
 inp.render_input(cyclus_template, variable_dict, output_xml)
@@ -46,7 +46,7 @@ for lwr in lwrs_extended:
     index = DI_dict['DeployInst']['prototypes']['val'].index(lwr)
     DI_dict['DeployInst']['lifetimes']['val'][index] = 960
 cdi.write_deployinst(DI_dict, './cyclus-files/ts_' + \
-    str(params['ts']) + 'lwr_' + str(int(params['lwr'])) + \
+    str(int(params['ts'])) + '_lwr_' + str(int(params['lwr'])) + \
     '_deployinst.xml')
 
 # Create DeployInst for advanced reactors
@@ -61,7 +61,7 @@ time, deployed_power = cdi.get_deployed_power(lwr_powers, deployed_lwr_dict, dur
 power_gap = cdi.determine_power_gap(deployed_power, demand_equation)
 deploy_schedule = cdi.determine_deployment_schedule(power_gap, reactor_prototypes)
 cdi.write_deployinst(deploy_schedule, "./cyclus-files/AR_ts_" + \
-    str(int(params['ts'])) + '_lwr_' + str(params['lwr']) + \
+    str(int(params['ts'])) + '_lwr_' + str(int(params['lwr'])) + \
     "_deployinst.xml")
 
 # Run Cyclus with edited input file
