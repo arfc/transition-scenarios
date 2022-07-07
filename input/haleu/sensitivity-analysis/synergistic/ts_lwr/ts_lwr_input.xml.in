@@ -248,7 +248,7 @@
         </entry>
       </initialfacilitylist>
       <config>
-        <xi:include href="../sensitivity-analysis/synergistic/ts_lwr/cyclus-files/AR_ts_{{ts}}_lwr_{{lwr}}_deployinst.xml">
+        <xi:include href="../sensitivity-analysis/synergistic/ts_lwr/cyclus-files/AR_ts_{{ts}}_lwr_{{lwr}}_deployinst.xml"/>
       </config>
     </institution>
 
