@@ -248,14 +248,14 @@
         </entry>
       </initialfacilitylist>
       <config>
-        <xi:include href="../sensitivity-analysis/oat/transition_start/cyclus-files/ty_{{start_transition}}_deployinst.xml"/>
+        <xi:include href="../sensitivity-analysis/synergistic/ts_lwr/cyclus-files/AR_ts_{{ts}}_lwr_{{lwr}}_deployinst.xml">
       </config>
     </institution>
 
     <institution>
       <name>UNITED_STATES_OF_AMERICA</name>
       <config>
-        <xi:include href="united_states/buildtimes/UNITED_STATES_OF_AMERICA/deployinst.xml"/>
+        <xi:include href="../sensitivity-analysis/synergistic/ts_lwr/cyclus-files/ts_{{ts}}_lwr_{{lwr}}_deployinst.xml"/>
       </config>
     </institution>
   </region>
