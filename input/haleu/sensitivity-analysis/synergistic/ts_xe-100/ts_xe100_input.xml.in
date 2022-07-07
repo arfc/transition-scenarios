@@ -1,4 +1,4 @@
-<simulation xml:base="/home/abachmann/transition-scenarios/input/haleu/inputs/" xmlns:xi="http://www.w3.org/2001/XInclude">
+e<simulation xml:base="/home/abachmann/transition-scenarios/input/haleu/inputs/" xmlns:xi="http://www.w3.org/2001/XInclude">
   <control>
     <decay>lazy</decay>
     <duration>1500</duration>
@@ -233,14 +233,14 @@
         </entry>
       </initialfacilitylist>
       <config>
-        <xi:include href="../sensitivity-analysis/synergistic/ts_lwr/cyclus-files/AR_ts_{{ts}}_lwr_{{lwr}}_deployinst.xml"/>
+        <xi:include href="../sensitivity-analysis/synergistic/ts_xe-100/cyclus-files/ts_{{ts}}_xe100_{{xe100}}_deployinst.xml"/>
       </config>
     </institution>
 
     <institution>
       <name>UNITED_STATES_OF_AMERICA</name>
       <config>
-        <xi:include href="../sensitivity-analysis/synergistic/ts_lwr/cyclus-files/ts_{{ts}}_lwr_{{lwr}}_deployinst.xml"/>
+        <xi:include href="united_states/buildtimes/UNITED_STATES_OF_AMERICA/deployinst.xml"/>
       </config>
     </institution>
   </region>
