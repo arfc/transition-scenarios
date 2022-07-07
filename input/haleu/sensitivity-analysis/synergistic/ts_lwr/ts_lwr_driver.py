@@ -26,8 +26,8 @@ scenario_name = 'ts_' + str(round(params['ts'])) + '_lwr_' + \
 variable_dict = {'handle': scenario_name, 
                  'ts': int(params['ts']), 
                  'lwr': int(params['lwr'])}
-output_xml = './cyclus-files/ts_' + str(params['ts']) + '_lwr_' + \
-    str(params['lwr']) + '.xml'
+output_xml = './cyclus-files/ts_' + str(int(params['ts'])) + '_lwr_' + \
+    str(int(params['lwr'])) + '.xml'
 inp.render_input(cyclus_template, variable_dict, output_xml)
 
 # Create DeployInst for LWRs
