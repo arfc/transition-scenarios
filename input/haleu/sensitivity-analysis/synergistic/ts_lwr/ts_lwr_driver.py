@@ -31,7 +31,7 @@ output_xml = './cyclus-files/ts_' + str(params['ts']) + '_lwr_' + \
 inp.render_input(cyclus_template, variable_dict, output_xml)
 
 # Create DeployInst for LWRs
-DI_dict = cdi.convert_xml_to_dict("initial_lwr_deployinst.xml")
+DI_dict = cdi.convert_xml_to_dict("../../initial_lwr_deployinst.xml")
 DI_dict['DeployInst']['lifetimes'] = {'val':[]}
 DI_dict['DeployInst']['lifetimes']['val'] = np.repeat(720, 116)
 DI_dict['DeployInst']['lifetimes']['val'][0] = 600
