@@ -3,9 +3,9 @@
 
 environment, 
 	tabular_data 
-		tabular_data_file = 'transition_start.dat'
-	output_file 'transition_start.out'
-	write_restart 'transition_start.rst'
+		tabular_data_file = 'ts_lwr.dat'
+	output_file 'ts_lwr.out'
+	write_restart 'ts_lwr.rst'
 
 method,						
 	multidim_parameter_study
@@ -20,7 +20,7 @@ variables,
 interface,							
 	fork							
 	  asynchronous
-            evaluation_concurrency = 16 
+            evaluation_concurrency = 1 
           analysis_drivers = 'python ts_lwr_driver.py'
         
 
