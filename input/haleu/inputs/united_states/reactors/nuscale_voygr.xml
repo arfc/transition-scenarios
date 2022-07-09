@@ -7,9 +7,9 @@
         <fuel_inrecipes> <val>fresh_smr_fuel</val> </fuel_inrecipes>
         <fuel_outcommods> <val>spent_smr_fuel</val> </fuel_outcommods>
         <fuel_outrecipes> <val>spent_smr_fuel</val> </fuel_outrecipes>
-        <cycle_time>24</cycle_time>
+        <cycle_time>1824</cycle_time>
         <refuel_time>1</refuel_time>
-        <assem_size>4849.53</assem_size>
+        <assem_size>3587.33</assem_size>
         <n_assem_core>3</n_assem_core>
         <n_assem_batch>1</n_assem_batch>
         <power_cap>77</power_cap>
