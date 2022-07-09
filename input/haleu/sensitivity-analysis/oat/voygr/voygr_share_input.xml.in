@@ -248,7 +248,7 @@
         </entry>
       </initialfacilitylist>
       <config>
-	<xi:include href="../sensitivity-analysis/oat/build-share/voygr/cyclus-files/voygr_{{voygr}}_deployinst.xml"/>
+	<xi:include href="../sensitivity-analysis/oat/voygr/cyclus-files/voygr_{{voygr}}_deployinst.xml"/>
       </config>
     </institution>
 
