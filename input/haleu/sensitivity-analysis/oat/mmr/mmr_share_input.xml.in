@@ -248,7 +248,7 @@
         </entry>
       </initialfacilitylist>
       <config>
-	<xi:include href="../sensitivity-analysis/oat/build-share/mmr/cyclus-files/mmr_{{mmr}}_deployinst.xml"/>
+	<xi:include href="../sensitivity-analysis/oat/mmr/cyclus-files/mmr_{{mmr}}_deployinst.xml"/>
       </config>
     </institution>
 
