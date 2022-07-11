@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DeployInst>
+	<prototypes>
+		<val>MMR</val>
+		<val>MMR</val>
+		<val>MMR</val>
+		<val>MMR</val>
+		<val>MMR</val>
+		<val>MMR</val>
+		<val>MMR</val>
+		<val>MMR</val>
+		<val>MMR</val>
+	</prototypes>
+	<build_times>
+		<val>1104</val>
+		<val>1112</val>
+		<val>1229</val>
+		<val>1245</val>
+		<val>1252</val>
+		<val>1377</val>
+		<val>1399</val>
+		<val>1403</val>
+		<val>1427</val>
+	</build_times>
+	<n_build>
+		<val>13</val>
+		<val>13</val>
+		<val>419405</val>
+		<val>1258291</val>
+		<val>1677722</val>
+		<val>109947807360</val>
+		<val>329853488333</val>
+		<val>439804651110</val>
+		<val>6157265115546</val>
+	</n_build>
+	<lifetimes>
+		<val>240</val>
+		<val>240</val>
+		<val>240</val>
+		<val>240</val>
+		<val>240</val>
+		<val>240</val>
+		<val>240</val>
+		<val>240</val>
+		<val>240</val>
+	</lifetimes>
+</DeployInst>
