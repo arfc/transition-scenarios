@@ -31,7 +31,6 @@
       <name>DeployInst</name>
     </spec>
     <spec>
-    <spec>
       <lib>agents</lib>
       <name>NullRegion</name>
     </spec>
