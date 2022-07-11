@@ -233,8 +233,8 @@
             <val>DryStorage</val>
             <val>VOYGRCoolingPool</val>
             <val>MMRCoolingPool</val>
-            <val>MMR</val>
             <val>VOYGR</val>
+            <val>MMR</val>
           </prototypes>
         </ManagerInst>
       </config>
