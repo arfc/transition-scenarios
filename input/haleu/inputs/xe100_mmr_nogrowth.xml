@@ -205,7 +205,7 @@
         </entry>
       </initialfacilitylist>
       <config>
-	i<xi:include href="united_states/buildtimes/xe100_mmr_nogrowth_deployinst.xml"/>
+	<xi:include href="united_states/buildtimes/xe100_mmr_nogrowth_deployinst.xml"/>
       </config>
     </institution>
 
