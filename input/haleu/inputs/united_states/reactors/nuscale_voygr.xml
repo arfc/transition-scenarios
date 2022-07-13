@@ -7,11 +7,11 @@
         <fuel_inrecipes> <val>fresh_smr_fuel</val> </fuel_inrecipes>
         <fuel_outcommods> <val>spent_smr_fuel</val> </fuel_outcommods>
         <fuel_outrecipes> <val>spent_smr_fuel</val> </fuel_outrecipes>
-        <cycle_time>1824</cycle_time>
+        <cycle_time>18</cycle_time>
         <refuel_time>1</refuel_time>
-        <assem_size>3587.33</assem_size>
-        <n_assem_core>3</n_assem_core>
-        <n_assem_batch>1</n_assem_batch>
+        <assem_size>275.94</assem_size>
+        <n_assem_core>37</n_assem_core>
+        <n_assem_batch>13</n_assem_batch>
         <power_cap>77</power_cap>
       </Reactor>
     </config>
