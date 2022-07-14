@@ -7,8 +7,10 @@ import dataframe_analysis as dfa
 
 
 def merge_and_fillna_col(left, right, lcol, rcol, how='left', on=None):
-    """Merges two dataframes and fills the values of the left column
-    with the values from the right column. A copy of left is returned.
+    '''
+    Merges two dataframes and fills any NaN values of the left column
+    (lcol) with the values from the right column (rcol). A copy of 
+    left is returned.
 
     Parameters
     ----------
@@ -24,7 +26,13 @@ def merge_and_fillna_col(left, right, lcol, rcol, how='left', on=None):
         How to perform merge, same as in pd.merge()
     on : list of str, optional
         Which columns to merge on, same as in pd.merge()
-    """
+
+    Returns:
+    --------
+    left: DataFrame
+        Merged dataframe with any NaN values replaced with values from 
+        the specified column
+    '''
     merged_df = left.reset_index().merge(right, how=how).set_index('index')
     fill_column = merged_df[lcol].fillna(merged_df[rcol])
     left[lcol] = fill_column
@@ -33,10 +41,10 @@ def merge_and_fillna_col(left, right, lcol, rcol, how='left', on=None):
 
 def get_table_from_output(db_file, table_name):
     '''
-    Get a specified table from the SQlite database and return
+    Gets a specified table from the SQLite database and return
     it as a pandas dataframe. The dataframe for the 'Resources'
     uses only select columns from that table because of memory
-    issues expereinced, and only the columns called here were
+    issues experienced, and only the columns called here were
     used for later functions.
 
         Parameters:
@@ -44,7 +52,7 @@ def get_table_from_output(db_file, table_name):
         db_file: str
             filename of database
         table_name: str
-            name of table in dataframe
+            name of table in the database
 
         Returns:
         --------
@@ -63,7 +71,7 @@ def get_table_from_output(db_file, table_name):
 
 def create_agents_table(db_file):
     '''
-        Recreates the Agents metric in cymetric
+        Recreates the Agents metric in cymetric.
 
         Parameters:
         -----------
@@ -130,7 +138,7 @@ def add_receiver_prototype(db_file):
     the prototype name corresponding to the ReceiverId of the
     transaction. This dataframe is merged with the Agents dataframe, with the
     AgentId column renamed to ReceiverId to assist the merge process. The
-    final dataframe is organized by ascending order of Time then TransactionId
+    final dataframe is organized by ascending order of Time then TransactionId.
 
     Parameters:
     -----------
@@ -160,7 +168,7 @@ def add_sender_prototype(db_file):
     the prototype name corresponding to the SenderId of the
     transaction. This dataframe is merged with the Agents dataframe, with the
     AgentId column renamed to SenderId to assist the merge process. The
-    final dataframe is organized by ascending order of Time then TransactionId
+    final dataframe is organized by ascending order of Time then TransactionId.
 
     Parameters:
     -----------
@@ -187,7 +195,7 @@ def add_sender_prototype(db_file):
 def get_multiple_prototype_transactions(db_file, prototypes, commodity):
     '''
     Gets the transactions of the given commodity sent to the
-    specified prototypes in each time step
+    specified prototypes in each time step.
 
     Parameters:
     -----------
@@ -232,8 +240,8 @@ def get_enriched_u_mass(db_file, prototypes, transition_start):
         Returns:
         --------
         cumulative_u: float
-            cumulative mass of enriched uranium sent to specified protopyes
-            starting at the transition start time.
+            the cumulative mass of enriched uranium sent to specified 
+            prototypes starting at the transition start time
     '''
     enriched_u_df = get_multiple_prototype_transactions(
         db_file, prototypes, 'fresh_uox')
@@ -247,7 +255,7 @@ def get_enriched_u_mass(db_file, prototypes, transition_start):
 def calculate_swu(db_file, prototypes, transition_start, assays):
     '''
     Calculates the cumulative amount of SWU capacity required to
-    create the enriched uranium in the simulation
+    create the enriched uranium in the simulation.
 
     Parameters:
     -----------
@@ -262,13 +270,13 @@ def calculate_swu(db_file, prototypes, transition_start, assays):
         the fuel for the prototype, form of the dictionary is
         {prototype name(str):assay(float)}. This dictionary MUST
         contain the assays for the tails and feed streams, and be labeled
-        as 'tails' and 'feed'.
+        as 'tails' and 'feed'
 
     Returns:
     --------
     average_swu: float
-        The average swu capacity required for the simulation,
-        starting at the transition start time.
+        the average SWU capacity required for the simulation,
+        starting at the transition start time
     '''
     enriched_u_mass = get_multiple_prototype_transactions(
         db_file, prototypes, 'fresh_uox')
@@ -287,7 +295,7 @@ def calculate_swu(db_file, prototypes, transition_start, assays):
 def get_waste_discharged(db_file, prototypes, transition_start, commodities):
     '''
     Gets the mass of fuel discharged from specified prototypes,
-    sums them together and provides a sumulative total from the start
+    sums them together and provides a cumulative total from the start
     of the transition.
 
     Parameters:
