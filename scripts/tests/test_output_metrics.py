@@ -25,10 +25,10 @@ class Test_static_info(unittest.TestCase):
         10 timesteps. This ensures that they are not decommissioned during the
         simualtion.
 
-        Both output files model a 7 month fuel cycle with the reactor
+        Both output files model a 7-month fuel cycle with the reactor
         prototypes with manually defined deployment through a
         cycamore::DeployInst. 1 Reactor_type1 is built at timestep 1, 1
-        Reactor_type2 is built at both tiemstep 2 and 3.
+        Reactor_type2 is built at both timestep 2 and 3.
         '''
         self.output_file1 = 'transition_metrics_decommission_test.sqlite'
         self.output_file2 = 'transition_metrics_nodecommission_test.sqlite'
@@ -63,7 +63,7 @@ class Test_static_info(unittest.TestCase):
     def test_merge_and_fillna_col1(self):
         '''
         Tests the function with the two default arguments supplied when the left
-        DataFrame does not contain a NaN value
+        DataFrame does not contain a NaN value.
         '''
         exp = pd.DataFrame(data={
             'Time': [
@@ -78,7 +78,7 @@ class Test_static_info(unittest.TestCase):
     def test_merge_and_fillna_col2(self):
         '''
         Tests the function with the two default arguments supplied when the left
-        DataFrame does contain a NaN value
+        DataFrame does contain a NaN value.
         '''
         exp = pd.DataFrame(data={
             'Time': [
@@ -93,7 +93,8 @@ class Test_static_info(unittest.TestCase):
     def test_merge_and_fillna_col3(self):
         '''
         Tests the function with the default argument fpr how, but specifying
-        a column to merge on when the left DataFrame does not contain a NaN value
+        a column to merge on when the left DataFrame does not contain a NaN 
+        value. 
         '''
         exp = pd.DataFrame(data={
             'Time': [
@@ -112,9 +113,8 @@ class Test_static_info(unittest.TestCase):
 
     def test_merge_and_fillna_col4(self):
         '''
-        Tests the function with the default for how is used, but an argument
-        is given for the on argument when the left
-        DataFrame does contain a NaN value
+        Tests the function with the default for how it is used when an argument
+        is given for when the left DataFrame contains a NaN value. 
         '''
         exp = pd.DataFrame(data={
             'Time': [
@@ -133,7 +133,7 @@ class Test_static_info(unittest.TestCase):
 
     def test_get_table_from_output1(self):
         '''
-        Test function for the AgentEntry table from self.output_file1
+        Test function for the AgentEntry table from self.output_file1.
         '''
         exp = pd.DataFrame(data={
             'AgentId': [19, 20, 21, 22],
@@ -149,7 +149,7 @@ class Test_static_info(unittest.TestCase):
 
     def test_get_table_from_output2(self):
         '''
-        Test function for the Resource table from self.output_file1
+        Test function for the Resource table from self.output_file1.
         '''
         exp = pd.DataFrame(data={
             'ResourceId': [10, 12, 14, 15],
@@ -163,7 +163,7 @@ class Test_static_info(unittest.TestCase):
 
     def test_create_agents_table1(self):
         '''
-        Test correct creation of the Agents DataFrame from output_file1, in
+        Test the creation of the Agents DataFrame from output_file1, in
         which agents are decommissioned.
         '''
         exp = pd.DataFrame(data={
@@ -199,7 +199,8 @@ class Test_static_info(unittest.TestCase):
 
     def test_merge_transactions_resources(self):
         '''
-        Test with output_file1.
+        Test merging the transactions and resources DataFrames with 
+        output_file1.
         '''
         exp = pd.DataFrame(data={
             'TransactionId': [0, 1, 2, 3, 4],
@@ -217,7 +218,8 @@ class Test_static_info(unittest.TestCase):
 
     def test_add_receiver_prototype(self):
         '''
-        Test with output_file1
+        Test adding name of prototype receiving the commodity with 
+        output_file1.
         '''
         exp = pd.DataFrame(data={
             'TransactionId': [0, 1, 2, 3, 4],
@@ -236,7 +238,8 @@ class Test_static_info(unittest.TestCase):
 
     def test_add_sender_prototype(self):
         '''
-        Test with output_file1
+        Test adding the prototype name sending the commodity with 
+        output_file1.
         '''
         exp = pd.DataFrame(data={
             'TransactionId': [0, 1, 2, 3, 4],
@@ -256,7 +259,7 @@ class Test_static_info(unittest.TestCase):
     def test_get_multiple_prototype_transactions1(self):
         '''
         Test function when commodity and prototype given are in the transactions
-        dataframe, and the commodity is sent to the prototype
+        dataframe, and the commodity is sent to the prototype.
         '''
         exp = pd.DataFrame(data={
             'Reactor_type1': [0.0, 99000.0, 33000.0, 0.0]
@@ -268,7 +271,7 @@ class Test_static_info(unittest.TestCase):
     def test_get_multiple_prototype_transactions2(self):
         '''
         Test function when commodity and prototype given are in the transactions
-        dataframe, and the commodity is not sent to the prototype
+        dataframe, and the commodity is not sent to the prototype.
         '''
         exp = pd.DataFrame(data={
             'Reactor_type1': [0.0, 0.0, 0.0, 0.0]
@@ -280,7 +283,7 @@ class Test_static_info(unittest.TestCase):
     def test_get_multiple_prototype_transactions3(self):
         '''
         Test function when commodity is in the transactions dataframe, but the
-        prototype is not in the simulation
+        prototype is not in the simulation.
         '''
         exp = pd.DataFrame(data={
             'Reactor_type3': [0.0, 0.0, 0.0, 0.0]
@@ -292,7 +295,7 @@ class Test_static_info(unittest.TestCase):
     def test_get_multiple_prototype_transactions4(self):
         '''
         Test function when prototype is in the transactions dataframe, but the
-        commodity is not in the simulation
+        commodity is not in the simulation.
         '''
         exp = pd.DataFrame(data={
             'Reactor_type1': [0.0, 0.0, 0.0, 0.0]
@@ -304,8 +307,8 @@ class Test_static_info(unittest.TestCase):
     def test_get_multiple_prototype_transactions5(self):
         '''
         Test function when multiple prototypes are listed, both prototypes and
-        the commodity are in the transations dataframe and the commodity is sent to
-        both prototypes
+        the commodity are in the transactions dataframe and the commodity is sent to
+        both prototypes.
         '''
         exp = pd.DataFrame(data={
             'Reactor_type1': [0.0, 99000.0, 33000.0, 0.0],
@@ -317,7 +320,8 @@ class Test_static_info(unittest.TestCase):
 
     def test_get_enriched_u_mass1(self):
         '''
-        Test with output_file1 for a single prototype that receives the commodity specified
+        Test with output_file1 for a single prototype that receives the 
+        commodity specified.
         '''
         exp = 3300.0
         obs = oup.get_enriched_u_mass(self.output_file1, ['Reactor_type2'], 4)
@@ -325,7 +329,8 @@ class Test_static_info(unittest.TestCase):
 
     def test_get_enriched_u_mass2(self):
         '''
-        Test with output_file1 for two prototypes that receives the commodity specified
+        Test with output_file1 for two prototypes that receives the 
+        commodity specified.
         '''
         exp = 59400.0
         obs = oup.get_enriched_u_mass(
@@ -349,7 +354,7 @@ class Test_static_info(unittest.TestCase):
     def test_get_waste_discharged1(self):
         '''
         Test for output_file1 for a single prototype and a single commodity.
-        the prototype discharges the specified commodity
+        The prototype discharges the specified commodity
         '''
         exp = 23100.0
         obs = oup.get_waste_discharged(
@@ -359,7 +364,7 @@ class Test_static_info(unittest.TestCase):
     def test_get_waste_discharged2(self):
         '''
         Test for output_file1 for a single prototype and a single commodity.
-        the prototype does not discharge the specified commodity
+        The prototype does not discharge the specified commodity
         '''
         exp = 0.0
         obs = oup.get_waste_discharged(
@@ -368,8 +373,8 @@ class Test_static_info(unittest.TestCase):
 
     def test_get_waste_discharged3(self):
         '''
-        Test for output_file1 with a single prototype and a single commodity,
-        the protoype is not in the simulation but the commodity is.
+        Test for output_file1 with a single prototype and a single commodity.
+        The protoype is not in the simulation but the commodity is.
         '''
         exp = 0.0
         obs = oup.get_waste_discharged(
@@ -389,7 +394,7 @@ class Test_static_info(unittest.TestCase):
     def test_get_waste_discharged5(self):
         '''
         Test for output_file1 with a multiple prototypes in the simulation, but
-        only one of the commodities are in the silumation.
+        only one of the commodities is in the simulation.
         '''
         exp = 23100.0
         obs = oup.get_waste_discharged(
