@@ -44,7 +44,8 @@ lwrs_extended = lwrs[:int(params['lwr'])]
 for lwr in lwrs_extended:
     index = DI_dict['DeployInst']['prototypes']['val'].index(lwr)
     DI_dict['DeployInst']['lifetimes']['val'][index] = 960
-cdi.write_deployinst(DI_dict, './cyclus-files/lwr_' + str(int(params['lwr'])) + '_deployinst.xml')
+cdi.write_deployinst(DI_dict, './cyclus-files/lwr_' + str(int(params['lwr'])) +\
+                              "_mmr_" + str(int(params['mmr'])) + '_deployinst.xml')
 
 # Create DeployInst for advanced reactors 
 duration = 1500
