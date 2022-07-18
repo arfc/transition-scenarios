@@ -1,4 +1,4 @@
-<simulation xml:base="/home/abachmann/transition-scenarios/input/haleu/inputs/" xmlns:xi="http://www.w3.org/2001/XInclude">
+e<simulation xml:base="/home/abachmann/transition-scenarios/input/haleu/inputs/" xmlns:xi="http://www.w3.org/2001/XInclude">
   <control>
     <decay>lazy</decay>
     <duration>1500</duration>
@@ -36,8 +36,8 @@
       <name>ManagerInst</name>
     </spec>
     <spec>
-      <lib>cycamore</lib>
-      <name>GrowthRegion</name>
+      <lib>agents</lib>
+      <name>NullRegion</name>
     </spec>
   </archetypes>
 
@@ -193,22 +193,7 @@
   <region>
     <name>United States</name>
     <config>
-    <GrowthRegion>
-      <growth>
-        <item>
-          <commod>power</commod>
-          <piecewise_function>
-            <piece>
-              <start>721</start>
-              <function>
-                <type>linear</type>
-                <params>0 89456.55</params>
-              </function>
-            </piece>
-          </piecewise_function>
-        </item>
-      </growth>
-      </GrowthRegion>
+      <NullRegion/>
     </config>
     
     <institution>
@@ -248,14 +233,14 @@
         </entry>
       </initialfacilitylist>
       <config>
-        <xi:include href="../sensitivity-analysis/oat/lwr_lifetime/cyclus-files/AR_DeployInst_lwr_{{lwr_lifetime}}.xml"/>
+        <xi:include href="../sensitivity-analysis/synergistic/lwr_mmr/cyclus-files/AR_DeployInst_lwr_{{lwr}}_mmr_{{mmr}}.xml"/>
       </config>
     </institution>
 
     <institution>
       <name>UNITED_STATES_OF_AMERICA</name>
       <config>
-	<xi:include href="../sensitivity-analysis/oat/lwr_lifetime/cyclus-files/lwr_{{lwr_lifetime}}_deployinst.xml"/>
+        <xi:include href="../sensitivity-analysis/synergistic/lwr_mmr/cyclus-files/lwr_{{lwr}}_mmr_{{mmr}}_deployinst.xml"/>
       </config>
     </institution>
   </region>
