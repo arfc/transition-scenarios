@@ -127,6 +127,7 @@ def add_receiver_prototype(db_file):
     receiver_prototype = pd.merge(
         trans_resources, agents[['SimId', 'ReceiverId', 'Prototype']], on=[
             'SimId', 'ReceiverId']).sort_values(by=['Time', 'TransactionId']).reset_index(drop=True)
+    receiver_prototype.rename(columns={'Prototpye':'ReceiverPrototype'}, inplace=True)
     return receiver_prototype  
 
 def get_multiple_prototype_transactions(db_file, prototypes, commodity):
