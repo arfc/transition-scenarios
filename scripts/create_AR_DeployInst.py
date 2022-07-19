@@ -259,6 +259,7 @@ def determine_deployment_schedule(power_gap, reactor_prototypes):
             power_gap[index:index + reactor_prototypes[reactor][1]] = \
                 power_gap[index:index + reactor_prototypes[reactor]
                           [1]] - reactor_prototypes[reactor][0] * num_rxs
+            value = value - reactor_prototypes[reactor][0] * num_rxs
             deploy_schedule['DeployInst']['prototypes']['val'].append(reactor)
             deploy_schedule['DeployInst']['n_build']['val'].append(num_rxs)
             deploy_schedule['DeployInst']['build_times']['val'].append(index)
