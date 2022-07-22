@@ -20,7 +20,7 @@ variables,
 interface,							
 	fork							
 	  asynchronous
-            evaluation_concurrency = 16 
+            evaluation_concurrency = 24 
           analysis_drivers = 'python ts_mmr_driver.py'
         
 
