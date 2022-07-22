@@ -31,12 +31,8 @@
       <name>DeployInst</name>
     </spec>
     <spec>
-      <lib>cycamore</lib>
-      <name>ManagerInst</name>
-    </spec>
-    <spec>
-      <lib>cycamore</lib>
-      <name>GrowthRegion</name>
+      <lib>agents</lib>
+      <name>NullRegion</name>
     </spec>
   </archetypes>
 
@@ -173,22 +169,7 @@
   <region>
     <name>United States</name>
     <config>
-    <GrowthRegion>
-      <growth>
-        <item>
-          <commod>power</commod>
-          <piecewise_function>
-            <piece>
-              <start>721</start>
-              <function>
-                <type>linear</type>
-                <params>0 89456.55</params>
-              </function>
-            </piece>
-          </piecewise_function>
-        </item>
-      </growth>
-      </GrowthRegion>
+      <NullRegion/>
     </config>
     
     <institution>
@@ -224,19 +205,7 @@
         </entry>
       </initialfacilitylist>
       <config>
-        <ManagerInst>
-          <prototypes>
-            <val>Sink_LLW</val>
-            <val>Mine</val>
-            <val>Enrichment</val>
-            <val>WetStorage</val>
-            <val>DryStorage</val>
-            <val>Xe-100CoolingPool</val>
-            <val>VOYGRCoolingPool</val>
-            <val>Xe-100</val>
-            <val>VOYGR</val>
-          </prototypes>
-        </ManagerInst>
+	<xi:include href="united_states/buildtimes/xe100_voygr_nogrowth_deployinst.xml"/>
       </config>
     </institution>
 

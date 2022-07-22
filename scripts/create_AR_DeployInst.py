@@ -37,19 +37,24 @@ def get_deployinst_dict(deployinst_dict, power_dict, path="../input/haleu/inputs
     Parameters:
     -----------
     deployinst_dict: dict
-        dictionary of DeployInst information
+        dictionary of DeployInst information. This dictionary is assumed
+        to be nested, with the top key being 'DeployInst', the keys of
+        the next level being 'prototypes', 'build_times', 'n_build',
+        and optionally 'lifetimes'. Each of thos dictionaries will be
+        nested with key of 'val', and value of a list of the integer
+        values.
     reactor_dict: dict
-        dictionary of LWR prototype names
+        dictionary of LWR prototype names. Keys are the names of each
+        prototype for LWRs, with values of the rated power for the prototype.
     path: str
-        path to xml files for each prototype. This is an optional 
-        parameter, required if the DeployInst file being read in 
-        does not include the lifetimes for the prototypes.
+        path to xml files for each prototype
 
     Returns:
     --------
     deployed_dict: dict
         dictionary of information about LWR prototypes and
-        their deployment
+        their deployment. The keys are strs and values are lists of
+        ints.
     '''
     deployed_dict = {}
     deployed_dict = {'lifetime': [],
@@ -71,28 +76,9 @@ def get_deployinst_dict(deployinst_dict, power_dict, path="../input/haleu/inputs
     return deployed_dict
 
 
-def get_simulation_duration(simulation_dict):
-    '''
-    Reads the dictionary provided to obtain the total duration of the
-    simulation
-
-    Parameters:
-    -----------
-    simulation_dict: dict of strs
-        dictionary of the cylus input file
-
-    Returns:
-    --------
-    sim_duration: int
-        duration of cyclus simulation
-    '''
-    sim_duration = int(simulation_dict['simulation']['control']['duration'])
-    return sim_duration
-
-
 def get_pris_powers(country, path, year):
     '''
-    Create dictionary of the reactors units from a select country
+    Create dictionary of the reactor units from a select country
     in the PRIS database and
     their corresponding rated power
     output from the reactors_pris_XXXX.csv file for the corresponding year
@@ -152,18 +138,22 @@ def get_deployed_power(power_dict, deployed_dict, sim_duration):
     Parameters:
     -----------
     power_dict: dict
-        contains the power output of each agent in the DeployInst
+        contains the power output of each agent in the DeployInst.
+        The keys are the reactor
+        names (strs), the values are the rated powers (ints). Any spaces
+        in the keys are replaced with underscores.
     deployed_dict: dict
         contains the lifetimes, number built, and name of each
-        prototype in the DeployInst
+        prototype in the DeployInst. The keys are strs and values
+        are lists of ints.
     sim_duration: int
         number of timesteps in the simulation
 
     Returns:
     --------
-    t: array
+    t: array of ints
         ranged arrays of durations
-    inst_power: array
+    inst_power: array of ints
         deployed power at each timestep from a single DeployInst
         based on the power and duration of each prototype
     '''
@@ -185,14 +175,14 @@ def determine_power_gap(power_profile, demand):
 
     Parameters:
     ----------
-    power_profile: array
+    power_profile: array of ints
         Amount of power produced at each time step
-    demand: array
+    demand: array of ints
         evaluated values of the power demand equation used
 
     Returns:
     --------
-    power_gap: array
+    power_gap: array of ints
         Amount of power needed to meet the power demand. Any negative
         values from an oversupply of power are changed to 0
     '''
@@ -231,7 +221,7 @@ def determine_deployment_order(reactor_prototypes):
 
 def determine_deployment_schedule(power_gap, reactor_prototypes):
     '''
-    Define the deployemnt schedule for a single or multiple
+    Define the deployment schedule for a single or multiple
     reactor prototypes based on a gap in production
     and demand. If multiple prototypes are provided, then
     they will be deployed in preferential order based on
@@ -272,6 +262,7 @@ def determine_deployment_schedule(power_gap, reactor_prototypes):
             power_gap[index:index + reactor_prototypes[reactor][1]] = \
                 power_gap[index:index + reactor_prototypes[reactor]
                           [1]] - reactor_prototypes[reactor][0] * num_rxs
+            value = value - reactor_prototypes[reactor][0] * num_rxs
             deploy_schedule['DeployInst']['prototypes']['val'].append(reactor)
             deploy_schedule['DeployInst']['n_build']['val'].append(num_rxs)
             deploy_schedule['DeployInst']['build_times']['val'].append(index)
@@ -288,7 +279,12 @@ def write_deployinst(deploy_schedule, out_path):
     Parameters:
     -----------
     deploy_schedule: dict
-        deployment schedule of reactor prototypes
+        deployment schedule of reactor prototypes, with
+        the same schema as the DeployInst. Nest dictionary
+        with the top key being 'DeployInst', next level of keys in
+        'prototypes', 'n_build', 'build_times',  and 'lifetimes'. Each
+        of those keys has a nested dictionary of {'val':[]}, with
+        the values of that dictionary being a list.
     out_path: str
         path to where the file should be written
 
@@ -299,36 +295,3 @@ def write_deployinst(deploy_schedule, out_path):
     '''
     with open(out_path, 'w') as f:
         f.write(xmltodict.unparse(deploy_schedule, pretty=True))
-
-
-if __name__ == '__main__':
-    simulation_input = "../input/haleu/inputs/united_states_2020.xml"
-    deployinst_input = "../input/haleu/inputs/united_states/buildtimes/UNITED_STATES_OF_AMERICA/deployinst.xml"
-    prototype_path = "../input/haleu/inputs/united_states/reactors/"
-    output_path = "../input/haleu/inputs/united_states/buildtimes/advanced_reactor_deployinst.xml"
-    reactor_prototypes = {'Xe-100': (75, 720),
-                          'MMR': (10, 240),
-                          'VOYGR': (50, 720)}
-
-    # Create dictionaries
-    simulation_dict = convert_xml_to_dict(simulation_input)
-    deployinst_dict = convert_xml_to_dict(deployinst_input)
-
-    # get information out of dictionaries
-    duration = get_simulation_duration(simulation_dict)
-    lwr_powers = get_pris_powers(
-        'UNITED STATES OF AMERICA', "../database/", 2020)
-    deployed_lwr_dict = get_deployinst_dict(
-        deployinst_input, lwr_powers, prototype_path)
-
-    # Figure out power already deployed and power needed
-    time, deployed_power = get_deployed_power(
-        lwr_powers, deployed_lwr_dict, duration)
-    demand_eq = np.zeros(len(time))
-    demand_eq[721:] = 89450
-    power_gap = determine_power_gap(deployed_power, demand_eq)
-
-    # Figure out how many new prototypes are needed
-    deploy_schedule = determine_deployment_schedule(
-        power_gap, reactor_prototypes)
-    write_deployinst(deploy_schedule, output_path)
