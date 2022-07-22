@@ -26,7 +26,7 @@ scenario_name = 'ts_' + str(round(params['ts'])) + \
 variable_dict = {'handle': scenario_name, 
     'ts': int(params['ts']), 
     'xe100':int(params['xe100'])}
-output_xml = './cyclus-files/ts_' + str(params['ts']) + \
+output_xml = './cyclus-files/ts_' + str(int(params['ts'])) + \
     '_xe100_' + str(int(params['xe100'])) + '.xml'
 inp.render_input(cyclus_template, variable_dict, output_xml)
 
