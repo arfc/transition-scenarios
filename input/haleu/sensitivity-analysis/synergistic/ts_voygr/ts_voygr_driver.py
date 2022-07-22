@@ -26,8 +26,8 @@ scenario_name = 'ts_' + str(round(params['ts'])) + \
 variable_dict = {'handle': scenario_name, 
     'ts': int(params['ts']), 
     'voygr':int(params['voygr'])}
-output_xml = './cyclus-files/ts_' + str(params['ts']) + \
-    '_voygr_' + str(int(params['xe100'])) + '.xml'
+output_xml = './cyclus-files/ts_' + str(int(params['ts'])) + \
+    '_voygr_' + str(int(params['voygr'])) + '.xml'
 inp.render_input(cyclus_template, variable_dict, output_xml)
 
 # Create DeployInst for advanced reactors
@@ -40,9 +40,10 @@ lwr_powers = cdi.get_pris_powers('UNITED STATES OF AMERICA',"../../../../../data
 deployed_lwr_dict = cdi.get_deployinst_dict(deployinst, lwr_powers, "../../../inputs/united_states/reactors/")
 time, deployed_power = cdi.get_deployed_power(lwr_powers, deployed_lwr_dict, duration)
 power_gap = cdi.determine_power_gap(deployed_power, demand_equation)
-deploy_schedule = cdi.determine_deployment_schedule(power_gap, reactor_prototypes,'VOYGR',int(params['voygr'])
-cdi.write_deployinst(deploy_schedule, "./cyclus-files/ts_" + str(int(params['ts'])) + \
-    '_voygr_' + str(int(params['voygr'])) + "_deployinst.xml")
+deploy_schedule = cdi.determine_deployment_schedule(power_gap, reactor_prototypes,'VOYGR',int(params['voygr']))
+cdi.write_deployinst(deploy_schedule, "./cyclus-files/ts_" + \
+		str(int(params['ts'])) + \
+		'_voygr_' + str(int(params['voygr'])) + "_deployinst.xml")
 
 # Run Cyclus with edited input file
 output_sqlite = './cyclus-files/' + scenario_name + '.sqlite'
