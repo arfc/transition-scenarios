@@ -283,3 +283,54 @@ def get_waste_discharged(db_file, prototypes, transition_start, commodities):
     waste_discharged = waste[int(transition_start):].cumsum()
     return waste_discharged.loc[waste_discharged.index[-1]]
 
+def get_annual_electricity_table(db_file):
+    '''
+    Get the table of the annual electricity produced by each agent in 
+    a simulation
+
+    Parameters:
+    -----------
+    db_file: str 
+        file name of database
+
+    Returns:
+    --------
+    annual_electricity: DataFrame
+        Contains the SimId, AgentId, Year, and Energy from the database
+    '''
+    data = get_table_from_output(db_file, "TimeSeriesPower")
+    elec = pd.DataFrame(data={'SimId': elec.SimId,
+                              'AgentId': elec.AgentId,
+                              'Year': elec.Time.apply(lambda x: x // 12),
+                              'Energy': elec.Value.apply(lambda x: x / 12)},
+                        columns=['SimId', 'AgentId', 'Year', 'Energy'])
+    el_index = ['SimId', 'AgentId', 'Year']
+    elec = elec.groupby(el_index).sum()
+    annual_electricity = elec.reset_index()
+    return annual_electricity
+
+def get_annual_electricity(db_file):
+    '''
+    Gets the time dependent annual electricity output of reactors
+    in the silumation
+
+    Parameters:
+    -----------
+    db_file: str
+        SQLite database from Cyclus
+
+    Returns:
+    --------
+    electricity_output: DataFrame
+        time dependent electricity output, includes
+        column for year of time step. The energy column
+        is in units of GWe-yr, causing the divide by 1000
+        operation.
+    '''
+    electricity = get_annual_electricity_table(db_file)
+    electricity['Year'] = electricity['Year'] + 1965
+    electricity_output = electricity.groupby(
+        ['Year']).Energy.sum().reset_index()
+    electricity_output['Energy'] = electricity_output['Energy'] / 1000
+
+    return electricity_output
