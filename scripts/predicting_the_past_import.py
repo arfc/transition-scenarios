@@ -537,7 +537,7 @@ def get_lifetime(in_row, start_year):
 
 
 def write_reactors(in_dataframe, out_path, reactor_template, start_year,
-                   cycle_time=18, refuel_time=1):
+                   cycle_time=18, refuel_time=1, capacity_factor=1):
     """ Renders CYCAMORE::reactor specifications using jinja2.
 
     Parameters
@@ -554,6 +554,8 @@ def write_reactors(in_dataframe, out_path, reactor_template, start_year,
         cycle length of reactors in months
     refuel_time: int
         average refuel time in months
+    capacity_factor: float
+        capacity factor to apply to all reactors, as a decimal 
 
     Returns
     -------
@@ -610,7 +612,7 @@ def write_reactors(in_dataframe, out_path, reactor_template, start_year,
                                              assem_size=assem_size,
                                              n_assem_core=assem_no,
                                              n_assem_batch=assem_per_batch,
-                                             power_cap=row['RUP [MWe]'],
+                                             power_cap=row['RUP [MWe]']*capacity_factor,
                                              lon=longitude,
                                              lat=latitude)
             with open(out_path + name.replace(' ', '_') + '.xml',
