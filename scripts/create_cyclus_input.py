@@ -44,7 +44,8 @@ import_data.write_reactors(
     reactor_path,
     reactor_template, start_year,
     18,
-    1)  # change cycle and refuel time
+    1,
+    0.9266)  # change cycle and refuel time
 buildtime = import_data.deploy_reactors(pris_file, region, start_year, deployinst_tmpl,
                                         inclusions_tmpl, reactor_path, deployment_path)
 
