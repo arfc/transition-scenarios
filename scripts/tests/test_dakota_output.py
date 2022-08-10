@@ -1,3 +1,4 @@
+import dakota_output as oup
 import unittest
 import numpy as np
 import pandas as pd
@@ -7,7 +8,7 @@ from pandas._testing import assert_series_equal
 import sys
 
 sys.path.insert(0, '../')
-import dakota_output as oup
+
 
 class Test_static_info(unittest.TestCase):
     def setUp(self):
@@ -51,10 +52,11 @@ class Test_static_info(unittest.TestCase):
         '''
         Tests the function with the two default arguments supplied
         '''
-        exp = pd.DataFrame(data = {'Time': [0, 3], 'Quantity':[2, 8], 
-                            'Commodity':['fresh_uox', 'fresh_uox'], 
-                            'Prototype':['FuelCyle','LWR']})
-        obs = oup.merge_and_fillna_col(self.test_df1, self.test_df2, 'Time', 'Time')
+        exp = pd.DataFrame(data={'Time': [0, 3], 'Quantity': [2, 8],
+                                 'Commodity': ['fresh_uox', 'fresh_uox'],
+                                 'Prototype': ['FuelCyle', 'LWR']})
+        obs = oup.merge_and_fillna_col(
+            self.test_df1, self.test_df2, 'Time', 'Time')
         assert_frame_equal(exp, obs)
 
     def test_get_table_from_output1(self):
@@ -62,67 +64,67 @@ class Test_static_info(unittest.TestCase):
         Test function for the AgentEntry table from self.output_file1
         '''
         exp = pd.DataFrame(data={
-            #'SimId': ["b'\x17\xb1\xbe\xd5\t\x81F\x82\xa9\xbe\x05\xe6\x0erW\xcc'",
-            #"b'\x17\xb1\xbe\xd5\t\x81F\x82\xa9\xbe\x05\xe6\x0erW\xcc'",
-            #"b'\x17\xb1\xbe\xd5\t\x81F\x82\xa9\xbe\x05\xe6\x0erW\xcc'",
-            #"b'\x17\xb1\xbe\xd5\t\x81F\x82\xa9\xbe\x05\xe6\x0erW\xcc'"],
-            'AgentId': [19,20,21,22],
-            'Kind': ['Region', 'Inst','Facility','Facility'],
+            # 'SimId': ["b'\x17\xb1\xbe\xd5\t\x81F\x82\xa9\xbe\x05\xe6\x0erW\xcc'",
+            # "b'\x17\xb1\xbe\xd5\t\x81F\x82\xa9\xbe\x05\xe6\x0erW\xcc'",
+            # "b'\x17\xb1\xbe\xd5\t\x81F\x82\xa9\xbe\x05\xe6\x0erW\xcc'",
+            # "b'\x17\xb1\xbe\xd5\t\x81F\x82\xa9\xbe\x05\xe6\x0erW\xcc'"],
+            'AgentId': [19, 20, 21, 22],
+            'Kind': ['Region', 'Inst', 'Facility', 'Facility'],
             'Spec': [':agents:NullRegion', ':agents:NullInst', ':cycamore:Source', ':cycamore:Sink'],
-            'Prototype':['United States','FuelCycle','FuelSupply','Repository'],
-            'ParentId':[-1, 19, 20, 20],
-            'Lifetime':[-1, -1, -1, -1],
-            'EnterTime':[0,0,0,0]
+            'Prototype': ['United States', 'FuelCycle', 'FuelSupply', 'Repository'],
+            'ParentId': [-1, 19, 20, 20],
+            'Lifetime': [-1, -1, -1, -1],
+            'EnterTime': [0, 0, 0, 0]
         })
         obs = oup.get_table_from_output(self.output_file1, 'AgentEntry')
         assert_frame_equal(exp, obs.drop('SimId', axis=1)[0:4])
-    
+
     def test_get_table_from_output2(self):
         '''
         Test function for the Resource table from self.output_file1
         '''
         exp = pd.DataFrame(data={
-            'ResourceId':[10,12,14,15],
-            'ObjId':[9,10,11,9],
-            'TimeCreated':[1, 1, 1,2],
-            'Quantity':[33000.0, 33000.0, 33000.0, 33000.0],
-            'Units':['kg','kg','kg','kg']
+            'ResourceId': [10, 12, 14, 15],
+            'ObjId': [9, 10, 11, 9],
+            'TimeCreated': [1, 1, 1, 2],
+            'Quantity': [33000.0, 33000.0, 33000.0, 33000.0],
+            'Units': ['kg', 'kg', 'kg', 'kg']
         })
         obs = oup.get_table_from_output(self.output_file1, 'Resources')
         assert_frame_equal(exp, obs.drop('SimId', axis=1)[0:4])
 
     def test_create_agents_table1(self):
         '''
-        Test correct creation of the Agents DataFrame from output_file1, in 
+        Test correct creation of the Agents DataFrame from output_file1, in
         which agents are decommissioned.
         '''
         exp = pd.DataFrame(data={
-            'AgentId':[19, 20, 21,22],
-            'Kind':['Region', 'Inst', 'Facility', 'Facility'],
-            'Spec':[':agents:NullRegion',':agents:NullInst', ':cycamore:Source', ':cycamore:Sink'],
-            'Prototype':['United States','FuelCycle', 'FuelSupply','Repository'],
-            'ParentId':[-1, 19, 20, 20],
-            'Lifetime':[-1, -1, -1, -1],
-            'EnterTime':[0, 0, 0, 0],
-            'ExitTime':[-1.0, -1.0, -1.0, -1.0]
+            'AgentId': [19, 20, 21, 22],
+            'Kind': ['Region', 'Inst', 'Facility', 'Facility'],
+            'Spec': [':agents:NullRegion', ':agents:NullInst', ':cycamore:Source', ':cycamore:Sink'],
+            'Prototype': ['United States', 'FuelCycle', 'FuelSupply', 'Repository'],
+            'ParentId': [-1, 19, 20, 20],
+            'Lifetime': [-1, -1, -1, -1],
+            'EnterTime': [0, 0, 0, 0],
+            'ExitTime': [-1.0, -1.0, -1.0, -1.0]
         })
         obs = oup.create_agents_table(self.output_file1)
-        assert_frame_equal(exp,obs.drop('SimId', axis=1)[0:4])
+        assert_frame_equal(exp, obs.drop('SimId', axis=1)[0:4])
 
     def test_create_agents_table2(self):
         '''
-        Test correct creation of the Agents DataFrame from output_file2, in 
+        Test correct creation of the Agents DataFrame from output_file2, in
         which agents are not decommissioned.
         '''
         exp = pd.DataFrame(data={
-            'AgentId':[19, 20, 21,22],
-            'Kind':['Region', 'Inst', 'Facility', 'Facility'],
-            'Spec':[':agents:NullRegion',':agents:NullInst', ':cycamore:Source', ':cycamore:Sink'],
-            'Prototype':['United States','FuelCycle', 'FuelSupply','Repository'],
-            'ParentId':[-1, 19, 20, 20],
-            'Lifetime':[-1, -1, -1, -1],
-            'EnterTime':[0, 0, 0, 0],
-            'ExitTime':[-1.0, -1.0, -1.0, -1.0]
+            'AgentId': [19, 20, 21, 22],
+            'Kind': ['Region', 'Inst', 'Facility', 'Facility'],
+            'Spec': [':agents:NullRegion', ':agents:NullInst', ':cycamore:Source', ':cycamore:Sink'],
+            'Prototype': ['United States', 'FuelCycle', 'FuelSupply', 'Repository'],
+            'ParentId': [-1, 19, 20, 20],
+            'Lifetime': [-1, -1, -1, -1],
+            'EnterTime': [0, 0, 0, 0],
+            'ExitTime': [-1.0, -1.0, -1.0, -1.0]
         })
         obs = oup.create_agents_table(self.output_file1)
-        assert_frame_equal(exp,obs.drop('SimId', axis=1)[0:4])
+        assert_frame_equal(exp, obs.drop('SimId', axis=1)[0:4])

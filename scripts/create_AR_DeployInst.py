@@ -25,7 +25,10 @@ def convert_xml_to_dict(filename):
     return xml_dict
 
 
-def get_deployinst_dict(deployinst_dict, power_dict, path="../input/haleu/inputs/united_states/reactors/"):
+def get_deployinst_dict(
+        deployinst_dict,
+        power_dict,
+        path="../input/haleu/inputs/united_states/reactors/"):
     '''
     Removes any non-power producing prototypes from the dictionary of
     the DeployInst. This also removes the 'val' level of information.
@@ -65,7 +68,8 @@ def get_deployinst_dict(deployinst_dict, power_dict, path="../input/haleu/inputs
             deployinst_dict['DeployInst']['prototypes']['val']):
         if val in power_dict.keys():
             if 'lifetimes' in deployinst_dict['DeployInst']:
-                deployed_dict['lifetime'].append(int(deployinst_dict['DeployInst']['lifetimes']['val'][indx]))
+                deployed_dict['lifetime'].append(
+                    int(deployinst_dict['DeployInst']['lifetimes']['val'][indx]))
             else:
                 deployed_dict['lifetime'].append(get_lifetime(path, val))
             deployed_dict['prototypes'].append(val)
@@ -219,7 +223,11 @@ def determine_deployment_order(reactor_prototypes):
     return reactor_order
 
 
-def determine_deployment_schedule(power_gap, reactor_prototypes, prototype=None, share=0):
+def determine_deployment_schedule(
+        power_gap,
+        reactor_prototypes,
+        prototype=None,
+        share=0):
     '''
     Define the deployemnt schedule for a single or multiple
     reactor prototypes based on a gap in production
@@ -236,12 +244,12 @@ def determine_deployment_schedule(power_gap, reactor_prototypes, prototype=None,
         keys are the prototype names (strs) and the values are
         a tuple of the power output and lifetime (ints)
     prototype: str
-        name of prototype to specify new market share of, if not 
-        indicate, then protoypes are deployed in preferential order 
+        name of prototype to specify new market share of, if not
+        indicate, then protoypes are deployed in preferential order
         based on power output
     share: int
-        percent of new build share to be occupied by specified 
-        protoype. 
+        percent of new build share to be occupied by specified
+        protoype.
 
     Returns:
     --------
@@ -260,13 +268,16 @@ def determine_deployment_schedule(power_gap, reactor_prototypes, prototype=None,
         if value <= 0:
             continue
         if prototype is not None:
-            required_share = value*(share/100)
-            num_rxs = math.ceil(required_share / reactor_prototypes[prototype][0])
+            required_share = value * (share / 100)
+            num_rxs = math.ceil(
+                required_share /
+                reactor_prototypes[prototype][0])
             power_gap[index:index + reactor_prototypes[prototype][1]] = \
                 power_gap[index:index + reactor_prototypes[prototype]
-                        [1]] - reactor_prototypes[prototype][0] * num_rxs
+                          [1]] - reactor_prototypes[prototype][0] * num_rxs
             value = value - reactor_prototypes[prototype][0] * num_rxs
-            deploy_schedule['DeployInst']['prototypes']['val'].append(prototype)
+            deploy_schedule['DeployInst']['prototypes']['val'].append(
+                prototype)
             deploy_schedule['DeployInst']['n_build']['val'].append(num_rxs)
             deploy_schedule['DeployInst']['build_times']['val'].append(index)
             deploy_schedule['DeployInst']['lifetimes']['val'].append(
@@ -282,7 +293,7 @@ def determine_deployment_schedule(power_gap, reactor_prototypes, prototype=None,
                 continue
             power_gap[index:index + reactor_prototypes[reactor][1]] = \
                 power_gap[index:index + reactor_prototypes[reactor]
-                        [1]] - reactor_prototypes[reactor][0] * num_rxs
+                          [1]] - reactor_prototypes[reactor][0] * num_rxs
             value = value - reactor_prototypes[reactor][0] * num_rxs
             deploy_schedule['DeployInst']['prototypes']['val'].append(reactor)
             deploy_schedule['DeployInst']['n_build']['val'].append(num_rxs)
