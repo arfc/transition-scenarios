@@ -23,14 +23,14 @@ params, results = di.read_parameters_file()
 cyclus_template = 'lwr_mmr_input.xml.in'
 scenario_name = 'lwr_' + str(int(params['lwr'])) + '_mmr_' + str(int(params['mmr']))
 variable_dict = {'handle': scenario_name, 
-                 'lwr_lifetime':str(int(params['lwr'])),
+                 'lwr':str(int(params['lwr'])),
                  'mmr':str(int(params['mmr']))}
-output_xml = './cyclus-files/lwr_' + str(params['lwr']) +\
-             + '_mmr_' + str(int(params['mmr'])) + '.xml'
+output_xml = './cyclus-files/lwr_' + str(int(params['lwr'])) +\
+             '_mmr_' + str(int(params['mmr'])) + '.xml'
 inp.render_input(cyclus_template, variable_dict, output_xml)
 
 # Create DeployInst for LWRs
-DI_dict = cdi.convert_xml_to_dict("initial_lwr_deployinst.xml")
+DI_dict = cdi.convert_xml_to_dict("../../../inputs/united_states/buildtimes/UNITED_STATES_OF_AMERICA/deployinst.xml")
 DI_dict['DeployInst']['lifetimes'] = {'val':[]}
 DI_dict['DeployInst']['lifetimes']['val'] = np.repeat(720, 116)
 DI_dict['DeployInst']['lifetimes']['val'][0] = 600
@@ -52,14 +52,15 @@ duration = 1500
 reactor_prototypes = {'Xe-100':(76, 720), 'MMR':(5,240), 'VOYGR':(73, 720)}
 demand_equation = np.zeros(duration)
 demand_equation[721:] = 87.198156
-deployinst = cdi.convert_xml_to_dict("./cyclus-files/lwr_"+str(int(params['lwr'])) + '_deployinst.xml')
+deployinst = cdi.convert_xml_to_dict("./cyclus-files/lwr_"+str(int(params['lwr'])) +\
+ '_mmr_' + str(int(params['mmr'])) + '_deployinst.xml')
 lwr_powers = cdi.get_pris_powers('UNITED STATES OF AMERICA',"../../../../../database/", 2020)
 deployed_lwr_dict = cdi.get_deployinst_dict(deployinst, lwr_powers, "../../../inputs/united_states/reactors/")
 time, deployed_power = cdi.get_deployed_power(lwr_powers, deployed_lwr_dict, duration)
 power_gap = cdi.determine_power_gap(deployed_power, demand_equation)
 deploy_schedule = cdi.determine_deployment_schedule(power_gap, reactor_prototypes, 'MMR', int(params['mmr']))
 cdi.write_deployinst(deploy_schedule, "./cyclus-files/AR_DeployInst_lwr_" + str(int(params['lwr'])) + \
-                                      + "_mmr" + str(int(params['mmr'])) + ".xml")
+                                      "_mmr_" + str(int(params['mmr'])) + ".xml")
 
 # Run Cyclus with edited input file
 output_sqlite = './cyclus-files/' + scenario_name + '.sqlite'
