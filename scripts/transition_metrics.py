@@ -8,6 +8,7 @@ from cymetric import tools
 from cymetric import timeseries
 from cymetric import filters
 
+
 def get_metrics(db_file):
     '''
     Opens database using cymetric and evaluates metrics
@@ -26,6 +27,7 @@ def get_metrics(db_file):
     db = cym.dbopen(db_file)
     metrics_evaler = cym.Evaluator(db, write=False)
     return metrics_evaler
+
 
 def get_lwr_totals(db_file, non_lwr_prototypes):
     '''
@@ -156,6 +158,7 @@ def get_prototype_totals(db_file, non_lwr_prototypes, prototypes):
 
     return prototypes_df
 
+
 def get_transactions(db_file):
     '''
     Gets the TransactionQuantity metric from cymetric,
@@ -179,6 +182,7 @@ def get_transactions(db_file):
     transactions = tools.add_missing_time_step(
         transactions, evaler.eval('TimeList'))
     return transactions
+
 
 def add_receiver_prototype(db_file):
     '''
@@ -213,8 +217,10 @@ def add_receiver_prototype(db_file):
     receiver_prototype = pd.merge(
         trans_resources, agents[['SimId', 'ReceiverId', 'Prototype']], on=[
             'SimId', 'ReceiverId']).sort_values(by=['Time', 'TransactionId']).reset_index(drop=True)
-    receiver_prototype = receiver_prototype.rename(columns={'Prototype':'ReceiverPrototype'})
+    receiver_prototype = receiver_prototype.rename(
+        columns={'Prototype': 'ReceiverPrototype'})
     return receiver_prototype
+
 
 def get_annual_electricity(db_file):
     '''
