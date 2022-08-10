@@ -49,9 +49,9 @@ cdi.write_deployinst(DI_dict, './cyclus-files/lwr_' + str(int(params['lwr'])) +\
 
 # Create DeployInst for advanced reactors 
 duration = 1500
-reactor_prototypes = {'Xe-100':(80, 720), 'MMR':(5,240), 'VOYGR':(77, 720)}
+reactor_prototypes = {'Xe-100':(76, 720), 'MMR':(5,240), 'VOYGR':(73, 720)}
 demand_equation = np.zeros(duration)
-demand_equation[721:] = 89456.55
+demand_equation[721:] = 87.198156
 deployinst = cdi.convert_xml_to_dict("./cyclus-files/lwr_"+str(int(params['lwr'])) + '_deployinst.xml')
 lwr_powers = cdi.get_pris_powers('UNITED STATES OF AMERICA',"../../../../../database/", 2020)
 deployed_lwr_dict = cdi.get_deployinst_dict(deployinst, lwr_powers, "../../../inputs/united_states/reactors/")
