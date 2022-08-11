@@ -20,7 +20,7 @@ variables,
 interface,							
 	fork							
 	  asynchronous
-            evaluation_concurrency =  1
+            evaluation_concurrency =  12
           analysis_drivers = 'python lwr_xe100_driver.py'
         
 
@@ -30,3 +30,4 @@ responses,
 	  scalar_responses = 6
 	no_gradients
 	no_hessians
+
