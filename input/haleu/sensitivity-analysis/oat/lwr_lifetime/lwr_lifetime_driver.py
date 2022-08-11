@@ -45,14 +45,14 @@ cdi.write_deployinst(DI_dict, './cyclus-files/lwr_' + str(int(params['lwr'])) + 
 
 # Create DeployInst for advanced reactors 
 duration = 1500
-reactor_prototypes = {'Xe-100':(80, 720), 'MMR':(5,240), 'VOYGR':(77, 720)}
+reactor_prototypes = {'Xe-100':(76, 720), 'MMR':(5,240), 'VOYGR':(73, 720)}
 demand_equation = np.zeros(duration)
-demand_equation[721:] = 89456.55
+demand_equation[721:] =87198.156 
 deployinst = cdi.convert_xml_to_dict("./cyclus-files/lwr_"+str(int(params['lwr'])) + '_deployinst.xml')
 lwr_powers = cdi.get_pris_powers('UNITED STATES OF AMERICA',"../../../../../database/", 2020)
 deployed_lwr_dict = cdi.get_deployinst_dict(deployinst, lwr_powers, "../../../inputs/united_states/reactors/")
 time, deployed_power = cdi.get_deployed_power(lwr_powers, deployed_lwr_dict, duration)
-power_gap = cdi.determine_power_gap(deployed_power, demand_equation)
+power_gap = cdi.determine_power_gap(deployed_power*0.9266, demand_equation)
 deploy_schedule = cdi.determine_deployment_schedule(power_gap, reactor_prototypes)
 cdi.write_deployinst(deploy_schedule, "./cyclus-files/AR_DeployInst_lwr_" + str(int(params['lwr'])) +".xml")
 
