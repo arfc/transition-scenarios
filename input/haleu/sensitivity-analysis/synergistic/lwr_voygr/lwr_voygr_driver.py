@@ -25,7 +25,7 @@ scenario_name = 'lwr_' + str(int(params['lwr'])) + '_voygr_' + \
 variable_dict = {'handle': scenario_name,
                  'lwr': str(int(params['lwr'])),
                  'voygr': str(int(params['voygr']))}
-output_xml = './cyclus-files/lwr_' + str(params['lwr']) +\
+output_xml = './cyclus-files/lwr_' + str(int(params['lwr'])) +\
              '_voygr_' + str(int(params['voygr'])) + '.xml'
 inp.render_input(cyclus_template, variable_dict, output_xml)
 
