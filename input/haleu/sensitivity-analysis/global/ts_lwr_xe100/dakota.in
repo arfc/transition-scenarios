@@ -1,27 +1,29 @@
 # One-at-a-time analysis for changing transition start time
-# Multidimensional parameter study 
 
 environment, 
 	tabular_data 
-		tabular_data_file = 'lwr_xe100.dat'
-	output_file 'lwr_xe100.out'
-	write_restart 'lwr_xe100.rst'
+		tabular_data_file = 'ts_lwr_xe100.dat'
+	output_file 'ts_lwr_xe100.out'
+	write_restart 'ts_lwr_xe100.rst'
 
 method,						
-	multidim_parameter_study
-    partitions = 10 10
+    sampling
+        sample_type = lhs
+	samples 1200
+	seed = 51022
 
 variables,					
-	continuous_design = 2			
-    lower_bounds      0      0
-    upper_bounds      50     50 
-    descriptors       'lwr'  'xe100'   
+    active all
+    uniform_uncertain = 3
+    lower_bounds  721      0      0
+    upper_bounds  901      50     50 
+    descriptors   'ts'    'lwr'  'xe100'   
 
 interface,							
 	fork							
 	  asynchronous
-            evaluation_concurrency =  12
-          analysis_drivers = 'python lwr_xe100_driver.py'
+            evaluation_concurrency =  36
+          analysis_drivers = 'python ts_lwr_xe100_driver.py'
         
 
 responses,				
