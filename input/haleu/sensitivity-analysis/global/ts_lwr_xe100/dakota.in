@@ -1,0 +1,33 @@
+# One-at-a-time analysis for changing transition start time
+# Multidimensional parameter study 
+
+environment, 
+	tabular_data 
+		tabular_data_file = 'lwr_xe100.dat'
+	output_file 'lwr_xe100.out'
+	write_restart 'lwr_xe100.rst'
+
+method,						
+	multidim_parameter_study
+    partitions = 10 10
+
+variables,					
+	continuous_design = 2			
+    lower_bounds      0      0
+    upper_bounds      50     50 
+    descriptors       'lwr'  'xe100'   
+
+interface,							
+	fork							
+	  asynchronous
+            evaluation_concurrency =  12
+          analysis_drivers = 'python lwr_xe100_driver.py'
+        
+
+responses,				
+	descriptors = 'enr_u' 'haleu' 'swu' 'haleu_swu' 'waste' 'feed'
+	response_functions = 6
+	  scalar_responses = 6
+	no_gradients
+	no_hessians
+
