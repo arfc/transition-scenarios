@@ -19,13 +19,16 @@ params, results = di.read_parameters_file()
 # -------------------------------
 
 # Edit Cyclus input file
-cyclus_template = 'lwr_xe100_input.xml.in'
-scenario_name = 'lwr_' + str(int(params['lwr'])) + '_xe100_' + \
+cyclus_template = 'ts_lwr_xe100_input.xml.in'
+scenario_name = 'ts_' + str(int(params['ts'])) +\
+                '_lwr_' + str(int(params['lwr'])) + '_xe100_' + \
                 str(int(params['xe100']))
 variable_dict = {'handle': scenario_name,
+                 'ts': str(int(params['ts'])),
                  'lwr': str(int(params['lwr'])),
                  'xe100': str(int(params['xe100']))}
-output_xml = './cyclus-files/lwr_' + str(int(params['lwr'])) +\
+output_xml = './cyclus-files/ts_' + str(int(params['ts'])) +\
+             '_lwr_' + str(int(params['lwr'])) +\
              '_xe100_' + str(int(params['xe100'])) + '.xml'
 inp.render_input(cyclus_template, variable_dict, output_xml)
 
@@ -45,7 +48,8 @@ lwrs_extended = lwrs[:int(params['lwr'])]
 for lwr in lwrs_extended:
     index = DI_dict['DeployInst']['prototypes']['val'].index(lwr)
     DI_dict['DeployInst']['lifetimes']['val'][index] = 960
-cdi.write_deployinst(DI_dict, './cyclus-files/lwr_' + str(int(params['lwr'])) +
+cdi.write_deployinst(DI_dict, './cyclus-files/ts_' + str(int(params['ts'])) +\
+                              '_lwr_' + str(int(params['lwr'])) +
                               '_xe100_' + str(int(params['xe100'])) +
                               '_deployinst.xml')
 
@@ -53,8 +57,10 @@ cdi.write_deployinst(DI_dict, './cyclus-files/lwr_' + str(int(params['lwr'])) +
 duration = 1500
 reactor_prototypes = {'Xe-100': (76, 720), 'MMR': (5, 240), 'VOYGR': (73, 720)}
 demand_equation = np.zeros(duration)
-demand_equation[721:] = 87198.156
-deployinst = cdi.convert_xml_to_dict("./cyclus-files/lwr_" +
+demand_equation[int(params['ts']):] = 87198.156
+deployinst = cdi.convert_xml_to_dict("./cyclus-files/ts_" +
+                                     str(int(params['ts'])) +
+                                     "_lwr_" +
                                      str(int(params['lwr'])) +
                                      '_xe100_' +
                                      str(int(params['xe100'])) +
@@ -70,7 +76,8 @@ time, deployed_power = cdi.get_deployed_power(
 power_gap = cdi.determine_power_gap(deployed_power * 0.9266, demand_equation)
 deploy_schedule = cdi.determine_deployment_schedule(
     power_gap, reactor_prototypes, 'Xe-100', int(params['xe100']))
-cdi.write_deployinst(deploy_schedule, "./cyclus-files/AR_DeployInst_lwr_" +
+cdi.write_deployinst(deploy_schedule, "./cyclus-files/AR_DeployInst_ts_" +
+                                      str(int(params['ts'])) + "_lwr_" +
                                       str(int(params['lwr'])) +
                                       "_xe100_" + str(int(params['xe100'])) +
                                       ".xml")
