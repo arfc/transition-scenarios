@@ -9,7 +9,7 @@ environment,
 method,						
     sampling
         sample_type = lhs
-	samples 1200
+	samples 2400 # 100*parameters*(response+2)
 	seed = 51022
 
 variables,					
