@@ -93,23 +93,24 @@ os.system('cyclus -i ' + output_xml + ' -o ' + output_sqlite +
 # ----------------------------
 results['enr_u'].function = oup.get_enriched_u_mass(output_sqlite,
                                                     ['Xe-100', 'MMR', 'VOYGR'],
-                                                    721)
+                                                    int(params['ts']))
 results['haleu'].function = oup.get_enriched_u_mass(output_sqlite,
                                                     ['Xe-100', 'MMR'],
-                                                    721)
+                                                    int(params['ts'])
 results['swu'].function = oup.calculate_swu(
-    output_sqlite, ['Xe-100', 'MMR', 'VOYGR'], 721)
+    output_sqlite, ['Xe-100', 'MMR', 'VOYGR'], int(params['ts'])
+
 results['haleu_swu'].function = oup.calculate_swu(
-    output_sqlite, ['Xe-100', 'MMR'], 721)
+    output_sqlite, ['Xe-100', 'MMR'], int(params['ts']))
 results['waste'].function = oup.get_waste_discharged(output_sqlite,
                                                      ['Xe-100', 'MMR', 'VOYGR'],
-                                                     721,
+                                                     int(params['ts']),
                                                      {'MMR': 'spent_MMR_haleu',
                                                       'Xe-100': 'spent_xe100_haleu',
                                                       'VOYGR': 'spent_smr_fuel'}
                                                      )
 results['feed'].function = oup.calculate_feed(output_sqlite,
                                               ['Xe-100', 'MMR'],
-                                              721)
+                                              int(params['ts']))
 
 results.write()
