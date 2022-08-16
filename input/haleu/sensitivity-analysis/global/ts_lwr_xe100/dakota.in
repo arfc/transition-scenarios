@@ -10,7 +10,7 @@ method,
     sampling
         sample_type = lhs
 	samples 2400 # 100*parameters*(response+2)
-	seed = 51022
+	seed = 81622
 
 variables,					
     active all
