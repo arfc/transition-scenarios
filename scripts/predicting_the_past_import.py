@@ -537,7 +537,7 @@ def get_lifetime(in_row, start_year):
 
 
 def write_reactors(in_dataframe, out_path, reactor_template, start_year,
-                   cycle_time=18, refuel_time=0):
+                   cycle_time=18, refuel_time=1, capacity_factor=1):
     """ Renders CYCAMORE::reactor specifications using jinja2.
 
     Parameters
@@ -554,6 +554,8 @@ def write_reactors(in_dataframe, out_path, reactor_template, start_year,
         cycle length of reactors in months
     refuel_time: int
         average refuel time in months
+    capacity_factor: float
+        capacity factor to apply to all reactors, as a decimal
 
     Returns
     -------
@@ -602,17 +604,20 @@ def write_reactors(in_dataframe, out_path, reactor_template, start_year,
                 assem_no = 241
                 assem_per_batch = int(assem_no / 3)
                 assem_size = 103000 / assem_no
-            config = reactor_template.render(name=name,
-                                             lifetime=get_lifetime(
-                                                 row, start_year),
-                                             cycletime=cycle_time,
-                                             refueltime=refuel_time,
-                                             assem_size=assem_size,
-                                             n_assem_core=assem_no,
-                                             n_assem_batch=assem_per_batch,
-                                             power_cap=row['RUP [MWe]'],
-                                             lon=longitude,
-                                             lat=latitude)
+            config = reactor_template.render(
+                name=name,
+                lifetime=get_lifetime(
+                    row,
+                    start_year),
+                cycletime=cycle_time,
+                refueltime=refuel_time,
+                assem_size=assem_size,
+                n_assem_core=assem_no,
+                n_assem_batch=assem_per_batch,
+                power_cap=row['RUP [MWe]'] *
+                capacity_factor,
+                lon=longitude,
+                lat=latitude)
             with open(out_path + name.replace(' ', '_') + '.xml',
                       'w') as output:
                 output.write(config)
@@ -800,7 +805,7 @@ def render_cyclus(cyclus_template, region, in_dict,
     cyclus_template = load_template(cyclus_template)
     country_list = {value[0].replace(' ', '_') for value in in_dict.values()}
     rendered = cyclus_template.render(start_year=start_year,
-                                      duration=duration, 
+                                      duration=duration,
                                       burnup=burn_up,
                                       countries=country_list,
                                       base_dir=os.path.abspath(out_path) + '/')
