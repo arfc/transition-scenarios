@@ -252,7 +252,8 @@ def get_enriched_u_mass(db_file, prototypes, transition_start):
     return cumulative_u.loc[cumulative_u.index[-1]]
 
 
-def calculate_swu(db_file, prototypes, transition_start, assays):
+def calculate_swu(db_file, prototypes, transition_start, 
+    assays={'MMR':0.1975,'Xe-100':0.155,'VOYGR':0.0409,'feed':0.00711, 'tails':0.002}):
     '''
     Calculates the cumulative amount of SWU capacity required to
     create the enriched uranium in the simulation.
