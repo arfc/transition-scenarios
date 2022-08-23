@@ -9,7 +9,7 @@ import dataframe_analysis as dfa
 def merge_and_fillna_col(left, right, lcol, rcol, how='left', on=None):
     '''
     Merges two dataframes and fills any NaN values of the left column
-    (lcol) with the values from the right column (rcol). A copy of 
+    (lcol) with the values from the right column (rcol). A copy of
     left is returned.
 
     Parameters
@@ -30,7 +30,7 @@ def merge_and_fillna_col(left, right, lcol, rcol, how='left', on=None):
     Returns:
     --------
     left: DataFrame
-        Merged dataframe with any NaN values replaced with values from 
+        Merged dataframe with any NaN values replaced with values from
         the specified column
     '''
     merged_df = left.reset_index().merge(right, how=how).set_index('index')
@@ -95,9 +95,13 @@ def create_agents_table(db_file):
         agents = merge_and_fillna_col(agents, agent_exit[['SimId', 'AgentId', 'Exits']],
                                       'ExitTime', 'Exits', on=mergeon)
     if decom_schedule is not None:
-        agents = merge_and_fillna_col(agents, decom_schedule[['SimId', 'AgentId',
-                                                              'DecomTime']],
-                                      'ExitTime', 'DecomTime', on=mergeon)
+        agents = merge_and_fillna_col(agents,
+                                      decom_schedule[['SimId',
+                                                      'AgentId',
+                                                      'DecomTime']],
+                                      'ExitTime',
+                                      'DecomTime',
+                                      on=mergeon)
     agents = merge_and_fillna_col(agents, info[['SimId', 'Duration']],
                                   'ExitTime', 'Duration', on=['SimId'])
     return agents
@@ -123,9 +127,8 @@ def merge_transactions_resources(db_file):
     resources = get_table_from_output(db_file, 'Resources')
     resources = resources.rename(columns={'TimeCreated': 'Time'})
     transactions = get_table_from_output(db_file, 'Transactions')
-    trans_resources = pd.merge(
-        transactions, resources, on=[
-            'ResourceId']).sort_values(by=['Time_x', 'TransactionId']).reset_index(drop=True)
+    trans_resources = pd.merge(transactions, resources, on=['ResourceId']).sort_values(
+        by=['Time_x', 'TransactionId']).reset_index(drop=True)
     trans_resources = trans_resources.drop(columns=['SimId_y', 'Time_y'])
     trans_resources = trans_resources.rename(columns={'Time_x': 'Time',
                                                       'SimId_x': 'SimId'})
@@ -216,8 +219,8 @@ def get_multiple_prototype_transactions(db_file, prototypes, commodity):
     transactions = add_receiver_prototype(db_file)
     commodity_transactions = pd.DataFrame(columns=prototypes)
     for prototype in prototypes:
-        commodity_transactions[prototype] = dfa.commodity_to_prototype(transactions,
-                                                                       commodity, prototype)['Quantity']
+        commodity_transactions[prototype] = dfa.commodity_to_prototype(
+            transactions, commodity, prototype)['Quantity']
     return commodity_transactions
 
 
@@ -240,7 +243,7 @@ def get_enriched_u_mass(db_file, prototypes, transition_start):
         Returns:
         --------
         cumulative_u: float
-            the cumulative mass of enriched uranium sent to specified 
+            the cumulative mass of enriched uranium sent to specified
             prototypes starting at the transition start time
     '''
     enriched_u_df = get_multiple_prototype_transactions(
@@ -251,9 +254,10 @@ def get_enriched_u_mass(db_file, prototypes, transition_start):
     cumulative_u = total_adv_rx_enriched_u[int(transition_start):].cumsum()
     return cumulative_u.loc[cumulative_u.index[-1]]
 
+
 def calculate_feed(db_file, prototypes, transition_start):
     '''
-    Calculate the cumulative feed uranium needed to create enriched 
+    Calculate the cumulative feed uranium needed to create enriched
     uranium for the specified prototypes
     Parameters:
     -----------
@@ -263,24 +267,28 @@ def calculate_feed(db_file, prototypes, transition_start):
         names of prototypes to consider in calculation
     transition_start: int
         time step the modeled transition begins at
-    
+
     Returns:
     --------
     cumulative_feed: float
         The total feed uranium required for the prototypes,
-        starting at the transition start time. 
-    ''' 
-    assays = {'MMR':0.1975, 'Xe-100':0.155, 
-          'VOYGR':0.0409, 'feed':0.00711, 'tails':0.002}
-    enriched_u_mass = get_multiple_prototype_transactions(db_file, prototypes, 'fresh_uox')
+        starting at the transition start time.
+    '''
+    assays = {'MMR': 0.1975, 'Xe-100': 0.155,
+              'VOYGR': 0.0409, 'feed': 0.00711, 'tails': 0.002}
+    enriched_u_mass = get_multiple_prototype_transactions(
+        db_file, prototypes, 'fresh_uox')
     feed = 0
     for prototype in prototypes:
-        tails = dfa.calculate_tails(enriched_u_mass[prototype], assays[prototype],
-        assays['tails'], assays['feed'])
+        tails = dfa.calculate_tails(
+            enriched_u_mass[prototype],
+            assays[prototype],
+            assays['tails'],
+            assays['feed'])
         prototype_feed = dfa.calculate_feed(enriched_u_mass[prototype], tails)
         feed += prototype_feed
     cumulative_feed = feed[int(transition_start):].cumsum()
-    return cumulative_feed.loc[cumulative_feed.index[-1]]   
+    return cumulative_feed.loc[cumulative_feed.index[-1]]
 
 
 def calculate_swu(db_file, prototypes, transition_start):
@@ -309,17 +317,25 @@ def calculate_swu(db_file, prototypes, transition_start):
         the average SWU capacity required for the simulation,
         starting at the transition start time
     '''
-    assays = {'MMR':0.1975, 'Xe-100':0.155, 
-          'VOYGR':0.0409, 'feed':0.00711, 'tails':0.002}
+    assays = {'MMR': 0.1975, 'Xe-100': 0.155,
+              'VOYGR': 0.0409, 'feed': 0.00711, 'tails': 0.002}
     enriched_u_mass = get_multiple_prototype_transactions(
         db_file, prototypes, 'fresh_uox')
     swu = 0
     for prototype in prototypes:
-        tails = dfa.calculate_tails(enriched_u_mass[prototype], assays[prototype],
-                                    assays['tails'], assays['feed'])
+        tails = dfa.calculate_tails(
+            enriched_u_mass[prototype],
+            assays[prototype],
+            assays['tails'],
+            assays['feed'])
         feed = dfa.calculate_feed(enriched_u_mass[prototype], tails)
-        prototype_swu = dfa.calculate_SWU(enriched_u_mass[prototype], assays[prototype],
-                                          tails, assays['tails'], feed, assays['feed'])
+        prototype_swu = dfa.calculate_SWU(
+            enriched_u_mass[prototype],
+            assays[prototype],
+            tails,
+            assays['tails'],
+            feed,
+            assays['feed'])
         swu += prototype_swu
     cumulative_swu = swu[int(transition_start):].cumsum()
     return cumulative_swu.loc[cumulative_swu.index[-1]]
@@ -356,6 +372,7 @@ def get_waste_discharged(db_file, prototypes, transition_start, commodities):
                                               prototype)['Quantity']
     waste_discharged = waste[int(transition_start):].cumsum()
     return waste_discharged.loc[waste_discharged.index[-1]]
+
 
 def get_annual_electricity_table(db_file):
     '''
