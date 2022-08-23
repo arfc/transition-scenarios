@@ -567,7 +567,7 @@ def write_reactors(in_dataframe, out_path, reactor_template, start_year,
     pathlib.Path(out_path).mkdir(parents=True, exist_ok=True)
     reactor_template = load_template(reactor_template)
     for index, row in in_dataframe.iterrows():
-        capacity = float(row['RUP [MWe]'])*0.9266
+        capacity = float(row['RUP [MWe]'])
         if capacity >= 400:
             name = row[1].replace(' ', '_')
             assem_per_batch = 0
