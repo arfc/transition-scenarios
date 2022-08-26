@@ -127,7 +127,8 @@ def merge_transactions_resources(db_file):
     resources = get_table_from_output(db_file, 'Resources')
     resources = resources.rename(columns={'TimeCreated': 'Time'})
     transactions = get_table_from_output(db_file, 'Transactions')
-    trans_resources = pd.merge(transactions, resources, on=['ResourceId']).sort_values(
+    trans_resources = pd.merge(transactions, resources, \
+        on=['ResourceId']).sort_values(
         by=['Time_x', 'TransactionId']).reset_index(drop=True)
     trans_resources = trans_resources.drop(columns=['SimId_y', 'Time_y'])
     trans_resources = trans_resources.rename(columns={'Time_x': 'Time',
@@ -259,6 +260,7 @@ def calculate_feed(db_file, prototypes, transition_start):
     '''
     Calculate the cumulative feed uranium needed to create enriched
     uranium for the specified prototypes
+
     Parameters:
     -----------
     db_file: str
@@ -409,7 +411,7 @@ def get_annual_electricity(db_file):
     Parameters:
     -----------
     db_file: str
-        SQLite database from Cyclus
+        file name of database
 
     Returns:
     --------
@@ -437,7 +439,7 @@ def get_prototype_energy(db_file, advanced_rx):
     Parameters:
     -----------
     db_file: str
-        SQLite database from Cyclus
+        file name of database 
     advanced_rx: str
         name of advanced reactor prototype
 
@@ -470,7 +472,7 @@ def get_lwr_energy(db_file, advanced_rx):
     Parameters:
     -----------
     db_file: str
-        SQLite database from Cyclus
+        file name of database
     advanced_rx: list of strs
         name(s) of advanced reactor prototype also present in the simulation
 
