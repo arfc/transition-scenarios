@@ -68,8 +68,8 @@ def get_deployinst_dict(
             deployinst_dict['DeployInst']['prototypes']['val']):
         if val in power_dict.keys():
             if 'lifetimes' in deployinst_dict['DeployInst']:
-                deployed_dict['lifetime'].append(
-                    int(deployinst_dict['DeployInst']['lifetimes']['val'][indx]))
+                deployed_dict['lifetime'].append(int(
+                    deployinst_dict['DeployInst']['lifetimes']['val'][indx]))
             else:
                 deployed_dict['lifetime'].append(get_lifetime(path, val))
             deployed_dict['prototypes'].append(val)
@@ -229,7 +229,7 @@ def determine_deployment_schedule(
         prototype=None,
         share=0):
     '''
-    Define the deployemnt schedule for a single or multiple
+    Define the deployment schedule for one or more
     reactor prototypes based on a gap in production
     and demand. If multiple prototypes are provided, then
     they will be deployed in preferential order based on
