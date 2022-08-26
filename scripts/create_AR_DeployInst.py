@@ -245,7 +245,7 @@ def determine_deployment_schedule(
         a tuple of the power output and lifetime (ints)
     prototype: str
         name of prototype to specify new market share of. If not
-        indicated then protoypes in reactor_prototypes are 
+        indicated then protoypes in reactor_prototypes are
         deployed preferentially based on power output
     share: int
         percent of new build share to be occupied by specified
