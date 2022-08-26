@@ -244,12 +244,12 @@ def determine_deployment_schedule(
         keys are the prototype names (strs) and the values are
         a tuple of the power output and lifetime (ints)
     prototype: str
-        name of prototype to specify new market share of, if not
-        indicate, then protoypes are deployed in preferential order
-        based on power output
+        name of prototype to specify new market share of. If not
+        indicated then protoypes in reactor_prototypes are 
+        deployed preferentially based on power output
     share: int
         percent of new build share to be occupied by specified
-        protoype.
+        protoype
 
     Returns:
     --------
