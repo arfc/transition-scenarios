@@ -128,8 +128,8 @@ def merge_transactions_resources(db_file):
     resources = resources.rename(columns={'TimeCreated': 'Time'})
     transactions = get_table_from_output(db_file, 'Transactions')
     trans_resources = pd.merge(transactions, resources,
-            on=['ResourceId']).sort_values(
-            by=['Time_x', 'TransactionId']).reset_index(drop=True)
+                               on=['ResourceId']).sort_values(
+        by=['Time_x', 'TransactionId']).reset_index(drop=True)
     trans_resources = trans_resources.drop(columns=['SimId_y', 'Time_y'])
     trans_resources = trans_resources.rename(columns={'Time_x': 'Time',
                                                       'SimId_x': 'SimId'})
