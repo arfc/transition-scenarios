@@ -4,6 +4,7 @@ import pandas as pd
 import xmltodict
 from pprint import pprint
 import math
+import os
 
 
 def convert_xml_to_dict(filename):
@@ -43,7 +44,7 @@ def get_deployinst_dict(
         dictionary of DeployInst information. This dictionary is assumed
         to be nested, with the top key being 'DeployInst', the keys of
         the next level being 'prototypes', 'build_times', 'n_build',
-        and optionally 'lifetimes'. Each of thos dictionaries will be
+        and optionally 'lifetimes'. Each of those rx_info  dictionaries are 
         nested with key of 'val', and value of a list of the integer
         values.
     reactor_dict: dict
@@ -79,37 +80,31 @@ def get_deployinst_dict(
                 int(deployinst_dict['DeployInst']['build_times']['val'][indx]))
     return deployed_dict
 
-
-def get_pris_powers(country, path, year):
+def get_powers(path):
     '''
-    Create dictionary of the reactor units from a select country
-    in the PRIS database and
-    their corresponding rated power
-    output from the reactors_pris_XXXX.csv file for the corresponding year
+    Read through each of the xml files in a given path to get the power
+    output of each reactor facility. Getting this information from these
+    files accounts for any capacity factors, which are not captured in
+    the PRIS database.
 
     Parameters:
     -----------
-    country: str
-        name of country to get LWR data for
     path: str
-        relative path to the pris csv file
-    year: int
-        year of data to pull from
+        directory name containing xml files for reactors
 
     Returns:
     --------
-    pris_power: dict
+    rx_power: dict
         dictionary of reactor names and rated powers, the keys are the reactor
-        names (strs), the values are the rated powers (ints). Any spaces
+        names (strs), the values are their power outputs (ints). Any spaces
         in the keys are replaced with underscores.
     '''
-    pris_power = {}
-    reactors = pd.read_csv(path + 'reactors_pris_' + str(year) + '.csv')
-    reactors = reactors.loc[reactors['Country'] == country]
-    for index, row in reactors.iterrows():
-        pris_power[row['Unit']] = row['RUP [MWe]']
-    pris_power = {k.replace(' ', '_'): v for k, v in pris_power.items()}
-    return pris_power
+    rx_power = {}
+    for filename in os.listdir(path):
+        file = os.path.join(path, filename)
+        rx_info = convert_xml_to_dict(file)
+        rx_power.update({filename[:-4]:rx_info['facility']['config']['Reactor']['power_cap']})
+    return rx_power
 
 
 def get_lifetime(path, name):
@@ -167,7 +162,8 @@ def get_deployed_power(power_dict, deployed_dict, sim_duration):
         for i, v in enumerate(deployed_dict['prototypes']):
             prototype_power = np.zeros(len(t))
             prototype_power[deployed_dict['build_times'][i]: deployed_dict['build_times'][
-                i] + deployed_dict['lifetime'][i]] += power_dict[v] * deployed_dict['n_build'][i]
+                i] + deployed_dict['lifetime'][i]] += \
+                float(power_dict[v] * deployed_dict['n_build'][i])
             power_profile += prototype_power
     return t, power_profile
 
@@ -397,9 +393,8 @@ def write_AR_deployinst(lwr_DI, duration, reactor_prototypes, demand_eq,
         {'val':[]}, 'build_times':{'val':[]},'lifetimes':{'val':[]}}}. 
         The values in the inner-most dict are ints 
     '''
-    lwr_powers = get_pris_powers('UNITED STATES OF AMERICA',
-                                     "../database/",
-                                     2020)
+    lwr_powers = get_powers("~/transition-scenarios/input/" +
+                            "haleu/inputs/united_states/reactors")
     deployed_lwr_dict = get_deployinst_dict(
         lwr_DI, lwr_powers, "../../../inputs/united_states/reactors/")
     time, deployed_power = get_deployed_power(lwr_powers,
