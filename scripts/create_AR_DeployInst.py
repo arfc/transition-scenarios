@@ -327,3 +327,87 @@ def write_deployinst(deploy_schedule, out_path):
     '''
     with open(out_path, 'w') as f:
         f.write(xmltodict.unparse(deploy_schedule, pretty=True))
+
+def write_lwr_deployinst(lwr_param):
+    '''
+    Create a DeployInst for the LWRs in the simulation using different 
+    lifetimes than what is defined from creating the DeployInst via 
+    scripts/create_cyclus_input.py. The first agent in the DeployInst 
+    is the SinkHLW, leading to the first lifetime item being 600 
+    time steps.
+
+    Parameters:
+    -----------
+    lwr_param: float
+        percent of LWRs to receive lifetime extensions
+
+    Returns:
+    --------
+    DI_dict: dict 
+        nested dictionary, contains information for the DeployInst in 
+        the form {'DeployInst':{'prototypes':{'val':[]}, 'n_build':
+        {'val':[]}, 'build_times':{'val':[]},'lifetimes':{'val':[]}}}. 
+        The values in the inner-most dict are ints
+    '''
+    DI_dict = convert_xml_to_dict("../input/haleu/inputs/united_states/" +
+                                      "buildtimes/UNITED_STATES_OF_AMERICA/" +
+                                      "deployinst.xml")
+    DI_dict['DeployInst']['lifetimes'] = {'val': []}
+    DI_dict['DeployInst']['lifetimes']['val'] = np.repeat(720, 116)
+    DI_dict['DeployInst']['lifetimes']['val'][0] = 600  
+
+    with open("../database/lwr_power_order.txt", 'r') as f:
+        lwrs = f.readlines()
+    for index, item in enumerate(lwrs):
+        lwrs[index] = item.strip("\n")
+    lwrs_extended = lwrs[:int(lwr_param)]
+
+    for lwr in lwrs_extended:
+        index = DI_dict['DeployInst']['prototypes']['val'].index(lwr)
+        DI_dict['DeployInst']['lifetimes']['val'][index] = 960
+    return DI_dict
+    
+
+def write_AR_deployinst(lwr_DI, duration, reactor_prototypes, demand_eq,
+                        reactor=None, build_share=0):
+    ''''
+    Creates the DeployInst for deployment of advanced reactors.
+
+    Parameters:
+    -----------
+    duration: int
+        number of timesteps in the simulation
+    reactor_prototypes: dict 
+        dictionary of information about prototypes in the form
+        {name(str): (power(int), lifetime(int))}
+    demand_eq: array
+        energy demand at each time step in the simulation, length 
+        must match the value of duration
+    reactor: str
+        name of prototype of which to specify build share
+    build_share: int
+        percent of build share to apply for reactor
+    
+
+    Returns:
+    --------
+    deploy_schedule: dict 
+        nested dictionary, contains information for the DeployInst in 
+        the form {'DeployInst':{'prototypes':{'val':[]}, 'n_build':
+        {'val':[]}, 'build_times':{'val':[]},'lifetimes':{'val':[]}}}. 
+        The values in the inner-most dict are ints 
+    '''
+    lwr_powers = get_pris_powers('UNITED STATES OF AMERICA',
+                                     "../database/",
+                                     2020)
+    deployed_lwr_dict = get_deployinst_dict(
+        lwr_DI, lwr_powers, "../../../inputs/united_states/reactors/")
+    time, deployed_power = get_deployed_power(lwr_powers,
+                                                  deployed_lwr_dict,
+                                                  duration)
+    power_gap = determine_power_gap(deployed_power * 0.9266, demand_eq)
+    deploy_schedule = determine_deployment_schedule(power_gap,
+                                                        reactor_prototypes,
+                                                        reactor,
+                                                        build_share)
+    return deploy_schedule
