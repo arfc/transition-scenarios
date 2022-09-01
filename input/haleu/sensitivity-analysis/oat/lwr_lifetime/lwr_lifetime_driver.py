@@ -40,7 +40,7 @@ demand_equation[721:] = 87198.156
 lwr_DI = cdi.convert_xml_to_dict("./cyclus-files/lwr_" +
                                  str(int(params['lwr'])) +
                                  '_deployinst.xml')
-deploy_schedule = cdi.write_AR_DeployInst(lwr_DI,
+deploy_schedule = cdi.write_AR_deployinst(lwr_DI,
                                           duration, 
                                           reactor_prototypes, 
                                           demand_equation)
