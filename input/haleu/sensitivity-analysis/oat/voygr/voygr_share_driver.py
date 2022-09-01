@@ -31,20 +31,16 @@ duration = 1500
 reactor_prototypes = {'Xe-100': (76, 720), 'MMR': (5, 240), 'VOYGR': (73, 720)}
 demand_equation = np.zeros(duration)
 demand_equation[721:] = 87198.156
-deployinst = cdi.convert_xml_to_dict(
-    "../../../inputs/united_states/buildtimes/UNITED_STATES_OF_AMERICA/deployinst.xml")
-lwr_powers = cdi.get_pris_powers(
-    'UNITED STATES OF AMERICA',
-    "../../../../../database/",
-    2020)
-deployed_lwr_dict = cdi.get_deployinst_dict(
-    deployinst, lwr_powers, "../../../inputs/united_states/reactors/")
-time, deployed_power = cdi.get_deployed_power(
-    lwr_powers, deployed_lwr_dict, duration)
-power_gap = cdi.determine_power_gap(deployed_power * 0.9266, demand_equation)
-deploy_schedule = cdi.determine_deployment_schedule(
-    power_gap, reactor_prototypes, 'VOYGR', int(params['voygr']))
-cdi.write_deployinst(deploy_schedule, "./cyclus-files/voygr_" +
+lwr_DI = cdi.convert_xml_to_dict("../../../inputs/united_states/buildtimes/UNITED_STATES_OF_AMERICA/deployinst.xml")
+
+deploy_schedule = cdi.write_AR_DeployInst(lwr_DI,
+                                          duration, 
+                                          reactor_prototypes, 
+                                          demand_equation,
+                                          'VOYGR',
+                                          int(params['voygr']))
+cdi.write_deployinst(deploy_schedule, 
+                     "./cyclus-files/voygr_" +
                      str(int(params['voygr'])) + "_deployinst.xml")
 
 # Run Cyclus with edited input file

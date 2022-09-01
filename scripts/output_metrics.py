@@ -4,6 +4,7 @@ import pandas as pd
 import sqlite3
 
 import dataframe_analysis as dfa
+import create_AR_DeployInst as cdi
 
 
 def merge_and_fillna_col(left, right, lcol, rcol, how='left', on=None):
@@ -494,3 +495,4 @@ def get_lwr_energy(db_file, advanced_rx):
         range(1965, 2091)).fillna(0).reset_index()
     lwr_energy['Energy'] = lwr_energy['Energy'] / 1000
     return lwr_energy
+    
