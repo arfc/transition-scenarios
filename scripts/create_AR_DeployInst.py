@@ -5,6 +5,7 @@ import xmltodict
 from pprint import pprint
 import math
 import os
+import sys
 
 
 def convert_xml_to_dict(filename):
@@ -241,11 +242,11 @@ def determine_deployment_schedule(
         a tuple of the power output and lifetime (ints)
     prototype: str
         name of prototype to specify new market share of. If not
-        indicated then protoypes in reactor_prototypes are
+        indicated then prototypes in reactor_prototypes are
         deployed preferentially based on power output
     share: int
         percent of new build share to be occupied by specified
-        protoype
+        prototype
 
     Returns:
     --------
@@ -324,7 +325,7 @@ def write_deployinst(deploy_schedule, out_path):
     with open(out_path, 'w') as f:
         f.write(xmltodict.unparse(deploy_schedule, pretty=True))
 
-def write_lwr_deployinst(lwr_param):
+def write_lwr_deployinst(lwr_param, DI_file, lwr_order):
     '''
     Create a DeployInst for the LWRs in the simulation using different 
     lifetimes than what is defined from creating the DeployInst via 
@@ -336,6 +337,11 @@ def write_lwr_deployinst(lwr_param):
     -----------
     lwr_param: float
         percent of LWRs to receive lifetime extensions
+    DI_file: str
+        file name and path to DeployInst file for LWRs to base information 
+        off of.
+    lwr_order: str
+        path and name of file containing LWRs ordered by power output.
 
     Returns:
     --------
@@ -345,18 +351,16 @@ def write_lwr_deployinst(lwr_param):
         {'val':[]}, 'build_times':{'val':[]},'lifetimes':{'val':[]}}}. 
         The values in the inner-most dict are ints
     '''
-    DI_dict = convert_xml_to_dict("../input/haleu/inputs/united_states/" +
-                                      "buildtimes/UNITED_STATES_OF_AMERICA/" +
-                                      "deployinst.xml")
+    DI_dict = convert_xml_to_dict(DI_file)
     DI_dict['DeployInst']['lifetimes'] = {'val': []}
     DI_dict['DeployInst']['lifetimes']['val'] = np.repeat(720, 116)
     DI_dict['DeployInst']['lifetimes']['val'][0] = 600  
 
-    with open("../database/lwr_power_order.txt", 'r') as f:
+    with open(lwr_order, 'r') as f:
         lwrs = f.readlines()
     for index, item in enumerate(lwrs):
         lwrs[index] = item.strip("\n")
-    lwrs_extended = lwrs[:int(lwr_param)]
+    lwrs_extended = lwrs[:int(lwr_param)+1]
 
     for lwr in lwrs_extended:
         index = DI_dict['DeployInst']['prototypes']['val'].index(lwr)
@@ -393,14 +397,13 @@ def write_AR_deployinst(lwr_DI, duration, reactor_prototypes, demand_eq,
         {'val':[]}, 'build_times':{'val':[]},'lifetimes':{'val':[]}}}. 
         The values in the inner-most dict are ints 
     '''
-    lwr_powers = get_powers("~/transition-scenarios/input/" +
-                            "haleu/inputs/united_states/reactors")
+    lwr_powers = get_powers("../../input/haleu/inputs/united_states/reactors/")
     deployed_lwr_dict = get_deployinst_dict(
-        lwr_DI, lwr_powers, "../../../inputs/united_states/reactors/")
+        lwr_DI, lwr_powers, "../../input/haleu/inputs/united_states/reactors/")
     time, deployed_power = get_deployed_power(lwr_powers,
                                                   deployed_lwr_dict,
                                                   duration)
-    power_gap = determine_power_gap(deployed_power * 0.9266, demand_eq)
+    power_gap = determine_power_gap(deployed_power, demand_eq)
     deploy_schedule = determine_deployment_schedule(power_gap,
                                                         reactor_prototypes,
                                                         reactor,
