@@ -1,7 +1,5 @@
 import unittest
 import numpy as np
-import pandas as pd
-import math
 from pandas._testing import assert_frame_equal
 from pandas._testing import assert_series_equal
 import sys
@@ -101,27 +99,7 @@ class Test_static_info(unittest.TestCase):
             "../../input/haleu/inputs/united_states/reactors/")
         assert exp == obs
 
-    def test_get_simulation_duration(self):
-        '''
-        Test with sim_dict
-        '''
-        exp = 1000
-        obs = di.get_simulation_duration(self.simulation_dict)
-        assert exp == obs
-
-    def test_get_pris_powers(self):
-        '''
-        Test for specific reactors in the
-        '''
-        exp = {'ANO-1': 836, 'ANO-2': 988, 'BEAVER_VALLEY-1': 908}
-        obs = di.get_pris_powers(
-            'UNITED STATES OF AMERICA',
-            '../../database/',
-            2020)
-        assert exp['ANO-1'] == obs['ANO-1']
-        assert exp['BEAVER_VALLEY-1'] == obs['BEAVER_VALLEY-1']
-
-    def test_get_lifetimes(self):
+    def test_get_lifetime(self):
         '''
         Test for lifetime of ANO-1 prototype
         '''
@@ -179,7 +157,7 @@ class Test_static_info(unittest.TestCase):
         obs = di.determine_deployment_order(reactors)
         assert exp == obs
 
-    def test_determine_deployment_schedule(self):
+    def test_determine_deployment_schedule1(self):
         '''
         Tests for a constant power demand of 400 MW for 40 time steps.
         '''
@@ -189,7 +167,7 @@ class Test_static_info(unittest.TestCase):
                     'val': [
                         'Type1', 'Type2', 'Type2', 'Type2']}, 'build_times': {
                     'val': [
-                        1, 1, 20, 25]}, 'n_build': {
+                        0, 0, 20, 25]}, 'n_build': {
                             'val': [
                                 1, 1, 2, 1]}, 'lifetimes': {
                                     'val': [
@@ -197,3 +175,63 @@ class Test_static_info(unittest.TestCase):
         gap = np.repeat(400, 40)
         reactors = {'Type1': (300, 20), 'Type2': (150, 25)}
         obs = di.determine_deployment_schedule(gap, reactors)
+        assert exp == obs
+
+    def test_determine_deployment_schedule2(self):
+        '''
+        Tests with a defined prototype and build share (non-default values),
+        defined as 50% for Type1 reactors.
+        A constant power demand of 1000 MW for 40 time steps.
+        '''
+        exp = {
+            'DeployInst': {
+                'prototypes': {'val': [
+                        'Type1', 'Type2', 'Type1','Type2','Type1','Type2']}, 
+                'build_times': {
+                    'val': [
+                        0, 0, 20, 20, 25, 25 ]}, 
+                'n_build': {'val': [
+                                2, 3, 1, 2, 1, 1]}, 
+                'lifetimes': {'val': [
+                                        20, 25, 20, 25, 20, 25 ]}}}
+        gap = np.repeat(1000, 40)
+        reactors = {'Type1': (300, 20), 'Type2': (150, 25)}
+        obs = di.determine_deployment_schedule(gap, reactors, 'Type1', 50)
+        assert exp == obs
+
+    def test_write_lwr_deployinst(self):
+        '''
+        Test combination of functions to create a DeployInst of LWRs when 
+        10% get license extensions. The lifetime values tested are for the 
+        SinkHLW facility, the LWR with the largest capacity (Grand Gulf-1), 
+        the last LWR on the list to receive an extension (Susquehanna-1),
+        and the ext LWR on the list (Seabrook-1) to ensure it does not get 
+        extended.
+        '''
+        obs = di.write_lwr_deployinst(10.0, "../../input/haleu/inputs/united_states/" +
+                                      "buildtimes/UNITED_STATES_OF_AMERICA/" +
+                                      "deployinst.xml",
+                                      "../../database/lwr_power_order.txt")
+        assert obs['DeployInst']['lifetimes']['val'][0] == 600
+        assert obs['DeployInst']['lifetimes']['val'][39] == 960
+        assert obs['DeployInst']['lifetimes']['val'][100] == 960
+        assert obs['DeployInst']['lifetimes']['val'][89] == 720
+
+    def test_write_AR_deployinst1(self):
+        '''
+        Test creation of AR DeployInst for a demand of 1000 MWe starting in 2065,
+        so the power from LWRs does not affect the advanced reactor deployment.
+        A prototype with a defined buildshare is not specified.
+        '''
+        exp = {'DeployInst':{'prototypes':{'val':['Xe-100', 'MMR', 'MMR']},
+                            'lifetimes':{'val':[720, 240, 240]},
+                            'n_build':{'val':[13, 3, 3]},
+                            'buildtimes':{'val':[1200, 1200, 1440]}}}
+
+        reactor_prototypes = {'Xe-100':(76,720), 'MMR':(5,240), 'VOYGR':(73,720)}
+        demand_eq = np.zeros(1500)
+        demand_eq[1200:] = 1000
+        obs = di.write_AR_deployinst("../../input/haleu/inputs/united_states/"+
+                                     "buildtimes/UNITED_STATES_OF_AMERICA/deployinst.xml",
+                                     1500, reactor_prototypes, demand_eq)
+        assert exp['DeployInst']['prototypes']['val'] == obs['DeployInst']['prototypes']['val'][0:3]
