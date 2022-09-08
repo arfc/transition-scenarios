@@ -537,7 +537,7 @@ def get_lifetime(in_row, start_year):
 
 
 def write_reactors(in_dataframe, out_path, reactor_template, start_year,
-                   cycle_time=18, refuel_time=1, capacity_factor=1):
+                   cycle_time=18, refuel_time=1, capacity_factor=1.0):
     """ Renders CYCAMORE::reactor specifications using jinja2.
 
     Parameters
@@ -614,7 +614,7 @@ def write_reactors(in_dataframe, out_path, reactor_template, start_year,
                 assem_size=assem_size,
                 n_assem_core=assem_no,
                 n_assem_batch=assem_per_batch,
-                power_cap=row['RUP [MWe]'] *
+                power_cap=capacity *
                 capacity_factor,
                 lon=longitude,
                 lat=latitude)
