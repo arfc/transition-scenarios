@@ -233,6 +233,7 @@ class Test_static_info(unittest.TestCase):
         demand_eq[1200:] = 1000
         obs = di.write_AR_deployinst("../../input/haleu/inputs/united_states/"+
                                      "buildtimes/UNITED_STATES_OF_AMERICA/deployinst.xml",
+                                     "../../input/haleu/inputs/united_states/reactors/",
                                      1500, reactor_prototypes, demand_eq)
         assert exp['DeployInst']['prototypes']['val'] == obs['DeployInst']['prototypes']['val']
         assert exp['DeployInst']['n_build']['val'] == obs['DeployInst']['n_build']['val']
@@ -255,6 +256,7 @@ class Test_static_info(unittest.TestCase):
         demand_eq[1200:] = 1000
         obs = di.write_AR_deployinst("../../input/haleu/inputs/united_states/"+
                                      "buildtimes/UNITED_STATES_OF_AMERICA/deployinst.xml",
+                                     "../../input/haleu/inputs/united_states/reactors/",
                                      1500, reactor_prototypes, demand_eq, 'VOYGR', 50)
         assert exp['DeployInst']['prototypes']['val'] == obs['DeployInst']['prototypes']['val']
         assert exp['DeployInst']['lifetimes']['val'] == obs['DeployInst']['lifetimes']['val']
