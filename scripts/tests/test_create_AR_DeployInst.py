@@ -226,7 +226,7 @@ class Test_static_info(unittest.TestCase):
         exp = {'DeployInst':{'prototypes':{'val':['Xe-100', 'MMR', 'MMR']},
                             'lifetimes':{'val':[720, 240, 240]},
                             'n_build':{'val':[13, 3, 3]},
-                            'buildtimes':{'val':[1200, 1200, 1440]}}}
+                            'build_times':{'val':[1200, 1200, 1440]}}}
 
         reactor_prototypes = {'Xe-100':(76,720), 'MMR':(5,240), 'VOYGR':(73,720)}
         demand_eq = np.zeros(1500)
@@ -234,4 +234,30 @@ class Test_static_info(unittest.TestCase):
         obs = di.write_AR_deployinst("../../input/haleu/inputs/united_states/"+
                                      "buildtimes/UNITED_STATES_OF_AMERICA/deployinst.xml",
                                      1500, reactor_prototypes, demand_eq)
-        assert exp['DeployInst']['prototypes']['val'] == obs['DeployInst']['prototypes']['val'][0:3]
+        assert exp['DeployInst']['prototypes']['val'] == obs['DeployInst']['prototypes']['val']
+        assert exp['DeployInst']['n_build']['val'] == obs['DeployInst']['n_build']['val']
+        assert exp['DeployInst']['build_times']['val'] == obs['DeployInst']['build_times']['val']
+        assert exp['DeployInst']['lifetimes']['val'] == obs['DeployInst']['lifetimes']['val']
+
+    def test_write_AR_deployinst2(self):
+        '''
+        Test creation of AR DeployInst for a demand of 1000 MWe starting in 2065,
+        so the power from LWRs does not affect the advanced reactor deployment.
+        A prototype with a defined buildshare is specified: 50% MMR buildshare.
+        '''
+        exp = {'DeployInst':{'prototypes':{'val':['VOYGR','Xe-100','MMR', 'VOYGR']},
+                            'lifetimes':{'val':[720, 720, 240, 720]},
+                            'n_build':{'val':[7, 6, 7, 1]},
+                            'build_times':{'val':[1200, 1200, 1200, 1440]}}}
+
+        reactor_prototypes = {'Xe-100':(76,720), 'MMR':(5,240), 'VOYGR':(73,720)}
+        demand_eq = np.zeros(1500)
+        demand_eq[1200:] = 1000
+        obs = di.write_AR_deployinst("../../input/haleu/inputs/united_states/"+
+                                     "buildtimes/UNITED_STATES_OF_AMERICA/deployinst.xml",
+                                     1500, reactor_prototypes, demand_eq, 'VOYGR', 50)
+        assert exp['DeployInst']['prototypes']['val'] == obs['DeployInst']['prototypes']['val']
+        assert exp['DeployInst']['lifetimes']['val'] == obs['DeployInst']['lifetimes']['val']
+        assert exp['DeployInst']['n_build']['val'] == obs['DeployInst']['n_build']['val']
+        assert exp['DeployInst']['build_times']['val'] == obs['DeployInst']['build_times']['val']
+
