@@ -35,6 +35,7 @@ demand_equation[721:] = 87198.156
 lwr_DI = cdi.convert_xml_to_dict("../../../inputs/united_states/buildtimes/UNITED_STATES_OF_AMERICA/deployinst.xml")
 
 deploy_schedule = cdi.write_AR_deployinst(lwr_DI,
+					  "../../../inputs/united_states/reactors/",
                                           duration, 
                                           reactor_prototypes, 
                                           demand_equation,
@@ -76,5 +77,3 @@ results['feed'].function = oup.calculate_feed(output_sqlite,
 
 results.write()
 
-
-../inputs/united_states/buildtimes/UNITED_STATES_OF_AMERICA/deployinst.xml

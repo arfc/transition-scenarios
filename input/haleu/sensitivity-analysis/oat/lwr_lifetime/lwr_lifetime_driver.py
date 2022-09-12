@@ -28,7 +28,10 @@ output_xml = './cyclus-files/lwr_lifetime_' + str(params['lwr']) + '.xml'
 inp.render_input(cyclus_template, variable_dict, output_xml)
 
 # Create DeployInst for LWRs
-DI_dict = oup.write_lwr_deployinst(params['lwr'])
+DI_dict = cdi.write_lwr_deployinst(params['lwr'], 
+				   "../../../inputs/united_states/buildtimes/" +
+				   "UNITED_STATES_OF_AMERICA/deployinst.xml",
+				   "../../../../../database/lwr_power_order.txt")
 cdi.write_deployinst(DI_dict, './cyclus-files/lwr_' +
                         str(int(params['lwr'])) + '_deployinst.xml')
 
@@ -41,6 +44,7 @@ lwr_DI = cdi.convert_xml_to_dict("./cyclus-files/lwr_" +
                                  str(int(params['lwr'])) +
                                  '_deployinst.xml')
 deploy_schedule = cdi.write_AR_deployinst(lwr_DI,
+					  "../../../inputs/united_states/reactors/",
                                           duration, 
                                           reactor_prototypes, 
                                           demand_equation)
