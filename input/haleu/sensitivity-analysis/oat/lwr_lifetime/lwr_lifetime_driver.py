@@ -1,14 +1,14 @@
+import sys, os
+
 import numpy as np
-import subprocess
 import dakota.interfacing as di
-import sys
-import os
-from turtle import up
+
 sys.path.append('../../../../../scripts')
-import dakota_input as inp
-import output_metrics as oup
+
 import create_AR_DeployInst as cdi
-# import output as oup
+import output_metrics as oup
+import dakota_input as inp
+
 # ----------------------------
 # Parse Dakota parameters file
 # ----------------------------
@@ -28,12 +28,13 @@ output_xml = './cyclus-files/lwr_lifetime_' + str(params['lwr']) + '.xml'
 inp.render_input(cyclus_template, variable_dict, output_xml)
 
 # Create DeployInst for LWRs
-DI_dict = cdi.write_lwr_deployinst(params['lwr'], 
-				   "../../../inputs/united_states/buildtimes/" +
-				   "UNITED_STATES_OF_AMERICA/deployinst.xml",
-				   "../../../../../database/lwr_power_order.txt")
+DI_dict = cdi.write_lwr_deployinst(
+    params['lwr'],
+    "../../../inputs/united_states/buildtimes/" +
+    "UNITED_STATES_OF_AMERICA/deployinst.xml",
+    "../../../../../database/lwr_power_order.txt")
 cdi.write_deployinst(DI_dict, './cyclus-files/lwr_' +
-                        str(int(params['lwr'])) + '_deployinst.xml')
+                     str(int(params['lwr'])) + '_deployinst.xml')
 
 # Create DeployInst for advanced reactors
 duration = 1500
@@ -43,12 +44,13 @@ demand_equation[721:] = 87198.156
 lwr_DI = cdi.convert_xml_to_dict("./cyclus-files/lwr_" +
                                  str(int(params['lwr'])) +
                                  '_deployinst.xml')
-deploy_schedule = cdi.write_AR_deployinst(lwr_DI,
-					  "../../../inputs/united_states/reactors/",
-                                          duration, 
-                                          reactor_prototypes, 
-                                          demand_equation)
-cdi.write_deployinst(deploy_schedule, 
+deploy_schedule = cdi.write_AR_deployinst(
+    lwr_DI,
+    "../../../inputs/united_states/reactors/",
+    duration,
+    reactor_prototypes,
+    demand_equation)
+cdi.write_deployinst(deploy_schedule,
                      "./cyclus-files/AR_DeployInst_lwr_" +
                      str(int(params['lwr'])) + ".xml")
 

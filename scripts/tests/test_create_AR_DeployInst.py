@@ -1,3 +1,4 @@
+import create_AR_DeployInst as di
 import unittest
 import numpy as np
 from pandas._testing import assert_frame_equal
@@ -5,7 +6,7 @@ from pandas._testing import assert_series_equal
 import sys
 
 sys.path.insert(0, '../')
-import create_AR_DeployInst as di
+
 
 class Test_static_info(unittest.TestCase):
     def setUp(self):
@@ -186,14 +187,14 @@ class Test_static_info(unittest.TestCase):
         exp = {
             'DeployInst': {
                 'prototypes': {'val': [
-                        'Type1', 'Type2', 'Type1','Type2','Type1','Type2']}, 
+                    'Type1', 'Type2', 'Type1', 'Type2', 'Type1', 'Type2']},
                 'build_times': {
                     'val': [
-                        0, 0, 20, 20, 25, 25 ]}, 
+                        0, 0, 20, 20, 25, 25]},
                 'n_build': {'val': [
-                                2, 3, 1, 2, 1, 1]}, 
+                    2, 3, 1, 2, 1, 1]},
                 'lifetimes': {'val': [
-                                        20, 25, 20, 25, 20, 25 ]}}}
+                    20, 25, 20, 25, 20, 25]}}}
         gap = np.repeat(1000, 40)
         reactors = {'Type1': (300, 20), 'Type2': (150, 25)}
         obs = di.determine_deployment_schedule(gap, reactors, 'Type1', 50)
@@ -201,40 +202,48 @@ class Test_static_info(unittest.TestCase):
 
     def test_write_lwr_deployinst(self):
         '''
-        Test combination of functions to create a DeployInst of LWRs when 
-        10% get license extensions. The lifetime values tested are for the 
-        SinkHLW facility, the LWR with the largest capacity (Grand Gulf-1), 
+        Test combination of functions to create a DeployInst of LWRs when
+        10% get license extensions. The lifetime values tested are for the
+        SinkHLW facility, the LWR with the largest capacity (Grand Gulf-1),
         the last LWR on the list to receive an extension (Susquehanna-1),
-        and the ext LWR on the list (Seabrook-1) to ensure it does not get 
+        and the ext LWR on the list (Seabrook-1) to ensure it does not get
         extended.
         '''
-        obs = di.write_lwr_deployinst(10.0, "../../input/haleu/inputs/united_states/" +
-                                      "buildtimes/UNITED_STATES_OF_AMERICA/" +
-                                      "deployinst.xml",
-                                      "../../database/lwr_power_order.txt")
+        obs = di.write_lwr_deployinst(
+            10.0,
+            "../../input/haleu/inputs/united_states/" +
+            "buildtimes/UNITED_STATES_OF_AMERICA/" +
+            "deployinst.xml",
+            "../../database/lwr_power_order.txt")
         assert obs['DeployInst']['lifetimes']['val'][0] == 600
         assert obs['DeployInst']['lifetimes']['val'][39] == 960
         assert obs['DeployInst']['lifetimes']['val'][100] == 960
         assert obs['DeployInst']['lifetimes']['val'][89] == 720
-    
+
     def test_write_AR_deployinst1(self):
         '''
         Test creation of AR DeployInst for a demand of 1000 MWe starting in 2065,
         so the power from LWRs does not affect the advanced reactor deployment.
         A prototype with a defined buildshare is not specified.
         '''
-        exp = {'DeployInst':{'prototypes':{'val':['Xe-100', 'MMR', 'MMR']},
-                            'lifetimes':{'val':[720, 240, 240]},
-                            'n_build':{'val':[13, 3, 3]},
-                            'build_times':{'val':[1200, 1200, 1440]}}}
+        exp = {'DeployInst': {'prototypes': {'val': ['Xe-100', 'MMR', 'MMR']},
+                              'lifetimes': {'val': [720, 240, 240]},
+                              'n_build': {'val': [13, 3, 3]},
+                              'build_times': {'val': [1200, 1200, 1440]}}}
 
-        reactor_prototypes = {'Xe-100':(76,720), 'MMR':(5,240), 'VOYGR':(73,720)}
+        reactor_prototypes = {
+            'Xe-100': (76, 720), 'MMR': (5, 240), 'VOYGR': (73, 720)}
         demand_eq = np.zeros(1500)
         demand_eq[1200:] = 1000
-        lwr_DI = di.convert_xml_to_dict("../../input/haleu/inputs/united_states/buildtimes/UNITED_STATES_OF_AMERICA/deployinst.xml")
-        obs = di.write_AR_deployinst(lwr_DI,
-                                     "../../input/haleu/inputs/united_states/reactors/",
-                                     1500, reactor_prototypes, demand_eq)
+        lwr_DI = di.convert_xml_to_dict(
+            "../../input/haleu/inputs/united_states/buildtimes/" +
+            "UNITED_STATES_OF_AMERICA/deployinst.xml")
+        obs = di.write_AR_deployinst(
+            lwr_DI,
+            "../../input/haleu/inputs/united_states/reactors/",
+            1500,
+            reactor_prototypes,
+            demand_eq)
         assert exp['DeployInst']['prototypes']['val'] == obs['DeployInst']['prototypes']['val']
         assert exp['DeployInst']['n_build']['val'] == obs['DeployInst']['n_build']['val']
         assert exp['DeployInst']['build_times']['val'] == obs['DeployInst']['build_times']['val']
@@ -246,20 +255,49 @@ class Test_static_info(unittest.TestCase):
         so the power from LWRs does not affect the advanced reactor deployment.
         A prototype with a defined buildshare is specified: 50% MMR buildshare.
         '''
-        exp = {'DeployInst':{'prototypes':{'val':['VOYGR','Xe-100','MMR', 'VOYGR']},
-                            'lifetimes':{'val':[720, 720, 240, 720]},
-                            'n_build':{'val':[7, 6, 7, 1]},
-                            'build_times':{'val':[1200, 1200, 1200, 1440]}}}
+        exp = {
+            'DeployInst': {
+                'prototypes': {
+                    'val': [
+                        'VOYGR',
+                        'Xe-100',
+                        'MMR',
+                        'VOYGR']},
+                'lifetimes': {
+                    'val': [
+                        720,
+                        720,
+                        240,
+                        720]},
+                'n_build': {
+                    'val': [
+                        7,
+                        6,
+                        7,
+                        1]},
+                'build_times': {
+                    'val': [
+                        1200,
+                        1200,
+                        1200,
+                        1440]}}}
 
-        reactor_prototypes = {'Xe-100':(76,720), 'MMR':(5,240), 'VOYGR':(73,720)}
+        reactor_prototypes = {
+            'Xe-100': (76, 720), 'MMR': (5, 240), 'VOYGR': (73, 720)}
         demand_eq = np.zeros(1500)
         demand_eq[1200:] = 1000
-        lwr_DI = di.convert_xml_to_dict("../../input/haleu/inputs/united_states/buildtimes/UNITED_STATES_OF_AMERICA/deployinst.xml")
-        obs = di.write_AR_deployinst(lwr_DI,
-                                     "../../input/haleu/inputs/united_states/reactors/",
-                                     1500, reactor_prototypes, demand_eq, 'VOYGR', 50)
+        lwr_DI = di.convert_xml_to_dict(
+            "../../input/haleu/inputs/united_states/buildtimes/" +
+            "UNITED_STATES_OF_AMERICA/deployinst.xml")
+        obs = di.write_AR_deployinst(
+            lwr_DI,
+            "../../input/haleu/inputs/united_states/reactors/",
+            1500,
+            reactor_prototypes,
+            demand_eq,
+            'VOYGR',
+            50)
         assert exp['DeployInst']['prototypes']['val'] == obs['DeployInst']['prototypes']['val']
         assert exp['DeployInst']['lifetimes']['val'] == obs['DeployInst']['lifetimes']['val']
         assert exp['DeployInst']['n_build']['val'] == obs['DeployInst']['n_build']['val']
         assert exp['DeployInst']['build_times']['val'] == obs['DeployInst']['build_times']['val']
-

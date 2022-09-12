@@ -45,7 +45,7 @@ def get_deployinst_dict(
         dictionary of DeployInst information. This dictionary is assumed
         to be nested, with the top key being 'DeployInst', the keys of
         the next level being 'prototypes', 'build_times', 'n_build',
-        and optionally 'lifetimes'. Each of those rx_info  dictionaries are 
+        and optionally 'lifetimes'. Each of those rx_info  dictionaries are
         nested with key of 'val', and value of a list of the integer
         values.
     reactor_dict: dict
@@ -81,6 +81,7 @@ def get_deployinst_dict(
                 int(deployinst_dict['DeployInst']['build_times']['val'][indx]))
     return deployed_dict
 
+
 def get_powers(path):
     '''
     Read through each of the xml files in a given path to get the power
@@ -104,7 +105,8 @@ def get_powers(path):
     for filename in os.listdir(path):
         file = os.path.join(path, filename)
         rx_info = convert_xml_to_dict(file)
-        rx_power.update({filename[:-4]:rx_info['facility']['config']['Reactor']['power_cap']})
+        rx_power.update(
+            {filename[:-4]: rx_info['facility']['config']['Reactor']['power_cap']})
     return rx_power
 
 
@@ -325,12 +327,13 @@ def write_deployinst(deploy_schedule, out_path):
     with open(out_path, 'w') as f:
         f.write(xmltodict.unparse(deploy_schedule, pretty=True))
 
+
 def write_lwr_deployinst(lwr_param, DI_file, lwr_order):
     '''
-    Create a DeployInst for the LWRs in the simulation using different 
-    lifetimes than what is defined from creating the DeployInst via 
-    scripts/create_cyclus_input.py. The first agent in the DeployInst 
-    is the SinkHLW, leading to the first lifetime item being 600 
+    Create a DeployInst for the LWRs in the simulation using different
+    lifetimes than what is defined from creating the DeployInst via
+    scripts/create_cyclus_input.py. The first agent in the DeployInst
+    is the SinkHLW, leading to the first lifetime item being 600
     time steps.
 
     Parameters:
@@ -338,38 +341,44 @@ def write_lwr_deployinst(lwr_param, DI_file, lwr_order):
     lwr_param: float
         percent of LWRs to receive lifetime extensions
     DI_file: str
-        file name and path to DeployInst file for LWRs to base information 
+        file name and path to DeployInst file for LWRs to base information
         off of.
     lwr_order: str
         path and name of file containing LWRs ordered by power output.
 
     Returns:
     --------
-    DI_dict: dict 
-        nested dictionary, contains information for the DeployInst in 
+    DI_dict: dict
+        nested dictionary, contains information for the DeployInst in
         the form {'DeployInst':{'prototypes':{'val':[]}, 'n_build':
-        {'val':[]}, 'build_times':{'val':[]},'lifetimes':{'val':[]}}}. 
+        {'val':[]}, 'build_times':{'val':[]},'lifetimes':{'val':[]}}}.
         The values in the inner-most dict are ints
     '''
     DI_dict = convert_xml_to_dict(DI_file)
     DI_dict['DeployInst']['lifetimes'] = {'val': []}
     DI_dict['DeployInst']['lifetimes']['val'] = np.repeat(720, 116)
-    DI_dict['DeployInst']['lifetimes']['val'][0] = 600  
+    DI_dict['DeployInst']['lifetimes']['val'][0] = 600
 
     with open(lwr_order, 'r') as f:
         lwrs = f.readlines()
     for index, item in enumerate(lwrs):
         lwrs[index] = item.strip("\n")
-    lwrs_extended = lwrs[:int(lwr_param)+1]
+    lwrs_extended = lwrs[:int(lwr_param) + 1]
 
     for lwr in lwrs_extended:
         index = DI_dict['DeployInst']['prototypes']['val'].index(lwr)
         DI_dict['DeployInst']['lifetimes']['val'][index] = 960
     return DI_dict
-    
 
-def write_AR_deployinst(lwr_DI, lwr_path, duration, reactor_prototypes, demand_eq,
-                        reactor=None, build_share=0):
+
+def write_AR_deployinst(
+        lwr_DI,
+        lwr_path,
+        duration,
+        reactor_prototypes,
+        demand_eq,
+        reactor=None,
+        build_share=0):
     ''''
     Creates the DeployInst for deployment of advanced reactors.
 
@@ -378,39 +387,39 @@ def write_AR_deployinst(lwr_DI, lwr_path, duration, reactor_prototypes, demand_e
     lwr_DI: dict
         dictionary of the DeployInst defining the deployment of LWRs
     lwr_path: str
-        path to directory containing xml files defining each LWR in 
+        path to directory containing xml files defining each LWR in
         the simulation
     duration: int
         number of timesteps in the simulation
-    reactor_prototypes: dict 
+    reactor_prototypes: dict
         dictionary of information about prototypes in the form
         {name(str): (power(int), lifetime(int))}
     demand_eq: array
-        energy demand at each time step in the simulation, length 
+        energy demand at each time step in the simulation, length
         must match the value of duration
     reactor: str
         name of prototype of which to specify build share
     build_share: int
         percent of build share to apply for reactor
-    
+
 
     Returns:
     --------
-    deploy_schedule: dict 
-        nested dictionary, contains information for the DeployInst in 
+    deploy_schedule: dict
+        nested dictionary, contains information for the DeployInst in
         the form {'DeployInst':{'prototypes':{'val':[]}, 'n_build':
-        {'val':[]}, 'build_times':{'val':[]},'lifetimes':{'val':[]}}}. 
-        The values in the inner-most dict are ints 
+        {'val':[]}, 'build_times':{'val':[]},'lifetimes':{'val':[]}}}.
+        The values in the inner-most dict are ints
     '''
     lwr_powers = get_powers(lwr_path)
     deployed_lwr_dict = get_deployinst_dict(
         lwr_DI, lwr_powers, lwr_path)
     time, deployed_power = get_deployed_power(lwr_powers,
-                                                  deployed_lwr_dict,
-                                                  duration)
+                                              deployed_lwr_dict,
+                                              duration)
     power_gap = determine_power_gap(deployed_power, demand_eq)
     deploy_schedule = determine_deployment_schedule(power_gap,
-                                                        reactor_prototypes,
-                                                        reactor,
-                                                        build_share)
+                                                    reactor_prototypes,
+                                                    reactor,
+                                                    build_share)
     return deploy_schedule
