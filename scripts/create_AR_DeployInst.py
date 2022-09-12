@@ -368,7 +368,7 @@ def write_lwr_deployinst(lwr_param, DI_file, lwr_order):
     return DI_dict
     
 
-def write_AR_deployinst(lwr_DI_path, duration, reactor_prototypes, demand_eq,
+def write_AR_deployinst(lwr_DI_path, lwr_path, duration, reactor_prototypes, demand_eq,
                         reactor=None, build_share=0):
     ''''
     Creates the DeployInst for deployment of advanced reactors.
@@ -377,6 +377,9 @@ def write_AR_deployinst(lwr_DI_path, duration, reactor_prototypes, demand_eq,
     -----------
     lwr_DI_path: str
         path to file for DeployInst for LWRs
+    lwr_path: str
+        path to directory containing xml files defining each LWR in 
+        the simulation
     duration: int
         number of timesteps in the simulation
     reactor_prototypes: dict 
@@ -400,9 +403,9 @@ def write_AR_deployinst(lwr_DI_path, duration, reactor_prototypes, demand_eq,
         The values in the inner-most dict are ints 
     '''
     lwr_DI = convert_xml_to_dict(lwr_DI_path)
-    lwr_powers = get_powers("../../input/haleu/inputs/united_states/reactors/")
+    lwr_powers = get_powers(lwr_path)
     deployed_lwr_dict = get_deployinst_dict(
-        lwr_DI, lwr_powers, "../../input/haleu/inputs/united_states/reactors/")
+        lwr_DI, lwr_powers, lwr_path)
     time, deployed_power = get_deployed_power(lwr_powers,
                                                   deployed_lwr_dict,
                                                   duration)
