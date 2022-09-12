@@ -231,8 +231,9 @@ class Test_static_info(unittest.TestCase):
         reactor_prototypes = {'Xe-100':(76,720), 'MMR':(5,240), 'VOYGR':(73,720)}
         demand_eq = np.zeros(1500)
         demand_eq[1200:] = 1000
-        obs = di.write_AR_deployinst("../../input/haleu/inputs/united_states/"+
-                                     "buildtimes/UNITED_STATES_OF_AMERICA/deployinst.xml",
+	lwr_DI = cdi.convert_xml_to_dict("../../input/haleu/inputs/united_states" +
+			"buildtimes/UNITED_STATES_OF_AMERICA/deployinst.xml")
+        obs = di.write_AR_deployinst(lwr_DI,
                                      "../../input/haleu/inputs/united_states/reactors/",
                                      1500, reactor_prototypes, demand_eq)
         assert exp['DeployInst']['prototypes']['val'] == obs['DeployInst']['prototypes']['val']
@@ -254,8 +255,9 @@ class Test_static_info(unittest.TestCase):
         reactor_prototypes = {'Xe-100':(76,720), 'MMR':(5,240), 'VOYGR':(73,720)}
         demand_eq = np.zeros(1500)
         demand_eq[1200:] = 1000
-        obs = di.write_AR_deployinst("../../input/haleu/inputs/united_states/"+
-                                     "buildtimes/UNITED_STATES_OF_AMERICA/deployinst.xml",
+	lwr_DI = cdi.convert_xml_to_dict("../../input/haleu/inputs/united_states" +
+		         "buildtimes/UNITED_STATES_OF_AMERICA/deployinst.xml")
+        obs = di.write_AR_deployinst(lwr_DI,
                                      "../../input/haleu/inputs/united_states/reactors/",
                                      1500, reactor_prototypes, demand_eq, 'VOYGR', 50)
         assert exp['DeployInst']['prototypes']['val'] == obs['DeployInst']['prototypes']['val']
