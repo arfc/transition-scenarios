@@ -216,7 +216,7 @@ class Test_static_info(unittest.TestCase):
         assert obs['DeployInst']['lifetimes']['val'][39] == 960
         assert obs['DeployInst']['lifetimes']['val'][100] == 960
         assert obs['DeployInst']['lifetimes']['val'][89] == 720
-
+    
     def test_write_AR_deployinst1(self):
         '''
         Test creation of AR DeployInst for a demand of 1000 MWe starting in 2065,
@@ -231,8 +231,7 @@ class Test_static_info(unittest.TestCase):
         reactor_prototypes = {'Xe-100':(76,720), 'MMR':(5,240), 'VOYGR':(73,720)}
         demand_eq = np.zeros(1500)
         demand_eq[1200:] = 1000
-	lwr_DI = cdi.convert_xml_to_dict("../../input/haleu/inputs/united_states" +
-			"buildtimes/UNITED_STATES_OF_AMERICA/deployinst.xml")
+        lwr_DI = di.convert_xml_to_dict("../../input/haleu/inputs/united_states/buildtimes/UNITED_STATES_OF_AMERICA/deployinst.xml")
         obs = di.write_AR_deployinst(lwr_DI,
                                      "../../input/haleu/inputs/united_states/reactors/",
                                      1500, reactor_prototypes, demand_eq)
@@ -255,8 +254,7 @@ class Test_static_info(unittest.TestCase):
         reactor_prototypes = {'Xe-100':(76,720), 'MMR':(5,240), 'VOYGR':(73,720)}
         demand_eq = np.zeros(1500)
         demand_eq[1200:] = 1000
-	lwr_DI = cdi.convert_xml_to_dict("../../input/haleu/inputs/united_states" +
-		         "buildtimes/UNITED_STATES_OF_AMERICA/deployinst.xml")
+        lwr_DI = di.convert_xml_to_dict("../../input/haleu/inputs/united_states/buildtimes/UNITED_STATES_OF_AMERICA/deployinst.xml")
         obs = di.write_AR_deployinst(lwr_DI,
                                      "../../input/haleu/inputs/united_states/reactors/",
                                      1500, reactor_prototypes, demand_eq, 'VOYGR', 50)
