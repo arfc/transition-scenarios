@@ -1,4 +1,4 @@
-<simulation xml:base="/home/abachmann/transition-scenarios/input/haleu/inputs/" xmlns:xi="http://www.w3.org/2001/XInclude">
+<simulation xml:base="/home/amandabachmann/transition-scenarios/input/haleu/inputs/" xmlns:xi="http://www.w3.org/2001/XInclude">
   <control>
     <decay>lazy</decay>
     <duration>1500</duration>
@@ -151,9 +151,8 @@
         <in_recipe>spent_xe100_haleu</in_recipe>
         <out_commods>
           <val>cooled_AR_fuel</val>
-          <val>cooled_spent_mox</val>
+          <!--val>cooled_spent_mox</val-->
         </out_commods>
-        <!-- Yucca Mountain Repository -->
         <latitude>36.8286</latitude>
         <longitude>-116.4364</longitude>
       </Storage>
@@ -170,7 +169,7 @@
         <in_recipe>spent_MMR_haleu</in_recipe>
         <out_commods>
           <val>cooled_AR_fuel</val>
-          <val>cooled_spent_mox</val>
+          <!--val>cooled_spent_mox</val-->
         </out_commods>
         <residence_time>1</residence_time>
         <latitude>36.8286</latitude>
@@ -189,7 +188,7 @@
         <in_recipe>spent_smr_fuel</in_recipe>
         <out_commods>
           <val>cooled_AR_fuel</val>
-          <val>cooled_spent_mox</val>
+          <!--val>cooled_spent_mox</val-->
         </out_commods>
         <residence_time>1</residence_time>
         <latitude>36.8286</latitude>
@@ -233,6 +232,7 @@
 </facility>
 
 <facility>
+  <name>MOX_mixer</name>
   <config>
     <Mixer>
       <in_streams>
@@ -248,11 +248,11 @@
             </item>
             <item>
               <commodity>nat_u</commodity>
-              <pref>1</pref>
+              <pref>1.0</pref>
             </item>
           </commodities>
         </stream>
-      <in_streams>
+      </in_streams>
       <out_commod>fresh_mox</out_commod>
     </Mixer>
   </config>
@@ -301,7 +301,7 @@
         </entry>
       </initialfacilitylist>
       <config>
-	<xi:include href="united_states/buildtimes/scenario14_deployinst.xml"/>
+	<xi:include href="united_states/buildtimes/xe100_mmr_voygr_nogrowth_deployinst.xml"/>
       </config>
     </institution>
 
@@ -317,4 +317,5 @@
   <xi:include href="united_states/recipes/xe100_fuel.xml#xpointer(/recipes/child::*)"/>
   <xi:include href="united_states/recipes/mmr_fuel.xml#xpointer(/recipes/child::*)"/>
   <xi:include href="united_states/recipes/voygr_fuel.xml#xpointer(/recipes/child::*)"/>
+  <xi:include href="united_states/recipes/recycle_recipes.xml#xpointer(/recipes/child::*)"/>
 </simulation>
