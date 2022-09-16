@@ -8,20 +8,20 @@
           <val>fresh_mox</val>
         </fuel_incommods>
         <fuel_inrecipes> 
-          <val>fresh_mmr_haleu</val> 
-          <val>fresh_mmr_mox</val>
+          <val>fresh_MMR_haleu</val> 
+          <val>fresh_MMR_mox</val>
         </fuel_inrecipes>
         <fuel_prefs>
           <val>1</val>
           <val>2</val>
         </fuel_prefs>
         <fuel_outcommods> 
-          <val>spent_mmr_haleu</val> 
-          <val>spent_mmr_mox</val>
+          <val>spent_MMR_haleu</val> 
+          <val>spent_MMR_mox</val>
         </fuel_outcommods>
         <fuel_outrecipes> 
-          <val>spent_mmr_haleu</val> 
-          <val>spent_mmr_mox</val>
+          <val>spent_MMR_haleu</val> 
+          <val>spent_MMR_mox</val>
         </fuel_outrecipes>
         <cycle_time>240</cycle_time>
         <refuel_time>0</refuel_time>
