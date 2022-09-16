@@ -129,6 +129,8 @@
       <Storage>
         <in_commods>
           <val>cool_spent_uox</val>
+          <val>separated_waste</val>
+          <val>cool_spent_mox</mox>
         </in_commods>
         <in_recipe>cool_spent_uox</in_recipe>
         <out_commods>
@@ -141,17 +143,18 @@
     </config>
   </facility>
   <facility>
-    <name>Xe-100CoolingPool</name>
+    <name>UOXCoolingPool</name>
     <config>
       <Storage>
         <in_commods>
           <val>spent_xe100_haleu</val>
-          <val>spent_xe100_mox</val>
+          <val>spent_smr_fuel</val>
+          <cal>spent_MMR_haleu</val>
+          <val>
         </in_commods>
-        <in_recipe>spent_xe100_haleu</in_recipe>
+        <in_recipe>spent_AR_uox</in_recipe>
         <out_commods>
-          <val>cooled_AR_fuel</val>
-          <!--val>cooled_spent_mox</val-->
+          <val>cool_AR_uox</val>
         </out_commods>
         <latitude>36.8286</latitude>
         <longitude>-116.4364</longitude>
@@ -159,36 +162,17 @@
     </config>
   </facility>
   <facility>
-    <name>MMRCoolingPool</name>
+    <name>MOXCoolingPool</name>
     <config>
       <Storage>
         <in_commods>
-          <val>spent_MMR_haleu</val>
-          <val>spent_mmr_mox</val>
+          <val>spent_MMR_mox</val>
+          <val>spent_xe100_mox</val>
+          <val>spent_smr_mox</val>
         </in_commods>
         <in_recipe>spent_MMR_haleu</in_recipe>
         <out_commods>
-          <val>cooled_AR_fuel</val>
-          <!--val>cooled_spent_mox</val-->
-        </out_commods>
-        <residence_time>1</residence_time>
-        <latitude>36.8286</latitude>
-        <longitude>-116.4364</longitude>
-      </Storage>
-    </config>
-  </facility>
-  <facility>
-    <name>VOYGRCoolingPool</name>
-    <config>
-      <Storage>
-        <in_commods>
-          <val>spent_smr_fuel</val>
-          <val>spent_smr_mox</val>
-        </in_commods>
-        <in_recipe>spent_smr_fuel</in_recipe>
-        <out_commods>
-          <val>cooled_AR_fuel</val>
-          <!--val>cooled_spent_mox</val-->
+          <val>cool_spent_mox</val>
         </out_commods>
         <residence_time>1</residence_time>
         <latitude>36.8286</latitude>
@@ -202,7 +186,7 @@
   <config>
     <Separations>
       <feed_commods>
-        <val>cool_AR_fuel</val>
+        <val>cool_AR_uox</val>
         <val>cool_spent_uox</val>
       </feed_commods>
       <feed_commod_prefs>
@@ -288,15 +272,11 @@
           <number>1</number>
         </entry>
         <entry>
-          <prototype>Xe-100CoolingPool</prototype>
+          <prototype>UOXCoolingPool</prototype>
           <number>1</number>
         </entry>
         <entry>
-          <prototype>MMRCoolingPool</prototype>
-          <number>1</number>
-        </entry>
-        <entry>
-          <prototype>VOYGRCoolingPool</prototype>
+          <prototype>MOXCoolingPool</prototype>
           <number>1</number>
         </entry>
       </initialfacilitylist>
