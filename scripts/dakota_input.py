@@ -20,6 +20,21 @@ def load_template(in_template):
 
 def render_input(xml_template, variable_dict, output_xml):
     """
+    Applies variables to the input file template
+
+    Parameters:
+    -----------
+    xml_template: str
+        file name of input file template
+    variable_dict: dict of str
+        contains the variables in the template file as keys, 
+        and the value to apply as the value
+    output_xml: str
+        file name to save the filled in template to 
+
+    Returns:
+    --------
+    null
     """
     test_template = load_template(xml_template)
     config = test_template.render(variable_dict)
