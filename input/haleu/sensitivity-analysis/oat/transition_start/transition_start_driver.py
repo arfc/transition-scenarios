@@ -55,25 +55,4 @@ os.system('cyclus -i ' + output_xml + ' -o ' + output_sqlite +
 # ----------------------------
 # Return the results to Dakota
 # ----------------------------
-results['enr_u'].function = oup.get_enriched_u_mass(output_sqlite,
-                                                    ['Xe-100', 'MMR', 'VOYGR'],
-                                                    params['ts'])
-results['haleu'].function = oup.get_enriched_u_mass(output_sqlite,
-                                                    ['Xe-100', 'MMR'],
-                                                    params['ts'])
-results['swu'].function = oup.calculate_swu(
-    output_sqlite, ['Xe-100', 'MMR', 'VOYGR'], params['ts'])
-results['haleu_swu'].function = oup.calculate_swu(
-    output_sqlite, ['Xe-100', 'MMR'], params['ts'])
-results['waste'].function = oup.get_waste_discharged(output_sqlite,
-                                                     ['Xe-100', 'MMR', 'VOYGR'],
-                                                     params['ts'],
-                                                     {'MMR': 'spent_MMR_haleu',
-                                                      'Xe-100': 'spent_xe100_haleu',
-                                                      'VOYGR': 'spent_smr_fuel'}
-                                                     )
-results['feed'].function = oup.calculate_feed(output_sqlite,
-                                              ['Xe-100', 'MMR'],
-                                              params['ts'])
-
-results.write()
+results = oup.get_all_results(results, output_sqlite)

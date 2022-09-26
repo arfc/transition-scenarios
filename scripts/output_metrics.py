@@ -495,4 +495,47 @@ def get_lwr_energy(db_file, advanced_rx):
         range(1965, 2091)).fillna(0).reset_index()
     lwr_energy['Energy'] = lwr_energy['Energy'] / 1000
     return lwr_energy
+
+def get_all_results(results, output_sqlite):
+    '''
+    Calls multiple functions in this script at the same time to get all 
+    desired results from the output files and return them to Dakota.
+
+    Parameters:
+    -----------
+    results: obj
+        results to be returned to Dakota
+    output_sqlite: str
+        file name for Cyclus output SQLite file
+
+    Returns:
+    --------
+    results: obj
+        results to be returned to Dakota
+    '''
+
+    results['enr_u'].function = get_enriched_u_mass(output_sqlite,
+                                                        ['Xe-100', 'MMR', 'VOYGR'],
+                                                        721)
+    results['haleu'].function = get_enriched_u_mass(output_sqlite,
+                                                        ['Xe-100', 'MMR'],
+                                                        721)
+    results['swu'].function = calculate_swu(
+        output_sqlite, ['Xe-100', 'MMR', 'VOYGR'], 721)
+    results['haleu_swu'].function = calculate_swu(
+        output_sqlite, ['Xe-100', 'MMR'], 721)
+    results['waste'].function = get_waste_discharged(output_sqlite,
+                                                         ['Xe-100', 'MMR', 'VOYGR'],
+                                                         721,
+                                                         {'MMR': 'spent_MMR_haleu',
+                                                          'Xe-100': 'spent_xe100_haleu',
+                                                          'VOYGR': 'spent_smr_fuel'}
+                                                         )
+    results['feed'].function = calculate_feed(output_sqlite,
+                                                  ['Xe-100', 'MMR'],
+                                                  721)
+
+    results.write()
+
+    return results
     
