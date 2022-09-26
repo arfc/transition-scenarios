@@ -26,6 +26,7 @@ variable_dict = {
     'start_transition': int(
         params['ts'])}
 output_xml = './cyclus-files/transition_start_' + str(params['ts']) + '.xml'
+output_sqlite = './cyclus-files/' + scenario_name + '.sqlite'
 inp.render_input(cyclus_template, variable_dict, output_xml)
 
 # Create DeployInst
@@ -47,10 +48,8 @@ cdi.write_deployinst(deploy_schedule,
                      str(int(params['ts'])) + "_deployinst.xml")
 
 # Run Cyclus with edited input file
-output_sqlite = './cyclus-files/' + scenario_name + '.sqlite'
-os.system('rm ' + output_sqlite)
-os.system('cyclus -i ' + output_xml + ' -o ' + output_sqlite +
-          ' --warn-limit 2')
+oup.run_cyclus(output_sqlite, output_xml)
+
 
 # ----------------------------
 # Return the results to Dakota

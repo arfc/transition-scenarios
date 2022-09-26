@@ -23,6 +23,8 @@ cyclus_template = 'mmr_share_input.xml.in'
 scenario_name = 'mmr_' + str(round(params['mmr']))
 variable_dict = {'handle': scenario_name, 'mmr': str(int(params['mmr']))}
 output_xml = './cyclus-files/mmr_share' + str(params['mmr']) + '.xml'
+output_sqlite = './cyclus-files/' + scenario_name + '.sqlite'
+
 inp.render_input(cyclus_template, variable_dict, output_xml)
 
 # Create DeployInst for advanced reactors
@@ -45,10 +47,7 @@ cdi.write_deployinst(deploy_schedule,
                      str(int(params['mmr'])) + "_deployinst.xml")
 
 # Run Cyclus with edited input file
-output_sqlite = './cyclus-files/' + scenario_name + '.sqlite'
-os.system('rm ' + output_sqlite)
-os.system('cyclus -i ' + output_xml + ' -o ' + output_sqlite +
-          ' --warn-limit 2')
+oup.run_cyclus(output_sqlite, output_xml)
 
 # ----------------------------
 # Return the results to Dakota

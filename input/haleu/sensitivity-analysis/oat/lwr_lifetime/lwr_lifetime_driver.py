@@ -25,6 +25,7 @@ scenario_name = 'lwr_' + str(round(params['lwr']))
 variable_dict = {'handle': scenario_name,
                  'lwr_lifetime': str(int(params['lwr']))}
 output_xml = './cyclus-files/lwr_lifetime_' + str(params['lwr']) + '.xml'
+output_sqlite = './cyclus-files/' + scenario_name + '.sqlite'
 inp.render_input(cyclus_template, variable_dict, output_xml)
 
 # Create DeployInst for LWRs
@@ -56,10 +57,7 @@ cdi.write_deployinst(deploy_schedule,
 
 
 # Run Cyclus with edited input file
-output_sqlite = './cyclus-files/' + scenario_name + '.sqlite'
-os.system('rm ' + output_sqlite)
-os.system('cyclus -i ' + output_xml + ' -o ' + output_sqlite +
-          ' --warn-limit 2')
+oup.run_cyclus(output_sqlite, output_xml)
 
 # ----------------------------
 # Return the results to Dakota

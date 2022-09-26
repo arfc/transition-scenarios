@@ -23,6 +23,7 @@ cyclus_template = 'xe-100_share_input.xml.in'
 scenario_name = 'xe100_' + str(round(params['xe100']))
 variable_dict = {'handle': scenario_name, 'xe100': str(int(params['xe100']))}
 output_xml = './cyclus-files/xe100_share' + str(params['xe100']) + '.xml'
+output_sqlite = './cyclus-files/' + scenario_name + '.sqlite'
 inp.render_input(cyclus_template, variable_dict, output_xml)
 
 # Create DeployInst for advanced reactors
@@ -46,10 +47,7 @@ cdi.write_deployinst(deploy_schedule,
                      str(int(params['xe100'])) + "_deployinst.xml")
 
 # Run Cyclus with edited input file
-output_sqlite = './cyclus-files/' + scenario_name + '.sqlite'
-os.system('rm ' + output_sqlite)
-os.system('cyclus -i ' + output_xml + ' -o ' + output_sqlite +
-          ' --warn-limit 2')
+oup.run_cyclus(output_sqlite, output_xml)
 
 # ----------------------------
 # Return the results to Dakota

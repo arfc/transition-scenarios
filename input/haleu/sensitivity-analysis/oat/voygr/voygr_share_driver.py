@@ -23,6 +23,7 @@ cyclus_template = 'voygr_share_input.xml.in'
 scenario_name = 'voygr_' + str(round(params['voygr']))
 variable_dict = {'handle': scenario_name, 'voygr': str(int(params['voygr']))}
 output_xml = './cyclus-files/voygr_share_' + str(params['voygr']) + '.xml'
+output_sqlite = './cyclus-files/' + scenario_name + '.sqlite'
 inp.render_input(cyclus_template, variable_dict, output_xml)
 
 # Create DeployInst for advanced reactors
@@ -45,10 +46,7 @@ cdi.write_deployinst(deploy_schedule,
                      str(int(params['voygr'])) + "_deployinst.xml")
 
 # Run Cyclus with edited input file
-output_sqlite = './cyclus-files/' + scenario_name + '.sqlite'
-os.system('rm ' + output_sqlite)
-os.system('cyclus -i ' + output_xml + ' -o ' + output_sqlite +
-          ' --warn-limit 2')
+oup.run_cyclus(output_sqlite, output_xml)
 
 # ----------------------------
 # Return the results to Dakota
