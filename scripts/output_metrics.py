@@ -500,19 +500,23 @@ def get_lwr_energy(db_file, advanced_rx):
 def get_all_results(results, output_sqlite):
     '''
     Calls multiple functions in this script at the same time to get all 
-    desired results from the output files and return them to Dakota.
+    metrics from the output files and return them to Dakota.
+    Metrics include the total mass of enriched uranium, mass of 
+    HALEU, SWU capacity, SWU capacity to produce HALEU, feed mass to 
+    produce HALEU, and the total mass of spent nuclear fuel 
+    discharged. 
 
     Parameters:
     -----------
     results: obj
-        results to be returned to Dakota
+        results passed to Dakota
     output_sqlite: str
         file name for Cyclus output SQLite file
 
     Returns:
     --------
     results: obj
-        results to be returned to Dakota
+        results passed to Dakota
     '''
 
     results['enr_u'].function = get_enriched_u_mass(output_sqlite,
@@ -540,7 +544,7 @@ def get_all_results(results, output_sqlite):
 
     return results
 
-def run_cyclus(output_sqlite, output_xml):
+def run_cyclus(output_sqlite, input_xml):
     '''
     Define the Cyclus output file name, and run cyclus with a given 
     input file name.
@@ -549,14 +553,15 @@ def run_cyclus(output_sqlite, output_xml):
     -----------
     output_sqlite: str
         name of Cyclus SQLite output file
-    output_xml: str
+    input_xml: str
         name of Cyclus xml input file 
 
     Returns:
     --------
-    
+    null 
+ 
     '''
     os.system('rm ' + output_sqlite)
-    os.system('cyclus -i ' + output_xml + ' -o ' + output_sqlite +
+    os.system('cyclus -i ' + input_xml + ' -o ' + output_sqlite +
           ' --warn-limit 2')
         
