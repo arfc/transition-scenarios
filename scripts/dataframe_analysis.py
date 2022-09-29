@@ -20,7 +20,6 @@ def add_year(df):
     df['Year'] = df['Year'].fillna(method='ffill')
     return df
 
-
 def add_zeros_columns(df, column_names):
     '''
     Adds a column of a specified name to a given dataframe
@@ -49,7 +48,6 @@ def add_zeros_columns(df, column_names):
             df[item] = 0.0
     return df
 
-
 def sum_and_add_missing_time(df):
     '''
     Sums the values of the same time step, and adds any missing time steps
@@ -70,7 +68,6 @@ def sum_and_add_missing_time(df):
     summed_df = summed_df.set_index('Time').reindex(
         np.arange(0, 1500, 1)).fillna(0).reset_index()
     return summed_df
-
 
 def find_commodity_transactions(df, commodity):
     '''
@@ -155,7 +152,6 @@ def commodity_mass_traded(transactions_df, commodity):
     total_commodity = add_year(transactions)
     return total_commodity
 
-
 def commodity_to_prototype(transactions_df, commodity, prototype):
     '''
     Finds the transactions of a specific commodity sent to a single prototype in the simulation,
@@ -220,7 +216,6 @@ def commodity_from_prototype(transactions_df, commodity, prototype):
     prototype_transactions = sum_and_add_missing_time(prototype_transactions)
     prototype_transactions = add_year(prototype_transactions)
     return prototype_transactions
-
 
 def commodity_to_LWR(transactions_df, commodity, prototype):
     '''
