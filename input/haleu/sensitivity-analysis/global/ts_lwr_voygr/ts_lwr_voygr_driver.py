@@ -19,17 +19,17 @@ params, results = di.read_parameters_file()
 # -------------------------------
 
 # Edit Cyclus input file
-cyclus_template = 'ts_lwr_xe100_input.xml.in'
+cyclus_template = 'ts_lwr_voygr_input.xml.in'
 scenario_name = 'ts_' + str(int(params['ts'])) +\
-                '_lwr_' + str(int(params['lwr'])) + '_xe100_' + \
-                str(int(params['xe100']))
+                '_lwr_' + str(int(params['lwr'])) + '_voygr_' + \
+                str(int(params['voygr']))
 variable_dict = {'handle': scenario_name,
                  'ts': str(int(params['ts'])),
                  'lwr': str(int(params['lwr'])),
-                 'xe100': str(int(params['xe100']))}
+                 'voygr': str(int(params['voygr']))}
 output_xml = './cyclus-files/ts_' + str(int(params['ts'])) +\
              '_lwr_' + str(int(params['lwr'])) +\
-             '_xe100_' + str(int(params['xe100'])) + '.xml'
+             '_voygr_' + str(int(params['voygr'])) + '.xml'
 output_sqlite = './cyclus-files/' + scenario_name + '.sqlite'
 inp.render_input(cyclus_template, variable_dict, output_xml)
 
@@ -41,7 +41,7 @@ DI_dict = cdi.write_lwr_deployinst(
     "../../../../../database/lwr_power_order.txt")
 cdi.write_deployinst(DI_dict, './cyclus-files/ts_' + str(int(params['ts'])) +\
                               '_lwr_' + str(int(params['lwr'])) +
-                              '_xe100_' + str(int(params['xe100'])) +
+                              '_voygr_' + str(int(params['voygr'])) +
                               '_deployinst.xml')
 
 # Create DeployInst for advanced reactors
@@ -51,7 +51,7 @@ demand_equation = np.zeros(duration)
 demand_equation[int(params['ts']):] = 87198.156
 lwr_DI = cdi.convert_xml_to_dict('./cyclus-files/ts_' + str(int(params['ts'])) +\
                               '_lwr_' + str(int(params['lwr'])) +
-                              '_xe100_' + str(int(params['xe100'])) +
+                              '_voygr_' + str(int(params['voygr'])) +
                               '_deployinst.xml')
 deploy_schedule = cdi.write_AR_deployinst(
     lwr_DI,
@@ -59,12 +59,12 @@ deploy_schedule = cdi.write_AR_deployinst(
     duration,
     reactor_prototypes,
     demand_equation,
-    'Xe-100',
-    int(params['xe100']))
+    'VOYGR',
+    int(params['voygr']))
 cdi.write_deployinst(deploy_schedule, "./cyclus-files/AR_DeployInst_ts_" +
                                       str(int(params['ts'])) + "_lwr_" +
                                       str(int(params['lwr'])) +
-                                      "_xe100_" + str(int(params['xe100'])) +
+                                      "_voygr_" + str(int(params['voygr'])) +
                                       ".xml")
 
 # Run Cyclus with edited input file
