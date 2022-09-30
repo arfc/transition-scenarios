@@ -20,13 +20,11 @@ variables,
 interface,							
 	fork							
 	  asynchronous
-            evaluation_concurrency = 4 
-          #  analysis_concurrency = 1
+            evaluation_concurrency = 8 
           analysis_drivers = 'python mmr_share_driver.py'
         
 
 responses,				
-	#num_objective_functions = 1	
 	descriptors = 'enr_u' 'haleu' 'swu' 'haleu_swu' 'waste' 'feed'
 	response_functions = 6
 	  scalar_responses = 6

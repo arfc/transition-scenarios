@@ -19,37 +19,35 @@ params, results = di.read_parameters_file()
 # -------------------------------
 
 # Edit Cyclus input file
-cyclus_template = 'transition_start_input.xml.in'
-scenario_name = 'ty_' + str(round(params['ts']))
-variable_dict = {
-    'handle': scenario_name,
-    'start_transition': int(
-        params['ts'])}
-output_xml = './cyclus-files/transition_start_' + str(params['ts']) + '.xml'
+cyclus_template = 'xe-100_share_input.xml.in'
+scenario_name = 'xe100_' + str(round(params['xe100']))
+variable_dict = {'handle': scenario_name, 'xe100': str(int(params['xe100']))}
+output_xml = './cyclus-files/xe100_share' + str(params['xe100']) + '.xml'
 output_sqlite = './cyclus-files/' + scenario_name + '.sqlite'
 inp.render_input(cyclus_template, variable_dict, output_xml)
 
-# Create DeployInst
+# Create DeployInst for advanced reactors
 duration = 1500
 reactor_prototypes = {'Xe-100': (76, 720), 'MMR': (5, 240), 'VOYGR': (73, 720)}
 demand_equation = np.zeros(duration)
-demand_equation[int(params['ts']):] = 87198.156
+demand_equation[721:] = 87198.156
+
 lwr_DI = cdi.convert_xml_to_dict(
     "../../../inputs/united_states/buildtimes/UNITED_STATES_OF_AMERICA/deployinst.xml")
 
-deploy_schedule = cdi.write_AR_deployinst(
-    lwr_DI,
-    "../../../inputs/united_states/reactors/",
-    duration,
-    reactor_prototypes,
-    demand_equation)
+deploy_schedule = cdi.write_AR_deployinst(lwr_DI,
+                                          "../../../inputs/united_states/reactors/",
+                                          duration,
+                                          reactor_prototypes,
+                                          demand_equation,
+                                          'Xe-100',
+                                          int(params['xe100']))
 cdi.write_deployinst(deploy_schedule,
-                     "./cyclus-files/ty_" +
-                     str(int(params['ts'])) + "_deployinst.xml")
+                     "./cyclus-files/xe100_" +
+                     str(int(params['xe100'])) + "_deployinst.xml")
 
 # Run Cyclus with edited input file
 oup.run_cyclus(output_sqlite, output_xml)
-
 
 # ----------------------------
 # Return the results to Dakota
