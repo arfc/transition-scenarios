@@ -1,0 +1,31 @@
+# One-at-a-time analysis for changing transition start time
+# Multidimensional parameter study 
+
+environment, 
+	tabular_data 
+		tabular_data_file = 'xe100_burnup.dat'
+	output_file 'xe100_burnup.out'
+	write_restart 'xe100_burnup.rst'
+
+method,						
+	multidim_parameter_study
+    partitions = 10
+
+variables,					
+	continuous_design = 1			
+    lower_bounds      0   
+    upper_bounds      50    
+    descriptors       'xe100_burnup'     
+
+interface,							
+	fork							
+          analysis_drivers = 'python xe-100_burnup_driver.py'
+	  asynchronous
+            evaluation_concurrency =  8
+
+responses,				
+	descriptors = 'enr_u' 'haleu' 'swu' 'haleu_swu' 'waste' 'feed'
+	response_functions = 6
+	  scalar_responses = 6
+	no_gradients
+	no_hessians
