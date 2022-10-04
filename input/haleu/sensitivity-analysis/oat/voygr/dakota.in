@@ -3,9 +3,9 @@
 
 environment, 
 	tabular_data 
-		tabular_data_file = 'lwr_lifetime.dat'
-	output_file 'lwr_lifetime.out'
-	write_restart 'lwr_lifetime.rst'
+		tabular_data_file = 'voygr_build.dat'
+	output_file 'voygr_build.out'
+	write_restart 'voygr_build.rst'
 
 method,						
 	multidim_parameter_study
@@ -15,18 +15,16 @@ variables,
 	continuous_design = 1			
     lower_bounds      0   
     upper_bounds      50    
-    descriptors       'lwr'     
+    descriptors       'voygr'     
 
 interface,							
 	fork							
 	  asynchronous
-            evaluation_concurrency = 8
-            analysis_concurrency = 1
-          analysis_drivers = 'python lwr_lifetime_driver.py'
+            evaluation_concurrency = 8 
+          analysis_drivers = 'python voygr_share_driver.py'
         
 
 responses,				
-	#num_objective_functions = 1	
 	descriptors = 'enr_u' 'haleu' 'swu' 'haleu_swu' 'waste' 'feed'
 	response_functions = 6
 	  scalar_responses = 6

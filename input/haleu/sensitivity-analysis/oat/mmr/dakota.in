@@ -3,30 +3,28 @@
 
 environment, 
 	tabular_data 
-		tabular_data_file = 'lwr_lifetime.dat'
-	output_file 'lwr_lifetime.out'
-	write_restart 'lwr_lifetime.rst'
+		tabular_data_file = 'mmr_build.dat'
+	output_file 'mmr_build.out'
+	write_restart 'mmr_build.rst'
 
 method,						
 	multidim_parameter_study
-    partitions = 1
+    partitions = 10
 
 variables,					
 	continuous_design = 1			
     lower_bounds      0   
     upper_bounds      50    
-    descriptors       'lwr'     
+    descriptors       'mmr'     
 
 interface,							
 	fork							
 	  asynchronous
-            evaluation_concurrency =  8 8 8 8 8 8
-            analysis_concurrency = 1
-          analysis_drivers = 'python lwr_lifetime_driver.py'
+            evaluation_concurrency = 8 
+          analysis_drivers = 'python mmr_share_driver.py'
         
 
 responses,				
-	#num_objective_functions = 1	
 	descriptors = 'enr_u' 'haleu' 'swu' 'haleu_swu' 'waste' 'feed'
 	response_functions = 6
 	  scalar_responses = 6

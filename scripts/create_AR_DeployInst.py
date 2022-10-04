@@ -4,6 +4,8 @@ import pandas as pd
 import xmltodict
 from pprint import pprint
 import math
+import os
+import sys
 
 
 def convert_xml_to_dict(filename):
@@ -25,7 +27,10 @@ def convert_xml_to_dict(filename):
     return xml_dict
 
 
-def get_deployinst_dict(deployinst_dict, power_dict, path="../input/haleu/inputs/united_states/reactors/"):
+def get_deployinst_dict(
+        deployinst_dict,
+        power_dict,
+        path="../input/haleu/inputs/united_states/reactors/"):
     '''
     Removes any non-power producing prototypes from the dictionary of
     the DeployInst. This also removes the 'val' level of information.
@@ -40,7 +45,7 @@ def get_deployinst_dict(deployinst_dict, power_dict, path="../input/haleu/inputs
         dictionary of DeployInst information. This dictionary is assumed
         to be nested, with the top key being 'DeployInst', the keys of
         the next level being 'prototypes', 'build_times', 'n_build',
-        and optionally 'lifetimes'. Each of thos dictionaries will be
+        and optionally 'lifetimes'. Each of those rx_info  dictionaries are
         nested with key of 'val', and value of a list of the integer
         values.
     reactor_dict: dict
@@ -65,7 +70,8 @@ def get_deployinst_dict(deployinst_dict, power_dict, path="../input/haleu/inputs
             deployinst_dict['DeployInst']['prototypes']['val']):
         if val in power_dict.keys():
             if 'lifetimes' in deployinst_dict['DeployInst']:
-                deployed_dict['lifetime'].append(int(deployinst_dict['DeployInst']['lifetimes']['val'][indx]))
+                deployed_dict['lifetime'].append(int(
+                    deployinst_dict['DeployInst']['lifetimes']['val'][indx]))
             else:
                 deployed_dict['lifetime'].append(get_lifetime(path, val))
             deployed_dict['prototypes'].append(val)
@@ -76,36 +82,32 @@ def get_deployinst_dict(deployinst_dict, power_dict, path="../input/haleu/inputs
     return deployed_dict
 
 
-def get_pris_powers(country, path, year):
+def get_powers(path):
     '''
-    Create dictionary of the reactor units from a select country
-    in the PRIS database and
-    their corresponding rated power
-    output from the reactors_pris_XXXX.csv file for the corresponding year
+    Read through each of the xml files in a given path to get the power
+    output of each reactor facility. Getting this information from these
+    files accounts for any capacity factors, which are not captured in
+    the PRIS database.
 
     Parameters:
     -----------
-    country: str
-        name of country to get LWR data for
     path: str
-        relative path to the pris csv file
-    year: int
-        year of data to pull from
+        directory name containing xml files for reactors
 
     Returns:
     --------
-    pris_power: dict
+    rx_power: dict
         dictionary of reactor names and rated powers, the keys are the reactor
-        names (strs), the values are the rated powers (ints). Any spaces
+        names (strs), the values are their power outputs (ints). Any spaces
         in the keys are replaced with underscores.
     '''
-    pris_power = {}
-    reactors = pd.read_csv(path + 'reactors_pris_' + str(year) + '.csv')
-    reactors = reactors.loc[reactors['Country'] == country]
-    for index, row in reactors.iterrows():
-        pris_power[row['Unit']] = row['RUP [MWe]']
-    pris_power = {k.replace(' ', '_'): v for k, v in pris_power.items()}
-    return pris_power
+    rx_power = {}
+    for filename in os.listdir(path):
+        file = os.path.join(path, filename)
+        rx_info = convert_xml_to_dict(file)
+        rx_power.update(
+            {filename[:-4]: rx_info['facility']['config']['Reactor']['power_cap']})
+    return rx_power
 
 
 def get_lifetime(path, name):
@@ -163,7 +165,8 @@ def get_deployed_power(power_dict, deployed_dict, sim_duration):
         for i, v in enumerate(deployed_dict['prototypes']):
             prototype_power = np.zeros(len(t))
             prototype_power[deployed_dict['build_times'][i]: deployed_dict['build_times'][
-                i] + deployed_dict['lifetime'][i]] += power_dict[v] * deployed_dict['n_build'][i]
+                i] + deployed_dict['lifetime'][i]] += \
+                float(power_dict[v] * deployed_dict['n_build'][i])
             power_profile += prototype_power
     return t, power_profile
 
@@ -219,9 +222,13 @@ def determine_deployment_order(reactor_prototypes):
     return reactor_order
 
 
-def determine_deployment_schedule(power_gap, reactor_prototypes):
+def determine_deployment_schedule(
+        power_gap,
+        reactor_prototypes,
+        prototype=None,
+        share=0):
     '''
-    Define the deployment schedule for a single or multiple
+    Define the deployment schedule for one or more
     reactor prototypes based on a gap in production
     and demand. If multiple prototypes are provided, then
     they will be deployed in preferential order based on
@@ -235,6 +242,13 @@ def determine_deployment_schedule(power_gap, reactor_prototypes):
         information about reactor prototypes to be deployed. The
         keys are the prototype names (strs) and the values are
         a tuple of the power output and lifetime (ints)
+    prototype: str
+        name of prototype to specify new market share of. If not
+        indicated then prototypes in reactor_prototypes are
+        deployed preferentially based on power output
+    share: int
+        percent of new build share to be occupied by specified
+        prototype
 
     Returns:
     --------
@@ -247,9 +261,26 @@ def determine_deployment_schedule(power_gap, reactor_prototypes):
                                       'n_build': {'val': []},
                                       'lifetimes': {'val': []}}}
     reactors = determine_deployment_order(reactor_prototypes)
+    if prototype is not None:
+        reactors.remove(prototype)
     for index, value in enumerate(power_gap):
         if value <= 0:
             continue
+        if prototype is not None:
+            required_share = value * (share / 100)
+            num_rxs = math.ceil(
+                required_share /
+                reactor_prototypes[prototype][0])
+            power_gap[index:index + reactor_prototypes[prototype][1]] = \
+                power_gap[index:index + reactor_prototypes[prototype]
+                          [1]] - reactor_prototypes[prototype][0] * num_rxs
+            value = value - reactor_prototypes[prototype][0] * num_rxs
+            deploy_schedule['DeployInst']['prototypes']['val'].append(
+                prototype)
+            deploy_schedule['DeployInst']['n_build']['val'].append(num_rxs)
+            deploy_schedule['DeployInst']['build_times']['val'].append(index)
+            deploy_schedule['DeployInst']['lifetimes']['val'].append(
+                reactor_prototypes[prototype][1])
         for reactor in reactors:
             if reactor == reactors[-1]:
                 # for the last reactor round up to ensure gap is fully met, even if
@@ -257,7 +288,7 @@ def determine_deployment_schedule(power_gap, reactor_prototypes):
                 num_rxs = math.ceil(value / reactor_prototypes[reactor][0])
             else:
                 num_rxs = math.floor(value / reactor_prototypes[reactor][0])
-            if num_rxs == 0:
+            if num_rxs <= 0:
                 continue
             power_gap[index:index + reactor_prototypes[reactor][1]] = \
                 power_gap[index:index + reactor_prototypes[reactor]
@@ -295,3 +326,100 @@ def write_deployinst(deploy_schedule, out_path):
     '''
     with open(out_path, 'w') as f:
         f.write(xmltodict.unparse(deploy_schedule, pretty=True))
+
+
+def write_lwr_deployinst(lwr_param, DI_file, lwr_order):
+    '''
+    Create a DeployInst for the LWRs in the simulation using different
+    lifetimes than what is defined from creating the DeployInst via
+    scripts/create_cyclus_input.py. The first agent in the DeployInst
+    is the SinkHLW, leading to the first lifetime item being 600
+    time steps.
+
+    Parameters:
+    -----------
+    lwr_param: float
+        percent of LWRs to receive lifetime extensions
+    DI_file: str
+        file name and path to DeployInst file for LWRs to base information
+        off of.
+    lwr_order: str
+        path and name of file containing LWRs ordered by power output.
+
+    Returns:
+    --------
+    DI_dict: dict
+        nested dictionary, contains information for the DeployInst in
+        the form {'DeployInst':{'prototypes':{'val':[]}, 'n_build':
+        {'val':[]}, 'build_times':{'val':[]},'lifetimes':{'val':[]}}}.
+        The values in the inner-most dict are ints
+    '''
+    DI_dict = convert_xml_to_dict(DI_file)
+    DI_dict['DeployInst']['lifetimes'] = {'val': []}
+    DI_dict['DeployInst']['lifetimes']['val'] = np.repeat(720, 116)
+    DI_dict['DeployInst']['lifetimes']['val'][0] = 600
+
+    with open(lwr_order, 'r') as f:
+        lwrs = f.readlines()
+    for index, item in enumerate(lwrs):
+        lwrs[index] = item.strip("\n")
+    lwrs_extended = lwrs[:int(lwr_param) + 1]
+
+    for lwr in lwrs_extended:
+        index = DI_dict['DeployInst']['prototypes']['val'].index(lwr)
+        DI_dict['DeployInst']['lifetimes']['val'][index] = 960
+    return DI_dict
+
+
+def write_AR_deployinst(
+        lwr_DI,
+        lwr_path,
+        duration,
+        reactor_prototypes,
+        demand_eq,
+        reactor=None,
+        build_share=0):
+    ''''
+    Creates the DeployInst for deployment of advanced reactors.
+
+    Parameters:
+    -----------
+    lwr_DI: dict
+        dictionary of the DeployInst defining the deployment of LWRs
+    lwr_path: str
+        path to directory containing xml files defining each LWR in
+        the simulation
+    duration: int
+        number of timesteps in the simulation
+    reactor_prototypes: dict
+        dictionary of information about prototypes in the form
+        {name(str): (power(int), lifetime(int))}
+    demand_eq: array
+        energy demand at each time step in the simulation, length
+        must match the value of duration
+    reactor: str
+        name of prototype of which to specify build share
+    build_share: int
+        percent of build share to apply for reactor
+
+
+    Returns:
+    --------
+    deploy_schedule: dict
+        nested dictionary, contains information for the DeployInst in
+        the form {'DeployInst':{'prototypes':{'val':[]}, 'n_build':
+        {'val':[]}, 'build_times':{'val':[]},'lifetimes':{'val':[]}}}.
+        The values in the inner-most dict are ints
+    '''
+    lwr_powers = get_powers(lwr_path)
+    deployed_lwr_dict = get_deployinst_dict(
+        lwr_DI, lwr_powers, lwr_path)
+    time, deployed_power = get_deployed_power(lwr_powers,
+                                              deployed_lwr_dict,
+                                              duration)
+    power_gap = determine_power_gap(deployed_power, demand_eq)
+    deploy_schedule = determine_deployment_schedule(power_gap,
+                                                    reactor_prototypes,
+                                                    reactor,
+                                                    build_share)
+    return deploy_schedule

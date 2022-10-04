@@ -136,8 +136,8 @@ def commodity_mass_traded(transactions_df, commodity):
 
     Parameters:
     -----------
-    transactions: dataframe
-        dataframe of transactions of the simulation
+    transactions_df: dataframe
+        dataframe of all transactions
     commodity: str
         commodity name
 

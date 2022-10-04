@@ -8,6 +8,7 @@ from cymetric import tools
 from cymetric import timeseries
 from cymetric import filters
 
+
 def get_metrics(db_file):
     '''
     Opens database using cymetric and evaluates metrics
@@ -26,6 +27,7 @@ def get_metrics(db_file):
     db = cym.dbopen(db_file)
     metrics_evaler = cym.Evaluator(db, write=False)
     return metrics_evaler
+
 
 def get_lwr_totals(db_file, non_lwr_prototypes):
     '''
@@ -145,7 +147,9 @@ def get_prototype_totals(db_file, non_lwr_prototypes, prototypes):
             prototypes_df = prototypes_df.rename(
                 columns={prototype: prototype + '_enter'})
             prototypes_df[prototype +
-                          '_exit'] = np.zeros(len(prototypes_df[prototype + '_enter']))
+                          '_exit'] = np.zeros(
+                                              len(prototypes_df[prototype +
+                                                                '_enter']))
         prototypes_df[prototype +
                       '_total'] = (prototypes_df[prototype +
                                                  '_enter'] +
@@ -155,6 +159,7 @@ def get_prototype_totals(db_file, non_lwr_prototypes, prototypes):
         prototypes_df['advrx_total'] += prototypes_df[prototype + '_total']
 
     return prototypes_df
+
 
 def get_transactions(db_file):
     '''
@@ -179,6 +184,7 @@ def get_transactions(db_file):
     transactions = tools.add_missing_time_step(
         transactions, evaler.eval('TimeList'))
     return transactions
+
 
 def add_receiver_prototype(db_file):
     '''
@@ -213,7 +219,10 @@ def add_receiver_prototype(db_file):
     receiver_prototype = pd.merge(
         trans_resources, agents[['SimId', 'ReceiverId', 'Prototype']], on=[
             'SimId', 'ReceiverId']).sort_values(by=['Time', 'TransactionId']).reset_index(drop=True)
+    receiver_prototype = receiver_prototype.rename(
+        columns={'Prototype': 'ReceiverPrototype'})
     return receiver_prototype
+
 
 def get_annual_electricity(db_file):
     '''
@@ -315,8 +324,8 @@ def get_lwr_energy(db_file, advanced_rx):
     -----------
     db_file: str
         SQLite database from Cyclus
-    advanced_rx: str
-        name of advanced reactor prototype also present in the simulation
+    advanced_rx: list of str
+        name(s) of advanced reactor prototype also present in the simulation
 
     Returns:
     --------
@@ -331,7 +340,7 @@ def get_lwr_energy(db_file, advanced_rx):
     energy = evaler.eval('AnnualElectricityGeneratedByAgent')
     merged_df = pd.merge(energy, agents, on=['SimId', 'AgentId'])
     merged_df['Year'] = merged_df['Year'] + 1965
-    lwr_energy = merged_df.loc[merged_df['Prototype'] != advanced_rx]
+    lwr_energy = merged_df.loc[~merged_df['Prototype'].isin(advanced_rx)]
     lwr_energy = lwr_energy.groupby(['Year']).Energy.sum().reset_index()
     lwr_energy = lwr_energy.set_index('Year').reindex(
         range(1965, 2091)).fillna(0).reset_index()
