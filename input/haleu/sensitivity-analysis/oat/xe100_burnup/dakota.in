@@ -8,20 +8,24 @@ environment,
 	write_restart 'xe100_burnup.rst'
 
 method,						
-	multidim_parameter_study
-    partitions = 10
-
+        list_parameter_study
+          list_of_points =  28 
+                            56
+                            84
+                           112 
+                           140 
+                           151 
+                           168
+                           185
 variables,					
 	continuous_design = 1			
-    lower_bounds      0   
-    upper_bounds      50    
     descriptors       'xe100_burnup'     
 
 interface,							
 	fork							
-          analysis_drivers = 'python xe-100_burnup_driver.py'
+          analysis_drivers = 'python xe100_burnup_driver.py'
 	  asynchronous
-            evaluation_concurrency =  8
+            evaluation_concurrency = 8 
 
 responses,				
 	descriptors = 'enr_u' 'haleu' 'swu' 'haleu_swu' 'waste' 'feed'
