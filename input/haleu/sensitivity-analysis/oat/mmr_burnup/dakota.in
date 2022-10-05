@@ -8,14 +8,19 @@ environment,
 	write_restart 'mmr_burnup.rst'
 
 method,						
-	multidim_parameter_study
-    partitions = 10
+	list_parameter_study
+          list_of_points = 41
+                           62
+                           74
+                           78
+                           82
+                           86
+                           90
+                          
 
 variables,					
-	continuous_design = 1			
-    lower_bounds      0   
-    upper_bounds      50    
-    descriptors       'mmr_bu'     
+    continuous_design = 1			
+    descriptors       'mmr_burnup'     
 
 interface,							
 	fork							

@@ -20,10 +20,10 @@ params, results = di.read_parameters_file()
 
 # Edit Cyclus input file
 cyclus_template = 'mmr_burnup_input.xml.in'
-scenario_name = 'mmr_burnup' + str(round(params['mmr_burnup']))
+scenario_name = 'mmr_burnup_' + str(int(params['mmr_burnup']))
 variable_dict = {'handle': scenario_name, 
                  'mmr_burnup': str(int(params['mmr_burnup']))}
-output_xml = './cyclus-files/mmr_burnup' + str(params['mmr_burnup']) + '.xml'
+output_xml = './cyclus-files/' + scenario_name + '.xml'
 output_sqlite = './cyclus-files/' + scenario_name + '.sqlite'
 
 inp.render_input(cyclus_template, variable_dict, output_xml)

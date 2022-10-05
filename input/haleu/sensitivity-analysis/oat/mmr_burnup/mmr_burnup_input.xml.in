@@ -43,7 +43,7 @@
 
   <xi:include href="united_states/buildtimes/inclusions.xml#xpointer(/inclusions/child::*)"/>
   <xi:include href="united_states/reactors/xenergy_xe100.xml"/>
-  <xi:include href="../sensitivity-analysis/oat//mmr_burnup/cyclus-files/mmr_burnup_{{mmr_burnup}}.xml"/>
+  <xi:include href="../sensitivity-analysis/oat//mmr_burnup/cyclus-files/mmr_{{mmr_burnup}}.xml"/>
   <xi:include href="united_states/reactors/nuscale_voygr.xml"/>
   <facility>
     <name>Sink_HLW</name>
