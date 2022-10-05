@@ -61,10 +61,6 @@ lwr_DI = cdi.convert_xml_to_dict("./cyclus-files/lwr_" +
                                  '_deployinst.xml')
 
 
-lwr_powers = cdi.get_pris_powers(
-    'UNITED STATES OF AMERICA',
-    "../../../../../database/",
-    2020)
 deploy_schedule = cdi.write_AR_deployinst(
     lwr_DI,
     "../../../inputs/united_states/reactors/",
