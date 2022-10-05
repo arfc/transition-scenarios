@@ -36,8 +36,8 @@
       <name>ManagerInst</name>
     </spec>
     <spec>
-      <lib>cycamore</lib>
-      <name>GrowthRegion</name>
+      <lib>agents</lib>
+      <name>NullRegion</name>
     </spec>
   </archetypes>
 
@@ -193,22 +193,7 @@
   <region>
     <name>United States</name>
     <config>
-    <GrowthRegion>
-      <growth>
-        <item>
-          <commod>power</commod>
-          <piecewise_function>
-            <piece>
-              <start>721</start>
-              <function>
-                <type>linear</type>
-                <params>0 89456.55</params>
-              </function>
-            </piece>
-          </piecewise_function>
-        </item>
-      </growth>
-      </GrowthRegion>
+      <NullRegion/>
     </config>
     
     <institution>
