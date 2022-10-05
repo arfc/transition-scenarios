@@ -47,7 +47,7 @@ duration = 1500
 reactor_prototypes = {'Xe-100': (76, 720), 'MMR': (5, 240), 'VOYGR': (73, 720)}
 demand_equation = np.zeros(duration)
 demand_equation[int(params['ts']):] = 87198.156
-lwr_DI = cdi.convert_xml_to_dict("./cyclus-files/lwr_" +
+lwr_DI = cdi.convert_xml_to_dict("./cyclus-files/ts_" +
                                  str(int(params['ts'])) +
                                 '_lwr_' +
                                 str(int(params['lwr'])) +
