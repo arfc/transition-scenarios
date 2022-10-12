@@ -221,6 +221,39 @@ def determine_deployment_order(reactor_prototypes):
         prototypes.pop(max_power_prototype, None)
     return reactor_order
 
+def update_di(di, prototype, num_rxs, build_time, lifetime):
+    '''
+    Update a dictionary of a DeployInst
+
+    Parameters:
+    -----------
+    di: dictionary 
+        dictionary defining the DeployInst, the top-level key 
+        is 'DeployInst', the next level keys are 'prototypes',
+        'n_build', 'lifetimes', and 'build_times'. Each of the 
+        second level keys have a nested dictionary of 
+        'val':list
+    prototype: str 
+        name of prototype to be deployed
+    num_rxs: int
+        number of prototypes to be deployed 
+    build_time: int 
+        time step to deploy the prototype
+    lifetime: int 
+        lifetime of the prototype
+    
+    Returns:
+    --------
+    di: dictionary 
+        updated dictionary to define the DeployInst
+    '''
+    di['DeployInst']['prototypes']['val'].append(prototype)
+    di['DeployInst']['n_build']['val'].append(num_rxs)
+    di['DeployInst']['build_times']['val'].append(build_time)
+    di['DeployInst']['lifetimes']['val'].append(lifetime)
+    
+    return di
+
 
 def determine_deployment_schedule(
         power_gap,
@@ -275,12 +308,7 @@ def determine_deployment_schedule(
                 power_gap[index:index + reactor_prototypes[prototype]
                           [1]] - reactor_prototypes[prototype][0] * num_rxs
             value = value - reactor_prototypes[prototype][0] * num_rxs
-            deploy_schedule['DeployInst']['prototypes']['val'].append(
-                prototype)
-            deploy_schedule['DeployInst']['n_build']['val'].append(num_rxs)
-            deploy_schedule['DeployInst']['build_times']['val'].append(index)
-            deploy_schedule['DeployInst']['lifetimes']['val'].append(
-                reactor_prototypes[prototype][1])
+            deploy_schedule = update_di(deploy_schedule, reactor, num_rxs, index, reactor_prototypes[reactor][1])
         for reactor in reactors:
             if reactor == reactors[-1]:
                 # for the last reactor round up to ensure gap is fully met, even if
@@ -294,11 +322,7 @@ def determine_deployment_schedule(
                 power_gap[index:index + reactor_prototypes[reactor]
                           [1]] - reactor_prototypes[reactor][0] * num_rxs
             value = value - reactor_prototypes[reactor][0] * num_rxs
-            deploy_schedule['DeployInst']['prototypes']['val'].append(reactor)
-            deploy_schedule['DeployInst']['n_build']['val'].append(num_rxs)
-            deploy_schedule['DeployInst']['build_times']['val'].append(index)
-            deploy_schedule['DeployInst']['lifetimes']['val'].append(
-                reactor_prototypes[reactor][1])
+            deploy_schedule = update_di(deploy_schedule, reactor, num_rxs, index, reactor_prototypes[reactor][1])
 
     return deploy_schedule
 
