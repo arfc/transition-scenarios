@@ -87,7 +87,8 @@ def get_powers(path):
     Read through each of the xml files in a given path to get the power
     output of each reactor facility. Getting this information from these
     files accounts for any capacity factors, which are not captured in
-    the PRIS database.
+    the PRIS database. Assumes that all xml files in the specified 
+    directory are for a Cycamore reactor. 
 
     Parameters:
     -----------
@@ -104,7 +105,10 @@ def get_powers(path):
     rx_power = {}
     for filename in os.listdir(path):
         file = os.path.join(path, filename)
+        if file[-4:] != ".xml":
+            continue
         rx_info = convert_xml_to_dict(file)
+
         rx_power.update(
             {filename[:-4]: rx_info['facility']['config']['Reactor']['power_cap']})
     return rx_power
@@ -315,6 +319,8 @@ def deploy_with_share(reactor_prototypes, shares, power, reactor):
     num_rxs = math.ceil(
             required_share /
             reactor_prototypes[reactor][0])
+    if num_rxs <=0:
+        num_rxs = 0
     
     return num_rxs
 
