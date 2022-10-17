@@ -319,8 +319,6 @@ def deploy_with_share(reactor_prototypes, shares, power, reactor):
     num_rxs = math.ceil(
             required_share /
             reactor_prototypes[reactor][0])
-    if num_rxs <=0:
-        num_rxs = 0
     
     return num_rxs
 
@@ -350,10 +348,8 @@ def deploy_without_share(prototype, reactors, reactor_prototypes, power):
         num_rxs = math.ceil(power / reactor_prototypes[prototype][0])
     else:
         num_rxs = math.floor(power / reactor_prototypes[prototype][0])
-    if num_rxs <= 0:
-        num_rxs = 0
 
-    return num_rxs                      
+    return num_rxs    
 
 def determine_deployment_schedule(
         power_gap,
@@ -389,48 +385,40 @@ def determine_deployment_schedule(
                                       'n_build': {'val': []},
                                       'lifetimes': {'val': []}}}
     reactors = determine_deployment_order(reactor_prototypes)
+    non_shares = reactors.copy()
     if shares is not None:
         for reactor in shares:
-            reactors.remove(reactor)
+            non_shares.remove(reactor)
     for index, value in enumerate(power_gap):
         if value <= 0:
             continue
-        if shares is not None:
-            for reactor in shares:
-                previous_time = index - reactor_prototypes[reactor][1]
-                if previous_time in deploy_schedule['DeployInst']['build_times']['val']:
-                    previous_index = [ii for ii,e in 
-                                      enumerate(deploy_schedule['DeployInst']['build_times']['val']) if 
-                                     e == previous_time]
-                    for item in previous_index:
-                        if deploy_schedule['DeployInst']['prototypes']['val'][item] == reactor:
-                            num_rxs = deploy_schedule['DeployInst']['n_build']['val'][item]
-
-                            power_gap, value = update_power_demand(power_gap, index, value, num_rxs, reactor_prototypes, reactor)
-                            deploy_schedule = update_di(deploy_schedule, reactor, num_rxs, index,
-                                                           reactor_prototypes[reactor][1])
-
-                num_rxs = deploy_with_share(reactor_prototypes, shares, value, reactor)
-                power_gap, value = update_power_demand(power_gap, index, value, num_rxs, reactor_prototypes, reactor)
-                deploy_schedule = update_di(deploy_schedule, reactor, num_rxs, index, reactor_prototypes[reactor][1])
-        
+        #redeploy reactors
         for reactor in reactors:
-            #redeploy reactors
             previous_time = index - reactor_prototypes[reactor][1]
             if previous_time in deploy_schedule['DeployInst']['build_times']['val']:
                 previous_index = [ii for ii,e in 
-                                      enumerate(deploy_schedule['DeployInst']['build_times']['val']) if 
-                                     e == previous_time]
+                                  enumerate(deploy_schedule['DeployInst']['build_times']['val']) if 
+                                 e == previous_time]
                 for item in previous_index:
                     if deploy_schedule['DeployInst']['prototypes']['val'][item] == reactor:
+                        print('redeploy', reactor, value)
                         num_rxs = deploy_schedule['DeployInst']['n_build']['val'][item]
-
                         power_gap, value = update_power_demand(power_gap, index, value, num_rxs, reactor_prototypes, reactor)
                         deploy_schedule = update_di(deploy_schedule, reactor, num_rxs, index,
                                                            reactor_prototypes[reactor][1])
-            #Deploy for new demand
-            num_rxs = deploy_without_share(reactor, reactors, reactor_prototypes, value)
-            if num_rxs == 0:
+            print('end redeployment', index, value, reactor)
+        #Deploy new reactors
+        if shares is not None:
+            for reactor in shares:
+                num_rxs = deploy_with_share(reactor_prototypes, shares, value, reactor)
+                if num_rxs <= 0:
+                    continue
+                power_gap, value = update_power_demand(power_gap, index, value, num_rxs, reactor_prototypes, reactor)
+                deploy_schedule = update_di(deploy_schedule, reactor, num_rxs, index, reactor_prototypes[reactor][1])
+        
+        for reactor in non_shares:
+            num_rxs = deploy_without_share(reactor, non_shares, reactor_prototypes, value)
+            if num_rxs <= 0:
                 continue
             power_gap, value = update_power_demand(power_gap, index, value, num_rxs, reactor_prototypes, reactor)
             deploy_schedule = update_di(deploy_schedule, reactor, num_rxs, index, reactor_prototypes[reactor][1])
