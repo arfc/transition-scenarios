@@ -7,6 +7,7 @@ import sys
 sys.path.insert(0, '../')
 import create_AR_DeployInst as di
 
+
 class Test_static_info(unittest.TestCase):
     def setUp(self):
         '''
@@ -51,9 +52,9 @@ class Test_static_info(unittest.TestCase):
             'DeployInst': {
                 'prototypes': {
                     'val': [
-                        'MMR',
-                        'Xe-100',
-                        'VOYGR']},
+                        'Type2',
+                        'Type1',
+                        'Type3']},
                 'build_times': {
                     'val': [
                         '0',
@@ -64,8 +65,8 @@ class Test_static_info(unittest.TestCase):
                         '1',
                         '1',
                         '1']},
-                'lifetimes':{
-                    'val':[
+                'lifetimes': {
+                    'val': [
                         '720',
                         '240',
                         '360'
@@ -93,7 +94,11 @@ class Test_static_info(unittest.TestCase):
                                 {'control':
                                     {'decay': 'lazy', 'duration': '1000',
                                      'startmonth': '1', 'startyear': '2000'}}}
-        self.reactor_prototypes = {'Xe-100':(80,3), 'MMR':(25,5), 'VOYGR':(50,10)}
+        self.reactor_prototypes = {
+            'Type1': (
+                80, 3), 'Type2': (
+                25, 5), 'Type3': (
+                50, 10)}
 
     def test_convert_xml_to_dict(self):
         '''
@@ -127,12 +132,11 @@ class Test_static_info(unittest.TestCase):
     def test_get_powers(self):
         '''
         Test based on the ANO-1.xml file in the haleu project directory.
-        Should probably add in a conditional for if any xml file found isn't 
+        Should probably add in a conditional for if any xml file found isn't
         for a cycamore reactor
         '''
         obs = di.get_powers("../../input/haleu/inputs/united_states/reactors/")
         assert obs['ANO-1'] == '774.6376'
-
 
     def test_get_lifetime(self):
         '''
@@ -194,18 +198,17 @@ class Test_static_info(unittest.TestCase):
 
     def test_update_di(self):
         '''
-        Add the deployment of 2 MMR reactors at timestep 40 with a 
-        lifetime of 720 timesteps. Does it make a difference between 
-        the values being strings vs ints?
+        Add the deployment of 2 Type2 reactors at timestep 40 with a
+        lifetime of 720 timesteps.
         '''
-        exp =  {
+        exp = {
             'DeployInst': {
                 'prototypes': {
                     'val': [
-                        'MMR',
-                        'Xe-100',
-                        'VOYGR',
-                        'MMR']},
+                        'Type2',
+                        'Type1',
+                        'Type3',
+                        'Type2']},
                 'build_times': {
                     'val': [
                         '0',
@@ -218,38 +221,36 @@ class Test_static_info(unittest.TestCase):
                         '1',
                         '1',
                         2]},
-                'lifetimes':{
-                    'val':[
+                'lifetimes': {
+                    'val': [
                         '720',
                         '240',
                         '360',
                         720]}}}
-        obs = di.update_di(self.AR_DI_dict, 'MMR', 2, 40, 720)
+        obs = di.update_di(self.AR_DI_dict, 'Type2', 2, 40, 720)
         assert exp == obs
 
     def test_update_power_demand(self):
         '''
-        Test for the deployment of 2 MMRs, with power out 25 and lifetime 
+        Test for the deployment of 2 Type2s, with power out 25 and lifetime
         of 5, each against a demand of 100 for 10 timesteps
         '''
-        power_gap_exp = np.repeat(100,10)
+        power_gap_exp = np.repeat(100, 10)
         power_gap_exp[0:6] = 50
         value_exp = 50
-        power_gap_obs, value_obs = di.update_power_demand(np.repeat(100,10),
-                                                          0,
-                                                          100, 
-                                                          2, 
-                                                          self.reactor_prototypes, 
-                                                          'MMR')
+        power_gap_obs, value_obs = di.update_power_demand(
+            np.repeat(100, 10), 0, 100, 2, self.reactor_prototypes, 'Type2')
         assert power_gap_exp.all() == power_gap_obs.all()
         assert value_exp == value_obs
-    
+
     def test_deploy_with_share1(self):
         '''
         Test for when a single prototype share is specified
         '''
         exp = 4
-        obs = di.deploy_with_share(self.reactor_prototypes, {'MMR':50}, 200, 'MMR')
+        obs = di.deploy_with_share(
+            self.reactor_prototypes, {
+                'Type2': 50}, 200, 'Type2')
         assert exp == obs
 
     def test_deploy_with_share2(self):
@@ -257,7 +258,9 @@ class Test_static_info(unittest.TestCase):
         Test for when multiple prototype shares are specified
         '''
         exp = 4
-        obs = di.deploy_with_share(self.reactor_prototypes, {'MMR':50, 'VOYGR':5}, 200, 'MMR')
+        obs = di.deploy_with_share(
+            self.reactor_prototypes, {
+                'Type2': 50, 'Type3': 5}, 200, 'Type2')
         assert exp == obs
 
     def test_deploy_without_share1(self):
@@ -265,7 +268,7 @@ class Test_static_info(unittest.TestCase):
         Test when the first prototype in the list is specified
         '''
         exp = 2
-        obs = di.deploy_without_share('Xe-100',['Xe-100','VOYGR', 'MMR'],
+        obs = di.deploy_without_share('Type1', ['Type1', 'Type3', 'Type2'],
                                       self.reactor_prototypes, 220)
         assert exp == obs
 
@@ -274,27 +277,26 @@ class Test_static_info(unittest.TestCase):
         Test when the last prototype in the list is specified
         '''
         exp = 9
-        obs = di.deploy_without_share('MMR',['Xe-100','VOYGR', 'MMR'],
+        obs = di.deploy_without_share('Type2', ['Type1', 'Type3', 'Type2'],
                                       self.reactor_prototypes, 220)
         assert exp == obs
 
-
     def test_determine_deployment_schedule1(self):
         '''
-        Tests for a constant power demand of 440 MW for 10 time steps and 
+        Tests for a constant power demand of 440 MW for 10 time steps and
         no build share specified.
         '''
         exp = {
             'DeployInst': {
                 'prototypes': {
                     'val': [
-                        'Xe-100','MMR','Xe-100','MMR','Xe-100','Xe-100']}, 
+                        'Type1', 'Type2', 'Type1', 'Type2', 'Type1', 'Type1']},
                 'build_times': {
                     'val': [
-                        0, 0, 3, 5, 6, 9]}, 
+                        0, 0, 3, 5, 6, 9]},
                 'n_build': {
                     'val': [
-                        5, 2, 5, 2, 5, 5]}, 
+                        5, 2, 5, 2, 5, 5]},
                 'lifetimes': {
                     'val': [
                         3, 5, 3, 5, 3, 3]}}}
@@ -305,24 +307,32 @@ class Test_static_info(unittest.TestCase):
     def test_determine_deployment_schedule2(self):
         '''
         Tests with a defined prototype and build share (non-default values),
-        defined as 50% for MMR reactors.
-        A constant power demand of 440 MW for 10 time steps.
+        defined as 50% for Type2 reactors.
+        A constant power demand of 595 MW for 10 time steps, which allows
+        for testing of a different number of the Type 2 reactor to be
+        redeployed.
         '''
         exp = {
             'DeployInst': {
                 'prototypes': {
                     'val': [
-                    'MMR','Xe-100','VOYGR','Xe-100','MMR','Xe-100','Xe-100']},
+                        'Type2', 
+                        'Type1', 
+                        'Type3', 
+                        'Type1', 
+                        'Type2', 
+                        'Type1', 
+                        'Type1']},
                 'build_times': {
                     'val': [
                         0, 0, 0, 3, 5, 6, 9]},
                 'n_build': {'val': [
-                    9,2,2,2,9,2,2]},
+                    12, 3, 2, 3, 11, 3, 3]},
                 'lifetimes': {'val': [
                     5, 3, 10, 3, 5, 3, 3]}}}
-        gap = np.repeat(440, 10)
-        obs = di.determine_deployment_schedule(gap, self.reactor_prototypes, 
-                                               {'MMR':50})
+        gap = np.repeat(595, 10)
+        obs = di.determine_deployment_schedule(gap, self.reactor_prototypes,
+                                               {'Type2': 50})
         assert exp == obs
 
     def test_write_lwr_deployinst(self):
@@ -347,17 +357,24 @@ class Test_static_info(unittest.TestCase):
 
     def test_write_AR_deployinst1(self):
         '''
-        Test creation of AR DeployInst for a demand of 1000 MWe starting in 2065,
-        so the power from LWRs does not affect the advanced reactor deployment.
-        A prototype with a defined buildshare is not specified.
+        Test creation of AR DeployInst for a demand of 1000 MWe starting in 
+        2065, so the power from LWRs does not affect the advanced reactor 
+        deployment. A prototype with a defined buildshare is not specified.
         '''
-        exp = {'DeployInst': {'prototypes': {'val': ['Xe-100', 'MMR', 'MMR']},
-                              'lifetimes': {'val': [720, 240, 240]},
-                              'n_build': {'val': [13, 3, 3]},
-                              'build_times': {'val': [1200, 1200, 1440]}}}
+        exp = {
+            'DeployInst': {
+                'prototypes': {
+                    'val': [
+                        'Type1', 'Type2', 'Type2']}, 'lifetimes': {
+                    'val': [
+                        720, 240, 240]}, 'n_build': {
+                            'val': [
+                                13, 3, 3]}, 'build_times': {
+                                    'val': [
+                                        1200, 1200, 1440]}}}
 
         reactor_prototypes = {
-            'Xe-100': (76, 720), 'MMR': (5, 240), 'VOYGR': (73, 720)}
+            'Type1': (76, 720), 'Type2': (5, 240), 'Type3': (73, 720)}
         demand_eq = np.zeros(1500)
         demand_eq[1200:] = 1000
         lwr_DI = di.convert_xml_to_dict(
@@ -376,38 +393,31 @@ class Test_static_info(unittest.TestCase):
 
     def test_write_AR_deployinst2(self):
         '''
-        Test creation of AR DeployInst for a demand of 1000 MWe starting in 2065,
-        so the power from LWRs does not affect the advanced reactor deployment.
-        A prototype with a defined buildshare is specified: 50% MMR buildshare.
+        Test creation of AR DeployInst for a demand of 1000 MWe starting in 
+        2065, so the power from LWRs does not affect the advanced reactor 
+        deployment. A prototype with a defined build share is specified: 50% 
+        Type2 build share.
         '''
         exp = {
             'DeployInst': {
                 'prototypes': {
                     'val': [
-                        'VOYGR',
-                        'Xe-100',
-                        'MMR',
-                        'VOYGR']},
-                'lifetimes': {
-                    'val': [
-                        720,
-                        720,
-                        240,
-                        720]},
-                'n_build': {
-                    'val': [
-                        7,
-                        6,
-                        7,
-                        1]},
+                        'Type2',
+                        'Type1',
+                        'Type3',
+                        'Type1',
+                        'Type2',
+                        'Type1',
+                        'Type1']},
                 'build_times': {
                     'val': [
-                        1200,
-                        1200,
-                        1200,
-                        1440]}}}
+                        1200, 1200, 1200, 1203, 1205, 1206, 1209]},
+                'n_build': {'val': [
+                    9, 2, 2, 2, 8, 2, 2]},
+                'lifetimes': {'val': [
+                    5, 3, 10, 3, 5, 3, 3]}}}
 
-        demand_eq = np.zeros(1500)
+        demand_eq = np.zeros(1210)
         demand_eq[1200:] = 440
         lwr_DI = di.convert_xml_to_dict(
             "../../input/haleu/inputs/united_states/buildtimes/" +
@@ -415,10 +425,10 @@ class Test_static_info(unittest.TestCase):
         obs = di.write_AR_deployinst(
             lwr_DI,
             "../../input/haleu/inputs/united_states/reactors/",
-            1500,
+            1210,
             self.reactor_prototypes,
             demand_eq,
-            {'MMR':50})
+            {'Type2': 50})
         assert exp['DeployInst']['prototypes']['val'] == obs['DeployInst']['prototypes']['val']
         assert exp['DeployInst']['lifetimes']['val'] == obs['DeployInst']['lifetimes']['val']
         assert exp['DeployInst']['n_build']['val'] == obs['DeployInst']['n_build']['val']
