@@ -199,7 +199,7 @@ class Test_static_info(unittest.TestCase):
     def test_update_di(self):
         '''
         Add the deployment of 2 Type2 reactors at timestep 40 with a
-        lifetime of 720 timesteps.
+        lifetime of 720 timesteps
         '''
         exp = {
             'DeployInst': {
@@ -284,7 +284,7 @@ class Test_static_info(unittest.TestCase):
     def test_determine_deployment_schedule1(self):
         '''
         Tests for a constant power demand of 440 MW for 10 time steps and
-        no build share specified.
+        no build share specified
         '''
         exp = {
             'DeployInst': {
@@ -308,9 +308,8 @@ class Test_static_info(unittest.TestCase):
         '''
         Tests with a defined prototype and build share (non-default values),
         defined as 50% for Type2 reactors.
-        A constant power demand of 595 MW for 10 time steps, which allows
-        for testing of a different number of the Type 2 reactor to be
-        redeployed.
+        A constant power demand of 595 MW for 10 time steps, which tests
+        for a different number of the Type 2 reactors under redeployed.
         '''
         exp = {
             'DeployInst': {

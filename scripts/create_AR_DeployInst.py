@@ -270,7 +270,7 @@ def update_power_demand(
         prototype):
     '''
     Subtracts power from the total demand to be filled
-    based on the number of reactors to be deployed.
+    based on the number of reactors to be deployed
 
     Parameters:
     power_gap: list or array
@@ -282,7 +282,7 @@ def update_power_demand(
     num_rxs: int
         number of reactors of a given prototype to deploy
     reactor_prototypes: dict
-        Keys are the names of the prototypes, the values are a
+        keys are the names of the prototypes, the values are a
         tuple of the power output and lifetime of the
         prototype
     prototype: str
@@ -311,11 +311,11 @@ def deploy_with_share(reactor_prototypes, shares, power, reactor):
     Parameters:
     -----------
     reactor_prototypes: dict
-        information about prototypes, {name (str):(power(float), 
-        lifetime(int))}
+        information about prototypes, 
+        {name(str):(power(float),lifetime(int))}
     shares: dict
         contains information about build share for specified
-        prototypes, {name (Str): build share (int)}
+        prototypes, {name(str):build share(int)}
     power: float
         amount of power that needs to be deployed at a given time step.
     prototype: str
@@ -325,7 +325,7 @@ def deploy_with_share(reactor_prototypes, shares, power, reactor):
     --------
     num_rxs: int
         number of the specified prototype to be deployed at a given time
-        step.
+        step
     '''
     required_share = power * (shares[reactor] / 100)
     num_rxs = math.ceil(
@@ -337,7 +337,7 @@ def deploy_with_share(reactor_prototypes, shares, power, reactor):
 
 def deploy_without_share(prototype, reactors, reactor_prototypes, power):
     '''
-    Deploy reactors when a build share isn't supplied for the prototype.
+    Deploy reactors when a build share isn't supplied for the prototype
 
     Parameters:
     -----------
@@ -347,16 +347,16 @@ def deploy_without_share(prototype, reactors, reactor_prototypes, power):
         list of all prototypes that don't have a specified build share,
         the order of prototypes is in descending order of power output
     reactor_prototypes: dict
-        information about prototypes, {name (str):(power(float), 
-        lifetime(int))}
+        information about prototypes, 
+        {name(str):(power(float),lifetime(int))}
     power: float
-        amount of power that needs to be deployed at a given time step.
+        amount of power that needs to be deployed at a given time step
 
     Returns:
     --------
     num_rxs: int
         number of the specified prototype to be deployed at a given time
-        step.
+        step
     '''
     if prototype == reactors[-1]:
         num_rxs = math.ceil(power / reactor_prototypes[prototype][0])
@@ -387,7 +387,7 @@ def determine_deployment_schedule(
         a tuple of the power output and lifetime (ints)
     shares: dict
         contains information about build share for specified
-        prototypes, {name (Str): build share (int)}
+        prototypes, {name(str): build share(int)}
 
     Returns:
     --------
@@ -539,7 +539,7 @@ def write_AR_deployinst(
         demand_eq,
         shares=None):
     ''''
-    Creates the DeployInst for deployment of advanced reactors.
+    Creates the DeployInst for the deployment of advanced reactors
 
     Parameters:
     -----------
@@ -552,13 +552,13 @@ def write_AR_deployinst(
         number of time steps in the simulation
     reactor_prototypes: dict
         dictionary of information about prototypes in the form
-        {name(str): (power(int), lifetime(int))}
+        {name(str):(power(int),lifetime(int))}
     demand_eq: array
         energy demand at each time step in the simulation, length
         must match the value of duration
     shares: dict
         contains information about build share for specified
-        prototypes, {name (Str): build share (int)}
+        prototypes, {name(str):build share(int)}
 
 
     Returns:
