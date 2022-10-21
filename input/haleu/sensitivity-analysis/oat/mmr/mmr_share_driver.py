@@ -40,8 +40,7 @@ deploy_schedule = cdi.write_AR_deployinst(lwr_DI,
                                           duration,
                                           reactor_prototypes,
                                           demand_equation,
-                                          'MMR',
-                                          int(params['mmr']))
+                                          {'MMR':int(params['mmr'])})
 cdi.write_deployinst(deploy_schedule,
                      "./cyclus-files/mmr_" +
                      str(int(params['mmr'])) + "_deployinst.xml")
