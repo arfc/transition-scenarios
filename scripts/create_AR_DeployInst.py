@@ -419,6 +419,8 @@ def determine_deployment_schedule(
                     if deploy_schedule['DeployInst']['prototypes']['val'][item] == reactor:
                         num_rxs = math.ceil(
                             value / reactor_prototypes[reactor][0])
+                        if num_rxs <= 0:
+                            continue
                         power_gap, value = update_power_demand(power_gap,
                                                                index,
                                                                value,
