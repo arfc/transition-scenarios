@@ -262,6 +262,17 @@ class Test_static_info(unittest.TestCase):
             self.reactor_prototypes, {
                 'Type2': 50, 'Type3': 5}, 200, 'Type2')
         assert exp == obs
+    
+    def test_deploy_with_share3(self):
+        '''
+        Test when the calculated value is negative
+        '''
+        exp = 0
+        obs = di.deploy_with_share(self.reactor_prototypes,
+                                   {'Type2':50},
+                                   -100,
+                                   'Type2')
+        assert exp == obs
 
     def test_deploy_without_share1(self):
         '''
@@ -272,7 +283,7 @@ class Test_static_info(unittest.TestCase):
                                       self.reactor_prototypes, 220)
         assert exp == obs
 
-    def test_deploy_without_share(self):
+    def test_deploy_without_share2(self):
         '''
         Test when the last prototype in the list is specified
         '''
@@ -280,6 +291,105 @@ class Test_static_info(unittest.TestCase):
         obs = di.deploy_without_share('Type2', ['Type1', 'Type3', 'Type2'],
                                       self.reactor_prototypes, 220)
         assert exp == obs
+
+    def test_deploy_without_share2(self):
+        '''
+        Test when the calculated number is negative'''
+        exp = 0
+        obs = di.deploy_without_share('Type1',
+                                      ['Type1','Type3','Type2'],
+                                      self.reactor_prototypes,
+                                      -100)
+        assert exp == obs
+
+    def test_redeploy_reactors1(self):
+        '''
+        Test when the calculated number is greater than the previous deployment
+        '''
+        exp = 2
+        deploy_schedule = {'DeployInst':{
+                            'prototypes':{
+                                'val':['Type1']},
+                            'n_build':{
+                                'val':[2]},
+                            'build_times':{
+                                'val':[0]},
+                            'lifetimes':{
+                                'val':[3]}
+                            }}
+        obs = di.redeploy_reactors(250, 
+                                   'Type1', 
+                                   self.reactor_prototypes,
+                                   deploy_schedule,
+                                   0)
+        assert exp == obs
+
+    def test_redeploy_reactors2(self):
+        '''
+        Test when the calculated number is less than the previous deployment
+        '''
+        exp = 1
+        deploy_schedule = {'DeployInst':{
+                            'prototypes':{
+                                'val':['Type1']},
+                            'n_build':{
+                                'val':[2]},
+                            'build_times':{
+                                'val':[0]},
+                            'lifetimes':{
+                                'val':[3]}
+                            }}
+        obs = di.redeploy_reactors(80, 
+                                   'Type1', 
+                                   self.reactor_prototypes,
+                                   deploy_schedule,
+                                   0)
+        assert exp == obs
+
+    def test_redeploy_reactors3(self):
+        '''
+        Test when the calculated number is equal to the previous deployment
+        '''
+        exp = 2
+        deploy_schedule = {'DeployInst':{
+                            'prototypes':{
+                                'val':['Type1']},
+                            'n_build':{
+                                'val':[2]},
+                            'build_times':{
+                                'val':[0]},
+                            'lifetimes':{
+                                'val':[3]}
+                            }}
+        obs = di.redeploy_reactors(150, 
+                                   'Type1', 
+                                   self.reactor_prototypes,
+                                   deploy_schedule,
+                                   0)
+        assert exp == obs
+
+    def test_redeploy_reactors4(self):
+        '''
+        Test when the calculated number is negative
+        '''
+        exp = 0
+        deploy_schedule = {'DeployInst':{
+                            'prototypes':{
+                                'val':['Type1']},
+                            'n_build':{
+                                'val':[2]},
+                            'build_times':{
+                                'val':[0]},
+                            'lifetimes':{
+                                'val':[3]}
+                            }}
+        obs = di.redeploy_reactors(-150, 
+                                   'Type1', 
+                                   self.reactor_prototypes,
+                                   deploy_schedule,
+                                   0)
+        assert exp == obs
+        
 
     def test_determine_deployment_schedule1(self):
         '''
@@ -332,6 +442,138 @@ class Test_static_info(unittest.TestCase):
         gap = np.repeat(595, 10)
         obs = di.determine_deployment_schedule(gap, self.reactor_prototypes,
                                                {'Type2': 50})
+        assert exp == obs
+
+    def test_determine_deployment_schedule3(self):
+        '''
+        Tests for a constant power demand of 575 MW for 11 time steps and
+        no build share specified. The longer time period of this test 
+        tests when multiple types of advanced reactors are decommissioned 
+        at the same time, testing that the same number of each prototype
+        get redeployed. 
+        '''
+        exp = {
+            'DeployInst': {
+                'prototypes': {
+                    'val': [
+                        'Type1',
+                        'Type3',
+                        'Type2',
+                        'Type1',
+                        'Type2',
+                        'Type1',
+                        'Type1',
+                        'Type3',
+                        'Type2'
+                    ]},
+                'build_times': {
+                    'val': [
+                        0, 0, 0, 3, 5, 6, 9, 10, 10]},
+                'n_build': {'val': [
+                    6, 1, 2, 6, 2, 6, 6, 1, 2]},
+                'lifetimes': {'val': [
+                    3, 10, 5, 3, 5, 3, 3, 10, 5]}}}
+        gap = np.repeat(556, 11)
+        obs = di.determine_deployment_schedule(gap, self.reactor_prototypes)
+        assert exp == obs
+        
+    def test_determine_deployment_schedule4(self):
+        '''
+        Tests for a variable power demand for 12 timesteps that 
+        decreases with time, and no build share specified. This tests
+        for a decreasing number of prototypes as the demand decreases.
+        This tests the redeployment numbers when only one prototype
+        needs to be redeployed and when multiple are redeployed
+        '''
+        exp = {
+            'DeployInst': {
+                'prototypes': {
+                    'val': ['Type1',
+                            'Type3',
+                            'Type2',
+                            'Type1',
+                            'Type2',
+                            'Type1',
+                            'Type1',
+                            'Type3',
+                            'Type2'
+                    ]},
+                'build_times': {
+                    'val': [
+                        0, 0, 0, 3, 5, 6, 9, 10, 10]},
+                'n_build': {'val': [
+                    6, 1, 2, 6, 1, 6, 3, 1, 1]},
+                'lifetimes': {'val': [
+                    3, 10, 5, 3, 5, 3, 3, 10, 5]}}}
+        gap = [575, 575, 575, 575, 540, 540, 540, 540, 300, 300, 300]
+        obs = di.determine_deployment_schedule(gap, self.reactor_prototypes)
+        assert exp == obs
+     
+    def test_determine_deployment_schedule5(self):
+        '''
+        Tests for a variable power demand for 11 timesteps that 
+        increases with time, and no build share specified. This tests
+        for a decreasing number of prototypes as the demand decreases.
+        This tests the redeployment numbers when only one prototype
+        needs to be redeployed and when multiple are redeployed
+        '''
+        exp = {
+            'DeployInst': {
+                'prototypes': {
+                    'val': ['Type1',
+                            'Type3',
+                            'Type2',
+                            'Type1',
+                            'Type2',
+                            'Type1',
+                            'Type1',
+                            'Type1',
+                            'Type1',
+                            'Type3',
+                            'Type2'
+                    ]},
+                'build_times': {
+                    'val': [
+                        0, 0, 0, 3, 5, 6, 9, 10, 10, 10]},
+                'n_build': {'val': [
+                    6, 1, 2, 6, 3, 6, 6, 3, 2, 4]},
+                'lifetimes': {'val': [
+                    3, 10, 5, 3, 5, 5, 3, 3, 3, 10, 5]}}}
+        gap = [575, 575, 575, 575, 540, 540, 540, 540, 300, 300, 300]
+        obs = di.determine_deployment_schedule(gap, self.reactor_prototypes)
+        assert exp == obs
+
+    def test_determine_deployment_schedule6(self):
+        '''
+        Tests for a variable power demand for 12 timesteps that 
+        decreases with time, and a build share specified. This tests
+        for a decreasing number of prototypes as the demand decreases.
+        This tests the redeployment numbers when only one prototype
+        needs to be redeployed and when multiple are redeployed
+        '''
+        exp = {
+            'DeployInst': {
+                'prototypes': {
+                    'val': ['Type2',
+                            'Type1',
+                            'Type3',
+                            'Type1',
+                            'Type2',
+                            'Type1',
+                            'Type3',
+                            'Type2'                    
+                    ]},
+                'build_times': {
+                    'val': [
+                        0, 0, 0, 3, 5, 6, 10, 10]},
+                'n_build': {'val': [
+                    12, 3, 1, 3, 10, 3, 1, 10]},
+                'lifetimes': {'val': [
+                    5, 3, 10, 3, 5, 3, 10, 5]}}}
+        gap = [575, 575, 575, 575, 540, 540, 540, 540, 300, 300, 300]
+        obs = di.determine_deployment_schedule(gap,
+                                               self.reactor_prototypes,
+                                               {'Type2':50})
         assert exp == obs
 
     def test_write_lwr_deployinst(self):
