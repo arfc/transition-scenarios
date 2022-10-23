@@ -331,6 +331,8 @@ def deploy_with_share(reactor_prototypes, shares, power, reactor):
     num_rxs = math.ceil(
         required_share /
         reactor_prototypes[reactor][0])
+    if num_rxs < 0:
+        num_rxs = 0
 
     return num_rxs
 
@@ -362,6 +364,8 @@ def deploy_without_share(prototype, reactors, reactor_prototypes, power):
         num_rxs = math.ceil(power / reactor_prototypes[prototype][0])
     else:
         num_rxs = math.floor(power / reactor_prototypes[prototype][0])
+    if num_rxs < 0:
+        num_rxs = 0
 
     return num_rxs
 
@@ -404,6 +408,8 @@ def redeploy_reactors(power, prototype, reactor_prototypes, deploy_schedule, ite
     decreased_deployment = math.ceil(power/reactor_prototypes[prototype][0])
     if decreased_deployment < num_rxs:
         num_rxs = decreased_deployment
+    if num_rxs < 0:
+        num_rxs = 0
 
     return num_rxs
 
@@ -449,6 +455,7 @@ def determine_deployment_schedule(
         if value <= 0:
             continue
         # redeploy reactors
+        num_rxs = {k:v for k, v in zip(reactors, np.repeat(0,len(reactors)))}
         for reactor in reactors:
             previous_time = index - reactor_prototypes[reactor][1]
             if previous_time in deploy_schedule['DeployInst']['build_times']['val']:
@@ -458,49 +465,30 @@ def determine_deployment_schedule(
                         e == previous_time]
                 for item in previous_index:
                     if deploy_schedule['DeployInst']['prototypes']['val'][item] == reactor:
-                        num_rxs = redeploy_reactors(value,
+                        num_rxs[reactor] = redeploy_reactors(value,
                                                     reactor,
                                                     reactor_prototypes,
                                                     deploy_schedule,
                                                     item)
-                        power_gap, value = update_power_demand(power_gap,
-                                                               index,
-                                                               value,
-                                                               num_rxs,
-                                                               reactor_prototypes,
-                                                               reactor)
-                        deploy_schedule = update_di(deploy_schedule,
-                                                    reactor,
-                                                    num_rxs,
-                                                    index,
-                                                    reactor_prototypes[reactor][1])
         # Deploy new reactors
         if shares is not None:
             for reactor in shares:
-                num_rxs = deploy_with_share(
+                num_rxs[reactor] += deploy_with_share(
                     reactor_prototypes, shares, value, reactor)
-                if num_rxs <= 0:
-                    continue
-                power_gap, value = update_power_demand(
-                    power_gap, index, value, num_rxs, reactor_prototypes, reactor)
-                deploy_schedule = update_di(
-                    deploy_schedule,
-                    reactor,
-                    num_rxs,
-                    index,
-                    reactor_prototypes[reactor][1])
-
         for reactor in non_shares:
             num_rxs = deploy_without_share(
                 reactor, non_shares, reactor_prototypes, value)
             if num_rxs <= 0:
                 continue
+        for reactor in reactor:
+            if num_rxs[reactor] <= 0:
+                continue
             power_gap, value = update_power_demand(
-                power_gap, index, value, num_rxs, reactor_prototypes, reactor)
+                power_gap, index, value, num_rxs[reactor], reactor_prototypes, reactor)
             deploy_schedule = update_di(
                 deploy_schedule,
                 reactor,
-                num_rxs,
+                num_rxs[reactor],
                 index,
                 reactor_prototypes[reactor][1])
 
