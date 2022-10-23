@@ -365,6 +365,47 @@ def deploy_without_share(prototype, reactors, reactor_prototypes, power):
 
     return num_rxs
 
+def redeploy_reactors(power, prototype, reactor_prototypes, deploy_schedule, item):
+    '''
+    Determines the number of advanced reactors to be redeployed. This function
+    initially assumes that the number of reactors decommissioning at a 
+    given time step (the current timestep minus the lifetime of the 
+    prototype) are to be redeployed. Then the function determines the 
+    number of prototypes needed to fill the current gap in energy demand. 
+    If this calculated number is lower than the number initially deployed, 
+    then the calculated number of the prototype is deployed. 
+
+    The logic behind this function is to maintain a relatively constant 
+    number of each prototype deployed while also minimizing the 
+    oversupply of energy and minimizing the number of reactors deployed. 
+
+    Parameters:
+    -----------
+    power: float
+        gap between energy demand and production at a given time step
+    prototype: str 
+        name of prototype to be deployed 
+    reactor_prototypes: dict
+        information about prototypes, 
+        {name(str):(power(float),lifetime(int))}
+    deploy_schedule: dict
+        deployment schedule of reactor prototypes with the
+        structure for a DeployInst
+    item: int 
+        index of deploy_schedule['DeployInst']['build_times'] in which 
+        prototype was deployed at timestep current minus prototype lifetime
+
+    Returns:
+    --------
+    num_rxs: int
+        number of a prototype to deploy
+    '''
+    num_rxs = deploy_schedule['DeployInst']['n_build']['val'][item]
+    decreased_deployment = math.ceil(power/reactor_prototypes[prototype][0])
+    if decreased_deployment < num_rxs:
+        num_rxs = decreased_deployment
+
+    return num_rxs
 
 def determine_deployment_schedule(
         power_gap,
@@ -417,7 +458,11 @@ def determine_deployment_schedule(
                         e == previous_time]
                 for item in previous_index:
                     if deploy_schedule['DeployInst']['prototypes']['val'][item] == reactor:
-                        num_rxs = deploy_schedule['DeployInst']['n_build']['val'][item]
+                        num_rxs = redeploy_reactors(value,
+                                                    reactor,
+                                                    reactor_prototypes,
+                                                    deploy_schedule,
+                                                    item)
                         power_gap, value = update_power_demand(power_gap,
                                                                index,
                                                                value,
