@@ -292,7 +292,7 @@ class Test_static_info(unittest.TestCase):
                                       self.reactor_prototypes, 220)
         assert exp == obs
 
-    def test_deploy_without_share2(self):
+    def test_deploy_without_share3(self):
         '''
         Test when the calculated number is negative'''
         exp = 0
@@ -425,9 +425,9 @@ class Test_static_info(unittest.TestCase):
             'DeployInst': {
                 'prototypes': {
                     'val': [
-                        'Type2', 
                         'Type1', 
-                        'Type3', 
+                        'Type3',
+                        'Type2', 
                         'Type1', 
                         'Type2', 
                         'Type1', 
@@ -436,9 +436,9 @@ class Test_static_info(unittest.TestCase):
                     'val': [
                         0, 0, 0, 3, 5, 6, 9]},
                 'n_build': {'val': [
-                    12, 3, 2, 3, 11, 3, 3]},
+                    3, 2, 12, 3, 11, 3, 3]},
                 'lifetimes': {'val': [
-                    5, 3, 10, 3, 5, 3, 3]}}}
+                    3, 10, 5, 3, 5, 3, 3]}}}
         gap = np.repeat(595, 10)
         obs = di.determine_deployment_schedule(gap, self.reactor_prototypes,
                                                {'Type2': 50})
@@ -496,8 +496,8 @@ class Test_static_info(unittest.TestCase):
                             'Type1',
                             'Type1',
                             'Type3',
-                            'Type2'
-                    ]},
+                            'Type2',
+                            ]},
                 'build_times': {
                     'val': [
                         0, 0, 0, 3, 5, 6, 9, 10, 10]},
@@ -505,7 +505,7 @@ class Test_static_info(unittest.TestCase):
                     6, 1, 2, 6, 1, 6, 3, 1, 1]},
                 'lifetimes': {'val': [
                     3, 10, 5, 3, 5, 3, 3, 10, 5]}}}
-        gap = [575, 575, 575, 575, 540, 540, 540, 540, 300, 300, 300]
+        gap = np.array([556, 556, 556, 556, 540, 540, 540, 540, 300, 300, 300])
         obs = di.determine_deployment_schedule(gap, self.reactor_prototypes)
         assert exp == obs
      
@@ -525,21 +525,24 @@ class Test_static_info(unittest.TestCase):
                             'Type2',
                             'Type1',
                             'Type2',
+                            'Type2',
                             'Type1',
                             'Type1',
+                            'Type3',
+                            'Type2',
                             'Type1',
-                            'Type1',
+                            'Type2',
                             'Type3',
                             'Type2'
                     ]},
                 'build_times': {
                     'val': [
-                        0, 0, 0, 3, 5, 6, 9, 10, 10, 10]},
+                        0, 0, 0, 3, 4, 5, 6, 8, 8, 8, 9, 9, 10, 10]},
                 'n_build': {'val': [
-                    6, 1, 2, 6, 3, 6, 6, 3, 2, 4]},
+                    6, 1, 2, 6, 1, 2, 6, 3, 1, 1, 6, 1, 1, 2]},
                 'lifetimes': {'val': [
-                    3, 10, 5, 3, 5, 5, 3, 3, 3, 10, 5]}}}
-        gap = [575, 575, 575, 575, 540, 540, 540, 540, 300, 300, 300]
+                    3, 10, 5, 3, 5, 5, 3, 3, 10, 5, 3, 5, 10, 5]}}}
+        gap = np.array([556, 556, 556, 556, 600, 600, 600, 600, 900, 900, 900])
         obs = di.determine_deployment_schedule(gap, self.reactor_prototypes)
         assert exp == obs
 
@@ -554,23 +557,23 @@ class Test_static_info(unittest.TestCase):
         exp = {
             'DeployInst': {
                 'prototypes': {
-                    'val': ['Type2',
-                            'Type1',
+                    'val': ['Type1',
                             'Type3',
+                            'Type2',
                             'Type1',
                             'Type2',
                             'Type1',
                             'Type3',
-                            'Type2'                    
-                    ]},
+                            'Type2',
+                            ]},
                 'build_times': {
                     'val': [
                         0, 0, 0, 3, 5, 6, 10, 10]},
                 'n_build': {'val': [
-                    12, 3, 1, 3, 10, 3, 1, 10]},
+                    3, 1, 12, 3, 10, 3, 1, 10]},
                 'lifetimes': {'val': [
-                    5, 3, 10, 3, 5, 3, 10, 5]}}}
-        gap = [575, 575, 575, 575, 540, 540, 540, 540, 300, 300, 300]
+                    3, 10, 5, 3, 5, 3, 10, 5]}}}
+        gap = np.array([556, 556, 556, 556, 540, 540, 540, 540, 300, 300, 300])
         obs = di.determine_deployment_schedule(gap,
                                                self.reactor_prototypes,
                                                {'Type2':50})
@@ -643,9 +646,9 @@ class Test_static_info(unittest.TestCase):
             'DeployInst': {
                 'prototypes': {
                     'val': [
-                        'Type2',
                         'Type1',
                         'Type3',
+                        'Type2',
                         'Type1',
                         'Type2',
                         'Type1',
@@ -654,9 +657,9 @@ class Test_static_info(unittest.TestCase):
                     'val': [
                         1200, 1200, 1200, 1203, 1205, 1206, 1209]},
                 'n_build': {'val': [
-                    9, 2, 2, 2, 8, 2, 2]},
+                    2, 2, 9, 2, 8, 2, 2]},
                 'lifetimes': {'val': [
-                    5, 3, 10, 3, 5, 3, 3]}}}
+                    3, 10, 5, 3, 5, 3, 3]}}}
 
         demand_eq = np.zeros(1210)
         demand_eq[1200:] = 440
