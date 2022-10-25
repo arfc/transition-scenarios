@@ -227,7 +227,7 @@ def determine_deployment_order(reactor_prototypes):
     return reactor_order
 
 
-def update_di(di, prototype, num_rxs, build_time, lifetime):
+def update_di(di, prototype, num_reactors, build_time, lifetime):
     '''
     Update a dictionary of a DeployInst
 
@@ -241,7 +241,7 @@ def update_di(di, prototype, num_rxs, build_time, lifetime):
         'val':list
     prototype: str
         name of prototype to be deployed
-    num_rxs: int
+    num_reactors: int
         number of prototypes to be deployed
     build_time: int
         time step to deploy the prototype
@@ -254,7 +254,7 @@ def update_di(di, prototype, num_rxs, build_time, lifetime):
         updated dictionary to define the DeployInst
     '''
     di['DeployInst']['prototypes']['val'].append(prototype)
-    di['DeployInst']['n_build']['val'].append(num_rxs)
+    di['DeployInst']['n_build']['val'].append(num_reactors)
     di['DeployInst']['build_times']['val'].append(build_time)
     di['DeployInst']['lifetimes']['val'].append(lifetime)
 
@@ -265,7 +265,7 @@ def update_power_demand(
         power_gap,
         index,
         power,
-        num_rxs,
+        num_reactors,
         reactor_prototypes,
         prototype):
     '''
@@ -279,7 +279,7 @@ def update_power_demand(
         time step, index, of power_gap to start from
     power: float
         value from the power_gap at the index position
-    num_rxs: int
+    num_reactors: int
         number of reactors of a given prototype to deploy
     reactor_prototypes: dict
         keys are the names of the prototypes, the values are a
@@ -299,9 +299,8 @@ def update_power_demand(
         prototype
     '''
     power_gap[index:index + reactor_prototypes[prototype]
-            [1]] = power_gap[index:index+reactor_prototypes[prototype]
-            [1]] - reactor_prototypes[prototype][0] * num_rxs
-    power = power - reactor_prototypes[prototype][0] * num_rxs
+            [1]] -= reactor_prototypes[prototype][0] * num_reactors
+    power -= reactor_prototypes[prototype][0] * num_reactors
     return power_gap, power
 
 
@@ -324,18 +323,18 @@ def deploy_with_share(reactor_prototypes, shares, power, reactor):
 
     Returns:
     --------
-    num_rxs: int
+    num_reactors: int
         number of the specified prototype to be deployed at a given time
         step
     '''
     required_share = power * (shares[reactor] / 100)
-    num_rxs = math.ceil(
+    num_reactors = math.ceil(
         required_share /
         reactor_prototypes[reactor][0])
-    if num_rxs < 0:
-        num_rxs = 0
+    if num_reactors < 0:
+        num_reactors = 0
 
-    return num_rxs
+    return num_reactors
 
 
 def deploy_without_share(prototype, reactors, reactor_prototypes, power):
@@ -357,18 +356,19 @@ def deploy_without_share(prototype, reactors, reactor_prototypes, power):
 
     Returns:
     --------
-    num_rxs: int
+    num_reactors: int
         number of the specified prototype to be deployed at a given time
         step
     '''
+    reactor_power = reactor_prototypes[prototype][0]
     if prototype == reactors[-1]:
-        num_rxs = math.ceil(power / reactor_prototypes[prototype][0])
+        num_reactors = math.ceil(power / reactor_power)
     else:
-        num_rxs = math.floor(power / reactor_prototypes[prototype][0])
-    if num_rxs < 0:
-        num_rxs = 0
+        num_reactors = math.floor(power / reactor_power)
+    if num_reactors < 0:
+        num_reactors = 0
 
-    return num_rxs
+    return num_reactors
 
 def redeploy_reactors(power, prototype, reactor_prototypes, deploy_schedule, item):
     '''
@@ -402,17 +402,18 @@ def redeploy_reactors(power, prototype, reactor_prototypes, deploy_schedule, ite
 
     Returns:
     --------
-    num_rxs: int
+    num_reactors: int
         number of a prototype to deploy
     '''
-    num_rxs = deploy_schedule['DeployInst']['n_build']['val'][item]
-    decreased_deployment = math.ceil(power/reactor_prototypes[prototype][0])
-    if decreased_deployment < num_rxs:
-        num_rxs = decreased_deployment
-    if num_rxs < 0:
-        num_rxs = 0
+    num_reactors = deploy_schedule['DeployInst']['n_build']['val'][item]
+    reactor_power = reactor_prototypes[prototype][0]
+    decreased_deployment = math.ceil(power/reactor_power)
+    if decreased_deployment < num_reactors:
+        num_reactors = decreased_deployment
+    if num_reactors < 0:
+        num_reactors = 0
 
-    return num_rxs
+    return num_reactors
 
 def determine_deployment_schedule(
         power_gap,
@@ -447,17 +448,17 @@ def determine_deployment_schedule(
                                       'build_times': {'val': []},
                                       'n_build': {'val': []},
                                       'lifetimes': {'val': []}}}
-    reactors = determine_deployment_order(reactor_prototypes)
-    non_shares = reactors.copy()
-    if shares is not None:
+    deployment_order = determine_deployment_order(reactor_prototypes)
+    non_shares = deployment_order.copy()
+    if shares:
         for reactor in shares:
             non_shares.remove(reactor)
     for index, value in enumerate(power_gap):
         if value <= 0:
             continue
         # redeploy reactors
-        num_rxs = {k:v for k, v in zip(reactors, np.repeat(0,len(reactors)))}
-        for reactor in reactors:
+        num_reactors = {k:v for k, v in zip(deployment_order, np.repeat(0,len(deployment_order)))}
+        for reactor in deployment_order:
             previous_time = index - reactor_prototypes[reactor][1]
             if previous_time in deploy_schedule['DeployInst']['build_times']['val']:
                 previous_index = [
@@ -473,28 +474,28 @@ def determine_deployment_schedule(
                                                     item)
                         power_gap, value = update_power_demand(
                                 power_gap, index, value, new_reactors, reactor_prototypes, reactor)
-                        num_rxs[reactor] += new_reactors
+                        num_reactors[reactor] += new_reactors
         # Deploy new reactors
-        if shares is not None:
+        if shares:
             for reactor in shares:
                 new_reactors  = deploy_with_share(
                     reactor_prototypes, shares, value, reactor)
                 power_gap, value = update_power_demand(
                         power_gap, index, value, new_reactors, reactor_prototypes, reactor)
-                num_rxs[reactor] += new_reactors
+                num_reactors[reactor] += new_reactors
         for reactor in non_shares:
             new_reactors =  deploy_without_share(
                 reactor, non_shares, reactor_prototypes, value)
             power_gap, value = update_power_demand(
                     power_gap, index, value, new_reactors, reactor_prototypes, reactor)
-            num_rxs[reactor] += new_reactors
-        for reactor in reactors:
-            if num_rxs[reactor] <= 0:
+            num_reactors[reactor] += new_reactors
+        for reactor in deployment_order:
+            if num_reactors[reactor] <= 0:
                 continue
             deploy_schedule = update_di(
                 deploy_schedule,
                 reactor,
-                num_rxs[reactor],
+                num_reactors[reactor],
                 index,
                 reactor_prototypes[reactor][1])
 
