@@ -7,7 +7,6 @@ import sys
 sys.path.insert(0, '../')
 import create_AR_DeployInst as di
 
-
 class Test_static_info(unittest.TestCase):
     def setUp(self):
         '''
@@ -99,16 +98,16 @@ class Test_static_info(unittest.TestCase):
                 80, 3), 'Type2': (
                 25, 5), 'Type3': (
                 50, 10)}
-        self.deploy_schedule = {'DeployInst':{
-                            'prototypes':{
-                                'val':['Type1']},
-                            'n_build':{
-                                'val':[2]},
-                            'build_times':{
-                                'val':[0]},
-                            'lifetimes':{
-                                'val':[3]}
-                            }}
+        self.deploy_schedule = {'DeployInst': {
+            'prototypes': {
+                                'val': ['Type1']},
+            'n_build': {
+                'val': [2]},
+            'build_times': {
+                'val': [0]},
+            'lifetimes': {
+                'val': [3]}
+        }}
 
     def test_convert_xml_to_dict(self):
         '''
@@ -272,14 +271,14 @@ class Test_static_info(unittest.TestCase):
             self.reactor_prototypes, {
                 'Type2': 50, 'Type3': 5}, 200, 'Type2')
         assert exp == obs
-    
+
     def test_deploy_with_share3(self):
         '''
         Test when the calculated value is negative
         '''
         exp = 0
         obs = di.deploy_with_share(self.reactor_prototypes,
-                                   {'Type2':50},
+                                   {'Type2': 50},
                                    -100,
                                    'Type2')
         assert exp == obs
@@ -307,7 +306,7 @@ class Test_static_info(unittest.TestCase):
         Test when the calculated number is negative'''
         exp = 0
         obs = di.deploy_without_share('Type1',
-                                      ['Type1','Type3','Type2'],
+                                      ['Type1', 'Type3', 'Type2'],
                                       self.reactor_prototypes,
                                       -100)
         assert exp == obs
@@ -317,18 +316,18 @@ class Test_static_info(unittest.TestCase):
         Test when the calculated number is greater than the previous deployment
         '''
         exp = 2
-        deploy_schedule = {'DeployInst':{
-                            'prototypes':{
-                                'val':['Type1']},
-                            'n_build':{
-                                'val':[2]},
-                            'build_times':{
-                                'val':[0]},
-                            'lifetimes':{
-                                'val':[3]}
-                            }}
-        obs = di.redeploy_reactors(250, 
-                                   'Type1', 
+        deploy_schedule = {'DeployInst': {
+            'prototypes': {
+                'val': ['Type1']},
+            'n_build': {
+                'val': [2]},
+            'build_times': {
+                'val': [0]},
+            'lifetimes': {
+                'val': [3]}
+        }}
+        obs = di.redeploy_reactors(250,
+                                   'Type1',
                                    self.reactor_prototypes,
                                    deploy_schedule,
                                    0)
@@ -339,18 +338,18 @@ class Test_static_info(unittest.TestCase):
         Test when the calculated number is less than the previous deployment
         '''
         exp = 1
-        deploy_schedule = {'DeployInst':{
-                            'prototypes':{
-                                'val':['Type1']},
-                            'n_build':{
-                                'val':[2]},
-                            'build_times':{
-                                'val':[0]},
-                            'lifetimes':{
-                                'val':[3]}
-                            }}
-        obs = di.redeploy_reactors(80, 
-                                   'Type1', 
+        deploy_schedule = {'DeployInst': {
+            'prototypes': {
+                'val': ['Type1']},
+            'n_build': {
+                'val': [2]},
+            'build_times': {
+                'val': [0]},
+            'lifetimes': {
+                'val': [3]}
+        }}
+        obs = di.redeploy_reactors(80,
+                                   'Type1',
                                    self.reactor_prototypes,
                                    deploy_schedule,
                                    0)
@@ -361,9 +360,9 @@ class Test_static_info(unittest.TestCase):
         Test when the calculated number is equal to the previous deployment
         '''
         exp = 2
-        
-        obs = di.redeploy_reactors(150, 
-                                   'Type1', 
+
+        obs = di.redeploy_reactors(150,
+                                   'Type1',
                                    self.reactor_prototypes,
                                    self.deploy_schedule,
                                    0)
@@ -374,13 +373,12 @@ class Test_static_info(unittest.TestCase):
         Test when the calculated number is negative
         '''
         exp = 0
-        obs = di.redeploy_reactors(-150, 
-                                   'Type1', 
+        obs = di.redeploy_reactors(-150,
+                                   'Type1',
                                    self.reactor_prototypes,
                                    self.deploy_schedule,
                                    0)
         assert exp == obs
-        
 
     def test_determine_deployment_schedule1(self):
         '''
@@ -416,12 +414,12 @@ class Test_static_info(unittest.TestCase):
             'DeployInst': {
                 'prototypes': {
                     'val': [
-                        'Type1', 
+                        'Type1',
                         'Type3',
-                        'Type2', 
-                        'Type1', 
-                        'Type2', 
-                        'Type1', 
+                        'Type2',
+                        'Type1',
+                        'Type2',
+                        'Type1',
                         'Type1']},
                 'build_times': {
                     'val': [
@@ -438,10 +436,10 @@ class Test_static_info(unittest.TestCase):
     def test_determine_deployment_schedule3(self):
         '''
         Tests for a constant power demand of 575 MW for 11 time steps and
-        no build share specified. The longer time period of this test 
-        tests when multiple types of advanced reactors are decommissioned 
+        no build share specified. The longer time period of this test
+        tests when multiple types of advanced reactors are decommissioned
         at the same time, testing that the same number of each prototype
-        get redeployed. 
+        get redeployed.
         '''
         exp = {
             'DeployInst': {
@@ -467,10 +465,10 @@ class Test_static_info(unittest.TestCase):
         gap = np.repeat(556, 11)
         obs = di.determine_deployment_schedule(gap, self.reactor_prototypes)
         assert exp == obs
-        
+
     def test_determine_deployment_schedule4(self):
         '''
-        Tests for a variable power demand for 12 timesteps that 
+        Tests for a variable power demand for 12 timesteps that
         decreases with time, and no build share specified. This tests
         for a decreasing number of prototypes as the demand decreases.
         This tests the redeployment numbers when only one prototype
@@ -499,10 +497,10 @@ class Test_static_info(unittest.TestCase):
         gap = np.array([556, 556, 556, 556, 540, 540, 540, 540, 300, 300, 300])
         obs = di.determine_deployment_schedule(gap, self.reactor_prototypes)
         assert exp == obs
-     
+
     def test_determine_deployment_schedule5(self):
         '''
-        Tests for a variable power demand for 11 timesteps that 
+        Tests for a variable power demand for 11 timesteps that
         increases with time, and no build share specified. This tests
         for a decreasing number of prototypes as the demand decreases.
         This tests the redeployment numbers when only one prototype
@@ -525,7 +523,7 @@ class Test_static_info(unittest.TestCase):
                             'Type2',
                             'Type3',
                             'Type2'
-                    ]},
+                            ]},
                 'build_times': {
                     'val': [
                         0, 0, 0, 3, 4, 5, 6, 8, 8, 8, 9, 9, 10, 10]},
@@ -539,7 +537,7 @@ class Test_static_info(unittest.TestCase):
 
     def test_determine_deployment_schedule6(self):
         '''
-        Tests for a variable power demand for 12 timesteps that 
+        Tests for a variable power demand for 12 timesteps that
         decreases with time, and a build share specified. This tests
         for a decreasing number of prototypes as the demand decreases.
         This tests the redeployment numbers when only one prototype
@@ -567,7 +565,7 @@ class Test_static_info(unittest.TestCase):
         gap = np.array([556, 556, 556, 556, 540, 540, 540, 540, 300, 300, 300])
         obs = di.determine_deployment_schedule(gap,
                                                self.reactor_prototypes,
-                                               {'Type2':50})
+                                               {'Type2': 50})
         assert exp == obs
 
     def test_write_lwr_deployinst(self):
@@ -592,8 +590,8 @@ class Test_static_info(unittest.TestCase):
 
     def test_write_AR_deployinst1(self):
         '''
-        Test creation of AR DeployInst for a demand of 1000 MWe starting in 
-        2065, so the power from LWRs does not affect the advanced reactor 
+        Test creation of AR DeployInst for a demand of 1000 MWe starting in
+        2065, so the power from LWRs does not affect the advanced reactor
         deployment. A prototype with a defined buildshare is not specified.
         '''
         exp = {
@@ -628,9 +626,9 @@ class Test_static_info(unittest.TestCase):
 
     def test_write_AR_deployinst2(self):
         '''
-        Test creation of AR DeployInst for a demand of 1000 MWe starting in 
-        2065, so the power from LWRs does not affect the advanced reactor 
-        deployment. A prototype with a defined build share is specified: 50% 
+        Test creation of AR DeployInst for a demand of 1000 MWe starting in
+        2065, so the power from LWRs does not affect the advanced reactor
+        deployment. A prototype with a defined build share is specified: 50%
         Type2 build share.
         '''
         exp = {
