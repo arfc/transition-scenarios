@@ -30,9 +30,10 @@ inp.render_input(cyclus_template, variable_dict, output_xml)
 
 # Create DeployInst for advanced reactors
 duration = 1500
-reactor_prototypes = {'Xe-100': (76, 840), 
-                      'MMR': (5,840), 
-                      'VOYGR': (73, 840)}
+mmr_lifetimes = {41:120, 62:180, 74:218, 78:231, 82:240, 86:255, 90:267}
+reactor_prototypes = {'Xe-100': (76, 720), 
+                      'MMR': (5,mmr_lifetimes[int(params['mmr_burnup'])]), 
+                      'VOYGR': (73, 720)}
 demand_equation = np.zeros(duration)
 demand_equation[721:] = 87198.156
 lwr_DI = cdi.convert_xml_to_dict(
