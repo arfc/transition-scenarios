@@ -298,9 +298,9 @@ def update_power_demand(
         the deployment of a given number of a specified
         prototype
     '''
-    power_gap[index:index + reactor_prototypes[prototype]
-              [1]] -= reactor_prototypes[prototype][0] * num_reactors
-    power -= reactor_prototypes[prototype][0] * num_reactors
+    reactor = reactor_prototypes[prototype]
+    power_gap[index:index + reactor[1]] -= reactor[0] * num_reactors
+    power -= reactor[0] * num_reactors
     return power_gap, power
 
 
