@@ -96,23 +96,23 @@ def get_powers(path):
 
     Returns:
     --------
-    rx_power: dict
+    reactor_power: dict
         dictionary of reactor names and rated powers, the keys are the reactor
         names (strs), the values are their power outputs (ints). Any spaces
         in the keys are replaced with underscores.
     '''
-    rx_power = {}
+    reactor_power = {}
     for filename in os.listdir(path):
         file = os.path.join(path, filename)
         if file[-4:] != ".xml":
             continue
-        rx_info = convert_xml_to_dict(file)
+        reactor_info = convert_xml_to_dict(file)
 
-        rx_power.update(
-            {filename[:-4]: rx_info['facility']['config']['Reactor']['power_cap']
+        reactor_power.update(
+            {filename[:-4]: reactor_info['facility']['config']['Reactor']['power_cap']
              }
         )
-    return rx_power
+    return reactor_power
 
 
 def get_lifetime(path, name):

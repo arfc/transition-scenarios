@@ -316,20 +316,10 @@ class Test_static_info(unittest.TestCase):
         Test when the calculated number is greater than the previous deployment
         '''
         exp = 2
-        deploy_schedule = {'DeployInst': {
-            'prototypes': {
-                'val': ['Type1']},
-            'n_build': {
-                'val': [2]},
-            'build_times': {
-                'val': [0]},
-            'lifetimes': {
-                'val': [3]}
-        }}
         obs = di.redeploy_reactors(250,
                                    'Type1',
                                    self.reactor_prototypes,
-                                   deploy_schedule,
+                                   self.deploy_schedule,
                                    0)
         assert exp == obs
 
@@ -338,20 +328,10 @@ class Test_static_info(unittest.TestCase):
         Test when the calculated number is less than the previous deployment
         '''
         exp = 1
-        deploy_schedule = {'DeployInst': {
-            'prototypes': {
-                'val': ['Type1']},
-            'n_build': {
-                'val': [2]},
-            'build_times': {
-                'val': [0]},
-            'lifetimes': {
-                'val': [3]}
-        }}
         obs = di.redeploy_reactors(80,
                                    'Type1',
                                    self.reactor_prototypes,
-                                   deploy_schedule,
+                                   self.deploy_schedule,
                                    0)
         assert exp == obs
 
@@ -360,7 +340,6 @@ class Test_static_info(unittest.TestCase):
         Test when the calculated number is equal to the previous deployment
         '''
         exp = 2
-
         obs = di.redeploy_reactors(150,
                                    'Type1',
                                    self.reactor_prototypes,
