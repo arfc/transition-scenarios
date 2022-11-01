@@ -26,8 +26,7 @@ scenario_name = 'lwr_' + \
 variable_dict = {'handle': scenario_name,
                  'lwr': str(int(params['lwr'])),
                  'mmr': str(int(params['mmr']))}
-output_xml = './cyclus-files/lwr_' + str(int(params['lwr'])) +\
-             '_mmr_' + str(int(params['mmr'])) + '.xml'
+output_xml = './cyclus-files/' + scenario_name + '.xml'
              
 output_sqlite = './cyclus-files/' + scenario_name + '.sqlite'
 inp.render_input(cyclus_template, variable_dict, output_xml)
@@ -38,10 +37,8 @@ DI_dict = cdi.write_lwr_deployinst(
     "../../../inputs/united_states/buildtimes/" +
     "UNITED_STATES_OF_AMERICA/deployinst.xml",
     "../../../../../database/lwr_power_order.txt")
-cdi.write_deployinst(DI_dict, './cyclus-files/lwr_' +
-                     str(int(params['lwr'])) +
-                     "_mmr_" +
-                     str(int(params['mmr'])) +
+cdi.write_deployinst(DI_dict, './cyclus-files/' +
+                     scenario_name + 
                      '_deployinst.xml')
 
 # Create DeployInst for advanced reactors
@@ -49,23 +46,18 @@ duration = 1500
 reactor_prototypes = {'Xe-100': (76, 720), 'MMR': (5, 240), 'VOYGR': (73, 720)}
 demand_equation = np.zeros(duration)
 demand_equation[721:] = 87198.156
-lwr_DI = cdi.convert_xml_to_dict("./cyclus-files/lwr_" +
-                                 str(int(params['lwr'])) +
-                                "_mmr_" +
-                                str(int(params['mmr'])) +
-                                '_deployinst.xml')
+lwr_DI = cdi.convert_xml_to_dict("./cyclus-files/" +
+                                 scenario_name + 
+                                 '_deployinst.xml')
 deploy_schedule = cdi.write_AR_deployinst(
     lwr_DI,
     "../../../inputs/united_states/reactors/",
     duration,
     reactor_prototypes,
     demand_equation,
-    'MMR',
-    int(params['mmr']))
-cdi.write_deployinst(deploy_schedule, "./cyclus-files/AR_DeployInst_lwr_" +
-                     str(int(params['lwr'])) +
-                     "_mmr_" +
-                     str(int(params['mmr'])) +
+    {'MMR':int(params['mmr'])})
+cdi.write_deployinst(deploy_schedule, "./cyclus-files/AR_DeployInst_" +
+                     scenario_name + 
                      ".xml")
 
 # Run Cyclus with edited input file

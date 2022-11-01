@@ -20,13 +20,12 @@ params, results = di.read_parameters_file()
 
 # Edit Cyclus input file
 cyclus_template = 'ts_mmr_input.xml.in'
-scenario_name = 'ts_' + str(round(params['ts'])) +\
+scenario_name = 'ts_' + str(int(params['ts'])) +\
     '_mmr_' + str(int(params['mmr']))
 variable_dict = {'handle': scenario_name,
                  'ts': int(params['ts']),
                  'mmr': int(params['mmr'])}
-output_xml = './cyclus-files/ts_' + str(int(params['ts'])) + \
-    '_mmr_' + str(int(params['mmr'])) + '.xml'
+output_xml = './cyclus-files/' + scenario_name + '.xml'
 output_sqlite = './cyclus-files/' + scenario_name + '.sqlite'
 inp.render_input(cyclus_template, variable_dict, output_xml)
 
@@ -44,11 +43,9 @@ deploy_schedule = cdi.write_AR_deployinst(
     duration,
     reactor_prototypes,
     demand_equation,
-    'MMR',
-    int(params['mmr']))
-cdi.write_deployinst(deploy_schedule, "./cyclus-files/ts_" +
-                     str(int(params['ts'])) +
-                     '_mmr_' + str(int(params['mmr'])) + "_deployinst.xml")
+    {'MMR':int(params['mmr'])})
+cdi.write_deployinst(deploy_schedule, "./cyclus-files/" +
+                     scenario_name + "_deployinst.xml")
 
 # Run Cyclus with edited input file
 oup.run_cyclus(output_sqlite, output_xml)

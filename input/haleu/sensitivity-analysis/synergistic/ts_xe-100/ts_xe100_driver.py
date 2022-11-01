@@ -25,8 +25,7 @@ scenario_name = 'ts_' + str(round(params['ts'])) + \
 variable_dict = {'handle': scenario_name,
                  'ts': int(params['ts']),
                  'xe100': int(params['xe100'])}
-output_xml = './cyclus-files/ts_' + str(int(params['ts'])) + \
-    '_xe100_' + str(int(params['xe100'])) + '.xml'
+output_xml = './cyclus-files/' + scenario_name + '.xml'
 output_sqlite = './cyclus-files/' + scenario_name + '.sqlite'
 inp.render_input(cyclus_template, variable_dict, output_xml)
 
@@ -44,12 +43,9 @@ deploy_schedule = cdi.write_AR_deployinst(
     duration,
     reactor_prototypes,
     demand_equation,
-    'Xe-100',
-    int(params['xe100']))
-cdi.write_deployinst(deploy_schedule, "./cyclus-files/ts_" +
-                     str(int(params['ts'])) +
-                     '_xe100_' + str(int(params['xe100'])) + "_deployinst.xml")
-
+    {'Xe-100':int(params['xe100'])})
+cdi.write_deployinst(deploy_schedule, "./cyclus-files/" +
+                     scenario_name + '_deployinst.xml')
 # Run Cyclus with edited input file
 oup.run_cyclus(output_sqlite, output_xml)
 
