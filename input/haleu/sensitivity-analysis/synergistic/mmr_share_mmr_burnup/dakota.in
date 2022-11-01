@@ -1,0 +1,30 @@
+# One-at-a-time analysis for changing transition start time
+# Multidimensional parameter study 
+
+environment, 
+	tabular_data 
+		tabular_data_file = 'mmr_share_mmr_burnup.dat'
+	output_file 'mmr_share_mmr_burnup.out'
+	write_restart 'mmr_share_mmr_burnup.rst'
+
+method,						
+	list_parameter_study
+	  import_points_file = '../lwr_mmr_burnup_points.txt'
+
+variables,					
+	continuous_design = 2			   
+    descriptors       'mmr_share'  'mmr_burnup'   
+
+interface,							
+	fork							
+	  asynchronous
+            evaluation_concurrency =  16
+          analysis_drivers = 'python mmr_share_mmr_burnup_driver.py'
+        
+
+responses,				
+	descriptors = 'enr_u' 'haleu' 'swu' 'haleu_swu' 'waste' 'feed'
+	response_functions = 6
+	  scalar_responses = 6
+	no_gradients
+	no_hessians
