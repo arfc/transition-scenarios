@@ -9,7 +9,7 @@ environment,
 
 method,						
 	list_parameter_study
-	  import_points_file = '../lwr_mmr_burnup_points.txt'
+	  import_points_file = 'xe100_share_mmr_burnup_points.dat'
 
 variables,					
 	continuous_design = 2			   
