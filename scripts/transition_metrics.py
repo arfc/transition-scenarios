@@ -160,32 +160,6 @@ def get_prototype_totals(db_file, non_lwr_prototypes, prototypes):
 
     return prototypes_df
 
-
-def get_transactions(db_file):
-    '''
-    Gets the TransactionQuantity metric from cymetric,
-    sorts by TimeCreated, and renames the TimeCreated
-    column
-
-    Parametrs:
-    ----------
-    db_file: str
-        relative path to database
-
-    Returns:
-    --------
-    transactions: DataFrame
-        transaction data with specified modifications
-    '''
-    evaler = get_metrics(db_file)
-    transactions = evaler.eval(
-        'TransactionQuantity').sort_values(by='TimeCreated')
-    transactions = transactions.rename(columns={'TimeCreated': 'Time'})
-    transactions = tools.add_missing_time_step(
-        transactions, evaler.eval('TimeList'))
-    return transactions
-
-
 def add_receiver_prototype(db_file):
     '''
     Creates dataframe of transactions information, and adds in

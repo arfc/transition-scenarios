@@ -162,52 +162,6 @@ class Test_static_info(unittest.TestCase):
         assert_frame_equal(
             exp, obs[['advrx_enter', 'advrx_total']][0:4], check_names=False)
 
-    def test_get_transactions(self):
-        exp = pd.DataFrame(
-            data={
-                'Time': [
-                    0,
-                    1,
-                    1],
-                'SimId': [
-                    0,
-                    UUID('17b1bed5-0981-4682-a9be-05e60e7257cc'),
-                    UUID('17b1bed5-0981-4682-a9be-05e60e7257cc')],
-                'TransactionId': [
-                    0.0,
-                    0.0,
-                    1.0],
-                'ResourceId': [
-                    0.0,
-                    10.0,
-                    12.0],
-                'ObjId': [
-                    0.0,
-                    9.0,
-                    10.0],
-                'SenderId': [
-                    0.0,
-                    21.0,
-                    21.0],
-                'ReceiverId': [
-                    0.0,
-                    24.0,
-                    24.0],
-                'Commodity': [
-                    0,
-                    'fresh_uox',
-                    'fresh_uox'],
-                'Units': [
-                    0,
-                    'kg',
-                    'kg'],
-                'Quantity': [
-                    0.0,
-                    33000.0,
-                    33000.0]})
-        obs = tm.get_transactions(self.output_file1)
-        assert_frame_equal(exp, obs[0:3])
-
     def test_add_receiver_prototype(self):
         exp = pd.DataFrame(
             data={
