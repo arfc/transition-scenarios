@@ -39,8 +39,7 @@ deploy_schedule = cdi.write_AR_deployinst(lwr_DI,
                                           duration,
                                           reactor_prototypes,
                                           demand_equation,
-                                          'VOYGR',
-                                          int(params['voygr']))
+                                          {'VOYGR':int(params['voygr'])})
 cdi.write_deployinst(deploy_schedule,
                      "./cyclus-files/voygr_" +
                      str(int(params['voygr'])) + "_deployinst.xml")
