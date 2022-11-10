@@ -215,7 +215,7 @@ class Test_static_info(unittest.TestCase):
                     'kg',
                     'kg',
                     'kg'],
-                'Prototype': [
+                'ReceiverPrototype': [
                     'Reactor_type1',
                     'Reactor_type1',
                     'Reactor_type1',
@@ -249,7 +249,7 @@ class Test_static_info(unittest.TestCase):
         Tests function when the queried non-LWR prototype is in the dataframe
         '''
         exp = pd.DataFrame(data={'Year': [1965, 1966], 'Energy': [0.10, 0.00]})
-        obs = tm.get_lwr_energy(self.output_file1, 'Reactor_type2')
+        obs = tm.get_lwr_energy(self.output_file1, ['Reactor_type2'])
         assert_frame_equal(exp, obs[0:2])
 
     def test_get_lwr_energy2(self):
@@ -258,5 +258,5 @@ class Test_static_info(unittest.TestCase):
         dataframe
         '''
         exp = pd.DataFrame(data={'Year': [1965, 1966], 'Energy': [0.12, 0.00]})
-        obs = tm.get_lwr_energy(self.output_file1, 'Reactor_type3')
+        obs = tm.get_lwr_energy(self.output_file1, ['Reactor_type3'])
         assert_frame_equal(exp, obs[0:2])
