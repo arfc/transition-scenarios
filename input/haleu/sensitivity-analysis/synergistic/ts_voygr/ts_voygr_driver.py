@@ -45,7 +45,7 @@ deploy_schedule = cdi.write_AR_deployinst(
     demand_equation,
     {'VOYGR':int(params['voygr'])})
 cdi.write_deployinst(deploy_schedule, "./cyclus-files/" +
-                     scneario_name + "_deployinst.xml")
+                     scenario_name + "_deployinst.xml")
 
 # Run Cyclus with edited input file
 oup.run_cyclus(output_sqlite, output_xml)
