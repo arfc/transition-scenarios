@@ -31,8 +31,6 @@ output_xml = './cyclus-files/' + scenario_name + '.xml'
 output_sqlite = './cyclus-files/' + scenario_name + '.sqlite'
 inp.render_input(cyclus_template, variable_dict, output_xml)
 
-# Create DeployInst for mmr_shares
-
 # Create DeployInst for advanced reactors
 duration = 1500
 reactor_prototypes = {'Xe-100': (76, 720), 
@@ -40,9 +38,9 @@ reactor_prototypes = {'Xe-100': (76, 720),
                       'VOYGR': (73, 720)}
 demand_equation = np.zeros(duration)
 demand_equation[721:] = 87198.156
-lwr_DI = cdi.convert_xml_to_dict("./cyclus-files/" +
-                                 scenario_name + 
-                                 '_deployinst.xml')
+lwr_DI = cdi.convert_xml_to_dict(
+    "../../../inputs/united_states/buildtimes/UNITED_STATES_OF_AMERICA/deployinst.xml")
+
 deploy_schedule = cdi.write_AR_deployinst(
     lwr_DI,
     "../../../inputs/united_states/reactors/",
