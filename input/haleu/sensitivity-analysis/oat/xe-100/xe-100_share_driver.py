@@ -40,8 +40,7 @@ deploy_schedule = cdi.write_AR_deployinst(lwr_DI,
                                           duration,
                                           reactor_prototypes,
                                           demand_equation,
-                                          'Xe-100',
-                                          int(params['xe100']))
+                                          {'Xe-100':int(params['xe100'])})
 cdi.write_deployinst(deploy_schedule,
                      "./cyclus-files/xe100_" +
                      str(int(params['xe100'])) + "_deployinst.xml")
