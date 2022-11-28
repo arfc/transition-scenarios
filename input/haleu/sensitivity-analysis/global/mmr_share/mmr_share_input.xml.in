@@ -38,8 +38,8 @@
   </archetypes>
 
   <xi:include href="united_states/buildtimes/inclusions.xml#xpointer(/inclusions/child::*)"/>
-  <xi:include href="united_states/reactors/xenergy_xe100.xml"/>
-  <xi:include href="united_states/reactors/usnc_mmr.xml"/>
+  <xi:include href="../sensitivity-analysis/oat/xe100_burnup/cyclus-files/xe100_{{xe100_burnup}}.xml"/>
+  <xi:include href="../sensitivity-analysis/oat/mmr_burnup/cyclus-files/mmr_{{mmr_burnup}}.xml"/>
   <xi:include href="united_states/reactors/nuscale_voygr.xml"/>
   <facility>
     <name>Sink_HLW</name>
@@ -229,14 +229,14 @@
         </entry>
       </initialfacilitylist>
       <config>
-	      <xi:include href="../sensitivity-analysis/global/ts_lwr_mmr/cyclus-files/AR_DeployInst_ts_{{ts}}_lwr_{{lwr}}_mmr_{{mmr}}.xml"/>
+	      <xi:include href="../sensitivity-analysis/global/mmr_share/cyclus-files/AR_DeployInst_mmr_share_{{mmr_share}}.xml"/>
       </config>
     </institution>
 
     <institution>
       <name>UNITED_STATES_OF_AMERICA</name>
       <config>
-	      <xi:include href="../sensitivity-analysis/global/ts_lwr_mmr/cyclus-files/ts_{{ts}}_lwr_{{lwr}}_mmr_{{mmr}}_deployinst.xml"/>
+	      <xi:include href="../sensitivity-analysis/global/mmr_share/cyclus-files/mmr_share_{{mmr_share}}_deployinst.xml"/>
       </config>
     </institution>
   </region>

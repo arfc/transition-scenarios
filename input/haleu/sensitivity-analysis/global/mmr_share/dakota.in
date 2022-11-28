@@ -2,28 +2,26 @@
 
 environment, 
 	tabular_data 
-		tabular_data_file = 'ts_lwr_mmr.dat'
-	output_file 'ts_lwr_mmr.out'
-	write_restart 'ts_lwr_mmr.rst'
+		tabular_data_file = 'mmr_share.dat'
+	output_file 'mmr_share.out'
+	write_restart 'mmr_share.rst'
 
 method,						
     sampling
         sample_type = lhs
-	samples 2400 # 100*parameters*(response+2)
-	seed = 81622
+	samples 24000 # 100*parameters*(response+2)
+	seed = 112822
 
 variables,					
     active all
-    uniform_uncertain = 3
-    lower_bounds  721      0      0
-    upper_bounds  901      50     50 
-    descriptors   'ts'    'lwr'  'mmr'   
+    uniform_uncertain = 5
+    descriptors   'ts'    'lwr'  'mmr_share' 'mmr_burnup' 'xe100_burnup'   
 
 interface,							
 	fork							
 	  asynchronous
             evaluation_concurrency =  36
-          analysis_drivers = 'python ts_lwr_mmr_driver.py'
+          analysis_drivers = 'python mmr_share_driver.py'
         
 
 responses,				
