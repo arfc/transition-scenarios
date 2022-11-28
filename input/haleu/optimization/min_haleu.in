@@ -1,0 +1,37 @@
+#Optimization of Scenatio 7 for minimizing HALEU
+
+environment 
+  tabular_data
+    tabular_data_file = 'haleu_min.dat'
+
+method
+  coliny_ea
+    max_iterations = 10
+    max_function_evaluations = 100
+    seed = 112822
+    population_size = 5
+    fitness_type merit_function
+    mutation_rate 1.0
+    mutation_type offset_normal
+    crossover_type two_point 
+    crossover_rate 0.0
+    replacements_type chc = 10
+    
+
+model
+  single
+
+varibales
+  continuous_design = 2
+    lower_bounds 0 0 
+    upper_bounds 50 50
+  descriptors 'mmr_share' 'lwr' 
+interface 
+  fork 
+    asynchronous 
+      evaluation_concurrency = 16
+    analysis_drivers = 'python min_haleu_driver.py'
+
+objective_functions = 1
+  no_gradients 
+  no_hessians
