@@ -18,7 +18,7 @@ variables,
 interface,							
 	fork							
 	  asynchronous
-            evaluation_concurrency =  1
+            evaluation_concurrency =  24
           analysis_drivers = 'python ts_xe100_burnup_driver.py'
         
 
