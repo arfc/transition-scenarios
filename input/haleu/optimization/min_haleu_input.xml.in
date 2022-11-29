@@ -233,14 +233,14 @@
         </entry>
       </initialfacilitylist>
       <config>
-        <xi:include href="../sensitivity-analysis/synergistic/lwr_mmr/cyclus-files/AR_DeployInst_lwr_{{lwr}}_mmr_{{mmr}}.xml"/>
+        <xi:include href="../optimization/cyclus-files/AR_DeployInst_lwr_{{lwr}}_mmr_{{mmr_share}}.xml"/>
       </config>
     </institution>
 
     <institution>
       <name>UNITED_STATES_OF_AMERICA</name>
       <config>
-        <xi:include href="../sensitivity-analysis/synergistic/lwr_mmr/cyclus-files/lwr_{{lwr}}_mmr_{{mmr}}_deployinst.xml"/>
+        <xi:include href="../optimization/cyclus-files/lwr_{{lwr}}_mmr_{{mmr_share}}_deployinst.xml"/>
       </config>
     </institution>
   </region>

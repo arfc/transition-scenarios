@@ -4,7 +4,7 @@ import dakota.interfacing as di
 import sys
 import os
 from turtle import up
-sys.path.append('../../../../../scripts')
+sys.path.append('../../../scripts')
 import create_AR_DeployInst as cdi
 import output_metrics as oup
 import dakota_input as inp
@@ -25,7 +25,7 @@ scenario_name = 'lwr_' + \
     str(int(params['lwr'])) + '_mmr_' + str(int(params['mmr_share']))
 variable_dict = {'handle': scenario_name,
                  'lwr': str(int(params['lwr'])),
-                 'mmr': str(int(params['mmr_share']))}
+                 'mmr_share': str(int(params['mmr_share']))}
 output_xml = './cyclus-files/' + scenario_name + '.xml'
              
 output_sqlite = './cyclus-files/' + scenario_name + '.sqlite'
@@ -34,9 +34,9 @@ inp.render_input(cyclus_template, variable_dict, output_xml)
 # Create DeployInst for LWRs
 DI_dict = cdi.write_lwr_deployinst(
     params['lwr'],
-    "../../../inputs/united_states/buildtimes/" +
+    "../inputs/united_states/buildtimes/" +
     "UNITED_STATES_OF_AMERICA/deployinst.xml",
-    "../../../../../database/lwr_power_order.txt")
+    "../../../database/lwr_power_order.txt")
 cdi.write_deployinst(DI_dict, './cyclus-files/' +
                      scenario_name + 
                      '_deployinst.xml')
@@ -51,7 +51,7 @@ lwr_DI = cdi.convert_xml_to_dict("./cyclus-files/" +
                                  '_deployinst.xml')
 deploy_schedule = cdi.write_AR_deployinst(
     lwr_DI,
-    "../../../inputs/united_states/reactors/",
+    "../inputs/united_states/reactors/",
     duration,
     reactor_prototypes,
     demand_equation,

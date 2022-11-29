@@ -3,6 +3,8 @@
 environment 
   tabular_data
     tabular_data_file = 'haleu_min.dat'
+  output_file = 'haleu_min.out'
+  write_restart = 'haleu_min.rst'
 
 method
   coliny_ea
@@ -11,27 +13,31 @@ method
     seed = 112822
     population_size = 5
     fitness_type merit_function
-    mutation_rate 1.0
     mutation_type offset_normal
+    mutation_rate 1.0
     crossover_type two_point 
     crossover_rate 0.0
-    replacements_type chc = 10
+    replacement_type chc = 10
     
-
 model
   single
 
-varibales
+variables
   continuous_design = 2
+    initial_point 25 25
     lower_bounds 0 0 
-    upper_bounds 50 50
-  descriptors 'mmr_share' 'lwr' 
+    upper_bounds 100 100
+    descriptors 'mmr_share' 'lwr' 
+
 interface 
   fork 
     asynchronous 
       evaluation_concurrency = 16
     analysis_drivers = 'python min_haleu_driver.py'
 
-objective_functions = 1
+responses 
+  objective_functions = 1
+  nonlinear_inequality_constraints = 2
+    upper_bounds = 100 100
   no_gradients 
   no_hessians
