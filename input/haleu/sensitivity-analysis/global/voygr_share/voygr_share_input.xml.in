@@ -229,14 +229,14 @@
         </entry>
       </initialfacilitylist>
       <config>
-        <xi:include href="../sensitivity-analysis/global/voygr_share/cyclus-files/AR_DeployInst_voygr_share_{{voygr_share}}.xml"/>
+        <xi:include href="../sensitivity-analysis/global/voygr_share/cyclus-files/AR_DeployInst_ts_{{ts}}_lwr_{{lwr}}_voygr_share_{{voygr_share}}_mmr_burnup_{{mmr_burnup}}_xe100_burnup_{{xe100_burnup}}.xml"/>
       </config>
     </institution>
 
     <institution>
       <name>UNITED_STATES_OF_AMERICA</name>
       <config>
-        <xi:include href="../sensitivity-analysis/global/voygr_share/cyclus-files/voygr_share_{{voygr_share}}_deployinst.xml"/>
+        <xi:include href="../sensitivity-analysis/global/voygr_share/cyclus-files/ts_{{ts}}_lwr_{{lwr}}_voygr_share_{{voygr_share}}_mmr_burnup_{{mmr_burnup}}_xe100_burnup_{{xe100_burnup}}_deployinst.xml"/>
       </config>
     </institution>
   </region>

@@ -20,16 +20,21 @@ params, results = di.read_parameters_file()
 
 # Edit Cyclus input file
 cyclus_template = 'voygr_share_input.xml.in'
-scenario_name = 'voygr_share_' + \
-                str(int(params['voygr_share']))
+scenario_name = ('ts_' + str(int(params['ts'])) +
+                 '_lwr_' + str(int(params['lwr'])) +
+                 '_voygr_share_' + str(int(params['voygr_share'])) +
+                 '_mmr_burnup_' + str(int(params['mmr_burnup'])) +
+                 '_xe100_burnup_' + str(int(params['xe100_burnup'])))
+ 
 variable_dict = {'handle': scenario_name,
                  'ts': str(int(params['ts'])),
                  'lwr': str(int(params['lwr'])),
                  'voygr_share': str(int(params['voygr_share'])),
                  'mmr_burnup':str(int(params['mmr_burnup'])),
                  'xe100_burnup':str(int(params['xe100_burnup']))}
-output_xml = './cyclus-files/voygr_share_' + 
-             str(int(params['voygr_share'])) + '.xml'
+output_xml = ('./cyclus-files/' + 
+              scenario_name + 
+              '.xml')
 output_sqlite = './cyclus-files/' + scenario_name + '.sqlite'
 inp.render_input(cyclus_template, variable_dict, output_xml)
 
@@ -52,7 +57,7 @@ reactor_prototypes = {'Xe-100': (76, 720),
 demand_equation = np.zeros(duration)
 demand_equation[int(params['ts']):] = 87198.156
 lwr_DI = cdi.convert_xml_to_dict('./cyclus-files/' +
-                                 scneario_name +
+                                 scenario_name +
                                  '_deployinst.xml')
 deploy_schedule = cdi.write_AR_deployinst(
     lwr_DI,

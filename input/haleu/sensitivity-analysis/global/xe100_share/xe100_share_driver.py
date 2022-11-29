@@ -19,17 +19,19 @@ params, results = di.read_parameters_file()
 # -------------------------------
 
 # Edit Cyclus input file
-cyclus_template = 'xe100__shareinput.xml.in'
-scenario_name = 'xe100_share_' + \
-                str(int(params['xe100']))
+cyclus_template = 'xe100_share_input.xml.in'
+scenario_name = ('ts_' + str(int(params['ts'])) +
+                '_lwr_' + str(int(params['lwr'])) + 
+                '_xe100_share_' + str(int(params['xe100_share'])) +
+                '_xe100_burnup_' + str(int(params['xe100_burnup'])) +
+                '_mmr_burnup_' + str(int(params['mmr_burnup'])))
 variable_dict = {'handle': scenario_name,
                  'ts': str(int(params['ts'])),
                  'lwr': str(int(params['lwr'])),
                  'xe100_share': str(int(params['xe100_share'])),
                  'mmr_burnup':str(int(params['mmr_burnup'])),
                  'xe100_burnup':str(int(params['xe100_burnup']))}
-output_xml = './cyclus-files/xe100_share' + 
-             str(int(params['xe100_share'])) + '.xml'
+output_xml = "./cyclus-files/" + scenario_name + ".xml"
 output_sqlite = './cyclus-files/' + scenario_name + '.sqlite'
 inp.render_input(cyclus_template, variable_dict, output_xml)
 

@@ -8,13 +8,23 @@ environment,
 method,						
     sampling
         sample_type = lhs
+        variance_based_decomp
 	samples 4000 # 100*parameters*(response+2)
 	seed = 112822
+
+model
+  id_model = 'SURR'
+  surrogate global
+  import_points_file = '../variable_points.dat' annotated
+  gaussian_process surfpack
+    metrics = "root_mean_squared" "sum_abs" "rsquared"
 
 variables,					
     active all
     uniform_uncertain = 5
-    descriptors   'ts'    'lwr'  'xe100_share' 'mmr_burnup' 'xe100_burnup'   
+    lower_bounds = 721  0     0            41           28
+    upper_bounds  901   50    50           90           185
+    descriptors   'ts' 'lwr' 'xe100_share' 'mmr_burnup' 'xe100_burnup'   
 
 interface,							
 	fork							

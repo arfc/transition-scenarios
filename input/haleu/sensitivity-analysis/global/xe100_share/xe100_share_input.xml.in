@@ -229,14 +229,14 @@
         </entry>
       </initialfacilitylist>
       <config>
-	      <xi:include href="../sensitivity-analysis/global/xe100_share/cyclus-files/AR_DeployInst_xe100_share_{{xe100_share}}.xml"/>
+	      <xi:include href="../sensitivity-analysis/global/xe100_share/cyclus-files/AR_DeployInst_ts_{{ts}}_lwr_{{lwr}}_xe100_share_{{xe100_share}}_xe100_burnup_{{xe100_burnup}}_mmr_burnup_{{mmr_burnup}}.xml"/>
       </config>
     </institution>
 
     <institution>
       <name>UNITED_STATES_OF_AMERICA</name>
       <config>
-	      <xi:include href="../sensitivity-analysis/global/xe100_share/cyclus-files/xe100_share_{{xe100_share}}_deployinst.xml"/>
+	      <xi:include href="../sensitivity-analysis/global/xe100_share/cyclus-files/ts_{{ts}}_lwr_{{lwr}}_xe100_share_{{xe100_share}}_xe100_burnup_{{xe100_burnup}}_mmr_burnup_{{mmr_burnup}}_deployinst.xml"/>
       </config>
     </institution>
   </region>
