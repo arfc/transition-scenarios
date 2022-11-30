@@ -2,22 +2,24 @@
 
 environment 
   tabular_data
-    tabular_data_file = 'haleu_min.dat'
-  output_file = 'haleu_min.out'
-  write_restart = 'haleu_min.rst'
+    tabular_data_file = 'min_haleu.dat'
+  output_file = 'min_haleu.out'
+  write_restart = 'min_haleu.rst'
 
 method
-  coliny_ea
-    max_iterations = 10
-    max_function_evaluations = 100
-    seed = 112822
+  #coliny_ea
+  soga
+    max_iterations = 5
+    #max_function_evaluations = 100
+    #seed = 112822
     population_size = 5
-    fitness_type merit_function
-    mutation_type offset_normal
-    mutation_rate 1.0
-    crossover_type two_point 
-    crossover_rate 0.0
-    replacement_type chc = 10
+    #fitness_type merit_function
+    #mutation_type offset_normal
+    #mutation_rate 1.0
+    #crossover_type two_point 
+    #crossover_rate 0.0
+    #replacement_type chc = 10
+    #print_each_pop
     
 model
   single
@@ -32,12 +34,11 @@ variables
 interface 
   fork 
     asynchronous 
-      evaluation_concurrency = 16
+      evaluation_concurrency = 5
     analysis_drivers = 'python min_haleu_driver.py'
 
 responses 
   objective_functions = 1
-  nonlinear_inequality_constraints = 2
-    upper_bounds = 100 100
+  descriptors 'haleu'
   no_gradients 
   no_hessians
