@@ -21,8 +21,10 @@ params, results = di.read_parameters_file()
 
 # Edit Cyclus input file
 cyclus_template = 'min_haleu_input.xml.in'
-scenario_name = 'lwr_' + \
-    str(int(params['lwr'])) + '_mmr_' + str(int(params['mmr_share']))
+scenario_name = ('lwr_' + 
+                 str(int(params['lwr'])) + 
+                 '_mmr_' + 
+                 str(int(params['mmr_share'])))
 variable_dict = {'handle': scenario_name,
                  'lwr': str(int(params['lwr'])),
                  'mmr_share': str(int(params['mmr_share']))}
