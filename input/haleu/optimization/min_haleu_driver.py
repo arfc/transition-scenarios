@@ -68,5 +68,10 @@ oup.run_cyclus(output_sqlite, output_xml)
 # ----------------------------
 # Return the results to Dakota
 # ----------------------------
-results['haleu'].function = oup.get_enriched_u_mass(output_sqlite, ['Xe-100','MMR'], 721)
+haleu_swu = oup.calculate_swu(output_sqlite, ['Xe-100','MMR'], 721)
+with open('min_haleu_results.txt', 'w') as f:
+    f.write(str(haleu_swu))
 
+
+results['haleu_swu'].function = haleu_swu 
+results.write()
