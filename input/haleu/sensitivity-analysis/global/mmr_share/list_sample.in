@@ -1,4 +1,4 @@
-# Global analysis for variations in Xe-100 build share
+# Global analysis for variations in MMR build share
 environment, 
 	tabular_data 
 		tabular_data_file = 'mmr_share_list.dat'
@@ -8,14 +8,12 @@ environment,
 method,						
   sampling 
     sample_type = lhs
-    #variance_based_decomp
     samples = 24000 
     seed = 120622
 
 
 variables,
     active all 
-    #descriptors   'ts' 'lwr' 'mmr_share' 'mmr_burnup' 'xe100_burnup'
     continuous_design = 3
       lower_bounds  721  0     0
       upper_bounds  901   50    50
