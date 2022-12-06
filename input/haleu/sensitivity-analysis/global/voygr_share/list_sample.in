@@ -1,0 +1,40 @@
+# Global analysis for variations in VOYGR build share
+environment, 
+	tabular_data 
+		tabular_data_file = 'voygr_share_list.dat'
+	output_file 'voygr_share_list.out'
+	write_restart 'voygr_share_list.rst'
+
+method,						
+  sampling 
+    sample_type = lhs
+    samples = 24000 
+    seed = 120622
+
+
+variables,
+    active all 
+    continuous_design = 3
+      lower_bounds  721  0     0
+      upper_bounds  901   50    50
+      descriptors = 'ts' 'lwr' 'voygr_share'
+    discrete_design_set 
+      integer = 2
+      elements_per_variable 7 8 
+      elements 41 62 74 78 82 86 90 28 56 84 112 140 151 168 185
+      descriptors = 'mmr_burnup' 'xe100_burnup'
+
+interface,							
+	fork							
+	  asynchronous
+            evaluation_concurrency = 36
+          analysis_drivers = 'python mmr_share_driver.py'
+        
+
+responses,				
+	descriptors = 'enr_u' 'haleu' 'swu' 'haleu_swu' 'waste' 'feed'
+	response_functions = 6
+	  scalar_responses = 6
+	no_gradients
+	no_hessians
+
