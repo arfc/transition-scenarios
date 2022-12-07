@@ -33,7 +33,8 @@ scenario_name = ('lwr_' +
                  str(int(params['mmr_burnup'])) + 
                  '_xe100_burnup_' + 
                  str(int(params['xe100_burnup'])))
-variable_dict = {'lwr':str(int(params['lwr'])), 
+variable_dict = {'handle': scenario_name,
+                 'lwr':str(int(params['lwr'])), 
                  'mmr_share':str(int(params['mmr_share'])),
                  'xe100_share':str(int(params['xe100_share'])),
                  'voygr_share':str(int(params['voygr_share'])),
