@@ -23,11 +23,22 @@ params, results = di.read_parameters_file()
 cyclus_template = 'min_haleu_input.xml.in'
 scenario_name = ('lwr_' + 
                  str(int(params['lwr'])) + 
-                 '_mmr_' + 
-                 str(int(params['mmr_share'])))
-variable_dict = {'handle': scenario_name,
-                 'lwr': str(int(params['lwr'])),
-                 'mmr_share': str(int(params['mmr_share']))}
+                 '_mmr_share_' + 
+                 str(int(params['mmr_share'])) +
+                 '_xe100_share_' + 
+                 str(int(params['xe100_share'])) + 
+                 '_voygr_share_' + 
+                 str(int(params['voygr_share'])) + 
+                 '_mmr_burnup_' + 
+                 str(int(params['mmr_burnup'])) + 
+                 '_xe100_burnup_' + 
+                 str(int(params['xe100_burnup'])))
+variable_dict = {'lwr':str(int(params['lwr'])), 
+                 'mmr_share':str(int(params['mmr_share'])),
+                 'xe100_share':str(int(params['xe100_share'])),
+                 'voygr_share':str(int(params['voygr_share'])),
+                 'mmr_burnup':str(int(params['mmr_burnup'])),
+                 'xe100_burnup':str(int(params['xe100_burnup']))}
 output_xml = './cyclus-files/' + scenario_name + '.xml'
              
 output_sqlite = './cyclus-files/' + scenario_name + '.sqlite'
@@ -45,7 +56,10 @@ cdi.write_deployinst(DI_dict, './cyclus-files/' +
 
 # Create DeployInst for advanced reactors
 duration = 1500
-reactor_prototypes = {'Xe-100': (76, 720), 'MMR': (5, 240), 'VOYGR': (73, 720)}
+mmr_lifetimes = {41:120, 62:180, 74:218, 78:231, 82:240, 86:255, 90:267}
+reactor_prototypes = {'Xe-100': (76, 720), 
+                      'MMR': (5, mmr_lifetimes[int(params['mmr_burnup'])]), 
+                      'VOYGR': (73, 720)}
 demand_equation = np.zeros(duration)
 demand_equation[721:] = 87198.156
 lwr_DI = cdi.convert_xml_to_dict("./cyclus-files/" +
@@ -57,7 +71,9 @@ deploy_schedule = cdi.write_AR_deployinst(
     duration,
     reactor_prototypes,
     demand_equation,
-    {'MMR':int(params['mmr_share'])})
+    {'MMR':int(params['mmr_share']), 
+     'Xe-100':int(params['xe100_share']),
+     'VOYGR':int(params['voygr_share'])})
 cdi.write_deployinst(deploy_schedule, "./cyclus-files/AR_DeployInst_" +
                      scenario_name + 
                      ".xml")
