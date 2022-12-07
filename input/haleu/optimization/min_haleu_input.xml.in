@@ -233,14 +233,14 @@
         </entry>
       </initialfacilitylist>
       <config>
-        <xi:include href="../optimization/cyclus-files/AR_DeployInst_lwr_{{lwr}}_mmr_{{mmr_share}}.xml"/>
+        <xi:include href="../optimization/cyclus-files/AR_DeployInst_lwr_{{lwr}}_mmr_share_{{mmr_share}}_xe100_share_{{xe100_share}}_voygr_share_{{voygr_share}}_mmr_burnup_{{mmr_burnup}}_xe100_burnup_{{xe100_burnup}}.xml"/>
       </config>
     </institution>
 
     <institution>
       <name>UNITED_STATES_OF_AMERICA</name>
       <config>
-        <xi:include href="../optimization/cyclus-files/lwr_{{lwr}}_mmr_{{mmr_share}}_deployinst.xml"/>
+        <xi:include href="../optimization/cyclus-files/lwr_{{lwr}}_mmr_share_{{mmr_share}}_xe100_share_{{xe100_share}}_voygr_share_{{voygr_share}}_mmr_burnup_{{mmr_burnup}}_xe100_burnup_{{xe100_burnup}_deployinst.xml"/>
       </config>
     </institution>
   </region>
