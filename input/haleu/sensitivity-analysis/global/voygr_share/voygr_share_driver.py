@@ -77,3 +77,5 @@ oup.run_cyclus(output_sqlite, output_xml)
 # Return the results to Dakota
 # ----------------------------
 results = oup.get_all_results(results, output_sqlite)
+
+os.system('rm ' + output_sqlite)
