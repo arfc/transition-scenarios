@@ -1,9 +1,9 @@
 # Global analysis for variations in Xe-100 build share
 environment, 
 	tabular_data 
-		tabular_data_file = 'xe100_share.dat'
-	output_file 'xe100_share.out'
-	write_restart 'xe100_share.rst'
+		tabular_data_file = 'xe100_share_quadratic.dat'
+	output_file 'xe100_share_quadratic.out'
+	write_restart 'xe100_share_quadratic.rst'
 
 method,						
     sampling
@@ -15,8 +15,9 @@ method,
 model
   id_model = 'SURR'
   surrogate global
-  import_points_file = '../variable_points.dat' annotated
-  gaussian_process surfpack
+  import_points_file = 'xe100_share_list.dat' annotated
+  quadratic
+  #gaussian_process surfpack
     metrics = "root_mean_squared" "sum_abs" "rsquared"
 
 variables,					
@@ -28,8 +29,8 @@ variables,
 
 interface,							
 	fork							
-	  asynchronous
-            evaluation_concurrency =  36
+#	  asynchronous
+ #           evaluation_concurrency =  36
           analysis_drivers = 'python xe100_share_driver.py'
         
 
