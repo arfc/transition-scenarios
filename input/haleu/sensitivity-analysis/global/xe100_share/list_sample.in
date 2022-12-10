@@ -8,7 +8,7 @@ environment,
 method,						
   sampling 
     sample_type = lhs
-    samples = 24000 
+    samples = 1500 
     seed = 120622
 
 
