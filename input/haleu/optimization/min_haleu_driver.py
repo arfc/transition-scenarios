@@ -89,3 +89,5 @@ results['haleu_swu'].function = oup.calculate_swu(output_sqlite,
                                                   ['Xe-100', 'MMR'],
                                                   721)
 results.write()
+
+os.system('rm ' + output_sqlite)
