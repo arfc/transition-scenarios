@@ -243,6 +243,7 @@
         <xi:include href="../optimization/cyclus-files/lwr_{{lwr}}_mmr_share_{{mmr_share}}_xe100_share_{{xe100_share}}_voygr_share_{{voygr_share}}_mmr_burnup_{{mmr_burnup}}_xe100_burnup_{{xe100_burnup}}_deployinst.xml"/>
       </config>
     </institution>
+
   </region>
 
   <xi:include href="united_states/recipes/uox_51.xml#xpointer(/recipes/child::*)"/>
