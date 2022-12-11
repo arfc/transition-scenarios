@@ -5,14 +5,14 @@ environment
     tabular_data_file = 'min_haleu.dat'
   output_file = 'min_haleu.out'
   write_restart = 'min_haleu.rst'
-  error_file = 'min_haleu.err'
+  #error_file = 'min_haleu.err'
 
 method
   soga
     max_iterations = 5 #20
-    max_function_evaluations = 100
+    #max_function_evaluations = 100
     seed = 112822
-    population_size = 5 #20
+    population_size = 20
     fitness_type merit_function
     mutation_type offset_normal
     mutation_rate 0.2
@@ -26,7 +26,8 @@ model
   single
 
 variables
-  continuous_design = 4
+  active all
+  continuous_design = 4 
     initial_point 33 33 34 25
     lower_bounds 0 0 0 0 
     upper_bounds 100 100 100 50
@@ -36,20 +37,18 @@ variables
     elements_per_variable 7 8
     elements 41 62 74 78 82 86 90 28 56 84 112 140 151 168 185
     descriptors = 'mmr_burnup' 'xe100_burnup'
-  linear_equality_constraint_matrix
-    1 1 1 0 0 0
-  linear_equality_targets
-    100  
+  linear_equality_constraint_matrix = 1 1 1 0 0 0
+  linear_equality_targets = 100
+
 interface 
   fork 
     asynchronous 
       evaluation_concurrency = 5
     analysis_drivers = 'python min_haleu_driver.py'
-    #results_file = 'mmr_share_lwr_results.dat'
 
 responses 
   objective_functions = 1
-    #sense = 'min'
+    sense = 'min'
     descriptors 'haleu_swu'
   no_gradients 
   no_hessians
