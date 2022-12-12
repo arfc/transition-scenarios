@@ -5,10 +5,9 @@ import sys
 import os
 from turtle import up
 sys.path.append('../../../../../scripts')
-import create_AR_DeployInst as cdi
-import output_metrics as oup
 import dakota_input as inp
-# import output as oup
+import output_metrics as oup
+import create_AR_DeployInst as cdi
 # ----------------------------
 # Parse Dakota parameters file
 # ----------------------------
@@ -27,15 +26,15 @@ variable_dict = {'handle': scenario_name,
                  'ts': str(int(params['ts'])),
                  'mmr_burnup': str(int(params['mmr_burnup']))}
 output_xml = './cyclus-files/' + scenario_name + '.xml'
-             
+
 output_sqlite = './cyclus-files/' + scenario_name + '.sqlite'
 inp.render_input(cyclus_template, variable_dict, output_xml)
 
 # Create DeployInst for advanced reactors
 duration = 1500
-mmr_lifetimes = {41:120, 62:180, 74:218, 78:231, 82:240, 86:255, 90:267}
-reactor_prototypes = {'Xe-100': (76, 720), 
-                      'MMR': (5, mmr_lifetimes[int(params['mmr_burnup'])]), 
+mmr_lifetimes = {41: 120, 62: 180, 74: 218, 78: 231, 82: 240, 86: 255, 90: 267}
+reactor_prototypes = {'Xe-100': (76, 720),
+                      'MMR': (5, mmr_lifetimes[int(params['mmr_burnup'])]),
                       'VOYGR': (73, 720)}
 demand_equation = np.zeros(duration)
 demand_equation[int(params['ts']):] = 87198.156
@@ -48,7 +47,7 @@ deploy_schedule = cdi.write_AR_deployinst(
     reactor_prototypes,
     demand_equation)
 cdi.write_deployinst(deploy_schedule, "./cyclus-files/" +
-                     scenario_name + 
+                     scenario_name +
                      "_deployinst.xml")
 
 # Run Cyclus with edited input file

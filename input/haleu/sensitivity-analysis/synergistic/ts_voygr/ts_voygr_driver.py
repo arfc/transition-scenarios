@@ -5,9 +5,9 @@ import sys
 import os
 from turtle import up
 sys.path.append('../../../../../scripts')
-import create_AR_DeployInst as cdi
-import output_metrics as oup
 import dakota_input as inp
+import output_metrics as oup
+import create_AR_DeployInst as cdi
 # ----------------------------
 # Parse Dakota parameters file
 # ----------------------------
@@ -25,7 +25,7 @@ scenario_name = 'ts_' + str(round(params['ts'])) + \
 variable_dict = {'handle': scenario_name,
                  'ts': int(params['ts']),
                  'voygr': int(params['voygr'])}
-output_xml = './cyclus-files/'+ scenario_name + '.xml'
+output_xml = './cyclus-files/' + scenario_name + '.xml'
 output_sqlite = './cyclus-files/' + scenario_name + '.sqlite'
 inp.render_input(cyclus_template, variable_dict, output_xml)
 
@@ -43,7 +43,7 @@ deploy_schedule = cdi.write_AR_deployinst(
     duration,
     reactor_prototypes,
     demand_equation,
-    {'VOYGR':int(params['voygr'])})
+    {'VOYGR': int(params['voygr'])})
 cdi.write_deployinst(deploy_schedule, "./cyclus-files/" +
                      scenario_name + "_deployinst.xml")
 

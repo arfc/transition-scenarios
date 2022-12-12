@@ -5,9 +5,9 @@ import sys
 import os
 from turtle import up
 sys.path.append('../../../../../scripts')
-import create_AR_DeployInst as cdi
-import output_metrics as oup
 import dakota_input as inp
+import output_metrics as oup
+import create_AR_DeployInst as cdi
 # ----------------------------
 # Parse Dakota parameters file
 # ----------------------------
@@ -36,21 +36,21 @@ DI_dict = cdi.write_lwr_deployinst(
     "UNITED_STATES_OF_AMERICA/deployinst.xml",
     "../../../../../database/lwr_power_order.txt")
 cdi.write_deployinst(DI_dict, './cyclus-files/' +
-                     scenario_name + 
+                     scenario_name +
                      '_deployinst.xml')
 
 # Create DeployInst for advanced reactors
 duration = 1500
-reactor_prototypes = {'Xe-100': (76, 720), 
-                      'MMR': (5, 240), 
+reactor_prototypes = {'Xe-100': (76, 720),
+                      'MMR': (5, 240),
                       'VOYGR': (73, 720)}
 demand_equation = np.zeros(duration)
 demand_equation[721:] = 87198.156
 deployinst = cdi.convert_xml_to_dict("./cyclus-files/" +
-                                     scenario_name + 
+                                     scenario_name +
                                      '_deployinst.xml')
 lwr_DI = cdi.convert_xml_to_dict("./cyclus-files/" +
-                                 scenario_name + 
+                                 scenario_name +
                                  '_deployinst.xml')
 
 
@@ -60,7 +60,7 @@ deploy_schedule = cdi.write_AR_deployinst(
     duration,
     reactor_prototypes,
     demand_equation,
-    {'VOYGR':int(params['voygr'])})
+    {'VOYGR': int(params['voygr'])})
 cdi.write_deployinst(deploy_schedule, "./cyclus-files/AR_DeployInst_" +
                      scenario_name + ".xml")
 

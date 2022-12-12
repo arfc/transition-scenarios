@@ -5,9 +5,9 @@ import sys
 import os
 from turtle import up
 sys.path.append('../../../../../scripts')
-import create_AR_DeployInst as cdi
-import output_metrics as oup
 import dakota_input as inp
+import output_metrics as oup
+import create_AR_DeployInst as cdi
 # ----------------------------
 # Parse Dakota parameters file
 # ----------------------------
@@ -35,7 +35,11 @@ DI_dict = cdi.write_lwr_deployinst(
     "../../../inputs/united_states/buildtimes/" +
     "UNITED_STATES_OF_AMERICA/deployinst.xml",
     "../../../../../database/lwr_power_order.txt")
-cdi.write_deployinst(DI_dict, './cyclus-files/' + scenario_name + '_deployinst.xml')
+cdi.write_deployinst(
+    DI_dict,
+    './cyclus-files/' +
+    scenario_name +
+    '_deployinst.xml')
 
 # Create DeployInst for advanced reactors
 duration = 1500
@@ -51,9 +55,9 @@ deploy_schedule = cdi.write_AR_deployinst(
     duration,
     reactor_prototypes,
     demand_equation,
-    {'Xe-100':int(params['xe100'])})
+    {'Xe-100': int(params['xe100'])})
 cdi.write_deployinst(deploy_schedule, "./cyclus-files/AR_DeployInst_" +
-                                      scenario_name + 
+                                      scenario_name +
                                       ".xml")
 
 # Run Cyclus with edited input file
