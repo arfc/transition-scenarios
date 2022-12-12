@@ -8,12 +8,12 @@ environment
   #error_file = 'min_haleu.err'
 
 method
-  soga
-    max_iterations = 5 #20
+  moga
+    max_iterations = 20
     #max_function_evaluations = 100
     seed = 112822
     population_size = 20
-    fitness_type merit_function
+    fitness_type layer_rank
     mutation_type offset_normal
     mutation_rate 0.2
     crossover_type shuffle_random 
@@ -43,7 +43,7 @@ variables
 interface 
   fork 
     asynchronous 
-      evaluation_concurrency = 5
+      evaluation_concurrency = 24 
     analysis_drivers = 'python min_haleu_driver.py'
 
 responses 
