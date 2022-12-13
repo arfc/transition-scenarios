@@ -33,6 +33,13 @@ variable_dict = {'handle': scenario_name,
                  'xe100_burnup':str(int(params['xe100_burnup']))}
 output_xml = "./cyclus-files/" + scenario_name + ".xml"
 output_sqlite = './cyclus-files/' + scenario_name + '.sqlite'
+
+mmr_lifetime = int(np.round(params['mmr_burnup'],2)*1331.73/15/30)
+mmr_burnup_dict = {'mmr_lifetime':mmr_lifetime}
+inp.render_input('../mmr_burnup_input.xml.in', 
+                 mmr_burnup_dict, 
+                 "./cyclus-files/mmr_" + str(int(params['mmr_burnup'])) + ".xml")
+
 inp.render_input(cyclus_template, variable_dict, output_xml)
 
 # Create DeployInst for LWRs
@@ -47,9 +54,8 @@ cdi.write_deployinst(DI_dict, './cyclus-files/' +
 
 # Create DeployInst for advanced reactors
 duration = 1500
-mmr_lifetimes = {41:120, 62:180, 74:218, 78:231, 82:240, 86:255, 90:267}
 reactor_prototypes = {'Xe-100': (76, 720), 
-                      'MMR': (5, mmr_lifetimes[int(params['mmr_burnup'])]), 
+                      'MMR': (5, mmr_lifetime), 
                       'VOYGR': (73, 720)}
 demand_equation = np.zeros(duration)
 demand_equation[int(params['ts']):] = 87198.156
@@ -74,3 +80,5 @@ oup.run_cyclus(output_sqlite, output_xml)
 # Return the results to Dakota
 # ----------------------------
 results = oup.get_all_results(results, output_sqlite)
+
+os.system('rm ' + output_sqlite)

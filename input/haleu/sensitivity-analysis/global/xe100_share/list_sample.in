@@ -8,26 +8,26 @@ environment,
 method,						
   sampling 
     sample_type = lhs
-    samples = 1500 
+    samples = 4000 
     seed = 120622
 
 
 variables,
     active all 
-    continuous_design = 3
-      lower_bounds  721  0     0
-      upper_bounds  901   50    50
-      descriptors = 'ts' 'lwr' 'xe100_share'
+    continuous_design = 4 
+      lower_bounds  721   0     0            41
+      upper_bounds  901   50    50           90 
+      descriptors = 'ts' 'lwr' 'xe100_share' 'mmr_burnup'
     discrete_design_set 
-      integer = 2
-      elements_per_variable 7 8 
-      elements 41 62 74 78 82 86 90 28 56 84 112 140 151 168 185
-      descriptors = 'mmr_burnup' 'xe100_burnup'
+      integer = 1
+      elements_per_variable 8 
+      elements 28 56 84 112 140 151 168 185
+      descriptors = 'xe100_burnup'
 
 interface,							
 	fork							
 	  asynchronous
-            evaluation_concurrency = 36
+            evaluation_concurrency = 40
           analysis_drivers = 'python xe100_share_driver.py'
         
 
