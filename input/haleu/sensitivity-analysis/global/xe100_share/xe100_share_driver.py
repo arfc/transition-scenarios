@@ -40,6 +40,19 @@ inp.render_input('../mmr_burnup_input.xml.in',
                  mmr_burnup_dict, 
                  "./cyclus-files/mmr_" + str(int(params['mmr_burnup'])) + ".xml")
 
+xe100_cycles = {28:(1,7), 32:(1,8), 48:(2,6), 56:(2,7), 64:(2,8),
+                72:(3,6), 84:(3,7), 96:(3,8), 112:(4,7), 128:(4,8),
+                120:(5,6), 140:(5,7), 160:(5,8), 151:(6,6), 168:(6,7),
+                185:(6,8)}
+xe100_burnup_dict = {'xe100_cycle':xe100_cycles[int(params['xe100_burnup'])][1],
+                     'xe100_n_assem':xe100_cycles[int(params['xe100_burnup'])][0],
+                     'xe100_assem':1675.44/xe100_cycles[int(params['xe100_burnup'])][0]
+                    }
+inp.render_input("../xe100_burnup_input.xml.in",
+                 xe100_burnup_dict,
+                 "./cyclus-files/xe100_" + str(int(params['xe100_burnup'])) +
+                 ".xml")
+
 inp.render_input(cyclus_template, variable_dict, output_xml)
 
 # Create DeployInst for LWRs

@@ -20,14 +20,14 @@ variables,
       descriptors = 'ts' 'lwr' 'xe100_share' 'mmr_burnup'
     discrete_design_set 
       integer = 1
-      elements_per_variable 8 
-      elements 28 56 84 112 140 151 168 185
+      elements_per_variable 16 
+      elements 28 32 48 56 64 72 84 96 112 120 128 140 151 160 168 185
       descriptors = 'xe100_burnup'
 
 interface,							
 	fork							
 	  asynchronous
-            evaluation_concurrency = 40
+            evaluation_concurrency = 44
           analysis_drivers = 'python xe100_share_driver.py'
         
 

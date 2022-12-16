@@ -38,8 +38,8 @@
   </archetypes>
 
   <xi:include href="united_states/buildtimes/inclusions.xml#xpointer(/inclusions/child::*)"/>
-  <xi:include href="../sensitivity-analysis/oat/xe100_burnup/cyclus-files/xe100_{{xe100_burnup}}.xml"/>
-  <xi:include href="../sensitivity-analysis/oat/mmr_burnup/cyclus-files/mmr_{{mmr_burnup}}.xml"/>
+  <xi:include href="../sensitivity-analysis/global/mmr_share/cyclus-files/xe100_{{xe100_burnup}}.xml"/>
+  <xi:include href="../sensitivity-analysis/global/mmr_share/cyclus-files/mmr_{{mmr_burnup}}.xml"/>
   <xi:include href="united_states/reactors/nuscale_voygr.xml"/>
   <facility>
     <name>Sink_HLW</name>
