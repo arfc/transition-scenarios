@@ -54,7 +54,7 @@
       <Sink>
         <in_commods>
           <val>casked_spent_uox</val>
-          <val>cooled_spent_mox</val>
+          <val>casked_spent_mox</val>
           <val>separated_waste</val>
         </in_commods>
         <!-- Yucca Mountain Repository -->
@@ -111,7 +111,7 @@
       <Enrichment>
         <feed_commod>nat_u</feed_commod>
         <feed_recipe>nat_u</feed_recipe>
-        <product_commod>fresh_uox</product_commod>
+        <product_commod>fresh_MMR_uox</product_commod>
         <tails_commod>tails</tails_commod>
         <tails_assay>0.002</tails_assay>
         <max_enrich>0.20</max_enrich>
@@ -127,7 +127,7 @@
       <Enrichment>
         <feed_commod>nat_u</feed_commod>
         <feed_recipe>nat_u</feed_recipe>
-        <product_commod>fresh_uox</product_commod>
+        <product_commod>fresh_smr_uox</product_commod>
         <tails_commod>tails</tails_commod>
         <tails_assay>0.002</tails_assay>
         <max_enrich>0.16</max_enrich>
@@ -177,12 +177,12 @@
       <Storage>
         <in_commods>
           <val>cool_spent_uox</val>
-          <val>separated_waste</val>
           <val>cool_spent_mox</val>
         </in_commods>
         <in_recipe>cool_spent_uox</in_recipe>
         <out_commods>
           <val>casked_spent_uox</val>
+          <val>casked_spent_mox</val>
         </out_commods>
         <!-- Yucca Mountain Repository -->
         <latitude>36.8286</latitude>
@@ -191,23 +191,56 @@
     </config>
   </facility>
   <facility>
-    <name>UOXCoolingPool</name>
+    <name>MMR_UOX_Cooling</name>
     <config>
       <Storage>
         <in_commods>
-          <val>spent_xe100_haleu</val>
-          <val>spent_smr_fuel</val>
           <val>spent_MMR_haleu</val>
         </in_commods>
-        <in_recipe>spent_xe100_haleu</in_recipe>
+        <in_recipe>spent_MMR_haleu</in_recipe>
         <out_commods>
-          <val>cool_AR_uox</val>
+          <val>cool_MMR_haleu</val>
         </out_commods>
         <latitude>36.8286</latitude>
         <longitude>-116.4364</longitude>
       </Storage>
     </config>
   </facility>
+  
+  <facility>
+    <name>Xe100_UOX_Cooling</name>
+    <config>
+      <Storage>
+        <in_commods>
+          <val>spent_xe100_haleu</val>
+        </in_commods>
+        <in_recipe>spent_xe100_haleu</in_recipe>
+        <out_commods>
+          <val>cool_xe100_haleu</val>
+        </out_commods>
+        <latitude>36.8286</latitude>
+        <longitude>-116.4364</longitude>
+      </Storage>
+    </config>
+  </facility>
+  
+  <facility>
+    <name>VOYGR_UOX_Cooling</name>
+    <config>
+      <Storage>
+        <in_commods>
+          <val>spent_smr_fuel</val>
+        </in_commods>
+        <in_recipe>spent_smr_fuel</in_recipe>
+        <out_commods>
+          <val>cool_smr_uox</val>
+        </out_commods>
+        <latitude>36.8286</latitude>
+        <longitude>-116.4364</longitude>
+      </Storage>
+    </config>
+  </facility>
+
   <facility>
     <name>MOXCoolingPool</name>
     <config>
@@ -217,7 +250,7 @@
           <val>spent_xe100_mox</val>
           <val>spent_smr_mox</val>
         </in_commods>
-        <in_recipe>spent_MMR_haleu</in_recipe>
+        <in_recipe>spent_MMR_mox</in_recipe>
         <out_commods>
           <val>cool_spent_mox</val>
         </out_commods>
@@ -233,7 +266,9 @@
   <config>
     <Separations>
       <feed_commods>
-        <val>cool_AR_uox</val>
+        <val>cool_smr_uox</val>
+        <val>cool_xe100_haleu</val>
+        <val>cool_MMR_haleu</val>
         <val>cool_spent_uox</val>
       </feed_commods>
       <feed_commod_prefs>
@@ -263,7 +298,7 @@
 </facility>
 
 <facility>
-  <name>MOX_mixer</name>
+  <name>VOYGR_MOX_mixer</name>
   <config>
     <Mixer>
       <in_streams>
@@ -284,11 +319,65 @@
           </commodities>
         </stream>
       </in_streams>
-      <out_commod>fresh_mox</out_commod>
+      <out_commod>fresh_smr_mox</out_commod>
     </Mixer>
   </config>
 </facility>
 
+
+<facility>
+  <name>MMR_MOX_mixer</name>
+  <config>
+    <Mixer>
+      <in_streams>
+        <stream>
+          <info>
+            <mixing_ratio>0.80</mixing_ratio>
+           <buf_size>1e100</buf_size>
+          </info>
+          <commodities>
+            <item> 
+              <commodity>separated_fissile</commodity>
+              <pref>2.0</pref>
+            </item>
+            <item>
+              <commodity>nat_u</commodity>
+              <pref>1.0</pref>
+            </item>
+          </commodities>
+        </stream>
+      </in_streams>
+      <out_commod>fresh_MMR_mox</out_commod>
+    </Mixer>
+  </config>
+</facility>
+
+<facility>
+  <name>Xe100_MOX_mixer</name>
+  <config>
+    <Mixer>
+      <in_streams>
+        <stream>
+          <info>
+            <mixing_ratio>0.80</mixing_ratio>
+           <buf_size>1e100</buf_size>
+          </info>
+          <commodities>
+            <item> 
+              <commodity>separated_fissile</commodity>
+              <pref>2.0</pref>
+            </item>
+            <item>
+              <commodity>nat_u</commodity>
+              <pref>1.0</pref>
+            </item>
+          </commodities>
+        </stream>
+      </in_streams>
+      <out_commod>fresh_xe100_mox</out_commod>
+    </Mixer>
+  </config>
+</facility>
   <region>
     <name>United States</name>
     <config>

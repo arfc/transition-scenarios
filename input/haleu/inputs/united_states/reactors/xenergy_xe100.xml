@@ -4,8 +4,8 @@
     <config>
       <Reactor>
         <fuel_incommods> 
-          <val>fresh_uox</val>
-          <val>fresh_mox</val>
+          <val>fresh_xe100_uox</val>
+          <val>fresh_xe100_mox</val>
         </fuel_incommods>
         <fuel_inrecipes> 
           <val>fresh_xe100_haleu</val> 
