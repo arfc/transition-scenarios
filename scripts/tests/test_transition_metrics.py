@@ -162,52 +162,6 @@ class Test_static_info(unittest.TestCase):
         assert_frame_equal(
             exp, obs[['advrx_enter', 'advrx_total']][0:4], check_names=False)
 
-    def test_get_transactions(self):
-        exp = pd.DataFrame(
-            data={
-                'Time': [
-                    0,
-                    1,
-                    1],
-                'SimId': [
-                    0,
-                    UUID('17b1bed5-0981-4682-a9be-05e60e7257cc'),
-                    UUID('17b1bed5-0981-4682-a9be-05e60e7257cc')],
-                'TransactionId': [
-                    0.0,
-                    0.0,
-                    1.0],
-                'ResourceId': [
-                    0.0,
-                    10.0,
-                    12.0],
-                'ObjId': [
-                    0.0,
-                    9.0,
-                    10.0],
-                'SenderId': [
-                    0.0,
-                    21.0,
-                    21.0],
-                'ReceiverId': [
-                    0.0,
-                    24.0,
-                    24.0],
-                'Commodity': [
-                    0,
-                    'fresh_uox',
-                    'fresh_uox'],
-                'Units': [
-                    0,
-                    'kg',
-                    'kg'],
-                'Quantity': [
-                    0.0,
-                    33000.0,
-                    33000.0]})
-        obs = tm.get_transactions(self.output_file1)
-        assert_frame_equal(exp, obs[0:3])
-
     def test_add_receiver_prototype(self):
         exp = pd.DataFrame(
             data={
@@ -261,7 +215,7 @@ class Test_static_info(unittest.TestCase):
                     'kg',
                     'kg',
                     'kg'],
-                'Prototype': [
+                'ReceiverPrototype': [
                     'Reactor_type1',
                     'Reactor_type1',
                     'Reactor_type1',
@@ -295,7 +249,7 @@ class Test_static_info(unittest.TestCase):
         Tests function when the queried non-LWR prototype is in the dataframe
         '''
         exp = pd.DataFrame(data={'Year': [1965, 1966], 'Energy': [0.10, 0.00]})
-        obs = tm.get_lwr_energy(self.output_file1, 'Reactor_type2')
+        obs = tm.get_lwr_energy(self.output_file1, ['Reactor_type2'])
         assert_frame_equal(exp, obs[0:2])
 
     def test_get_lwr_energy2(self):
@@ -304,5 +258,5 @@ class Test_static_info(unittest.TestCase):
         dataframe
         '''
         exp = pd.DataFrame(data={'Year': [1965, 1966], 'Energy': [0.12, 0.00]})
-        obs = tm.get_lwr_energy(self.output_file1, 'Reactor_type3')
+        obs = tm.get_lwr_energy(self.output_file1, ['Reactor_type3'])
         assert_frame_equal(exp, obs[0:2])
