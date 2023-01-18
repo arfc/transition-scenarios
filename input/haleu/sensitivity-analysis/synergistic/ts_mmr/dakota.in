@@ -1,0 +1,32 @@
+# One-at-a-time analysis for changing transition start time
+# Multidimensional parameter study 
+
+environment, 
+	tabular_data 
+		tabular_data_file = 'ts_mmr.dat'
+	output_file 'ts_mmr.out'
+	write_restart 'ts_mmr.rst'
+
+method,						
+	multidim_parameter_study
+    partitions = 60 10
+
+variables,					
+	continuous_design = 2			
+    lower_bounds      721   0
+    upper_bounds      901   50 
+    descriptors       'ts'  'mmr'   
+
+interface,							
+	fork							
+	  asynchronous
+            evaluation_concurrency = 36 
+          analysis_drivers = 'python ts_mmr_driver.py'
+        
+
+responses,				
+	descriptors = 'enr_u' 'haleu' 'swu' 'haleu_swu' 'waste' 'feed'
+	response_functions = 6
+	  scalar_responses = 6
+	no_gradients
+	no_hessians
