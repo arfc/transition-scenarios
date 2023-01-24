@@ -2,7 +2,7 @@ import numpy as np
 import sys
 import os
 from random import uniform
-sys.path.append('../../../../scripts')
+sys.path.append('../../../../../scripts')
 import dakota_input as inp
 
 f = open("tuning_results.csv", 'w')
@@ -18,7 +18,7 @@ for m_type in ['replace_uniform', 'offset_normal']:
                             'constraint':np.round(uniform(0.5, 2),3),
                             'counter':counter}
             dakota_file = f"tuning_{counter}.in"
-            inp.render_input("min_haleu_template.in", variable_dict, dakota_file)
+            inp.render_input("soga_tuning_template.in", variable_dict, dakota_file)
 
             f.write(m_type + "," + str(pop_size) + "," + str(c_penalty) + "," +
                     str(variable_dict['mutation_rate']) + "," + 
