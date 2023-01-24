@@ -49,6 +49,6 @@ interface
 responses 
   objective_functions = 1
     sense = 'min'
-    descriptors 'haleu_swu'
+    descriptors 'waste'
   no_gradients 
   no_hessians
