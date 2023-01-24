@@ -1,0 +1,51 @@
+#Optimization of Scenatio 7 for minimizing HALEU
+
+environment 
+  tabular_data
+    tabular_data_file = './tuning_{{counter}}.dat'
+  output_file = './tuning_{{counter}}.out'
+  write_restart = './tuning_{{counter}}.rst'
+
+method
+  moga
+    max_function_evaluations = 300
+    seed = 112822
+    population_size = {{pop_size}}
+    mutation_type {{mutation_type}}
+    mutation_rate {{mutation_rate}}
+    crossover_type shuffle_random 
+    crossover_rate {{crossover_rate}}
+    convergence_type best_fitness_tracker
+    fitness_type merit_function
+      constraint_penalty {{constraint}}
+
+model
+  single
+
+variables
+  active all
+  continuous_design = 4 
+    initial_point 33 33 34 25
+    lower_bounds 0 0 0 0 
+    upper_bounds 100 100 100 50
+    descriptors 'mmr_share' 'xe100_share' 'voygr_share' 'lwr'
+  discrete_design_set
+    integer = 2
+    elements_per_variable 7 8
+    elements 41 62 74 78 82 86 90 28 56 84 112 140 151 168 185
+    descriptors = 'mmr_burnup' 'xe100_burnup'
+  linear_equality_constraint_matrix = 1 1 1 0 0 0
+  linear_equality_targets = 100
+
+interface 
+  fork 
+    asynchronous 
+      evaluation_concurrency = 16 
+    analysis_drivers = 'python min_haleu_driver.py'
+
+responses 
+  objective_functions = 2 
+    sense = 'min'
+    descriptors 'haleu_swu' 'waste'
+  no_gradients 
+  no_hessians
