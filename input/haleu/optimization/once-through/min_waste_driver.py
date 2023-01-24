@@ -4,7 +4,7 @@ import dakota.interfacing as di
 import sys
 import os
 from turtle import up
-sys.path.append('../../../scripts')
+sys.path.append('../../../../scripts')
 import create_AR_DeployInst as cdi
 import output_metrics as oup
 import dakota_input as inp
@@ -20,7 +20,7 @@ params, results = di.read_parameters_file()
 # -------------------------------
 
 # Edit Cyclus input file
-cyclus_template = 'min_haleu_input.xml.in'
+cyclus_template = 'oncethrough_input.xml.in'
 scenario_name = ('lwr_' + 
                  str(int(params['lwr'])) + 
                  '_mmr_share_' + 
@@ -48,9 +48,9 @@ inp.render_input(cyclus_template, variable_dict, output_xml)
 # Create DeployInst for LWRs
 DI_dict = cdi.write_lwr_deployinst(
     params['lwr'],
-    "../inputs/united_states/buildtimes/" +
+    "../../inputs/united_states/buildtimes/" +
     "UNITED_STATES_OF_AMERICA/deployinst.xml",
-    "../../../database/lwr_power_order.txt")
+    "../../../../database/lwr_power_order.txt")
 cdi.write_deployinst(DI_dict, './cyclus-files/' +
                      scenario_name + 
                      '_deployinst.xml')
@@ -68,7 +68,7 @@ lwr_DI = cdi.convert_xml_to_dict("./cyclus-files/" +
                                  '_deployinst.xml')
 deploy_schedule = cdi.write_AR_deployinst(
     lwr_DI,
-    "../inputs/united_states/reactors/",
+    "../../inputs/united_states/reactors/",
     duration,
     reactor_prototypes,
     demand_equation,
@@ -85,9 +85,12 @@ oup.run_cyclus(output_sqlite, output_xml)
 # ----------------------------
 # Return the results to Dakota
 # ----------------------------
-results['haleu_swu'].function = oup.calculate_swu(output_sqlite, 
-                                                  ['Xe-100', 'MMR'],
-                                                  721)
+results['waste'].function = oup.get_waste_discharged(output_sqlite, 
+                                                  ['Xe-100', 'MMR','VOYGR'],
+                                                  721,
+                                                  {'MMR':'spent_MMR_haleu',
+                                                   'Xe-100','spent_xe100_haleu',
+                                                   'VOYGR':'spent_smr_fuel'})
 results.write()
 
 os.system('rm ' + output_sqlite)
