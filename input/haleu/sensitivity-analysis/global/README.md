@@ -3,11 +3,11 @@ This directory contains files for performing global sensitivity
 analysis on the transtion from US LWRs to advanced reactors. 
 There are three subdirectories, one for varying the build share 
 of each advanced reactor considered in this work. In each case 
-(i.e. subdirectory) the transition start time, LWR lifetime, 
+(i.e., subdirectory) the transition start time, LWR lifetime, 
 Xe-100 burnup, and MMR build share are varied, but the build share 
 of only advanced reactor is varied. The build share of only 
 one advanced reactor is varied at a time to prevent unphysical 
-combinations of advanced reactor build shares (e.g. 50% Xe-100, 
+combinations of advanced reactor build shares (e.g., 50% Xe-100, 
 50% MMR, and 50% VOYGR). 
 
 Each subdirectory contains two different Dakota input files:
