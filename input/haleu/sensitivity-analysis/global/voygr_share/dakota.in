@@ -2,14 +2,14 @@
 environment, 
 	tabular_data 
 		tabular_data_file = 'voygr_share_gaussian.dat'
-	output_file 'voygr_share_gaussian.out'
-	write_restart 'voygr_share_gaussian.rst'
+	output_file = 'voygr_share_gaussian.out'
+	write_restart = 'voygr_share_gaussian.rst'
 
 method,						
     sampling
         sample_type = lhs
         variance_based_decomp
-	samples 4000 # 100*parameters*(response+2)
+	samples = 4000 # 100*parameters*(response+2)
 	seed = 112822
 
 model
@@ -24,13 +24,13 @@ variables,
     active all
     uniform_uncertain = 5
     lower_bounds = 721  0     0            41           28
-    upper_bounds  901   50    50           90           185
-    descriptors   'ts' 'lwr' 'voygr_share' 'mmr_burnup' 'xe100_burnup'   
+    upper_bounds = 901   50    50           90           185
+    descriptors = 'ts' 'lwr' 'voygr_share' 'mmr_burnup' 'xe100_burnup'   
 
 interface,							
 	fork							
 	  asynchronous
-            evaluation_concurrency =  36
+            evaluation_concurrency = 36
           analysis_drivers = 'python voygr_share_driver.py'
         
 

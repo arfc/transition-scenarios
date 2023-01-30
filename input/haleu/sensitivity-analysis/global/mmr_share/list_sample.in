@@ -2,8 +2,8 @@
 environment, 
 	tabular_data 
 		tabular_data_file = 'mmr_share_list.dat'
-	output_file 'mmr_share_list.out'
-	write_restart 'mmr_share_list.rst'
+	output_file = 'mmr_share_list.out'
+	write_restart = 'mmr_share_list.rst'
 
 method,						
   sampling 
@@ -15,13 +15,13 @@ method,
 variables,
     active all 
     continuous_design = 4 
-      lower_bounds  721   0     0            41
-      upper_bounds  901   50    50           90 
+      lower_bounds =  721   0     0            41
+      upper_bounds =  901   50    50           90 
       descriptors = 'ts' 'lwr' 'mmr_share' 'mmr_burnup'
     discrete_design_set 
       integer = 1
-      elements_per_variable 16 
-      elements 28 32 48 56 64 72 84 96 112 120 128 140 151 160 168 185
+      elements_per_variable = 16 
+      elements = 28 32 48 56 64 72 84 96 112 120 128 140 151 160 168 185
       descriptors = 'xe100_burnup'
 
 interface,							
