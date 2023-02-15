@@ -41,7 +41,7 @@ interface
   fork 
     asynchronous 
       evaluation_concurrency = 24 
-    analysis_drivers = 'python min_haleu_driver.py'
+    analysis_drivers = 'python soga_tuning_driver.py'
 
 responses 
   objective_functions = 1
