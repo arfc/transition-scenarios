@@ -1,0 +1,43 @@
+# Global analysis for variations in Xe-100 build share
+environment, 
+	tabular_data 
+		tabular_data_file = 'mmr_share_gaussian.dat'
+	output_file = 'mmr_share_gaussian.out'
+	write_restart = 'mmr_share_gaussian.rst'
+
+method,						
+    sampling
+        sample_type = lhs
+        variance_based_decomp
+	samples = 4000 # 100*parameters*(response+2)
+	seed = 112822
+
+model
+  id_model = 'SURR'
+  surrogate global
+  import_points_file = 'mmr_share_list.dat' annotated
+  #quadratic
+  gaussian_process surfpack
+    metrics = "root_mean_squared" "sum_abs" "rsquared"
+
+variables,					
+    active all
+    uniform_uncertain = 5
+    lower_bounds = 721  0     0            41           28
+    upper_bounds =  901   50    50           90           185
+    descriptors = 'ts' 'lwr' 'mmr_share' 'mmr_burnup' 'xe100_burnup'   
+
+interface,							
+	fork							
+	  asynchronous
+            evaluation_concurrency =  36
+          analysis_drivers = 'python mmr_share_driver.py'
+        
+
+responses,				
+	descriptors = 'enr_u' 'haleu' 'swu' 'haleu_swu' 'waste' 'feed'
+	response_functions = 6
+	  scalar_responses = 6
+	no_gradients
+	no_hessians
+
