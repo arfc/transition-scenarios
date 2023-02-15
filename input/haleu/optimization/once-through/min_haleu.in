@@ -2,25 +2,22 @@
 
 environment 
   tabular_data
-    tabular_data_file = 'min_haleu.dat'
-  output_file = 'min_haleu.out'
-  write_restart = 'min_haleu.rst'
-  #error_file = 'min_haleu.err'
+    tabular_data_file = './min_haleu.dat'
+  output_file = './min_haleu.out'
+  write_restart = './min_haleu.rst'
 
 method
-  moga
-    max_iterations = 20
-    #max_function_evaluations = 100
+  soga
+    max_function_evaluations = 300
     seed = 112822
-    population_size = 20
-    fitness_type layer_rank
+    population_size = 25
     mutation_type offset_normal
-    mutation_rate 0.2
+    mutation_rate 0.123
     crossover_type shuffle_random 
-    crossover_rate 0.8
-    #replacement_type chc = 10
-    #print_each_pop
-    #log_file = 'mmr_share_lwr.log'
+    crossover_rate 0.415
+    convergence_type best_fitness_tracker
+    fitness_type merit_function
+      constraint_penalty 1.157
 
 model
   single
