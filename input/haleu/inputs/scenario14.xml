@@ -53,8 +53,7 @@
     <config>
       <Sink>
         <in_commods>
-          <val>casked_spent_uox</val>
-          <val>casked_spent_mox</val>
+          <val>casked_spent_fuel</val>
           <val>separated_waste</val>
         </in_commods>
         <!-- Yucca Mountain Repository -->
@@ -102,6 +101,7 @@
         <!-- Portsmouth Gaseous Diffusion Plant (OH) -->
         <latitude>39.008333</latitude>
         <longitude>-83</longitude>
+        <max_feed_inventory>5e6</max_feed_inventory>
       </Enrichment>
     </config>
   </facility>
@@ -118,6 +118,7 @@
         <!-- Portsmouth Gaseous Diffusion Plant (OH) -->
         <latitude>39.008333</latitude>
         <longitude>-83</longitude>
+        <max_feed_inventory>5e6</max_feed_inventory>
       </Enrichment>
     </config>
   </facility>
@@ -134,6 +135,7 @@
         <!-- Portsmouth Gaseous Diffusion Plant (OH) -->
         <latitude>39.008333</latitude>
         <longitude>-83</longitude>
+        <max_feed_inventory>5e6</max_feed_inventory>
       </Enrichment>
     </config>
   </facility>
@@ -143,13 +145,14 @@
       <Enrichment>
         <feed_commod>nat_u</feed_commod>
         <feed_recipe>nat_u</feed_recipe>
-        <product_commod>fresh_Xe100_uox</product_commod>
+        <product_commod>fresh_xe100_uox</product_commod>
         <tails_commod>tails</tails_commod>
         <tails_assay>0.002</tails_assay>
         <max_enrich>0.16</max_enrich>
         <!-- Portsmouth Gaseous Diffusion Plant (OH) -->
         <latitude>39.008333</latitude>
         <longitude>-83</longitude>
+        <max_feed_inventory>5e6</max_feed_inventory>
       </Enrichment>
     </config>
   </facility>
@@ -194,11 +197,11 @@
     <config>
       <Storage>
         <in_commods>
-          <val>spent_MMR_haleu</val>
+          <val>spent_MMR_uox</val>
         </in_commods>
         <in_recipe>spent_MMR_haleu</in_recipe>
         <out_commods>
-          <val>cool_MMR_haleu</val>
+          <val>cool_MMR_uox</val>
         </out_commods>
         <latitude>36.8286</latitude>
         <longitude>-116.4364</longitude>
@@ -211,11 +214,11 @@
     <config>
       <Storage>
         <in_commods>
-          <val>spent_xe100_haleu</val>
+          <val>spent_xe100_uox</val>
         </in_commods>
         <in_recipe>spent_xe100_haleu</in_recipe>
         <out_commods>
-          <val>cool_xe100_haleu</val>
+          <val>cool_xe100_uox</val>
         </out_commods>
         <latitude>36.8286</latitude>
         <longitude>-116.4364</longitude>
@@ -266,25 +269,23 @@
     <Separations>
       <feed_commods>
         <val>cool_smr_uox</val>
-        <val>cool_xe100_haleu</val>
-        <val>cool_MMR_haleu</val>
+        <val>cool_xe100_uox</val>
+        <val>cool_MMR_uox</val>
         <val>cool_spent_uox</val>
       </feed_commods>
       <feed_commod_prefs>
-        <val>2</val>
+        <val>1</val>
         <val>1</val>
         <val>1</val>
         <val>1</val>
       </feed_commod_prefs>
-      <feedbuf_size>100000</feedbuf_size>
-      <throughput>80000</throughput>
+      <feedbuf_size>10000000</feedbuf_size>
       <leftover_commod>separated_waste</leftover_commod>
-      <leftoverbuf_size>1000000</leftoverbuf_size>
       <streams>
         <item>
           <commod>separated_fissile</commod>
           <info>
-            <buf_size>5000</buf_size>
+            <buf_size>500000</buf_size>
             <efficiencies>
               <item>
                 <comp>94000</comp>
@@ -394,7 +395,7 @@
         </entry>
         <entry>
           <prototype>Mine</prototype>
-          <number>5</number>
+          <number>15</number>
         </entry>
         <entry>
           <prototype>LWREnrichment</prototype>
@@ -418,7 +419,7 @@
         </entry>
         <entry>
           <prototype>DryStorage</prototype>
-          <number>1</number>
+          <number>10</number>
         </entry>
         <entry>
           <prototype>MMR_UOX_Cooling</prototype>
@@ -435,6 +436,10 @@
         <entry>
           <prototype>MOXCoolingPool</prototype>
           <number>1</number>
+        </entry>
+        <entry>
+          <prototype>SeparationsFacility</prototype>
+          <number>5</number>
         </entry>
       </initialfacilitylist>
       <config>

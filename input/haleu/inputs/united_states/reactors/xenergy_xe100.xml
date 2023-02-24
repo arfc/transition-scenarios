@@ -16,7 +16,7 @@
           <val>2</val>
         </fuel_prefs>
         <fuel_outcommods> 
-          <val>spent_xe100_haleu</val> 
+          <val>spent_xe100_uox</val> 
           <val>spent_xe100_mox</val>
         </fuel_outcommods>
         <fuel_outrecipes> 
