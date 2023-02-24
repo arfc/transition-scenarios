@@ -181,8 +181,7 @@
         </in_commods>
         <in_recipe>cool_spent_uox</in_recipe>
         <out_commods>
-          <val>casked_spent_uox</val>
-          <val>casked_spent_mox</val>
+          <val>casked_spent_fuel</val>
         </out_commods>
         <!-- Yucca Mountain Repository -->
         <latitude>36.8286</latitude>
@@ -273,6 +272,8 @@
       </feed_commods>
       <feed_commod_prefs>
         <val>2</val>
+        <val>1</val>
+        <val>1</val>
         <val>1</val>
       </feed_commod_prefs>
       <feedbuf_size>100000</feedbuf_size>
@@ -420,7 +421,15 @@
           <number>1</number>
         </entry>
         <entry>
-          <prototype>UOXCoolingPool</prototype>
+          <prototype>MMR_UOX_Cooling</prototype>
+          <number>1</number>
+        </entry>
+        <entry>
+          <prototype>Xe100_UOX_Cooling</prototype>
+          <number>1</number>
+        </entry>
+        <entry>
+          <prototype>VOYGR_UOX_Cooling</prototype>
           <number>1</number>
         </entry>
         <entry>

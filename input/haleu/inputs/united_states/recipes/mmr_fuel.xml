@@ -1255,4 +1255,22 @@
     <nuclide> <id>92235</id> <comp>0.13</comp> </nuclide>
     <nuclide> <id>92238</id> <comp>0.87</comp> </nuclide>
   </recipe>
+  <recipe>
+    <name>spent_MMR_mox</name>
+    <basis>mass</basis>
+    <nuclide> <id>92235</id> <comp>0.13</comp> </nuclide>
+    <nuclide> <id>92238</id> <comp>0.87</comp> </nuclide>
+  </recipe>
+  <recipe>
+    <name>MMR_haleu</name>
+    <basis>mass</basis>
+    <nuclide> <id>92235</id> <comp>0.13</comp> </nuclide>
+    <nuclide> <id>92238</id> <comp>0.87</comp> </nuclide>
+  </recipe>
+  <recipe>
+    <name>MMR_haleu</name>
+    <basis>mass</basis>
+    <nuclide> <id>92235</id> <comp>0.13</comp> </nuclide>
+    <nuclide> <id>92238</id> <comp>0.87</comp> </nuclide>
+  </recipe>
 </recipes>
