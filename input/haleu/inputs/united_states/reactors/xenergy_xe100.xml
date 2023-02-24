@@ -25,8 +25,8 @@
         </fuel_outrecipes>
         <cycle_time>6</cycle_time>
         <refuel_time>0</refuel_time>
-        <assem_size>239.35</assem_size>
-        <n_assem_core>7</n_assem_core>
+        <assem_size>279.24</assem_size>
+        <n_assem_core>6</n_assem_core>
         <n_assem_batch>1</n_assem_batch>
         <power_cap>76</power_cap>
       </Reactor>

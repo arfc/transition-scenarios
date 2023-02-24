@@ -146,8 +146,10 @@ def get_prototype_totals(db_file, non_lwr_prototypes, prototypes):
         if prototype in prototypes_df.columns:
             prototypes_df = prototypes_df.rename(
                 columns={prototype: prototype + '_enter'})
-            prototypes_df[prototype + '_exit'] = np.zeros(
-                len(prototypes_df[prototype + '_enter']))
+            prototypes_df[prototype +
+                          '_exit'] = np.zeros(
+                                              len(prototypes_df[prototype +
+                                                                '_enter']))
         prototypes_df[prototype +
                       '_total'] = (prototypes_df[prototype +
                                                  '_enter'] +
@@ -157,32 +159,6 @@ def get_prototype_totals(db_file, non_lwr_prototypes, prototypes):
         prototypes_df['advrx_total'] += prototypes_df[prototype + '_total']
 
     return prototypes_df
-
-
-def get_transactions(db_file):
-    '''
-    Gets the TransactionQuantity metric from cymetric,
-    sorts by TimeCreated, and renames the TimeCreated
-    column
-
-    Parametrs:
-    ----------
-    db_file: str
-        relative path to database
-
-    Returns:
-    --------
-    transactions: DataFrame
-        transaction data with specified modifications
-    '''
-    evaler = get_metrics(db_file)
-    transactions = evaler.eval(
-        'TransactionQuantity').sort_values(by='TimeCreated')
-    transactions = transactions.rename(columns={'TimeCreated': 'Time'})
-    transactions = tools.add_missing_time_step(
-        transactions, evaler.eval('TimeList'))
-    return transactions
-
 
 def add_receiver_prototype(db_file):
     '''
