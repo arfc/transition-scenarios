@@ -7,15 +7,15 @@ import dakota_input as inp
 
 f = open("fine_tuning.csv", 'w')
 
-counter = 40
+counter = 0
 for m_type in ['replace_uniform', 'offset_normal']:
-    for pop_size in [25, 50]:
+    for pop_size in [5, 10, 25, 50, 100]:
         for c_penalty in range(5):         
             variable_dict = {'pop_size':pop_size,
                             'mutation_type':m_type,
-                            'mutation_rate':np.round(uniform(0.025, 0.19),3),
-                            'crossover_rate':np.round(uniform(0.3, 0.9),3),
-                            'constraint':np.round(uniform(1, 2),3),
+                            'mutation_rate':np.round(uniform(0.01, 0.2),3),
+                            'crossover_rate':np.round(uniform(0.1, 0.9),3),
+                            'constraint':np.round(uniform(0.5, 2),3),
                             'counter':counter}
             dakota_file = f"tuning_{counter}.in"
             inp.render_input("soga_tuning_template.in", variable_dict, dakota_file)
