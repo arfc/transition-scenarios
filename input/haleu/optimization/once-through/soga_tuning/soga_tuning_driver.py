@@ -1,6 +1,6 @@
 import numpy as np
 import subprocess
-import dakota.interfacing as di
+import dakota.rounderfacing as di
 import sys
 import os
 from turtle import up
@@ -22,24 +22,24 @@ params, results = di.read_parameters_file()
 # Edit Cyclus input file
 cyclus_template = 'soga_tuning_input.xml.in'
 scenario_name = ('lwr_' + 
-                 str(int(params['lwr'])) + 
+                 str(round(params['lwr'])) + 
                  '_mmr_share_' + 
-                 str(int(params['mmr_share'])) +
+                 str(round(params['mmr_share'])) +
                  '_xe100_share_' + 
-                 str(int(params['xe100_share'])) + 
+                 str(round(params['xe100_share'])) + 
                  '_voygr_share_' + 
-                 str(int(params['voygr_share'])) + 
+                 str(round(params['voygr_share'])) + 
                  '_mmr_burnup_' + 
-                 str(int(params['mmr_burnup'])) + 
+                 str(round(params['mmr_burnup'])) + 
                  '_xe100_burnup_' + 
-                 str(int(params['xe100_burnup'])))
+                 str(round(params['xe100_burnup'])))
 variable_dict = {'handle': scenario_name,
-                 'lwr':str(int(params['lwr'])), 
-                 'mmr_share':str(int(params['mmr_share'])),
-                 'xe100_share':str(int(params['xe100_share'])),
-                 'voygr_share':str(int(params['voygr_share'])),
-                 'mmr_burnup':str(int(params['mmr_burnup'])),
-                 'xe100_burnup':str(int(params['xe100_burnup']))}
+                 'lwr':str(round(params['lwr'])), 
+                 'mmr_share':str(round(params['mmr_share'])),
+                 'xe100_share':str(round(params['xe100_share'])),
+                 'voygr_share':str(round(params['voygr_share'])),
+                 'mmr_burnup':str(round(params['mmr_burnup'])),
+                 'xe100_burnup':str(round(params['xe100_burnup']))}
 output_xml = './cyclus-files/' + scenario_name + '.xml'
              
 output_sqlite = './cyclus-files/' + scenario_name + '.sqlite'
@@ -59,7 +59,7 @@ cdi.write_deployinst(DI_dict, './cyclus-files/' +
 duration = 1500
 mmr_lifetimes = {41:120, 62:180, 74:218, 78:231, 82:240, 86:255, 90:267}
 reactor_prototypes = {'Xe-100': (76, 720), 
-                      'MMR': (5, mmr_lifetimes[int(params['mmr_burnup'])]), 
+                      'MMR': (5, mmr_lifetimes[round(params['mmr_burnup'])]), 
                       'VOYGR': (73, 720)}
 demand_equation = np.zeros(duration)
 demand_equation[721:] = 87198.156
@@ -72,9 +72,9 @@ deploy_schedule = cdi.write_AR_deployinst(
     duration,
     reactor_prototypes,
     demand_equation,
-    {'MMR':int(params['mmr_share']), 
-     'Xe-100':int(params['xe100_share']),
-     'VOYGR':int(params['voygr_share'])})
+    {'MMR':round(params['mmr_share']), 
+     'Xe-100':round(params['xe100_share']),
+     'VOYGR':round(params['voygr_share'])})
 cdi.write_deployinst(deploy_schedule, "./cyclus-files/AR_DeployInst_" +
                      scenario_name + 
                      ".xml")
@@ -90,4 +90,3 @@ results['haleu_swu'].function = oup.calculate_swu(output_sqlite,
                                                   721)
 results.write()
 
-#os.system('rm ' + output_sqlite)
