@@ -8,24 +8,23 @@ environment
 
 method
   moga
-    max_function_evaluations = 300
-    seed = 112822
+    max_function_evaluations = 500
+    initialization_type unique_random
     population_size = {{pop_size}}
-    mutation_type {{mutation_type}}
+    mutation_type offset_normal
     mutation_rate {{mutation_rate}}
     crossover_type shuffle_random 
     crossover_rate {{crossover_rate}}
-    convergence_type best_fitness_tracker
-    fitness_type merit_function
-      constraint_penalty {{constraint}}
+    fitness_type domination_count
+    replacement_type below_limit = 6
+      shrinkage_fraction = 0.9
 
 model
   single
 
 variables
   active all
-  continuous_design = 4 
-    initial_point 33 33 34 25
+  discrete_design_range = 4 
     lower_bounds 0 0 0 0 
     upper_bounds 100 100 100 50
     descriptors 'mmr_share' 'xe100_share' 'voygr_share' 'lwr'
@@ -34,13 +33,14 @@ variables
     elements_per_variable 7 8
     elements 41 62 74 78 82 86 90 28 56 84 112 140 151 168 185
     descriptors = 'mmr_burnup' 'xe100_burnup'
-  linear_equality_constraint_matrix = 1 1 1 0 0 0
-  linear_equality_targets = 100
+  linear_inequality_constraint_matrix = 1 1 1 0 0 0
+  linear_inequality_lower_bounds = 100
+  linear_inequality_upper_bounds = inf
 
 interface 
   fork 
     asynchronous 
-      evaluation_concurrency = 16 
+      evaluation_concurrency = 48 
     analysis_drivers = 'python min_haleu_driver.py'
 
 responses 
