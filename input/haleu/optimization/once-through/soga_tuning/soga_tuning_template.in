@@ -23,8 +23,7 @@ model
 
 variables
   active all
-  continuous_design = 4 
-    initial_point 33 33 34 25
+  discrete_design_range = 4 
     lower_bounds 0 0 0 0 
     upper_bounds 100 100 100 50
     descriptors 'mmr_share' 'xe100_share' 'voygr_share' 'lwr'
@@ -39,7 +38,7 @@ variables
 interface 
   fork 
     asynchronous 
-      evaluation_concurrency = 24 
+      evaluation_concurrency = 48 
     analysis_drivers = 'python soga_tuning_driver.py'
 
 responses 
