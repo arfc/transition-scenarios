@@ -1,6 +1,6 @@
 import numpy as np
 import subprocess
-import dakota.rounderfacing as di
+import dakota.interfacing as di
 import sys
 import os
 from turtle import up
