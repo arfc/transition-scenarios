@@ -8,7 +8,7 @@ environment
 
 method
   soga
-    max_function_evaluations = 300
+    max_function_evaluations = 500
     population_size = {{pop_size}}
     mutation_type {{mutation_type}}
     mutation_rate {{mutation_rate}}
