@@ -89,7 +89,7 @@ results['waste'].function = oup.get_waste_discharged(output_sqlite,
                                                   ['Xe-100', 'MMR','VOYGR'],
                                                   721,
                                                   {'MMR':'spent_MMR_haleu',
-                                                   'Xe-100','spent_xe100_haleu',
+                                                   'Xe-100':'spent_xe100_haleu',
                                                    'VOYGR':'spent_smr_fuel'})
 results.write()
 
