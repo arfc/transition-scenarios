@@ -3,7 +3,6 @@
 environment 
   tabular_data
     tabular_data_file = './tuning_{{counter}}.dat'
-  output_file = './tuning_{{counter}}.out'
   write_restart = './tuning_{{counter}}.rst'
 
 method
@@ -11,7 +10,7 @@ method
     max_function_evaluations = 500
     initialization_type unique_random
     population_size = {{pop_size}}
-    mutation_type offset_normal
+    mutation_type replace_uniform 
     mutation_rate {{mutation_rate}}
     crossover_type shuffle_random 
     crossover_rate {{crossover_rate}}
@@ -41,7 +40,7 @@ interface
   fork 
     asynchronous 
       evaluation_concurrency = 48 
-    analysis_drivers = 'python min_haleu_driver.py'
+    analysis_drivers = 'python moga_tuning_driver.py'
 
 responses 
   objective_functions = 2 

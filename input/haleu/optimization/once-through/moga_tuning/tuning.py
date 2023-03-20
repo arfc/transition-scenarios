@@ -2,26 +2,18 @@ import numpy as np
 import sys
 import os
 from random import uniform
-sys.path.append('../../../../scripts')
+sys.path.append('../../../../../scripts')
 import dakota_input as inp
 
-f = open("coarse_tuning.csv", 'w')
-
 counter = 0
-for m_type in ['replace_uniform', 'offset_normal']:
-    for pop_size in [5, 10, 25, 50, 100]:
-        for c_penalty in range(4):         
+for c_rate in [0.3, 0.584, 0.8]:
+    for pop_size in [10, 25, 50]:
+        for m_rate in [0.08, 0.1, 0.116, 0.15]:
             variable_dict = {'pop_size':pop_size,
-                            'mutation_type':m_type,
-                            'mutation_rate':np.round(uniform(0.01, 0.2),3),
-                            'crossover_rate':np.round(uniform(0.1, 0.9),3),
-                            'constraint':np.round(uniform(0.5, 2),3),
+                            'mutation_rate':m_rate,
+                            'crossover_rate':c_rate,
                             'counter':counter}
             dakota_file = f"tuning_{counter}.in"
             inp.render_input("moga_tuning_template.in", variable_dict, dakota_file)
 
-            f.write(m_type + "," + str(pop_size) + "," +
-                    str(variable_dict['mutation_rate']) + "," + 
-                    str(variable_dict['crossover_rate']) + "," +
-                    str(variable_dict['constraint']) + ", \n") 
             counter += 1
