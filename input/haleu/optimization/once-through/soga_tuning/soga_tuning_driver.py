@@ -3,7 +3,6 @@ import subprocess
 import dakota.interfacing as di
 import sys
 import os
-from turtle import up
 sys.path.append('../../../../../scripts')
 import create_AR_DeployInst as cdi
 import output_metrics as oup
@@ -20,7 +19,7 @@ params, results = di.read_parameters_file()
 # -------------------------------
 
 # Edit Cyclus input file
-cyclus_template = 'soga_tuning_input.xml.in'
+cyclus_template = '../oncethrough_input.xml.in'
 scenario_name = ('lwr_' + 
                  str(round(params['lwr'])) + 
                  '_mmr_share_' + 
