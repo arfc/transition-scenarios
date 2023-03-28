@@ -149,6 +149,7 @@
         <out_commods>
           <val>cooled_spent_xe100_haleu</val>
         </out_commods>
+        <residence_time>1</residence_time>
         <!-- Yucca Mountain Repository -->
         <latitude>36.8286</latitude>
         <longitude>-116.4364</longitude>
