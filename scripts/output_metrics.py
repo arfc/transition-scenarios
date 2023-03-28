@@ -561,7 +561,7 @@ def run_cyclus(output_sqlite, input_xml):
     null 
  
     '''
-    os.system('rm ' + output_sqlite)
-    os.system('cyclus -i ' + input_xml + ' -o ' + output_sqlite +
+    if not os.path.exists(output_sqlite):
+        os.system('cyclus -i ' + input_xml + ' -o ' + output_sqlite +
           ' --warn-limit 2')
         
