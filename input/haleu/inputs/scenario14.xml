@@ -248,11 +248,10 @@
     <config>
       <Storage>
         <in_commods>
-          <val>spent_MMR_mox</val>
           <val>spent_xe100_mox</val>
           <val>spent_smr_mox</val>
         </in_commods>
-        <in_recipe>spent_MMR_mox</in_recipe>
+        <in_recipe>spent_xe100_mox</in_recipe>
         <out_commods>
           <val>cool_spent_mox</val>
         </out_commods>
@@ -271,7 +270,6 @@
         <val>cool_smr_uox</val>
         <val>cool_xe100_uox</val>
         <val>cool_MMR_uox</val>
-        <val>cool_spent_uox</val>
       </feed_commods>
       <feed_commod_prefs>
         <val>1</val>
@@ -290,6 +288,10 @@
               <item>
                 <comp>94000</comp>
                 <eff>0.99</eff>
+              </item>
+              <item>
+                <comp>92000</comp>
+                <eff>0.95</eff>
               </item>
             </efficiencies>
           </info>
