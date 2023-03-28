@@ -7,6 +7,14 @@
     <nuclide> <id>8016</id> <comp>0.0994</comp> </nuclide>
     <nuclide> <id>6012</id> <comp>0.0149</comp> </nuclide>
   </recipe>
+    <recipe>
+	  <name>spent_xe100_mox</name>
+    <basis>mass</basis>
+    <nuclide> <id>92235</id> <comp>0.1139</comp> </nuclide>
+    <nuclide> <id>92238</id> <comp>0.7718</comp> </nuclide>
+    <nuclide> <id>8016</id> <comp>0.0994</comp> </nuclide>
+    <nuclide> <id>6012</id> <comp>0.0149</comp> </nuclide>
+  </recipe>
   <recipe>
 	  <name>fresh_smr_mox</name>
     <basis>mass</basis>
