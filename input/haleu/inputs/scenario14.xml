@@ -291,7 +291,7 @@
               </item>
               <item>
                 <comp>92000</comp>
-                <eff>0.95</eff>
+                <eff>0.99</eff>
               </item>
             </efficiencies>
           </info>
@@ -423,10 +423,10 @@
           <prototype>MOXCoolingPool</prototype>
           <number>1</number>
         </entry>
-        <entry>
+        <!--entry>
           <prototype>SeparationsFacility</prototype>
           <number>5</number>
-        </entry>
+        </entry-->
       </initialfacilitylist>
       <config>
 	<xi:include href="united_states/buildtimes/xe100_mmr_voygr_nogrowth_deployinst.xml"/>

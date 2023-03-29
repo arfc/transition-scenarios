@@ -13,7 +13,7 @@
         </fuel_inrecipes>
         <fuel_prefs>
           <val>1</val>
-          <val>2</val>
+          <val>1</val>
         </fuel_prefs>
         <fuel_outcommods> 
           <val>spent_smr_fuel</val> 
