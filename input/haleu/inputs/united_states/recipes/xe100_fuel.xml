@@ -1284,12 +1284,4 @@
       <comp>1.2267e-20</comp>
     </nuclide>
   </recipe>
-
-
-  <recipe>
-    <name>xe100_haleu</name>
-    <basis>mass</basis>
-    <nuclide> <id>92235</id> <comp>0.155</comp> </nuclide>
-    <nuclide> <id>92238</id> <comp>0.845</comp> </nuclide>
-  </recipe>
 </recipes>

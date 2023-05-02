@@ -42,6 +42,10 @@
       <lib>agents</lib>
       <name>NullRegion</name>
     </spec>
+    <spec>
+      <lib>openmcyclus.DepleteReactor</lib>
+      <name>DepleteReactor</name>
+    </spec>
   </archetypes>
 
   <xi:include href="united_states/buildtimes/inclusions.xml#xpointer(/inclusions/child::*)"/>
