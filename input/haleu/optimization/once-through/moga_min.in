@@ -11,7 +11,7 @@ method
     initialization_type unique_random
     population_size = 25
     mutation_type replace_uniform 
-    mutation_rate 0.08
+    mutation_rate 0.10
     crossover_type shuffle_random 
     crossover_rate 0.3
     fitness_type domination_count
