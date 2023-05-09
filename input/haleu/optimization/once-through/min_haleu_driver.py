@@ -3,8 +3,7 @@ import subprocess
 import dakota.interfacing as di
 import sys
 import os
-from turtle import up
-sys.path.append('../../../scripts')
+sys.path.append('../../../../scripts')
 import create_AR_DeployInst as cdi
 import output_metrics as oup
 import dakota_input as inp
