@@ -1,14 +1,11 @@
 import numpy as np
-import subprocess
 import dakota.interfacing as di
 import sys
-import os
-from turtle import up
+
 sys.path.append('../../../../../scripts')
 import create_AR_DeployInst as cdi
 import output_metrics as oup
 import dakota_input as inp
-# import output as oup
 # ----------------------------
 # Parse Dakota parameters file
 # ----------------------------
@@ -95,5 +92,3 @@ results['waste'].function = oup.get_waste_discharged(output_sqlite,
                                                       'Xe-100':'spent_xe100_haleu',
                                                       'VOYGR':'spent_smr_fuel'})
 results.write()
-
-#os.system('rm ' + output_sqlite)
