@@ -1,4 +1,4 @@
-<simulation xml:base="/home/abachmann/transition-scenarios/input/haleu/inputs/" xmlns:xi="http://www.w3.org/2001/XInclude">
+<simulation xml:base="/home/abachmann@anl.gov/transition-scenarios/input/haleu/inputs/" xmlns:xi="http://www.w3.org/2001/XInclude">
   <control>
     <decay>lazy</decay>
     <duration>1500</duration>
@@ -304,7 +304,7 @@
         </stream>
         <stream>
           <info>
-            <mixing_ratio>0.9701</mixing_ratio>
+            <mixing_ratio>0.97011</mixing_ratio>
             <buf_size>1e100</buf_size>
           </info>
           <commodities>
@@ -339,7 +339,7 @@
         </stream>
         <stream>
           <info>
-            <mixing_ratio>.9701</mixing_ratio>
+            <mixing_ratio>.97011</mixing_ratio>
             <buf_size>1e100</buf_size>
           </info>
           <commodities>
@@ -421,7 +421,7 @@
         </entry>
       </initialfacilitylist>
       <config>
-	<xi:include href="united_states/buildtimes/xe100_mmr_voygr_nogrowth_deployinst.xml"/>
+        <xi:include href="united_states/buildtimes/xe100_mmr_voygr_nogrowth_deployinst.xml"/>
       </config>
     </institution>
 
@@ -439,9 +439,9 @@
           <prototypes>
             <val>SeparationsFacility</val>
           </prototypes>
-          <buildtimes>
+          <build_times>
             <val>661</val>
-          </buildtimes>
+          </build_times>
           <n_build>
             <val>2</val>
           </n_build>
@@ -454,5 +454,4 @@
   <xi:include href="united_states/recipes/xe100_fuel.xml#xpointer(/recipes/child::*)"/>
   <xi:include href="united_states/recipes/mmr_fuel.xml#xpointer(/recipes/child::*)"/>
   <xi:include href="united_states/recipes/voygr_fuel.xml#xpointer(/recipes/child::*)"/>
-  <xi:include href="united_states/recipes/recycle_recipes.xml#xpointer(/recipes/child::*)"/>
 </simulation>
