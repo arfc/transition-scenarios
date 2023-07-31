@@ -10,12 +10,13 @@
 
   <recipe>
     <name>fresh_xe100_mox</name>
-    <basis>mass</basis>
-    <nuclide> <id>92235</id> <comp>0.132848</comp> </nuclide>
-    <nuclide> <id>92238</id> <comp>0.762437</comp> </nuclide>
-    <nuclide> <id>94239</id> <comp>0.1</comp> </nuclide>
-    <nuclide> <id>8016</id> <comp>0.086060</comp> </nuclide>
-    <nuclide> <id>6012</id> <comp>0.017760</comp> </nuclide>
+    <basis>atom</basis>
+    <nuclide> <id>94238</id> <comp>0.01</comp> </nuclide>
+    <nuclide> <id>94239</id> <comp>0.6214</comp> </nuclide>
+    <nuclide> <id>94240</id> <comp>0.2395</comp> </nuclide>
+    <nuclide> <id>94241</id> <comp>0.0795</comp> </nuclide>
+    <nuclide> <id>94242</id> <comp>0.0495</comp> </nuclide>
+    <nuclide> <id>8016</id> <comp>2</comp> </nuclide>
   </recipe>
 
   <recipe>
