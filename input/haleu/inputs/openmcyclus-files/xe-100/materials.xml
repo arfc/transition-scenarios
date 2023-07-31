@@ -142,4 +142,5 @@
     <nuclide wo="85.53765972559535" name="U238" />
     <nuclide wo="2.612078957002141" name="U235" />
     <nuclide wo="11.850261317402508" name="O16" />
+  </material>
 </materials>
