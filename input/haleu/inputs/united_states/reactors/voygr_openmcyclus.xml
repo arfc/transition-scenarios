@@ -30,7 +30,7 @@
         <n_assem_batch>13</n_assem_batch>
         <power_cap>77</power_cap>
         <model_path>./inputs/openmcyclus-files/voygr/</model_path>
-        <chain_file>chain_endfb71_pwr.xml</chain_file>
+        <chain_file>chain_casl_pwr.xml</chain_file>
       </DepleteReactor>
     </config>
   </facility>

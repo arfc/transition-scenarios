@@ -30,7 +30,7 @@
         <n_assem_batch>4</n_assem_batch>
         <power_cap>80</power_cap>
         <model_path>./inputs/openmcyclus-files/xe-100/</model_path>
-        <chain_file>chain_endfb71_pwr.xml</chain_file>
+        <chain_file>chain_casl_pwr.xml</chain_file>
       </DepleteReactor>
     </config>
   </facility>
