@@ -15,6 +15,10 @@
       <name>Reactor</name>
     </spec>
     <spec>
+      <lib>openmcyclus.DepleteReactor</lib>
+      <name>DepeleteReactor</name>
+    </spec>
+    <spec>
       <lib>cycamore</lib>
       <name>Sink</name>
     </spec>
@@ -37,18 +41,14 @@
   </archetypes>
 
   <xi:include href="united_states/buildtimes/inclusions.xml#xpointer(/inclusions/child::*)"/>
-  <xi:include href="united_states/reactors/xenergy_xe100.xml"/>
-  <xi:include href="united_states/reactors/usnc_mmr.xml"/>
-  <xi:include href="united_states/reactors/nuscale_voygr.xml"/>
+  <xi:include href="united_states/reactors/sfr_openmcyclus.xml"/>
   <facility>
     <name>Sink_HLW</name>
     <config>
       <Sink>
         <in_commods>
-          <val>casked_spent_uox</val>
-          <val>cooled_spent_xe100_haleu</val>
-          <val>cooled_spent_mmr_haleu</val>
-          <val>cooled_spent_smr_fuel</val>
+          <val>cool_spent_uox</val>
+          <val>separated_waste</val>
         </in_commods>
         <!-- Yucca Mountain Repository -->
         <latitude>36.8286</latitude>
@@ -83,7 +83,7 @@
     </config>
   </facility>
   <facility>
-    <name>Enrichment</name>
+    <name>LWREnrichment</name>
     <config>
       <Enrichment>
         <feed_commod>nat_u</feed_commod>
@@ -98,6 +98,24 @@
       </Enrichment>
     </config>
   </facility>
+
+    <facility>
+    <name>SFREnrichment</name>
+    <config>
+      <Enrichment>
+        <feed_commod>nat_u</feed_commod>
+        <feed_recipe>nat_u</feed_recipe>
+        <product_commod>fresh_haleu</product_commod>
+        <tails_commod>tails</tails_commod>
+        <tails_assay>0.002</tails_assay>
+        <max_enrich>0.1975</max_enrich>
+        <!-- Portsmouth Gaseous Diffusion Plant (OH) -->
+        <latitude>39.008333</latitude>
+        <longitude>-83</longitude>
+      </Enrichment>
+    </config>
+  </facility>
+
   <facility>
     <name>WetStorage</name>
     <config>
@@ -116,72 +134,88 @@
       </Storage>
     </config>
   </facility>
-  <facility>
-    <name>DryStorage</name>
+<facility>
+    <name>SeparationsFacility</name>
     <config>
-      <Storage>
-        <in_commods>
+      <Separations>
+        <feed_commods>
           <val>cool_spent_uox</val>
-        </in_commods>
-        <in_recipe>cool_spent_uox</in_recipe>
-        <out_commods>
-          <val>casked_spent_uox</val>
-        </out_commods>
-        <!-- Yucca Mountain Repository -->
-        <latitude>36.8286</latitude>
-        <longitude>-116.4364</longitude>
-      </Storage>
+          <val>spent_haleu</val>
+          <val>spent_reprocessed</val>
+        </feed_commods>
+        <feed_commod_prefs>
+          <val>1</val>
+          <val>1</val>
+          <val>1</val>
+        </feed_commod_prefs>
+        <feedbuf_size>10000000</feedbuf_size>
+        <leftover_commod>separated_waste</leftover_commod>
+        <streams>
+          <item>
+            <commod>separated_fissile</commod>
+            <info>
+              <buf_size>500000</buf_size>
+              <efficiencies>
+                <item>
+                  <comp>92000</comp>
+                  <eff>0.99</eff>
+                </item>
+                <item>
+                  <comp>93000</comp>
+                  <eff>0.99</eff>
+                </item>
+                <item>
+                  <comp>94000</comp>
+                  <eff>0.99</eff>
+                </item>
+                <item>
+                  <comp>95000</comp>
+                  <eff>0.99</eff>
+                </item>
+                <item>
+                  <comp>96000</comp>
+                  <eff>0.99</eff>
+                </item>
+              </efficiencies>
+            </info>
+          </item>
+        </streams>
+      </Separations>
     </config>
   </facility>
+
   <facility>
-    <name>Xe-100CoolingPool</name>
+    <name>SFR_mixer</name>
     <config>
-      <Storage>
-        <in_commods>
-          <val>spent_xe100_haleu</val>
-        </in_commods>
-        <in_recipe>spent_xe100_haleu</in_recipe>
-        <out_commods>
-          <val>cooled_spent_xe100_haleu</val>
-        </out_commods>
-        <!-- Yucca Mountain Repository -->
-        <latitude>36.8286</latitude>
-        <longitude>-116.4364</longitude>
-      </Storage>
-    </config>
-  </facility>
-  <facility>
-    <name>MMRCoolingPool</name>
-    <config>
-      <Storage>
-        <in_commods>
-          <val>spent_MMR_haleu</val>
-        </in_commods>
-        <in_recipe>spent_MMR_haleu</in_recipe>
-        <out_commods>
-          <val>cooled_spent_mmr_haleu</val>
-        </out_commods>
-        <residence_time>1</residence_time>
-        <latitude>36.8286</latitude>
-        <longitude>-116.4364</longitude>
-      </Storage>
-    </config>
-  </facility>
-  <facility>
-    <name>VOYGRCoolingPool</name>
-    <config>
-      <Storage>
-        <in_commods>
-          <val>spent_smr_fuel</val>
-        </in_commods>
-        <in_recipe>spent_smr_fuel</in_recipe>
-        <out_commods>
-          <val>cooled_spent_smr_fuel</val>
-        </out_commods>
-        <residence_time>1</residence_time>
-        <latitude>36.8286</latitude>
-        <longitude>-116.4364</longitude>
-      </Storage>
+      <Mixer>
+        <in_streams>
+          <stream>
+            <info>
+              <mixing_ratio>0.02989</mixing_ratio>
+              <buf_size>1e100</buf_size>
+            </info>
+            <commodities>
+              <item> 
+                <commodity>separated_fissile</commodity>
+                <pref>2.0</pref>
+              </item>
+            </commodities>
+          </stream>
+          <stream>
+            <info>
+              <mixing_ratio>0.97011</mixing_ratio>
+              <buf_size>1e100</buf_size>
+            </info>
+            <commodities>
+              <item>
+                <commodity>nat_u</commodity>
+                <pref>1.0</pref>
+              </item>
+            </commodities>
+          </stream>
+        </in_streams>
+        <out_commod>fresh_reprocessed</out_commod>
+      </Mixer>
     </config>
   </facility>
 
@@ -200,10 +234,10 @@
         </entry>
         <entry>
           <prototype>Mine</prototype>
-          <number>5</number>
+          <number>10</number>
         </entry>
         <entry>
-          <prototype>Enrichment</prototype>
+          <prototype>LWREnrichment</prototype>
           <number>5</number>
         </entry>
         <entry>
@@ -211,24 +245,16 @@
           <number>1</number>
         </entry>
         <entry>
-          <prototype>DryStorage</prototype>
+          <prototype>SFREnrichment</prototype>
           <number>1</number>
         </entry>
         <entry>
-          <prototype>Xe-100CoolingPool</prototype>
-          <number>1</number>
-        </entry>
-        <entry>
-          <prototype>MMRCoolingPool</prototype>
-          <number>1</number>
-        </entry>
-        <entry>
-          <prototype>VOYGRCoolingPool</prototype>
+          <prototype>SFR_Mixer</prototype>
           <number>1</number>
         </entry>
       </initialfacilitylist>
       <config>
-	<xi:include href="united_states/buildtimes/xe100_mmr_voygr_1percent_deployinst.xml"/>
+	      <xi:include href="united_states/buildtimes/sfr_nogrowth_deployinst.xml"/>
       </config>
     </institution>
 
@@ -238,10 +264,25 @@
         <xi:include href="united_states/buildtimes/UNITED_STATES_OF_AMERICA/deployinst.xml"/>
       </config>
     </institution>
+
+    <institution>
+      <name>SeparationsInstitution</name>
+      <config>
+        <DeployInst>
+          <prototypes>
+            <val>SeparationsFacility</val>
+          </prototypes>
+          <build_times>
+            <val>661</val>
+          </build_times>
+          <n_build>
+            <val>2</val>
+          </n_build>
+        </DeployInst>
+      </config>
+    </institution>
   </region>
 
   <xi:include href="united_states/recipes/uox_51.xml#xpointer(/recipes/child::*)"/>
-  <xi:include href="united_states/recipes/xe100_fuel.xml#xpointer(/recipes/child::*)"/>
-  <xi:include href="united_states/recipes/mmr_fuel.xml#xpointer(/recipes/child::*)"/>
-  <xi:include href="united_states/recipes/voygr_fuel.xml#xpointer(/recipes/child::*)"/>
+  <xi:include href="united_states/recipes/sfr_fuel.xml#xpointer(/recipes/child::*)"/>
 </simulation>

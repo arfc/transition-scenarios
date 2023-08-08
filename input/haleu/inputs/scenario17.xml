@@ -373,23 +373,23 @@
         </entry>
         <entry>
           <prototype>Mine</prototype>
-          <number>15</number>
+          <number>10</number>
         </entry>
         <entry>
           <prototype>LWREnrichment</prototype>
-          <number>5</number>
+          <number>3</number>
         </entry>
         <entry>
           <prototype>MMREnrichment</prototype>
-          <number>5</number>
+          <number>3</number>
         </entry>
         <entry>
           <prototype>Xe100Enrichment</prototype>
-          <number>5</number>
+          <number>3</number>
         </entry>
         <entry>
           <prototype>VOYGREnrichment</prototype>
-          <number>5</number>
+          <number>3</number>
         </entry>
         <entry>
           <prototype>WetStorage</prototype>
