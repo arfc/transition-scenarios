@@ -19,26 +19,22 @@
 
     <recipe>
     <name>fresh_smr_mox</name>
-    <basis>atom</basis>
+    <basis>mass</basis>
     <nuclide>
       <id>92235</id>
-      <comp>0.0291</comp>
+      <comp>0.00569</comp>
     </nuclide>
     <nuclide>
       <id>92238</id>
-      <comp>0.941</comp>
+      <comp>0.7958</comp>
     </nuclide>
     <nuclide>
       <id>94239</id>
-      <comp>0.0281</comp>
-    </nuclide>
-    <nuclide>
-      <id>94240</id>
-      <comp>0.00179</comp>
+      <comp>0.0801</comp>
     </nuclide>
     <nuclide>
       <id>O16</id>
-      <comp>1</comp>
+      <comp>0.11849</comp>
     </nuclide>
   </recipe>
 
