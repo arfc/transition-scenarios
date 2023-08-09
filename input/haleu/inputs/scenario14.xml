@@ -292,19 +292,19 @@
       <in_streams>
         <stream>
           <info>
-            <mixing_ratio>0.02989</mixing_ratio>
+            <mixing_ratio>0.09083</mixing_ratio>
             <buf_size>1e100</buf_size>
           </info>
           <commodities>
             <item> 
               <commodity>separated_fissile</commodity>
-              <pref>2.0</pref>
+              <pref>1.0</pref>
             </item>
           </commodities>
         </stream>
         <stream>
           <info>
-            <mixing_ratio>0.97011</mixing_ratio>
+            <mixing_ratio>0.90917</mixing_ratio>
             <buf_size>1e100</buf_size>
           </info>
           <commodities>
@@ -327,13 +327,25 @@
       <in_streams>
         <stream>
           <info>
-            <mixing_ratio>1</mixing_ratio>
+            <mixing_ratio>0.17998</mixing_ratio>
            <buf_size>1e100</buf_size>
           </info>
           <commodities>
             <item> 
               <commodity>separated_fissile</commodity>
               <pref>2.0</pref>
+            </item>
+          </commodities>
+        </stream>
+        <stream>
+          <info>
+            <mixing_ratio>0.82002</mixing_ratio>
+            <buf_size>1e100</buf_size>
+          </info>
+          <commodities>
+            <item>
+              <commodity>nat_u</commodity>
+              <pref>1.0</pref>
             </item>
           </commodities>
         </stream>
