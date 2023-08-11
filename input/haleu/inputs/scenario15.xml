@@ -290,7 +290,7 @@
       <in_streams>
         <stream>
           <info>
-            <mixing_ratio>0.02989</mixing_ratio>
+            <mixing_ratio>0.09083</mixing_ratio>
             <buf_size>1e100</buf_size>
           </info>
           <commodities>
@@ -302,7 +302,7 @@
         </stream>
         <stream>
           <info>
-            <mixing_ratio>0.97011</mixing_ratio>
+            <mixing_ratio>0.90917</mixing_ratio>
             <buf_size>1e100</buf_size>
           </info>
           <commodities>
@@ -325,7 +325,7 @@
       <in_streams>
         <stream>
           <info>
-            <mixing_ratio>0.02989</mixing_ratio>
+            <mixing_ratio>0.17998</mixing_ratio>
            <buf_size>1e100</buf_size>
           </info>
           <commodities>
@@ -337,7 +337,7 @@
         </stream>
         <stream>
           <info>
-            <mixing_ratio>.97011</mixing_ratio>
+            <mixing_ratio>0.82002</mixing_ratio>
             <buf_size>1e100</buf_size>
           </info>
           <commodities>
