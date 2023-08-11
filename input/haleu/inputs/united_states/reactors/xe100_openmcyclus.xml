@@ -23,7 +23,7 @@
           <val>spent_xe100_haleu</val> 
           <val>spent_xe100_mox</val>
         </fuel_outrecipes>
-        <cycle_time>6</cycle_time>
+        <cycle_time>7</cycle_time>
         <refuel_time>0</refuel_time>
         <assem_size>69.82</assem_size>
         <n_assem_core>24</n_assem_core>
