@@ -2,7 +2,7 @@
     <name>Xe-100</name>
     <lifetime>720</lifetime>
     <config>
-      <Reactor>
+      <DepleteReactor>
         <fuel_incommods> 
           <val>fresh_xe100_uox</val>
           <val>fresh_xe100_mox</val>
@@ -28,9 +28,9 @@
         <assem_size>69.82</assem_size>
         <n_assem_core>24</n_assem_core>
         <n_assem_batch>4</n_assem_batch>
-        <power_cap>76</power_cap>
-        <model_path>/home/abachmann/transition-scenarios/input/haleu/inputs/openmc/</model_path>
-        <chain_file>chain_endfb71_pwr.xml</chain_file>
-      </Reactor>
+        <power_cap>80</power_cap>
+        <model_path>./inputs/openmcyclus-files/xe-100/</model_path>
+        <chain_file>chain_casl_pwr.xml</chain_file>
+      </DepleteReactor>
     </config>
   </facility>

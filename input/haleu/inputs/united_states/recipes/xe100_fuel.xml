@@ -9,6 +9,26 @@
   </recipe>
 
   <recipe>
+    <name>fresh_xe100_mox</name>
+    <basis>mass</basis>
+    <nuclide> <id>92235</id> <comp>0.00532</comp> </nuclide>
+    <nuclide> <id>92238</id> <comp>0.7434</comp> </nuclide>
+    <nuclide> <id>94239</id> <comp>0.1643</comp> </nuclide>
+    <nuclide> <id>8016</id> <comp>0.0409</comp> </nuclide>
+    <nuclide> <id>6012</id> <comp>0.0460</comp> </nuclide>
+  </recipe>
+
+  <recipe>
+    <name>spent_xe100_mox</name>
+    <basis>mass</basis>
+    <nuclide> <id>92235</id> <comp>0.132848</comp> </nuclide>
+    <nuclide> <id>92238</id> <comp>0.762437</comp> </nuclide>
+    <nuclide> <id>94239</id> <comp>0.1</comp> </nuclide>
+    <nuclide> <id>8016</id> <comp>0.086060</comp> </nuclide>
+    <nuclide> <id>6012</id> <comp>0.017760</comp> </nuclide>
+  </recipe>
+
+  <recipe>
     <name>spent_xe100_haleu</name>
     <basis>mass</basis>
     <nuclide>
@@ -1263,13 +1283,5 @@
       <id>98251</id>
       <comp>1.2267e-20</comp>
     </nuclide>
-  </recipe>
-
-
-  <recipe>
-    <name>xe100_haleu</name>
-    <basis>mass</basis>
-    <nuclide> <id>92235</id> <comp>0.155</comp> </nuclide>
-    <nuclide> <id>92238</id> <comp>0.845</comp> </nuclide>
   </recipe>
 </recipes>

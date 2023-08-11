@@ -1,6 +1,22 @@
 <recipes>
   <recipe>
-    <name>fresh_MMR_haleu</name>
+	  <name>fresh_xe100_mox</name>
+    <basis>mass</basis>
+    <nuclide> <id>92235</id> <comp>0.1139</comp> </nuclide>
+    <nuclide> <id>92238</id> <comp>0.7718</comp> </nuclide>
+    <nuclide> <id>8016</id> <comp>0.0994</comp> </nuclide>
+    <nuclide> <id>6012</id> <comp>0.0149</comp> </nuclide>
+  </recipe>
+    <recipe>
+	  <name>spent_xe100_mox</name>
+    <basis>mass</basis>
+    <nuclide> <id>92235</id> <comp>0.1139</comp> </nuclide>
+    <nuclide> <id>92238</id> <comp>0.7718</comp> </nuclide>
+    <nuclide> <id>8016</id> <comp>0.0994</comp> </nuclide>
+    <nuclide> <id>6012</id> <comp>0.0149</comp> </nuclide>
+  </recipe>
+  <recipe>
+	  <name>fresh_smr_mox</name>
     <basis>mass</basis>
     <nuclide> <id>92235</id> <comp>0.1139</comp> </nuclide>
     <nuclide> <id>92238</id> <comp>0.7718</comp> </nuclide>
@@ -9,7 +25,7 @@
   </recipe>
 
   <recipe>
-    <name>spent_MMR_haleu</name>
+    <name>fresh_MMR_mox</name>
     <basis>mass</basis>
     <nuclide>
       <id>10030000</id>
@@ -1249,4 +1265,10 @@
     </nuclide>
   </recipe>
 
+  <recipe>
+    <name>MMR_haleu</name>
+    <basis>mass</basis>
+    <nuclide> <id>92235</id> <comp>0.13</comp> </nuclide>
+    <nuclide> <id>92238</id> <comp>0.87</comp> </nuclide>
+  </recipe>
 </recipes>
