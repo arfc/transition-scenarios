@@ -18,7 +18,7 @@ params, results = di.read_parameters_file()
 # -------------------------------
 
 # Edit Cyclus input file
-cyclus_template = 'oncethrough_input.xml.in'
+cyclus_template = 'recycle_input.xml.in'
 scenario_name = ('lwr_' + 
                  str(int(params['lwr'])) + 
                  '_mmr_share_' + 
