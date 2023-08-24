@@ -62,12 +62,18 @@ def get_table_from_output(db_file, table_name):
             requested table from database
         '''
     connect = sqlite3.connect(db_file)
-    if table_name == 'Resources':
-        table_df = pd.read_sql_query(
-            'SELECT SimId, ResourceId, ObjId, TimeCreated, Quantity, Units FROM Resources',
-            connect)
-    else:
-        table_df = pd.read_sql_query('SELECT * FROM ' + table_name, connect)
+    cur = connect.cursor()
+    listOfTables = cur.execute(f"""SELECT name FROM sqlite_master WHERE type='table'
+    AND name='{table_name}'; """).fetchall()
+
+    if listOfTables == []:
+        return None
+    #if table_name == 'Resources':
+    #    table_df = pd.read_sql_query(
+    #        'SELECT SimId, ResourceId, ObjId, TimeCreated, Quantity, Units FROM Resources',
+    #        connect)
+    #else:
+    table_df = pd.read_sql_query('SELECT * FROM ' + table_name, connect)
     return table_df
 
 
@@ -198,7 +204,7 @@ def add_sender_prototype(db_file):
     return sender_prototype
 
 
-def get_multiple_prototype_transactions(db_file, prototypes, commodity):
+def get_multiple_prototype_transactions(db_file, prototypes, commodities):
     '''
     Gets the transactions of the given commodity sent to the
     specified prototypes in each time step.
@@ -209,8 +215,8 @@ def get_multiple_prototype_transactions(db_file, prototypes, commodity):
         name of database file
     prototypes: list of strs
         names of prototypes to get transactions to
-    commodity: str
-        name of commodity
+    commodities: list of str
+        names of commodity, index corresponding to the correct prototype
 
     Returns:
     --------
@@ -221,13 +227,13 @@ def get_multiple_prototype_transactions(db_file, prototypes, commodity):
     '''
     transactions = add_receiver_prototype(db_file)
     commodity_transactions = pd.DataFrame(columns=prototypes)
-    for prototype in prototypes:
+    for index, prototype in enumerate(prototypes):
         commodity_transactions[prototype] = dfa.commodity_to_prototype(
-            transactions, commodity, prototype)['Quantity']
+            transactions, commodities[index], prototype)['Quantity']
     return commodity_transactions
 
 
-def get_enriched_u_mass(db_file, prototypes, transition_start):
+def get_enriched_u_mass(db_file, prototypes, commodities, transition_start):
     '''
         Calculates the cumulative mass of enriched
         uranium sent to given prototypes in a simulation. The average
@@ -250,7 +256,7 @@ def get_enriched_u_mass(db_file, prototypes, transition_start):
             prototypes starting at the transition start time
     '''
     enriched_u_df = get_multiple_prototype_transactions(
-        db_file, prototypes, 'fresh_uox')
+        db_file, prototypes, commodities)
     total_adv_rx_enriched_u = 0
     for prototype in prototypes:
         total_adv_rx_enriched_u += enriched_u_df[prototype]
@@ -258,7 +264,7 @@ def get_enriched_u_mass(db_file, prototypes, transition_start):
     return cumulative_u.loc[cumulative_u.index[-1]]
 
 
-def calculate_feed(db_file, prototypes, transition_start):
+def calculate_feed(db_file, prototypes, commodities, transition_start):
     '''
     Calculate the cumulative feed uranium needed to create enriched
     uranium for the specified prototypes
@@ -281,7 +287,7 @@ def calculate_feed(db_file, prototypes, transition_start):
     assays = {'MMR': 0.1975, 'Xe-100': 0.155,
               'VOYGR': 0.0409, 'feed': 0.00711, 'tails': 0.002}
     enriched_u_mass = get_multiple_prototype_transactions(
-        db_file, prototypes, 'fresh_uox')
+        db_file, prototypes, commodities)
     feed = 0
     for prototype in prototypes:
         tails = dfa.calculate_tails(
@@ -295,7 +301,8 @@ def calculate_feed(db_file, prototypes, transition_start):
     return cumulative_feed.loc[cumulative_feed.index[-1]]
 
 
-def calculate_swu(db_file, prototypes, transition_start):
+def calculate_swu(db_file, prototypes, commodities,
+                  transition_start):
     '''
     Calculates the cumulative amount of SWU capacity required to
     create the enriched uranium in the simulation.
@@ -306,6 +313,10 @@ def calculate_swu(db_file, prototypes, transition_start):
         name of database file
     prototypes: list of strs
         names of prototypes to consider in calculation
+    commodities: list of strs
+        commodity names. must be as long as the prototypes 
+        list, with the index of each one corresponding with 
+        the correct prototype.
     transition_start: int
         time step the modeled transition begins at
     assays: dict
@@ -324,7 +335,8 @@ def calculate_swu(db_file, prototypes, transition_start):
     assays = {'MMR': 0.1975, 'Xe-100': 0.155,
               'VOYGR': 0.0409, 'feed': 0.00711, 'tails': 0.002}
     enriched_u_mass = get_multiple_prototype_transactions(
-        db_file, prototypes, 'fresh_uox')
+        db_file, prototypes, commodities)
+
     swu = 0
     for prototype in prototypes:
         tails = dfa.calculate_tails(
@@ -377,6 +389,27 @@ def get_waste_discharged(db_file, prototypes, transition_start, commodities):
     waste_discharged = waste[int(transition_start):].cumsum()
     return waste_discharged.loc[waste_discharged.index[-1]]
 
+def get_waste_collected(db_file, prototype):
+    '''
+    Determine sum of waste sent to the final repository, 
+    assumes all transactions to this prototype are waste 
+    commodities
+
+    Parameters:
+    -----------
+    db_file: SQLite databate
+        database file
+    prototype: str
+        name of repository prototype
+    '''
+    transactions = add_receiver_prototype(db_file)
+    repo_transactions = dfa.transactions_to_prototype(
+        transactions,
+        prototype
+    )
+    waste_sum = repo_transactions[int(721):].cumsum()
+    waste_collected = waste_sum.loc[waste_sum.index[-1]]
+    return waste_collected
 
 def get_annual_electricity_table(db_file):
     '''
@@ -521,24 +554,30 @@ def get_all_results(results, output_sqlite):
 
     results['enr_u'].function = get_enriched_u_mass(output_sqlite,
                                                         ['Xe-100', 'MMR', 'VOYGR'],
+                                                        ['fresh_xe100_uox', 
+                                                         'fresh_MMR_uox',
+                                                         'fresh_smr_uox'],
                                                         721)
     results['haleu'].function = get_enriched_u_mass(output_sqlite,
                                                         ['Xe-100', 'MMR'],
+                                                        ['fresh_xe100_uox', 
+                                                         'fresh_MMR_uox'],
                                                         721)
     results['swu'].function = calculate_swu(
-        output_sqlite, ['Xe-100', 'MMR', 'VOYGR'], 721)
+        output_sqlite, 
+        ['Xe-100', 'MMR', 'VOYGR'], 
+        ['fresh_xe100_uox','fresh_MMR_uox', 'fresh_smr_uox'],
+        721)
     results['haleu_swu'].function = calculate_swu(
-        output_sqlite, ['Xe-100', 'MMR'], 721)
-    results['waste'].function = get_waste_discharged(output_sqlite,
-                                                         ['Xe-100', 'MMR', 'VOYGR'],
-                                                         721,
-                                                         {'MMR': 'spent_MMR_haleu',
-                                                          'Xe-100': 'spent_xe100_haleu',
-                                                          'VOYGR': 'spent_smr_fuel'}
+        output_sqlite, ['Xe-100', 'MMR'], ['fresh_xe100_uox','fresh_MMR_uox'], 721)
+    results['waste'].function = get_waste_collected(output_sqlite,
+                                                    'Sink_HLW'
                                                          )
     results['feed'].function = calculate_feed(output_sqlite,
                                                   ['Xe-100', 'MMR'],
-                                                  721)
+                                                  ['fresh_xe100_uox', 
+                                                   'fresh_MMR_uox'],
+                                                   721)
 
     results.write()
 

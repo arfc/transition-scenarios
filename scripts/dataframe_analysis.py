@@ -184,6 +184,19 @@ def commodity_to_prototype(transactions_df, commodity, prototype):
     prototype_transactions = add_year(prototype_transactions)
     return prototype_transactions
 
+def transactions_to_prototype(transactions_df, prototype):
+    '''
+    Finds all transactions to a prototype
+
+    Parameters:
+    -----------
+    transactions_df: DataFrame
+    prototype: str
+    '''
+    prototype_transactions = find_prototype_receiver(transactions_df, prototype)
+    prototype_transactions = sum_and_add_missing_time(prototype_transactions)
+    prototype_transactions = add_year(prototype_transactions)
+    return prototype_transactions
 
 def commodity_from_prototype(transactions_df, commodity, prototype):
     '''
