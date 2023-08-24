@@ -260,7 +260,7 @@
         <val>cool_MMR_uox</val>
       </feed_commods>
       <feed_commod_prefs>
-        <val>1</val>
+        <val>2</val>
         <val>1</val>
         <val>1</val>
         <val>1</val>
@@ -293,7 +293,7 @@
         <stream>
           <info>
             <mixing_ratio>0.09083</mixing_ratio>
-            <buf_size>1e100</buf_size>
+            <buf_size>1e5</buf_size>
           </info>
           <commodities>
             <item> 
@@ -305,7 +305,7 @@
         <stream>
           <info>
             <mixing_ratio>0.90917</mixing_ratio>
-            <buf_size>1e100</buf_size>
+            <buf_size>1e5</buf_size>
           </info>
           <commodities>
             <item>
@@ -328,7 +328,7 @@
         <stream>
           <info>
             <mixing_ratio>0.17998</mixing_ratio>
-           <buf_size>1e100</buf_size>
+           <buf_size>1e5</buf_size>
           </info>
           <commodities>
             <item> 
@@ -340,7 +340,7 @@
         <stream>
           <info>
             <mixing_ratio>0.82002</mixing_ratio>
-            <buf_size>1e100</buf_size>
+            <buf_size>1e5</buf_size>
           </info>
           <commodities>
             <item>
@@ -358,15 +358,14 @@
     <name>United States</name>
     <config>
       <NullRegion/>
-    </config>
-    
+    </config>    
     <institution>
       <name>FuelCycle</name>
       <initialfacilitylist>
-      <entry>
+      <!--entry>
           <prototype>Sink_HLW</prototype>
           <number>1</number>
-        </entry>
+        </entry-->
         <entry>
           <prototype>Sink_LLW</prototype>
           <number>1</number>
@@ -438,12 +437,15 @@
         <DeployInst>
           <prototypes>
             <val>SeparationsFacility</val>
+            <val>Sink_HLW</val>
           </prototypes>
           <build_times>
             <val>661</val>
+            <val>900</val>
           </build_times>
           <n_build>
-            <val>2</val>
+            <val>1</val>
+            <val>1</val>
           </n_build>
         </DeployInst>
       </config>

@@ -361,10 +361,6 @@
     <institution>
       <name>FuelCycle</name>
       <initialfacilitylist>
-      <entry>
-          <prototype>Sink_HLW</prototype>
-          <number>1</number>
-        </entry>
         <entry>
           <prototype>Sink_LLW</prototype>
           <number>1</number>
@@ -436,12 +432,15 @@
         <DeployInst>
           <prototypes>
             <val>SeparationsFacility</val>
+            <val>Sink_HLW</val>
           </prototypes>
           <build_times>
             <val>661</val>
+            <val>900</val>
           </build_times>
           <n_build>
-            <val>2</val>
+            <val>1</val>
+            <val>1</val>
           </n_build>
         </DeployInst>
       </config>
