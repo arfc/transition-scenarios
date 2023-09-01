@@ -53,11 +53,24 @@
   <xi:include href="united_states/reactors/usnc_mmr.xml"/>
   <xi:include href="united_states/reactors/voygr_openmcyclus.xml"/>
   <facility>
-    <name>Sink_HLW</name>
+    <name>Sink_LWR_UOX</name>
+    <lifetime>660</lifetime>
     <config>
       <Sink>
         <in_commods>
           <val>cool_spent_uox</val>
+        </in_commods>
+        <!-- Yucca Mountain Repository -->
+        <latitude>36.8286</latitude>
+        <longitude>-116.4364</longitude>
+      </Sink>
+    </config>
+  </facility>
+  <facility>
+    <name>Sink_HLW</name>
+    <config>
+      <Sink>
+        <in_commods>
           <val>cool_spent_mox</val>
           <val>separated_waste</val>
         </in_commods>
@@ -260,7 +273,7 @@
         <val>cool_MMR_uox</val>
       </feed_commods>
       <feed_commod_prefs>
-        <val>1</val>
+        <val>2</val>
         <val>1</val>
         <val>1</val>
         <val>1</val>
@@ -293,19 +306,19 @@
         <stream>
           <info>
             <mixing_ratio>0.09083</mixing_ratio>
-            <buf_size>1e100</buf_size>
+            <buf_size>1e5</buf_size>
           </info>
           <commodities>
             <item> 
               <commodity>separated_fissile</commodity>
-              <pref>2.0</pref>
+              <pref>1.0</pref>
             </item>
           </commodities>
         </stream>
         <stream>
           <info>
             <mixing_ratio>0.90917</mixing_ratio>
-            <buf_size>1e100</buf_size>
+            <buf_size>1e5</buf_size>
           </info>
           <commodities>
             <item>
@@ -328,7 +341,7 @@
         <stream>
           <info>
             <mixing_ratio>0.17998</mixing_ratio>
-           <buf_size>1e100</buf_size>
+           <buf_size>1e5</buf_size>
           </info>
           <commodities>
             <item> 
@@ -340,7 +353,7 @@
         <stream>
           <info>
             <mixing_ratio>0.82002</mixing_ratio>
-            <buf_size>1e100</buf_size>
+            <buf_size>1e5</buf_size>
           </info>
           <commodities>
             <item>
@@ -358,11 +371,14 @@
     <name>United States</name>
     <config>
       <NullRegion/>
-    </config>
-    
+    </config>    
     <institution>
       <name>FuelCycle</name>
       <initialfacilitylist>
+        <entry>
+          <prototype>Sink_LWR_UOX</prototype>
+          <number>1</number>
+        </entry>
         <entry>
           <prototype>Sink_LLW</prototype>
           <number>1</number>
@@ -438,7 +454,7 @@
           </prototypes>
           <build_times>
             <val>661</val>
-            <val>900</val>
+            <val>661</val>
           </build_times>
           <n_build>
             <val>1</val>

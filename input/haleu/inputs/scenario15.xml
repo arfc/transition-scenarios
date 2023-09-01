@@ -53,11 +53,24 @@
   <xi:include href="united_states/reactors/usnc_mmr.xml"/>
   <xi:include href="united_states/reactors/voygr_openmcyclus.xml"/>
   <facility>
-    <name>Sink_HLW</name>
+    <name>Sink_LWR_UOX</name>
+    <lifetime>660</lifetime>
     <config>
       <Sink>
         <in_commods>
           <val>cool_spent_uox</val>
+        </in_commods>
+        <!-- Yucca Mountain Repository -->
+        <latitude>36.8286</latitude>
+        <longitude>-116.4364</longitude>
+      </Sink>
+    </config>
+  </facility>
+  <facility>
+    <name>Sink_HLW</name>
+    <config>
+      <Sink>
+        <in_commods>
           <val>cool_spent_mox</val>
           <val>cool_xe100_uox</val>
           <val>cool_MMR_uox</val>
@@ -362,6 +375,10 @@
       <name>FuelCycle</name>
       <initialfacilitylist>
         <entry>
+          <prototype>Sink_LWR_UOX</prototype>
+          <number>1</number>
+        </entry>
+        <entry>
           <prototype>Sink_LLW</prototype>
           <number>1</number>
         </entry>
@@ -436,7 +453,7 @@
           </prototypes>
           <build_times>
             <val>661</val>
-            <val>900</val>
+            <val>661</val>
           </build_times>
           <n_build>
             <val>1</val>
