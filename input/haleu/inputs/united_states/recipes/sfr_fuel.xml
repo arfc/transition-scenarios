@@ -1,0 +1,43 @@
+<recipes>
+  <recipe>
+    <name>fresh_haleu</name>
+    <basis>mass</basis>
+    <nuclide> <id>92235</id> <comp>0.132848</comp> </nuclide>
+    <nuclide> <id>92238</id> <comp>0.762437</comp> </nuclide>
+  </recipe>
+
+  <recipe>
+    <name>fresh_reprocessed</name>
+    <basis>mass</basis>
+    <nuclide>  <id>92235</id> <comp>0.00493125</comp>  </nuclide>
+    <nuclide>  <id>92238</id> <comp>0.68469375</comp>  </nuclide>
+    <nuclide>  <id>93237</id> <comp>0.021249999999999998</comp>  </nuclide>
+    <nuclide>  <id>94238</id> <comp>0.0010125</comp>  </nuclide>
+    <nuclide>  <id>94239</id> <comp>0.11203062500000001</comp>  </nuclide>
+    <nuclide>  <id>94240</id> <comp>0.038506250000000006</comp>  </nuclide>
+    <nuclide>  <id>94241</id> <comp>0.013327499999999999</comp>  </nuclide>
+    <nuclide>  <id>94242</id> <comp>0.0029925000000000004</comp>  </nuclide>
+    <nuclide>  <id>95241</id> <comp>0.01765625</comp>  </nuclide>
+    <nuclide>  <id>95243</id> <comp>0.003599375</comp>  </nuclide>
+    <nuclide>  <id>40090</id> <comp>0.1</comp>  </nuclide>
+  </recipe>
+
+  <recipe>
+    <name>spent_haleu</name>
+    <basis>mass</basis>
+    <nuclide> <id>92235</id> <comp>0.132848</comp> </nuclide>
+    <nuclide> <id>92238</id> <comp>0.762437</comp> </nuclide>
+    <nuclide> <id>94239</id> <comp>0.1</comp> </nuclide>
+    <nuclide> <id>8016</id> <comp>0.086060</comp> </nuclide>
+    <nuclide> <id>6012</id> <comp>0.017760</comp> </nuclide>
+  </recipe>
+
+   <recipe>
+    <name>spent_reprocessed</name>
+    <basis>mass</basis>
+    <nuclide> <id>92235</id> <comp>0.132848</comp> </nuclide>
+    <nuclide> <id>92238</id> <comp>0.762437</comp> </nuclide>
+    <nuclide> <id>94239</id> <comp>0.1</comp> </nuclide>
+    <nuclide> <id>8016</id> <comp>0.086060</comp> </nuclide>
+    <nuclide> <id>6012</id> <comp>0.017760</comp> </nuclide>
+  </recipe>
