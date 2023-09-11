@@ -264,7 +264,7 @@
         </entry>
       </initialfacilitylist>
       <config>
-	      <xi:include href="united_states/buildtimes/sfr_nogrowth_deployinst.xml"/>
+	      <xi:include href="united_states/buildtimes/sfr_1percent_deployinst.xml"/>
       </config>
     </institution>
 
