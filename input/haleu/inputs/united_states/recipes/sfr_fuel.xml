@@ -2,8 +2,9 @@
   <recipe>
     <name>fresh_haleu</name>
     <basis>mass</basis>
-    <nuclide> <id>92235</id> <comp>0.132848</comp> </nuclide>
-    <nuclide> <id>92238</id> <comp>0.762437</comp> </nuclide>
+    <nuclide> <id>92235</id> <comp>0.07367</comp> </nuclide>
+    <nuclide> <id>92238</id> <comp>0.82632</comp> </nuclide>
+    <nuclide> <id>40090</id> <comp>0.1</comp> </nuclide>
   </recipe>
 
   <recipe>
