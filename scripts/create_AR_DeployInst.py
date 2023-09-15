@@ -113,6 +113,37 @@ def get_powers(path):
         )
     return reactor_power
 
+def get_pris_powers(country, path, year):
+    '''
+    Create dictionary of the reactor units from a select country
+    in the PRIS database and
+    their corresponding rated power
+    output from the reactors_pris_XXXX.csv file for the corresponding year
+
+    Parameters:
+    -----------
+    country: str
+        name of country to get LWR data for
+    path: str
+        relative path to the pris csv file
+    year: int
+        year of data to pull from
+
+    Returns:
+    --------
+    pris_power: dict
+        dictionary of reactor names and rated powers, the keys are the reactor
+        names (strs), the values are the rated powers (ints). Any spaces
+        in the keys are replaced with underscores.
+    '''
+    pris_power = {}
+    reactors = pd.read_csv(path + 'reactors_pris_' + str(year) + '.csv')
+    reactors = reactors.loc[reactors['Country'] == country]
+    for index, row in reactors.iterrows():
+        pris_power[row['Unit']] = row['RUP [MWe]']
+    pris_power = {k.replace(' ', '_'): v for k, v in pris_power.items()}
+    return pris_power
+
 
 def get_lifetime(path, name):
     ''''
