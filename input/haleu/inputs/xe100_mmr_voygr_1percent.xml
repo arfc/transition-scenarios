@@ -1,4 +1,4 @@
-<simulation xml:base="/home/abachmann/transition-scenarios/input/haleu/inputs/" xmlns:xi="http://www.w3.org/2001/XInclude">
+<simulation xml:base="/home/abachmann@anl.gov/transition-scenarios/input/haleu/inputs/" xmlns:xi="http://www.w3.org/2001/XInclude">
   <control>
     <decay>lazy</decay>
     <duration>1500</duration>
@@ -92,8 +92,25 @@
         <tails_commod>tails</tails_commod>
         <tails_assay>0.002</tails_assay>
         <max_enrich>0.16</max_enrich>
+        <max_feed_inventory>20e6</max_feed_inventory>
         <!-- Portsmouth Gaseous Diffusion Plant (OH) -->
         <latitude>39.008333</latitude>
+        <longitude>-83</longitude>
+      </Enrichment>
+    </config>
+  </facility>    
+  <facility>
+    <name>MMREnrichment</name>
+    <config>
+      <Enrichment>
+        <feed_commod>nat_u</feed_commod>
+        <feed_recipe>nat_u</feed_recipe>
+        <product_commod>fresh_MMR_uox</product_commod>
+        <tails_commod>tails</tails_commod>
+        <tails_assay>0.002</tails_assay>
+        <!--max_feed_inventory>20e4</max_feed_inventory-->
+        <!-- Portsmouth Gaseous Diffusion Plant (OH) -->
+        <max_enrich>0.20</max_enrich>
         <longitude>-83</longitude>
       </Enrichment>
     </config>
@@ -204,7 +221,11 @@
         </entry>
         <entry>
           <prototype>Enrichment</prototype>
-          <number>5</number>
+          <number>1</number>
+        </entry>
+        <entry>
+          <prototype>MMREnrichment</prototype>
+          <number>1</number>
         </entry>
         <entry>
           <prototype>WetStorage</prototype>

@@ -4,24 +4,16 @@
     <config>
       <Reactor>
         <fuel_incommods> 
-          <val>fresh_smr_uox</val> 
-          <val>fresh_smr_mox</val>
+          <val>fresh_uox</val>
         </fuel_incommods>
         <fuel_inrecipes> 
-          <val>fresh_smr_fuel</val> 
-          <val>fresh_smr_mox</val>
+          <val>fresh_smr_fuel</val>
         </fuel_inrecipes>
-        <fuel_prefs>
-          <val>1</val>
-          <val>1</val>
-        </fuel_prefs>
         <fuel_outcommods> 
           <val>spent_smr_fuel</val> 
-          <val>spent_smr_mox</val>
         </fuel_outcommods>
         <fuel_outrecipes> 
           <val>spent_smr_fuel</val> 
-          <val>spent_smr_mox</val>
         </fuel_outrecipes>
         <cycle_time>18</cycle_time>
         <refuel_time>0</refuel_time>

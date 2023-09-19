@@ -199,7 +199,7 @@
     <config>
       <Storage>
         <in_commods>
-          <val>spent_MMR_uox</val>
+          <val>spent_MMR_haleu</val>
         </in_commods>
         <in_recipe>spent_MMR_haleu</in_recipe>
         <out_commods>
