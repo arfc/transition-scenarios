@@ -80,7 +80,7 @@ def get_lwr_totals(db_file, non_lwr_prototypes):
         decommission_df = decommission_df.drop('Count', axis=1)
         decommission_df = pd.concat([decommission_df, negative_count], axis=1)
         decommission_df.rename(columns={'ExitTime': 'Time'}, inplace=True)
-        decommission_by_prototype = decommission_df.pivot('Time', 'Prototype')[
+        decommission_by_prototype = decommission_df.pivot(index='Time', columns='Prototype')[
             'Count'].reset_index()
         decommission_by_prototype = dfa.add_zeros_columns(
             decommission_by_prototype, non_lwr_prototypes)

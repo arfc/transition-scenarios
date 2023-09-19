@@ -17,7 +17,7 @@ def add_year(df):
         DataFrame with the added column
     '''
     df['Year'] = np.round(df['Time'] / 12 + 1965, 2)
-    df['Year'] = df['Year'].fillna(method='ffill')
+    df['Year'] = df['Year'].ffill()
     return df
 
 def add_zeros_columns(df, column_names):
