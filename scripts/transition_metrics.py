@@ -197,6 +197,43 @@ def add_receiver_prototype(db_file):
         columns={'Prototype': 'ReceiverPrototype'})
     return receiver_prototype
 
+def add_sender_prototype(db_file):
+    '''
+    Creates dataframe of transactions information, and adds in
+    the prototype name corresponding to the SenderId of the
+    transaction. This dataframe is merged with the Agents dataframe, with the
+    AgentId column renamed to SenderId to assist the merge process. The
+    final dataframe is organized by ascending order of Time then TransactionId
+
+    Parameters:
+    -----------
+    db_file: str
+        SQLite database from Cyclus
+
+    Returns:
+    --------
+    sender_prototype: dataframe
+        contains all of the transactions with the prototype name of the
+        receiver included
+    '''
+    evaler = get_metrics(db_file)
+    agents = evaler.eval('Agents')
+    agents = agents.rename(columns={'AgentId': 'SenderId'})
+    resources = evaler.eval('Resources')
+    resources = resources[['SimId', 'ResourceId', 'ObjId', 'TimeCreated',
+                           'Quantity', 'Units']]
+    resources = resources.rename(columns={'TimeCreated': 'Time'})
+    transactions = evaler.eval('Transactions')
+    trans_resources = pd.merge(
+        transactions, resources, on=[
+            'SimId', 'Time', 'ResourceId'], how='inner')
+    receiver_prototype = pd.merge(
+        trans_resources, agents[['SimId', 'SenderId', 'Prototype']], on=[
+            'SimId', 'SenderId']).sort_values(by=['Time', 'TransactionId']).reset_index(drop=True)
+    receiver_prototype = receiver_prototype.rename(
+        columns={'Prototype': 'SenderPrototype'})
+    return receiver_prototype
+
 
 def get_annual_electricity(db_file):
     '''
