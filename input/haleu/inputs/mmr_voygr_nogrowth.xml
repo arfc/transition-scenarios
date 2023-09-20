@@ -104,7 +104,7 @@
       <Enrichment>
         <feed_commod>nat_u</feed_commod>
         <feed_recipe>nat_u</feed_recipe>
-        <product_commod>fresh_uox</product_commod>
+        <product_commod>fresh_MMR_uox</product_commod>
         <tails_commod>tails</tails_commod>
         <tails_assay>0.002</tails_assay>
         <!-- Portsmouth Gaseous Diffusion Plant (OH) -->
@@ -202,7 +202,7 @@
         </entry>
         <entry>
           <prototype>Enrichment</prototype>
-          <number>5</number>
+          <number>1</number>
         </entry>       
         <entry>
           <prototype>MMREnrichment</prototype>
