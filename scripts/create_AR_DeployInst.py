@@ -113,6 +113,7 @@ def get_powers(path):
         )
     return reactor_power
 
+
 def get_pris_powers(country, path, year):
     '''
     Create dictionary of the reactor units from a select country
