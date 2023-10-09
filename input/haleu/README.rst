@@ -13,7 +13,9 @@ The input files in the repository are the ``.xml`` input files for
 |Cyclus|. The input files are titled by scenario number, with 
 the scenarios defined in the table below. 
 Each of the input files read in other ``.xml`` files from the 
-``inputs/united_states/`` directory for the 
+``inputs/united_states/`` directory. Because of the modularity of 
+the inut files, **|Cyclus| must be called from the ``input/haleu/`` 
+directory.** The modular input files include the 
 light water reactors (LWR) currently deployed in the US, the recipes 
 for LWR fuel cycle, and the deployment times for the LWRs. The LWR 
 files and the ``inputs/united_states_2020.xml`` |Cyclus| input files 
