@@ -1,5 +1,7 @@
-for scenario in 2 3 4 5 6 7 8 9 10 11 12 13
+for scenario in mmr xe100 xe100_mmr mmr_voygr xe100_voygr xe100_mmr_voygr limited_TRISO limited_noTRISO continuous
 do 
-  rm "outputs/scenario${scenario}.sqlite"
-    cyclus -i "inputs/scenario${scenario}.xml" -o "outputs/scenario${scenario}.sqlite"
+  for growth in nogrowth 1percent
+  do rm "outputs/${scenario}_${growth}.sqlite"
+     cyclus -i "inputs/${scenario}_${growth}.xml" -o "outputs/${scenario}_${growth}.sqlite"
+  done
 done
