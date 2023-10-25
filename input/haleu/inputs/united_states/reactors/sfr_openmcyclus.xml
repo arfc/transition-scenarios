@@ -1,6 +1,6 @@
 <facility>
     <name>SFR</name>
-    <lifetime></lifetime>
+    <lifetime>720</lifetime>
     <config>
       <DepleteReactor>
         <fuel_incommods> 
@@ -25,9 +25,9 @@
         </fuel_outrecipes>
         <cycle_time>12</cycle_time>
         <refuel_time>0</refuel_time>
-        <assem_size></assem_size>
-        <n_assem_core>192</n_assem_core>
-        <n_assem_batch></n_assem_batch>
+        <assem_size>3840</assem_size>
+        <n_assem_core>4</n_assem_core>
+        <n_assem_batch>1</n_assem_batch>
         <power_cap>311</power_cap>
         <model_path>./inputs/openmcyclus-files/sfr/</model_path>
         <chain_file>chain_casl_sfr.xml</chain_file>

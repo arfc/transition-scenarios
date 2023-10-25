@@ -13,7 +13,7 @@
           <val>1</val>
         </fuel_prefs>
         <fuel_outcommods> 
-          <val>spent_MMR_uox</val> 
+          <val>spent_MMR_haleu</val> 
         </fuel_outcommods>
         <fuel_outrecipes> 
           <val>spent_MMR_haleu</val>

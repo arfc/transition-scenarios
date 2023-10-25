@@ -17,8 +17,9 @@ def add_year(df):
         DataFrame with the added column
     '''
     df['Year'] = np.round(df['Time'] / 12 + 1965, 2)
-    df['Year'] = df['Year'].fillna(method='ffill')
+    df['Year'] = df['Year'].ffill()
     return df
+
 
 def add_zeros_columns(df, column_names):
     '''
@@ -48,6 +49,7 @@ def add_zeros_columns(df, column_names):
             df[item] = 0.0
     return df
 
+
 def sum_and_add_missing_time(df):
     '''
     Sums the values of the same time step, and adds any missing time steps
@@ -68,6 +70,7 @@ def sum_and_add_missing_time(df):
     summed_df = summed_df.set_index('Time').reindex(
         np.arange(0, 1500, 1)).fillna(0).reset_index()
     return summed_df
+
 
 def find_commodity_transactions(df, commodity):
     '''
@@ -152,6 +155,7 @@ def commodity_mass_traded(transactions_df, commodity):
     total_commodity = add_year(transactions)
     return total_commodity
 
+
 def commodity_to_prototype(transactions_df, commodity, prototype):
     '''
     Finds the transactions of a specific commodity sent to a single prototype in the simulation,
@@ -173,13 +177,36 @@ def commodity_to_prototype(transactions_df, commodity, prototype):
     Returns:
     -------
     prototype_transactions: dataframe
-        contains summed transactions at each time step that are sent to
+        contains summed transactions at each time step of the 
+        spcified commodity that are sent to
         the specified prototype name.
     '''
     prototype_transactions = find_commodity_transactions(
         transactions_df, commodity)
     prototype_transactions = find_prototype_receiver(
         prototype_transactions, prototype)
+    prototype_transactions = sum_and_add_missing_time(prototype_transactions)
+    prototype_transactions = add_year(prototype_transactions)
+    return prototype_transactions
+
+
+def transactions_to_prototype(transactions_df, prototype):
+    '''
+    Finds all transactions to a prototype
+
+    Parameters:
+    -----------
+    transactions_df: DataFrame
+    prototype: str
+
+    Returns:
+    --------
+    prototype_transactions: DataFrame
+        contains summed transactions at each time step that 
+        are sent to the specified prototype name.
+    '''
+    prototype_transactions = find_prototype_receiver(
+        transactions_df, prototype)
     prototype_transactions = sum_and_add_missing_time(prototype_transactions)
     prototype_transactions = add_year(prototype_transactions)
     return prototype_transactions
@@ -216,6 +243,7 @@ def commodity_from_prototype(transactions_df, commodity, prototype):
     prototype_transactions = sum_and_add_missing_time(prototype_transactions)
     prototype_transactions = add_year(prototype_transactions)
     return prototype_transactions
+
 
 def commodity_to_LWR(transactions_df, commodity, prototype):
     '''

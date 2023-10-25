@@ -3,10 +3,18 @@
     <lifetime>720</lifetime>
     <config>
       <Reactor>
-        <fuel_incommods> <val>fresh_uox</val> </fuel_incommods>
-        <fuel_inrecipes> <val>fresh_xe100_haleu</val> </fuel_inrecipes>
-        <fuel_outcommods> <val>spent_xe100_haleu</val> </fuel_outcommods>
-        <fuel_outrecipes> <val>spent_xe100_haleu</val> </fuel_outrecipes>
+        <fuel_incommods> 
+          <val>fresh_uox</val>
+        </fuel_incommods>
+        <fuel_inrecipes> 
+          <val>fresh_xe100_haleu</val>
+        </fuel_inrecipes>
+        <fuel_outcommods> 
+          <val>spent_xe100_haleu</val>
+        </fuel_outcommods>
+        <fuel_outrecipes> 
+          <val>spent_xe100_haleu</val>
+        </fuel_outrecipes>
         <cycle_time>7</cycle_time>
         <refuel_time>0</refuel_time>
         <assem_size>279.24</assem_size>
