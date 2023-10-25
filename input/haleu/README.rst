@@ -51,7 +51,14 @@ scenarios in the directory by adding in necessary input parameters.
 Definitions for each advanced reactor and their corresponding recipes
 are in ``inputs/united_states/reactors/`` and ``inputs/united_states/recipes``, 
 respectively. Each of the necessary files are read into the ``.xml`` files 
-in ``inputs/`` when |Cyclus| is run. 
+in ``inputs/`` when |Cyclus| is run.
+
+The location of the output files is assumed to be in ``input/haleu/outputs``, 
+which is not version controlled in this repor because the file can be 
+recreated by running the |Cyclus| input files. This assumed location 
+holds true for running ``input/haleu/run_multiple_cyclus inputs.sh`` 
+and the analysis scripts. However, this location can be updated and changed 
+as desired. 
 
 Analysis:
 =========
@@ -72,6 +79,23 @@ files are relatively large and memory issues are encountered when the
 ``transition_metrics.add_receiver_prototype`` function is called inside the 
 jupyter notebook. 
 
+Optimization:
+=============
+This directory contains the files for using a |Cyclus|-Dakota 
+coupling to optimize Scenario 7 defined in the table above. There 
+are three optimization problems: minimizing HALEU SWU, minimizing 
+SNF mass, and minimizing both quantities together. Files in this 
+directory include the Dakota input files, the |Cyclus| input 
+file template, and driver files for each problem. Additionally, 
+there are subdirectories for tuning the  
+single-objective and multi-objective problem hyperparameters.
+
+Order_testing:
+=============
+This directory contains files related to determining how the Cycamore 
+ManagerInst decides which reactors to deploy based on the way they are 
+ordered in the input file. 
+
 Parametric-study:
 =================
 This directory contains information related to a parametric study on 
@@ -79,3 +103,13 @@ how the facility cap for the fuel fabrication or enrichment facilities for
 the transition to HALEU-fueled reactors. This was performed because of 
 observed deficits from the energy demand when different enrichment and
 fabrication facilities were used for LEU and HALEU. 
+
+Sensitivity-analysis:
+=====================
+This directory contains files related to performing sensitivity analysis 
+on Scenario 7 defined above. There are three subdirectories, one for different 
+numbers of parameters varied at a time. In the ``oat`` directory only 
+one parameter is varied at a time, in the ``synergistic`` directory two 
+parameters are varied at a time, and in the ``global`` directory five different 
+parameters are varied at a time. Each of these three subdirectories contain 
+smaller subdirectories based on the parameters varied. 
