@@ -4,8 +4,7 @@ This folder contains various projects conducted in cyclus.
 
 ## 2014-E&S
 Summary: Transition scenarios for evaluation groups from
-the 2014 E&S Study from the U.S. Department of Energy.
-
+the 2014 E&S Study from the U.S. Department of Energy:
 Wigeland, R., T. Taiwo, H. Ludewig, M. Todosow, W. Halsey, J. Gehin, R. Jubin, J. Buelt,
 S. Stockinger, K. Jenni, B. Oakley (2014), “Nuclear Fuel Cycle Evaluation and Screening – Final
 Report,” FCRD-FCO-2014-000106, Fuel Cycle Technologies Programme.
