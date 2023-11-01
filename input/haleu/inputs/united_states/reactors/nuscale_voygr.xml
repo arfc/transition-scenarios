@@ -3,10 +3,18 @@
     <lifetime>720</lifetime>
     <config>
       <Reactor>
-        <fuel_incommods> <val>fresh_uox</val> </fuel_incommods>
-        <fuel_inrecipes> <val>fresh_smr_fuel</val> </fuel_inrecipes>
-        <fuel_outcommods> <val>spent_smr_fuel</val> </fuel_outcommods>
-        <fuel_outrecipes> <val>spent_smr_fuel</val> </fuel_outrecipes>
+        <fuel_incommods> 
+          <val>fresh_uox</val>
+        </fuel_incommods>
+        <fuel_inrecipes> 
+          <val>fresh_smr_fuel</val>
+        </fuel_inrecipes>
+        <fuel_outcommods> 
+          <val>spent_smr_fuel</val> 
+        </fuel_outcommods>
+        <fuel_outrecipes> 
+          <val>spent_smr_fuel</val> 
+        </fuel_outrecipes>
         <cycle_time>18</cycle_time>
         <refuel_time>0</refuel_time>
         <assem_size>275.94</assem_size>
