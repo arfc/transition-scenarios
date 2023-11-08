@@ -1,4 +1,4 @@
-﻿<simulation xml:base="/home/amandabachmann/transition-scenarios/input/haleu/inputs/" xmlns:xi="http://www.w3.org/2001/XInclude">
+﻿<simulation xml:base="./inputs/" xmlns:xi="http://www.w3.org/2001/XInclude">
   <control>
     <decay>lazy</decay>
     <duration>1500</duration>
@@ -80,48 +80,12 @@
     </config>
   </facility>
   <facility>
-    <name>Mill</name>
-    <config>
-      <Storage>
-        <in_commods>
-          <val>nat_u</val>
-        </in_commods>
-        <in_recipe>nat_u</in_recipe>
-        <out_commods>
-          <val>u3o8</val>
-        </out_commods>
-        <residence_time>1</residence_time>
-        <!-- White Mesa Uranium Mill (Utah) -->
-        <latitude>37.468419</latitude>
-        <longitude>-109.467586</longitude>
-      </Storage>
-    </config>
-  </facility>
-  <facility>
-    <name>Conversion</name>
-    <config>
-      <Storage>
-        <in_commods>
-          <val>u3o8</val>
-        </in_commods>
-        <in_recipe>u3o8</in_recipe>
-        <out_commods>
-          <val>uf6</val>
-        </out_commods>
-        <residence_time>1</residence_time>
-        <!-- Honeywell Uranium Conversion Facility (IL) -->
-        <latitude>37.171768</latitude>
-        <longitude>-88.757039</longitude>
-      </Storage>
-    </config>
-  </facility>
-  <facility>
     <name>Enrichment</name>
     <config>
       <Enrichment>
-        <feed_commod>uf6</feed_commod>
-        <feed_recipe>uf6</feed_recipe>
-        <product_commod>enr_u</product_commod>
+        <feed_commod>nat_u</feed_commod>
+        <feed_recipe>nat_u</feed_recipe>
+        <product_commod>fresh_uox</product_commod>
         <tails_commod>tails</tails_commod>
         <tails_assay>0.002</tails_assay>
         <max_enrich>0.045</max_enrich>
@@ -129,25 +93,6 @@
         <latitude>39.008333</latitude>
         <longitude>-83</longitude>
       </Enrichment>
-    </config>
-  </facility>
-  <facility>
-    <name>FuelFab</name>
-    <config>
-      <Storage>
-        <in_commods>
-          <val>enr_u</val>
-        </in_commods>
-        <in_recipe>enr_u</in_recipe>
-        <out_commods>
-          <val>fresh_uox</val>
-        </out_commods>
-        <residence_time>1</residence_time>
-        <max_inv_size>1000000</max_inv_size>
-        <!-- Westing House Fuel Fab (SC) -->
-        <latitude>33.8749</latitude>
-        <longitude>-80.8976</longitude>
-      </Storage>
     </config>
   </facility>
   <facility>
@@ -199,23 +144,11 @@
         </entry>
         <entry>
           <prototype>Mine</prototype>
-          <number>1</number>
-        </entry>
-        <entry>
-          <prototype>Mill</prototype>
-          <number>1</number>
-        </entry>
-        <entry>
-          <prototype>Conversion</prototype>
-          <number>1</number>
+          <number>3</number>
         </entry>
         <entry>
           <prototype>Enrichment</prototype>
-          <number>1</number>
-        </entry>
-        <entry>
-          <prototype>FuelFab</prototype>
-          <number>1</number>
+          <number>3</number>
         </entry>
         <entry>
           <prototype>WetStorage</prototype>
@@ -231,10 +164,7 @@
           <prototypes>
             <val>Sink_LLW</val>
             <val>Mine</val>
-            <val>Mill</val>
-            <val>Conversion</val>
             <val>Enrichment</val>
-            <val>FuelFab</val>
             <val>WetStorage</val>
             <val>DryStorage</val>
           </prototypes>

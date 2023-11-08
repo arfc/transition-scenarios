@@ -1,0 +1,224 @@
+<materials>
+  <material depletable="true" id="1" name="assembly_1" volume="33295.68">
+    <density units="g/cm3" value="10.5312" />
+    <nuclide wo="85.53765972559535" name="U238" />
+    <nuclide wo="2.612078957002141" name="U235" />
+    <nuclide wo="11.850261317402508" name="O16" />
+  </material>
+  <material depletable="true" id="2" name="assembly_2" volume="33295.68">
+    <density units="g/cm3" value="10.5312" />
+    <nuclide wo="85.53765972559535" name="U238" />
+    <nuclide wo="2.612078957002141" name="U235" />
+    <nuclide wo="11.850261317402508" name="O16" />
+  </material>
+  <material depletable="true" id="3" name="assembly_3" volume="33295.68">
+    <density units="g/cm3" value="10.5312" />
+    <nuclide wo="85.53765972559535" name="U238" />
+    <nuclide wo="2.612078957002141" name="U235" />
+    <nuclide wo="11.850261317402508" name="O16" />
+  </material>
+  <material depletable="true" id="4" name="assembly_4" volume="33295.68">
+    <density units="g/cm3" value="10.5312" />
+    <nuclide wo="85.53765972559535" name="U238" />
+    <nuclide wo="2.612078957002141" name="U235" />
+    <nuclide wo="11.850261317402508" name="O16" />
+  </material>
+  <material depletable="true" id="5" name="assembly_5" volume="33295.68">
+    <density units="g/cm3" value="10.5312" />
+    <nuclide wo="85.53765972559535" name="U238" />
+    <nuclide wo="2.612078957002141" name="U235" />
+    <nuclide wo="11.850261317402508" name="O16" />
+  </material>
+  <material depletable="true" id="6" name="assembly_6" volume="33295.68">
+    <density units="g/cm3" value="10.5312" />
+    <nuclide wo="85.53765972559535" name="U238" />
+    <nuclide wo="2.612078957002141" name="U235" />
+    <nuclide wo="11.850261317402508" name="O16" />
+  </material>
+  <material depletable="true" id="7" name="assembly_7" volume="33295.68">
+    <density units="g/cm3" value="10.5312" />
+    <nuclide wo="85.53765972559535" name="U238" />
+    <nuclide wo="2.612078957002141" name="U235" />
+    <nuclide wo="11.850261317402508" name="O16" />
+  </material>
+  <material depletable="true" id="8" name="assembly_8" volume="33295.68">
+    <density units="g/cm3" value="10.5312" />
+    <nuclide wo="85.53765972559535" name="U238" />
+    <nuclide wo="2.612078957002141" name="U235" />
+    <nuclide wo="11.850261317402508" name="O16" />
+  </material>
+  <material depletable="true" id="9" name="assembly_9" volume="33295.68">
+    <density units="g/cm3" value="10.5312" />
+    <nuclide wo="85.53765972559535" name="U238" />
+    <nuclide wo="2.612078957002141" name="U235" />
+    <nuclide wo="11.850261317402508" name="O16" />
+  </material>
+  <material depletable="true" id="10" name="assembly_10" volume="33295.68">
+    <density units="g/cm3" value="10.5312" />
+    <nuclide wo="85.53765972559535" name="U238" />
+    <nuclide wo="2.612078957002141" name="U235" />
+    <nuclide wo="11.850261317402508" name="O16" />
+  </material>
+  <material depletable="true" id="11" name="assembly_11" volume="33295.68">
+    <density units="g/cm3" value="10.5312" />
+    <nuclide wo="85.53765972559535" name="U238" />
+    <nuclide wo="2.612078957002141" name="U235" />
+    <nuclide wo="11.850261317402508" name="O16" />
+  </material>
+  <material depletable="true" id="12" name="assembly_12" volume="33295.68">
+    <density units="g/cm3" value="10.5312" />
+    <nuclide wo="85.53765972559535" name="U238" />
+    <nuclide wo="2.612078957002141" name="U235" />
+    <nuclide wo="11.850261317402508" name="O16" />
+  </material>
+  <material depletable="true" id="13" name="assembly_13" volume="33295.68">
+    <density units="g/cm3" value="10.5312" />
+    <nuclide wo="85.53765972559535" name="U238" />
+    <nuclide wo="2.612078957002141" name="U235" />
+    <nuclide wo="11.850261317402508" name="O16" />
+  </material>
+  <material depletable="true" id="14" name="assembly_14" volume="33295.68">
+    <density units="g/cm3" value="10.5312" />
+    <nuclide wo="85.53765972559535" name="U238" />
+    <nuclide wo="2.612078957002141" name="U235" />
+    <nuclide wo="11.850261317402508" name="O16" />
+  </material>
+  <material depletable="true" id="15" name="assembly_15" volume="33295.68">
+    <density units="g/cm3" value="10.5312" />
+    <nuclide wo="85.53765972559535" name="U238" />
+    <nuclide wo="2.612078957002141" name="U235" />
+    <nuclide wo="11.850261317402508" name="O16" />
+  </material>
+  <material depletable="true" id="16" name="assembly_16" volume="33295.68">
+    <density units="g/cm3" value="10.5312" />
+    <nuclide wo="85.53765972559535" name="U238" />
+    <nuclide wo="2.612078957002141" name="U235" />
+    <nuclide wo="11.850261317402508" name="O16" />
+  </material>
+  <material depletable="true" id="17" name="assembly_17" volume="33295.68">
+    <density units="g/cm3" value="10.5312" />
+    <nuclide wo="85.53765972559535" name="U238" />
+    <nuclide wo="2.612078957002141" name="U235" />
+    <nuclide wo="11.850261317402508" name="O16" />
+  </material>
+  <material depletable="true" id="18" name="assembly_18" volume="33295.68">
+    <density units="g/cm3" value="10.5312" />
+    <nuclide wo="85.53765972559535" name="U238" />
+    <nuclide wo="2.612078957002141" name="U235" />
+    <nuclide wo="11.850261317402508" name="O16" />
+  </material>
+  <material depletable="true" id="19" name="assembly_19" volume="33295.68">
+    <density units="g/cm3" value="10.5312" />
+    <nuclide wo="85.53765972559535" name="U238" />
+    <nuclide wo="2.612078957002141" name="U235" />
+    <nuclide wo="11.850261317402508" name="O16" />
+  </material>
+  <material depletable="true" id="20" name="assembly_20" volume="33295.68">
+    <density units="g/cm3" value="10.5312" />
+    <nuclide wo="85.53765972559535" name="U238" />
+    <nuclide wo="2.612078957002141" name="U235" />
+    <nuclide wo="11.850261317402508" name="O16" />
+  </material>
+  <material depletable="true" id="21" name="assembly_21" volume="33295.68">
+    <density units="g/cm3" value="10.5312" />
+    <nuclide wo="85.53765972559535" name="U238" />
+    <nuclide wo="2.612078957002141" name="U235" />
+    <nuclide wo="11.850261317402508" name="O16" />
+  </material>
+  <material depletable="true" id="22" name="assembly_22" volume="33295.68">
+    <density units="g/cm3" value="10.5312" />
+    <nuclide wo="85.53765972559535" name="U238" />
+    <nuclide wo="2.612078957002141" name="U235" />
+    <nuclide wo="11.850261317402508" name="O16" />
+  </material>
+  <material depletable="true" id="23" name="assembly_23" volume="33295.68">
+    <density units="g/cm3" value="10.5312" />
+    <nuclide wo="85.53765972559535" name="U238" />
+    <nuclide wo="2.612078957002141" name="U235" />
+    <nuclide wo="11.850261317402508" name="O16" />
+  </material>
+  <material depletable="true" id="24" name="assembly_24" volume="33295.68">
+    <density units="g/cm3" value="10.5312" />
+    <nuclide wo="85.53765972559535" name="U238" />
+    <nuclide wo="2.612078957002141" name="U235" />
+    <nuclide wo="11.850261317402508" name="O16" />
+  </material>
+  <material depletable="true" id="25" name="assembly_25" volume="33295.68">
+    <density units="g/cm3" value="10.5312" />
+    <nuclide wo="85.53765972559535" name="U238" />
+    <nuclide wo="2.612078957002141" name="U235" />
+    <nuclide wo="11.850261317402508" name="O16" />
+  </material>
+  <material depletable="true" id="26" name="assembly_26" volume="33295.68">
+    <density units="g/cm3" value="10.5312" />
+    <nuclide wo="85.53765972559535" name="U238" />
+    <nuclide wo="2.612078957002141" name="U235" />
+    <nuclide wo="11.850261317402508" name="O16" />
+  </material>
+  <material depletable="true" id="27" name="assembly_27" volume="33295.68">
+    <density units="g/cm3" value="10.5312" />
+    <nuclide wo="85.53765972559535" name="U238" />
+    <nuclide wo="2.612078957002141" name="U235" />
+    <nuclide wo="11.850261317402508" name="O16" />
+  </material>
+  <material depletable="true" id="28" name="assembly_28" volume="33295.68">
+    <density units="g/cm3" value="10.5312" />
+    <nuclide wo="85.53765972559535" name="U238" />
+    <nuclide wo="2.612078957002141" name="U235" />
+    <nuclide wo="11.850261317402508" name="O16" />
+  </material>
+  <material depletable="true" id="29" name="assembly_29" volume="33295.68">
+    <density units="g/cm3" value="10.5312" />
+    <nuclide wo="85.53765972559535" name="U238" />
+    <nuclide wo="2.612078957002141" name="U235" />
+    <nuclide wo="11.850261317402508" name="O16" />
+  </material>
+  <material depletable="true" id="30" name="assembly_30" volume="33295.68">
+    <density units="g/cm3" value="10.5312" />
+    <nuclide wo="85.53765972559535" name="U238" />
+    <nuclide wo="2.612078957002141" name="U235" />
+    <nuclide wo="11.850261317402508" name="O16" />
+  </material>
+  <material depletable="true" id="31" name="assembly_31" volume="33295.68">
+    <density units="g/cm3" value="10.5312" />
+    <nuclide wo="85.53765972559535" name="U238" />
+    <nuclide wo="2.612078957002141" name="U235" />
+    <nuclide wo="11.850261317402508" name="O16" />
+  </material>
+  <material depletable="true" id="32" name="assembly_32" volume="33295.68">
+    <density units="g/cm3" value="10.5312" />
+    <nuclide wo="85.53765972559535" name="U238" />
+    <nuclide wo="2.612078957002141" name="U235" />
+    <nuclide wo="11.850261317402508" name="O16" />
+  </material>
+  <material depletable="true" id="33" name="assembly_33" volume="33295.68">
+    <density units="g/cm3" value="10.5312" />
+    <nuclide wo="85.53765972559535" name="U238" />
+    <nuclide wo="2.612078957002141" name="U235" />
+    <nuclide wo="11.850261317402508" name="O16" />
+  </material>
+  <material depletable="true" id="34" name="assembly_34" volume="33295.68">
+    <density units="g/cm3" value="10.5312" />
+    <nuclide wo="85.53765972559535" name="U238" />
+    <nuclide wo="2.612078957002141" name="U235" />
+    <nuclide wo="11.850261317402508" name="O16" />
+  </material>
+  <material depletable="true" id="35" name="assembly_35" volume="33295.68">
+    <density units="g/cm3" value="10.5312" />
+    <nuclide wo="85.53765972559535" name="U238" />
+    <nuclide wo="2.612078957002141" name="U235" />
+    <nuclide wo="11.850261317402508" name="O16" />
+  </material>
+  <material depletable="true" id="36" name="assembly_36" volume="33295.68">
+    <density units="g/cm3" value="10.5312" />
+    <nuclide wo="85.53765972559535" name="U238" />
+    <nuclide wo="2.612078957002141" name="U235" />
+    <nuclide wo="11.850261317402508" name="O16" />
+  </material>
+  <material depletable="true" id="37" name="assembly_37" volume="33295.68">
+    <density units="g/cm3" value="10.5312" />
+    <nuclide wo="85.53765972559535" name="U238" />
+    <nuclide wo="2.612078957002141" name="U235" />
+    <nuclide wo="11.850261317402508" name="O16" />
+  </material>
+</materials>
