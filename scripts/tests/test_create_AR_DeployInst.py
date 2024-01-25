@@ -135,7 +135,7 @@ class Test_static_info(unittest.TestCase):
         obs = di.get_deployinst_dict(
             self.deploy_inst_dict,
             self.power_dict,
-            "../../input/haleu/inputs/united_states/reactors/")
+            "../../scenarios/haleu/inputs/united_states/reactors/")
         assert exp == obs
 
     def test_get_powers(self):
@@ -144,7 +144,7 @@ class Test_static_info(unittest.TestCase):
         Should probably add in a conditional for if any xml file found isn't
         for a cycamore reactor
         '''
-        obs = di.get_powers("../../input/haleu/inputs/united_states/reactors/")
+        obs = di.get_powers("../../scenarios/haleu/inputs/united_states/reactors/")
         assert obs['ANO-1'] == '774.6376'
 
     def test_get_lifetime(self):
@@ -558,7 +558,7 @@ class Test_static_info(unittest.TestCase):
         '''
         obs = di.write_lwr_deployinst(
             10.0,
-            "../../input/haleu/inputs/united_states/" +
+            "../../scenarios/haleu/inputs/united_states/" +
             "buildtimes/UNITED_STATES_OF_AMERICA/" +
             "deployinst.xml",
             "../../database/lwr_power_order.txt")
@@ -590,11 +590,11 @@ class Test_static_info(unittest.TestCase):
         demand_eq = np.zeros(1500)
         demand_eq[1200:] = 1000
         lwr_DI = di.convert_xml_to_dict(
-            "../../input/haleu/inputs/united_states/buildtimes/" +
+            "../../scenarios/haleu/inputs/united_states/buildtimes/" +
             "UNITED_STATES_OF_AMERICA/deployinst.xml")
         obs = di.write_AR_deployinst(
             lwr_DI,
-            "../../input/haleu/inputs/united_states/reactors/",
+            "../../scenarios/haleu/inputs/united_states/reactors/",
             1500,
             reactor_prototypes,
             demand_eq)
@@ -632,11 +632,11 @@ class Test_static_info(unittest.TestCase):
         demand_eq = np.zeros(1210)
         demand_eq[1200:] = 440
         lwr_DI = di.convert_xml_to_dict(
-            "../../input/haleu/inputs/united_states/buildtimes/" +
+            "../../scenarios/haleu/inputs/united_states/buildtimes/" +
             "UNITED_STATES_OF_AMERICA/deployinst.xml")
         obs = di.write_AR_deployinst(
             lwr_DI,
-            "../../input/haleu/inputs/united_states/reactors/",
+            "../../scenarios/haleu/inputs/united_states/reactors/",
             1210,
             self.reactor_prototypes,
             demand_eq,

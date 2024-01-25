@@ -1,4 +1,4 @@
-﻿<simulation xml:base="/home/gwenchee/github/transition-scenarios/input/predicting-the-past/united_states_extension/cyclus/input/" xmlns:xi="http://www.w3.org/2001/XInclude">
+﻿<simulation xml:base="/home/gwenchee/github/transition-scenarios/scenarios/predicting-the-past/united_states_extension/cyclus/input/" xmlns:xi="http://www.w3.org/2001/XInclude">
   <control>
     <decay>lazy</decay>
     <duration>1020</duration>
@@ -307,7 +307,7 @@
         <residence_time>1</residence_time>
       </Storage>
     </config>
-  </facility>  
+  </facility>
   <facility>
     <name>DryStorage</name>
     <config>
@@ -370,7 +370,7 @@
           <number>1</number>
         </entry>
       </initialfacilitylist>
-      <config> 
+      <config>
       	<DeployInst>
       		<prototypes>
       			<val>WetStorage1</val>
@@ -420,7 +420,7 @@
       			<val>9999</val>
       			<val>9999</val>
       		</lifetimes>
-      	</DeployInst>	
+      	</DeployInst>
       </config>
     </institution>
 

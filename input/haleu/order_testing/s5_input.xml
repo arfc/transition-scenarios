@@ -1,9 +1,9 @@
-<simulation xml:base="/home/amandabachmann/transition-scenarios/input/haleu/inputs/" xmlns:xi="http://www.w3.org/2001/XInclude">
+<simulation xml:base="/home/amandabachmann/transition-scenarios/scenarios/haleu/inputs/" xmlns:xi="http://www.w3.org/2001/XInclude">
   <control>
     <decay>lazy</decay>
     <duration>1500</duration>
     <startmonth>1</startmonth>
-    <startyear>1965</startyear> 
+    <startyear>1965</startyear>
   </control>
   <archetypes>
     <spec>
@@ -212,7 +212,7 @@
       </growth>
       </GrowthRegion>
     </config>
-    
+
     <institution>
       <name>FuelCycle</name>
       <initialfacilitylist>
@@ -265,7 +265,7 @@
         </ManagerInst>
       </config>
     </institution>
-    <institution>  
+    <institution>
       <name>VOYGR_Inst</name>
       <config>
         <ManagerInst>
@@ -275,8 +275,8 @@
         </ManagerInst>
       </config>
     </institution>
-    <institution> 
-      <name>Xe_Inst</name> 
+    <institution>
+      <name>Xe_Inst</name>
       <config>
         <ManagerInst>
           <prototypes>

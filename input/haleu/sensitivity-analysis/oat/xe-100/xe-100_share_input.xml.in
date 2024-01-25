@@ -1,9 +1,9 @@
-<simulation xml:base="/home/abachmann/transition-scenarios/input/haleu/inputs/" xmlns:xi="http://www.w3.org/2001/XInclude">
+<simulation xml:base="/home/abachmann/transition-scenarios/scenarios/haleu/inputs/" xmlns:xi="http://www.w3.org/2001/XInclude">
   <control>
     <decay>lazy</decay>
     <duration>1500</duration>
     <startmonth>1</startmonth>
-    <startyear>1965</startyear> 
+    <startyear>1965</startyear>
     <simhandle>{{handle}}</simhandle>
   </control>
   <archetypes>
@@ -210,7 +210,7 @@
       </growth>
       </GrowthRegion>
     </config>
-    
+
     <institution>
       <name>FuelCycle</name>
       <initialfacilitylist>

@@ -24,9 +24,9 @@ recipe_template = import_data.load_template(
 reactor_template = '../templates/reactors_template.xml'
 cyclus_tmpl = ('../templates/' + region + '_template.xml')
 
-recipe_path = '../input/' + project + '/inputs/' + region + '/recipes/'
-deployment_path = '../input/' + project + '/inputs/' + region + '/buildtimes'
-reactor_path = '../input/' + project + '/inputs/' + region + '/reactors'
+recipe_path = '../scenarios/' + project + '/inputs/' + region + '/recipes/'
+deployment_path = '../scenarios/' + project + '/inputs/' + region + '/buildtimes'
+reactor_path = '../scenarios/' + project + '/inputs/' + region + '/reactors'
 
 
 pris = pd.read_csv(pris_file)
@@ -53,7 +53,7 @@ import_data.render_cyclus(
     cyclus_tmpl,
     region,
     buildtime,
-    '../input/' +
+    '../scenarios/' +
     project +
     '/inputs/',
     start_year, 1500, 51)  # change burn up
