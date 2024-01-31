@@ -1,0 +1,148 @@
+<simulation xml:base="/home/amandabachmann/transition-scenarios/scenarios/haleu/inputs/" xmlns:xi="http://www.w3.org/2001/XInclude">
+  <control>
+    <decay>lazy</decay>
+    <duration>500</duration>
+    <startmonth>1</startmonth>
+    <startyear>1965</startyear>
+  </control>
+  <archetypes>
+    <spec>
+      <lib>cycamore</lib>
+      <name>Reactor</name>
+    </spec>
+    <spec>
+      <lib>cycamore</lib>
+      <name>Sink</name>
+    </spec>
+    <spec>
+      <lib>cycamore</lib>
+      <name>Source</name>
+    </spec>
+    <spec>
+      <lib>cycamore</lib>
+      <name>DeployInst</name>
+    </spec>
+    <spec>
+      <lib>cycamore</lib>
+      <name>ManagerInst</name>
+    </spec>
+    <spec>
+      <lib>cycamore</lib>
+      <name>GrowthRegion</name>
+    </spec>
+  </archetypes>
+
+  <xi:include href="united_states/buildtimes/inclusions.xml#xpointer(/inclusions/child::*)"/>
+  <xi:include href="united_states/reactors/xenergy_xe100.xml"/>
+  <xi:include href="united_states/reactors/usnc_mmr.xml"/>
+  <xi:include href="united_states/reactors/nuscale_voygr.xml"/>
+  <facility>
+    <name>Sink</name>
+    <config>
+      <Sink>
+        <in_commods>
+          <val>spent_uox</val>
+        </in_commods>
+        <!-- Yucca Mountain Repository -->
+        <latitude>36.8286</latitude>
+        <longitude>-116.4364</longitude>
+      </Sink>
+    </config>
+  </facility>
+  <facility>
+    <name>Mine</name>
+    <config>
+      <Source>
+        <outcommod>fresh_uox</outcommod>
+        <outrecipe>fresh_uox</outrecipe>
+        <throughput>1e6</throughput>
+        <!-- Cameco Smith Ranch-Highland Mine -->
+        <latitude>43.053736</latitude>
+        <longitude>-105.685089</longitude>
+      </Source>
+    </config>
+  </facility>
+
+  <facility>
+  <name>Reactor_type1</name>
+  <lifetime>100</lifetime>
+  <config>
+    <Reactor>
+      <fuel_incommods>  <val>fresh_uox</val> </fuel_incommods>
+      <fuel_inrecipes>  <val>fresh_uox</val> </fuel_inrecipes>
+      <fuel_outcommods> <val>spent_uox</val> </fuel_outcommods>
+      <fuel_outrecipes> <val>spent_uox</val> </fuel_outrecipes>
+      <cycle_time>18</cycle_time>
+      <refuel_time>1</refuel_time>
+      <assem_size>100</assem_size>
+      <n_assem_core>1</n_assem_core>
+      <n_assem_batch>1</n_assem_batch>
+      <power_cap>10</power_cap>
+      <longitude>-93.2314</longitude>
+      <latitude>35.3103</latitude>
+    </Reactor>
+  </config>
+</facility>
+
+<facility>
+  <name>Reactor_type2</name>
+  <lifetime>100</lifetime>
+  <config>
+    <Reactor>
+      <fuel_incommods>  <val>fresh_uox</val> </fuel_incommods>
+      <fuel_inrecipes>  <val>fresh_uox</val> </fuel_inrecipes>
+      <fuel_outcommods> <val>spent_uox</val> </fuel_outcommods>
+      <fuel_outrecipes> <val>spent_uox</val> </fuel_outrecipes>
+      <cycle_time>18</cycle_time>
+      <refuel_time>1</refuel_time>
+      <assem_size>100</assem_size>
+      <n_assem_core>1</n_assem_core>
+      <n_assem_batch>1</n_assem_batch>
+      <power_cap>100</power_cap>
+      <longitude>-93.2314</longitude>
+      <latitude>35.3103</latitude>
+    </Reactor>
+  </config>
+</facility>
+
+  <region>
+    <name>United States</name>
+    <config>
+    <GrowthRegion>
+      <growth>
+        <item>
+          <commod>power</commod>
+          <piecewise_function>
+            <piece>
+              <start>100</start>
+              <function>
+                <type>linear</type>
+                <params>0 630</params>
+              </function>
+            </piece>
+          </piecewise_function>
+        </item>
+      </growth>
+      </GrowthRegion>
+    </config>
+
+    <institution>
+      <name>FuelCycle</name>
+      <initialfacilitylist>
+        <entry>
+          <prototype>Mine</prototype>
+          <number>10</number>
+        </entry>
+      </initialfacilitylist>
+      <config>
+        <ManagerInst>
+          <prototypes>
+            <val>Reactor_type1</val>
+            <val>Reactor_type2</val>
+          </prototypes>
+        </ManagerInst>
+      </config>
+    </institution>
+  </region>
+  <xi:include href="united_states/recipes/uox_51.xml#xpointer(/recipes/child::*)"/>
+</simulation>
