@@ -1,0 +1,50 @@
+#Optimization of Scenatio 7 for minimizing HALEU and Waste
+
+environment 
+  tabular_data
+    tabular_data_file = './moga_min.dat'
+  write_restart = './moga_min.rst'
+
+method
+  moga
+    max_function_evaluations = 1500
+    initialization_type unique_random
+    population_size = 25
+    mutation_type replace_uniform 
+    mutation_rate 0.10
+    crossover_type shuffle_random 
+    crossover_rate 0.3
+    fitness_type domination_count
+    replacement_type below_limit = 6
+      shrinkage_fraction = 0.9
+
+model
+  single
+
+variables
+  active all
+  discrete_design_range = 4 
+    lower_bounds 0 0 0 0 
+    upper_bounds 100 100 100 50
+    descriptors 'mmr_share' 'xe100_share' 'voygr_share' 'lwr'
+  discrete_design_set
+    integer = 2
+    elements_per_variable 7 8
+    elements 41 62 74 78 82 86 90 28 56 84 112 140 151 168 185
+    descriptors = 'mmr_burnup' 'xe100_burnup'
+  linear_inequality_constraint_matrix = 1 1 1 0 0 0
+  linear_inequality_lower_bounds = 100
+  linear_inequality_upper_bounds = inf
+
+interface 
+  fork 
+    asynchronous 
+      evaluation_concurrency = 48 
+    analysis_drivers = 'python moga_driver.py'
+
+responses 
+  objective_functions = 2 
+    sense = 'min'
+    descriptors 'haleu_swu' 'waste'
+  no_gradients 
+  no_hessians

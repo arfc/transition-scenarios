@@ -1,0 +1,49 @@
+#Optimization of Scenatio 7 for minimizing HALEU
+
+environment 
+  tabular_data
+    tabular_data_file = './min_waste.dat'
+  output_file = './min_waste.out'
+  write_restart = './min_waste.rst'
+
+method
+  soga
+    max_function_evaluations = 1000
+    population_size = 50
+    mutation_type = replace_uniform
+    mutation_rate = 0.116
+    crossover_type = shuffle_random 
+    crossover_rate = 0.584
+    convergence_type = best_fitness_tracker
+    fitness_type = merit_function
+      constraint_penalty = 1.109
+
+model
+  single
+
+variables
+  active all
+  discrete_design_range = 4 
+    lower_bounds = 0 0 0 0 
+    upper_bounds = 100 100 100 50
+    descriptors = 'mmr_share' 'xe100_share' 'voygr_share' 'lwr'
+  discrete_design_set
+    integer = 2
+    elements_per_variable = 7 8
+    elements = 41 62 74 78 82 86 90 28 56 84 112 140 151 168 185
+    descriptors = 'mmr_burnup' 'xe100_burnup'
+  linear_equality_constraint_matrix = 1 1 1 0 0 0
+  linear_equality_targets = 100
+
+interface 
+  fork 
+    asynchronous 
+      evaluation_concurrency = 48 
+    analysis_drivers = 'python min_waste_driver.py'
+
+responses 
+  objective_functions = 1
+    sense = 'min'
+    descriptors = 'waste'
+  no_gradients 
+  no_hessians
