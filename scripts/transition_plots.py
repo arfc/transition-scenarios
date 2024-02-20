@@ -12,14 +12,20 @@ def format_agent_dict(output_file, simple=True):
     sqlite file and creates a time series dictionary of the entry the various
     facilities in the simulation. The output of this function is used as an
     input for the plot_agents function to generate nice deployment plots.
-    INPUT
-    output_file: sqlite file name (str)
-    simple: boolean.
-            True: EG01-23, EG01-24
-            False: EG01-29, EG01-30
-    OUTPUT
-    agent_dict: time series dictionary of the entry the various
-    facilities in the simulation (dict)
+
+    Parameters
+    ----------
+    output_file : str
+        sqlite file name
+    simple : boolean.
+        True: EG01-23, EG01-24
+        False: EG01-29, EG01-30
+
+    Returns
+    -------
+    agent_dict : dict
+        Time series dictionary of the entry the various
+        facilities in the simulation.
     """
 
     if simple:
@@ -123,14 +129,19 @@ def plot_agents(all_agents, name, simple=True):
     This function takes the time series facility entry dictionary output
     from the format_agent_dict function to generate two deployment plots:
     reactors and supporting fuel cycle facilities.
-    INPUT
-    agent_dict: time series dictionary of the entry the various
-    facilities in the simulation (dict)
-    simple: boolean.
-            True: EG01-23, EG01-24
-            False: EG01-29, EG01-30
-    OUTPUT
-    Two plots (reactor and supporting fuel cycle facility plots)
+
+    Parameters
+    ----------
+    agent_dict : dict
+        Time series dictionary of the entry the various
+        facilities in the simulation.
+    simple : boolean.
+        True: EG01-23, EG01-24
+        False: EG01-29, EG01-30
+
+    Returns
+    -------
+    Two plots (reactor and supporting fuel cycle facility plots).
     """
     fig, ax = plt.subplots(figsize=(15, 7))
     ax.grid(alpha=0.7)
@@ -244,12 +255,18 @@ def supplydemanddiff(all_dict):
     """
     This function calculates the difference between supply and
     demand from all_dict.
-    INPUT
-    all_dict: dictionary with supply and demand timeseries
-              data for a commodity. (dict)
-    OUTPUT
-    diff_dict: dictionary with timeseries data of the difference
-               between supply and demand.
+
+    Parameters
+    ----------
+    all_dict : dict
+        Dictionary with supply and demand timeseries
+        data for a commodity.
+
+    Returns
+    -------
+    diff_dict : dict
+        Dictionary with timeseries data of the difference
+        between supply and demand.
     """
 
     dict_demand = all_dict['dict_demand']
@@ -267,22 +284,31 @@ def get_undersupply_timesteps(
         demand_eq='0',
         demand_driving=True):
     """
-    This function returns timeseries dictionaries for existence
-    undersupply of a commodity and the
-    absolute value of this undersupply.
-    INPUT
-    output_file: sqlite file (str)
-    commod: commodity name (str)
-    driving_commod: Boolean, True: driving commod, False: not driving commod
-    demand_eq: demand equation (str), only used if driving_commod is True
-    demand_driving: Boolean.
-                    True: demand-driven commodities
-                    False: supply-driven commodities
-    OUTPUT
-    dict_dots: timeseries dictionary with 1 and 0 depending if there is
-               undersupply at a specific time step.
-    diff_dict_drop: timeseries dictionary with absolute difference between
-                    supply and demand, if supply < demand.
+    Returns timeseries dictionaries for existence of undersupply of a commodity
+    and the absolute value of this undersupply.
+
+    Parameters
+    ----------
+    output_file : str
+        Path to the SQLite file.
+    commod : str
+        Name of the commodity.
+    driving_commod : bool, optional
+        Indicates if the commodity is a driving commodity (True) or not (False).
+        Defaults to False.
+    demand_eq : str, optional
+        Demand equation, only used if driving_commod is True.
+        Defaults to '0'.
+    demand_driving : bool, optional
+        Indicates whether the commodities are demand-driven (True) or supply-driven (False).
+        Defaults to True.
+
+    Returns
+    -------
+    dict_dots : dict
+        Timeseries dictionary with 1 and 0 indicating undersupply at specific time steps.
+    diff_dict_drop : dict
+        Timeseries dictionary with absolute difference between supply and demand, if supply < demand.
     """
 
     if driving_commod:
@@ -321,22 +347,32 @@ def plot_all_undersupply(
         title='',
         name='hello'):
     """
-    This function generates a comparison of commodity undersupply for different
-    prediction methods plot.
-    INPUT
-    commods: list of commods (list of str)
-    commodnames: list of commod names to show in the y axis of plot
-                 (list of str)
-    methods: list of methods (list of str)
-    general_sqlite: name of sqlite without method name added at end (str)
-    demand_driven: Boolean.
-                   True: demand-driven commodities
-                   False: supply-driven commodities
-    demand_eq: power demand equation (str)
-    title: title of plot (str)
-    name: name of figure png (str)
-    OUTPUT
-    Comparison of commodity undersupply for different prediction methods plot
+    Generates a comparison plot of commodity undersupply for different prediction methods.
+
+    Parameters
+    ----------
+    commods : list of str
+        List of commodities.
+    commodnames : list of str
+        List of commodity names to display on the y-axis of the plot.
+    methods : list of str
+        List of prediction methods.
+    general_sqlite : str
+        Name of the SQLite database without the method name added at the end.
+    demand_driven : bool, optional
+        Boolean indicating whether the commodities are demand-driven (True) or supply-driven (False).
+        Defaults to True.
+    demand_eq : str, optional
+        Equation for power demand. Defaults to '0'.
+    title : str, optional
+        Title of the plot. Defaults to an empty string.
+    name : str, optional
+        Name of the PNG file for the figure. Defaults to an empty string.
+
+    Returns
+    -------
+    None :
+        Saves plots named according to the name argument.
     """
 
     num = len(commods) * 1.5
@@ -429,6 +465,30 @@ def histogram_formatting(
         general_sqlite,
         demand_driven=True,
         demand_eq='0'):
+    """
+    Formats data for generating histograms of undersupplied time steps.
+
+    Parameters
+    ----------
+    commods : list
+        List of commodities.
+    methods : list
+        List of prediction methods.
+    general_sqlite : str
+        General SQLite database filename path.
+    demand_driven : bool, optional
+        Flag indicating if demand-driven mode is enabled (default is True).
+    demand_eq : str, optional
+        Equation for demand (default is '0').
+
+    Returns
+    -------
+    dict
+        A dictionary containing formatted data for generating histograms.
+        The keys are prediction methods, and the values are dictionaries
+        where the keys are commodities and the values are arrays representing
+        histogram bin values.
+    """
     everything = {}
     for y in methods:
         everything[y] = {}
@@ -463,6 +523,38 @@ def plot_histogram(
         title,
         name,
         yticks):
+    """
+    Plots a histogram comparing undersupplied time steps for different commodities and prediction methods.
+
+    Parameters
+    ----------
+    commods1 : list
+        List of commodities for dataset 1.
+    commodnames1 : list
+        Names of commodities for dataset 1.
+    commods2 : list
+        List of commodities for dataset 2.
+    commodnames2 : list
+        Names of commodities for dataset 2.
+    methods : list
+        List of prediction methods.
+    methodnames : list
+        Names of prediction methods.
+    general_sqlite : object
+        Object for handling SQLite database.
+    demand_eq : bool
+        Boolean indicating whether demand-driven mode is enabled.
+    title : str
+        Title for the histogram plot.
+    name : str
+        Name of the file to save the plot.
+    yticks : list
+        List of values for y-axis ticks.
+
+    Returns
+    -------
+    None
+    """
     everything1 = histogram_formatting(
         commods=commods1,
         methods=methods,

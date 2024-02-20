@@ -249,7 +249,7 @@ def import_csv(in_csv, delimit=','):
     lists.
 
     Parameters
-    ---------
+    ----------
     in_csv: str
         path and name of input csv file
     delimit: str
@@ -272,7 +272,7 @@ def load_template(in_template):
     """ Returns a jinja2 template from file.
 
     Parameters
-    ---------
+    ----------
     in_template: str
         path and name of jinja2 template
 
@@ -290,7 +290,7 @@ def get_composition_fresh(in_list, burnup):
     using vision_recipes for fresh UOX fuel.
 
     Parameters
-    ---------
+    ----------
     in_list: list
         list containing vision_recipes
     burnup: int
@@ -322,7 +322,7 @@ def get_composition_spent(in_list, burnup):
     using vision_recipes for spent nuclear fuel
 
     Parameters
-    ---------
+    ----------
     in_list: list
         list containing vision_recipes data
     burnup: int
@@ -354,7 +354,7 @@ def write_recipes(fresh_dict, spent_dict, in_template,
     """ Renders jinja template using fresh and spent fuel composition.
 
     Parameters
-    ---------
+    ----------
     fresh_dict: dict
         dictionary with key=[isotope], and
         value=[composition] for fresh UOX
@@ -384,7 +384,7 @@ def produce_recipes(in_csv, recipe_template, burnup, out_path):
     """ Generates commodity composition xml input for cyclus.
 
     Parameters
-    ---------
+    ----------
     in_csv: str
         path and name of recipe file
     recipe_template: str
@@ -657,7 +657,7 @@ def write_deployment(in_dict, out_path, deployinst_template,
     located in cyclus_input/reactors.
 
     Parameters
-    ---------
+    ----------
     in_dict: dictionary
         dictionary with key=[reactor name], and value=[buildtime]
     out_path: str
@@ -738,7 +738,7 @@ def deploy_reactors(in_csv, region, start_year, deployinst_template,
     in a CYCLUS simulation.
 
     Parameters
-    ---------
+    ----------
     in_csv: str
         path to pris reactor database
     region: str
