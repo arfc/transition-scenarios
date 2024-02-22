@@ -1,4 +1,4 @@
-merge_coordinates
+Merge Coordinates
 -----------------
 
 .. automodule:: scripts.merge_coordinates

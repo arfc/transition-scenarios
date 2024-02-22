@@ -1,4 +1,4 @@
-create_AR_DeployInst
+Create AR DeployInst
 --------------------
 
 .. automodule:: scripts.create_AR_DeployInst

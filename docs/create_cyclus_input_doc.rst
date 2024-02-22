@@ -1,4 +1,4 @@
-create_cyclus_input
+Create Cyclus Input
 -------------------
 
 .. automodule:: scripts.create_cyclus_input

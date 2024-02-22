@@ -1,4 +1,4 @@
-output_metrics
+Output Metrics
 --------------
 
 .. automodule:: scripts.output_metrics

@@ -1,4 +1,4 @@
-transition_metrics
+Transition Metrics
 ------------------
 
 .. automodule:: scripts.transition_metrics

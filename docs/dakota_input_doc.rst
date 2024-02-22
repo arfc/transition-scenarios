@@ -1,4 +1,4 @@
-dakota_input
+Dakota Input
 ------------
 
 .. automodule:: scripts.dakota_input

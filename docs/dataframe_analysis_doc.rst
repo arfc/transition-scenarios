@@ -1,4 +1,4 @@
-dataframe_analysis
+Dataframe Analysis
 ------------------
 
 .. automodule:: scripts.dataframe_analysis

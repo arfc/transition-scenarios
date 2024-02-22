@@ -49,18 +49,18 @@ def get_table_from_output(db_file, table_name):
     issues experienced, and only the columns called here were
     used for later functions.
 
-        Parameters
-        ----------
-        db_file: str
-            filename of database
-        table_name: str
-            name of table in the database
+    Parameters
+    ----------
+    db_file: str
+        filename of database
+    table_name: str
+        name of table in the database
 
-        Returns
-        -------
-        table_df: DataFrame
-            requested table from database
-        '''
+    Returns
+    -------
+    table_df: DataFrame
+        requested table from database
+    '''
     connect = sqlite3.connect(db_file)
     if table_name == 'Resources':
         table_df = pd.read_sql_query(

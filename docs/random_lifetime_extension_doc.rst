@@ -1,4 +1,4 @@
-random_lifetime_extension
+Random Lifetime Extension
 -------------------------
 
 .. automodule:: scripts.random_lifetime_extension

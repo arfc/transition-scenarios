@@ -1,4 +1,4 @@
-transition_plots
+Transition Plots
 ----------------
 
 .. automodule:: scripts.transition_plots
