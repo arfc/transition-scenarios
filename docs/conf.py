@@ -55,8 +55,7 @@ extensions = ["myst_parser",
               "sphinx.ext.mathjax",
               "sphinx.ext.coverage",
               "nbsphinx",
-              "sphinxcontrib.mermaid"
-            ]
+              "sphinxcontrib.mermaid"]
 
 # Suffixes that are useable
 # source_suffix = {
