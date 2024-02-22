@@ -294,7 +294,8 @@ def get_undersupply_timesteps(
     commod : str
         Name of the commodity.
     driving_commod : bool, optional
-        Indicates if the commodity is a driving commodity (True) or not (False).
+        Indicates if the commodity is a driving commodity (True)
+        or not (False).
         Defaults to False.
     demand_eq : str, optional
         Demand equation, only used if driving_commod is True.

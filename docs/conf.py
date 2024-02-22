@@ -56,8 +56,7 @@ extensions = ["myst_parser",
               "sphinx.ext.coverage",
               "nbsphinx",
               "sphinxcontrib.mermaid"
-
-]
+            ]
 
 # Suffixes that are useable
 # source_suffix = {
@@ -67,7 +66,9 @@ extensions = ["myst_parser",
 # }
 
 # make sure you have a unique autolabelled target
-autosectionlabel_prefix_document = True # Sphinx will create explicit targets for all your sections, the name of target has the form {path/to/page}:{title-of-section}.
+autosectionlabel_prefix_document = True
+# Sphinx will create explicit targets for all your sections, the name of target
+# has the form {path/to/page}:{title-of-section}.
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
