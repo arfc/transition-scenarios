@@ -300,15 +300,18 @@ def get_undersupply_timesteps(
         Demand equation, only used if driving_commod is True.
         Defaults to '0'.
     demand_driving : bool, optional
-        Indicates whether the commodities are demand-driven (True) or supply-driven (False).
+        Indicates whether the commodities are demand-driven (True) or
+        supply-driven (False).
         Defaults to True.
 
     Returns
     -------
     dict_dots : dict
-        Timeseries dictionary with 1 and 0 indicating undersupply at specific time steps.
+        Timeseries dictionary with 1 and 0 indicating undersupply at specific
+        time steps.
     diff_dict_drop : dict
-        Timeseries dictionary with absolute difference between supply and demand, if supply < demand.
+        Timeseries dictionary with absolute difference between supply and
+        demand, if supply < demand.
     """
 
     if driving_commod:
@@ -347,7 +350,8 @@ def plot_all_undersupply(
         title='',
         name='hello'):
     """
-    Generates a comparison plot of commodity undersupply for different prediction methods.
+    Generates a comparison plot of commodity undersupply for different
+    prediction methods.
 
     Parameters
     ----------
@@ -360,7 +364,8 @@ def plot_all_undersupply(
     general_sqlite : str
         Name of the SQLite database without the method name added at the end.
     demand_driven : bool, optional
-        Boolean indicating whether the commodities are demand-driven (True) or supply-driven (False).
+        Boolean indicating whether the commodities are demand-driven (True) or
+        supply-driven (False).
         Defaults to True.
     demand_eq : str, optional
         Equation for power demand. Defaults to '0'.
@@ -524,7 +529,8 @@ def plot_histogram(
         name,
         yticks):
     """
-    Plots a histogram comparing undersupplied time steps for different commodities and prediction methods.
+    Plots a histogram comparing undersupplied time steps for different
+    commodities and prediction methods.
 
     Parameters
     ----------
