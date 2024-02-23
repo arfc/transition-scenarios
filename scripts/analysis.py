@@ -687,8 +687,8 @@ def trade_timeseries(cur, sender, receiver,
     is_cum: bool
         gets cumulative timeseris if True, monthly value if False
 
-    Returns:
-    --------
+    Returns
+    -------
     trades: dictionary
         if do_isotopic:
             dictionary with "key=isotope, and
@@ -1512,7 +1512,7 @@ def plot_in_out_flux(cur, facility, influx_bool,
     """Plots timeseries influx/ outflux from facility name in kg.
 
     Parameters
-    ---------
+    ----------
     cur: sqlite cursor
         sqlite cursor
     facility: str
@@ -1683,7 +1683,7 @@ def entered_power(cur):
     """Returns dictionary of power entered into simulation.
 
     Parameters
-    ---------
+    ----------
     cur: sqlite cursor
         sqlite cursor
 
@@ -1781,7 +1781,7 @@ def plot_out_flux_cumulative(
         title):
     """Plots timeseries influx/ outflux from facility name in kg.
 
-    Parameters:
+    Parameters
     ----------
     cur: sqlite cursor
         sqlite cursor
@@ -1798,8 +1798,8 @@ def plot_out_flux_cumulative(
         true: add isotope masses over time
         false: do not add isotope masses at each timestep
 
-    Returns:
-    --------
+    Returns
+    -------
     """
 
     masses = cumulative_mass_timeseries(cur, facility, flux='out')
@@ -1917,6 +1917,7 @@ def plot_net_flux(
         facility,
         title):
     """Plots net flux of all isotopes over the duration of the simulation.
+
     Parameters
     ----------
     cur : sqlite cursor
@@ -1925,6 +1926,7 @@ def plot_net_flux(
         name of facility
     title : str
         title of plot
+
     Returns
     -------
     plot : plot
@@ -1963,6 +1965,7 @@ def mass_timeseries(cur, facility, flux):
         name of facility
     flux : str
         direction of flux
+
     Returns
     -------
     masstime : dict
@@ -2041,6 +2044,7 @@ def cumulative_mass_timeseries(cur, facility, flux):
         name of facility
     flux : str
         direction of flux
+
     Returns
     -------
     masstime : dict
@@ -2225,6 +2229,7 @@ def plot_cumulative_power(cur, reactors):
         sqlite cursor
     reactors : list
         list of reactors to plot
+
     Returns
     -------
     plot : plot

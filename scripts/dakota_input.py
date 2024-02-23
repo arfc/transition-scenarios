@@ -2,10 +2,11 @@ import jinja2
 
 
 def load_template(in_template):
-    """ Returns a jinja2 template from file.
+    """
+    Returns a jinja2 template from file.
 
     Parameters
-    ---------
+    ----------
     in_template: str
         path and name of jinja2 template
 
@@ -22,18 +23,18 @@ def render_input(xml_template, variable_dict, input_xml):
     """
     Formats the input file template's placeholder variables
 
-    Parameters:
-    -----------
+    Parameters
+    ----------
     xml_template: str
         path to input file template
     variable_dict: dict of str
-        contains the variables in the template file as keys, 
+        contains the variables in the template file as keys,
         and the value to apply as the value
     input_xml: str
-        path to save the filled in template to 
+        path to save the filled in template to
 
-    Returns:
-    --------
+    Returns
+    -------
     null
     """
     test_template = load_template(xml_template)
