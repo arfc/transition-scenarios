@@ -27,3 +27,29 @@ transition_plots_doc
 - {ref}`genindex`
 - {ref}`modindex`
 - {ref}`search`
+
+
+# Building the Docs
+To compile the documentation, make sure you have all the requirements
+installed, then run `make html` from the top level of the repository.
+
+```{warning}
+The docs are still in their nascent stage. If you find a
+problem, please open an issue on
+[github](https://github.com/arfc/transition-scenarios/issues).
+```
+
+## Docs Requirements
+* sphinx
+* myst_parser
+* sphinx.ext.napoleon
+* sphinx.ext.duration
+* sphinx.ext.autosectionlabel
+* sphinx.ext.autodoc
+* sphinx.ext.autosummary
+* sphinx.ext.intersphinx
+* sphinx.ext.viewcode
+* sphinx.ext.mathjax
+* sphinx.ext.coverage
+* nbsphinx
+* sphinxcontrib.mermaid

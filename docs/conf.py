@@ -87,7 +87,7 @@ intersphinx_mapping = {
     'pandas': ('https://pandas.pydata.org/docs/', None),
     'numpy': ('https://numpy.org/doc/stable/', None),
     'astropy': ('https://docs.astropy.org/en/stable/', None),
-    'cyclus': ('https://fuelcycle.org/', None)
+    'cyclus': ('https://fuelcycle.org/', None),
 }
 
 
