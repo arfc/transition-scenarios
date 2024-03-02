@@ -180,9 +180,9 @@ class Cask_Calcs:
             else:
                 casks[year], leftovers[year] = divmod((elems[year] * vol /
                                                        self.cask_vol) +
-                                                    leftovers[year - 1], 1)
+                                                      leftovers[year - 1], 1)
         return casks, leftovers
 
     def __str__(self):
-        return f"Calculates the number of casks based on
-            what is going into them."
+        return f"Calculates the number of casks based on what is going into
+        them."
