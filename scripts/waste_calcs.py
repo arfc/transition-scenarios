@@ -5,13 +5,16 @@ class Cask_Calcs:
     This class calculates the number of casks needed for
     storing the used fuel with each configuration.
     """
-    def __init__(self, masses, cask_vol,
+    def __init__(self, elements,  masses, cask_vol,
                  den_kernel, vol_kernel, mass_kernel,
                  vol_triso, mass_triso, den_triso,
-                 vol_prism, mass_prism, elements):
+                 vol_prism, mass_prism):
         """
         Parameters
         ----------
+        elements: str
+            str type of elements being loaded into the cask
+            options: 'prism', 'triso', 'kernel'
         masses: dict
             dictionary of years and masses of used fuel
             in kg
@@ -42,9 +45,6 @@ class Cask_Calcs:
         mass_prism: float
             mass of a prism element
             in kg
-        elements: str
-            str type of elements being loaded into the cask
-            options: 'prism', 'triso', 'kernel'
         """
         self.masses = masses
         self.cask_vol = cask_vol # m^3
@@ -108,7 +108,7 @@ class Cask_Calcs:
 
         trisos = []
         for year in range(len(prisms)):
-            num_trisos = np.round(prisms[year] * den_triso)
+            num_trisos = np.round(prisms[year] * self.den_triso)
             trisos.append(num_trisos)
         return trisos
 
@@ -133,7 +133,7 @@ class Cask_Calcs:
 
         kernels = []
         for year in range(len(trisos)):
-            num_kernels = np.round(trisos[year] * den_kernel)
+            num_kernels = np.round(trisos[year] * self.den_kernel)
             kernels.append(num_kernels)
 
         return kernels
