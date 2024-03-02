@@ -1,5 +1,6 @@
 import numpy as np
 
+
 class Cask_Calcs:
     """
     This class calculates the number of casks needed for
@@ -47,18 +48,18 @@ class Cask_Calcs:
             in kg
         """
         self.masses = masses
-        self.cask_vol = cask_vol # m^3
+        self.cask_vol = cask_vol  # m^3
 
-        self.vol_kernel = vol_kernel # m^3
-        self.mass_kerne = mass_kernel # kg
-        self.den_kernel = den_kernel # kernels/triso
+        self.vol_kernel = vol_kernel  # m^3
+        self.mass_kerne = mass_kernel  # kg
+        self.den_kernel = den_kernel  # kernels/triso
 
-        self.vol_triso = vol_triso # m^3
-        self.mass_triso = mass_triso # kg
-        self.den_triso = den_triso # trisos/prism
+        self.vol_triso = vol_triso  # m^3
+        self.mass_triso = mass_triso  # kg
+        self.den_triso = den_triso  # trisos/prism
 
-        self.vol_prism = vol_prism #m^3
-        self.mass_prism = mass_prism #kg
+        self.vol_prism = vol_prism  # m^3
+        self.mass_prism = mass_prism  # kg
 
         self.elements = elements
 
@@ -157,13 +158,13 @@ class Cask_Calcs:
           is the last leftover
 
         """
-        if self.elements=='prism':
+        if self.elements == 'prism':
             elems = self.calculate_num_prisms()
             vol = self.vol_prism
-        elif self.elements=='triso':
+        elif self.elements == 'triso':
             elems = self.calculate_num_trisos()
             vol = self.vol_triso
-        elif self.elements=='kernel':
+        elif self.elements == 'kernel':
             elems = self.calculate_num_kernels()
             vol = self.vol_kernel
         else:
@@ -174,10 +175,14 @@ class Cask_Calcs:
 
         for year in range(len(elems)):
             if year == 0:
-                casks[year], leftovers[year] = divmod(elems[year] * vol / self.cask_vol, 1)
+                casks[year], leftovers[year] = divmod(elems[year] * vol /
+                                                      self.cask_vol, 1)
             else:
-                casks[year], leftovers[year] = divmod((elems[year] * vol / self.cask_vol) + leftovers[year - 1], 1)
+                casks[year], leftovers[year] = divmod((elems[year] * vol /
+                                                       self.cask_vol) +
+                                                       leftovers[year - 1], 1)
         return casks, leftovers
 
     def __str__(self):
-        return f"Calculates the number of casks based on what is going into them."
+        return f"Calculates the number of casks based on
+                what is going into them."
