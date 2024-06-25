@@ -8,7 +8,7 @@ def generate_input(input_path, output_path, orig_lifetime,
     """This function takes a full Cyclus input xml file,
         finds the DeployInst block for the country,
         and extends the lifetime of LWR reactors
-        according to a Gaussian distribution (mean 10, sd 3 [years])
+        according to a Gaussian distribution (mean 10, sd 3 [years]).
 
         Parameters
         ----------

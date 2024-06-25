@@ -1,6 +1,4 @@
 import pandas as pd
-import sys
-
 import predicting_the_past_import as import_data
 # module containing functions to build CYCLUS input file
 

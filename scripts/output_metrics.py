@@ -29,8 +29,8 @@ def merge_and_fillna_col(left, right, lcol, rcol, how='left', on=None):
     on : list of str, optional
         Which columns to merge on, same as in pd.merge()
 
-    Returns:
-    --------
+    Returns
+    -------
     left: DataFrame
         Merged dataframe with any NaN values replaced with values from
         the specified column
@@ -49,18 +49,18 @@ def get_table_from_output(db_file, table_name):
     issues experienced, and only the columns called here were
     used for later functions.
 
-        Parameters:
-        -----------
-        db_file: str
-            filename of database
-        table_name: str
-            name of table in the database
+    Parameters
+    ----------
+    db_file: str
+        filename of database
+    table_name: str
+        name of table in the database
 
-        Returns:
-        --------
-        table_df: DataFrame
-            requested table from database
-        '''
+    Returns
+    -------
+    table_df: DataFrame
+        requested table from database
+    '''
     connect = sqlite3.connect(db_file)
     if table_name == 'Resources':
         table_df = pd.read_sql_query(
@@ -75,13 +75,13 @@ def create_agents_table(db_file):
     '''
         Recreates the Agents metric in cymetric.
 
-        Parameters:
-        -----------
+        Parameters
+        ----------
         db_file: str
             filename of database
 
-        Returns:
-        --------
+        Returns
+        -------
         agents: DataFrame
             recreated Agents metric
     '''
@@ -115,13 +115,13 @@ def merge_transactions_resources(db_file):
     to create a DataFrame with the quantity of each material
     transaction.
 
-    Parameters:
-    -----------
+    Parameters
+    ----------
     db_file: str
         SQLite database from Cyclus
 
-    Returns:
-    --------
+    Returns
+    -------
     trans_resources: DataFrame
         merged DataFrame containing the quantity of the material
         in each transaction
@@ -146,13 +146,13 @@ def add_receiver_prototype(db_file):
     AgentId column renamed to ReceiverId to assist the merge process. The
     final dataframe is organized by ascending order of Time then TransactionId.
 
-    Parameters:
-    -----------
+    Parameters
+    ----------
     db_file: str
         SQLite database from Cyclus
 
-    Returns:
-    --------
+    Returns
+    -------
     receiver_prototype: dataframe
         contains all of the transactions with the prototype name of the
         receiver included
@@ -176,13 +176,13 @@ def add_sender_prototype(db_file):
     AgentId column renamed to SenderId to assist the merge process. The
     final dataframe is organized by ascending order of Time then TransactionId.
 
-    Parameters:
-    -----------
+    Parameters
+    ----------
     db_file: str
         SQLite database from Cyclus
 
-    Returns:
-    --------
+    Returns
+    -------
     sender_prototype: DataFrame
         contains all of the transactions with the prototype name of the
         receiver included
@@ -203,8 +203,8 @@ def get_multiple_prototype_transactions(db_file, prototypes, commodity):
     Gets the transactions of the given commodity sent to the
     specified prototypes in each time step.
 
-    Parameters:
-    -----------
+    Parameters
+    ----------
     db_file: str
         name of database file
     prototypes: list of strs
@@ -212,8 +212,8 @@ def get_multiple_prototype_transactions(db_file, prototypes, commodity):
     commodity: str
         name of commodity
 
-    Returns:
-    --------
+    Returns
+    -------
     commodity_transactions: DataFrame
         DataFrame of transactions for commodity to specific prototypes.
         The mass sent to each prototype is in a separate column, with
@@ -234,8 +234,8 @@ def get_enriched_u_mass(db_file, prototypes, transition_start):
         is calculated from the start of the transition to the end of the
         simulation.
 
-        Parameters:
-        -----------
+        Parameters
+        ----------
         db_file: str
             name of database file
         prototypes: list of str
@@ -243,8 +243,8 @@ def get_enriched_u_mass(db_file, prototypes, transition_start):
         transition_start: int
             time step the modeled transition begins at
 
-        Returns:
-        --------
+        Returns
+        -------
         cumulative_u: float
             the cumulative mass of enriched uranium sent to specified
             prototypes starting at the transition start time
@@ -263,8 +263,8 @@ def calculate_feed(db_file, prototypes, transition_start):
     Calculate the cumulative feed uranium needed to create enriched
     uranium for the specified prototypes
 
-    Parameters:
-    -----------
+    Parameters
+    ----------
     db_file: str
         name of database file
     prototypes: list of strs
@@ -272,8 +272,8 @@ def calculate_feed(db_file, prototypes, transition_start):
     transition_start: int
         time step the modeled transition begins at
 
-    Returns:
-    --------
+    Returns
+    -------
     cumulative_feed: float
         The total feed uranium required for the prototypes,
         starting at the transition start time.
@@ -300,8 +300,8 @@ def calculate_swu(db_file, prototypes, transition_start):
     Calculates the cumulative amount of SWU capacity required to
     create the enriched uranium in the simulation.
 
-    Parameters:
-    -----------
+    Parameters
+    ----------
     db_file: str
         name of database file
     prototypes: list of strs
@@ -315,8 +315,8 @@ def calculate_swu(db_file, prototypes, transition_start):
         contain the assays for the tails and feed streams, and be labeled
         as 'tails' and 'feed'
 
-    Returns:
-    --------
+    Returns
+    -------
     cumulative_swu: float
         the average SWU capacity required for the simulation,
         starting at the transition start time
@@ -351,8 +351,8 @@ def get_waste_discharged(db_file, prototypes, transition_start, commodities):
     sums them together and provides a cumulative total from the start
     of the transition.
 
-    Parameters:
-    -----------
+    Parameters
+    ----------
     db_file: str
         name of database file
     prototypes: list of strs
@@ -363,8 +363,8 @@ def get_waste_discharged(db_file, prototypes, transition_start, commodities):
         name of waste commodity for each prototype, in the form
         {prototype name (str): commodity name(str)}
 
-    Returns:
-    --------
+    Returns
+    -------
     waste_discharged: float
         cumulative waste discharged from all specified prototypes
     '''
@@ -383,13 +383,13 @@ def get_annual_electricity_table(db_file):
     Get the table of the annual electricity produced by each agent in
     a simulation
 
-    Parameters:
-    -----------
+    Parameters
+    ----------
     db_file: str
         file name of database
 
-    Returns:
-    --------
+    Returns
+    -------
     annual_electricity: DataFrame
         Contains the SimId, AgentId, Year, and Energy from the database
     '''
@@ -408,15 +408,15 @@ def get_annual_electricity_table(db_file):
 def get_annual_electricity(db_file):
     '''
     Gets the time dependent annual electricity output of reactors
-    in the silumation
+    in the simulation
 
-    Parameters:
-    -----------
+    Parameters
+    ----------
     db_file: str
         file name of database
 
-    Returns:
-    --------
+    Returns
+    -------
     electricity_output: DataFrame
         time dependent electricity output, includes
         column for year of time step. The energy column
@@ -438,15 +438,15 @@ def get_prototype_energy(db_file, advanced_rx):
     prototype name by merging the Agents and AnnualElectricityGeneratedByAgent
     dataframes so that agents can be grouped by prototype name
 
-    Parameters:
-    -----------
+    Parameters
+    ----------
     db_file: str
         file name of database
     advanced_rx: str
         name of advanced reactor prototype
 
-    Returns:
-    --------
+    Returns
+    -------
     prototype_energy: dataframe
         dataframe of the year and the total amount of electricity
         generated by all agents of the given prototype name. Values
@@ -471,15 +471,15 @@ def get_lwr_energy(db_file, advanced_rx):
     prototype name by merging the Agents and AnnualElectricityGeneratedByAgent
     dataframes so that agents can be grouped by prototype name
 
-    Parameters:
-    -----------
+    Parameters
+    ----------
     db_file: str
         file name of database
     advanced_rx: list of strs
         name(s) of advanced reactor prototype also present in the simulation
 
-    Returns:
-    --------
+    Returns
+    -------
     lwr_energy: dataframe
         dataframe of the year and the total amount of electricity
         generated by all of the LWRs in the simulation. The energy
@@ -499,22 +499,22 @@ def get_lwr_energy(db_file, advanced_rx):
 
 def get_all_results(results, output_sqlite):
     '''
-    Calls multiple functions in this script at the same time to get all 
+    Calls multiple functions in this script at the same time to get all
     metrics from the output files and return them to Dakota.
-    Metrics include the total mass of enriched uranium, mass of 
-    HALEU, SWU capacity, SWU capacity to produce HALEU, feed mass to 
-    produce HALEU, and the total mass of spent nuclear fuel 
-    discharged. 
+    Metrics include the total mass of enriched uranium, mass of
+    HALEU, SWU capacity, SWU capacity to produce HALEU, feed mass to
+    produce HALEU, and the total mass of spent nuclear fuel
+    discharged.
 
-    Parameters:
-    -----------
+    Parameters
+    ----------
     results: obj
         results passed to Dakota
     output_sqlite: str
         file name for Cyclus output SQLite file
 
-    Returns:
-    --------
+    Returns
+    -------
     results: obj
         results passed to Dakota
     '''
@@ -546,22 +546,21 @@ def get_all_results(results, output_sqlite):
 
 def run_cyclus(output_sqlite, input_xml):
     '''
-    Define the Cyclus output file name, and run cyclus with a given 
+    Define the Cyclus output file name, and run cyclus with a given
     input file name.
 
-    Parameters:
-    -----------
+    Parameters
+    ----------
     output_sqlite: str
         name of Cyclus SQLite output file
     input_xml: str
-        name of Cyclus xml input file 
+        name of Cyclus xml input file
 
-    Returns:
-    --------
-    null 
- 
+    Returns
+    -------
+    null
+
     '''
     if not os.path.exists(output_sqlite):
         os.system('cyclus -i ' + input_xml + ' -o ' + output_sqlite +
-          ' --warn-limit 2')
-        
+                  ' --warn-limit 2')
