@@ -1,5 +1,4 @@
 import numpy as np
-import matplotlib.pyplot as plt
 import pandas as pd
 import xmltodict
 from pprint import pprint
@@ -11,13 +10,13 @@ def convert_xml_to_dict(filename):
     '''
     Reads in an xml file and converts it to a python dictionary
 
-    Parameters:
-    -----------
+    Parameters
+    ----------
     filename: str
         name of xml file
 
-    Returns:
-    --------
+    Returns
+    -------
     xml_dict: dict of strings
         contents of the xml file as a dictionary
 
@@ -29,7 +28,7 @@ def convert_xml_to_dict(filename):
 def get_deployinst_dict(
         deployinst_dict,
         power_dict,
-        path="../input/haleu/inputs/united_states/reactors/"):
+        path="../scenarios/haleu/inputs/united_states/reactors/"):
     '''
     Removes any non-power producing prototypes from the dictionary of
     the DeployInst. This also removes the 'val' level of information.
@@ -38,8 +37,8 @@ def get_deployinst_dict(
     Only the the prototype names that are in the power_dict are included
     in the output, so that only prototypes that produce power are considered.
 
-    Parameters:
-    -----------
+    Parameters
+    ----------
     deployinst_dict: dict
         dictionary of DeployInst information. This dictionary is assumed
         to be nested, with the top key being 'DeployInst', the keys of
@@ -53,8 +52,8 @@ def get_deployinst_dict(
     path: str
         path to xml files for each prototype
 
-    Returns:
-    --------
+    Returns
+    -------
     deployed_dict: dict
         dictionary of information about LWR prototypes and
         their deployment. The keys are strs and values are lists of
@@ -89,13 +88,13 @@ def get_powers(path):
     the PRIS database. Assumes that all xml files in the specified
     directory are for a Cycamore reactor.
 
-    Parameters:
-    -----------
+    Parameters
+    ----------
     path: str
         directory name containing xml files for reactors
 
-    Returns:
-    --------
+    Returns
+    -------
     reactor_power: dict
         dictionary of reactor names and rated powers, the keys are the reactor
         names (strs), the values are their power outputs (ints). Any spaces
@@ -115,19 +114,51 @@ def get_powers(path):
     return reactor_power
 
 
+def get_pris_powers(country, path, year):
+    '''
+    Create dictionary of the reactor units from a select country
+    in the PRIS database and
+    their corresponding rated power
+    output from the reactors_pris_XXXX.csv file for the corresponding year
+
+    Parameters
+    ----------
+    country: str
+        name of country to get LWR data for
+    path: str
+        relative path to the pris csv file
+    year: int
+        year of data to pull from
+
+    Returns
+    -------
+    pris_power: dict
+        dictionary of reactor names and rated powers, the keys are the reactor
+        names (strs), the values are the rated powers (ints). Any spaces
+        in the keys are replaced with underscores.
+    '''
+    pris_power = {}
+    reactors = pd.read_csv(path + 'reactors_pris_' + str(year) + '.csv')
+    reactors = reactors.loc[reactors['Country'] == country]
+    for index, row in reactors.iterrows():
+        pris_power[row['Unit']] = row['RUP [MWe]']
+    pris_power = {k.replace(' ', '_'): v for k, v in pris_power.items()}
+    return pris_power
+
+
 def get_lifetime(path, name):
     ''''
     Get the lifetime of a prototype from a modular file of the prototype
     definition
 
-    Parameters:
-    -----------
+    Parameters
+    ----------
     path: str
         relative path to prototype definition file
     name: str
         name of prototype
-    Returns:
-    --------
+    Returns
+    -------
     lifetime: int
         lifetime of prototype
     '''
@@ -142,8 +173,8 @@ def get_deployed_power(power_dict, deployed_dict, sim_duration):
     DeployInst. Each entry in the array is for each time step in
     the simulation.
 
-    Parameters:
-    -----------
+    Parameters
+    ----------
     power_dict: dict
         contains the power output of each agent in the DeployInst.
         The keys are the reactor
@@ -156,8 +187,8 @@ def get_deployed_power(power_dict, deployed_dict, sim_duration):
     sim_duration: int
         number of timesteps in the simulation
 
-    Returns:
-    --------
+    Returns
+    -------
     t: array of ints
         ranged arrays of durations
     inst_power: array of ints
@@ -181,15 +212,15 @@ def determine_power_gap(power_profile, demand):
     Calculates the amount of power needed to be supplied
     based on the power produced and the demand equation
 
-    Parameters:
+    Parameters
     ----------
     power_profile: array of ints
         Amount of power produced at each time step
     demand: array of ints
         evaluated values of the power demand equation used
 
-    Returns:
-    --------
+    Returns
+    -------
     power_gap: array of ints
         Amount of power needed to meet the power demand. Any negative
         values from an oversupply of power are changed to 0
@@ -204,14 +235,14 @@ def determine_deployment_order(reactor_prototypes):
     Creates a list of the keys in reactor_prototypes ordering
     them in decreasing order of power
 
-    Parameters:
+    Parameters
     ----------
     reactor_prototypes: dict
         dictionary of information about prototypes in the form
         {name(str): (power(int), lifetime(int))}
 
-    Returns:
-    --------
+    Returns
+    -------
     reactor_order: list of strs
         ordered list of reactor prototypes in decreasing order of
         power output.
@@ -231,8 +262,8 @@ def update_di(di, prototype, num_reactors, build_time, lifetime):
     '''
     Update a dictionary of a DeployInst
 
-    Parameters:
-    -----------
+    Parameters
+    ----------
     di: dictionary
         dictionary defining the DeployInst, the top-level key
         is 'DeployInst', the next level keys are 'prototypes',
@@ -248,8 +279,8 @@ def update_di(di, prototype, num_reactors, build_time, lifetime):
     lifetime: int
         lifetime of the prototype
 
-    Returns:
-    --------
+    Returns
+    -------
     di: dictionary
         updated dictionary to define the DeployInst
     '''
@@ -272,7 +303,8 @@ def update_power_demand(
     Subtracts power from the total demand to be filled
     based on the number of reactors to be deployed
 
-    Parameters:
+    Parameters
+    ----------
     power_gap: list or array
         demand in power to be filled
     index: int
@@ -288,8 +320,8 @@ def update_power_demand(
     prototype: str
         name of prototype to be deployed
 
-    Returns:
-    --------
+    Returns
+    -------
     power_gap: array
         updated values for the power demand after the deployment
         of a given number of a specified prototype
@@ -308,8 +340,8 @@ def deploy_with_share(reactor_prototypes, shares, power, reactor):
     '''
     Deploy prototypes with a defined build share for some or all prototypes
 
-    Parameters:
-    -----------
+    Parameters
+    ----------
     reactor_prototypes: dict
         information about prototypes,
         {name(str):(power(float),lifetime(int))}
@@ -321,8 +353,8 @@ def deploy_with_share(reactor_prototypes, shares, power, reactor):
     prototype: str
         name of prototype to be deployed
 
-    Returns:
-    --------
+    Returns
+    -------
     num_reactors: int
         number of the specified prototype to be deployed at a given time
         step
@@ -341,8 +373,8 @@ def deploy_without_share(prototype, reactors, reactor_prototypes, power):
     '''
     Deploy reactors when a build share isn't supplied for the prototype
 
-    Parameters:
-    -----------
+    Parameters
+    ----------
     prototype: str
         name of prototype to be deployed
     reactors: list of strs
@@ -354,8 +386,8 @@ def deploy_without_share(prototype, reactors, reactor_prototypes, power):
     power: float
         amount of power that needs to be deployed at a given time step
 
-    Returns:
-    --------
+    Returns
+    -------
     num_reactors: int
         number of the specified prototype to be deployed at a given time
         step
@@ -390,8 +422,8 @@ def redeploy_reactors(
     number of each prototype deployed while also minimizing the
     oversupply of energy and minimizing the number of reactors deployed.
 
-    Parameters:
-    -----------
+    Parameters
+    ----------
     power: float
         gap between energy demand and production at a given time step
     prototype: str
@@ -406,8 +438,8 @@ def redeploy_reactors(
         index of deploy_schedule['DeployInst']['build_times'] in which
         prototype was deployed at timestep current minus prototype lifetime
 
-    Returns:
-    --------
+    Returns
+    -------
     num_reactors: int
         number of a prototype to deploy
     '''
@@ -433,8 +465,8 @@ def determine_deployment_schedule(
     they will be deployed in preferential order based on
     decreasing power output.
 
-    Parameters:
-    -----------
+    Parameters
+    ----------
     power_gap: array
         gap in power production and demand
     reactor_prototypes: dictionary
@@ -445,8 +477,8 @@ def determine_deployment_schedule(
         contains information about build share for specified
         prototypes, {name(str): build share(int)}
 
-    Returns:
-    --------
+    Returns
+    -------
     deploy_schedule: dict
         deployment schedule of reactor prototypes with the
         structure for a DeployInst
@@ -516,8 +548,8 @@ def write_deployinst(deploy_schedule, out_path):
     '''
     Write xml file for the DeployInst to meet the power demand
 
-    Parameters:
-    -----------
+    Parameters
+    ----------
     deploy_schedule: dict
         deployment schedule of reactor prototypes, with
         the same schema as the DeployInst. Nest dictionary
@@ -528,8 +560,8 @@ def write_deployinst(deploy_schedule, out_path):
     out_path: str
         path to where the file should be written
 
-    Returns:
-    --------
+    Returns
+    -------
     null
         wites xml file for Cycamore DeployInst
     '''
@@ -545,8 +577,8 @@ def write_lwr_deployinst(lwr_param, DI_file, lwr_order):
     is the SinkHLW, leading to the first lifetime item being 600
     time steps.
 
-    Parameters:
-    -----------
+    Parameters
+    ----------
     lwr_param: float
         percent of LWRs to receive lifetime extensions
     DI_file: str
@@ -555,8 +587,8 @@ def write_lwr_deployinst(lwr_param, DI_file, lwr_order):
     lwr_order: str
         path and name of file containing LWRs ordered by power output.
 
-    Returns:
-    --------
+    Returns
+    -------
     DI_dict: dict
         nested dictionary, contains information for the DeployInst in
         the form {'DeployInst':{'prototypes':{'val':[]}, 'n_build':
@@ -590,8 +622,8 @@ def write_AR_deployinst(
     ''''
     Creates the DeployInst for the deployment of advanced reactors
 
-    Parameters:
-    -----------
+    Parameters
+    ----------
     lwr_DI: dict
         dictionary of the DeployInst defining the deployment of LWRs
     lwr_path: str
@@ -610,8 +642,8 @@ def write_AR_deployinst(
         prototypes, {name(str):build share(int)}
 
 
-    Returns:
-    --------
+    Returns
+    -------
     deploy_schedule: dict
         nested dictionary, contains information for the DeployInst in
         the form {'DeployInst':{'prototypes':{'val':[]}, 'n_build':

@@ -13,13 +13,13 @@ def get_metrics(db_file):
     '''
     Opens database using cymetric and evaluates metrics
 
-    Parameters:
-    -----------
+    Parameters
+    ----------
     db_file: str
         SQLite database from Cyclus
 
-    Returns:
-    --------
+    Returns
+    -------
     metrics_evaler: Evaluator object
         contains all of the metrics of the database
     '''
@@ -40,15 +40,15 @@ def get_lwr_totals(db_file, non_lwr_prototypes):
     there are far more LWR prototype names than non-LWR
     prototype names.
 
-    Parameters:
-    -----------
+    Parameters
+    ----------
     db_file: str
         SQLite database from Cyclus
     non_lwr_prototypes: list of str
         names of non LWR prototypes in the simulation
 
-    Returns:
-    --------
+    Returns
+    -------
     simulation_data: DataFrame
         Contains the number of each prototype commissioned
         and decommissioned at each time step and a column
@@ -80,8 +80,8 @@ def get_lwr_totals(db_file, non_lwr_prototypes):
         decommission_df = decommission_df.drop('Count', axis=1)
         decommission_df = pd.concat([decommission_df, negative_count], axis=1)
         decommission_df.rename(columns={'ExitTime': 'Time'}, inplace=True)
-        decommission_by_prototype = decommission_df.pivot('Time', 'Prototype')[
-            'Count'].reset_index()
+        decommission_by_prototype = decommission_df.pivot(
+            index='Time', columns='Prototype')['Count'].reset_index()
         decommission_by_prototype = dfa.add_zeros_columns(
             decommission_by_prototype, non_lwr_prototypes)
         decommission_by_prototype = decommission_by_prototype.set_index('Time')
@@ -119,8 +119,8 @@ def get_prototype_totals(db_file, non_lwr_prototypes, prototypes):
     of zeros is added with the column name reflecting the
     prototype name.
 
-    Parameters:
-    -----------
+    Parameters
+    ----------
     db_file: str
         name of SQLite database from Cyclus
     non_lwr_prototypes: list of str
@@ -128,8 +128,8 @@ def get_prototype_totals(db_file, non_lwr_prototypes, prototypes):
     prototypes: list of str
         list of names of prototypes to be summed together
 
-    Returns:
-    --------
+    Returns
+    -------
     prototypes_df : DataFrame
         enter, exit, and totals for each type of prototype
         specified. Includes a column totaling all of the
@@ -148,8 +148,8 @@ def get_prototype_totals(db_file, non_lwr_prototypes, prototypes):
                 columns={prototype: prototype + '_enter'})
             prototypes_df[prototype +
                           '_exit'] = np.zeros(
-                                              len(prototypes_df[prototype +
-                                                                '_enter']))
+                len(prototypes_df[prototype +
+                                  '_enter']))
         prototypes_df[prototype +
                       '_total'] = (prototypes_df[prototype +
                                                  '_enter'] +
@@ -161,31 +161,6 @@ def get_prototype_totals(db_file, non_lwr_prototypes, prototypes):
     return prototypes_df
 
 
-def get_transactions(db_file):
-    '''
-    Gets the TransactionQuantity metric from cymetric,
-    sorts by TimeCreated, and renames the TimeCreated
-    column
-
-    Parametrs:
-    ----------
-    db_file: str
-        relative path to database
-
-    Returns:
-    --------
-    transactions: DataFrame
-        transaction data with specified modifications
-    '''
-    evaler = get_metrics(db_file)
-    transactions = evaler.eval(
-        'TransactionQuantity').sort_values(by='TimeCreated')
-    transactions = transactions.rename(columns={'TimeCreated': 'Time'})
-    transactions = tools.add_missing_time_step(
-        transactions, evaler.eval('TimeList'))
-    return transactions
-
-
 def add_receiver_prototype(db_file):
     '''
     Creates dataframe of transactions information, and adds in
@@ -194,13 +169,13 @@ def add_receiver_prototype(db_file):
     AgentId column renamed to ReceivedId to assist the merge process. The
     final dataframe is organized by ascending order of Time then TransactionId
 
-    Parameters:
-    -----------
+    Parameters
+    ----------
     db_file: str
         SQLite database from Cyclus
 
-    Returns:
-    --------
+    Returns
+    -------
     receiver_prototype: dataframe
         contains all of the transactions with the prototype name of the
         receiver included
@@ -224,18 +199,56 @@ def add_receiver_prototype(db_file):
     return receiver_prototype
 
 
+def add_sender_prototype(db_file):
+    '''
+    Creates dataframe of transactions information, and adds in
+    the prototype name corresponding to the SenderId of the
+    transaction. This dataframe is merged with the Agents dataframe, with the
+    AgentId column renamed to SenderId to assist the merge process. The
+    final dataframe is organized by ascending order of Time then TransactionId
+
+    Parameters
+    ----------
+    db_file: str
+        SQLite database from Cyclus
+
+    Returns
+    -------
+    sender_prototype: dataframe
+        contains all of the transactions with the prototype name of the
+        receiver included
+    '''
+    evaler = get_metrics(db_file)
+    agents = evaler.eval('Agents')
+    agents = agents.rename(columns={'AgentId': 'SenderId'})
+    resources = evaler.eval('Resources')
+    resources = resources[['SimId', 'ResourceId', 'ObjId', 'TimeCreated',
+                           'Quantity', 'Units']]
+    resources = resources.rename(columns={'TimeCreated': 'Time'})
+    transactions = evaler.eval('Transactions')
+    trans_resources = pd.merge(
+        transactions, resources, on=[
+            'SimId', 'Time', 'ResourceId'], how='inner')
+    receiver_prototype = pd.merge(
+        trans_resources, agents[['SimId', 'SenderId', 'Prototype']], on=[
+            'SimId', 'SenderId']).sort_values(by=['Time', 'TransactionId']).reset_index(drop=True)
+    receiver_prototype = receiver_prototype.rename(
+        columns={'Prototype': 'SenderPrototype'})
+    return receiver_prototype
+
+
 def get_annual_electricity(db_file):
     '''
     Gets the time dependent annual electricity output of reactors
     in the silumation
 
-    Parameters:
-    -----------
+    Parameters
+    ----------
     db_file: str
         SQLite database from Cyclus
 
-    Returns:
-    --------
+    Returns
+    -------
     electricity_output: DataFrame
         time dependent electricity output, includes
         column for year of time step. The energy column
@@ -257,13 +270,13 @@ def get_monthly_electricity(db_file):
     Gets the time dependent monthy electricity output of reactors
     in the silumation
 
-    Parameters:
-    -----------
+    Parameters
+    ----------
     db_file: str
         SQLite database from Cyclus
 
-    Returns:
-    --------
+    Returns
+    -------
     electricity_output: DataFrame
         time dependent electricity output, includes
         column for year of time step. The energy column
@@ -286,15 +299,15 @@ def get_prototype_energy(db_file, advanced_rx):
     prototype name by merging the Agents and AnnualElectricityGeneratedByAgent
     dataframes so that agents can be grouped by prototype name
 
-    Parameters:
-    -----------
+    Parameters
+    ----------
     db_file: str
         SQLite database from Cyclus
     advanced_rx: str
         name of advanced reactor prototype
 
-    Returns:
-    --------
+    Returns
+    -------
     prototype_energy: dataframe
         dataframe of the year and the total amount of electricity
         generated by all agents of the given prototype name. Values
@@ -320,15 +333,15 @@ def get_lwr_energy(db_file, advanced_rx):
     prototype name by merging the Agents and AnnualElectricityGeneratedByAgent
     dataframes so that agents can be grouped by prototype name
 
-    Parameters:
-    -----------
+    Parameters
+    ----------
     db_file: str
         SQLite database from Cyclus
     advanced_rx: list of str
         name(s) of advanced reactor prototype also present in the simulation
 
-    Returns:
-    --------
+    Returns
+    -------
     lwr_energy: dataframe
         dataframe of the year and the total amount of electricity
         generated by all of the LWRs in the simulation. The energy
