@@ -25,7 +25,6 @@ jobs:
                   autoconf \
                   libtool \
                   doxygen \
-                  progress \
                   hdf5-tools
       - run:
           name: Build PyNE
