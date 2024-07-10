@@ -12,8 +12,8 @@ jobs:
       - run:
           name: Build Environment
           command: |
-            pip install -r requirements.txt 
-            sudo apt-get update 
+            pip install -r requirements.txt
+            sudo apt-get update
             sudo apt-get install -y \
                   libhdf5-dev \
                   cmake \
@@ -25,6 +25,7 @@ jobs:
                   autoconf \
                   libtool \
                   doxygen \
+                  progress \
                   hdf5-tools
       - run:
           name: Build PyNE
@@ -42,7 +43,7 @@ jobs:
           name: Test transition-scenarios
           command: |
             cd ~/project/scripts/tests/
-            pytest 
+            pytest
 
 workflows:
   version: 2.1
