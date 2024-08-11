@@ -1,7 +1,7 @@
 import numpy as np
 
 
-def add_year(df):
+def add_year(df, s_y=1965):
     '''
     Adds column of Year, based on the Time column
 
@@ -9,13 +9,15 @@ def add_year(df):
     ----------
     df: DataFrame
         DataFrame of data to add column for the year to
+    s_y: Start year
+    	First year in the column of Year
 
     Returns
     -------
     df: DataFrame
         DataFrame with the added column
     '''
-    df['Year'] = np.round(df['Time'] / 12 + 1965, 2)
+    df['Year'] = np.round(df['Time'] / 12 + s_y, 2)
     df['Year'] = df['Year'].ffill()
     return df
 
