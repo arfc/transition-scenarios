@@ -1,7 +1,7 @@
 import numpy as np
 
 
-def add_year(df, s_y=1965):
+def add_year(df, y0=1965):
     '''
     Adds column of Year, based on the Time column
 
@@ -9,15 +9,15 @@ def add_year(df, s_y=1965):
     ----------
     df: DataFrame
         DataFrame of data to add column for the year to
-    s_y: Start year
-    	First year in the column of Year
+    y0: Start year
+        First year in the column of Year
 
     Returns
     -------
     df: DataFrame
         DataFrame with the added column
     '''
-    df['Year'] = np.round(df['Time'] / 12 + s_y, 2)
+    df['Year'] = np.round(df['Time'] / 12 + y0, 2)
     df['Year'] = df['Year'].ffill()
     return df
 
@@ -51,7 +51,7 @@ def add_zeros_columns(df, column_names):
     return df
 
 
-def sum_and_add_missing_time(df):
+def sum_and_add_missing_time(df, index_start=0, index_stop=1500, index_step=1):
     '''
     Sums the values of the same time step, and adds any missing time steps
     with 0 for the value
@@ -60,6 +60,9 @@ def sum_and_add_missing_time(df):
     ----------
     df: dataframe
         dataframe
+    index_start: start value for reindexing
+    index_stop: stop value for reindexing
+    index_step: time between each time step
 
     Returns
     -------
@@ -69,7 +72,7 @@ def sum_and_add_missing_time(df):
     '''
     summed_df = df.groupby(['Time']).Quantity.sum().reset_index()
     summed_df = summed_df.set_index('Time').reindex(
-        np.arange(0, 1500, 1)).fillna(0).reset_index()
+        np.arange(index_start, index_stop, index_step)).fillna(0).reset_index()
     return summed_df
 
 
