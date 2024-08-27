@@ -42,3 +42,36 @@ def direct_decom(df, ar_dict):
 
     return df
 
+def num_react_to_cap(df, ar_dict):
+    """
+    This function takes in a dataframe and the dictionary of reactors,
+    and converts the number of reactors columns to a capacity from each reactor
+    and a total capacity column.
+
+    Parameters
+    ----------
+    df: pandas dataframe
+        The dataframe of capacity information
+    ar_dict: dictionary
+        A dictionary of reactors with information of the form:
+        {reactor: [Power (MWe), capacity_factor (%), lifetime (yr)]}
+    """
+
+    if 'total_cap' not in df:
+        df[f'total_cap'] = 0
+        # Create a column for the new capacity each year.
+        df['new_cap'] = 0
+    else:
+        pass
+
+    for reactor in ar_dict.keys():
+        # New capacity calculations.
+        df[f'new_{reactor}_cap'] = (df[f'num_{reactor}'] - df[f'{reactor}Decom']) * ar_dict[f'{reactor}'][0]
+        df['new_cap'] += df[f'new_{reactor}_cap']
+
+        # Total capacity calculations.
+        df[f'{reactor}_cap'] = df[f'num_{reactor}'] * ar_dict[f'{reactor}'][0]
+        df['total_cap'] += df[f'{reactor}_cap']
+
+    return df
+
