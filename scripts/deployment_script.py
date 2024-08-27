@@ -75,3 +75,62 @@ def num_react_to_cap(df, ar_dict):
 
     return df
 
+
+# # # # # # # # # # # # Deployment Functions # # # # # # # # # # #
+# 1. Greedy Algorithm: deploy the largest reactor first at each time step, fill
+#   in the remaining capacity with the next smallest, and so on.
+# 2. Pre-determined distributions: one or more reactors have a preset
+#   distribution, and a smaller capacity model fills in the gaps.
+# 2.b Deployment Cap [extension of 2]: there is a single-number capacity for
+#   one or more of the reactor models. * there is no function for this, just use
+#   a constant distribution.
+# 3. Random Deployment: uses a date and hour as seed to randomly sample the
+#   reactors list.
+# 4. Initially Random, Greedy: randomly deploys reactors until a reactor bigger
+#   than the remaining capacity is proposed for each year, then fills remaining
+#   capacity with a greedy algorithm.
+
+def greedy_deployment(df, base_col, ar_dict):
+    """
+    In this greedy deployment, we will deploy the largest capacity reactor first until another deployment will exceed the desired capacity then the next largest capacity reactor is deployed and so on.
+
+    Parameters
+    ----------
+    df: pandas dataframe
+        The dataframe of capacity information
+    base_col: str
+        The string name corresponding to the column of capacity that the algorithm is deploying reactors to meet
+    ar_dict: dictionary
+        A dictionary of reactors with information of the form:
+        {reactor: [Power (MWe), capacity_factor (%), lifetime (yr)]}
+    """
+
+    for reactor in ar_dict.keys():
+        if f'num_{reactor}' not in df:
+            df[f'num_{reactor}'] = 0
+        else:
+            pass
+
+    for year in range(len(df[base_col])):
+        remaining_cap = df[base_col][year].copy()
+        for reactor in ar_dict.keys():
+            if ar_dict[reactor][0] > remaining_cap:
+                reactor_div = 0
+            else:
+                # find out how many of this reactor to deploy
+                reactor_div = math.floor(remaining_cap / ar_dict[reactor][0])
+            # remaining capacity to meet
+            remaining_cap -= reactor_div * ar_dict[reactor][0]
+            df.loc[year, f'num_{reactor}'] += reactor_div
+
+    # account for decommissioning with a direct replacement
+    df = direct_decom(df, ar_dict)
+
+    # Now calculate the total capacity each year (includes capacity from a
+    # replacement reactor that is new that year, but not new overall because it
+    # is replacing itself).
+    df  = num_react_to_cap(df, ar_dict)
+
+    return df
+
+
