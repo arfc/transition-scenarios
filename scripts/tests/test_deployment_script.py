@@ -165,3 +165,33 @@ def test_rand_greedy_deployment():
     print("Random greedy deployment test passed.")
 
 
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+# # # # # # # # # # # # Analysis Functions # # # # # # # # # # #
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+def test_analyze_algorithm():
+    # Create a sample DataFrame for testing
+    data = {
+        'Year': [2016, 2017, 2018],
+        'proj_cap': [110, 160, 190],
+        'total_cap': [105, 160, 195],
+        'ReactorBig_cap':    [80, 160, 80],
+        'ReactorMedium_cap': [20, 0, 80],
+        'ReactorSmall_cap':  [5, 0, 35]
+        }
+    df = pd.DataFrame(data)
+
+    # Call the analyze_algorithm function
+    results = dep.analyze_algorithm(df, 'total_cap', 'proj_cap', ad_reactors)
+
+    # Check the expected results
+    assert results['above_count'] == 1
+    assert results['below_count'] == 1
+    assert results['equal_count'] == 1
+    assert results['above_percentage'] == 33.33333333333333
+    assert results['below_percentage'] == 33.33333333333333
+    assert results['total_above'] == 5
+    assert results['total_below'] == -5
+    assert results['percent_provided'] == {'ReactorBig': 69.56521739130434,
+                                           'ReactorMedium': 21.739130434782606,
+                                           'ReactorSmall': 8.695652173913048}
