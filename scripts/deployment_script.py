@@ -314,3 +314,54 @@ def rand_deployment(df, base_col, ar_dict, set_seed=False, rough=True, tolerance
     return df
 
 
+def rand_greedy_deployment(df, base_col, ar_dict, set_seed):
+    """
+    This function combines the rough random and greedy deployments to fill in any gaps caused by the roughness.
+
+    Parameters
+    ----------
+    df: pandas dataframe
+        The dataframe of capacity information.
+    base_col: str
+        The string name corresponding to the column of capacity that the
+        algorithm is deploying reactors to meet.
+    ar_dict: dictionary
+        A dictionary of reactors with information of the form:
+        {reactor: [Power (MWe), capacity_factor (%), lifetime (yr)]}.
+    set_seed: bool
+        A True/False value that determines whether the seed used for the random
+        number is set or varies based on time.
+    """
+    # Initialize the number of reactor columns.
+    for reactor in ar_dict.keys():
+        if f'num_{reactor}' not in df:
+            df[f'num_{reactor}'] = 0
+        else:
+            pass
+
+    # First we will apply the rough random.
+    df = rand_deployment(df, base_col, ar_dict, set_seed, rough=True)
+
+    # Now we will make a remaining cap column.
+    df['remaining_cap'] = df[base_col] - df['new_cap']
+
+    # make columns for the randomly deployed reactors and the greedy reactors
+    for reactor in ar_dict.keys():
+        df[f'greedy_num_{reactor}'] = 0
+        df[f'rand_num_{reactor}'] = df[f'num_{reactor}']
+
+    # Now we will use the remaining cap column with a greedy deployment.
+    df = greedy_deployment(df, 'remaining_cap', ar_dict)
+
+    #reset the total capacity column
+    df['new_cap'] = 0
+
+    # populate the greedy reactor column
+    for year in range(len(df[base_col])):
+        for reactor in ar_dict.keys():
+            df.loc[year,f'greedy_num_{reactor}'] = df.loc[year,f'num_{reactor}'] - df.loc[year,f'rand_num_{reactor}']
+            df.loc[year, f'new_cap'] += df.loc[year,f'{reactor}_cap']
+
+    return df
+
+
