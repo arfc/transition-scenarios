@@ -36,8 +36,8 @@ def test_direct_decom():
     # result of greedy function using the direct_decom function
 
     assert all(decom_df['manual_decom'][i] ==
-                decom_df['ReactorBigDecom'][i]
-                for i in range(len(decom_df['manual_decom'])))
+               decom_df['ReactorBigDecom'][i]
+               for i in range(len(decom_df['manual_decom'])))
 
 
 def test_num_react_to_cap():
@@ -49,8 +49,8 @@ def test_num_react_to_cap():
         'new_cap': [0, 0, 80, 80, 160, 640, 640, 880, 720]}
 
     assert all(react_to_cap_df['manual_cap'][i] ==
-                react_to_cap_df['new_cap'][i]
-                for i in range(len(react_to_cap_df['manual_cap'])))
+               react_to_cap_df['new_cap'][i]
+               for i in range(len(react_to_cap_df['manual_cap'])))
 
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
@@ -99,7 +99,7 @@ def test_pre_det_deployment_greedy():
 
     # Call the pre_det_deployment function with greedy=True
     result_df = dep.pre_det_deployment(pre_det_dep_df_greedy, 'test_cap',
-                                        ad_reactors, greedy=True)
+                                       ad_reactors, greedy=True)
 
     # Check that 'new_cap' matches 'manual_cap'
     assert result_df['new_cap'].equals(manual_pre_det_greedy_df['manual_cap'])
@@ -122,7 +122,7 @@ def test_pre_det_deployment_linear():
 
     # Call the pre_det_deployment function with greedy=False
     result_df = dep.pre_det_deployment(pre_det_dep_df_linear, 'test_cap',
-                                        ad_reactors, greedy=False)
+                                       ad_reactors, greedy=False)
 
     # Check that 'new_cap' matches 'manual_cap'
     assert result_df['new_cap'].equals(pre_det_linear_df['manual_cap'])
@@ -170,7 +170,7 @@ def test_rand_greedy_deployment():
 
     # Call the rand_deployment function
     result_df = dep.rand_greedy_deployment(rand_greedy_dep_df, 'test_cap',
-                                            ad_reactors, set_seed=True)
+                                           ad_reactors, set_seed=True)
 
     # Check that 'new_cap' matches 'manual_cap'
     assert result_df['new_cap'].equals(manual_rand_greedy_df['manual_cap'])
