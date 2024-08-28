@@ -222,7 +222,7 @@ def pre_det_deployment(df, base_col, ar_dict, greedy=True):
                             # Check if the cap will be exceeded by adding
                             # another reactor.
                             if ar_dict[reactor][3][year] >= \
-                            (df.loc[year, f'num_{reactor}'] + 1):
+                                (df.loc[year, f'num_{reactor}'] + 1):
                                 df.loc[year, f'num_{reactor}'] += 1
                                 # Update remaining capacity to be met.
                                 cap_difference -= ar_dict[reactor][0]
@@ -478,7 +478,7 @@ def analyze_algorithm(df, base, proj, ar_dict):
     for reactor in ar_dict.keys():
         total_reactor_cap = df[f'{reactor}_cap'].sum()
         percent_reactor_cap = (1 -
-                               (total_cap_sum - total_reactor_cap)/
+                               (total_cap_sum - total_reactor_cap) /
                                total_cap_sum) * 100
         percent_provided[reactor] = percent_reactor_cap
 
@@ -494,4 +494,3 @@ def analyze_algorithm(df, base, proj, ar_dict):
     }
 
     return results
-
