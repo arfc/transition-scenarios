@@ -1,21 +1,22 @@
-path = os.path.realpath(__file__)
-sys.path.append(os.path.dirname(os.path.dirname(path)))
-import deployment_script as dep
 import os
 import sys
 import pytest
 import numpy as np
 import pandas as pd
+path = os.path.realpath(__file__)
+sys.path.append(os.path.dirname(os.path.dirname(path)))
+import deployment_script as dep
+
 
 ad_reactors = {
     'ReactorBig': [80, 1, 6, [1, 2, 1, 2, 1, 2, 1, 2, 1]],
-    'ReactorMedium':[20, 1, 4, 'no_dist'],
+    'ReactorMedium': [20, 1, 4, 'no_dist'],
     'ReactorSmall': [5, 1, 2, 'no_dist']}
 # {reactor: [Power (MWe), capacity_factor (%),
 # lifetime (yr), distribution (default='no_dist')]}
 
 test_dict = {
-    'Year':[2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024],
+    'Year': [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024],
     'test_cap': [20, 79, 80, 81, 220, 640, 693, 950, 700]}
 test_df = pd.DataFrame.from_dict(test_dict)
 
@@ -34,9 +35,9 @@ def test_direct_decom():
         'ReactorBigDecom': [0, 0, 0, 0, 0, 0, 0, 0, 1]}
     # result of greedy function using the direct_decom function
 
-    assert all(decom_df['manual_decom'][i] == \
-        decom_df['ReactorBigDecom'][i] \
-            for i in range(len(decom_df['manual_decom'])))
+    assert all(decom_df['manual_decom'][i] ==
+                decom_df['ReactorBigDecom'][i]
+                for i in range(len(decom_df['manual_decom'])))
 
 
 def test_num_react_to_cap():
@@ -47,9 +48,9 @@ def test_num_react_to_cap():
         'manual_cap': [0, 0, 80, 80, 160, 640, 640, 880, 720],
         'new_cap': [0, 0, 80, 80, 160, 640, 640, 880, 720]}
 
-    assert all(react_to_cap_df['manual_cap'][i] == \
-        react_to_cap_df['new_cap'][i] \
-            for i in range(len(react_to_cap_df['manual_cap'])))
+    assert all(react_to_cap_df['manual_cap'][i] ==
+                react_to_cap_df['new_cap'][i]
+                for i in range(len(react_to_cap_df['manual_cap'])))
 
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
@@ -98,7 +99,7 @@ def test_pre_det_deployment_greedy():
 
     # Call the pre_det_deployment function with greedy=True
     result_df = dep.pre_det_deployment(pre_det_dep_df_greedy, 'test_cap',
-        ad_reactors, greedy=True)
+                                        ad_reactors, greedy=True)
 
     # Check that 'new_cap' matches 'manual_cap'
     assert result_df['new_cap'].equals(manual_pre_det_greedy_df['manual_cap'])
@@ -121,7 +122,7 @@ def test_pre_det_deployment_linear():
 
     # Call the pre_det_deployment function with greedy=False
     result_df = dep.pre_det_deployment(pre_det_dep_df_linear, 'test_cap',
-        ad_reactors, greedy=False)
+                                        ad_reactors, greedy=False)
 
     # Check that 'new_cap' matches 'manual_cap'
     assert result_df['new_cap'].equals(pre_det_linear_df['manual_cap'])
@@ -145,7 +146,7 @@ def test_rand_deployment():
 
     # Call the rand_deployment function
     result_df = dep.rand_deployment(rand_dep_df, 'test_cap',
-        ad_reactors, set_seed=True)
+                                    ad_reactors, set_seed=True)
 
     # Check that 'new_cap' matches 'manual_cap'
     assert result_df['new_cap'].equals(manual_rand_df['manual_cap'])
@@ -169,7 +170,7 @@ def test_rand_greedy_deployment():
 
     # Call the rand_deployment function
     result_df = dep.rand_greedy_deployment(rand_greedy_dep_df, 'test_cap',
-         ad_reactors, set_seed=True)
+                                            ad_reactors, set_seed=True)
 
     # Check that 'new_cap' matches 'manual_cap'
     assert result_df['new_cap'].equals(manual_rand_greedy_df['manual_cap'])

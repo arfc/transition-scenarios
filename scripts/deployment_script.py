@@ -359,8 +359,10 @@ def rand_greedy_deployment(df, base_col, ar_dict, set_seed):
     # populate the greedy reactor column
     for year in range(len(df[base_col])):
         for reactor in ar_dict.keys():
-            df.loc[year,f'greedy_num_{reactor}'] = df.loc[year,f'num_{reactor}'] - df.loc[year,f'rand_num_{reactor}']
-            df.loc[year, f'new_cap'] += df.loc[year,f'{reactor}_cap']
+            df.loc[year,f'greedy_num_{reactor}'] = df.loc[year, \
+                f'num_{reactor}'] \
+                    - df.loc[year,f'rand_num_{reactor}']
+            df.loc[year, f'new_cap'] += df.loc[year, f'{reactor}_cap']
 
     return df
 
@@ -385,7 +387,6 @@ def simple_diff(df, base, proj):
     return df[proj] - df[base]
 
 
-
 def calc_percentage(df, base):
     """
     Calculate the percentage difference between proj and base.
@@ -398,7 +399,6 @@ def calc_percentage(df, base):
         The name of the base capacity column in the DataFrame.
     """
     return (df['difference'] / df[base]) * 100
-
 
 
 def analyze_algorithm(df, base, proj, ar_dict):
@@ -423,15 +423,15 @@ def analyze_algorithm(df, base, proj, ar_dict):
     Returns
     -------
     above_count: int
-        The number of times the deployed capacity exceeds the desired capacity.
+        The number of times the deployed capacity exceeds desired capacity.
     below_count: int
-        The number of times the deployed capacity is below the desired capacity.
+        The number of times the deployed capacity is below desired capacity.
     equal_count: int
-        The number of times the deployed capacity equals the desired capacity.
+        The number of times the deployed capacity equals desired capacity.
     above_percentage: float
-        The percent of times the deployed capacity exceeds the desired capacity.
+        The percent of times the deployed capacity exceeds desired capacity.
     below_percentage: float
-        The percent of times the deployed capacity is below the desired
+        The percent of times the deployed capacity is below desired
         capacity.
     total_above: int
         The excess of deployed capacity.
@@ -461,7 +461,8 @@ def analyze_algorithm(df, base, proj, ar_dict):
     total_cap_sum = df['total_cap'].sum()
     for reactor in ar_dict.keys():
         total_reactor_cap = df[f'{reactor}_cap'].sum()
-        percent_reactor_cap = (1 - (total_cap_sum - total_reactor_cap)/total_cap_sum) * 100
+        percent_reactor_cap = (1 - \
+            (total_cap_sum - total_reactor_cap)/total_cap_sum) * 100
         percent_provided[reactor] = percent_reactor_cap
 
     results = {
@@ -476,3 +477,4 @@ def analyze_algorithm(df, base, proj, ar_dict):
     }
 
     return results
+
