@@ -7,9 +7,8 @@ import math  # for rounding ceiling and floor
 from datetime import datetime  # for random seed generation
 
 
-
-
 # # # # # # # # # # # # Constituent Functions # # # # # # # # # # #
+
 
 def direct_decom(df, ar_dict):
     """
@@ -35,12 +34,15 @@ def direct_decom(df, ar_dict):
                 pass
             else:
                 # tracks the number of decommissioned reactors
-                df.loc[decom_year, f'{reactor}Decom'] += df.loc[year, f'num_{reactor}']
+                df.loc[decom_year, f'{reactor}Decom'] += \
+                    df.loc[year, f'num_{reactor}']
 
                 # construct new reactors to replace the decommissioned ones
-                df.loc[decom_year, f'num_{reactor}'] += df.loc[year, f'num_{reactor}']
+                df.loc[decom_year, f'num_{reactor}'] += \
+                    df.loc[year, f'num_{reactor}']
 
     return df
+
 
 def num_react_to_cap(df, ar_dict):
     """
@@ -66,7 +68,9 @@ def num_react_to_cap(df, ar_dict):
 
     for reactor in ar_dict.keys():
         # New capacity calculations.
-        df[f'new_{reactor}_cap'] = (df[f'num_{reactor}'] - df[f'{reactor}Decom']) * ar_dict[f'{reactor}'][0]
+        df[f'new_{reactor}_cap'] = (df[f'num_{reactor}'] -
+                                    df[f'{reactor}Decom']) * \
+                                    ar_dict[f'{reactor}'][0]
         df['new_cap'] += df[f'new_{reactor}_cap']
 
         # Total capacity calculations.
@@ -82,8 +86,8 @@ def num_react_to_cap(df, ar_dict):
 # 2. Pre-determined distributions: one or more reactors have a preset
 #   distribution, and a smaller capacity model fills in the gaps.
 # 2.b Deployment Cap [extension of 2]: there is a single-number capacity for
-#   one or more of the reactor models. * there is no function for this, just use
-#   a constant distribution.
+#   one or more of the reactor models. * there is no function for this, just
+#   use a constant distribution.
 # 3. Random Deployment: uses a date and hour as seed to randomly sample the
 #   reactors list.
 # 4. Initially Random, Greedy: randomly deploys reactors until a reactor bigger
@@ -92,14 +96,17 @@ def num_react_to_cap(df, ar_dict):
 
 def greedy_deployment(df, base_col, ar_dict):
     """
-    In this greedy deployment, we will deploy the largest capacity reactor first until another deployment will exceed the desired capacity then the next largest capacity reactor is deployed and so on.
+    In this greedy deployment, we will deploy the largest capacity reactor
+    first until another deployment will exceed the desired capacity then the
+    next largest capacity reactor is deployed and so on.
 
     Parameters
     ----------
     df: pandas dataframe
         The dataframe of capacity information
     base_col: str
-        The string name corresponding to the column of capacity that the algorithm is deploying reactors to meet
+        The string name corresponding to the column of capacity that the
+        algorithm is deploying reactors to meet
     ar_dict: dictionary
         A dictionary of reactors with information of the form:
         {reactor: [Power (MWe), capacity_factor (%), lifetime (yr)]}
@@ -129,7 +136,7 @@ def greedy_deployment(df, base_col, ar_dict):
     # Now calculate the total capacity each year (includes capacity from a
     # replacement reactor that is new that year, but not new overall because it
     # is replacing itself).
-    df  = num_react_to_cap(df, ar_dict)
+    df = num_react_to_cap(df, ar_dict)
 
     return df
 
@@ -169,7 +176,7 @@ def pre_det_deployment(df, base_col, ar_dict, greedy=True):
         else:
             pass
 
-    if greedy == True:
+    if greedy is True:
         for year in range(len(df[base_col])):
             cap_difference = df[base_col][year].copy()
             for reactor in ar_dict.keys():
@@ -182,8 +189,10 @@ def pre_det_deployment(df, base_col, ar_dict, greedy=True):
                     # Check if the desired amount is greater than the cap.
                     if most_reactors >= ar_dict[reactor][3][year]:
                         # If so, we will only deploy up to the cap.
-                        cap_difference -= ar_dict[reactor][3][year] * ar_dict[reactor][0]
-                        df.loc[year, f'num_{reactor}'] += ar_dict[reactor][3][year]
+                        cap_difference -= ar_dict[reactor][3][year] \
+                                          * ar_dict[reactor][0]
+                        df.loc[year, f'num_{reactor}'] += \
+                            ar_dict[reactor][3][year]
                     # If the desired is less than the cap, then we'll deploy a
                     # greedy amount of reactors.
                     else:
@@ -212,7 +221,8 @@ def pre_det_deployment(df, base_col, ar_dict, greedy=True):
                         if type(ar_dict[reactor][3]) == list:
                             # Check if the cap will be exceeded by adding
                             # another reactor.
-                            if ar_dict[reactor][3][year] >= (df.loc[year,f'num_{reactor}'] + 1):
+                            if ar_dict[reactor][3][year] >= \
+                            (df.loc[year, f'num_{reactor}'] + 1):
                                 df.loc[year, f'num_{reactor}'] += 1
                                 # Update remaining capacity to be met.
                                 cap_difference -= ar_dict[reactor][0]
@@ -228,18 +238,23 @@ def pre_det_deployment(df, base_col, ar_dict, greedy=True):
     # Now calculate the total capacity each year (includes capacity from a
     # replacement reactor that is new that year, but not new overall because it
     # is replacing itself).
-    df  = num_react_to_cap(df, ar_dict)
+    df = num_react_to_cap(df, ar_dict)
 
     return df
 
 
-def rand_deployment(df, base_col, ar_dict, set_seed=False, rough=True, tolerance=5):
+def rand_deployment(df, base_col, ar_dict,
+                    set_seed=False, rough=True, tolerance=5):
     """
-    This function randomly deploys reactors from the dictionary of reactors to meet a capacity need.
+    This function randomly deploys reactors from the dictionary of
+    reactors to meet a capacity need.
 
     There are two implementations:
-    1) rough (rough=True): if a reactor greater than the remaining capacity is proposed, the deployment ends.
-    2) [IN-PROGRESS] complete (rough=False): the algorithm keeps trying to deploy randomly selected reactors until the capacity demand has been met.
+    1) rough (rough=True): if a reactor greater than the remaining
+    capacity is proposed, the deployment ends.
+    2) [IN-PROGRESS] complete (rough=False): the algorithm keeps
+    trying to deploy randomly selected reactors until the capacity demand
+    has been met.
 
     Parameters
     ----------
@@ -275,7 +290,7 @@ def rand_deployment(df, base_col, ar_dict, set_seed=False, rough=True, tolerance
         # I set the limit this way so that something close to 0 could still
         # deploy the smallest reactor.
 
-        if set_seed == False:
+        if set_seed is False:
             # sample random number based on time
             c = datetime.now()
             real_seed = int(c.strftime('%y%m%d%H%M%S'))
@@ -285,7 +300,7 @@ def rand_deployment(df, base_col, ar_dict, set_seed=False, rough=True, tolerance
         rng = np.random.default_rng(seed=real_seed)
 
         while years_capacity > -(ar_dict[list(ar_dict.keys())[-1]][0] + 1):
-            rand_reactor = rng.integers(0,len(ar_dict.keys()))
+            rand_reactor = rng.integers(0, len(ar_dict.keys()))
 
             # identify random reactor
             deployed = list(ar_dict.keys())[rand_reactor]
@@ -309,14 +324,15 @@ def rand_deployment(df, base_col, ar_dict, set_seed=False, rough=True, tolerance
     # Now calculate the total capacity each year (includes capacity from a
     # replacement reactor that is new that year, but not new overall because it
     # is replacing itself).
-    df  = num_react_to_cap(df, ar_dict)
+    df = num_react_to_cap(df, ar_dict)
 
     return df
 
 
 def rand_greedy_deployment(df, base_col, ar_dict, set_seed):
     """
-    This function combines the rough random and greedy deployments to fill in any gaps caused by the roughness.
+    This function combines the rough random and greedy deployments
+    to fill in any gaps caused by the roughness.
 
     Parameters
     ----------
@@ -353,15 +369,15 @@ def rand_greedy_deployment(df, base_col, ar_dict, set_seed):
     # Now we will use the remaining cap column with a greedy deployment.
     df = greedy_deployment(df, 'remaining_cap', ar_dict)
 
-    #reset the total capacity column
+    # reset the total capacity column
     df['new_cap'] = 0
 
     # populate the greedy reactor column
     for year in range(len(df[base_col])):
         for reactor in ar_dict.keys():
-            df.loc[year,f'greedy_num_{reactor}'] = df.loc[year, \
-                f'num_{reactor}'] \
-                    - df.loc[year,f'rand_num_{reactor}']
+            df.loc[year, f'greedy_num_{reactor}'] = \
+                   df.loc[year, f'num_{reactor}'] \
+                   - df.loc[year, f'rand_num_{reactor}']
             df.loc[year, f'new_cap'] += df.loc[year, f'{reactor}_cap']
 
     return df
@@ -461,8 +477,9 @@ def analyze_algorithm(df, base, proj, ar_dict):
     total_cap_sum = df['total_cap'].sum()
     for reactor in ar_dict.keys():
         total_reactor_cap = df[f'{reactor}_cap'].sum()
-        percent_reactor_cap = (1 - \
-            (total_cap_sum - total_reactor_cap)/total_cap_sum) * 100
+        percent_reactor_cap = (1 -
+                               (total_cap_sum - total_reactor_cap)/
+                               total_cap_sum) * 100
         percent_provided[reactor] = percent_reactor_cap
 
     results = {
