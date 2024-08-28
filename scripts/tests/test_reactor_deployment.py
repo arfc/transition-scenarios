@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 path = os.path.realpath(__file__)
 sys.path.append(os.path.dirname(os.path.dirname(path)))
-import deployment_script as dep
+import reactor_deployment as dep
 
 
 ad_reactors = {
