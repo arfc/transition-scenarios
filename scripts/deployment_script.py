@@ -222,7 +222,7 @@ def pre_det_deployment(df, base_col, ar_dict, greedy=True):
                             # Check if the cap will be exceeded by adding
                             # another reactor.
                             if ar_dict[reactor][3][year] >= \
-                                (df.loc[year, f'num_{reactor}'] + 1):
+                              (df.loc[year, f'num_{reactor}'] + 1):
                                 df.loc[year, f'num_{reactor}'] += 1
                                 # Update remaining capacity to be met.
                                 cap_difference -= ar_dict[reactor][0]
