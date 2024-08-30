@@ -22,15 +22,23 @@ def direct_decom(df, ar_dict):
     ar_dict: dictionary
         A dictionary of reactors with information of the form:
         {reactor: [Power (MWe), capacity_factor (%), lifetime (yr)]}
+
+    Returns
+    -------
+    df: pandas dataframe
+        The dataframe of capacity information with the decommissioned reactors.
     """
+
+    # define number of years
+    num_years = len(df['Year'])
 
     # now we are going to note when reactors are decommissioned
     for reactor in ar_dict.keys():
         # create a decommissioning column
         df[f'{reactor}Decom'] = 0
-        for year in range(len(df['Year'])):
+        for year in range(num_years):
             decom_year = year + ar_dict[reactor][2]
-            if decom_year >= len(df['Year']):
+            if decom_year >= num_years:
                 pass
             else:
                 # tracks the number of decommissioned reactors
@@ -57,6 +65,11 @@ def num_react_to_cap(df, ar_dict):
     ar_dict: dictionary
         A dictionary of reactors with information of the form:
         {reactor: [Power (MWe), capacity_factor (%), lifetime (yr)]}
+
+    Returns
+    -------
+    df: pandas dataframe
+        The dataframe of capacity information with the new columns.
     """
 
     if 'total_cap' not in df:
@@ -76,6 +89,35 @@ def num_react_to_cap(df, ar_dict):
         # Total capacity calculations.
         df[f'{reactor}_cap'] = df[f'num_{reactor}'] * ar_dict[f'{reactor}'][0]
         df['total_cap'] += df[f'{reactor}_cap']
+
+    return df
+
+
+def reactor_columns(df, ar_dict):
+    """
+    This function takes in a dataframe and the dictionary of reactors,
+    and creates columns for each reactor.
+
+    Parameters
+    ----------
+    df: pandas dataframe
+        The dataframe of capacity information.
+    ar_dict: dictionary
+        A dictionary of reactors with information of the form:
+        {reactor: [Power (MWe), capacity_factor (%), lifetime (yr)]}
+
+    Returns
+    -------
+    df: pandas dataframe
+        The dataframe of capacity information with columns for each reactor.
+    """
+
+    # Initialize the number of reactor columns.
+    for reactor in ar_dict.keys():
+        if f'num_{reactor}' not in df:
+            df[f'num_{reactor}'] = 0
+        else:
+            pass
 
     return df
 
@@ -110,13 +152,15 @@ def greedy_deployment(df, base_col, ar_dict):
     ar_dict: dictionary
         A dictionary of reactors with information of the form:
         {reactor: [Power (MWe), capacity_factor (%), lifetime (yr)]}
+
+    Returns
+    -------
+    df: pandas dataframe
+        The dataframe of capacity information with the deployed reactors.
     """
 
-    for reactor in ar_dict.keys():
-        if f'num_{reactor}' not in df:
-            df[f'num_{reactor}'] = 0
-        else:
-            pass
+    # Initialize the number of reactor columns.
+    df = reactor_columns(df, ar_dict)
 
     for year in range(len(df[base_col])):
         remaining_cap = df[base_col][year].copy()
@@ -152,6 +196,8 @@ def pre_det_deployment(df, base_col, ar_dict, greedy=True):
     2) linear (greedy=False): wherein the capped reactors are cyclically
     deployed until they hit their individual cap.
 
+    Parameters
+    ----------
     df: pandas dataframe
         The dataframe of capacity information.
     base_col: str
@@ -168,13 +214,14 @@ def pre_det_deployment(df, base_col, ar_dict, greedy=True):
     greedy: bool
         A True/False value that determines whether the initial deployment is
         greedy or linear.
+
+    Returns
+    -------
+    df: pandas dataframe
+        The dataframe of capacity information with the deployed reactors.
     """
     # initialize the number of reactor columns
-    for reactor in ar_dict.keys():
-        if f'num_{reactor}' not in df:
-            df[f'num_{reactor}'] = 0
-        else:
-            pass
+    df = reactor_columns(df, ar_dict)
 
     if greedy is True:
         for year in range(len(df[base_col])):
@@ -276,14 +323,15 @@ def rand_deployment(df, base_col, ar_dict,
         The capacity tolerance to which reactors are deployed in the complete
         deployment case (i.e., when rough=False). Without this, convergence
         is tricky to achieve.
+
+    Returns
+    -------
+    df: pandas dataframe
+        The dataframe of capacity information with the deployed reactors.
     """
 
     # initialize the number of reactor columns
-    for reactor in ar_dict.keys():
-        if f'num_{reactor}' not in df:
-            df[f'num_{reactor}'] = 0
-        else:
-            pass
+    df = reactor_columns(df, ar_dict)
 
     for year in range(len(df[base_col])):
         years_capacity = df[base_col][year]
@@ -312,7 +360,7 @@ def rand_deployment(df, base_col, ar_dict,
                 elif rough is False:
                     # for a more accurate, but much much longer run
                     # todo, finish this ensuring it can converge
-                    print('This feature is unstable.')
+                    raise NotImplementedError('This feature is unstable.')
                     continue
             else:
                 df.loc[year, f'num_{deployed}'] += 1
@@ -329,7 +377,7 @@ def rand_deployment(df, base_col, ar_dict,
     return df
 
 
-def rand_greedy_deployment(df, base_col, ar_dict, set_seed):
+def rand_greedy_deployment(df, base_col, ar_dict, set_seed=False):
     """
     This function combines the rough random and greedy deployments
     to fill in any gaps caused by the roughness.
@@ -347,13 +395,14 @@ def rand_greedy_deployment(df, base_col, ar_dict, set_seed):
     set_seed: bool
         A True/False value that determines whether the seed used for the random
         number is set or varies based on time.
+
+    Returns
+    -------
+    df: pandas dataframe
+        The dataframe of capacity information with the deployed reactors.
     """
     # Initialize the number of reactor columns.
-    for reactor in ar_dict.keys():
-        if f'num_{reactor}' not in df:
-            df[f'num_{reactor}'] = 0
-        else:
-            pass
+    df = reactor_columns(df, ar_dict)
 
     # First we will apply the rough random.
     df = rand_deployment(df, base_col, ar_dict, set_seed, rough=True)
@@ -438,23 +487,25 @@ def analyze_algorithm(df, base, proj, ar_dict):
 
     Returns
     -------
-    above_count: int
-        The number of times the deployed capacity exceeds desired capacity.
-    below_count: int
-        The number of times the deployed capacity is below desired capacity.
-    equal_count: int
-        The number of times the deployed capacity equals desired capacity.
-    above_percentage: float
-        The percent of times the deployed capacity exceeds desired capacity.
-    below_percentage: float
-        The percent of times the deployed capacity is below desired
-        capacity.
-    total_above: int
-        The excess of deployed capacity.
-    total_below: int
-        The dearth of deployed capacity.
-    percent_provided: dict
-        The percent of the deployed capacity that comes from each reactor.
+    results: dict
+        A dictionary of the results of the analysis.
+        above_count: int
+            The number of times the deployed capacity exceeds desired capacity.
+        below_count: int
+            The number of times the deployed capacity is below desired capacity.
+        equal_count: int
+            The number of times the deployed capacity equals desired capacity.
+        above_percentage: float
+            The percent of times the deployed capacity exceeds desired capacity.
+        below_percentage: float
+            The percent of times the deployed capacity is below desired
+            capacity.
+        total_above: int
+            The excess of deployed capacity.
+        total_below: int
+            The dearth of deployed capacity.
+        percent_provided: dict
+            The percent of the deployed capacity that comes from each reactor.
     """
 
     df['difference'] = df.apply(simple_diff, base=base, proj=proj, axis=1)
