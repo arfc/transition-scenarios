@@ -492,11 +492,13 @@ def analyze_algorithm(df, base, proj, ar_dict):
         above_count: int
             The number of times the deployed capacity exceeds desired capacity.
         below_count: int
-            The number of times the deployed capacity is below desired capacity.
+            The number of times the deployed capacity is below
+            desired capacity.
         equal_count: int
             The number of times the deployed capacity equals desired capacity.
         above_percentage: float
-            The percent of times the deployed capacity exceeds desired capacity.
+            The percent of times the deployed capacity exceeds
+            desired capacity.
         below_percentage: float
             The percent of times the deployed capacity is below desired
             capacity.
