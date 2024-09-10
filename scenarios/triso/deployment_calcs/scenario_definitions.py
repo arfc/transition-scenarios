@@ -10,5 +10,8 @@ lwr_capacity_factor = 0.925  # [%]
 # starts in 2030, you would put 2029.
 transition_year = 2029  # [yr]
 
-# define each reactor individually, in order from most power to least (the functions rely on this)
-ad_reactors = {'Xe100': [80, 1, 60, 'no_dist'], 'MMR': [5, 1, 20, 'no_dist']}  # {reactor: [Power (MWe), capacity_factor (%), lifetime (yr), distribution (default='no_dist')]}
+# define each reactor individually, in order from most power to least (the
+# functions rely on this)
+ad_reactors = {'Xe100': [80, 1, 60, 'no_dist'], 'MMR': [5, 1, 20, 'no_dist']}
+# {reactor: [Power (MWe), capacity_factor (%), lifetime (yr), distribution
+# (default='no_dist')]}
