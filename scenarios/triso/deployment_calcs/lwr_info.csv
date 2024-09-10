@@ -1,0 +1,121 @@
+,Reactor name,State,Reactor type,Reactor vendora,Core size (number of assemblies),Startup date (year) b,License expiration (year),Actual retirement (year)
+0,Arkansas Nuclear One 1,AR,PWR,B&W,177,1974,2034,
+1,Arkansas Nuclear One 2,AR,PWR,CE,177,1978,2038,
+2,Beaver Valley 1,PA,PWR,WE,157,1976,2036,
+3,Beaver Valley 2,PA,PWR,WE,157,1987,2047,
+4,Big Rock Point,MI,BWR,GE,84,1964,,1997
+5,Braidwood 1,IL,PWR,WE,193,1987,2046,
+6,Braidwood 2,IL,PWR,WE,193,1988,2047,
+7,Browns Ferry 1,AL,BWR,GE,764,1973,2033,
+8,Browns Ferry 2,AL,BWR,GE,764,1974,2034,
+9,Browns Ferry 3,AL,BWR,GE,764,1976,2036,
+10,Brunswick 1,NC,BWR,GE,560,1976,2036,
+11,Brunswick 2,NC,BWR,GE,560,1974,2034,
+12,Byron 1,IL,PWR,WE,193,1985,2044,
+13,Byron 2,IL,PWR,WE,193,1987,2046,
+14,Callaway,MO,PWR,WE,193,1984,2044,
+15,Calvert Cliffs 1,MD,PWR,CE,217,1974,2034,
+16,Calvert Cliffs 2,MD,PWR,CE,217,1976,2036,
+17,Catawba 1,SC,PWR,WE,193,1985,2043,
+18,Catawba 2,SC,PWR,WE,193,1986,2043,
+19,Clinton 1,IL,BWR,GE,624,1987,2026,
+20,Columbia,WA,BWR,GE,764,1984,2043,
+21,Comanche Peak 1,TX,PWR,WE,193,1990,2030,
+22,Comanche Peak 2,TX,PWR,WE,193,1993,2033,
+23,Cook 1,MI,PWR,WE,193,1974,2034,
+24,Cook 2,MI,PWR,WE,193,1977,2037,
+25,Cooper Station,NE,BWR,GE,548,1974,2034,
+26,Crystal River 3,FL,PWR,B&W,177,1976,,2013
+27,Davis-Besse,OH,PWR,B&W,177,1977,2037,
+28,Diablo Canyon 1,CA,PWR,WE,193,1984,2024,
+29,Diablo Canyon 2,CA,PWR,WE,193,1985,2025,
+30,Dresden 1,IL,BWR,GE,464,1959,2029,1978
+31,Dresden 2,IL,BWR,GE,724,1969,2029,
+32,Dresden 3,IL,BWR,GE,724,1971,2031,
+33,Duane Arnold,IA,BWR,GE,368,1974,2034,2020*
+34,Enrico Fermi 2,MI,BWR,GE,764,1985,2045,
+35,Farley 1,AL,PWR,WE,157,1977,2037,
+36,Farley 2,AL,PWR,WE,157,1981,2041,
+37,Fitzpatrick,NY,BWR,GE,560,1974,2034,
+38,Fort Calhoun,NE,PWR,CE,133,1973,,2016
+39,Ginna,NY,PWR,WE,121,1969,2029,
+40,Grand Gulf 1,MS,BWR,GE,800,1984,2044,
+41,Haddam Neck,CT,PWR,WE,157,1967,,1996
+42,Harris 1,NC,PWR,WE,157,1986,2046,
+43,Hatch 1,GA,BWR,GE,560,1974,2034,
+44,Hatch 2,GA,BWR,GE,560,1978,2038,
+45,Hope Creek,NJ,BWR,GE,764,1986,2046,
+46,Humboldt Bay,CA,BWR,GE,184,1962,,1976
+47,Indian Point 1,NY,PWR,B&W,120,1962,2013,1974
+48,Indian Point 2,NY,PWR,WE,193,1973,2024,2020*
+49,Indian Point 3,NY,PWR,WE,193,1975,2025,
+50,Kewaunee,WI,PWR,WE,121,1973,2033,2013
+51,La Crosse,WI,BWR,AC,72,1967,,1987
+52,LaSalle County 1,IL,BWR,GE,764,1982,2042,
+53,LaSalle County 2,IL,BWR,GE,764,1983,2043,
+54,Limerick 1,PA,BWR,GE,764,1985,2044,
+55,Limerick 2,PA,BWR,GE,764,1989,2049,
+56,Maine Yankee,ME,PWR,CE,217,1973,,1996
+57,McGuire 1,NC,PWR,WE,193,1981,2041,
+58,McGuire 2,NC,PWR,WE,193,1983,2043,
+59,Millstone 1,CT,BWR,GE,580,1970,,1998
+60,Millstone 2,CT,PWR,CE,217,1975,2035,
+61,Millstone 3,CT,PWR,WE,193,1986,2045,
+62,Monticello,MN,BWR,GE,484,1970,2030,
+63,Nine Mile Point 1,NY,BWR,GE,532,1969,2029,
+64,Nine Mile Point 2,NY,BWR,GE,764,1987,2046,
+65,North Anna 1,VA,PWR,WE,157,1978,2038,
+66,North Anna 2,VA,PWR,WE,157,1980,2040,
+67,Oconee 1,SC,PWR,B&W,177,1973,2033,
+68,Oconee 2,SC,PWR,B&W,177,1973,2033,
+69,Oconee 3,SC,PWR,B&W,177,1974,2034,
+70,Oyster Creek,NJ,BWR,GE,560,1969,2029,2018
+71,Palisades,MI,PWR,CE,204,1971,2031,
+72,Palo Verde 1,AZ,PWR,CE,241,1985,2045,
+73,Palo Verde 2,AZ,PWR,CE,241,1986,2046,
+74,Palo Verde 3,AZ,PWR,CE,241,1987,2047,
+75,Peach Bottom 2,PA,BWR,GE,764,1973,2053*,
+76,Peach Bottom 3,PA,BWR,GE,764,1974,2054*,
+77,Perry 1,OH,BWR,GE,748,1986,2026,
+78,Pilgrim 1,MA,BWR,GE,580,1972,2032,2019*
+79,Point Beach 1,WI,PWR,WE,121,1970,2030,
+80,Point Beach 2,WI,PWR,WE,121,1971,2033,
+81,Prairie Island 1,MN,PWR,WE,121,1973,2033,
+82,Prairie Island 2,MN,PWR,WE,121,1974,2034,
+83,Quad Cities 1,IL,BWR,GE,724,1972,2032,
+84,Quad Cities 2,IL,BWR,GE,724,1972,2032,
+85,Rancho Seco,CA,PWR,B&W,177,1974,,1989
+86,River Bend 1,LA,BWR,GE,624,1985,2045*,
+87,Robinson 2,SC,PWR,WE,157,1970,2030,
+88,Salem 1,NJ,PWR,WE,193,1976,2036,
+89,Salem 2,NJ,PWR,WE,193,1981,2040,
+90,San Onofre 1,CA,PWR,WE,157,1967,,1992
+91,San Onofre 2,CA,PWR,CE,217,1982,,2013
+92,San Onofre 3,CA,PWR,CE,217,1982,,2013
+93,Seabrook,NH,PWR,WE,193,1990,2050*,
+94,Sequoyah 1,TN,PWR,WE,193,1980,2040,
+95,Sequoyah 2,TN,PWR,WE,193,1981,2041,
+96,South Texas 1,TX,PWR,WE,193,1988,2047,
+97,South Texas 2,TX,PWR,WE,193,1989,2048,
+98,St. Lucie 1,FL,PWR,CE,217,1976,2036,
+99,St. Lucie 2,FL,PWR,CE,217,1983,2043,
+100,Summer 1,SC,PWR,WE,157,1982,2042,
+101,Surry 1,VA,PWR,WE,157,1972,2032,
+102,Surry 2,VA,PWR,WE,157,1973,2033,
+103,Susquehanna 1,PA,BWR,GE,764,1982,2042,
+104,Susquehanna 2,PA,BWR,GE,764,1984,2044,
+105,Three Mile Island 1,PA,PWR,B&W,177,1974,2034,2019*
+106,Trojan,OR,PWR,WE,193,1975,,1992
+107,Turkey Point 3,FL,PWR,WE,157,1972,2052*,
+108,Turkey Point 4,FL,PWR,WE,157,1973,2053*,
+109,Vermont Yankee,VT,BWR,GE,368,1972,2032,2014
+110,Vogtle 1,GA,PWR,WE,193,1987,2047,
+111,Vogtle 2,GA,PWR,WE,193,1989,2049,
+112,Waterford 3,LA,PWR,CE,217,1985,2044*,
+113,Watts Bar 1,TN,PWR,WE,193,1996,2035,
+114,Watts Bar 2,TN,PWR,WE,193,2016,2055,
+115,Wolf Creek 1,KS,PWR,WE,193,1985,2045,
+116,Yankee Rowe,MA,PWR,WE,76,1960,,1991
+117,Zion 1,IL,PWR,WE,193,1973,,1997
+118,Zion 2,IL,PWR,WE,193,1973,,1996
+119,"Source: U.S. Energy Information Administration, Form GC-859, Nuclear Fuel Data Survey (2018)  Note: PWR = Pressurized-water reactor; BWR = Boiling-water reactor; and N/A = Not applicable.  a Vendor codes are as follows: AC=Allis Chalmers; B&W=Babcock & Wilcox Company; CE=ABB Combustion Engineering; GE=GE Nuclear Energy; and WE= Westinghouse.  b Startup Date is the date the unit received its full-power operating license.  *EIA updated these dates after data collection was completed for Form GC-859.","Source: U.S. Energy Information Administration, Form GC-859, Nuclear Fuel Data Survey (2018)  Note: PWR = Pressurized-water reactor; BWR = Boiling-water reactor; and N/A = Not applicable.  a Vendor codes are as follows: AC=Allis Chalmers; B&W=Babcock & Wilcox Company; CE=ABB Combustion Engineering; GE=GE Nuclear Energy; and WE= Westinghouse.  b Startup Date is the date the unit received its full-power operating license.  *EIA updated these dates after data collection was completed for Form GC-859.","Source: U.S. Energy Information Administration, Form GC-859, Nuclear Fuel Data Survey (2018)  Note: PWR = Pressurized-water reactor; BWR = Boiling-water reactor; and N/A = Not applicable.  a Vendor codes are as follows: AC=Allis Chalmers; B&W=Babcock & Wilcox Company; CE=ABB Combustion Engineering; GE=GE Nuclear Energy; and WE= Westinghouse.  b Startup Date is the date the unit received its full-power operating license.  *EIA updated these dates after data collection was completed for Form GC-859.","Source: U.S. Energy Information Administration, Form GC-859, Nuclear Fuel Data Survey (2018)  Note: PWR = Pressurized-water reactor; BWR = Boiling-water reactor; and N/A = Not applicable.  a Vendor codes are as follows: AC=Allis Chalmers; B&W=Babcock & Wilcox Company; CE=ABB Combustion Engineering; GE=GE Nuclear Energy; and WE= Westinghouse.  b Startup Date is the date the unit received its full-power operating license.  *EIA updated these dates after data collection was completed for Form GC-859.","Source: U.S. Energy Information Administration, Form GC-859, Nuclear Fuel Data Survey (2018)  Note: PWR = Pressurized-water reactor; BWR = Boiling-water reactor; and N/A = Not applicable.  a Vendor codes are as follows: AC=Allis Chalmers; B&W=Babcock & Wilcox Company; CE=ABB Combustion Engineering; GE=GE Nuclear Energy; and WE= Westinghouse.  b Startup Date is the date the unit received its full-power operating license.  *EIA updated these dates after data collection was completed for Form GC-859.","Source: U.S. Energy Information Administration, Form GC-859, Nuclear Fuel Data Survey (2018)  Note: PWR = Pressurized-water reactor; BWR = Boiling-water reactor; and N/A = Not applicable.  a Vendor codes are as follows: AC=Allis Chalmers; B&W=Babcock & Wilcox Company; CE=ABB Combustion Engineering; GE=GE Nuclear Energy; and WE= Westinghouse.  b Startup Date is the date the unit received its full-power operating license.  *EIA updated these dates after data collection was completed for Form GC-859.","Source: U.S. Energy Information Administration, Form GC-859, Nuclear Fuel Data Survey (2018)  Note: PWR = Pressurized-water reactor; BWR = Boiling-water reactor; and N/A = Not applicable.  a Vendor codes are as follows: AC=Allis Chalmers; B&W=Babcock & Wilcox Company; CE=ABB Combustion Engineering; GE=GE Nuclear Energy; and WE= Westinghouse.  b Startup Date is the date the unit received its full-power operating license.  *EIA updated these dates after data collection was completed for Form GC-859.","Source: U.S. Energy Information Administration, Form GC-859, Nuclear Fuel Data Survey (2018)  Note: PWR = Pressurized-water reactor; BWR = Boiling-water reactor; and N/A = Not applicable.  a Vendor codes are as follows: AC=Allis Chalmers; B&W=Babcock & Wilcox Company; CE=ABB Combustion Engineering; GE=GE Nuclear Energy; and WE= Westinghouse.  b Startup Date is the date the unit received its full-power operating license.  *EIA updated these dates after data collection was completed for Form GC-859."
