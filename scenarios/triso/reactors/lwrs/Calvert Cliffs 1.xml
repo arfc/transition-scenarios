@@ -5,8 +5,8 @@
     <Reactor>
       <fuel_incommods>  <val>fresh_uox</val> </fuel_incommods>
       <fuel_inrecipes>  <val>fresh_uox</val> </fuel_inrecipes>
-      <fuel_outcommods> <val>spent_uox</val> </fuel_outcommods>
-      <fuel_outrecipes> <val>spent_uox</val> </fuel_outrecipes>
+      <fuel_outcommods> <val>used_uox</val> </fuel_outcommods>
+      <fuel_outrecipes> <val>used_uox</val> </fuel_outrecipes>
       <cycle_time>18</cycle_time>
       <refuel_time>1</refuel_time>
       <assem_size>427.38589211618256</assem_size>
