@@ -10,5 +10,3 @@ sphinx
 m2r2
 fuzzywuzzy
 progress
-xmltodict
-cymetric
