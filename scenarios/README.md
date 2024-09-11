@@ -77,3 +77,9 @@ Verification of Fuel Cycle Modeling by Bae et al. (2018)
 Related to:
 
   J. W. Bae et al., “Standardized Verification of the Cyclus Fuel Cycle Simulator,” Zenodo, vol. GitHub, Sep. 2018, doi: 10.5281/zenodo.1419110.
+
+
+## triso
+Summary: This directory contains the input files and
+analysis of multiple transition scenarios to TRi-structural ISOtopic (TRISO)
+-fueled advanced reactors.
