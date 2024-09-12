@@ -1,121 +1,124 @@
-Reactor name,State,Reactor type,Reactor vendora,Core size (number of assemblies),Startup date (year) b,License expiration (year),Actual retirement (year),power_cap
-Arkansas Nuclear One 1,AR,PWR,B&W,177,1974,2034,,836.0
-Arkansas Nuclear One 2,AR,PWR,CE,177,1978,2038,,988.0
-Beaver Valley 1,PA,PWR,WE,157,1976,2036,,908.0
-Beaver Valley 2,PA,PWR,WE,157,1987,2047,,905.0
-Big Rock Point,MI,BWR,GE,84,1964,,1997,67.0
-Braidwood 1,IL,PWR,WE,193,1987,2046,,1194.0
-Braidwood 2,IL,PWR,WE,193,1988,2047,,1160.0
-Browns Ferry 1,AL,BWR,GE,764,1973,2033,,1200.0
-Browns Ferry 2,AL,BWR,GE,764,1974,2034,,1200.0
-Browns Ferry 3,AL,BWR,GE,764,1976,2036,,1210.0
-Brunswick 1,NC,BWR,GE,560,1976,2036,,938.0
-Brunswick 2,NC,BWR,GE,560,1974,2034,,932.0
-Byron 1,IL,PWR,WE,193,1985,2044,,1164.0
-Byron 2,IL,PWR,WE,193,1987,2046,,1136.0
-Callaway,MO,PWR,WE,193,1984,2044,,1215.0
-Calvert Cliffs 1,MD,PWR,CE,217,1974,2034,,877.0
-Calvert Cliffs 2,MD,PWR,CE,217,1976,2036,,855.0
-Catawba 1,SC,PWR,WE,193,1985,2043,,1160.0
-Catawba 2,SC,PWR,WE,193,1986,2043,,1150.0
-Clinton 1,IL,BWR,GE,624,1987,2026,,1062.0
-Columbia,WA,BWR,GE,764,1984,2043,,1131.0
-Comanche Peak 1,TX,PWR,WE,193,1990,2030,,1205.0
-Comanche Peak 2,TX,PWR,WE,193,1993,2033,,1195.0
-Cook 1,MI,PWR,WE,193,1974,2034,,1030.0
-Cook 2,MI,PWR,WE,193,1977,2037,,1168.0
-Cooper Station,NE,BWR,GE,548,1974,2034,,769.0
-Crystal River 3,FL,PWR,B&W,177,1976,,2013,860.0
-Davis-Besse,OH,PWR,B&W,177,1977,2037,,894.0
-Diablo Canyon 1,CA,PWR,WE,193,1984,2024,,1138.0
-Diablo Canyon 2,CA,PWR,WE,193,1985,2025,,1118.0
-Dresden 1,IL,BWR,GE,464,1959,2029,1978,197.0
-Dresden 2,IL,BWR,GE,724,1969,2029,,894.0
-Dresden 3,IL,BWR,GE,724,1971,2031,,879.0
-Duane Arnold,IA,BWR,GE,368,1974,2034,2020,601.0
-Enrico Fermi 2,MI,BWR,GE,764,1985,2045,,1115.0
-Farley 1,AL,PWR,WE,157,1977,2037,,874.0
-Farley 2,AL,PWR,WE,157,1981,2041,,883.0
-Fitzpatrick,NY,BWR,GE,560,1974,2034,,813.0
-Fort Calhoun,NE,PWR,CE,133,1973,,2016,482.0
-Ginna,NY,PWR,WE,121,1969,2029,,560.0
-Grand Gulf 1,MS,BWR,GE,800,1984,2044,,1401.0
-Haddam Neck,CT,PWR,WE,157,1967,,1996,560.0
-Harris 1,NC,PWR,WE,157,1986,2046,,964.0
-Hatch 1,GA,BWR,GE,560,1974,2034,,876.0
-Hatch 2,GA,BWR,GE,560,1978,2038,,883.0
-Hope Creek,NJ,BWR,GE,764,1986,2046,,1172.0
-Humboldt Bay,CA,BWR,GE,184,1962,,1976,63.0
-Indian Point 1,NY,PWR,B&W,120,1962,2013,1974,257.0
-Indian Point 2,NY,PWR,WE,193,1973,2024,2020,998.0
-Indian Point 3,NY,PWR,WE,193,1975,2025,,1030.0
-Kewaunee,WI,PWR,WE,121,1973,2033,2013,566.0
-La Crosse,WI,BWR,AC,72,1967,,1987,48.0
-LaSalle County 1,IL,BWR,GE,764,1982,2042,,1137.0
-LaSalle County 2,IL,BWR,GE,764,1983,2043,,1140.0
-Limerick 1,PA,BWR,GE,764,1985,2044,,1134.0
-Limerick 2,PA,BWR,GE,764,1989,2049,,1134.0
-Maine Yankee,ME,PWR,CE,217,1973,,1996,860.0
-McGuire 1,NC,PWR,WE,193,1981,2041,,1158.0
-McGuire 2,NC,PWR,WE,193,1983,2043,,1158.0
-Millstone 1,CT,BWR,GE,580,1970,,1998,641.0
-Millstone 2,CT,PWR,CE,217,1975,2035,,869.0
-Millstone 3,CT,PWR,WE,193,1986,2045,,1210.0
-Monticello,MN,BWR,GE,484,1970,2030,,628.0
-Nine Mile Point 1,NY,BWR,GE,532,1969,2029,,613.0
-Nine Mile Point 2,NY,BWR,GE,764,1987,2046,,1277.0
-North Anna 1,VA,PWR,WE,157,1978,2038,,948.0
-North Anna 2,VA,PWR,WE,157,1980,2040,,944.0
-Oconee 1,SC,PWR,B&W,177,1973,2033,,847.0
-Oconee 2,SC,PWR,B&W,177,1973,2033,,848.0
-Oconee 3,SC,PWR,B&W,177,1974,2034,,859.0
-Oyster Creek,NJ,BWR,GE,560,1969,2029,2018,619.0
-Palisades,MI,PWR,CE,204,1971,2031,,805.0
-Palo Verde 1,AZ,PWR,CE,241,1985,2045,,1311.0
-Palo Verde 2,AZ,PWR,CE,241,1986,2046,,1314.0
-Palo Verde 3,AZ,PWR,CE,241,1987,2047,,1312.0
-Peach Bottom 2,PA,BWR,GE,764,1973,2053*,,1300.0
-Peach Bottom 3,PA,BWR,GE,764,1974,2054*,,1331.0
-Perry 1,OH,BWR,GE,748,1986,2026,,1240.0
-Pilgrim 1,MA,BWR,GE,580,1972,2032,2019,677.0
-Point Beach 1,WI,PWR,WE,121,1970,2030,,591.0
-Point Beach 2,WI,PWR,WE,121,1971,2033,,591.0
-Prairie Island 1,MN,PWR,WE,121,1973,2033,,522.0
-Prairie Island 2,MN,PWR,WE,121,1974,2034,,519.0
-Quad Cities 1,IL,BWR,GE,724,1972,2032,,908.0
-Quad Cities 2,IL,BWR,GE,724,1972,2032,,911.0
-Rancho Seco,CA,PWR,B&W,177,1974,,1989,873.0
-River Bend 1,LA,BWR,GE,624,1985,2045*,,967.0
-Robinson 2,SC,PWR,WE,157,1970,2030,,741.0
-Salem 1,NJ,PWR,WE,193,1976,2036,,1169.0
-Salem 2,NJ,PWR,WE,193,1981,2040,,1158.0
-San Onofre 1,CA,PWR,WE,157,1967,,1992,436.0
-San Onofre 2,CA,PWR,CE,217,1982,,2013,1070.0
-San Onofre 3,CA,PWR,CE,217,1982,,2013,1080.0
-Seabrook,NH,PWR,WE,193,1990,2050*,,1246.0
-Sequoyah 1,TN,PWR,WE,193,1980,2040,,1152.0
-Sequoyah 2,TN,PWR,WE,193,1981,2041,,1139.0
-South Texas 1,TX,PWR,WE,193,1988,2047,,1280.0
-South Texas 2,TX,PWR,WE,193,1989,2048,,1280.0
-St. Lucie 1,FL,PWR,CE,217,1976,2036,,981.0
-St. Lucie 2,FL,PWR,CE,217,1983,2043,,987.0
-Summer 1,SC,PWR,WE,157,1982,2042,,973.0
-Surry 1,VA,PWR,WE,157,1972,2032,,838.0
-Surry 2,VA,PWR,WE,157,1973,2033,,838.0
-Susquehanna 1,PA,BWR,GE,764,1982,2042,,1257.0
-Susquehanna 2,PA,BWR,GE,764,1984,2044,,1257.0
-Three Mile Island 1,PA,PWR,B&W,177,1974,2034,2019,819.0
-Trojan,OR,PWR,WE,193,1975,,1992,1095.0
-Turkey Point 3,FL,PWR,WE,157,1972,2052*,,837.0
-Turkey Point 4,FL,PWR,WE,157,1973,2053*,,821.0
-Vermont Yankee,VT,BWR,GE,368,1972,2032,2014,605.0
-Vogtle 1,GA,PWR,WE,193,1987,2047,,1150.0
-Vogtle 2,GA,PWR,WE,193,1989,2049,,1117.0
-Waterford 3,LA,PWR,CE,217,1985,2044*,,1168.0
-Watts Bar 1,TN,PWR,WE,193,1996,2035,,1157.0
-Watts Bar 2,TN,PWR,WE,193,2016,2055,,1164.0
-Wolf Creek 1,KS,PWR,WE,193,1985,2045,,1200.0
-Yankee Rowe,MA,PWR,WE,76,1960,,1991,167.0
-Zion 1,IL,PWR,WE,193,1973,,1997,1040.0
-Zion 2,IL,PWR,WE,193,1973,,1996,1040.0
-"Source: U.S. Energy Information Administration, Form GC-859, Nuclear Fuel Data Survey (2018)  Note: PWR = Pressurized-water reactor; BWR = Boiling-water reactor; and N/A = Not applicable.  a Vendor codes are as follows: AC=Allis Chalmers; B&W=Babcock & Wilcox Company; CE=ABB Combustion Engineering; GE=GE Nuclear Energy; and WE= Westinghouse.  b Startup Date is the date the unit received its full-power operating license.  *EIA updated these dates after data collection was completed for Form GC-859.","Source: U.S. Energy Information Administration, Form GC-859, Nuclear Fuel Data Survey (2018)  Note: PWR = Pressurized-water reactor; BWR = Boiling-water reactor; and N/A = Not applicable.  a Vendor codes are as follows: AC=Allis Chalmers; B&W=Babcock & Wilcox Company; CE=ABB Combustion Engineering; GE=GE Nuclear Energy; and WE= Westinghouse.  b Startup Date is the date the unit received its full-power operating license.  *EIA updated these dates after data collection was completed for Form GC-859.","Source: U.S. Energy Information Administration, Form GC-859, Nuclear Fuel Data Survey (2018)  Note: PWR = Pressurized-water reactor; BWR = Boiling-water reactor; and N/A = Not applicable.  a Vendor codes are as follows: AC=Allis Chalmers; B&W=Babcock & Wilcox Company; CE=ABB Combustion Engineering; GE=GE Nuclear Energy; and WE= Westinghouse.  b Startup Date is the date the unit received its full-power operating license.  *EIA updated these dates after data collection was completed for Form GC-859.","Source: U.S. Energy Information Administration, Form GC-859, Nuclear Fuel Data Survey (2018)  Note: PWR = Pressurized-water reactor; BWR = Boiling-water reactor; and N/A = Not applicable.  a Vendor codes are as follows: AC=Allis Chalmers; B&W=Babcock & Wilcox Company; CE=ABB Combustion Engineering; GE=GE Nuclear Energy; and WE= Westinghouse.  b Startup Date is the date the unit received its full-power operating license.  *EIA updated these dates after data collection was completed for Form GC-859.","Source: U.S. Energy Information Administration, Form GC-859, Nuclear Fuel Data Survey (2018)  Note: PWR = Pressurized-water reactor; BWR = Boiling-water reactor; and N/A = Not applicable.  a Vendor codes are as follows: AC=Allis Chalmers; B&W=Babcock & Wilcox Company; CE=ABB Combustion Engineering; GE=GE Nuclear Energy; and WE= Westinghouse.  b Startup Date is the date the unit received its full-power operating license.  *EIA updated these dates after data collection was completed for Form GC-859.","Source: U.S. Energy Information Administration, Form GC-859, Nuclear Fuel Data Survey (2018)  Note: PWR = Pressurized-water reactor; BWR = Boiling-water reactor; and N/A = Not applicable.  a Vendor codes are as follows: AC=Allis Chalmers; B&W=Babcock & Wilcox Company; CE=ABB Combustion Engineering; GE=GE Nuclear Energy; and WE= Westinghouse.  b Startup Date is the date the unit received its full-power operating license.  *EIA updated these dates after data collection was completed for Form GC-859.","Source: U.S. Energy Information Administration, Form GC-859, Nuclear Fuel Data Survey (2018)  Note: PWR = Pressurized-water reactor; BWR = Boiling-water reactor; and N/A = Not applicable.  a Vendor codes are as follows: AC=Allis Chalmers; B&W=Babcock & Wilcox Company; CE=ABB Combustion Engineering; GE=GE Nuclear Energy; and WE= Westinghouse.  b Startup Date is the date the unit received its full-power operating license.  *EIA updated these dates after data collection was completed for Form GC-859.","Source: U.S. Energy Information Administration, Form GC-859, Nuclear Fuel Data Survey (2018)  Note: PWR = Pressurized-water reactor; BWR = Boiling-water reactor; and N/A = Not applicable.  a Vendor codes are as follows: AC=Allis Chalmers; B&W=Babcock & Wilcox Company; CE=ABB Combustion Engineering; GE=GE Nuclear Energy; and WE= Westinghouse.  b Startup Date is the date the unit received its full-power operating license.  *EIA updated these dates after data collection was completed for Form GC-859.",
+,Reactor name,State,Reactor type,Reactor vendora,Core size (number of assemblies),Startup date (year) b,License expiration (year),Actual retirement (year),power_cap
+0,Arkansas Nuclear One 1,AR,PWR,B&W,177,1974,2034,,836.0
+1,Arkansas Nuclear One 2,AR,PWR,CE,177,1978,2038,,988.0
+2,Beaver Valley 1,PA,PWR,WE,157,1976,2036,,908.0
+3,Beaver Valley 2,PA,PWR,WE,157,1987,2047,,905.0
+4,Big Rock Point,MI,BWR,GE,84,1964,,1997,67.0
+5,Braidwood 1,IL,PWR,WE,193,1987,2046,,1194.0
+6,Braidwood 2,IL,PWR,WE,193,1988,2047,,1160.0
+7,Browns Ferry 1,AL,BWR,GE,764,1973,2033,,1200.0
+8,Browns Ferry 2,AL,BWR,GE,764,1974,2034,,1200.0
+9,Browns Ferry 3,AL,BWR,GE,764,1976,2036,,1210.0
+10,Brunswick 1,NC,BWR,GE,560,1976,2036,,938.0
+11,Brunswick 2,NC,BWR,GE,560,1974,2034,,932.0
+12,Byron 1,IL,PWR,WE,193,1985,2044,,1164.0
+13,Byron 2,IL,PWR,WE,193,1987,2046,,1136.0
+14,Callaway,MO,PWR,WE,193,1984,2044,,1215.0
+15,Calvert Cliffs 1,MD,PWR,CE,217,1974,2034,,877.0
+16,Calvert Cliffs 2,MD,PWR,CE,217,1976,2036,,855.0
+17,Catawba 1,SC,PWR,WE,193,1985,2043,,1160.0
+18,Catawba 2,SC,PWR,WE,193,1986,2043,,1150.0
+19,Clinton 1,IL,BWR,GE,624,1987,2026,,1062.0
+20,Columbia,WA,BWR,GE,764,1984,2043,,1131.0
+21,Comanche Peak 1,TX,PWR,WE,193,1990,2030,,1205.0
+22,Comanche Peak 2,TX,PWR,WE,193,1993,2033,,1195.0
+23,Cook 1,MI,PWR,WE,193,1974,2034,,1030.0
+24,Cook 2,MI,PWR,WE,193,1977,2037,,1168.0
+25,Cooper Station,NE,BWR,GE,548,1974,2034,,769.0
+26,Crystal River 3,FL,PWR,B&W,177,1976,,2013,860.0
+27,Davis-Besse,OH,PWR,B&W,177,1977,2037,,894.0
+28,Diablo Canyon 1,CA,PWR,WE,193,1984,2024,,1138.0
+29,Diablo Canyon 2,CA,PWR,WE,193,1985,2025,,1118.0
+30,Dresden 1,IL,BWR,GE,464,1959,2029,1978,197.0
+31,Dresden 2,IL,BWR,GE,724,1969,2029,,894.0
+32,Dresden 3,IL,BWR,GE,724,1971,2031,,879.0
+33,Duane Arnold,IA,BWR,GE,368,1974,2034,2020,601.0
+34,Enrico Fermi 2,MI,BWR,GE,764,1985,2045,,1115.0
+35,Farley 1,AL,PWR,WE,157,1977,2037,,874.0
+36,Farley 2,AL,PWR,WE,157,1981,2041,,883.0
+37,Fitzpatrick,NY,BWR,GE,560,1974,2034,,813.0
+38,Fort Calhoun,NE,PWR,CE,133,1973,,2016,482.0
+39,Ginna,NY,PWR,WE,121,1969,2029,,560.0
+40,Grand Gulf 1,MS,BWR,GE,800,1984,2044,,1401.0
+41,Haddam Neck,CT,PWR,WE,157,1967,,1996,560.0
+42,Harris 1,NC,PWR,WE,157,1986,2046,,964.0
+43,Hatch 1,GA,BWR,GE,560,1974,2034,,876.0
+44,Hatch 2,GA,BWR,GE,560,1978,2038,,883.0
+45,Hope Creek,NJ,BWR,GE,764,1986,2046,,1172.0
+46,Humboldt Bay,CA,BWR,GE,184,1962,,1976,63.0
+47,Indian Point 1,NY,PWR,B&W,120,1962,2013,1974,257.0
+48,Indian Point 2,NY,PWR,WE,193,1973,2024,2020,998.0
+49,Indian Point 3,NY,PWR,WE,193,1975,2025,,1030.0
+50,Kewaunee,WI,PWR,WE,121,1973,2033,2013,566.0
+51,La Crosse,WI,BWR,AC,72,1967,,1987,48.0
+52,LaSalle County 1,IL,BWR,GE,764,1982,2042,,1137.0
+53,LaSalle County 2,IL,BWR,GE,764,1983,2043,,1140.0
+54,Limerick 1,PA,BWR,GE,764,1985,2044,,1134.0
+55,Limerick 2,PA,BWR,GE,764,1989,2049,,1134.0
+56,Maine Yankee,ME,PWR,CE,217,1973,,1996,860.0
+57,McGuire 1,NC,PWR,WE,193,1981,2041,,1158.0
+58,McGuire 2,NC,PWR,WE,193,1983,2043,,1158.0
+59,Millstone 1,CT,BWR,GE,580,1970,,1998,641.0
+60,Millstone 2,CT,PWR,CE,217,1975,2035,,869.0
+61,Millstone 3,CT,PWR,WE,193,1986,2045,,1210.0
+62,Monticello,MN,BWR,GE,484,1970,2030,,628.0
+63,Nine Mile Point 1,NY,BWR,GE,532,1969,2029,,613.0
+64,Nine Mile Point 2,NY,BWR,GE,764,1987,2046,,1277.0
+65,North Anna 1,VA,PWR,WE,157,1978,2038,,948.0
+66,North Anna 2,VA,PWR,WE,157,1980,2040,,944.0
+67,Oconee 1,SC,PWR,B&W,177,1973,2033,,847.0
+68,Oconee 2,SC,PWR,B&W,177,1973,2033,,848.0
+69,Oconee 3,SC,PWR,B&W,177,1974,2034,,859.0
+70,Oyster Creek,NJ,BWR,GE,560,1969,2029,2018,619.0
+71,Palisades,MI,PWR,CE,204,1971,2031,,805.0
+72,Palo Verde 1,AZ,PWR,CE,241,1985,2045,,1311.0
+73,Palo Verde 2,AZ,PWR,CE,241,1986,2046,,1314.0
+74,Palo Verde 3,AZ,PWR,CE,241,1987,2047,,1312.0
+75,Peach Bottom 2,PA,BWR,GE,764,1973,2053*,,1300.0
+76,Peach Bottom 3,PA,BWR,GE,764,1974,2054*,,1331.0
+77,Perry 1,OH,BWR,GE,748,1986,2026,,1240.0
+78,Pilgrim 1,MA,BWR,GE,580,1972,2032,2019,677.0
+79,Point Beach 1,WI,PWR,WE,121,1970,2030,,591.0
+80,Point Beach 2,WI,PWR,WE,121,1971,2033,,591.0
+81,Prairie Island 1,MN,PWR,WE,121,1973,2033,,522.0
+82,Prairie Island 2,MN,PWR,WE,121,1974,2034,,519.0
+83,Quad Cities 1,IL,BWR,GE,724,1972,2032,,908.0
+84,Quad Cities 2,IL,BWR,GE,724,1972,2032,,911.0
+85,Rancho Seco,CA,PWR,B&W,177,1974,,1989,873.0
+86,River Bend 1,LA,BWR,GE,624,1985,2045*,,967.0
+87,Robinson 2,SC,PWR,WE,157,1970,2030,,741.0
+88,Salem 1,NJ,PWR,WE,193,1976,2036,,1169.0
+89,Salem 2,NJ,PWR,WE,193,1981,2040,,1158.0
+90,San Onofre 1,CA,PWR,WE,157,1967,,1992,436.0
+91,San Onofre 2,CA,PWR,CE,217,1982,,2013,1070.0
+92,San Onofre 3,CA,PWR,CE,217,1982,,2013,1080.0
+93,Seabrook,NH,PWR,WE,193,1990,2050*,,1246.0
+94,Sequoyah 1,TN,PWR,WE,193,1980,2040,,1152.0
+95,Sequoyah 2,TN,PWR,WE,193,1981,2041,,1139.0
+96,South Texas 1,TX,PWR,WE,193,1988,2047,,1280.0
+97,South Texas 2,TX,PWR,WE,193,1989,2048,,1280.0
+98,St. Lucie 1,FL,PWR,CE,217,1976,2036,,981.0
+99,St. Lucie 2,FL,PWR,CE,217,1983,2043,,987.0
+100,Summer 1,SC,PWR,WE,157,1982,2042,,973.0
+101,Surry 1,VA,PWR,WE,157,1972,2032,,838.0
+102,Surry 2,VA,PWR,WE,157,1973,2033,,838.0
+103,Susquehanna 1,PA,BWR,GE,764,1982,2042,,1257.0
+104,Susquehanna 2,PA,BWR,GE,764,1984,2044,,1257.0
+105,Three Mile Island 1,PA,PWR,B&W,177,1974,2034,2019,819.0
+106,Trojan,OR,PWR,WE,193,1975,,1992,1095.0
+107,Turkey Point 3,FL,PWR,WE,157,1972,2052*,,837.0
+108,Turkey Point 4,FL,PWR,WE,157,1973,2053*,,821.0
+109,Vermont Yankee,VT,BWR,GE,368,1972,2032,2014,605.0
+110,Vogtle 1,GA,PWR,WE,193,1987,2047,,1150.0
+111,Vogtle 2,GA,PWR,WE,193,1989,2049,,1117.0
+112,Waterford 3,LA,PWR,CE,217,1985,2044*,,1168.0
+113,Watts Bar 1,TN,PWR,WE,193,1996,2035,,1157.0
+114,Watts Bar 2,TN,PWR,WE,193,2016,2055,,1164.0
+115,Wolf Creek 1,KS,PWR,WE,193,1985,2045,,1200.0
+116,Yankee Rowe,MA,PWR,WE,76,1960,,1991,167.0
+117,Zion 1,IL,PWR,WE,193,1973,,1997,1040.0
+118,Zion 2,IL,PWR,WE,193,1973,,1996,1040.0
+119,Vogtle 3,GA,PWR,WE,193,2023,2062,,1117.0
+120,Vogtle 3,GA,PWR,WE,193,2023,2062,,1117.0
+121,Vogtle 4,GA,PWR,WE,193,2024,2063,,1117.0
+122,Vogtle 4,GA,PWR,WE,193,2024,2063,,1117.0
