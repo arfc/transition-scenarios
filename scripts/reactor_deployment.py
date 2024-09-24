@@ -136,7 +136,7 @@ def reactor_columns(df, ar_dict):
 #   than the remaining capacity is proposed for each year, then fills remaining
 #   capacity with a greedy algorithm.
 
-def greedy_deployment(df, base_col, ar_dict):
+def greedy_deployment(df, base_col, ar_dict, dep_start_year):
     """
     In this greedy deployment, we will deploy the largest capacity reactor
     first until another deployment will exceed the desired capacity then the
@@ -152,17 +152,26 @@ def greedy_deployment(df, base_col, ar_dict):
     ar_dict: dictionary
         A dictionary of reactors with information of the form:
         {reactor: [Power (MWe), capacity_factor (%), lifetime (yr)]}
+    dep_start_year: int
+        The year to start the deployment of advanced reactors.
 
     Returns
     -------
     df: pandas dataframe
         The dataframe of capacity information with the deployed reactors.
+
+    Notes
+    -----
+    * This function assumes that there is a column called 'Year' that is not
+    the column of indices.
     """
 
     # Initialize the number of reactor columns.
     df = reactor_columns(df, ar_dict)
 
-    for year in range(len(df[base_col])):
+    start_index = df[df['Year'] == dep_start_year].index[0]
+
+    for year in range(start_index, len(df[base_col])):
         remaining_cap = df[base_col][year].copy()
         for reactor in ar_dict.keys():
             if ar_dict[reactor][0] > remaining_cap:
@@ -185,7 +194,7 @@ def greedy_deployment(df, base_col, ar_dict):
     return df
 
 
-def pre_det_deployment(df, base_col, ar_dict, greedy=True):
+def pre_det_deployment(df, base_col, ar_dict, dep_start_year, greedy=True):
     """
     This function allows the user to specify a distribution for reactor
     deployment for specific models.
@@ -195,6 +204,7 @@ def pre_det_deployment(df, base_col, ar_dict, greedy=True):
     its cap, then the next largest and so on.
     2) linear (greedy=False): wherein the capped reactors are cyclically
     deployed until they hit their individual cap.
+
 
     Parameters
     ----------
@@ -211,6 +221,8 @@ def pre_det_deployment(df, base_col, ar_dict, greedy=True):
         matching.
         * The function assumes that the distribution is at the third index
         (i.e., fourth spot).
+    dep_start_year: int
+        The year to start the deployment of advanced reactors.
     greedy: bool
         A True/False value that determines whether the initial deployment is
         greedy or linear.
@@ -219,12 +231,19 @@ def pre_det_deployment(df, base_col, ar_dict, greedy=True):
     -------
     df: pandas dataframe
         The dataframe of capacity information with the deployed reactors.
+
+    Notes
+    -----
+    * This function assumes that there is a column called 'Year' that is not
+    the column of indices.
     """
     # initialize the number of reactor columns
     df = reactor_columns(df, ar_dict)
 
+    start_index = df[df['Year'] == dep_start_year].index[0]
+
     if greedy is True:
-        for year in range(len(df[base_col])):
+        for year in range(start_index, len(df[base_col])):
             cap_difference = df[base_col][year].copy()
             for reactor in ar_dict.keys():
                 # The number of reactors you'd need to meet the remaining
@@ -252,7 +271,7 @@ def pre_det_deployment(df, base_col, ar_dict, greedy=True):
                     df.loc[year, f'num_{reactor}'] += most_reactors
     # Not greedy.
     else:
-        for year in range(len(df[base_col])):
+        for year in range(start_index, len(df[base_col])):
             cap_difference = df[base_col][year].copy()
             while cap_difference > 0:
                 for reactor in ar_dict.keys():
@@ -290,7 +309,7 @@ def pre_det_deployment(df, base_col, ar_dict, greedy=True):
     return df
 
 
-def rand_deployment(df, base_col, ar_dict,
+def rand_deployment(df, base_col, ar_dict, dep_start_year,
                     set_seed=False, rough=True, tolerance=5):
     """
     This function randomly deploys reactors from the dictionary of
@@ -313,6 +332,8 @@ def rand_deployment(df, base_col, ar_dict,
     ar_dict: dictionary
         A dictionary of reactors with information of the form:
         {reactor: [Power (MWe), capacity_factor (%), lifetime (yr)]}.
+    dep_start_year: int
+        The year to start the deployment of advanced reactors.
     set_seed: bool
         A True/False value that determines whether the seed used for the random
         number is set or varies based on time.
@@ -328,12 +349,19 @@ def rand_deployment(df, base_col, ar_dict,
     -------
     df: pandas dataframe
         The dataframe of capacity information with the deployed reactors.
+
+    Notes
+    -----
+    * This function assumes that there is a column called 'Year' that is not
+    the column of indices.
     """
 
     # initialize the number of reactor columns
     df = reactor_columns(df, ar_dict)
 
-    for year in range(len(df[base_col])):
+    start_index = df[df['Year'] == dep_start_year].index[0]
+
+    for year in range(start_index, len(df[base_col])):
         years_capacity = df[base_col][year]
         # I set the limit this way so that something close to 0 could still
         # deploy the smallest reactor.
@@ -377,7 +405,7 @@ def rand_deployment(df, base_col, ar_dict,
     return df
 
 
-def rand_greedy_deployment(df, base_col, ar_dict, set_seed=False):
+def rand_greedy_deployment(df, base_col, ar_dict, dep_start_year, set_seed=False):
     """
     This function combines the rough random and greedy deployments
     to fill in any gaps caused by the roughness.
@@ -392,6 +420,8 @@ def rand_greedy_deployment(df, base_col, ar_dict, set_seed=False):
     ar_dict: dictionary
         A dictionary of reactors with information of the form:
         {reactor: [Power (MWe), capacity_factor (%), lifetime (yr)]}.
+    dep_start_year: int
+        The year to start the deployment of advanced reactors.
     set_seed: bool
         A True/False value that determines whether the seed used for the random
         number is set or varies based on time.
@@ -400,12 +430,18 @@ def rand_greedy_deployment(df, base_col, ar_dict, set_seed=False):
     -------
     df: pandas dataframe
         The dataframe of capacity information with the deployed reactors.
+
+    Notes
+    -----
+    * This function assumes that there is a column called 'Year' that is not
+    the column of indices.
     """
     # Initialize the number of reactor columns.
     df = reactor_columns(df, ar_dict)
 
     # First we will apply the rough random.
-    df = rand_deployment(df, base_col, ar_dict, set_seed, rough=True)
+    df = rand_deployment(df, base_col, ar_dict,
+                         dep_start_year, set_seed, rough=True)
 
     # Now we will make a remaining cap column.
     df['remaining_cap'] = df[base_col] - df['new_cap']
@@ -416,7 +452,7 @@ def rand_greedy_deployment(df, base_col, ar_dict, set_seed=False):
         df[f'rand_num_{reactor}'] = df[f'num_{reactor}']
 
     # Now we will use the remaining cap column with a greedy deployment.
-    df = greedy_deployment(df, 'remaining_cap', ar_dict)
+    df = greedy_deployment(df, 'remaining_cap', ar_dict, dep_start_year)
 
     # reset the total capacity column
     df['new_cap'] = 0

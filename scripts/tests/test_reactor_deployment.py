@@ -68,7 +68,7 @@ def test_greedy_deployment():
     greedy_dist_df = pd.DataFrame(greedy_dist_df)
 
     calculated_greedy_df = dep.greedy_deployment(
-        test_df, 'test_cap', ad_reactors)
+        test_df, 'test_cap', ad_reactors, 2016)
 
     # Ensure 'new_cap' column exists in the result
     assert 'new_cap' in calculated_greedy_df.columns, \
@@ -99,7 +99,7 @@ def test_pre_det_deployment_greedy():
 
     # Call the pre_det_deployment function with greedy=True
     result_df = dep.pre_det_deployment(pre_det_dep_df_greedy, 'test_cap',
-                                       ad_reactors, greedy=True)
+                                       ad_reactors, 2016, greedy=True)
 
     # Check that 'new_cap' matches 'manual_cap'
     assert result_df['new_cap'].equals(manual_pre_det_greedy_df['manual_cap'])
@@ -122,7 +122,7 @@ def test_pre_det_deployment_linear():
 
     # Call the pre_det_deployment function with greedy=False
     result_df = dep.pre_det_deployment(pre_det_dep_df_linear, 'test_cap',
-                                       ad_reactors, greedy=False)
+                                       ad_reactors, 2016, greedy=False)
 
     # Check that 'new_cap' matches 'manual_cap'
     assert result_df['new_cap'].equals(pre_det_linear_df['manual_cap'])
@@ -146,7 +146,7 @@ def test_rand_deployment():
 
     # Call the rand_deployment function
     result_df = dep.rand_deployment(rand_dep_df, 'test_cap',
-                                    ad_reactors, set_seed=True)
+                                    ad_reactors, 2016, set_seed=True)
 
     # Check that 'new_cap' matches 'manual_cap'
     assert result_df['new_cap'].equals(manual_rand_df['manual_cap'])
@@ -170,7 +170,7 @@ def test_rand_greedy_deployment():
 
     # Call the rand_deployment function
     result_df = dep.rand_greedy_deployment(rand_greedy_dep_df, 'test_cap',
-                                           ad_reactors, set_seed=True)
+                                           ad_reactors, 2016, set_seed=True)
 
     # Check that 'new_cap' matches 'manual_cap'
     assert result_df['new_cap'].equals(manual_rand_greedy_df['manual_cap'])
