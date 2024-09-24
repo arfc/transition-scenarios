@@ -405,7 +405,8 @@ def rand_deployment(df, base_col, ar_dict, dep_start_year,
     return df
 
 
-def rand_greedy_deployment(df, base_col, ar_dict, dep_start_year, set_seed=False):
+def rand_greedy_deployment(df, base_col, ar_dict,
+                           dep_start_year, set_seed=False):
     """
     This function combines the rough random and greedy deployments
     to fill in any gaps caused by the roughness.
