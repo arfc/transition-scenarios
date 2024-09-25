@@ -6,7 +6,7 @@
 # Welcome to Transition Scenarios's documentation!
 
 ```{toctree}
-:maxdepth: 1
+:maxdepth: 2
 
 scripts_outline
 analysis_doc
@@ -21,6 +21,12 @@ predicting_the_past_import_doc
 random_lifetime_extension_doc
 transition_metrics_doc
 transition_plots_doc
+test_analysis_doc
+test_create_AR_DeployInst_doc
+test_dataframe_analysis_doc
+test_output_metrics_doc
+test_reactor_deployment_doc
+test_transition_metrics_doc
 ```
 
 # Indices and tables
