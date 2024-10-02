@@ -25,6 +25,7 @@ test_df = pd.DataFrame.from_dict(test_dict)
 # # # # # # # # # # # # Helper Functions # # # # # # # # # # #
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
+
 def test_capacity_increase_no_inc():
     """
     Create a no growth scenario to test the capacity increase function.
@@ -33,8 +34,10 @@ def test_capacity_increase_no_inc():
     no_growth_df = \
         dep.capacity_increase(no_growth_df, 'test_cap', 1, 2016, 2024)
 
-    assert all(test_df_cap['test_cap Inc 1'].values == \
-        np.array([20, 20, 20, 20, 20, 20, 20, 20, 20]))
+    assert all(
+                test_df_cap['test_cap Inc 1'].values ==
+                np.array([20, 20, 20, 20, 20, 20, 20, 20, 20]))
+
 
 def test_capacity_increase_200():
     """
@@ -44,8 +47,10 @@ def test_capacity_increase_200():
     no_growth_df = \
         dep.capacity_increase(no_growth_df, 'test_cap', 1, 2016, 2024)
 
-    assert all(test_df_cap['test_cap Inc 2'].values == \
-        np.array([20, 40, 80, 160, 320, 640, 1280, 2560, 5120]))
+    assert all(
+                test_df_cap['test_cap Inc 2'].values ==
+                np.array([20, 40, 80, 160, 320, 640, 1280, 2560, 5120]))
+
 
 def test_direct_decom():
     """

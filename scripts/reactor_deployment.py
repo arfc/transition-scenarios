@@ -40,7 +40,8 @@ def capacity_increase(df, base_col, rate, start_year, end_year):
     for year in range(df.index[0], start_year):
         df.loc[year, f"{base_col} Inc {rate}"] = df.loc[year, base_col]
 
-    df[f"New Capacity Inc {rate}"] = df[f"{base_col} Inc {rate}"] - df[base_col]
+    df[f"New Capacity Inc {rate}"] = \
+        df[f"{base_col} Inc {rate}"] - df[base_col]
 
     return df
 
