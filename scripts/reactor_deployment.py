@@ -8,7 +8,41 @@ from datetime import datetime  # for random seed generation
 
 
 # # # # # # # # # # # # Constituent Functions # # # # # # # # # # #
+def capacity_increase(df, base_col, rate, start_year, end_year):
+    """
+    This function takes in an increase rate, and creates a new column in the
+    dataframe populated with the increased capacity.
 
+    Parameters
+    ----------
+    df : pandas DataFrame
+        The dataframe to add the new column to.
+    base_col : str
+        The name of the column to use as the base capacity.
+        This column should contain the net capacity.
+    rate : float
+        The percentage of change in capacity year-to-year
+        (e.g. 1.01 for a 1% increase).
+    start_year : int
+        The year to start the increase.
+    end_year : int
+        The year to end the increase.
+
+    Returns
+    -------
+    df : pandas DataFrame
+        The dataframe with the new column added.
+    """
+    for year in range(start_year, end_year):
+        df.loc[year, f"{base_col} Inc {rate}"] = \
+            df.loc[start_year, base_col] * (rate)**(year - start_year)
+
+    for year in range(df.index[0], start_year):
+        df.loc[year, f"{base_col} Inc {rate}"] = df.loc[year, base_col]
+
+    df[f"New Capacity Inc {rate}"] = df[f"{base_col} Inc {rate}"] - df[base_col]
+
+    return df
 
 def direct_decom(df, ar_dict):
     """
