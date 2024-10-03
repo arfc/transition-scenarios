@@ -1,7 +1,7 @@
 # This file contains the definitions for the scenario calculations as shared
 # variables for the deployment calculations.
-sim_start_yr = 1965
-sim_end_yr = 2090
+sim_start_yr = 1959
+sim_end_yr = 2105
 
 # assume capacity factor for LWRs is the same, and constant
 lwr_capacity_factor = 0.925  # [%]
