@@ -9,7 +9,7 @@ of:
 
 ## Scenarios
 We have investigated several growth scenarios at a low, medium, and high
-scale based on different projections in the literature. The calculations for
+rates based on different projections in the literature. The calculations for
 these scenarios can be found in `deployment_calcs`, where there is a notebook
 for each level of growth.
 
