@@ -34,6 +34,7 @@ def test_pull_start_index():
 
     assert dep.pull_start_year(test_df, 2016) == start_year
 
+
 def test_capacity_increase_no_inc():
     """
     Create a no growth scenario to test the capacity increase function.
@@ -61,8 +62,10 @@ def test_capacity_increase_200():
 
 
 def test_direct_decom():
-    # Decommissioning test dictionary
-    # Based on the greedy algorithm
+    """
+    Test the direct decommissioning function.
+    The scenario is based on the greedy algorithm.
+    """
     decom_df = {
         'Year': [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024],
         'manual_decom': [0, 0, 0, 0, 0, 0, 0, 0, 1],
@@ -76,8 +79,10 @@ def test_direct_decom():
 
 
 def test_num_react_to_cap():
-    # Reactors to capacity test dictionary
-    # Based on the greedy algorithm
+    """
+    Test the reactors to capacity function.
+    The scenario is based on the greedy algorithm.
+    """
     react_to_cap_df = {
         'Year': [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024],
         'manual_cap': [0, 0, 80, 80, 160, 640, 640, 880, 720],
@@ -93,6 +98,9 @@ def test_num_react_to_cap():
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 def test_greedy_deployment():
+    """
+    Test the greedy deployment function.
+    """
     # Greedy distribution dictionary
     greedy_dist_df = {
         'Year': [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024],
@@ -120,6 +128,9 @@ def test_greedy_deployment():
 
 
 def test_pre_det_deployment_greedy():
+    """
+    Test the predetermined deployment function with greedy=True.
+    """
     # Define the expected DataFrame for the greedy case
     manual_pre_det_greedy_df = {
         'Year': [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024],
@@ -143,6 +154,9 @@ def test_pre_det_deployment_greedy():
 
 
 def test_pre_det_deployment_linear():
+    """
+    Test the predetermined deployment function with greedy=False.
+    """
     # Define the expected DataFrame for the linear case
     pre_det_linear_df = {
         'Year': [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024],
@@ -166,6 +180,9 @@ def test_pre_det_deployment_linear():
 
 
 def test_rand_deployment():
+    """
+    Test the random deployment function with set_seed=True.
+    """
     # Define the expected DataFrame for the random function
     manual_rand_df = {
         'Year': [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024],
@@ -190,6 +207,9 @@ def test_rand_deployment():
 
 
 def test_rand_greedy_deployment():
+    """
+    Test the random + greedy deployment function with set_seed=True.
+    """
     # Define the expected DataFrame for the random greedy function
     manual_rand_greedy_df = {
         'Year': [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024],
@@ -218,6 +238,9 @@ def test_rand_greedy_deployment():
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 def test_analyze_algorithm():
+    """
+    Test the analyze_algorithm function.
+    """
     # Create a sample DataFrame for testing
     data = {
         'Year': [2016, 2017, 2018],
