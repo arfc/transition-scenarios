@@ -61,7 +61,8 @@ def capacity_increase(df, base_col, rate, start_year, end_year):
                 (rate)**(row.name - start_year), axis=1
         )
 
-    # Apply lambda function for the range from the start of the DataFrame index to start_year
+    # Apply lambda function for the range from the start of the
+    # DataFrame index to start_year
     df.loc[df.index[0]:start_year-1, f"{base_col} Inc {rate}"] = \
         df.loc[df.index[0]:start_year-1].apply(
             lambda row: row[base_col], axis=1
