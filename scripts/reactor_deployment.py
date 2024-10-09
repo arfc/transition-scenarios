@@ -29,6 +29,7 @@ def pull_start_index(df, start_year):
 
     return start_index
 
+
 def capacity_increase(df, base_col, rate, start_year, end_year):
     """
     This function takes in an increase rate, and creates a new column in the
@@ -57,8 +58,8 @@ def capacity_increase(df, base_col, rate, start_year, end_year):
     # Apply lambda function for the range from start_year to end_year
     df.loc[start_year:end_year-1, f"{base_col} Inc {rate}"] = \
         df.loc[start_year:end_year-1].apply(
-            lambda row: df.loc[start_year, base_col] * \
-                (rate)**(row.name - start_year), axis=1
+            lambda row: df.loc[start_year, base_col] *
+            (rate)**(row.name - start_year), axis=1
         )
 
     # Apply lambda function for the range from the start of the
@@ -69,9 +70,11 @@ def capacity_increase(df, base_col, rate, start_year, end_year):
         )
 
     # Calculate the new capacity increase
-    df[f"New Capacity Inc {rate}"] = df[f"{base_col} Inc {rate}"] - df[base_col]
+    df[f"New Capacity Inc {rate}"] = \
+        df[f"{base_col} Inc {rate}"] - df[base_col]
 
     return df
+
 
 def direct_decom(df, ar_dict):
     """
