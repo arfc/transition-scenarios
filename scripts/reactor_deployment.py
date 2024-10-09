@@ -17,7 +17,7 @@ def direct_decom(df, ar_dict):
 
     Parameters
     ----------
-    df: pandas dataframe
+    df: :class:`pandas.DataFrame`
         The dataframe of capacity information
     ar_dict: dictionary
         A dictionary of reactors with information of the form:
@@ -25,7 +25,7 @@ def direct_decom(df, ar_dict):
 
     Returns
     -------
-    df: pandas dataframe
+    df: :class:`pandas.DataFrame`
         The dataframe of capacity information with the decommissioned reactors.
     """
 
@@ -60,7 +60,7 @@ def num_react_to_cap(df, ar_dict):
 
     Parameters
     ----------
-    df: pandas dataframe
+    df: :class:`pandas.DataFrame`
         The dataframe of capacity information
     ar_dict: dictionary
         A dictionary of reactors with information of the form:
@@ -68,7 +68,7 @@ def num_react_to_cap(df, ar_dict):
 
     Returns
     -------
-    df: pandas dataframe
+    df: :class:`pandas.DataFrame`
         The dataframe of capacity information with the new columns.
     """
 
@@ -100,7 +100,7 @@ def reactor_columns(df, ar_dict):
 
     Parameters
     ----------
-    df: pandas dataframe
+    df: :class:`pandas.DataFrame`
         The dataframe of capacity information.
     ar_dict: dictionary
         A dictionary of reactors with information of the form:
@@ -108,7 +108,7 @@ def reactor_columns(df, ar_dict):
 
     Returns
     -------
-    df: pandas dataframe
+    df: :class:`pandas.DataFrame`
         The dataframe of capacity information with columns for each reactor.
     """
 
@@ -144,7 +144,7 @@ def greedy_deployment(df, base_col, ar_dict, dep_start_year):
 
     Parameters
     ----------
-    df: pandas dataframe
+    df: :class:`pandas.DataFrame`
         The dataframe of capacity information
     base_col: str
         The string name corresponding to the column of capacity that the
@@ -157,7 +157,7 @@ def greedy_deployment(df, base_col, ar_dict, dep_start_year):
 
     Returns
     -------
-    df: pandas dataframe
+    df: :class:`pandas.DataFrame`
         The dataframe of capacity information with the deployed reactors.
 
     Notes
@@ -208,7 +208,7 @@ def pre_det_deployment(df, base_col, ar_dict, dep_start_year, greedy=True):
 
     Parameters
     ----------
-    df: pandas dataframe
+    df: :class:`pandas.DataFrame`
         The dataframe of capacity information.
     base_col: str
         The string name corresponding to the column of capacity that the
@@ -229,7 +229,7 @@ def pre_det_deployment(df, base_col, ar_dict, dep_start_year, greedy=True):
 
     Returns
     -------
-    df: pandas dataframe
+    df: :class:`pandas.DataFrame`
         The dataframe of capacity information with the deployed reactors.
 
     Notes
@@ -324,7 +324,7 @@ def rand_deployment(df, base_col, ar_dict, dep_start_year,
 
     Parameters
     ----------
-    df: pandas dataframe
+    df: :class:`pandas.DataFrame`
         The dataframe of capacity information.
     base_col: str
         The string name corresponding to the column of capacity that the
@@ -347,7 +347,7 @@ def rand_deployment(df, base_col, ar_dict, dep_start_year,
 
     Returns
     -------
-    df: pandas dataframe
+    df: :class:`pandas.DataFrame`
         The dataframe of capacity information with the deployed reactors.
 
     Notes
@@ -413,7 +413,7 @@ def rand_greedy_deployment(df, base_col, ar_dict,
 
     Parameters
     ----------
-    df: pandas dataframe
+    df: :class:`pandas.DataFrame`
         The dataframe of capacity information.
     base_col: str
         The string name corresponding to the column of capacity that the
@@ -429,7 +429,7 @@ def rand_greedy_deployment(df, base_col, ar_dict,
 
     Returns
     -------
-    df: pandas dataframe
+    df: :class:`pandas.DataFrame`
         The dataframe of capacity information with the deployed reactors.
 
     Notes
@@ -479,7 +479,7 @@ def simple_diff(df, base, proj):
 
     Parameters
     ----------
-    df: pd.DataFrame
+    df: :class:`pandas.DataFrame`
         The output pandas DataFrame from the deployment functions.
     base: str
         The name of the base capacity column in the DataFrame.
@@ -495,7 +495,7 @@ def calc_percentage(df, base):
 
     Parameters
     ----------
-    df: pd.DataFrame
+    df: :class:`pandas.DataFrame`
         The output pandas DataFrame from the deployment functions.
     base: str
         The name of the base capacity column in the DataFrame.
@@ -511,7 +511,7 @@ def analyze_algorithm(df, base, proj, ar_dict):
 
     Parameters
     ----------
-    df: pd.DataFrame
+    df: :class:`pandas.DataFrame`
         The output pandas DataFrame from the deployment functions.
     base: str
         The name of the base capacity column in the DataFrame.
