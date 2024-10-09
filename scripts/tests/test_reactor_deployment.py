@@ -25,6 +25,41 @@ test_df = pd.DataFrame.from_dict(test_dict)
 # # # # # # # # # # # # Helper Functions # # # # # # # # # # #
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
+def test_pull_start_index():
+    """
+    Pull the start index function where the start_year is the first
+    year in the dictionary.
+    """
+    start_year = test_df['Year'][0]
+
+    assert dep.pull_start_year(test_df, 2016) == start_year
+
+def test_capacity_increase_no_inc():
+    """
+    Create a no growth scenario to test the capacity increase function.
+    """
+    no_growth_df = test_df.copy()
+    no_growth_df = \
+        dep.capacity_increase(no_growth_df, 'test_cap', 1, 2016, 2024)
+
+    assert all(
+                test_df_cap['test_cap Inc 1'].values ==
+                np.array([20, 20, 20, 20, 20, 20, 20, 20, 20]))
+
+
+def test_capacity_increase_200():
+    """
+    Create a 200% growth scenario to test the capacity increase function.
+    """
+    no_growth_df = test_df.copy()
+    no_growth_df = \
+        dep.capacity_increase(no_growth_df, 'test_cap', 1, 2016, 2024)
+
+    assert all(
+                test_df_cap['test_cap Inc 2'].values ==
+                np.array([20, 40, 80, 160, 320, 640, 1280, 2560, 5120]))
+
+
 def test_direct_decom():
     # Decommissioning test dictionary
     # Based on the greedy algorithm

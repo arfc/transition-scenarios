@@ -8,7 +8,7 @@ from datetime import datetime  # for random seed generation
 
 
 # # # # # # # # # # # # Constituent Functions # # # # # # # # # # #
-def pull_start_year(df, start_year):
+def pull_start_index(df, start_year):
     """
     This function takes in a dataframe and a start year and returns the
     index of the start year.
@@ -232,7 +232,7 @@ def greedy_deployment(df, base_col, ar_dict, dep_start_year):
     # Initialize the number of reactor columns.
     df = reactor_columns(df, ar_dict)
 
-    start_index = pull_start_year(df, dep_start_year)
+    start_index = pull_start_index(df, dep_start_year)
 
     for year in range(start_index, len(df[base_col])):
         remaining_cap = df[base_col][year].copy()
@@ -303,7 +303,7 @@ def pre_det_deployment(df, base_col, ar_dict, dep_start_year, greedy=True):
     # initialize the number of reactor columns
     df = reactor_columns(df, ar_dict)
 
-    start_index = pull_start_year(df, dep_start_year)
+    start_index = pull_start_index(df, dep_start_year)
 
     if greedy is True:
         for year in range(start_index, len(df[base_col])):
@@ -422,7 +422,7 @@ def rand_deployment(df, base_col, ar_dict, dep_start_year,
     # initialize the number of reactor columns
     df = reactor_columns(df, ar_dict)
 
-    start_index = pull_start_year(df, dep_start_year)
+    start_index = pull_start_index(df, dep_start_year)
 
     for year in range(start_index, len(df[base_col])):
         years_capacity = df[base_col][year]
