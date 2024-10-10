@@ -2,6 +2,7 @@ import os
 import textwrap
 import pandas as pd
 
+
 def create_output_directory(output_dir):
     """
     Create the output directory if it doesn't exist.
@@ -13,6 +14,7 @@ def create_output_directory(output_dir):
     """
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
+
 
 def generate_xml_string(state, number, reactor_type, attributes):
     """
@@ -73,6 +75,7 @@ def generate_xml_string(state, number, reactor_type, attributes):
     </facility>
     """).strip()
 
+
 def write_xml_to_file(output_dir, state, number, reactor_type, xml_string):
     """
     Write the XML string to a file.
@@ -94,13 +97,17 @@ def write_xml_to_file(output_dir, state, number, reactor_type, xml_string):
     -------
     None
     """
-    file_path = os.path.join(output_dir, f"{state}_{number}_{reactor_type}_est.xml")
+    file_path = os.path.join(
+                              output_dir,
+                              f"{state}_{number}_{reactor_type}_est.xml")
     with open(file_path, 'w') as f:
         f.write(xml_string)
 
+
 def generate_est_facility_xml(df, output_dir, reactor_types):
     """
-    Generate the XML string for the estimated facilities from the given dataframe.
+    Generate the XML string for the estimated facilities from
+    the given dataframe.
 
     Parameters
     ----------
@@ -117,31 +124,39 @@ def generate_est_facility_xml(df, output_dir, reactor_types):
     """
     create_output_directory(output_dir)
 
-    for state in range(1,len(df['Plant state'])):
+    for state in range(1, len(df['Plant state'])):
         st = df.loc[state, 'Plant state']
         num_large = df.loc[state, 'Number_sites_space_large']
         num_small = df.loc[state, 'Number_sites_space_small']
 
         # Write the XML files for each large reactor in this state
         for number in range(int(num_large)):
-            xml_string = generate_xml_string(st, number, 'large', reactor_types['large'])
+            xml_string = generate_xml_string(
+                                              st, number, 'large',
+                                              reactor_types['large'])
             write_xml_to_file(output_dir, st, number, 'large', xml_string)
 
         # Write the XML files for each small reactor in this state
         for number in range(int(num_small)):
-            xml_string = generate_xml_string(st, number, 'small', reactor_types['small'])
+            xml_string = generate_xml_string(
+                                              st, number, 'small',
+                                              reactor_types['small'])
             write_xml_to_file(output_dir, st, number, 'small', xml_string)
 
-
     print('Successfully generated reactor XML files.')
+
 
 # Example usage
 if __name__ == "__main__":
     import camelot
     import pandas as pd
 
+    base = 'https://fuelcycleoptions.inl.gov/SiteAssets/SitePages/Home/'
+    stem = 'Evaluation%20of%20NPP%20and%20CPP%20Sites%20Aug%2016%202024.pdf'
+    report_url = base + stem
+
     # Define the data
-    tables = camelot.read_pdf('https://fuelcycleoptions.inl.gov/SiteAssets/SitePages/Home/Evaluation%20of%20NPP%20and%20CPP%20Sites%20Aug%2016%202024.pdf', pages='17')
+    tables = camelot.read_pdf(report_url, pages='17')
     data = tables[0].df
 
     # Extract header and data

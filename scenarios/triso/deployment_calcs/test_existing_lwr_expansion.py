@@ -2,7 +2,11 @@ import os
 import shutil
 import pytest
 import pandas as pd
-from existing_lwr_expansion import create_output_directory, generate_xml_string, write_xml_to_file, generate_est_facility_xml
+from existing_lwr_expansion import create_output_directory, \
+                                   generate_xml_string, \
+                                   write_xml_to_file, \
+                                   generate_est_facility_xml
+
 
 @pytest.fixture
 def setup_test_dir():
@@ -13,6 +17,7 @@ def setup_test_dir():
     os.makedirs(test_dir, exist_ok=True)
     yield test_dir
 
+
 def test_create_output_directory(setup_test_dir):
     """
     Test the function that creates the output directory.
@@ -22,6 +27,7 @@ def test_create_output_directory(setup_test_dir):
     shutil.rmtree(test_dir)
     create_output_directory(test_dir)
     assert os.path.exists(test_dir)
+
 
 def test_generate_xml_string():
     """
@@ -43,6 +49,7 @@ def test_generate_xml_string():
     assert '<name>AL_0_large_est</name>' in xml_string
     assert '<power_cap>1117</power_cap>' in xml_string
 
+
 def test_write_xml_to_file(setup_test_dir):
     """
     Test the function that writes the XML string to a file.
@@ -58,6 +65,7 @@ def test_write_xml_to_file(setup_test_dir):
     with open(file_path, 'r') as f:
         content = f.read()
         assert '<name>AL_0_large_est</name>' in content
+
 
 def test_generate_est_facility_xml(setup_test_dir):
     """
