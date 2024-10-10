@@ -61,7 +61,7 @@ def test_capacity_increase_200():
                 np.array([20, 40, 80, 160, 320, 640, 1280, 2560, 5120]))
 
 
-def test_direct_decom():
+def test_direct_decommission():
     """
     Test the direct decommissioning function.
     The scenario is based on the greedy algorithm.
@@ -71,7 +71,7 @@ def test_direct_decom():
         'manual_decom': [0, 0, 0, 0, 0, 0, 0, 0, 1],
         # manual calculation based on greedy algorithm
         'ReactorBigDecom': [0, 0, 0, 0, 0, 0, 0, 0, 1]}
-    # result of greedy function using the direct_decom function
+    # result of greedy function using the direct_decommission function
 
     assert all(decom_df['manual_decom'][i] ==
                decom_df['ReactorBigDecom'][i]

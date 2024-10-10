@@ -76,7 +76,7 @@ def capacity_increase(df, base_col, rate, start_year, end_year):
     return df
 
 
-def direct_decom(df, ar_dict):
+def direct_decommission(df, ar_dict):
     """
     This function assumes that every time a reactor model is decommissioned it
     is replaced by a new version of itself.
@@ -250,7 +250,7 @@ def greedy_deployment(df, base_col, ar_dict, dep_start_year):
             df.loc[year, f'num_{reactor}'] += reactor_div
 
     # account for decommissioning with a direct replacement
-    df = direct_decom(df, ar_dict)
+    df = direct_decommission(df, ar_dict)
 
     # Now calculate the total capacity each year (includes capacity from a
     # replacement reactor that is new that year, but not new overall because it
@@ -365,7 +365,7 @@ def pre_det_deployment(df, base_col, ar_dict, dep_start_year, greedy=True):
                             cap_difference -= ar_dict[reactor][0]
 
     # account for decommissioning with a direct replacement
-    df = direct_decom(df, ar_dict)
+    df = direct_decommission(df, ar_dict)
 
     # Now calculate the total capacity each year (includes capacity from a
     # replacement reactor that is new that year, but not new overall because it
@@ -461,7 +461,7 @@ def rand_deployment(df, base_col, ar_dict, dep_start_year,
                 years_capacity -= ar_dict[deployed][0]
 
     # account for decommissioning with a direct replacement
-    df = direct_decom(df, ar_dict)
+    df = direct_decommission(df, ar_dict)
 
     # Now calculate the total capacity each year (includes capacity from a
     # replacement reactor that is new that year, but not new overall because it
