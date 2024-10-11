@@ -30,6 +30,106 @@ def pull_start_index(df, start_year):
     return start_index
 
 
+def calculate_capacity_change(df, base_col, rate, start_year):
+    """
+    Calculate the year-to-year capacity change.
+
+    Parameters
+    ----------
+    df : :class:`pandas.DataFrame`
+        The dataframe containing the data.
+    base_col : str
+        The name of the column to use as the base capacity.
+    rate : float
+        The percentage of change in capacity year-to-year.
+    start_year : int
+        The year to start the increase.
+
+    Returns
+    -------
+    capacity_change : function
+        A lambda function to calculate the capacity change.
+    """
+    return lambda row: df.loc[start_year, base_col] * \
+        (rate)**(row.name - start_year)
+
+def apply_capacity_change(df, base_col, rate, start_year, end_year):
+    """
+    Apply the capacity change for the specified range.
+
+    Parameters
+    ----------
+    df : :class:`pandas.DataFrame`
+        The dataframe to add the new column to.
+    base_col : str
+        The name of the column to use as the base capacity.
+    rate : float
+        The percentage of change in capacity year-to-year.
+    start_year : int
+        The year to start the increase.
+    end_year : int
+        The year to end the increase.
+
+    Returns
+    -------
+    df : :class:`pandas.DataFrame`
+        The dataframe with the capacity change applied.
+    """
+    capacity_change = calculate_capacity_change(df, base_col, rate, start_year)
+
+    df.loc[start_year:end_year-1, f"{base_col} Inc {rate}"] = \
+        df.loc[start_year:end_year-1].apply(capacity_change, axis=1)
+
+    return df
+
+def assign_initial_values(df, base_col, rate, start_year):
+    """
+    Directly assign the values before the increase starts.
+
+    Parameters
+    ----------
+    df : :class:`pandas.DataFrame`
+        The dataframe to add the new column to.
+    base_col : str
+        The name of the column to use as the base capacity.
+    rate : float
+        The percentage of change in capacity year-to-year.
+    start_year : int
+        The year to start the increase.
+
+    Returns
+    -------
+    df : :class:`pandas.DataFrame`
+        The dataframe with the initial values assigned.
+    """
+    df.loc[df.index[0]:start_year-1, f"{base_col} Inc {rate}"] = \
+        df.loc[df.index[0]:start_year-1, base_col]
+
+    return df
+
+def calculate_new_capacity_increase(df, base_col, rate):
+    """
+    Calculate the new capacity increase.
+
+    Parameters
+    ----------
+    df : :class:`pandas.DataFrame`
+        The dataframe to add the new column to.
+    base_col : str
+        The name of the column to use as the base capacity.
+    rate : float
+        The percentage of change in capacity year-to-year.
+
+    Returns
+    -------
+    df : :class:`pandas.DataFrame`
+        The dataframe with the new capacity increase calculated.
+    """
+    df[f"New Capacity Inc {rate}"] = df[f"{base_col} Inc {rate}"] - df[base_col]
+
+    return df
+
+
 def capacity_increase(df, base_col, rate, start_year, end_year):
     """
     This function takes in an increase rate, and creates a new column in the
@@ -55,23 +155,11 @@ def capacity_increase(df, base_col, rate, start_year, end_year):
     df : :class:`pandas.DataFrame`
         The dataframe with the new column added.
     """
-    # Create a lambda function for year-to-year capacity change
-    capacity_change = lambda row: df.loc[start_year, base_col] * \
-            (rate)**(row.name - start_year)
+    df = apply_capacity_change(df, base_col, rate, start_year, end_year)
 
-    # Apply lambda function for the range from start_year to end_year
-    df.loc[start_year:end_year-1, f"{base_col} Inc {rate}"] = \
-        df.loc[start_year:end_year-1].apply(
-           capacity_change, axis=1
-        )
+    df = assign_initial_values(df, base_col, rate, start_year)
 
-    # Directly assign the values before the increase starts
-    df.loc[df.index[0]:start_year-1, f"{base_col} Inc {rate}"] = \
-        df.loc[df.index[0]:start_year-1, base_col]
-
-    # Calculate the new capacity increase
-    df[f"New Capacity Inc {rate}"] = \
-        df[f"{base_col} Inc {rate}"] - df[base_col]
+    df = calculate_new_capacity_increase(df, base_col, rate)
 
     return df
 
