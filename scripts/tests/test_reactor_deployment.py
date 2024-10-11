@@ -145,7 +145,8 @@ def test_capacity_increase():
 
     # Verify the final DataFrame with the new column added
     expected_capacity_inc = [100, 110, 120, 120 * 1.05, 120 * 1.05**2]
-    expected_new_capacity_inc = [0, 0, 0, 120 * 1.05 - 130, 120 * 1.05**2 - 140]
+    expected_new_capacity_inc = \
+        [0, 0, 0, 120 * 1.05 - 130, 120 * 1.05**2 - 140]
     assert df[f"{base_col} Inc {rate}"].tolist() == expected_capacity_inc
     assert df[f"New Capacity Inc {rate}"].tolist() == expected_new_capacity_inc
 
