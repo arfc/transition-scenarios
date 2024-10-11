@@ -53,6 +53,7 @@ def calculate_capacity_change(df, base_col, rate, start_year):
     return lambda row: df.loc[start_year, base_col] * \
         (rate)**(row.name - start_year)
 
+
 def apply_capacity_change(df, base_col, rate, start_year, end_year):
     """
     Apply the capacity change for the specified range.
@@ -82,6 +83,7 @@ def apply_capacity_change(df, base_col, rate, start_year, end_year):
 
     return df
 
+
 def assign_initial_values(df, base_col, rate, start_year):
     """
     Directly assign the values before the increase starts.
@@ -107,6 +109,7 @@ def assign_initial_values(df, base_col, rate, start_year):
 
     return df
 
+
 def calculate_new_capacity_increase(df, base_col, rate):
     """
     Calculate the new capacity increase.
@@ -125,7 +128,8 @@ def calculate_new_capacity_increase(df, base_col, rate):
     df : :class:`pandas.DataFrame`
         The dataframe with the new capacity increase calculated.
     """
-    df[f"New Capacity Inc {rate}"] = df[f"{base_col} Inc {rate}"] - df[base_col]
+    df[f"New Capacity Inc {rate}"] = \
+        df[f"{base_col} Inc {rate}"] - df[base_col]
 
     return df
 
