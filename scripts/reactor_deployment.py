@@ -55,19 +55,19 @@ def capacity_increase(df, base_col, rate, start_year, end_year):
     df : :class:`pandas.DataFrame`
         The dataframe with the new column added.
     """
+    # Create a lambda function for year-to-year capacity change
+    capacity_change = lambda row: df.loc[start_year, base_col] * \
+            (rate)**(row.name - start_year)
+
     # Apply lambda function for the range from start_year to end_year
     df.loc[start_year:end_year-1, f"{base_col} Inc {rate}"] = \
         df.loc[start_year:end_year-1].apply(
-            lambda row: df.loc[start_year, base_col] *
-            (rate)**(row.name - start_year), axis=1
+           capacity_change, axis=1
         )
 
-    # Apply lambda function for the range from the start of the
-    # DataFrame index to start_year
+    # Directly assign the values before the increase starts
     df.loc[df.index[0]:start_year-1, f"{base_col} Inc {rate}"] = \
-        df.loc[df.index[0]:start_year-1].apply(
-            lambda row: row[base_col], axis=1
-        )
+        df.loc[df.index[0]:start_year-1, base_col]
 
     # Calculate the new capacity increase
     df[f"New Capacity Inc {rate}"] = \
