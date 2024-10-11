@@ -35,30 +35,119 @@ def test_pull_start_index():
     assert dep.pull_start_year(test_df, 2016) == start_year
 
 
-def test_capacity_increase_no_inc():
-    """
-    Create a no growth scenario to test the capacity increase function.
-    """
-    no_growth_df = test_df.copy()
-    no_growth_df = \
-        dep.capacity_increase(no_growth_df, 'test_cap', 1, 2016, 2024)
+def test_calculate_capacity_change():
+    # Create a sample DataFrame
+    data = {
+        'Year': [2016, 2017, 2018, 2019, 2020],
+        'Capacity': [100, 110, 120, 130, 140]
+    }
+    df = pd.DataFrame(data)
+    df.set_index('Year', inplace=True)
 
-    assert all(
-                test_df_cap['test_cap Inc 1'].values ==
-                np.array([20, 20, 20, 20, 20, 20, 20, 20, 20]))
+    # Define parameters
+    base_col = 'Capacity'
+    rate = 1.05
+    start_year = 2018
+
+    # Call the calculate_capacity_change function
+    capacity_change = \
+        dep.calculate_capacity_change(df, base_col, rate, start_year)
+
+    # Verify the calculated capacity change
+    assert capacity_change(df.loc[2019]) == 120 * 1.05
+    assert capacity_change(df.loc[2020]) == 120 * 1.05**2
 
 
-def test_capacity_increase_200():
-    """
-    Create a 200% growth scenario to test the capacity increase function.
-    """
-    no_growth_df = test_df.copy()
-    no_growth_df = \
-        dep.capacity_increase(no_growth_df, 'test_cap', 1, 2016, 2024)
+def test_apply_capacity_change():
+    # Create a sample DataFrame
+    data = {
+        'Year': [2016, 2017, 2018, 2019, 2020],
+        'Capacity': [100, 110, 120, 130, 140]
+    }
+    df = pd.DataFrame(data)
+    df.set_index('Year', inplace=True)
 
-    assert all(
-                test_df_cap['test_cap Inc 2'].values ==
-                np.array([20, 40, 80, 160, 320, 640, 1280, 2560, 5120]))
+    # Define parameters
+    base_col = 'Capacity'
+    rate = 1.05
+    start_year = 2018
+    end_year = 2021
+
+    # Call the apply_capacity_change function
+    df = dep.apply_capacity_change(df, base_col, rate, start_year, end_year)
+
+    # Verify the applied capacity change
+    expected_capacity_inc = [100, 110, 120, 120 * 1.05, 120 * 1.05**2]
+    assert df[f"{base_col} Inc {rate}"].tolist() == expected_capacity_inc
+
+
+def test_assign_initial_values():
+    # Create a sample DataFrame
+    data = {
+        'Year': [2016, 2017, 2018, 2019, 2020],
+        'Capacity': [100, 110, 120, 130, 140]
+    }
+    df = pd.DataFrame(data)
+    df.set_index('Year', inplace=True)
+
+    # Define parameters
+    base_col = 'Capacity'
+    rate = 1.05
+    start_year = 2018
+
+    # Call the assign_initial_values function
+    df = dep.assign_initial_values(df, base_col, rate, start_year)
+
+    # Verify the assigned initial values
+    expected_capacity_inc = [100, 110, 120, 120, 120]
+    assert df[f"{base_col} Inc {rate}"].tolist() == expected_capacity_inc
+
+
+def test_calculate_new_capacity_increase():
+    # Create a sample DataFrame
+    data = {
+        'Year': [2016, 2017, 2018, 2019, 2020],
+        'Capacity': [100, 110, 120, 130, 140],
+        'Capacity Inc 1.05': [100, 110, 120, 126, 132.3]
+    }
+    df = pd.DataFrame(data)
+    df.set_index('Year', inplace=True)
+
+    # Define parameters
+    base_col = 'Capacity'
+    rate = 1.05
+
+    # Call the calculate_new_capacity_increase function
+    df = dep.calculate_new_capacity_increase(df, base_col, rate)
+
+    # Verify the calculated new capacity increase
+    expected_new_capacity_inc = [0, 0, 0, 126 - 130, 132.3 - 140]
+    assert df[f"New Capacity Inc {rate}"].tolist() == expected_new_capacity_inc
+
+
+def test_capacity_increase():
+    # Create a sample DataFrame
+    data = {
+        'Year': [2016, 2017, 2018, 2019, 2020],
+        'Capacity': [100, 110, 120, 130, 140]
+    }
+    df = pd.DataFrame(data)
+    df.set_index('Year', inplace=True)
+
+    # Define parameters
+    base_col = 'Capacity'
+    rate = 1.05
+    start_year = 2018
+    end_year = 2021
+
+    # Call the capacity_increase function
+    df = dep.capacity_increase(df, base_col, rate, start_year, end_year)
+
+    # Verify the final DataFrame with the new column added
+    expected_capacity_inc = [100, 110, 120, 120 * 1.05, 120 * 1.05**2]
+    expected_new_capacity_inc = [0, 0, 0, 120 * 1.05 - 130, 120 * 1.05**2 - 140]
+    assert df[f"{base_col} Inc {rate}"].tolist() == expected_capacity_inc
+    assert df[f"New Capacity Inc {rate}"].tolist() == expected_new_capacity_inc
 
 
 def test_direct_decommission():
