@@ -232,7 +232,6 @@ def greedy_deployment(df, base_col, ar_dict, dep_start_year):
     the column of indices.
     """
 
-    # Initialize the number of reactor columns.
     df = reactor_columns(df, ar_dict)
 
     start_index = pull_start_index(df, dep_start_year)
@@ -303,7 +302,6 @@ def pre_det_deployment(df, base_col, ar_dict, dep_start_year, greedy=True):
     * This function assumes that there is a column called 'Year' that is not
     the column of indices.
     """
-    # initialize the number of reactor columns
     df = reactor_columns(df, ar_dict)
 
     start_index = pull_start_index(df, dep_start_year)
@@ -422,7 +420,6 @@ def rand_deployment(df, base_col, ar_dict, dep_start_year,
     the column of indices.
     """
 
-    # initialize the number of reactor columns
     df = reactor_columns(df, ar_dict)
 
     start_index = pull_start_index(df, dep_start_year)
@@ -503,7 +500,6 @@ def rand_greedy_deployment(df, base_col, ar_dict,
     * This function assumes that there is a column called 'Year' that is not
     the column of indices.
     """
-    # Initialize the number of reactor columns.
     df = reactor_columns(df, ar_dict)
 
     # First we will apply the rough random.
