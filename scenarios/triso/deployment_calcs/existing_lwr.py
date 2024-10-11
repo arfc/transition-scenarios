@@ -1,6 +1,7 @@
 import pandas as pd
 import textwrap
 
+
 def generate_facility_xml(df, reactor):
     """
     Generate the XML string for a reactor facility from the given dataframe.
@@ -19,8 +20,10 @@ def generate_facility_xml(df, reactor):
 
     Notes
     -----
-    * This function assumes that LWRs will all operate for 80 years unless they are prematurely retired.
-    * The user must confirm the latitude, longitude, and power capacity of each reactor.
+    * This function assumes that LWRs will all operate for 80 years unless they
+      are prematurely retired.
+    * The user must confirm the latitude, longitude, and power capacity of each
+      reactor.
     """
     # Find the index of the reactor in the dataframe
     reactor_index = df[df['Reactor name'] == reactor].index[0]

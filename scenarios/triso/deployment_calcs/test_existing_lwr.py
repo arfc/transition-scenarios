@@ -5,6 +5,7 @@ import tempfile
 import xml.etree.ElementTree as ET
 from existing_lwr import generate_facility_xml, extract_power_cap
 
+
 def test_generate_facility_xml():
     """
     Test the generate_facility_xml function.
@@ -48,6 +49,7 @@ def test_generate_facility_xml():
 
     # Verify the generated XML string
     assert xml_string == expected_xml
+
 
 def test_extract_power_cap():
     """
