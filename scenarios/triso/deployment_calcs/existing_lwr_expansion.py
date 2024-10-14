@@ -151,9 +151,8 @@ if __name__ == "__main__":
     import camelot
     import pandas as pd
 
-    base = 'https://fuelcycleoptions.inl.gov/SiteAssets/SitePages/Home/'
-    stem = 'Evaluation%20of%20NPP%20and%20CPP%20Sites%20Aug%2016%202024.pdf'
-    report_url = base + stem
+    report_url = '''https://fuelcycleoptions.inl.gov/SiteAssets/SitePages/Home/
+    Evaluation%20of%20NPP%20and%20CPP%20Sites%20Aug%2016%202024.pdf'''
 
     # Define the data
     tables = camelot.read_pdf(report_url, pages='17')
