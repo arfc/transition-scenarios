@@ -8,16 +8,174 @@ from datetime import datetime  # for random seed generation
 
 
 # # # # # # # # # # # # Constituent Functions # # # # # # # # # # #
+def pull_start_index(df, start_year):
+    """
+    This function takes in a dataframe and a start year and returns the
+    index of the start year.
+
+    Parameters
+    ----------
+    df : :class:`pandas.DataFrame`
+        The dataframe to pull the start year from.
+    start_year : int
+        The year to start the deployment of advanced reactors.
+
+    Returns
+    -------
+    start_index : int
+        The index of the start year.
+    """
+    start_index = df[df['Year'] == start_year].index[0]
+
+    return start_index
 
 
-def direct_decom(df, ar_dict):
+def calculate_capacity_change(df, base_col, rate, start_year):
+    """
+    Calculate the year-to-year capacity change.
+
+    Parameters
+    ----------
+    df : :class:`pandas.DataFrame`
+        The dataframe containing the data.
+    base_col : str
+        The name of the column to use as the base capacity.
+    rate : float
+        The percentage of change in capacity year-to-year.
+    start_year : int
+        The year to start the increase.
+
+    Returns
+    -------
+    capacity_change : function
+        A lambda function to calculate the capacity change.
+    """
+    return lambda row: df.loc[start_year, base_col] * \
+        (rate)**(row.name - start_year)
+
+
+def apply_capacity_change(df, base_col, rate, start_year, end_year):
+    """
+    Apply the capacity change for the specified range.
+
+    Parameters
+    ----------
+    df : :class:`pandas.DataFrame`
+        The dataframe to add the new column to.
+    base_col : str
+        The name of the column to use as the base capacity.
+    rate : float
+        The percentage of change in capacity year-to-year.
+    start_year : int
+        The year to start the increase.
+    end_year : int
+        The year to end the increase.
+
+    Returns
+    -------
+    df : :class:`pandas.DataFrame`
+        The dataframe with the capacity change applied.
+    """
+    capacity_change = calculate_capacity_change(df, base_col, rate, start_year)
+
+    df.loc[start_year:end_year-1, f"{base_col} Inc {rate}"] = \
+        df.loc[start_year:end_year-1].apply(capacity_change, axis=1)
+
+    return df
+
+
+def assign_initial_values(df, base_col, rate, start_year):
+    """
+    Directly assign the values before the increase starts.
+
+    Parameters
+    ----------
+    df : :class:`pandas.DataFrame`
+        The dataframe to add the new column to.
+    base_col : str
+        The name of the column to use as the base capacity.
+    rate : float
+        The percentage of change in capacity year-to-year.
+    start_year : int
+        The year to start the increase.
+
+    Returns
+    -------
+    df : :class:`pandas.DataFrame`
+        The dataframe with the initial values assigned.
+    """
+    df.loc[df.index[0]:start_year-1, f"{base_col} Inc {rate}"] = \
+        df.loc[df.index[0]:start_year-1, base_col]
+
+    return df
+
+
+def calculate_new_capacity_increase(df, base_col, rate):
+    """
+    Calculate the new capacity increase.
+
+    Parameters
+    ----------
+    df : :class:`pandas.DataFrame`
+        The dataframe to add the new column to.
+    base_col : str
+        The name of the column to use as the base capacity.
+    rate : float
+        The percentage of change in capacity year-to-year.
+
+    Returns
+    -------
+    df : :class:`pandas.DataFrame`
+        The dataframe with the new capacity increase calculated.
+    """
+    df[f"New Capacity Inc {rate}"] = \
+        df[f"{base_col} Inc {rate}"] - df[base_col]
+
+    return df
+
+
+def capacity_increase(df, base_col, rate, start_year, end_year):
+    """
+    This function takes in an increase rate, and creates a new column in the
+    dataframe populated with the increased capacity.
+
+    Parameters
+    ----------
+    df : :class:`pandas.DataFrame`
+        The dataframe to add the new column to.
+    base_col : str
+        The name of the column to use as the base capacity.
+        This column should contain the net capacity.
+    rate : float
+        The percentage of change in capacity year-to-year
+        (e.g. 1.01 for a 1% increase).
+    start_year : int
+        The year to start the increase.
+    end_year : int
+        The year to end the increase.
+
+    Returns
+    -------
+    df : :class:`pandas.DataFrame`
+        The dataframe with the new column added.
+    """
+    df = apply_capacity_change(df, base_col, rate, start_year, end_year)
+
+    df = assign_initial_values(df, base_col, rate, start_year)
+
+    df = calculate_new_capacity_increase(df, base_col, rate)
+
+    return df
+
+
+def direct_decommission(df, ar_dict):
     """
     This function assumes that every time a reactor model is decommissioned it
     is replaced by a new version of itself.
 
     Parameters
     ----------
-    df: pandas dataframe
+    df: :class:`pandas.DataFrame`
         The dataframe of capacity information
     ar_dict: dictionary
         A dictionary of reactors with information of the form:
@@ -25,7 +183,7 @@ def direct_decom(df, ar_dict):
 
     Returns
     -------
-    df: pandas dataframe
+    df: :class:`pandas.DataFrame`
         The dataframe of capacity information with the decommissioned reactors.
     """
 
@@ -60,7 +218,7 @@ def num_react_to_cap(df, ar_dict):
 
     Parameters
     ----------
-    df: pandas dataframe
+    df: :class:`pandas.DataFrame`
         The dataframe of capacity information
     ar_dict: dictionary
         A dictionary of reactors with information of the form:
@@ -68,7 +226,7 @@ def num_react_to_cap(df, ar_dict):
 
     Returns
     -------
-    df: pandas dataframe
+    df: :class:`pandas.DataFrame`
         The dataframe of capacity information with the new columns.
     """
 
@@ -100,7 +258,7 @@ def reactor_columns(df, ar_dict):
 
     Parameters
     ----------
-    df: pandas dataframe
+    df: :class:`pandas.DataFrame`
         The dataframe of capacity information.
     ar_dict: dictionary
         A dictionary of reactors with information of the form:
@@ -108,7 +266,7 @@ def reactor_columns(df, ar_dict):
 
     Returns
     -------
-    df: pandas dataframe
+    df: :class:`pandas.DataFrame`
         The dataframe of capacity information with columns for each reactor.
     """
 
@@ -144,7 +302,7 @@ def greedy_deployment(df, base_col, ar_dict, dep_start_year):
 
     Parameters
     ----------
-    df: pandas dataframe
+    df: :class:`pandas.DataFrame`
         The dataframe of capacity information
     base_col: str
         The string name corresponding to the column of capacity that the
@@ -157,7 +315,7 @@ def greedy_deployment(df, base_col, ar_dict, dep_start_year):
 
     Returns
     -------
-    df: pandas dataframe
+    df: :class:`pandas.DataFrame`
         The dataframe of capacity information with the deployed reactors.
 
     Notes
@@ -166,10 +324,9 @@ def greedy_deployment(df, base_col, ar_dict, dep_start_year):
     the column of indices.
     """
 
-    # Initialize the number of reactor columns.
     df = reactor_columns(df, ar_dict)
 
-    start_index = df[df['Year'] == dep_start_year].index[0]
+    start_index = pull_start_index(df, dep_start_year)
 
     for year in range(start_index, len(df[base_col])):
         remaining_cap = df[base_col][year].copy()
@@ -184,7 +341,7 @@ def greedy_deployment(df, base_col, ar_dict, dep_start_year):
             df.loc[year, f'num_{reactor}'] += reactor_div
 
     # account for decommissioning with a direct replacement
-    df = direct_decom(df, ar_dict)
+    df = direct_decommission(df, ar_dict)
 
     # Now calculate the total capacity each year (includes capacity from a
     # replacement reactor that is new that year, but not new overall because it
@@ -208,7 +365,7 @@ def pre_det_deployment(df, base_col, ar_dict, dep_start_year, greedy=True):
 
     Parameters
     ----------
-    df: pandas dataframe
+    df: :class:`pandas.DataFrame`
         The dataframe of capacity information.
     base_col: str
         The string name corresponding to the column of capacity that the
@@ -229,7 +386,7 @@ def pre_det_deployment(df, base_col, ar_dict, dep_start_year, greedy=True):
 
     Returns
     -------
-    df: pandas dataframe
+    df: :class:`pandas.DataFrame`
         The dataframe of capacity information with the deployed reactors.
 
     Notes
@@ -237,10 +394,9 @@ def pre_det_deployment(df, base_col, ar_dict, dep_start_year, greedy=True):
     * This function assumes that there is a column called 'Year' that is not
     the column of indices.
     """
-    # initialize the number of reactor columns
     df = reactor_columns(df, ar_dict)
 
-    start_index = df[df['Year'] == dep_start_year].index[0]
+    start_index = pull_start_index(df, dep_start_year)
 
     if greedy is True:
         for year in range(start_index, len(df[base_col])):
@@ -299,7 +455,7 @@ def pre_det_deployment(df, base_col, ar_dict, dep_start_year, greedy=True):
                             cap_difference -= ar_dict[reactor][0]
 
     # account for decommissioning with a direct replacement
-    df = direct_decom(df, ar_dict)
+    df = direct_decommission(df, ar_dict)
 
     # Now calculate the total capacity each year (includes capacity from a
     # replacement reactor that is new that year, but not new overall because it
@@ -324,7 +480,7 @@ def rand_deployment(df, base_col, ar_dict, dep_start_year,
 
     Parameters
     ----------
-    df: pandas dataframe
+    df: :class:`pandas.DataFrame`
         The dataframe of capacity information.
     base_col: str
         The string name corresponding to the column of capacity that the
@@ -347,7 +503,7 @@ def rand_deployment(df, base_col, ar_dict, dep_start_year,
 
     Returns
     -------
-    df: pandas dataframe
+    df: :class:`pandas.DataFrame`
         The dataframe of capacity information with the deployed reactors.
 
     Notes
@@ -356,10 +512,9 @@ def rand_deployment(df, base_col, ar_dict, dep_start_year,
     the column of indices.
     """
 
-    # initialize the number of reactor columns
     df = reactor_columns(df, ar_dict)
 
-    start_index = df[df['Year'] == dep_start_year].index[0]
+    start_index = pull_start_index(df, dep_start_year)
 
     for year in range(start_index, len(df[base_col])):
         years_capacity = df[base_col][year]
@@ -395,7 +550,7 @@ def rand_deployment(df, base_col, ar_dict, dep_start_year,
                 years_capacity -= ar_dict[deployed][0]
 
     # account for decommissioning with a direct replacement
-    df = direct_decom(df, ar_dict)
+    df = direct_decommission(df, ar_dict)
 
     # Now calculate the total capacity each year (includes capacity from a
     # replacement reactor that is new that year, but not new overall because it
@@ -413,7 +568,7 @@ def rand_greedy_deployment(df, base_col, ar_dict,
 
     Parameters
     ----------
-    df: pandas dataframe
+    df: :class:`pandas.DataFrame`
         The dataframe of capacity information.
     base_col: str
         The string name corresponding to the column of capacity that the
@@ -429,7 +584,7 @@ def rand_greedy_deployment(df, base_col, ar_dict,
 
     Returns
     -------
-    df: pandas dataframe
+    df: :class:`pandas.DataFrame`
         The dataframe of capacity information with the deployed reactors.
 
     Notes
@@ -437,7 +592,6 @@ def rand_greedy_deployment(df, base_col, ar_dict,
     * This function assumes that there is a column called 'Year' that is not
     the column of indices.
     """
-    # Initialize the number of reactor columns.
     df = reactor_columns(df, ar_dict)
 
     # First we will apply the rough random.
@@ -479,7 +633,7 @@ def simple_diff(df, base, proj):
 
     Parameters
     ----------
-    df: pd.DataFrame
+    df: :class:`pandas.DataFrame`
         The output pandas DataFrame from the deployment functions.
     base: str
         The name of the base capacity column in the DataFrame.
@@ -495,7 +649,7 @@ def calc_percentage(df, base):
 
     Parameters
     ----------
-    df: pd.DataFrame
+    df: :class:`pandas.DataFrame`
         The output pandas DataFrame from the deployment functions.
     base: str
         The name of the base capacity column in the DataFrame.
@@ -511,7 +665,7 @@ def analyze_algorithm(df, base, proj, ar_dict):
 
     Parameters
     ----------
-    df: pd.DataFrame
+    df: :class:`pandas.DataFrame`
         The output pandas DataFrame from the deployment functions.
     base: str
         The name of the base capacity column in the DataFrame.
