@@ -192,6 +192,6 @@ if __name__ == "__main__":
         }
     }
 
-    curr_dir = Path(os.path.dirnam(__file__))
+    curr_dir = Path(os.path.dirname(__file__))
     output_dir = str((curr_dir / "../reactors/lwrs_est").resolve())
     generate_est_facility_xml(current_operating, output_dir, reactor_types)
