@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 import textwrap
 import pandas as pd
 
@@ -149,7 +150,6 @@ def generate_est_facility_xml(df, output_dir, reactor_types):
 # Example usage
 if __name__ == "__main__":
     import camelot
-    import pandas as pd
 
     base = 'https://fuelcycleoptions.inl.gov/SiteAssets/SitePages/Home/'
     stem = 'Evaluation%20of%20NPP%20and%20CPP%20Sites%20Aug%2016%202024.pdf'
@@ -193,5 +193,6 @@ if __name__ == "__main__":
         }
     }
 
-    output_dir = '../reactors/lwrs_est'
+    curr_dir = Path(os.path.dirnam(__file__))
+    output_dir = str((curr_dir / "../reactors/lwrs_est").resolve())
     generate_est_facility_xml(current_operating, output_dir, reactor_types)
