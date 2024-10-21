@@ -151,9 +151,8 @@ def generate_est_facility_xml(df, output_dir, reactor_types):
 if __name__ == "__main__":
     import camelot
 
-    base = 'https://fuelcycleoptions.inl.gov/SiteAssets/SitePages/Home/'
-    stem = 'Evaluation%20of%20NPP%20and%20CPP%20Sites%20Aug%2016%202024.pdf'
-    report_url = base + stem
+    report_url = '''https://fuelcycleoptions.inl.gov/SiteAssets/SitePages/Home/
+    Evaluation%20of%20NPP%20and%20CPP%20Sites%20Aug%2016%202024.pdf'''
 
     # Define the data
     tables = camelot.read_pdf(report_url, pages='17')
@@ -184,12 +183,12 @@ if __name__ == "__main__":
         'small': {
             'power_cap': 600,
             'column': 'Number_sites_space_small',
-            'lifetime': 960,
+            'lifetime': 720,
             'cycle_time': 18,
             'refuel_time': 1,
-            'assem_size': 427.38589211618256,
-            'n_assem_core': 193,
-            'n_assem_batch': 80
+            'assem_size': 71.2309820194,
+            'n_assem_core': 111,
+            'n_assem_batch': 46
         }
     }
 

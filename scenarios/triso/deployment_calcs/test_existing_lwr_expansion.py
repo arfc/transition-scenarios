@@ -92,12 +92,12 @@ def test_generate_est_facility_xml(setup_test_dir):
         'small': {
             'power_cap': 600,
             'column': 'Number_sites_space_small',
-            'lifetime': 960,
+            'lifetime': 720,
             'cycle_time': 18,
             'refuel_time': 1,
-            'assem_size': 427.38589211618256,
-            'n_assem_core': 193,
-            'n_assem_batch': 80
+            'assem_size': 71.2309820194,
+            'n_assem_core': 111,
+            'n_assem_batch': 46
         }
     }
     generate_est_facility_xml(df, test_dir, reactor_types)
