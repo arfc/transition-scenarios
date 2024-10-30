@@ -19,12 +19,13 @@ at 80 years of operation, whatever is longer. If there are Advanced reactors in
 the scenario, they will replace the decommissioned capacity and meet the demand
 growth starting in 2030.
 
-| Scenario | Demand Growth | Reactors          | Notes |
-|----------|---------------|-------------------|-------|
-| DAN1     | 0%            | LWRs              |       |
-| DAN2     | 0%            | LWRs, Xe-100      |       |
-| DAN3     | 0%            | LWRs, MMR         |       |
-| DAN4     | 0%            | LWRs, MMR, Xe-100 |       |
+| Scenario | Demand Growth | Reactors                   | Notes |
+|----------|---------------|----------------------------|-------|
+| DAN0     | 0%            | LWRs                       |       |
+| DAN1     | 0%            | LWRs, Xe-100               |       |
+| DAN2     | 0%            | LWRs, MMR                  |       |
+| DAN3     | 0%            | LWRs, AP1000               |       |
+| DAN4     | 0%            | LWRs, MMR, Xe-100, AP1000  |       |
 
 ### Low Growth
 A 1% demand growth deployment scenario where LWRs retire at end of license or
@@ -32,11 +33,12 @@ at 80 years of operation, whatever is longer. If there are Advanced reactors in
 the scenario, they will replace the decommissioned capacity and meet the demand
 growth starting in 2030.
 
-| Scenario | Demand Growth | Reactors          | Notes |
-|----------|---------------|-------------------|-------|
-| DAL1     | 1%            | LWRs, Xe-100      |       |
-| DAL2     | 1%            | LWRs, MMR         |       |
-| DAL3     | 1%            | LWRs, MMR, Xe-100 |       |
+| Scenario | Demand Growth | Reactors                   | Notes |
+|----------|---------------|----------------------------|-------|
+| DAL1     | 1%            | LWRs, Xe-100               |       |
+| DAL2     | 1%            | LWRs, MMR                  |       |
+| DAL3     | 1%            | LWRs, AP1000               |       |
+| DAL4     | 1%            | LWRs, MMR, Xe-100, AP1000  |       |
 
 ### Medium Growth
 A 5, 10, or 15% demand growth deployment scenario where LWRs retire at end of
@@ -44,14 +46,26 @@ license or at 80 years of operation, whatever is longer. If there are Advanced
 reactors in the scenario, they will replace the decommissioned capacity and
 meet the demand growth starting in 2030.
 
-| Scenario | Demand Growth | Reactors     | Notes |
-|----------|---------------|--------------|-------|
-| DAM1     | 5%            | LWRs, Xe-100 |       |
-| DAM2     | 5%            | LWRs, MMR    |       |
-| DAM3     | 10%           | LWRs, Xe-100 |       |
-| DAM4     | 10%           | LWRs, MMR    |       |
-| DAM5     | 15%           | LWRs, Xe-100 |       |
-| DAM6     | 15%           | LWRs, MMR    |       |
+| Scenario | Demand Growth | Reactors                   | Notes |
+|----------|---------------|----------------------------|-------|
+| DA5M1    | 5%            | LWRs, Xe-100               |       |
+| DA5M2    | 5%            | LWRs, MMR                  |       |
+| DA5M3    | 5%            | LWRs, AP1000               |       |
+| DA5M4    | 5%            | LWRs, MMR, Xe-100, AP1000  |       |
+
+| Scenario | Demand Growth | Reactors                   | Notes |
+|----------|---------------|----------------------------|-------|
+| DA10M1   | 10%           | LWRs, Xe-100               |       |
+| DA10M2   | 10%           | LWRs, MMR                  |       |
+| DA10M3   | 10%           | LWRs, AP1000               |       |
+| DA10M4   | 10%           | LWRs, MMR, Xe-100, AP1000  |       |
+
+| Scenario | Demand Growth | Reactors                   | Notes |
+|----------|---------------|----------------------------|-------|
+| DA15M1   | 15%           | LWRs, Xe-100               |       |
+| DA15M2   | 15%           | LWRs, MMR                  |       |
+| DA15M3   | 15%           | LWRs, AP1000               |       |
+| DA15M4   | 15%           | LWRs, MMR, Xe-100, AP1000  |       |
 
 ### High Growth
 A 100 or 200% demand growth deployment scenario where LWRs retire at end of
@@ -59,12 +73,19 @@ license or at 80 years of operation, whatever is longer. If there are Advanced
 reactors in the scenario, they will replace the decommissioned capacity and
 meet the demand growth starting in 2030.
 
-| Scenario | Demand Growth | Reactors     | Notes |
-|----------|---------------|--------------|-------|
-| DAA1     | 100%          | LWRs, Xe-100 |       |
-| DAA2     | 100%          | LWRs, MMR    |       |
-| DAA3     | 200%          | LWRs, Xe-100 |       |
-| DAA4     | 200%          | LWRs, MMR    |       |
+| Scenario | Demand Growth | Reactors                   | Notes |
+|----------|---------------|----------------------------|-------|
+| DA1A1    | 100%          | LWRs, Xe-100               |       |
+| DA1A2    | 100%          | LWRs, MMR                  |       |
+| DA1A3    | 100%          | LWRs, AP1000               |       |
+| DA1A4    | 100%          | LWRs, MMR, Xe-100, AP1000  |       |
+
+| Scenario | Demand Growth | Reactors                   | Notes |
+|----------|---------------|----------------------------|-------|
+| DA2A1    | 200%          | LWRs, Xe-100               |       |
+| DA2A2    | 200%          | LWRs, MMR                  |       |
+| DA2A3    | 200%          | LWRs, AP1000               |       |
+| DA2A4    | 200%          | LWRs, MMR, Xe-100, AP1000  |       |
 
 ## Analysis
 Stores the notebooks used for data analysis.

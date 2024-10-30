@@ -45,5 +45,6 @@ ytick.direction : in
 figure.figsize  : 7, 5
 figure.dpi : 150
 savefig.dpi : 275
-
+savefig.format : pdf
+savefig.bbox : tight
 

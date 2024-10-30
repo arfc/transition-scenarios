@@ -1,0 +1,36 @@
+<facility>
+    <name>MD_0_small_est</name>
+    <lifetime>720</lifetime>
+    <config>
+        <Reactor>
+            <fuel_incommods>
+                <val>fresh_uox</val>
+            </fuel_incommods>
+            <fuel_inrecipes>
+                <val>fresh_uox</val>
+            </fuel_inrecipes>
+            <fuel_outcommods>
+                <val>used_uox</val>
+            </fuel_outcommods>
+            <fuel_outrecipes>
+                <val>used_uox</val>
+            </fuel_outrecipes>
+            <cycle_time>
+                18
+            </cycle_time>
+            <refuel_time>
+                1
+            </refuel_time>
+            <assem_size>
+                71.2309820194
+            </assem_size>
+            <n_assem_core>
+                111
+            </n_assem_core>
+            <n_assem_batch>
+                46
+            </n_assem_batch>
+            <power_cap>600</power_cap>
+        </Reactor>
+    </config>
+</facility>
