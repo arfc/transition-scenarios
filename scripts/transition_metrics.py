@@ -237,7 +237,7 @@ def add_sender_prototype(db_file):
     return receiver_prototype
 
 
-def get_annual_electricity(db_file):
+def get_annual_electricity(db_file, y0=1958):
     '''
     Gets the time dependent annual electricity output of reactors
     in the silumation
@@ -246,6 +246,8 @@ def get_annual_electricity(db_file):
     ----------
     db_file: str
         SQLite database from Cyclus
+    y0: int
+        year to start the time series
 
     Returns
     -------
@@ -257,7 +259,7 @@ def get_annual_electricity(db_file):
     '''
     evaler = get_metrics(db_file)
     electricity = evaler.eval('AnnualElectricityGeneratedByAgent')
-    electricity['Year'] = electricity['Year'] + 1965
+    electricity['Year'] = electricity['Year'] + y0
     electricity_output = electricity.groupby(
         ['Year']).Energy.sum().reset_index()
     electricity_output['Energy'] = electricity_output['Energy'] / 1000
@@ -265,7 +267,7 @@ def get_annual_electricity(db_file):
     return electricity_output
 
 
-def get_monthly_electricity(db_file):
+def get_monthly_electricity(db_file, y0=1958):
     '''
     Gets the time dependent monthy electricity output of reactors
     in the silumation
@@ -285,7 +287,7 @@ def get_monthly_electricity(db_file):
     '''
     evaler = get_metrics(db_file)
     electricity = evaler.eval('MonthlyElectricityGeneratedByAgent')
-    electricity['Year'] = electricity['Month'] / 12 + 1965
+    electricity['Year'] = electricity['Month'] / 12 + y0
     electricity_output = electricity.groupby(
         ['Year']).Energy.sum().reset_index()
     electricity_output['Energy'] = electricity_output['Energy'] / 1000
@@ -293,7 +295,7 @@ def get_monthly_electricity(db_file):
     return electricity_output
 
 
-def get_prototype_energy(db_file, advanced_rx):
+def get_prototype_energy(db_file, advanced_rx, y0=1985, yn=2104):
     '''
     Calculates the annual electricity produced by a given
     prototype name by merging the Agents and AnnualElectricityGeneratedByAgent
@@ -317,17 +319,17 @@ def get_prototype_energy(db_file, advanced_rx):
     agents = evaler.eval('Agents')
     energy = evaler.eval('AnnualElectricityGeneratedByAgent')
     merged_df = pd.merge(energy, agents, on=['SimId', 'AgentId'])
-    merged_df['Year'] = merged_df['Year'] + 1965
+    merged_df['Year'] = merged_df['Year'] + y0
     prototype_energy = merged_df.loc[merged_df['Prototype'] == advanced_rx]
     prototype_energy = prototype_energy.groupby(
         ['Year']).Energy.sum().reset_index()
     prototype_energy = prototype_energy.set_index(
-        'Year').reindex(range(1965, 2091)).fillna(0).reset_index()
+        'Year').reindex(range(y0, yn)).fillna(0).reset_index()
     prototype_energy['Energy'] = prototype_energy['Energy'] / 1000
     return prototype_energy
 
 
-def get_lwr_energy(db_file, advanced_rx):
+def get_lwr_energy(db_file, advanced_rx, y0=1985, yn=2104):
     '''
     Calculates the annual electricity produced by a given
     prototype name by merging the Agents and AnnualElectricityGeneratedByAgent
@@ -352,10 +354,10 @@ def get_lwr_energy(db_file, advanced_rx):
     agents = evaler.eval('Agents')
     energy = evaler.eval('AnnualElectricityGeneratedByAgent')
     merged_df = pd.merge(energy, agents, on=['SimId', 'AgentId'])
-    merged_df['Year'] = merged_df['Year'] + 1965
+    merged_df['Year'] = merged_df['Year'] + y0
     lwr_energy = merged_df.loc[~merged_df['Prototype'].isin(advanced_rx)]
     lwr_energy = lwr_energy.groupby(['Year']).Energy.sum().reset_index()
     lwr_energy = lwr_energy.set_index('Year').reindex(
-        range(1965, 2091)).fillna(0).reset_index()
+        range(y0, yn)).fillna(0).reset_index()
     lwr_energy['Energy'] = lwr_energy['Energy'] / 1000
     return lwr_energy

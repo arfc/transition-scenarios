@@ -1266,7 +1266,7 @@
   </recipe>
 
   <recipe>
-    <name>fresh_MMR_haleu</name>
+    <name>fresh_mmr_haleu</name>
     <basis>mass</basis>
     <nuclide> <id>92235</id> <comp>0.1139</comp> </nuclide>
     <nuclide> <id>92238</id> <comp>0.7718</comp> </nuclide>
@@ -1275,7 +1275,7 @@
   </recipe>
 
   <recipe>
-    <name>used_MMR_haleu</name>
+    <name>used_mmr_haleu</name>
     <basis>mass</basis>
     <nuclide>
       <id>10030000</id>
