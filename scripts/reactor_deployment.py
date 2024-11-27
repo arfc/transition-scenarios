@@ -324,12 +324,14 @@ def greedy_deployment(df, base_col, ar_dict, dep_start_year):
     the column of indices.
     """
 
+    df['buffer_base'] = df[base_col].copy()
+
     df = reactor_columns(df, ar_dict)
 
     start_index = pull_start_index(df, dep_start_year)
 
     for year in range(start_index, len(df[base_col])):
-        remaining_cap = df[base_col][year].copy()
+        remaining_cap = df['buffer_base'][year].copy()
         for reactor in ar_dict.keys():
             if ar_dict[reactor][0] > remaining_cap:
                 reactor_div = 0
@@ -337,8 +339,10 @@ def greedy_deployment(df, base_col, ar_dict, dep_start_year):
                 # find out how many of this reactor to deploy
                 reactor_div = math.floor(remaining_cap / ar_dict[reactor][0])
             # remaining capacity to meet
-            remaining_cap -= reactor_div * ar_dict[reactor][0]
+            diff = reactor_div * ar_dict[reactor][0]
+            remaining_cap -= diff
             df.loc[year, f'num_{reactor}'] += reactor_div
+            df.loc[year:ar_dict[reactor][2]+year, 'buffer_base'] -= diff
 
     # account for decommissioning with a direct replacement
     df = direct_decommission(df, ar_dict)
