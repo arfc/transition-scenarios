@@ -1,0 +1,578 @@
+<simulation xmlns:xi="http://www.w3.org/2001/XInclude">
+  <control>
+    <decay>lazy</decay>
+    <duration>1752</duration>
+    <startmonth>1</startmonth>
+    <startyear>1958</startyear>
+  </control>
+  <archetypes>
+    <spec>
+      <lib>cycamore</lib>
+      <name>Enrichment</name>
+    </spec>
+    <spec>
+      <lib>cycamore</lib>
+      <name>Reactor</name>
+    </spec>
+    <spec>
+      <lib>cycamore</lib>
+      <name>Sink</name>
+    </spec>
+    <spec>
+      <lib>cycamore</lib>
+      <name>Source</name>
+    </spec>
+    <spec>
+      <lib>cycamore</lib>
+      <name>Storage</name>
+    </spec>
+    <spec>
+      <lib>cycamore</lib>
+      <name>DeployInst</name>
+    </spec>
+    <spec>
+      <lib>agents</lib>
+      <name>NullRegion</name>
+    </spec>
+    <spec>
+      <lib>agents</lib>
+      <name>NullInst</name>
+    </spec>
+    <spec>
+      <lib>cycamore</lib>
+      <name>ManagerInst</name>
+    </spec>
+  </archetypes>
+
+  <xi:include href="../../lwr_only_inclusions.xml#xpointer(/inclusions/child::*)"/>
+
+<facility>
+    <name>Sink_HLW</name>
+    <config>
+      <Sink>
+        <in_commods>
+          <val>used_uox</val>
+          <val>used_xe100_haleu</val>
+          <val>used_xe100_leup</val>
+        </in_commods>
+        <!-- Yucca Mountain Repository -->
+        <latitude>36.8286</latitude>
+        <longitude>-116.4364</longitude>
+      </Sink>
+    </config>
+  </facility>
+
+  <facility>
+    <name>Sink_LLW</name>
+    <config>
+      <Sink>
+        <in_commods>
+          <val>tails</val>
+        </in_commods>
+        <!-- Yucca Mountain Repository -->
+        <latitude>36.8286</latitude>
+        <longitude>-116.4364</longitude>
+      </Sink>
+    </config>
+  </facility>
+
+  <facility>
+    <name>Mine</name>
+    <config>
+      <Source>
+        <outcommod>nat_u</outcommod>
+        <outrecipe>nat_u</outrecipe>
+        <throughput>1e6</throughput>
+        <!-- Cameco Smith Ranch-Highland Mine -->
+        <latitude>43.053736</latitude>
+        <longitude>-105.685089</longitude>
+      </Source>
+    </config>
+  </facility>
+
+  <facility>
+    <name>Enrichment_leu</name>
+    <config>
+      <Enrichment>
+        <feed_commod>nat_u</feed_commod>
+        <feed_recipe>nat_u</feed_recipe>
+        <product_commod>fresh_uox</product_commod>
+        <tails_commod>tails</tails_commod>
+        <tails_assay>0.002</tails_assay>
+        <!-- Portsmouth Gaseous Diffusion Plant (OH) -->
+        <max_enrich>0.16</max_enrich>
+        <longitude>-83</longitude>
+      </Enrichment>
+    </config>
+  </facility>
+
+  <facility>
+    <name>Mine_xe_h</name>
+    <config>
+      <Source>
+        <outcommod>nat_u_xe_h</outcommod>
+        <outrecipe>nat_u_xe_h</outrecipe>
+        <throughput>1e6</throughput>
+        <!-- Cameco Smith Ranch-Highland Mine -->
+        <latitude>43.053736</latitude>
+        <longitude>-105.685089</longitude>
+      </Source>
+    </config>
+  </facility>
+
+  <facility>
+    <name>Mine_xe_lp</name>
+    <config>
+      <Source>
+        <outcommod>nat_u_xe_lp</outcommod>
+        <outrecipe>nat_u_xe_lp</outrecipe>
+        <throughput>1e6</throughput>
+        <!-- Cameco Smith Ranch-Highland Mine -->
+        <latitude>43.053736</latitude>
+        <longitude>-105.685089</longitude>
+      </Source>
+    </config>
+  </facility>
+
+  <facility>
+    <name>Enrichment_xe_leup</name>
+    <config>
+      <Enrichment>
+        <feed_commod>nat_u_xe_lp</feed_commod>
+        <feed_recipe>nat_u_xe_lp</feed_recipe>
+        <product_commod>fresh_xe100_leup</product_commod>
+        <tails_commod>tails</tails_commod>
+        <tails_assay>0.002</tails_assay>
+        <!-- Portsmouth Gaseous Diffusion Plant (OH) -->
+        <max_enrich>0.12</max_enrich>
+        <longitude>-83</longitude>
+      </Enrichment>
+    </config>
+  </facility>
+
+  <facility>
+    <name>Enrichment_xe_haleu</name>
+    <config>
+      <Enrichment>
+        <feed_commod>nat_u_xe_h</feed_commod>
+        <feed_recipe>nat_u_xe_h</feed_recipe>
+        <product_commod>fresh_xe100_haleu</product_commod>
+        <tails_commod>tails</tails_commod>
+        <tails_assay>0.002</tails_assay>
+        <!-- Portsmouth Gaseous Diffusion Plant (OH) -->
+        <max_enrich>0.16</max_enrich>
+        <longitude>-83</longitude>
+      </Enrichment>
+    </config>
+  </facility>
+
+  <facility>
+    <name>Xe100l</name>
+    <lifetime>720</lifetime>
+    <config>
+      <Reactor>
+        <fuel_incommods>
+          <val>fresh_xe100_leup</val> <val>fresh_xe100_haleu</val>
+        </fuel_incommods>
+        <fuel_inrecipes>
+          <val>fresh_xe100_leup</val> <val>fresh_xe100_haleu</val>
+        </fuel_inrecipes>
+        <fuel_outcommods>
+          <val>used_xe100_leup</val> <val>used_xe100_haleu</val>
+        </fuel_outcommods>
+        <fuel_outrecipes>
+          <val>used_xe100_leup</val> <val>used_xe100_haleu</val>
+        </fuel_outrecipes>
+        <fuel_prefs>
+          <val>100000</val> <val>1</val>
+        </fuel_prefs>
+        <pref_change_times> <val>984</val> <val>984</val></pref_change_times>
+        <pref_change_values>
+          <val>1</val> <val>100000</val>
+        </pref_change_values>
+        <pref_change_commods>
+          <val>fresh_xe100_leup</val> <val>fresh_xe100_haleu</val>
+        </pref_change_commods>
+        <cycle_time>7</cycle_time>
+        <refuel_time>0</refuel_time>
+        <assem_size>279.24</assem_size>
+        <n_assem_core>6</n_assem_core>
+        <n_assem_batch>1</n_assem_batch>
+        <power_cap>80</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+  <facility>
+    <name>Xe100h</name>
+    <lifetime>720</lifetime>
+    <config>
+      <Reactor>
+        <fuel_incommods> <val>fresh_xe100_haleu</val> </fuel_incommods>
+        <fuel_inrecipes> <val>fresh_xe100_haleu</val> </fuel_inrecipes>
+        <fuel_outcommods> <val>used_xe100_haleu</val> </fuel_outcommods>
+        <fuel_outrecipes> <val>used_xe100_haleu</val> </fuel_outrecipes>
+        <cycle_time>7</cycle_time>
+        <refuel_time>0</refuel_time>
+        <assem_size>279.24</assem_size>
+        <n_assem_core>6</n_assem_core>
+        <n_assem_batch>1</n_assem_batch>
+        <power_cap>80</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+  <facility>
+    <name>Mine_mmr_h</name>
+    <config>
+      <Source>
+        <outcommod>nat_u_mmr_h</outcommod>
+        <outrecipe>nat_u_mmr_h</outrecipe>
+        <throughput>1e6</throughput>
+        <!-- Cameco Smith Ranch-Highland Mine -->
+        <latitude>43.053736</latitude>
+        <longitude>-105.685089</longitude>
+      </Source>
+    </config>
+  </facility>
+
+  <facility>
+    <name>Mine_mmr_lp</name>
+    <config>
+      <Source>
+        <outcommod>nat_u_mmr_lp</outcommod>
+        <outrecipe>nat_u_mmr_lp</outrecipe>
+        <throughput>1e6</throughput>
+        <!-- Cameco Smith Ranch-Highland Mine -->
+        <latitude>43.053736</latitude>
+        <longitude>-105.685089</longitude>
+      </Source>
+    </config>
+  </facility>
+
+  <facility>
+    <name>Enrichment_mmr_leup</name>
+    <config>
+      <Enrichment>
+        <feed_commod>nat_u_mmr_lp</feed_commod>
+        <feed_recipe>nat_u_mmr_lp</feed_recipe>
+        <product_commod>fresh_mmr_leup</product_commod>
+        <tails_commod>tails</tails_commod>
+        <tails_assay>0.002</tails_assay>
+        <!-- Portsmouth Gaseous Diffusion Plant (OH) -->
+        <max_enrich>0.12</max_enrich>
+        <longitude>-83</longitude>
+      </Enrichment>
+    </config>
+  </facility>
+
+  <facility>
+    <name>Enrichment_mmr_haleu</name>
+    <config>
+      <Enrichment>
+        <feed_commod>nat_u_mmr_h</feed_commod>
+        <feed_recipe>nat_u_mmr_h</feed_recipe>
+        <product_commod>fresh_mmr_haleu</product_commod>
+        <tails_commod>tails</tails_commod>
+        <tails_assay>0.002</tails_assay>
+        <!-- Portsmouth Gaseous Diffusion Plant (OH) -->
+        <max_enrich>0.16</max_enrich>
+        <longitude>-83</longitude>
+      </Enrichment>
+    </config>
+  </facility>
+
+  <facility>
+    <name>MMRl</name>
+    <lifetime>240</lifetime>
+    <config>
+      <Reactor>
+        <fuel_incommods> <val>fresh_mmr_leup</val> </fuel_incommods>
+        <fuel_inrecipes> <val>fresh_mmr_leup</val> </fuel_inrecipes>
+        <fuel_outcommods> <val>used_mmr_leup</val> </fuel_outcommods>
+        <fuel_outrecipes> <val>used_mmr_leup</val> </fuel_outrecipes>
+        <cycle_time>240</cycle_time>
+        <refuel_time>0</refuel_time>
+        <assem_size>1510.786</assem_size>
+        <n_assem_core>1</n_assem_core>
+        <n_assem_batch>1</n_assem_batch>
+        <power_cap>5</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+  <facility>
+    <name>MMRh</name>
+    <lifetime>240</lifetime>
+    <config>
+      <Reactor>
+        <fuel_incommods> <val>fresh_mmr_haleu</val> </fuel_incommods>
+        <fuel_inrecipes> <val>fresh_mmr_haleu</val> </fuel_inrecipes>
+        <fuel_outcommods> <val>used_mmr_haleu</val> </fuel_outcommods>
+        <fuel_outrecipes> <val>used_mmr_haleu</val> </fuel_outrecipes>
+        <cycle_time>240</cycle_time>
+        <refuel_time>0</refuel_time>
+        <assem_size>1510.786</assem_size>
+        <n_assem_core>1</n_assem_core>
+        <n_assem_batch>1</n_assem_batch>
+        <power_cap>5</power_cap>
+      </Reactor>
+    </config>
+  </facility>
+
+  <facility>
+    <name>AP1000</name>
+    <lifetime>960</lifetime>
+    <config>
+        <Reactor>
+        <fuel_incommods>  <val>fresh_uox</val> </fuel_incommods>
+        <fuel_inrecipes>  <val>fresh_uox</val> </fuel_inrecipes>
+        <fuel_outcommods> <val>used_uox</val> </fuel_outcommods>
+        <fuel_outrecipes> <val>used_uox</val> </fuel_outrecipes>
+        <cycle_time>18</cycle_time>
+        <refuel_time>1</refuel_time>
+        <assem_size>427.38589211618256</assem_size>
+        <n_assem_core>193</n_assem_core>
+        <n_assem_batch>80</n_assem_batch>
+        <power_cap>1117</power_cap>
+        <longitude>-81.7606</longitude>
+        <latitude>33.1433</latitude>
+        </Reactor>
+    </config>
+  </facility>
+
+
+  <region>
+    <name>United States</name>
+    <config>
+      <NullRegion/>
+    </config>
+
+    <institution>
+      <name>FuelCycle</name>
+      <initialfacilitylist>
+        <entry>
+          <prototype>Sink_HLW</prototype>
+          <number>1</number>
+        </entry>
+        <entry>
+          <prototype>Sink_LLW</prototype>
+          <number>1</number>
+        </entry>
+        <entry>
+          <prototype>Mine</prototype>
+          <number>9</number>
+        </entry>
+        <entry>
+          <prototype>Enrichment_leu</prototype>
+          <number>9</number>
+        </entry>
+        <entry>
+          <prototype>Mine_xe_h</prototype>
+          <number>9</number>
+        </entry>
+        <entry>
+          <prototype>Mine_xe_lp</prototype>
+          <number>9</number>
+        </entry>
+        <entry>
+          <prototype>Enrichment_xe_leup</prototype>
+          <number>9</number>
+        </entry>
+        <entry>
+          <prototype>Enrichment_xe_haleu</prototype>
+          <number>9</number>
+        </entry>
+        <entry>
+          <prototype>Mine_mmr_h</prototype>
+          <number>9</number>
+        </entry>
+        <entry>
+          <prototype>Mine_mmr_lp</prototype>
+          <number>9</number>
+        </entry>
+        <entry>
+          <prototype>Enrichment_mmr_leup</prototype>
+          <number>9</number>
+        </entry>
+        <entry>
+          <prototype>Enrichment_mmr_haleu</prototype>
+          <number>9</number>
+        </entry>
+      </initialfacilitylist>
+      <config>
+        <ManagerInst>
+          <prototypes>
+            <val>Sink_HLW</val>
+            <val>Sink_LLW</val>
+            <val>Mine</val>
+            <val>Enrichment_leu</val>
+            <val>Mine_xe_h</val>
+            <val>Mine_xe_lp</val>
+            <val>Enrichment_xe_leup</val>
+            <val>Enrichment_xe_haleu</val>
+            <val>Mine_mmr_h</val>
+            <val>Mine_mmr_lp</val>
+            <val>Enrichment_mmr_leup</val>
+            <val>Enrichment_mmr_haleu</val>
+          </prototypes>
+        </ManagerInst>
+      </config>
+    </institution>
+
+    <institution>
+      <name>LWReactors</name>
+      <config>
+        <xi:include href="../../lwr_deployinst.xml"/>
+      </config>
+    </institution>
+
+    <institution>
+      <name>XE</name>
+      <config>
+        <xi:include href="deployment_calcs/lg_random_Xe100_deployinst.xml"/>
+      </config>
+    </institution>
+
+    <institution>
+      <name>AP</name>
+      <config>
+        <xi:include href="deployment_calcs/lg_random_AP1000_deployinst.xml"/>
+      </config>
+    </institution>
+
+    <institution>
+      <name>USNC</name>
+      <config>
+        <xi:include href="deployment_calcs/lg_random_MMR_deployinst.xml"/>
+      </config>
+    </institution>
+  </region>
+
+  <recipe>
+    <name>fresh_uox</name>
+    <basis>atom</basis>
+    <nuclide> <id>922340000</id> <comp>0.0003439849</comp> </nuclide>
+    <nuclide> <id>922350000</id> <comp>0.0429981081</comp> </nuclide>
+    <nuclide> <id>922380000</id> <comp>0.9566579071</comp> </nuclide>
+  </recipe>
+
+  <recipe>
+    <name>used_uox</name>
+    <basis>atom</basis>
+    <nuclide> <id>20040000</id> <comp>9.47457840128509e-07</comp> </nuclide>
+    <nuclide> <id>882260000</id> <comp>9.78856442957042e-14</comp> </nuclide>
+    <nuclide> <id>882280000</id> <comp>2.75087759176098e-20</comp> </nuclide>
+    <nuclide> <id>822060000</id> <comp>5.57475193532078e-18</comp> </nuclide>
+    <nuclide> <id>822070000</id> <comp>1.68592497990149e-15</comp> </nuclide>
+    <nuclide> <id>822080000</id> <comp>3.6888358546006e-12</comp> </nuclide>
+    <nuclide> <id>822100000</id> <comp>3.02386544437848e-19</comp> </nuclide>
+    <nuclide> <id>902280000</id> <comp>8.47562285269577e-12</comp> </nuclide>
+    <nuclide> <id>902290000</id> <comp>2.72787861516683e-12</comp> </nuclide>
+    <nuclide> <id>902300000</id> <comp>2.6258831537493e-09</comp> </nuclide>
+    <nuclide> <id>902320000</id> <comp>4.17481422959e-10</comp> </nuclide>
+    <nuclide> <id>832090000</id> <comp>6.60770597104927e-16</comp> </nuclide>
+    <nuclide> <id>892270000</id> <comp>3.0968621961773e-14</comp> </nuclide>
+    <nuclide> <id>912310000</id> <comp>9.24658854635179e-10</comp> </nuclide>
+    <nuclide> <id>922320000</id> <comp>1e-09</comp> </nuclide>
+    <nuclide> <id>922330000</id> <comp>2.21390148606282e-09</comp> </nuclide>
+    <nuclide> <id>922340000</id> <comp>0.0001718924</comp> </nuclide>
+    <nuclide> <id>922350000</id> <comp>0.0076486597</comp> </nuclide>
+    <nuclide> <id>922360000</id> <comp>0.0057057461</comp> </nuclide>
+    <nuclide> <id>922380000</id> <comp>0.9208590237</comp> </nuclide>
+    <nuclide> <id>932370000</id> <comp>0.0006091729</comp> </nuclide>
+    <nuclide> <id>942380000</id> <comp>0.000291487</comp> </nuclide>
+    <nuclide> <id>942390000</id> <comp>0.0060657301</comp> </nuclide>
+    <nuclide> <id>942400000</id> <comp>0.0029058707</comp> </nuclide>
+    <nuclide> <id>942410000</id> <comp>0.0017579218</comp> </nuclide>
+    <nuclide> <id>942420000</id> <comp>0.0008638616</comp> </nuclide>
+    <nuclide> <id>942440000</id> <comp>2.86487251922763e-08</comp> </nuclide>
+    <nuclide> <id>952410000</id> <comp>6.44271331287386e-05</comp> </nuclide>
+    <nuclide> <id>952420001</id> <comp>8.53362027193319e-07</comp> </nuclide>
+    <nuclide> <id>952430000</id> <comp>0.0001983912</comp> </nuclide>
+    <nuclide> <id>962420000</id> <comp>2.58988475560194e-05</comp> </nuclide>
+    <nuclide> <id>962430000</id> <comp>7.71e-07</comp> </nuclide>
+    <nuclide> <id>962440000</id> <comp>8.5616190260478e-05</comp> </nuclide>
+    <nuclide> <id>962450000</id> <comp>5.72174539442251e-06</comp> </nuclide>
+    <nuclide> <id>962460000</id> <comp>7.29567535786554e-07</comp> </nuclide>
+    <nuclide> <id>962470000</id> <comp>1e-08</comp> </nuclide>
+    <nuclide> <id>962480000</id> <comp>7.69165773748653e-10</comp> </nuclide>
+    <nuclide> <id>962500000</id> <comp>4.2808095130239e-18</comp> </nuclide>
+    <nuclide> <id>982490000</id> <comp>1.64992658175413e-12</comp> </nuclide>
+    <nuclide> <id>982500000</id> <comp>2.04190913935875e-12</comp> </nuclide>
+    <nuclide> <id>982510000</id> <comp>9.86556100338561e-13</comp> </nuclide>
+    <nuclide> <id>982520000</id> <comp>6.57970721693466e-13</comp> </nuclide>
+    <nuclide> <id>10030000</id> <comp>8.58461800264195e-08</comp> </nuclide>
+    <nuclide> <id>60140000</id> <comp>4.05781943561107e-11</comp> </nuclide>
+    <nuclide> <id>360810000</id> <comp>4.21681236076192e-11</comp> </nuclide>
+    <nuclide> <id>360850000</id> <comp>3.44484671160181e-05</comp> </nuclide>
+    <nuclide> <id>380900000</id> <comp>0.0007880649</comp> </nuclide>
+    <nuclide> <id>430990000</id> <comp>0.0011409492</comp> </nuclide>
+    <nuclide> <id>531290000</id> <comp>0.0002731878</comp> </nuclide>
+    <nuclide> <id>551340000</id> <comp>0.0002300898</comp> </nuclide>
+    <nuclide> <id>551350000</id> <comp>0.0006596706</comp> </nuclide>
+    <nuclide> <id>551370000</id> <comp>0.0018169192</comp> </nuclide>
+  </recipe>
+
+  <recipe>
+    <name>nat_u</name>
+    <basis>atom</basis>
+    <nuclide><id>922350000</id><comp>0.00711</comp>
+    </nuclide>
+    <nuclide><id>922380000</id><comp>0.99289</comp>
+    </nuclide>
+  </recipe>
+
+  <recipe>
+    <name>nat_u_xe_lp</name>
+    <basis>atom</basis>
+    <nuclide><id>922350000</id><comp>0.00711</comp>
+    </nuclide>
+    <nuclide><id>922380000</id><comp>0.99289</comp>
+    </nuclide>
+  </recipe>
+
+  <recipe>
+    <name>nat_u_xe_h</name>
+    <basis>atom</basis>
+    <nuclide><id>922350000</id><comp>0.00711</comp>
+    </nuclide>
+    <nuclide><id>922380000</id><comp>0.99289</comp>
+    </nuclide>
+  </recipe>
+
+  <recipe>
+    <name>nat_u_mmr_lp</name>
+    <basis>atom</basis>
+    <nuclide><id>922350000</id><comp>0.00711</comp>
+    </nuclide>
+    <nuclide><id>922380000</id><comp>0.99289</comp>
+    </nuclide>
+  </recipe>
+
+  <recipe>
+    <name>nat_u_mmr_h</name>
+    <basis>atom</basis>
+    <nuclide><id>922350000</id><comp>0.00711</comp>
+    </nuclide>
+    <nuclide><id>922380000</id><comp>0.99289</comp>
+    </nuclide>
+  </recipe>
+
+
+  <recipe>
+    <name>enr_u</name>
+    <basis>atom</basis>
+    <nuclide><id>922350000</id><comp>0.045</comp>
+    </nuclide>
+    <nuclide><id>922380000</id><comp>0.955</comp>
+    </nuclide>
+  </recipe>
+
+  <!-- Import the fuel recipes from leup_recipes.xml -->
+  <xi:include href="../../recipes/leup_recipes.xml#xpointer(/recipes/child::*)"/>
+
+  <!-- Import the fuel recipes from haleu_recipes.xml -->
+  <xi:include href="../../recipes/haleu_recipes.xml#xpointer(/recipes/child::*)"/>
+
+</simulation>
