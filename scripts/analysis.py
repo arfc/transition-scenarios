@@ -5,7 +5,7 @@ import sqlite3 as lite
 import sys
 from itertools import cycle
 from matplotlib import cm
-from pyne import nucname
+from cyclus import nucname
 from collections import Counter
 
 if len(sys.argv) < 2:
