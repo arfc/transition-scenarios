@@ -8,89 +8,41 @@ of:
    are realistic or unrealistic in each?
 
 ## Scenarios
-We have investigated several growth scenarios at a low, medium, and high
+We have investigated several growth scenarios at a no, low, and high
 rates based on different projections in the literature. The calculations for
 these scenarios can be found in `deployment_calcs`, where there is a notebook
-for each level of growth.
+for each level of growth. For each year-to-year increase, we have a simulation of the LWR fleet with one of the Xe-100, MMR, or AP1000, and a simulation that deploys all of them.
 
-### No Growth
-A 0% demand growth deployment scenario where LWRs retire at end of license or
-at 80 years of operation, whatever is longer. If there are Advanced reactors in
-the scenario, they will replace the decommissioned capacity and meet the demand
-growth starting in 2030.
 
-| Scenario | Demand Growth | Reactors                   | Notes |
-|----------|---------------|----------------------------|-------|
-| DAN0     | 0%            | LWRs                       |       |
-| DAN1     | 0%            | LWRs, Xe-100               |       |
-| DAN2     | 0%            | LWRs, MMR                  |       |
-| DAN3     | 0%            | LWRs, AP1000               |       |
-| DAN4     | 0%            | LWRs, MMR, Xe-100, AP1000  |       |
+LWRs retire at end of license or at 80 years of operation, whatever is longer.
+If there are Advanced reactors in the scenario, they will replace the
+decommissioned capacity and meet the demand growth starting in 2030.
 
-### Low Growth
-A 1% demand growth deployment scenario where LWRs retire at end of license or
-at 80 years of operation, whatever is longer. If there are Advanced reactors in
-the scenario, they will replace the decommissioned capacity and meet the demand
-growth starting in 2030.
+| Demand Growth | Year-to-Year Increase | Source |
+|---------------|-----------------------|--------|
+| No Growth     | 0.0%                  | N/A    |
+| Low Growth    | 0.17%                 | [1]    |
+| Low Growth    | 0.5%                  | [1]    |
+| Low Growth    | 1.0%                  | [1]    |
+| High Growth   | 3.5%                  | [2]    |
+| High Growth   | 5.6%                  | [2]    |
 
-| Scenario | Demand Growth | Reactors                   | Notes |
-|----------|---------------|----------------------------|-------|
-| DAL1     | 1%            | LWRs, Xe-100               |       |
-| DAL2     | 1%            | LWRs, MMR                  |       |
-| DAL3     | 1%            | LWRs, AP1000               |       |
-| DAL4     | 1%            | LWRs, MMR, Xe-100, AP1000  |       |
+> [1] U.S. Energy Information Administration, “Annual Energy Outlook 2023,” U.S. Energy Information
+Administration, Government, Mar. 2023. [Online]. Available: https://www.eia.gov/outlooks/aeo/pdf/AEO2023_Narrative.pdf
+>
+> [2] Julie Kozeracki, Chris Vlahoplus, Ken Erwin, Alan Propp, Sonali Razdan, Rasheed Auguste, Tim Stuhldreher, Christina Walrond, Melissa Bates, Erica Bickford, Andrew Foss, Derek Gaston, Cheryl Herman, Rory Stanley, Billy Valderrama, Katheryn Scott, Tomotaroh Granzier-Nakajima, Paul Donohoo-Vallett, Tom Fanning, Brent Dixon, Abdalla Abou Jaoude, and Chris Lohse, “Pathways to Commercial Liftoff: Advanced Nuclear,” DOE Liftoff Report, Sep. 2024. [Online]. Available: https://liftoff.energy.gov/wp-content/uploads/2024/10/LIFTOFF_DOE_Advanced-Nuclear_Updated-2.5.25.pdf
 
-### Medium Growth
-A 5, 10, or 15% demand growth deployment scenario where LWRs retire at end of
-license or at 80 years of operation, whatever is longer. If there are Advanced
-reactors in the scenario, they will replace the decommissioned capacity and
-meet the demand growth starting in 2030.
-
-| Scenario | Demand Growth | Reactors                   | Notes |
-|----------|---------------|----------------------------|-------|
-| DA5M1    | 5%            | LWRs, Xe-100               |       |
-| DA5M2    | 5%            | LWRs, MMR                  |       |
-| DA5M3    | 5%            | LWRs, AP1000               |       |
-| DA5M4    | 5%            | LWRs, MMR, Xe-100, AP1000  |       |
-
-| Scenario | Demand Growth | Reactors                   | Notes |
-|----------|---------------|----------------------------|-------|
-| DA10M1   | 10%           | LWRs, Xe-100               |       |
-| DA10M2   | 10%           | LWRs, MMR                  |       |
-| DA10M3   | 10%           | LWRs, AP1000               |       |
-| DA10M4   | 10%           | LWRs, MMR, Xe-100, AP1000  |       |
-
-| Scenario | Demand Growth | Reactors                   | Notes |
-|----------|---------------|----------------------------|-------|
-| DA15M1   | 15%           | LWRs, Xe-100               |       |
-| DA15M2   | 15%           | LWRs, MMR                  |       |
-| DA15M3   | 15%           | LWRs, AP1000               |       |
-| DA15M4   | 15%           | LWRs, MMR, Xe-100, AP1000  |       |
-
-### High Growth
-A 100 or 200% demand growth deployment scenario where LWRs retire at end of
-license or at 80 years of operation, whatever is longer. If there are Advanced
-reactors in the scenario, they will replace the decommissioned capacity and
-meet the demand growth starting in 2030.
-
-| Scenario | Demand Growth | Reactors                   | Notes |
-|----------|---------------|----------------------------|-------|
-| DA1A1    | 100%          | LWRs, Xe-100               |       |
-| DA1A2    | 100%          | LWRs, MMR                  |       |
-| DA1A3    | 100%          | LWRs, AP1000               |       |
-| DA1A4    | 100%          | LWRs, MMR, Xe-100, AP1000  |       |
-
-| Scenario | Demand Growth | Reactors                   | Notes |
-|----------|---------------|----------------------------|-------|
-| DA2A1    | 200%          | LWRs, Xe-100               |       |
-| DA2A2    | 200%          | LWRs, MMR                  |       |
-| DA2A3    | 200%          | LWRs, AP1000               |       |
-| DA2A4    | 200%          | LWRs, MMR, Xe-100, AP1000  |       |
 
 ## Analysis
-Stores the notebooks used for data analysis.
+Stores the notebooks used for data analysis. We used the `analysis.ipynb`
+notebook to extract results from the output of the `.sqlite` files. The outputs
+are not stored in this repository, but they can be generated by running:
+```
+bash input_files/run.sh
+```
 
 ## Reactors
 Stores `.xml` definition files for the reactors used in this work. Inside there
-is a folder called `lwrs/` that contains the unique definition for each reactor
-in the US fleet.
+is a folder called `input_files/lwrs` that contains the unique definition for
+each reactor in the US fleet. The advanced reactors are defined in respective
+input files in the same directory.
