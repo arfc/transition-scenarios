@@ -41,6 +41,25 @@ capacity_change_df['time_step'] = (capacity_change_df.index - sd.sim_start_yr) *
 
 # create a function that will generate the deployinst.xml file for each reactor column by reading in the number of reactors at each time step and converting it into a deployinst.xml file
 def generate_deployinst_xml(df, reactor_name, transition_year=sd.transition_year, end_year=sd.sim_end_yr):
+    """
+    Generate a deployinst.xml file for a given reactor type. The function takes a dataframe with the reactor deployment data, the reactor name, the transition year, and end year as inputs.
+
+    Parameters:
+    -----------
+    df : pandas.DataFrame
+        The dataframe containing the reactor deployment data.
+    reactor_name : str
+        The name of the reactor type.
+    transition_year : int
+        The year in which the reactor deployment begins.
+    end_year : int
+        The year in which the reactor deployment ends.
+
+    Returns:
+    --------
+    str
+        The deployinst.xml file as a string.
+    """
   start_row = int(transition_year) + 1
   deployinst_xml = """<DeployInst>
                <prototypes>"""
