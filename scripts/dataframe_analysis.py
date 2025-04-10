@@ -1,7 +1,7 @@
 import numpy as np
 
 
-def add_year(df, y0=1965):
+def add_year(df, y0=1958):
     '''
     Adds column of Year, based on the Time column
 
@@ -51,7 +51,7 @@ def add_zeros_columns(df, column_names):
     return df
 
 
-def sum_and_add_missing_time(df, index_start=0, index_stop=1500, index_step=1):
+def sum_and_add_missing_time(df, index_start=0, index_stop=1752, index_step=1):
     '''
     Sums the values of the same time step, and adds any missing time steps
     with 0 for the value
@@ -182,7 +182,7 @@ def commodity_to_prototype(transactions_df, commodity, prototype):
     -------
     prototype_transactions: dataframe
         contains summed transactions at each time step of the
-        spcified commodity that are sent to
+        specified commodity that are sent to
         the specified prototype name.
     '''
     prototype_transactions = find_commodity_transactions(
